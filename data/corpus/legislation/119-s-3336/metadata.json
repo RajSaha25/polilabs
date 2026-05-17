@@ -1,0 +1,74 @@
+{
+  "bill_id": "119-s-3336",
+  "congress": 119,
+  "bill_type": "s",
+  "bill_number": 3336,
+  "title": "Reliable Artificial Intelligence Research Act of 2025",
+  "short_title": null,
+  "sponsor": "Sen. Hassan, Margaret Wood [D-NH] (D-NH)",
+  "introduced_date": "2025-12-03",
+  "latest_action": "2025-12-03: Read twice and referred to the Committee on Homeland Security and Governmental Affairs.",
+  "policy_area": "Science, Technology, Communications",
+  "subjects": [],
+  "summary_text": null,
+  "centrality_score": 4.0,
+  "match_locations": {
+    "title": [
+      "artificial intelligence"
+    ]
+  },
+  "tier": "A",
+  "stream": "legislation",
+  "versions_available": [
+    {
+      "package_id": "BILLS-119s3336is",
+      "version_code": "is",
+      "date_issued": "2025-12-03"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-119s3336is",
+    "version_code": "is",
+    "date_issued": "2025-12-03"
+  },
+  "actions": [
+    {
+      "actionDate": "2025-12-03",
+      "committees": [
+        {
+          "name": "Homeland Security and Governmental Affairs Committee",
+          "systemCode": "ssga00",
+          "url": "https://api.congress.gov/v3/committee/senate/ssga00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "name": "Senate"
+      },
+      "text": "Read twice and referred to the Committee on Homeland Security and Governmental Affairs.",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "10000",
+      "actionDate": "2025-12-03",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in Senate",
+      "type": "IntroReferral"
+    }
+  ],
+  "cosponsors": [
+    {
+      "bioguideId": "B001299",
+      "firstName": "Jim",
+      "fullName": "Sen. Banks, Jim [R-IN]",
+      "isOriginalCosponsor": true,
+      "lastName": "Banks",
+      "party": "R",
+      "sponsorshipDate": "2025-12-03",
+      "state": "IN",
+      "url": "https://api.congress.gov/v3/member/B001299?format=json"
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "bill_id": "118-hr-8668",
+  "congress": 118,
+  "bill_type": "hr",
+  "bill_number": 8668,
+  "title": "AI Transparency in Elections Act of 2024",
+  "short_title": null,
+  "sponsor": "Rep. Morelle, Joseph D. [D-NY-25] (D-NY)",
+  "introduced_date": "2024-06-07",
+  "latest_action": "2024-06-07: Referred to the House Committee on House Administration.",
+  "policy_area": "Government Operations and Politics",
+  "subjects": [],
+  "summary_text": null,
+  "centrality_score": 4.0,
+  "match_locations": {
+    "title": [
+      "AI"
+    ]
+  },
+  "tier": "A",
+  "stream": "legislation",
+  "versions_available": [
+    {
+      "package_id": "BILLS-118hr8668ih",
+      "version_code": "ih",
+      "date_issued": "2024-06-07"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-118hr8668ih",
+    "version_code": "ih",
+    "date_issued": "2024-06-07"
+  },
+  "actions": [
+    {
+      "actionCode": "H11100",
+      "actionDate": "2024-06-07",
+      "committees": [
+        {
+          "name": "Committee on House Administration",
+          "systemCode": "hsha00",
+          "url": "https://api.congress.gov/v3/committee/house/hsha00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "code": 2,
+        "name": "House floor actions"
+      },
+      "text": "Referred to the House Committee on House Administration.",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "Intro-H",
+      "actionDate": "2024-06-07",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in House",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "1000",
+      "actionDate": "2024-06-07",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in House",
+      "type": "IntroReferral"
+    }
+  ],
+  "cosponsors": [
+    {
+      "bioguideId": "L000560",
+      "district": 2,
+      "firstName": "Rick",
+      "fullName": "Rep. Larsen, Rick [D-WA-2]",
+      "isOriginalCosponsor": true,
+      "lastName": "Larsen",
+      "party": "D",
+      "sponsorshipDate": "2024-06-07",
+      "state": "WA",
+      "url": "https://api.congress.gov/v3/member/L000560?format=json"
+    }
+  ]
+}

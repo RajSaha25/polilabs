@@ -1,0 +1,187 @@
+{
+  "bill_id": "118-hr-6943",
+  "congress": 118,
+  "bill_type": "hr",
+  "bill_number": 6943,
+  "title": "No AI FRAUD Act",
+  "short_title": null,
+  "sponsor": "Rep. Salazar, Maria Elvira [R-FL-27] (R-FL)",
+  "introduced_date": "2024-01-10",
+  "latest_action": "2024-01-10: Referred to the House Committee on the Judiciary.",
+  "policy_area": "Commerce",
+  "subjects": [],
+  "summary_text": null,
+  "centrality_score": 4.0,
+  "match_locations": {
+    "title": [
+      "AI"
+    ]
+  },
+  "tier": "A",
+  "stream": "legislation",
+  "versions_available": [
+    {
+      "package_id": "BILLS-118hr6943ih",
+      "version_code": "ih",
+      "date_issued": "2024-01-10"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-118hr6943ih",
+    "version_code": "ih",
+    "date_issued": "2024-01-10"
+  },
+  "actions": [
+    {
+      "actionCode": "H11100",
+      "actionDate": "2024-01-10",
+      "committees": [
+        {
+          "name": "Judiciary Committee",
+          "systemCode": "hsju00",
+          "url": "https://api.congress.gov/v3/committee/house/hsju00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "code": 2,
+        "name": "House floor actions"
+      },
+      "text": "Referred to the House Committee on the Judiciary.",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "Intro-H",
+      "actionDate": "2024-01-10",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in House",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "1000",
+      "actionDate": "2024-01-10",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in House",
+      "type": "IntroReferral"
+    }
+  ],
+  "cosponsors": [
+    {
+      "bioguideId": "D000631",
+      "district": 4,
+      "firstName": "Madeleine",
+      "fullName": "Rep. Dean, Madeleine [D-PA-4]",
+      "isOriginalCosponsor": true,
+      "lastName": "Dean",
+      "party": "D",
+      "sponsorshipDate": "2024-01-10",
+      "state": "PA",
+      "url": "https://api.congress.gov/v3/member/D000631?format=json"
+    },
+    {
+      "bioguideId": "M001224",
+      "district": 1,
+      "firstName": "Nathaniel",
+      "fullName": "Rep. Moran, Nathaniel [R-TX-1]",
+      "isOriginalCosponsor": true,
+      "lastName": "Moran",
+      "party": "R",
+      "sponsorshipDate": "2024-01-10",
+      "state": "TX",
+      "url": "https://api.congress.gov/v3/member/M001224?format=json"
+    },
+    {
+      "bioguideId": "M001206",
+      "district": 25,
+      "firstName": "Joseph",
+      "fullName": "Rep. Morelle, Joseph D. [D-NY-25]",
+      "isOriginalCosponsor": true,
+      "lastName": "Morelle",
+      "middleName": "D.",
+      "party": "D",
+      "sponsorshipDate": "2024-01-10",
+      "state": "NY",
+      "url": "https://api.congress.gov/v3/member/M001206?format=json"
+    },
+    {
+      "bioguideId": "W000804",
+      "district": 1,
+      "firstName": "Robert",
+      "fullName": "Rep. Wittman, Robert J. [R-VA-1]",
+      "isOriginalCosponsor": true,
+      "lastName": "Wittman",
+      "middleName": "J.",
+      "party": "R",
+      "sponsorshipDate": "2024-01-10",
+      "state": "VA",
+      "url": "https://api.congress.gov/v3/member/W000804?format=json"
+    },
+    {
+      "bioguideId": "F000465",
+      "district": 3,
+      "firstName": "A.",
+      "fullName": "Rep. Ferguson, A. Drew, IV [R-GA-3]",
+      "isOriginalCosponsor": false,
+      "lastName": "Ferguson",
+      "middleName": "Drew",
+      "party": "R",
+      "sponsorshipDate": "2024-01-16",
+      "state": "GA",
+      "url": "https://api.congress.gov/v3/member/F000465?format=json"
+    },
+    {
+      "bioguideId": "C001063",
+      "district": 28,
+      "firstName": "Henry",
+      "fullName": "Rep. Cuellar, Henry [D-TX-28]",
+      "isOriginalCosponsor": false,
+      "lastName": "Cuellar",
+      "party": "D",
+      "sponsorshipDate": "2024-01-18",
+      "state": "TX",
+      "url": "https://api.congress.gov/v3/member/C001063?format=json"
+    },
+    {
+      "bioguideId": "I000058",
+      "district": 4,
+      "firstName": "Glenn",
+      "fullName": "Rep. Ivey, Glenn [D-MD-4]",
+      "isOriginalCosponsor": false,
+      "lastName": "Ivey",
+      "party": "D",
+      "sponsorshipDate": "2024-01-22",
+      "state": "MD",
+      "url": "https://api.congress.gov/v3/member/I000058?format=json"
+    },
+    {
+      "bioguideId": "D000230",
+      "district": 1,
+      "firstName": "Donald",
+      "fullName": "Rep. Davis, Donald G. [D-NC-1]",
+      "isOriginalCosponsor": false,
+      "lastName": "Davis",
+      "middleName": "G.",
+      "party": "D",
+      "sponsorshipDate": "2024-01-31",
+      "state": "NC",
+      "url": "https://api.congress.gov/v3/member/D000230?format=json"
+    },
+    {
+      "bioguideId": "P000616",
+      "district": 3,
+      "firstName": "Dean",
+      "fullName": "Rep. Phillips, Dean [D-MN-3]",
+      "isOriginalCosponsor": false,
+      "lastName": "Phillips",
+      "party": "D",
+      "sponsorshipDate": "2024-03-07",
+      "state": "MN",
+      "url": "https://api.congress.gov/v3/member/P000616?format=json"
+    }
+  ]
+}

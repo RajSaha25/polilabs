@@ -1,0 +1,79 @@
+{
+  "bill_id": "118-s-1993",
+  "congress": 118,
+  "bill_type": "s",
+  "bill_number": 1993,
+  "title": "A bill to waive immunity under section 230 of the Communications Act of 1934 for claims and charges related to generative artificial intelligence.",
+  "short_title": null,
+  "sponsor": "Sen. Hawley, Josh [R-MO] (R-MO)",
+  "introduced_date": "2023-06-14",
+  "latest_action": "2023-06-14: Read twice and referred to the Committee on Commerce, Science, and Transportation.",
+  "policy_area": "Science, Technology, Communications",
+  "subjects": [],
+  "summary_text": " This bill limits federal liability protection, sometimes referred to as Section 230 protection, that generally precludes providers and users of an interactive computer service from being held legally responsible for content provided by a third party. Specifically, the bill removes the protection if the conduct giving rise to the liability involves the use or provision of generative artificial intelligence (i.e., an artificial intelligence system that is capable of generating novel text, video, images, audio, and other media based on prompts or other forms of data provided by a person).",
+  "centrality_score": 10.0,
+  "match_locations": {
+    "title": [
+      "artificial intelligence",
+      "generative artificial intelligence"
+    ],
+    "summary": [
+      "artificial intelligence",
+      "generative artificial intelligence"
+    ]
+  },
+  "tier": "A",
+  "stream": "legislation",
+  "versions_available": [
+    {
+      "package_id": "BILLS-118s1993is",
+      "version_code": "is",
+      "date_issued": "2023-06-14"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-118s1993is",
+    "version_code": "is",
+    "date_issued": "2023-06-14"
+  },
+  "actions": [
+    {
+      "actionDate": "2023-06-14",
+      "committees": [
+        {
+          "name": "Commerce, Science, and Transportation Committee",
+          "systemCode": "sscm00",
+          "url": "https://api.congress.gov/v3/committee/senate/sscm00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "name": "Senate"
+      },
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation.",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "10000",
+      "actionDate": "2023-06-14",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in Senate",
+      "type": "IntroReferral"
+    }
+  ],
+  "cosponsors": [
+    {
+      "bioguideId": "B001277",
+      "firstName": "Richard",
+      "fullName": "Sen. Blumenthal, Richard [D-CT]",
+      "isOriginalCosponsor": true,
+      "lastName": "Blumenthal",
+      "party": "D",
+      "sponsorshipDate": "2023-06-14",
+      "state": "CT",
+      "url": "https://api.congress.gov/v3/member/B001277?format=json"
+    }
+  ]
+}

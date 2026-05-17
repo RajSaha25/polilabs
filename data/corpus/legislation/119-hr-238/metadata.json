@@ -1,0 +1,76 @@
+{
+  "bill_id": "119-hr-238",
+  "congress": 119,
+  "bill_type": "hr",
+  "bill_number": 238,
+  "title": "Healthy Technology Act of 2025",
+  "short_title": null,
+  "sponsor": "Rep. Schweikert, David [R-AZ-1] (R-AZ)",
+  "introduced_date": "2025-01-07",
+  "latest_action": "2025-01-07: Referred to the House Committee on Energy and Commerce.",
+  "policy_area": "Health",
+  "subjects": [],
+  "summary_text": "Healthy Technology Act of 2025 This bill establishes that artificial intelligence (AI) or machine learning technology may be eligible to prescribe drugs.Currently, certain drugs may be dispensed only upon a prescription provided by a practitioner licensed by law to administer the drug. Under this bill, an AI or machine learning technology may qualify as such a prescribing practitioner if the technology is (1) authorized by state law to prescribe the drug involved; and (2) approved, cleared, or authorized under certain federal provisions pertaining to medical devices and products.",
+  "centrality_score": 3.0,
+  "match_locations": {
+    "summary": [
+      "artificial intelligence",
+      "machine learning",
+      "AI"
+    ]
+  },
+  "tier": "B",
+  "stream": "legislation",
+  "versions_available": [
+    {
+      "package_id": "BILLS-119hr238ih",
+      "version_code": "ih",
+      "date_issued": "2025-01-07"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-119hr238ih",
+    "version_code": "ih",
+    "date_issued": "2025-01-07"
+  },
+  "actions": [
+    {
+      "actionCode": "H11100",
+      "actionDate": "2025-01-07",
+      "committees": [
+        {
+          "name": "Energy and Commerce Committee",
+          "systemCode": "hsif00",
+          "url": "https://api.congress.gov/v3/committee/house/hsif00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "code": 2,
+        "name": "House floor actions"
+      },
+      "text": "Referred to the House Committee on Energy and Commerce.",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "Intro-H",
+      "actionDate": "2025-01-07",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in House",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "1000",
+      "actionDate": "2025-01-07",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in House",
+      "type": "IntroReferral"
+    }
+  ],
+  "cosponsors": []
+}

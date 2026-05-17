@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="billres.xsl"?>
+<!DOCTYPE bill PUBLIC "-//US Congress//DTDs/bill.dtd//EN" "bill.dtd">
+<bill bill-stage="Introduced-in-House" dms-id="H5B3BB97F7A954EF094A77813562C6145" public-private="public" key="H" bill-type="olc"><metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+<dublinCore>
+<dc:title>119 HR 7696 IH: AI Cyber Grid Protection Resilient Development Act of 2026</dc:title>
+<dc:publisher>U.S. House of Representatives</dc:publisher>
+<dc:date>2026-02-25</dc:date>
+<dc:format>text/xml</dc:format>
+<dc:language>EN</dc:language>
+<dc:rights>Pursuant to Title 17 Section 105 of the United States Code, this file is not subject to copyright protection and is in the public domain.</dc:rights>
+</dublinCore>
+</metadata>
+<form>
+<distribution-code display="yes">I</distribution-code><congress display="yes">119th CONGRESS</congress><session display="yes">2d Session</session><legis-num display="yes">H. R. 7696</legis-num><current-chamber>IN THE HOUSE OF REPRESENTATIVES</current-chamber><action display="yes"><action-date date="20260225">February 25, 2026</action-date><action-desc><sponsor name-id="H001103">Mr. Hern&#225;ndez</sponsor> (for himself, <cosponsor name-id="L000607">Mr. Liccardo</cosponsor>, and <cosponsor name-id="G000606">Mrs. Grijalva</cosponsor>) introduced the following bill; which was referred to the <committee-name committee-id="HHM00">Committee on Homeland Security</committee-name></action-desc></action><legis-type>A BILL</legis-type><official-title display="yes">To establish a grant program to provide awards to National Laboratories and institutions of higher education to develop secure artificial intelligence (AI) cyber-physical testbeds to simulate grid-scale cyberattacks, and for other purposes.</official-title></form><legis-body id="H6BEBD27F5A014142A4C3F54C41A44F21" style="OLC"> 
+<section id="HFD6DC339494A4EC2B8AF1C88C62E3F08" section-type="section-one"><enum>1.</enum><header>Short title</header>
+ <text display-inline="no-display-inline">This Act may be cited as the <quote><short-title>AI Cyber Grid Protection Resilient Development Act of 2026</short-title></quote>.</text></section> 
+<section id="H9DB2C1453B7E49128849DD2DEEF0C6AE"><enum>2.</enum><header>Grant program to secure artificial intelligence (AI) cyber-physical testbeds to simulate grid-scale cyberattacks</header> 
+<subsection id="HC169CA27F15D4FE582365EFF7E189A2D" commented="no"><enum>(a)</enum><header>In general</header><text display-inline="yes-display-inline">Not later than 180 days after the date of the enactment of this Act, the Director of the Cybersecurity and Infrastructure Security Agency of the Department of Homeland Security and the Secretary of Homeland Security shall jointly establish a grant program to provide awards for each of fiscal years 2026 through 2030 to eligible entities to develop secure artificial intelligence (AI) cyber-physical testbeds to simulate grid-scale cyberattacks and train AI models safely.</text></subsection> <subsection id="H99FD4332BB8A4C8D9C50C14E2A2BF155" commented="no"><enum>(b)</enum><header>Reports</header><text display-inline="yes-display-inline">Not later than one year after the date of the enactment of this Act and annually thereafter through 2031, the Director of the Cybersecurity and Infrastructure Security Agency of the Department of Homeland Security and the Secretary of Homeland Security shall jointly submit to Congress a report detailing evolving threats, AI mitigation progress, and recommendations for further legislative or regulatory action relating to grid-scale cyberattacks.</text></subsection> 
+<subsection id="H58EE981865B64FC68751D927E49E1ED8"><enum>(c)</enum><header>Authorization of appropriations</header><text>There is authorized to be appropriated $100,000,000 for fiscal years 2026 through 2030 to make grants under subsection (a).</text></subsection> <subsection id="HC0D7B081B2DB40009D825AFB1D2915FB"><enum>(d)</enum><header>Definitions</header><text>In this section:</text> 
+<paragraph id="H69E91F65F92F45A6B23E6BF613211E58" commented="no"><enum>(1)</enum><header>AI; artificial intelligence</header><text>The terms <quote>AI</quote> and <quote>artificial intelligence</quote> have the meaning given the term <quote>artificial intelligence</quote> in section 238(g) of the John S. McCain National Defense Authorization Act for Fiscal Year 2019 (<external-xref legal-doc="public-law" parsable-cite="pl/115/232">Public Law 115–232</external-xref>).</text></paragraph> <paragraph id="H681A16AD30904EB1A0A4E8AAEFFC9E45"><enum>(2)</enum><header>Eligible entity</header><text>The term <quote>eligible entity</quote> means any of the following:</text> 
+<subparagraph id="HBFF4FB0990FF4F898EE01874AB617164">
+                        <enum>(A)</enum>
+ <text>An institution of higher education (as such term is defined in section 101(a) of the Higher Education Act of 1965 (<external-xref legal-doc="usc" parsable-cite="usc/20/1001">20 U.S.C. 1001(a)</external-xref>)), including any of the following:</text>
+                        <clause id="H11E5C98B69094F2C9E2F88AC77CCDD56">
+                            <enum>(i)</enum>
+ <text display-inline="yes-display-inline">A public college or university.</text>
+                        </clause>
+                        <clause id="H6ECAFEE4E2BB4C00B0A96278E0CCE4E5">
+                            <enum>(ii)</enum>
+ <text>A community college.</text> </clause> <clause id="HD15A03AB6FFA429AB294C48E704DBF66"> <enum>(iii)</enum> <text>A Hispanic-serving institution (as such term is defined in section 502 of the Higher Education Act of 1965 (<external-xref legal-doc="usc" parsable-cite="usc/20/1101a">20 U.S.C. 1101a</external-xref>)).</text>
+                        </clause>
+                    </subparagraph> 
+<subparagraph id="H5FF98AD9C9EC43748E254776B01C6564">
+                        <enum>(B)</enum>
+ <text>A National Laboratory (as such term is defined in section 2 of the Energy Policy Act of 2005 (<external-xref legal-doc="usc" parsable-cite="usc/42/15801">42 U.S.C. 15801</external-xref>)).</text>
+                    </subparagraph> 
+<subparagraph id="HF90D1A1B59B443C3A947D63ED836EDE5"><enum>(C)</enum><text>A consortium comprised of one or more entities specified in subparagraphs (A) and (B).</text></subparagraph></paragraph> </subsection></section> </legis-body></bill>
+

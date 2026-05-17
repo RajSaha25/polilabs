@@ -1,0 +1,87 @@
+{
+  "bill_id": "118-hr-10125",
+  "congress": 118,
+  "bill_type": "hr",
+  "bill_number": 10125,
+  "title": "AI Fraud Deterrence Act",
+  "short_title": null,
+  "sponsor": "Rep. Lieu, Ted [D-CA-36] (D-CA)",
+  "introduced_date": "2024-11-14",
+  "latest_action": "2024-11-14: Referred to the House Committee on the Judiciary.",
+  "policy_area": "Crime and Law Enforcement",
+  "subjects": [],
+  "summary_text": null,
+  "centrality_score": 4.0,
+  "match_locations": {
+    "title": [
+      "AI"
+    ]
+  },
+  "tier": "A",
+  "stream": "legislation",
+  "versions_available": [
+    {
+      "package_id": "BILLS-118hr10125ih",
+      "version_code": "ih",
+      "date_issued": "2024-11-14"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-118hr10125ih",
+    "version_code": "ih",
+    "date_issued": "2024-11-14"
+  },
+  "actions": [
+    {
+      "actionCode": "H11100",
+      "actionDate": "2024-11-14",
+      "committees": [
+        {
+          "name": "Judiciary Committee",
+          "systemCode": "hsju00",
+          "url": "https://api.congress.gov/v3/committee/house/hsju00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "code": 2,
+        "name": "House floor actions"
+      },
+      "text": "Referred to the House Committee on the Judiciary.",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "Intro-H",
+      "actionDate": "2024-11-14",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in House",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "1000",
+      "actionDate": "2024-11-14",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in House",
+      "type": "IntroReferral"
+    }
+  ],
+  "cosponsors": [
+    {
+      "bioguideId": "K000401",
+      "district": 3,
+      "firstName": "Kevin",
+      "fullName": "Rep. Kiley, Kevin [R-CA-3]",
+      "isOriginalCosponsor": true,
+      "lastName": "Kiley",
+      "party": "R",
+      "sponsorshipDate": "2024-11-14",
+      "state": "CA",
+      "url": "https://api.congress.gov/v3/member/K000401?format=json"
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "bill_id": "118-s-5436",
+  "congress": 118,
+  "bill_type": "s",
+  "bill_number": 5436,
+  "title": "Protecting AI and Cloud Competition in Defense Act of 2024",
+  "short_title": null,
+  "sponsor": "Sen. Warren, Elizabeth [D-MA] (D-MA)",
+  "introduced_date": "2024-12-05",
+  "latest_action": "2024-12-05: Read twice and referred to the Committee on Armed Services.",
+  "policy_area": "Armed Forces and National Security",
+  "subjects": [],
+  "summary_text": null,
+  "centrality_score": 4.0,
+  "match_locations": {
+    "title": [
+      "AI"
+    ]
+  },
+  "tier": "A",
+  "stream": "legislation",
+  "versions_available": [
+    {
+      "package_id": "BILLS-118s5436is",
+      "version_code": "is",
+      "date_issued": "2024-12-05"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-118s5436is",
+    "version_code": "is",
+    "date_issued": "2024-12-05"
+  },
+  "actions": [
+    {
+      "actionDate": "2024-12-05",
+      "committees": [
+        {
+          "name": "Armed Services Committee",
+          "systemCode": "ssas00",
+          "url": "https://api.congress.gov/v3/committee/senate/ssas00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "name": "Senate"
+      },
+      "text": "Read twice and referred to the Committee on Armed Services.",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "10000",
+      "actionDate": "2024-12-05",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in Senate",
+      "type": "IntroReferral"
+    }
+  ],
+  "cosponsors": [
+    {
+      "bioguideId": "S001227",
+      "firstName": "Eric",
+      "fullName": "Sen. Schmitt, Eric [R-MO]",
+      "isOriginalCosponsor": true,
+      "lastName": "Schmitt",
+      "middleName": "S.",
+      "party": "R",
+      "sponsorshipDate": "2024-12-05",
+      "state": "MO",
+      "url": "https://api.congress.gov/v3/member/S001227?format=json"
+    }
+  ]
+}

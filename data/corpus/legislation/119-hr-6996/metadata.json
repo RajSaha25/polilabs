@@ -1,0 +1,121 @@
+{
+  "bill_id": "119-hr-6996",
+  "congress": 119,
+  "bill_type": "hr",
+  "bill_number": 6996,
+  "title": "Full AI Stack Export Promotion Act",
+  "short_title": null,
+  "sponsor": "Rep. Fine, Randy [R-FL-6] (R-FL)",
+  "introduced_date": "2026-01-09",
+  "latest_action": "2026-04-22: Ordered to be Reported in the Nature of a Substitute by the Yeas and Nays: 37 - 7.",
+  "policy_area": "Foreign Trade and International Finance",
+  "subjects": [],
+  "summary_text": null,
+  "centrality_score": 4.0,
+  "match_locations": {
+    "title": [
+      "AI"
+    ]
+  },
+  "tier": "A",
+  "stream": "legislation",
+  "versions_available": [
+    {
+      "package_id": "BILLS-119hr6996ih",
+      "version_code": "ih",
+      "date_issued": "2026-01-09"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-119hr6996ih",
+    "version_code": "ih",
+    "date_issued": "2026-01-09"
+  },
+  "actions": [
+    {
+      "actionCode": "H19000",
+      "actionDate": "2026-04-22",
+      "committees": [
+        {
+          "name": "Foreign Affairs Committee",
+          "systemCode": "hsfa00",
+          "url": "https://api.congress.gov/v3/committee/house/hsfa00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "code": 1,
+        "name": "House committee actions"
+      },
+      "text": "Ordered to be Reported in the Nature of a Substitute by the Yeas and Nays: 37 - 7.",
+      "type": "Committee"
+    },
+    {
+      "actionCode": "H15001",
+      "actionDate": "2026-04-22",
+      "committees": [
+        {
+          "name": "Foreign Affairs Committee",
+          "systemCode": "hsfa00",
+          "url": "https://api.congress.gov/v3/committee/house/hsfa00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "code": 1,
+        "name": "House committee actions"
+      },
+      "text": "Committee Consideration and Mark-up Session Held",
+      "type": "Committee"
+    },
+    {
+      "actionCode": "H11100",
+      "actionDate": "2026-01-09",
+      "committees": [
+        {
+          "name": "Foreign Affairs Committee",
+          "systemCode": "hsfa00",
+          "url": "https://api.congress.gov/v3/committee/house/hsfa00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "code": 2,
+        "name": "House floor actions"
+      },
+      "text": "Referred to the House Committee on Foreign Affairs.",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "Intro-H",
+      "actionDate": "2026-01-09",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in House",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "1000",
+      "actionDate": "2026-01-09",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in House",
+      "type": "IntroReferral"
+    }
+  ],
+  "cosponsors": [
+    {
+      "bioguideId": "H001058",
+      "district": 4,
+      "firstName": "Bill",
+      "fullName": "Rep. Huizenga, Bill [R-MI-4]",
+      "isOriginalCosponsor": false,
+      "lastName": "Huizenga",
+      "party": "R",
+      "sponsorshipDate": "2026-04-20",
+      "state": "MI",
+      "url": "https://api.congress.gov/v3/member/H001058?format=json"
+    }
+  ]
+}

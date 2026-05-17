@@ -1,0 +1,62 @@
+{
+  "bill_id": "119-s-4113",
+  "congress": 119,
+  "bill_type": "s",
+  "bill_number": 4113,
+  "title": "AI Guardrails Act of 2026",
+  "short_title": null,
+  "sponsor": "Sen. Slotkin, Elissa [D-MI] (D-MI)",
+  "introduced_date": "2026-03-17",
+  "latest_action": "2026-03-17: Read twice and referred to the Committee on Armed Services.",
+  "policy_area": "Armed Forces and National Security",
+  "subjects": [],
+  "summary_text": null,
+  "centrality_score": 4.0,
+  "match_locations": {
+    "title": [
+      "AI"
+    ]
+  },
+  "tier": "A",
+  "stream": "legislation",
+  "versions_available": [
+    {
+      "package_id": "BILLS-119s4113is",
+      "version_code": "is",
+      "date_issued": "2026-03-17"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-119s4113is",
+    "version_code": "is",
+    "date_issued": "2026-03-17"
+  },
+  "actions": [
+    {
+      "actionDate": "2026-03-17",
+      "committees": [
+        {
+          "name": "Armed Services Committee",
+          "systemCode": "ssas00",
+          "url": "https://api.congress.gov/v3/committee/senate/ssas00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "name": "Senate"
+      },
+      "text": "Read twice and referred to the Committee on Armed Services.",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "10000",
+      "actionDate": "2026-03-17",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in Senate",
+      "type": "IntroReferral"
+    }
+  ],
+  "cosponsors": []
+}

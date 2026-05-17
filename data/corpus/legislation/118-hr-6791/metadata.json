@@ -1,0 +1,158 @@
+{
+  "bill_id": "118-hr-6791",
+  "congress": 118,
+  "bill_type": "hr",
+  "bill_number": 6791,
+  "title": "Artificial Intelligence Literacy Act of 2023",
+  "short_title": null,
+  "sponsor": "Rep. Blunt Rochester, Lisa [D-DE-At Large] (D-DE)",
+  "introduced_date": "2023-12-14",
+  "latest_action": "2023-12-15: Referred to the Subcommittee on Communications and Technology.",
+  "policy_area": "Science, Technology, Communications",
+  "subjects": [],
+  "summary_text": "Artificial Intelligence Literacy Act of 2023This bill provides for grants under the Digital Equity Competitive Grant Program to support training and programming on artificial intelligence in schools, colleges, and other community institutions.&nbsp;The Digital Equity Competitive Grant Program provides grants to governments, nonprofit organizations, and other entities to support efforts to achieve digital equity, promote digital inclusion, and stimulate adoption of broadband. Under the bill, such grants may fund programs to support artificial intelligence literacy, including education on the basic principles, applications, and limitations of artificial intelligence.&nbsp;The bill also requires the National Telecommunications and Information Administration (NTIA), which administers the Digital Equity Competitive Grant Program, to report to Congress on any specific uses of grant funding that NTIA recommends for expansion or modification to benefit larger populations. &nbsp;",
+  "centrality_score": 5.0,
+  "match_locations": {
+    "title": [
+      "artificial intelligence"
+    ],
+    "summary": [
+      "artificial intelligence"
+    ]
+  },
+  "tier": "A",
+  "stream": "legislation",
+  "versions_available": [
+    {
+      "package_id": "BILLS-118hr6791ih",
+      "version_code": "ih",
+      "date_issued": "2023-12-14"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-118hr6791ih",
+    "version_code": "ih",
+    "date_issued": "2023-12-14"
+  },
+  "actions": [
+    {
+      "actionCode": "H11000",
+      "actionDate": "2023-12-15",
+      "committees": [
+        {
+          "name": "Communications and Technology Subcommittee",
+          "systemCode": "hsif16",
+          "url": "https://api.congress.gov/v3/committee/house/hsif16?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "code": 1,
+        "name": "House committee actions"
+      },
+      "text": "Referred to the Subcommittee on Communications and Technology.",
+      "type": "Committee"
+    },
+    {
+      "actionCode": "H11100",
+      "actionDate": "2023-12-14",
+      "committees": [
+        {
+          "name": "Energy and Commerce Committee",
+          "systemCode": "hsif00",
+          "url": "https://api.congress.gov/v3/committee/house/hsif00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "code": 2,
+        "name": "House floor actions"
+      },
+      "text": "Referred to the House Committee on Energy and Commerce.",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "Intro-H",
+      "actionDate": "2023-12-14",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in House",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "1000",
+      "actionDate": "2023-12-14",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in House",
+      "type": "IntroReferral"
+    }
+  ],
+  "cosponsors": [
+    {
+      "bioguideId": "B001275",
+      "district": 8,
+      "firstName": "Larry",
+      "fullName": "Rep. Bucshon, Larry [R-IN-8]",
+      "isOriginalCosponsor": true,
+      "lastName": "Bucshon",
+      "party": "R",
+      "sponsorshipDate": "2023-12-14",
+      "state": "IN",
+      "url": "https://api.congress.gov/v3/member/B001275?format=json"
+    },
+    {
+      "bioguideId": "M001221",
+      "district": 19,
+      "firstName": "Marcus",
+      "fullName": "Rep. Molinaro, Marcus J. [R-NY-19]",
+      "isOriginalCosponsor": false,
+      "lastName": "Molinaro",
+      "middleName": "J.",
+      "party": "R",
+      "sponsorshipDate": "2024-01-25",
+      "state": "NY",
+      "url": "https://api.congress.gov/v3/member/M001221?format=json"
+    },
+    {
+      "bioguideId": "T000483",
+      "district": 6,
+      "firstName": "David",
+      "fullName": "Rep. Trone, David J. [D-MD-6]",
+      "isOriginalCosponsor": false,
+      "lastName": "Trone",
+      "middleName": "J.",
+      "party": "D",
+      "sponsorshipDate": "2024-01-25",
+      "state": "MD",
+      "url": "https://api.congress.gov/v3/member/T000483?format=json"
+    },
+    {
+      "bioguideId": "P000616",
+      "district": 3,
+      "firstName": "Dean",
+      "fullName": "Rep. Phillips, Dean [D-MN-3]",
+      "isOriginalCosponsor": false,
+      "lastName": "Phillips",
+      "party": "D",
+      "sponsorshipDate": "2024-08-09",
+      "state": "MN",
+      "url": "https://api.congress.gov/v3/member/P000616?format=json"
+    },
+    {
+      "bioguideId": "F000466",
+      "district": 1,
+      "firstName": "Brian",
+      "fullName": "Rep. Fitzpatrick, Brian K. [R-PA-1]",
+      "isOriginalCosponsor": false,
+      "lastName": "Fitzpatrick",
+      "middleName": "K.",
+      "party": "R",
+      "sponsorshipDate": "2024-08-09",
+      "state": "PA",
+      "url": "https://api.congress.gov/v3/member/F000466?format=json"
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "bill_id": "118-s-2399",
+  "congress": 118,
+  "bill_type": "s",
+  "bill_number": 2399,
+  "title": "Artificial Intelligence and Biosecurity Risk Assessment Act",
+  "short_title": null,
+  "sponsor": "Sen. Markey, Edward J. [D-MA] (D-MA)",
+  "introduced_date": "2023-07-19",
+  "latest_action": "2023-07-19: Read twice and referred to the Committee on Health, Education, Labor, and Pensions.",
+  "policy_area": "Health",
+  "subjects": [],
+  "summary_text": "Artificial Intelligence and Biosecurity Risk Assessment ActThis bill requires the Administration for Strategic Preparedness and Response to assess the risks posed by artificial intelligence in developing novel pathogens, viruses, bioweapons, or chemical weapons and to address these risks through related initiatives and activities, such as by including the risk assessment in the National Health Security Strategy (a coordinated strategy among federal, state, and local entities to address public health emergencies).",
+  "centrality_score": 5.0,
+  "match_locations": {
+    "title": [
+      "artificial intelligence"
+    ],
+    "summary": [
+      "artificial intelligence"
+    ]
+  },
+  "tier": "A",
+  "stream": "legislation",
+  "versions_available": [
+    {
+      "package_id": "BILLS-118s2399is",
+      "version_code": "is",
+      "date_issued": "2023-07-19"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-118s2399is",
+    "version_code": "is",
+    "date_issued": "2023-07-19"
+  },
+  "actions": [
+    {
+      "actionDate": "2023-07-19",
+      "committees": [
+        {
+          "name": "Health, Education, Labor, and Pensions Committee",
+          "systemCode": "sshr00",
+          "url": "https://api.congress.gov/v3/committee/senate/sshr00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "name": "Senate"
+      },
+      "text": "Read twice and referred to the Committee on Health, Education, Labor, and Pensions.",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "10000",
+      "actionDate": "2023-07-19",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in Senate",
+      "type": "IntroReferral"
+    }
+  ],
+  "cosponsors": [
+    {
+      "bioguideId": "B001305",
+      "firstName": "Ted",
+      "fullName": "Sen. Budd, Ted [R-NC]",
+      "isOriginalCosponsor": true,
+      "lastName": "Budd",
+      "party": "R",
+      "sponsorshipDate": "2023-07-19",
+      "state": "NC",
+      "url": "https://api.congress.gov/v3/member/B001305?format=json"
+    }
+  ]
+}

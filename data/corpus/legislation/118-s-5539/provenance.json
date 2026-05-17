@@ -1,0 +1,16 @@
+{
+  "bill_id": "118-s-5539",
+  "criteria_version": "v1.0",
+  "canonical_package_id": "BILLS-118s5539is",
+  "sources": {
+    "govinfo_xml": "https://api.govinfo.gov/packages/BILLS-118s5539is/uslm",
+    "govinfo_htm": "https://api.govinfo.gov/packages/BILLS-118s5539is/htm",
+    "congress_gov_bill": "https://api.congress.gov/v3/bill/118/s/5539"
+  },
+  "files": {
+    "bill.xml": true,
+    "bill.htm": true,
+    "metadata.json": true
+  },
+  "fetched_at": "2026-05-17T15:59:28.721082+00:00"
+}

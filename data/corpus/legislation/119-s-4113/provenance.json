@@ -1,0 +1,16 @@
+{
+  "bill_id": "119-s-4113",
+  "criteria_version": "v1.0",
+  "canonical_package_id": "BILLS-119s4113is",
+  "sources": {
+    "govinfo_xml": "https://api.govinfo.gov/packages/BILLS-119s4113is/uslm",
+    "govinfo_htm": "https://api.govinfo.gov/packages/BILLS-119s4113is/htm",
+    "congress_gov_bill": "https://api.congress.gov/v3/bill/119/s/4113"
+  },
+  "files": {
+    "bill.xml": true,
+    "bill.htm": true,
+    "metadata.json": true
+  },
+  "fetched_at": "2026-05-17T15:56:15.351313+00:00"
+}

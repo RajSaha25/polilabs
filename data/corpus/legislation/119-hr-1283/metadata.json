@@ -1,0 +1,88 @@
+{
+  "bill_id": "119-hr-1283",
+  "congress": 119,
+  "bill_type": "hr",
+  "bill_number": 1283,
+  "title": "Protecting Our Children in an AI World Act of 2025",
+  "short_title": null,
+  "sponsor": "Rep. Bilirakis, Gus M. [R-FL-12] (R-FL)",
+  "introduced_date": "2025-02-13",
+  "latest_action": "2025-02-13: Referred to the House Committee on the Judiciary.",
+  "policy_area": "Crime and Law Enforcement",
+  "subjects": [],
+  "summary_text": null,
+  "centrality_score": 4.0,
+  "match_locations": {
+    "title": [
+      "AI"
+    ]
+  },
+  "tier": "A",
+  "stream": "legislation",
+  "versions_available": [
+    {
+      "package_id": "BILLS-119hr1283ih",
+      "version_code": "ih",
+      "date_issued": "2025-02-13"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-119hr1283ih",
+    "version_code": "ih",
+    "date_issued": "2025-02-13"
+  },
+  "actions": [
+    {
+      "actionCode": "H11100",
+      "actionDate": "2025-02-13",
+      "committees": [
+        {
+          "name": "Judiciary Committee",
+          "systemCode": "hsju00",
+          "url": "https://api.congress.gov/v3/committee/house/hsju00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "code": 2,
+        "name": "House floor actions"
+      },
+      "text": "Referred to the House Committee on the Judiciary.",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "Intro-H",
+      "actionDate": "2025-02-13",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in House",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "1000",
+      "actionDate": "2025-02-13",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in House",
+      "type": "IntroReferral"
+    }
+  ],
+  "cosponsors": [
+    {
+      "bioguideId": "R000609",
+      "district": 5,
+      "firstName": "John",
+      "fullName": "Rep. Rutherford, John H. [R-FL-5]",
+      "isOriginalCosponsor": false,
+      "lastName": "Rutherford",
+      "middleName": "H.",
+      "party": "R",
+      "sponsorshipDate": "2025-04-29",
+      "state": "FL",
+      "url": "https://api.congress.gov/v3/member/R000609?format=json"
+    }
+  ]
+}

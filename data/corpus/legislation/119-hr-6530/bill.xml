@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="billres.xsl"?>
+<!DOCTYPE bill PUBLIC "-//US Congress//DTDs/bill.dtd//EN" "bill.dtd">
+<bill bill-stage="Introduced-in-House" dms-id="HEAA589315AA54607A79DB41E72B76015" public-private="public" key="H" bill-type="olc"><metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+<dublinCore>
+<dc:title>119 HR 6530 IH: AI Training for National Security Act</dc:title>
+<dc:publisher>U.S. House of Representatives</dc:publisher>
+<dc:date>2025-12-09</dc:date>
+<dc:format>text/xml</dc:format>
+<dc:language>EN</dc:language>
+<dc:rights>Pursuant to Title 17 Section 105 of the United States Code, this file is not subject to copyright protection and is in the public domain.</dc:rights>
+</dublinCore>
+</metadata>
+<form>
+<distribution-code display="yes">I</distribution-code><congress display="yes">119th CONGRESS</congress><session display="yes">1st Session</session><legis-num display="yes">H. R. 6530</legis-num><current-chamber>IN THE HOUSE OF REPRESENTATIVES</current-chamber><action display="yes"><action-date date="20251209">December 9, 2025</action-date><action-desc><sponsor name-id="L000560">Mr. Larsen of Washington</sponsor> (for himself and <cosponsor name-id="E000301">Ms. Elfreth</cosponsor>) introduced the following bill; which was referred to the <committee-name committee-id="HAS00">Committee on Armed Services</committee-name></action-desc></action><legis-type>A BILL</legis-type><official-title display="yes">To require the Chief Information Officer of the Department of Defense to include training on artificial intelligence cybersecurity issues for members of the Armed Forces and civilian employees of the Department of Defense, and for other purposes.</official-title></form><legis-body id="H4EF9B9A841284C53AD1C5E55B634F55D" style="OLC"><section id="HE8661776634445F88C026EDE4372E0BF" section-type="section-one"><enum>1.</enum><header>Short title</header><text display-inline="no-display-inline">This Act may be cited as the <quote><short-title>AI Training for National Security Act</short-title></quote>.</text></section><section id="HDB6F927F01D64B05AE880F4AE9E9B2A7"><enum>2.</enum><header>Incorporation of artificial intelligence considerations into annual cybersecurity training</header><text display-inline="no-display-inline">Not later than one year after the date of the enactment of this Act, the Secretary of Defense, acting through the Chief Information Officer of the Department of Defense, shall revise the mandatory annual training on cybersecurity for members of the Armed Forces and civilian employees of the Department of Defense to include content related to the unique cybersecurity challenges posed by the use of artificial intelligence.</text></section></legis-body></bill>
+

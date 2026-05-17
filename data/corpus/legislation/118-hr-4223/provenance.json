@@ -1,0 +1,16 @@
+{
+  "bill_id": "118-hr-4223",
+  "criteria_version": "v1.0",
+  "canonical_package_id": "BILLS-118hr4223ih",
+  "sources": {
+    "govinfo_xml": "https://api.govinfo.gov/packages/BILLS-118hr4223ih/uslm",
+    "govinfo_htm": "https://api.govinfo.gov/packages/BILLS-118hr4223ih/htm",
+    "congress_gov_bill": "https://api.congress.gov/v3/bill/118/hr/4223"
+  },
+  "files": {
+    "bill.xml": true,
+    "bill.htm": true,
+    "metadata.json": true
+  },
+  "fetched_at": "2026-05-17T15:55:06.002625+00:00"
+}

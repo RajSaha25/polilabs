@@ -1,0 +1,88 @@
+{
+  "bill_id": "118-hr-6088",
+  "congress": 118,
+  "bill_type": "hr",
+  "bill_number": 6088,
+  "title": "Ensuring Safe and Ethical AI Development Through SAFE AI Research Grants",
+  "short_title": null,
+  "sponsor": "Rep. Kiley, Kevin [R-CA-3] (R-CA)",
+  "introduced_date": "2023-10-26",
+  "latest_action": "2023-10-26: Referred to the House Committee on Science, Space, and Technology.",
+  "policy_area": "Science, Technology, Communications",
+  "subjects": [],
+  "summary_text": null,
+  "centrality_score": 4.0,
+  "match_locations": {
+    "title": [
+      "AI"
+    ]
+  },
+  "tier": "A",
+  "stream": "legislation",
+  "versions_available": [
+    {
+      "package_id": "BILLS-118hr6088ih",
+      "version_code": "ih",
+      "date_issued": "2023-10-26"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-118hr6088ih",
+    "version_code": "ih",
+    "date_issued": "2023-10-26"
+  },
+  "actions": [
+    {
+      "actionCode": "H11100",
+      "actionDate": "2023-10-26",
+      "committees": [
+        {
+          "name": "Science, Space, and Technology Committee",
+          "systemCode": "hssy00",
+          "url": "https://api.congress.gov/v3/committee/house/hssy00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "code": 2,
+        "name": "House floor actions"
+      },
+      "text": "Referred to the House Committee on Science, Space, and Technology.",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "Intro-H",
+      "actionDate": "2023-10-26",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in House",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "1000",
+      "actionDate": "2023-10-26",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in House",
+      "type": "IntroReferral"
+    }
+  ],
+  "cosponsors": [
+    {
+      "bioguideId": "G000587",
+      "district": 29,
+      "firstName": "Sylvia",
+      "fullName": "Rep. Garcia, Sylvia R. [D-TX-29]",
+      "isOriginalCosponsor": true,
+      "lastName": "Garcia",
+      "middleName": "R.",
+      "party": "D",
+      "sponsorshipDate": "2023-10-26",
+      "state": "TX",
+      "url": "https://api.congress.gov/v3/member/G000587?format=json"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "bill_id": "118-s-1596",
+  "criteria_version": "v1.0",
+  "canonical_package_id": "BILLS-118s1596is",
+  "sources": {
+    "govinfo_xml": "https://api.govinfo.gov/packages/BILLS-118s1596is/uslm",
+    "govinfo_htm": "https://api.govinfo.gov/packages/BILLS-118s1596is/htm",
+    "congress_gov_bill": "https://api.congress.gov/v3/bill/118/s/1596"
+  },
+  "files": {
+    "bill.xml": true,
+    "bill.htm": true,
+    "metadata.json": true
+  },
+  "fetched_at": "2026-05-17T16:02:53.394576+00:00"
+}

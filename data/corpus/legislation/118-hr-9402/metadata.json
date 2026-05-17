@@ -1,0 +1,256 @@
+{
+  "bill_id": "118-hr-9402",
+  "congress": 118,
+  "bill_type": "hr",
+  "bill_number": 9402,
+  "title": "NSF AI Education Act of 2024",
+  "short_title": null,
+  "sponsor": "Rep. Fong, Vince [R-CA-20] (R-CA)",
+  "introduced_date": "2024-08-23",
+  "latest_action": "2024-09-11: Ordered to be Reported (Amended) by Voice Vote.",
+  "policy_area": "Science, Technology, Communications",
+  "subjects": [],
+  "summary_text": null,
+  "centrality_score": 4.0,
+  "match_locations": {
+    "title": [
+      "AI"
+    ]
+  },
+  "tier": "A",
+  "stream": "legislation",
+  "versions_available": [
+    {
+      "package_id": "BILLS-118hr9402ih",
+      "version_code": "ih",
+      "date_issued": "2024-08-23"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-118hr9402ih",
+    "version_code": "ih",
+    "date_issued": "2024-08-23"
+  },
+  "actions": [
+    {
+      "actionCode": "H19000",
+      "actionDate": "2024-09-11",
+      "committees": [
+        {
+          "name": "Science, Space, and Technology Committee",
+          "systemCode": "hssy00",
+          "url": "https://api.congress.gov/v3/committee/house/hssy00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "code": 1,
+        "name": "House committee actions"
+      },
+      "text": "Ordered to be Reported (Amended) by Voice Vote.",
+      "type": "Committee"
+    },
+    {
+      "actionCode": "H15001",
+      "actionDate": "2024-09-11",
+      "committees": [
+        {
+          "name": "Science, Space, and Technology Committee",
+          "systemCode": "hssy00",
+          "url": "https://api.congress.gov/v3/committee/house/hssy00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "code": 1,
+        "name": "House committee actions"
+      },
+      "text": "Committee Consideration and Mark-up Session Held",
+      "type": "Committee"
+    },
+    {
+      "actionCode": "H11100",
+      "actionDate": "2024-08-23",
+      "committees": [
+        {
+          "name": "Science, Space, and Technology Committee",
+          "systemCode": "hssy00",
+          "url": "https://api.congress.gov/v3/committee/house/hssy00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "code": 2,
+        "name": "House floor actions"
+      },
+      "text": "Referred to the House Committee on Science, Space, and Technology.",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "Intro-H",
+      "actionDate": "2024-08-23",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in House",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "1000",
+      "actionDate": "2024-08-23",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in House",
+      "type": "IntroReferral"
+    }
+  ],
+  "cosponsors": [
+    {
+      "bioguideId": "S001226",
+      "district": 6,
+      "firstName": "Andrea",
+      "fullName": "Rep. Salinas, Andrea [D-OR-6]",
+      "isOriginalCosponsor": true,
+      "lastName": "Salinas",
+      "party": "D",
+      "sponsorshipDate": "2024-08-23",
+      "state": "OR",
+      "url": "https://api.congress.gov/v3/member/S001226?format=json"
+    },
+    {
+      "bioguideId": "B001278",
+      "district": 1,
+      "firstName": "Suzanne",
+      "fullName": "Rep. Bonamici, Suzanne [D-OR-1]",
+      "isOriginalCosponsor": false,
+      "lastName": "Bonamici",
+      "party": "D",
+      "sponsorshipDate": "2024-09-09",
+      "state": "OR",
+      "url": "https://api.congress.gov/v3/member/B001278?format=json"
+    },
+    {
+      "bioguideId": "E000215",
+      "district": 16,
+      "firstName": "Anna",
+      "fullName": "Rep. Eshoo, Anna G. [D-CA-16]",
+      "isOriginalCosponsor": false,
+      "lastName": "Eshoo",
+      "middleName": "G.",
+      "party": "D",
+      "sponsorshipDate": "2024-09-16",
+      "state": "CA",
+      "url": "https://api.congress.gov/v3/member/E000215?format=json"
+    },
+    {
+      "bioguideId": "C001134",
+      "district": 8,
+      "firstName": "Yadira",
+      "fullName": "Rep. Caraveo, Yadira [D-CO-8]",
+      "isOriginalCosponsor": false,
+      "lastName": "Caraveo",
+      "party": "D",
+      "sponsorshipDate": "2024-09-16",
+      "state": "CO",
+      "url": "https://api.congress.gov/v3/member/C001134?format=json"
+    },
+    {
+      "bioguideId": "W000828",
+      "district": 22,
+      "firstName": "Brandon",
+      "fullName": "Rep. Williams, Brandon [R-NY-22]",
+      "isOriginalCosponsor": false,
+      "lastName": "Williams",
+      "party": "R",
+      "sponsorshipDate": "2024-09-16",
+      "state": "NY",
+      "url": "https://api.congress.gov/v3/member/W000828?format=json"
+    },
+    {
+      "bioguideId": "P000620",
+      "district": 7,
+      "firstName": "Brittany",
+      "fullName": "Rep. Pettersen, Brittany [D-CO-7]",
+      "isOriginalCosponsor": false,
+      "lastName": "Pettersen",
+      "party": "D",
+      "sponsorshipDate": "2024-09-18",
+      "state": "CO",
+      "url": "https://api.congress.gov/v3/member/P000620?format=json"
+    },
+    {
+      "bioguideId": "B001287",
+      "district": 6,
+      "firstName": "Ami",
+      "fullName": "Rep. Bera, Ami [D-CA-6]",
+      "isOriginalCosponsor": false,
+      "lastName": "Bera",
+      "party": "D",
+      "sponsorshipDate": "2024-09-19",
+      "state": "CA",
+      "url": "https://api.congress.gov/v3/member/B001287?format=json"
+    },
+    {
+      "bioguideId": "B001292",
+      "district": 8,
+      "firstName": "Donald",
+      "fullName": "Rep. Beyer, Donald S. [D-VA-8]",
+      "isOriginalCosponsor": false,
+      "lastName": "Beyer",
+      "middleName": "S.",
+      "party": "D",
+      "sponsorshipDate": "2024-09-25",
+      "state": "VA",
+      "url": "https://api.congress.gov/v3/member/B001292?format=json"
+    },
+    {
+      "bioguideId": "P000616",
+      "district": 3,
+      "firstName": "Dean",
+      "fullName": "Rep. Phillips, Dean [D-MN-3]",
+      "isOriginalCosponsor": false,
+      "lastName": "Phillips",
+      "party": "D",
+      "sponsorshipDate": "2024-10-04",
+      "state": "MN",
+      "url": "https://api.congress.gov/v3/member/P000616?format=json"
+    },
+    {
+      "bioguideId": "S001209",
+      "district": 7,
+      "firstName": "Abigail",
+      "fullName": "Rep. Spanberger, Abigail Davis [D-VA-7]",
+      "isOriginalCosponsor": false,
+      "lastName": "Spanberger",
+      "middleName": "Davis",
+      "party": "D",
+      "sponsorshipDate": "2024-11-01",
+      "state": "VA",
+      "url": "https://api.congress.gov/v3/member/S001209?format=json"
+    },
+    {
+      "bioguideId": "F000454",
+      "district": 11,
+      "firstName": "Bill",
+      "fullName": "Rep. Foster, Bill [D-IL-11]",
+      "isOriginalCosponsor": false,
+      "lastName": "Foster",
+      "party": "D",
+      "sponsorshipDate": "2024-11-05",
+      "state": "IL",
+      "url": "https://api.congress.gov/v3/member/F000454?format=json"
+    },
+    {
+      "bioguideId": "N000191",
+      "district": 2,
+      "firstName": "Joe",
+      "fullName": "Rep. Neguse, Joe [D-CO-2]",
+      "isOriginalCosponsor": false,
+      "lastName": "Neguse",
+      "party": "D",
+      "sponsorshipDate": "2024-12-16",
+      "state": "CO",
+      "url": "https://api.congress.gov/v3/member/N000191?format=json"
+    }
+  ]
+}

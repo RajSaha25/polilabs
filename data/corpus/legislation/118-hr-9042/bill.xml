@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="billres.xsl"?>
+<!DOCTYPE bill PUBLIC "-//US Congress//DTDs/bill.dtd//EN" "bill.dtd">
+<bill bill-stage="Introduced-in-House" dms-id="HE315985E65564DFDB0B72D34A6496D0B" public-private="public" key="H" bill-type="olc"><metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+<dublinCore>
+<dc:title>118 HR 9042 IH: Civilian Agency AI Watermark Act</dc:title>
+<dc:publisher>U.S. House of Representatives</dc:publisher>
+<dc:date>2024-07-15</dc:date>
+<dc:format>text/xml</dc:format>
+<dc:language>EN</dc:language>
+<dc:rights>Pursuant to Title 17 Section 105 of the United States Code, this file is not subject to copyright protection and is in the public domain.</dc:rights>
+</dublinCore>
+</metadata>
+<form>
+<distribution-code display="yes">I</distribution-code><congress display="yes">118th CONGRESS</congress><session display="yes">2d Session</session><legis-num display="yes">H. R. 9042</legis-num><current-chamber>IN THE HOUSE OF REPRESENTATIVES</current-chamber><action display="yes"><action-date date="20240715">July 15, 2024</action-date><action-desc><sponsor name-id="J000032">Ms. Jackson Lee</sponsor> introduced the following bill; which was referred to the <committee-name committee-id="HHM00">Committee on Homeland Security</committee-name></action-desc></action><legis-type>A BILL</legis-type><official-title display="yes">To provide for civilian agency artificial intelligence watermarks, and for other purposes.</official-title></form><legis-body id="H509EC543538B4E0D84213EF0782DBE63" style="OLC"><section id="H29A6F79D049C4F7CA4B30F8A75B8B044" section-type="section-one"><enum>1.</enum><header>Short title</header><text display-inline="no-display-inline">This Act may be cited as the <quote><short-title>Civilian Agency AI Watermark Act</short-title></quote>. </text></section><section id="HB6163B0747884A7B9EA18072252F11A0"><enum>2.</enum><header>Civilian agency artificial intelligence watermark system</header><subsection id="H42CD01EE95E2405D8F41A1BAC44C02A3"><enum>(a)</enum><header>In general</header><text display-inline="yes-display-inline">Not later than eight months after the date of the enactment of this Act, the Secretary of Homeland Security shall seek to consult with the Director of the National Institute of Standards and Technology and the Director of the United States Patent and Trademark Office regarding development of an artificial intelligence watermark and trademark system to identify Federal agency approved artificial intelligence applications for civilian agency use. </text></subsection><subsection id="HDC617AAED2CD40D1B539AC705CBCD515"><enum>(b)</enum><header>Authorization of appropriations</header><text>There is authorized to be appropriated to the Secretary of Homeland Security each fiscal year to carry out this section such sums as may be necessary. </text></subsection></section></legis-body></bill> 
+
