@@ -40,17 +40,80 @@ python scripts/smoke_test.py
 
 You should see one bill from the 118th Congress, six GovInfo collection codes, and an HTTP 200 from the OLRC release-points index.
 
+## Drive it from a chat
+
+After building the index (`python scripts/build_index.py`), put your `ANTHROPIC_API_KEY` in `.env` and run:
+
+```bash
+python scripts/chat.py
+```
+
+You get an interactive REPL backed by Claude Opus 4.7 with the six polilabs primitives wired in as tools. The system prompt constrains the agent to cite verbatim from `get_section` (no reconstructed citations) and to acknowledge corpus-scope limits honestly. Try things like:
+
+- "What bills in the 119th Congress address frontier model safety?"
+- "What does Sec. 3(a)(1) of H.R. 1736 actually require?"
+- "Are there any bills about facial recognition in federal contracting?"
+- "What's NOT in this corpus?"
+
+## Drive it from any MCP client
+
+`mcp_server.py` exposes the same six primitives over MCP stdio. Add to your MCP client's server config:
+
+```json
+{
+  "mcpServers": {
+    "polilabs": {
+      "command": "/absolute/path/to/polilabs/.venv/bin/python",
+      "args": ["/absolute/path/to/polilabs/mcp_server.py"],
+      "env": {
+        "POLILABS_DB": "/absolute/path/to/polilabs/data/polilabs.db"
+      }
+    }
+  }
+}
+```
+
+The MCP server reads the same SQLite index — no Anthropic API key needed for the server itself.
+
 ## Layout
 
 ```
-sources/
-  congress_gov.py   # Library of Congress API client
-  govinfo.py        # GPO GovInfo API client
-  olrc.py           # OLRC US Code bulk-XML download helpers
+sources/                # raw source clients (input layer)
+  congress_gov.py       # Library of Congress API
+  govinfo.py            # GPO GovInfo API
+  olrc.py               # OLRC US Code bulk-XML helpers
+ingest/                 # corpus build pipeline
+  govinfo_search.py     # full-text search for candidates
+  candidate.py          # anchor gate + centrality scoring
+  reconcile.py          # Congress.gov metadata pull (cached)
+  promote.py            # promote candidates → structured corpus
+index/                  # Layer-2 SQLite index
+  schema.py             # tables + FTS5
+  parse_uslm.py         # bill XML → sections
+  build.py              # destructive rebuild from corpus
+api/                    # agent-facing API surface
+  SPEC.md               # design contract
+  __init__.py           # public exports
+  types.py              # typed dataclasses
+  _impl.py              # SQLite-backed implementations
+agent/                  # tool wrappers shared by chat + MCP
+  tools.py              # serializers, schemas, system prompt
 scripts/
-  smoke_test.py     # Verifies all three sources are reachable
-research/
-  landscape.md      # Prior research on the data-source landscape
+  smoke_test.py         # Tier 1 reachability
+  fetch_candidates.py   # Phase 1.1 — GovInfo search → ranked CSV
+  promote_corpus.py     # Phase 1.3 — promote to data/corpus/
+  build_index.py        # Phase 2.1 — build data/polilabs.db
+  api_smoke_test.py     # exercise the six primitives
+  chat.py               # Phase 5 — Claude chat REPL
+mcp_server.py           # Phase 5 — MCP stdio server
+corpus/
+  inclusion_criteria.md # locked AI-governance criteria v1.0
+research/               # prior research (landscape, notes)
+data/
+  candidates/           # candidate_v1.jsonl + review.csv (committed)
+  corpus/legislation/   # promoted bills (committed)
+  cache/                # API response cache (gitignored)
+  polilabs.db           # SQLite index (gitignored, regenerable)
 ```
 
 ## Design notes
