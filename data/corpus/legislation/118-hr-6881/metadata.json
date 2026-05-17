@@ -1,0 +1,125 @@
+{
+  "bill_id": "118-hr-6881",
+  "congress": 118,
+  "bill_type": "hr",
+  "bill_number": 6881,
+  "title": "AI Foundation Model Transparency Act of 2023",
+  "short_title": null,
+  "sponsor": "Rep. Beyer, Donald S., Jr. [D-VA-8] (D-VA)",
+  "introduced_date": "2023-12-22",
+  "latest_action": "2023-12-22: Referred to the House Committee on Energy and Commerce.",
+  "policy_area": "Commerce",
+  "subjects": [],
+  "summary_text": null,
+  "centrality_score": 4.0,
+  "match_locations": {
+    "title": [
+      "AI"
+    ]
+  },
+  "tier": "A",
+  "stream": "legislation",
+  "versions_available": [
+    {
+      "package_id": "BILLS-118hr6881ih",
+      "version_code": "ih",
+      "date_issued": "2023-12-22"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-118hr6881ih",
+    "version_code": "ih",
+    "date_issued": "2023-12-22"
+  },
+  "actions": [
+    {
+      "actionCode": "H11100",
+      "actionDate": "2023-12-22",
+      "committees": [
+        {
+          "name": "Energy and Commerce Committee",
+          "systemCode": "hsif00",
+          "url": "https://api.congress.gov/v3/committee/house/hsif00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "code": 2,
+        "name": "House floor actions"
+      },
+      "text": "Referred to the House Committee on Energy and Commerce.",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "Intro-H",
+      "actionDate": "2023-12-22",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in House",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "1000",
+      "actionDate": "2023-12-22",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in House",
+      "type": "IntroReferral"
+    }
+  ],
+  "cosponsors": [
+    {
+      "bioguideId": "E000215",
+      "district": 16,
+      "firstName": "ANNA",
+      "fullName": "Rep. Eshoo, Anna G. [D-CA-16]",
+      "isOriginalCosponsor": true,
+      "lastName": "ESHOO",
+      "middleName": "G.",
+      "party": "D",
+      "sponsorshipDate": "2023-12-22",
+      "state": "CA",
+      "url": "https://api.congress.gov/v3/member/E000215?format=json"
+    },
+    {
+      "bioguideId": "M000312",
+      "district": 2,
+      "firstName": "James",
+      "fullName": "Rep. McGovern, James P. [D-MA-2]",
+      "isOriginalCosponsor": false,
+      "lastName": "McGovern",
+      "middleName": "P.",
+      "party": "D",
+      "sponsorshipDate": "2024-04-19",
+      "state": "MA",
+      "url": "https://api.congress.gov/v3/member/M000312?format=json"
+    },
+    {
+      "bioguideId": "E000297",
+      "district": 13,
+      "firstName": "Adriano",
+      "fullName": "Rep. Espaillat, Adriano [D-NY-13]",
+      "isOriginalCosponsor": false,
+      "lastName": "Espaillat",
+      "party": "D",
+      "sponsorshipDate": "2024-05-21",
+      "state": "NY",
+      "url": "https://api.congress.gov/v3/member/E000297?format=json"
+    },
+    {
+      "bioguideId": "T000481",
+      "district": 12,
+      "firstName": "Rashida",
+      "fullName": "Rep. Tlaib, Rashida [D-MI-12]",
+      "isOriginalCosponsor": false,
+      "lastName": "Tlaib",
+      "party": "D",
+      "sponsorshipDate": "2024-05-22",
+      "state": "MI",
+      "url": "https://api.congress.gov/v3/member/T000481?format=json"
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "bill_id": "118-s-4870",
+  "congress": 118,
+  "bill_type": "s",
+  "bill_number": 4870,
+  "title": "A bill to require reports on artificial intelligence regulation in the financial services industry.",
+  "short_title": null,
+  "sponsor": "Sen. Rounds, Mike [R-SD] (R-SD)",
+  "introduced_date": "2024-07-30",
+  "latest_action": "2024-07-30: Read twice and referred to the Committee on Banking, Housing, and Urban Affairs.",
+  "policy_area": "Finance and Financial Sector",
+  "subjects": [],
+  "summary_text": null,
+  "centrality_score": 4.0,
+  "match_locations": {
+    "title": [
+      "artificial intelligence"
+    ]
+  },
+  "tier": "A",
+  "stream": "legislation",
+  "versions_available": [
+    {
+      "package_id": "BILLS-118s4870is",
+      "version_code": "is",
+      "date_issued": "2024-07-30"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-118s4870is",
+    "version_code": "is",
+    "date_issued": "2024-07-30"
+  },
+  "actions": [
+    {
+      "actionDate": "2024-07-30",
+      "committees": [
+        {
+          "name": "Banking, Housing, and Urban Affairs Committee",
+          "systemCode": "ssbk00",
+          "url": "https://api.congress.gov/v3/committee/senate/ssbk00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "name": "Senate"
+      },
+      "text": "Read twice and referred to the Committee on Banking, Housing, and Urban Affairs.",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "10000",
+      "actionDate": "2024-07-30",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in Senate",
+      "type": "IntroReferral"
+    }
+  ],
+  "cosponsors": [
+    {
+      "bioguideId": "S000148",
+      "firstName": "Charles",
+      "fullName": "Sen. Schumer, Charles E. [D-NY]",
+      "isOriginalCosponsor": true,
+      "lastName": "Schumer",
+      "middleName": "E.",
+      "party": "D",
+      "sponsorshipDate": "2024-07-30",
+      "state": "NY",
+      "url": "https://api.congress.gov/v3/member/S000148?format=json"
+    },
+    {
+      "bioguideId": "H001046",
+      "firstName": "Martin",
+      "fullName": "Sen. Heinrich, Martin [D-NM]",
+      "isOriginalCosponsor": true,
+      "lastName": "Heinrich",
+      "middleName": "T.",
+      "party": "D",
+      "sponsorshipDate": "2024-07-30",
+      "state": "NM",
+      "url": "https://api.congress.gov/v3/member/H001046?format=json"
+    },
+    {
+      "bioguideId": "Y000064",
+      "firstName": "Todd",
+      "fullName": "Sen. Young, Todd [R-IN]",
+      "isOriginalCosponsor": true,
+      "lastName": "Young",
+      "party": "R",
+      "sponsorshipDate": "2024-07-30",
+      "state": "IN",
+      "url": "https://api.congress.gov/v3/member/Y000064?format=json"
+    }
+  ]
+}

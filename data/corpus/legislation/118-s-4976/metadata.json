@@ -1,0 +1,85 @@
+{
+  "bill_id": "118-s-4976",
+  "congress": 118,
+  "bill_type": "s",
+  "bill_number": 4976,
+  "title": "Artificial Intelligence Acquisitions Act of 2024",
+  "short_title": null,
+  "sponsor": "Sen. Rubio, Marco [R-FL] (R-FL)",
+  "introduced_date": "2024-08-01",
+  "latest_action": "2024-08-01: Read twice and referred to the Committee on Commerce, Science, and Transportation.",
+  "policy_area": "Science, Technology, Communications",
+  "subjects": [],
+  "summary_text": null,
+  "centrality_score": 4.0,
+  "match_locations": {
+    "title": [
+      "artificial intelligence"
+    ]
+  },
+  "tier": "A",
+  "stream": "legislation",
+  "versions_available": [
+    {
+      "package_id": "BILLS-118s4976is",
+      "version_code": "is",
+      "date_issued": "2024-08-01"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-118s4976is",
+    "version_code": "is",
+    "date_issued": "2024-08-01"
+  },
+  "actions": [
+    {
+      "actionDate": "2024-08-01",
+      "committees": [
+        {
+          "name": "Commerce, Science, and Transportation Committee",
+          "systemCode": "sscm00",
+          "url": "https://api.congress.gov/v3/committee/senate/sscm00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "name": "Senate"
+      },
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation.",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "10000",
+      "actionDate": "2024-08-01",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in Senate",
+      "type": "IntroReferral"
+    }
+  ],
+  "cosponsors": [
+    {
+      "bioguideId": "S001217",
+      "firstName": "Rick",
+      "fullName": "Sen. Scott, Rick [R-FL]",
+      "isOriginalCosponsor": true,
+      "lastName": "Scott",
+      "party": "R",
+      "sponsorshipDate": "2024-08-01",
+      "state": "FL",
+      "url": "https://api.congress.gov/v3/member/S001217?format=json"
+    },
+    {
+      "bioguideId": "B001261",
+      "firstName": "John",
+      "fullName": "Sen. Barrasso, John [R-WY]",
+      "isOriginalCosponsor": true,
+      "lastName": "Barrasso",
+      "party": "R",
+      "sponsorshipDate": "2024-08-01",
+      "state": "WY",
+      "url": "https://api.congress.gov/v3/member/B001261?format=json"
+    }
+  ]
+}

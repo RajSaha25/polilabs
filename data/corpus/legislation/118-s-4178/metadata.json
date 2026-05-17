@@ -1,0 +1,215 @@
+{
+  "bill_id": "118-s-4178",
+  "congress": 118,
+  "bill_type": "s",
+  "bill_number": 4178,
+  "title": "Future of Artificial Intelligence Innovation Act of 2024",
+  "short_title": null,
+  "sponsor": "Sen. Cantwell, Maria [D-WA] (D-WA)",
+  "introduced_date": "2024-04-18",
+  "latest_action": "2024-12-18: Placed on Senate Legislative Calendar under General Orders. Calendar No. 725.",
+  "policy_area": "Science, Technology, Communications",
+  "subjects": [],
+  "summary_text": null,
+  "centrality_score": 4.0,
+  "match_locations": {
+    "title": [
+      "artificial intelligence"
+    ]
+  },
+  "tier": "A",
+  "stream": "legislation",
+  "versions_available": [
+    {
+      "package_id": "BILLS-118s4178rs",
+      "version_code": "rs",
+      "date_issued": "2024-12-18"
+    },
+    {
+      "package_id": "BILLS-118s4178is",
+      "version_code": "is",
+      "date_issued": "2024-04-18"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-118s4178rs",
+    "version_code": "rs",
+    "date_issued": "2024-12-18"
+  },
+  "actions": [
+    {
+      "actionDate": "2024-12-18",
+      "sourceSystem": {
+        "name": "Senate"
+      },
+      "text": "Placed on Senate Legislative Calendar under General Orders. Calendar No. 725.",
+      "type": "Calendars"
+    },
+    {
+      "actionDate": "2024-12-18",
+      "committees": [
+        {
+          "name": "Commerce, Science, and Transportation Committee",
+          "systemCode": "sscm00",
+          "url": "https://api.congress.gov/v3/committee/senate/sscm00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "name": "Senate"
+      },
+      "text": "Committee on Commerce, Science, and Transportation. Reported by Senator Cantwell with an amendment in the nature of a substitute. Without written report.",
+      "type": "Committee"
+    },
+    {
+      "actionCode": "14000",
+      "actionDate": "2024-12-18",
+      "committees": [
+        {
+          "name": "Commerce, Science, and Transportation Committee",
+          "systemCode": "sscm00",
+          "url": "https://api.congress.gov/v3/committee/senate/sscm00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Committee on Commerce, Science, and Transportation. Reported by Senator Cantwell with an amendment in the nature of a substitute. Without written report.",
+      "type": "Committee"
+    },
+    {
+      "actionDate": "2024-07-31",
+      "committees": [
+        {
+          "name": "Commerce, Science, and Transportation Committee",
+          "systemCode": "sscm00",
+          "url": "https://api.congress.gov/v3/committee/senate/sscm00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "name": "Senate"
+      },
+      "text": "Committee on Commerce, Science, and Transportation. Ordered to be reported with an amendment in the nature of a substitute favorably.",
+      "type": "Committee"
+    },
+    {
+      "actionDate": "2024-04-18",
+      "committees": [
+        {
+          "name": "Commerce, Science, and Transportation Committee",
+          "systemCode": "sscm00",
+          "url": "https://api.congress.gov/v3/committee/senate/sscm00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "name": "Senate"
+      },
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation.",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "10000",
+      "actionDate": "2024-04-18",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in Senate",
+      "type": "IntroReferral"
+    }
+  ],
+  "cosponsors": [
+    {
+      "bioguideId": "Y000064",
+      "firstName": "Todd",
+      "fullName": "Sen. Young, Todd [R-IN]",
+      "isOriginalCosponsor": true,
+      "lastName": "Young",
+      "party": "R",
+      "sponsorshipDate": "2024-04-18",
+      "state": "IN",
+      "url": "https://api.congress.gov/v3/member/Y000064?format=json"
+    },
+    {
+      "bioguideId": "H000273",
+      "firstName": "John",
+      "fullName": "Sen. Hickenlooper, John W. [D-CO]",
+      "isOriginalCosponsor": true,
+      "lastName": "Hickenlooper",
+      "middleName": "W.",
+      "party": "D",
+      "sponsorshipDate": "2024-04-18",
+      "state": "CO",
+      "url": "https://api.congress.gov/v3/member/H000273?format=json"
+    },
+    {
+      "bioguideId": "B001243",
+      "firstName": "Marsha",
+      "fullName": "Sen. Blackburn, Marsha [R-TN]",
+      "isOriginalCosponsor": true,
+      "lastName": "Blackburn",
+      "party": "R",
+      "sponsorshipDate": "2024-04-18",
+      "state": "TN",
+      "url": "https://api.congress.gov/v3/member/B001243?format=json"
+    },
+    {
+      "bioguideId": "W000437",
+      "firstName": "Roger",
+      "fullName": "Sen. Wicker, Roger F. [R-MS]",
+      "isOriginalCosponsor": false,
+      "lastName": "Wicker",
+      "middleName": "F.",
+      "party": "R",
+      "sponsorshipDate": "2024-07-08",
+      "state": "MS",
+      "url": "https://api.congress.gov/v3/member/W000437?format=json"
+    },
+    {
+      "bioguideId": "L000570",
+      "firstName": "Ben",
+      "fullName": "Sen. Luj\u00e1n, Ben Ray [D-NM]",
+      "isOriginalCosponsor": false,
+      "lastName": "Luj\u00e1n",
+      "middleName": "R.",
+      "party": "D",
+      "sponsorshipDate": "2024-07-08",
+      "state": "NM",
+      "url": "https://api.congress.gov/v3/member/L000570?format=json"
+    },
+    {
+      "bioguideId": "S001191",
+      "firstName": "Kyrsten",
+      "fullName": "Sen. Sinema, Kyrsten [I-AZ]",
+      "isOriginalCosponsor": false,
+      "lastName": "Sinema",
+      "party": "I",
+      "sponsorshipDate": "2024-07-31",
+      "state": "AZ",
+      "url": "https://api.congress.gov/v3/member/S001191?format=json"
+    },
+    {
+      "bioguideId": "R000605",
+      "firstName": "Mike",
+      "fullName": "Sen. Rounds, Mike [R-SD]",
+      "isOriginalCosponsor": false,
+      "lastName": "Rounds",
+      "party": "R",
+      "sponsorshipDate": "2024-11-13",
+      "state": "SD",
+      "url": "https://api.congress.gov/v3/member/R000605?format=json"
+    },
+    {
+      "bioguideId": "S000148",
+      "firstName": "Charles",
+      "fullName": "Sen. Schumer, Charles E. [D-NY]",
+      "isOriginalCosponsor": false,
+      "lastName": "Schumer",
+      "middleName": "E.",
+      "party": "D",
+      "sponsorshipDate": "2024-11-13",
+      "state": "NY",
+      "url": "https://api.congress.gov/v3/member/S000148?format=json"
+    }
+  ]
+}

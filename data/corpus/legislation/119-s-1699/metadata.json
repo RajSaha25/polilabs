@@ -1,0 +1,118 @@
+{
+  "bill_id": "119-s-1699",
+  "congress": 119,
+  "bill_type": "s",
+  "bill_number": 1699,
+  "title": "Artificial Intelligence Public Awareness and Education Campaign Act",
+  "short_title": null,
+  "sponsor": "Sen. Young, Todd [R-IN] (R-IN)",
+  "introduced_date": "2025-05-08",
+  "latest_action": "2025-05-08: Read twice and referred to the Committee on Commerce, Science, and Transportation.",
+  "policy_area": "Science, Technology, Communications",
+  "subjects": [],
+  "summary_text": null,
+  "centrality_score": 4.0,
+  "match_locations": {
+    "title": [
+      "artificial intelligence"
+    ]
+  },
+  "tier": "A",
+  "stream": "legislation",
+  "versions_available": [
+    {
+      "package_id": "BILLS-119s1699is",
+      "version_code": "is",
+      "date_issued": "2025-05-08"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-119s1699is",
+    "version_code": "is",
+    "date_issued": "2025-05-08"
+  },
+  "actions": [
+    {
+      "actionDate": "2025-05-08",
+      "committees": [
+        {
+          "name": "Commerce, Science, and Transportation Committee",
+          "systemCode": "sscm00",
+          "url": "https://api.congress.gov/v3/committee/senate/sscm00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "name": "Senate"
+      },
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation.",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "10000",
+      "actionDate": "2025-05-08",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in Senate",
+      "type": "IntroReferral"
+    }
+  ],
+  "cosponsors": [
+    {
+      "bioguideId": "S001194",
+      "firstName": "Brian",
+      "fullName": "Sen. Schatz, Brian [D-HI]",
+      "isOriginalCosponsor": true,
+      "lastName": "Schatz",
+      "party": "D",
+      "sponsorshipDate": "2025-05-08",
+      "state": "HI",
+      "url": "https://api.congress.gov/v3/member/S001194?format=json"
+    },
+    {
+      "bioguideId": "R000605",
+      "firstName": "Mike",
+      "fullName": "Sen. Rounds, Mike [R-SD]",
+      "isOriginalCosponsor": true,
+      "lastName": "Rounds",
+      "party": "R",
+      "sponsorshipDate": "2025-05-08",
+      "state": "SD",
+      "url": "https://api.congress.gov/v3/member/R000605?format=json"
+    },
+    {
+      "bioguideId": "K000377",
+      "firstName": "Mark",
+      "fullName": "Sen. Kelly, Mark [D-AZ]",
+      "isOriginalCosponsor": true,
+      "lastName": "Kelly",
+      "party": "D",
+      "sponsorshipDate": "2025-05-08",
+      "state": "AZ",
+      "url": "https://api.congress.gov/v3/member/K000377?format=json"
+    },
+    {
+      "bioguideId": "B001303",
+      "firstName": "Lisa",
+      "fullName": "Sen. Blunt Rochester, Lisa [D-DE]",
+      "isOriginalCosponsor": false,
+      "lastName": "Blunt Rochester",
+      "party": "D",
+      "sponsorshipDate": "2025-11-04",
+      "state": "DE",
+      "url": "https://api.congress.gov/v3/member/B001303?format=json"
+    },
+    {
+      "bioguideId": "C001056",
+      "firstName": "John",
+      "fullName": "Sen. Cornyn, John [R-TX]",
+      "isOriginalCosponsor": false,
+      "lastName": "Cornyn",
+      "party": "R",
+      "sponsorshipDate": "2025-11-04",
+      "state": "TX",
+      "url": "https://api.congress.gov/v3/member/C001056?format=json"
+    }
+  ]
+}

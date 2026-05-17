@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="billres.xsl"?>
+<!DOCTYPE bill PUBLIC "-//US Congress//DTDs/bill.dtd//EN" "bill.dtd">
+<bill bill-stage="Engrossed-in-House" dms-id="HD5587837D5EF4C73830C018067EBC323" public-private="public" key="H" bill-type="olc" stage-count="1">
+<metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+<dublinCore>
+<dc:title>119 HR 5764 EH: AI for Main Street Act</dc:title>
+<dc:publisher>U.S. House of Representatives</dc:publisher>
+<dc:date></dc:date>
+<dc:format>text/xml</dc:format>
+<dc:language>EN</dc:language>
+<dc:rights>Pursuant to Title 17 Section 105 of the United States Code, this file is not subject to copyright protection and is in the public domain.</dc:rights>
+</dublinCore>
+</metadata>
+<form>
+<distribution-code display="no">IB</distribution-code>
+<congress display="yes">119th CONGRESS</congress><session display="yes">2d Session</session>
+<legis-num display="yes">H. R. 5764</legis-num>
+<current-chamber display="no">IN THE HOUSE OF REPRESENTATIVES</current-chamber>
+<legis-type>AN ACT</legis-type>
+<official-title display="yes">To amend the Small Business Act to require small business development centers to assist small business concerns with the use of artificial intelligence, and for other purposes.</official-title>
+</form>
+<legis-body display-enacting-clause="yes-display-enacting-clause" style="OLC" id="HD9D5CF828A1740258B5846A44243DAD2">
+<section id="H2BCF34133E8740BDB95B09072439EDBE" section-type="section-one"><enum>1.</enum><header>Short title</header><text display-inline="no-display-inline">This Act may be cited as the <quote><short-title>AI for Main Street Act</short-title></quote>.</text></section> <section id="HAA86E9DE99AF4A12B5BA8F0AF1C5C5F6"><enum>2.</enum><header>Guidance on the use of artificial intelligence for small business concerns</header> <subsection id="H4AF1286910CD4CE2BF8430796E3CBFC8"><enum>(a)</enum><header>In general</header><text display-inline="yes-display-inline">Section 21(c)(3) of the Small Business Act (<external-xref legal-doc="usc" parsable-cite="usc/15/648">15 U.S.C. 648(c)(3)</external-xref>) is amended—</text>
+<paragraph id="H27ED9C0D605B4C94BE26D05909AE560E"><enum>(1)</enum><text>in subparagraph (T), by striking <quote>and</quote> at the end;</text></paragraph> <paragraph id="HF14F556DF790480B8973B6BE7779C737"><enum>(2)</enum><text>in the first subparagraph (U) (relating to encouraging and assisting the provision of succession planning), by striking the period at the end and inserting a semicolon;</text></paragraph>
+<paragraph id="HAA8F8B7722F94D129C2EB511C2813743"><enum>(3)</enum><text>by redesignating the second subparagraph (U) (relating to providing training in conjunction with the United States Patent and Trademark Office) as subparagraph (V);</text></paragraph> <paragraph id="HEC46ADA362554E9B93A0B5669430BBF7"><enum>(4)</enum><text>in subparagraph (V), as so redesignated, by striking the period at the end and inserting <quote>; and</quote>; and</text></paragraph>
+<paragraph id="HEF16D39DAD52440F93BE48644E4C8E03"><enum>(5)</enum><text>by adding at the end the following new subparagraph:</text> <quoted-block style="OLC" id="H90474088BE954CABBB2A482937097EC7" display-inline="no-display-inline"> <subparagraph id="H8A4E3D9561ED40F08D4B006273582441" indent="up1"><enum>(W)</enum><text display-inline="yes-display-inline">assisting small business concerns in evaluating artificial intelligence concerning operations, including by—</text>
+<clause id="HAC750E4FE94B4CB1BF467E01315C4B1E"><enum>(i)</enum><text>providing information, guidance, and training to small business concerns on the use of artificial intelligence, including—</text> <subclause id="H8E98B4FD34204F54B681EA56CFD6FA0B"><enum>(I)</enum><text>best practices for using artificial intelligence;</text></subclause>
+<subclause id="H440D01A381BA48AD861BC127ACB6CF9C"><enum>(II)</enum><text>using artificial intelligence to plan for unexpected circumstances, protect data and intellectual property, improve cybersecurity, facilitate regulatory compliance, and improve customer trust; and</text></subclause> <subclause id="HEC7F9B7759224506B4F5C08C5FC4DC47"><enum>(III)</enum><text>incorporating artificial intelligence into business operations; and</text></subclause></clause>
+<clause id="HB376C3A544B74F75904BD92B4BC5175D"><enum>(ii)</enum><text>conducting outreach to the extent practical to small business concerns regarding the use of artificial intelligence.</text></clause></subparagraph><after-quoted-block>.</after-quoted-block></quoted-block></paragraph></subsection> <subsection id="H3AA917FBE9E64B459C6900309DDC0909"><enum>(b)</enum><header>Conforming amendment</header><text>Section 3 of the Small Business Act (<external-xref legal-doc="usc" parsable-cite="usc/15/632">15 U.S.C. 632</external-xref>) is amended by adding at the end the following new subsection:</text>
+<quoted-block style="OLC" id="HD874A0DA08604AB68E7608FDA5BC3D82" display-inline="no-display-inline">
+<subsection id="HDD0A4BA30B194F08A591B58453DD3C8A"><enum>(gg)</enum><header>Artificial intelligence</header><text display-inline="yes-display-inline">In this Act, the term <term>artificial intelligence</term> has the meaning given such term in section 5002 of the National Artificial Intelligence Initiative Act of 2020 (<external-xref legal-doc="usc" parsable-cite="usc/15/9401">15 U.S.C. 9401</external-xref>).</text></subsection><after-quoted-block>.</after-quoted-block></quoted-block></subsection></section> <section id="HCA6F46CD0D4944BD84B438AF816EEDCE" display-inline="no-display-inline" section-type="subsequent-section"><enum>3.</enum><header>Compliance with CUTGO</header><text display-inline="no-display-inline">No additional amounts are authorized to carry out this Act or the amendments made by this Act.</text></section>
+</legis-body><attestation><attestation-group><attestation-date date="20260120" chamber="House">Passed the House of Representatives January 20, 2026.</attestation-date><attestor display="no">Kevin F. McCumber,</attestor><role>Clerk.</role></attestation-group></attestation>
+<endorsement display="yes"></endorsement>
+</bill> 
+
+

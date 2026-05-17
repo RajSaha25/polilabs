@@ -1,0 +1,138 @@
+{
+  "bill_id": "118-s-1564",
+  "congress": 118,
+  "bill_type": "s",
+  "bill_number": 1564,
+  "title": "AI Leadership Training Act",
+  "short_title": null,
+  "sponsor": "Sen. Peters, Gary C. [D-MI] (D-MI)",
+  "introduced_date": "2023-05-11",
+  "latest_action": "2023-11-02: Placed on Senate Legislative Calendar under General Orders. Calendar No. 234.",
+  "policy_area": "Government Operations and Politics",
+  "subjects": [],
+  "summary_text": " Artificial Intelligence Leadership Training Act or the AI Leadership Training Act This bill requires the Office of Personnel Management (OPM) to develop and implement an annual training program on artificial intelligence (AI) for federal managers, supervisors, and other employees designated to participate in the program. The program shall, at a minimum, include information relating to  what AI is and how it works, the benefits offered and risks posed by AI, ways to mitigate the risks of AI,  organizational considerations for the development and deployment of AI, and other specified topics.  The program must be updated at least every two years. OPM must establish a means by which to (1) understand and measure the participation of employees in the program, and (2) receive and consider feedback from participants. The bill terminates 10 years after its enactment.",
+  "centrality_score": 6.0,
+  "match_locations": {
+    "title": [
+      "AI"
+    ],
+    "summary": [
+      "artificial intelligence",
+      "AI"
+    ]
+  },
+  "tier": "A",
+  "stream": "legislation",
+  "versions_available": [
+    {
+      "package_id": "BILLS-118s1564rs",
+      "version_code": "rs",
+      "date_issued": "2023-11-02"
+    },
+    {
+      "package_id": "BILLS-118s1564is",
+      "version_code": "is",
+      "date_issued": "2023-05-11"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-118s1564rs",
+    "version_code": "rs",
+    "date_issued": "2023-11-02"
+  },
+  "actions": [
+    {
+      "actionDate": "2023-11-02",
+      "sourceSystem": {
+        "name": "Senate"
+      },
+      "text": "Placed on Senate Legislative Calendar under General Orders. Calendar No. 234.",
+      "type": "Calendars"
+    },
+    {
+      "actionDate": "2023-11-02",
+      "committees": [
+        {
+          "name": "Homeland Security and Governmental Affairs Committee",
+          "systemCode": "ssga00",
+          "url": "https://api.congress.gov/v3/committee/senate/ssga00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "name": "Senate"
+      },
+      "text": "Committee on Homeland Security and Governmental Affairs. Reported by Senator Peters with an amendment in the nature of a substitute. With written report No. 118-109.",
+      "type": "Committee"
+    },
+    {
+      "actionCode": "14000",
+      "actionDate": "2023-11-02",
+      "committees": [
+        {
+          "name": "Homeland Security and Governmental Affairs Committee",
+          "systemCode": "ssga00",
+          "url": "https://api.congress.gov/v3/committee/senate/ssga00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Committee on Homeland Security and Governmental Affairs. Reported by Senator Peters with an amendment in the nature of a substitute. With written report No. 118-109.",
+      "type": "Committee"
+    },
+    {
+      "actionDate": "2023-05-17",
+      "committees": [
+        {
+          "name": "Homeland Security and Governmental Affairs Committee",
+          "systemCode": "ssga00",
+          "url": "https://api.congress.gov/v3/committee/senate/ssga00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "name": "Senate"
+      },
+      "text": "Committee on Homeland Security and Governmental Affairs. Ordered to be reported with an amendment in the nature of a substitute favorably.",
+      "type": "Committee"
+    },
+    {
+      "actionDate": "2023-05-11",
+      "committees": [
+        {
+          "name": "Homeland Security and Governmental Affairs Committee",
+          "systemCode": "ssga00",
+          "url": "https://api.congress.gov/v3/committee/senate/ssga00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "name": "Senate"
+      },
+      "text": "Read twice and referred to the Committee on Homeland Security and Governmental Affairs.",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "10000",
+      "actionDate": "2023-05-11",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in Senate",
+      "type": "IntroReferral"
+    }
+  ],
+  "cosponsors": [
+    {
+      "bioguideId": "B001310",
+      "firstName": "Mike",
+      "fullName": "Sen. Braun, Mike [R-IN]",
+      "isOriginalCosponsor": true,
+      "lastName": "Braun",
+      "party": "R",
+      "sponsorshipDate": "2023-05-11",
+      "state": "IN",
+      "url": "https://api.congress.gov/v3/member/B001310?format=json"
+    }
+  ]
+}

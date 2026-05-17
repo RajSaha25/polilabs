@@ -1,0 +1,75 @@
+{
+  "bill_id": "118-s-4896",
+  "congress": 118,
+  "bill_type": "s",
+  "bill_number": 4896,
+  "title": "AI Innovation and Development for Efficiency Act of 2024",
+  "short_title": null,
+  "sponsor": "Sen. Welch, Peter [D-VT] (D-VT)",
+  "introduced_date": "2024-07-31",
+  "latest_action": "2024-07-31: Read twice and referred to the Committee on Commerce, Science, and Transportation.",
+  "policy_area": "Science, Technology, Communications",
+  "subjects": [],
+  "summary_text": null,
+  "centrality_score": 4.0,
+  "match_locations": {
+    "title": [
+      "AI"
+    ]
+  },
+  "tier": "A",
+  "stream": "legislation",
+  "versions_available": [
+    {
+      "package_id": "BILLS-118s4896is",
+      "version_code": "is",
+      "date_issued": "2024-07-31"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-118s4896is",
+    "version_code": "is",
+    "date_issued": "2024-07-31"
+  },
+  "actions": [
+    {
+      "actionDate": "2024-07-31",
+      "committees": [
+        {
+          "name": "Commerce, Science, and Transportation Committee",
+          "systemCode": "sscm00",
+          "url": "https://api.congress.gov/v3/committee/senate/sscm00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "name": "Senate"
+      },
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation.",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "10000",
+      "actionDate": "2024-07-31",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in Senate",
+      "type": "IntroReferral"
+    }
+  ],
+  "cosponsors": [
+    {
+      "bioguideId": "L000570",
+      "firstName": "Ben",
+      "fullName": "Sen. Luj\u00e1n, Ben Ray [D-NM]",
+      "isOriginalCosponsor": true,
+      "lastName": "Luj\u00e1n",
+      "middleName": "R.",
+      "party": "D",
+      "sponsorshipDate": "2024-07-31",
+      "state": "NM",
+      "url": "https://api.congress.gov/v3/member/L000570?format=json"
+    }
+  ]
+}

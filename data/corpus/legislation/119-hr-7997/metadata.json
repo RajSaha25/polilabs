@@ -1,0 +1,112 @@
+{
+  "bill_id": "119-hr-7997",
+  "congress": 119,
+  "bill_type": "hr",
+  "bill_number": 7997,
+  "title": "Research and Oversight of AI in Courts Act of 2026",
+  "short_title": null,
+  "sponsor": "Rep. Hageman, Harriet M. [R-WY-At Large] (R-WY)",
+  "introduced_date": "2026-03-19",
+  "latest_action": "2026-03-19: Referred to the House Committee on the Judiciary.",
+  "policy_area": "Law",
+  "subjects": [],
+  "summary_text": null,
+  "centrality_score": 4.0,
+  "match_locations": {
+    "title": [
+      "AI"
+    ]
+  },
+  "tier": "A",
+  "stream": "legislation",
+  "versions_available": [
+    {
+      "package_id": "BILLS-119hr7997ih",
+      "version_code": "ih",
+      "date_issued": "2026-03-19"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-119hr7997ih",
+    "version_code": "ih",
+    "date_issued": "2026-03-19"
+  },
+  "actions": [
+    {
+      "actionCode": "H11100",
+      "actionDate": "2026-03-19",
+      "committees": [
+        {
+          "name": "Judiciary Committee",
+          "systemCode": "hsju00",
+          "url": "https://api.congress.gov/v3/committee/house/hsju00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "code": 2,
+        "name": "House floor actions"
+      },
+      "text": "Referred to the House Committee on the Judiciary.",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "Intro-H",
+      "actionDate": "2026-03-19",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in House",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "1000",
+      "actionDate": "2026-03-19",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in House",
+      "type": "IntroReferral"
+    }
+  ],
+  "cosponsors": [
+    {
+      "bioguideId": "S001212",
+      "district": 8,
+      "firstName": "Pete",
+      "fullName": "Rep. Stauber, Pete [R-MN-8]",
+      "isOriginalCosponsor": true,
+      "lastName": "Stauber",
+      "party": "R",
+      "sponsorshipDate": "2026-03-19",
+      "state": "MN",
+      "url": "https://api.congress.gov/v3/member/S001212?format=json"
+    },
+    {
+      "bioguideId": "N000147",
+      "district": 0,
+      "firstName": "Eleanor",
+      "fullName": "Del. Norton, Eleanor Holmes [D-DC-At Large]",
+      "isOriginalCosponsor": false,
+      "lastName": "Norton",
+      "middleName": "Holmes",
+      "party": "D",
+      "sponsorshipDate": "2026-03-27",
+      "state": "DC",
+      "url": "https://api.congress.gov/v3/member/N000147?format=json"
+    },
+    {
+      "bioguideId": "S001228",
+      "district": 2,
+      "firstName": "Derek",
+      "fullName": "Rep. Schmidt, Derek [R-KS-2]",
+      "isOriginalCosponsor": false,
+      "lastName": "Schmidt",
+      "party": "R",
+      "sponsorshipDate": "2026-04-16",
+      "state": "KS",
+      "url": "https://api.congress.gov/v3/member/S001228?format=json"
+    }
+  ]
+}

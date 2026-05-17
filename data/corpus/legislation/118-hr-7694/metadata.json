@@ -1,0 +1,91 @@
+{
+  "bill_id": "118-hr-7694",
+  "congress": 118,
+  "bill_type": "hr",
+  "bill_number": 7694,
+  "title": "No AI Audits Act",
+  "short_title": null,
+  "sponsor": "Rep. Higgins, Clay [R-LA-3] (R-LA)",
+  "introduced_date": "2024-03-15",
+  "latest_action": "2024-03-15: Referred to the House Committee on Ways and Means.",
+  "policy_area": "Taxation",
+  "subjects": [],
+  "summary_text": " No AI Audits Act   This bill prohibits the Internal Revenue Service (IRS) from conducting a taxpayer audit based upon the use of artificial intelligence (AI) unless it determines that such AI meets certain explainability principles established by the National Institute of Standards and Technology. Additionally, the bill requires that any investigation or examination of a taxpayer can only be selected or initiated by an IRS staff investigator.",
+  "centrality_score": 6.0,
+  "match_locations": {
+    "title": [
+      "AI"
+    ],
+    "summary": [
+      "artificial intelligence",
+      "AI"
+    ]
+  },
+  "tier": "A",
+  "stream": "legislation",
+  "versions_available": [
+    {
+      "package_id": "BILLS-118hr7694ih",
+      "version_code": "ih",
+      "date_issued": "2024-03-15"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-118hr7694ih",
+    "version_code": "ih",
+    "date_issued": "2024-03-15"
+  },
+  "actions": [
+    {
+      "actionCode": "H11100",
+      "actionDate": "2024-03-15",
+      "committees": [
+        {
+          "name": "Ways and Means Committee",
+          "systemCode": "hswm00",
+          "url": "https://api.congress.gov/v3/committee/house/hswm00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "code": 2,
+        "name": "House floor actions"
+      },
+      "text": "Referred to the House Committee on Ways and Means.",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "Intro-H",
+      "actionDate": "2024-03-15",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in House",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "1000",
+      "actionDate": "2024-03-15",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in House",
+      "type": "IntroReferral"
+    }
+  ],
+  "cosponsors": [
+    {
+      "bioguideId": "B001316",
+      "district": 7,
+      "firstName": "Eric",
+      "fullName": "Rep. Burlison, Eric [R-MO-7]",
+      "isOriginalCosponsor": true,
+      "lastName": "Burlison",
+      "party": "R",
+      "sponsorshipDate": "2024-03-15",
+      "state": "MO",
+      "url": "https://api.congress.gov/v3/member/B001316?format=json"
+    }
+  ]
+}

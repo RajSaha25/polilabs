@@ -1,0 +1,323 @@
+{
+  "bill_id": "118-hr-8005",
+  "congress": 118,
+  "bill_type": "hr",
+  "bill_number": 8005,
+  "title": "Child Exploitation and Artificial Intelligence Expert Commission Act of 2024",
+  "short_title": null,
+  "sponsor": "Rep. Langworthy, Nicholas A. [R-NY-23] (R-NY)",
+  "introduced_date": "2024-04-15",
+  "latest_action": "2024-04-15: Referred to the House Committee on the Judiciary.",
+  "policy_area": "Crime and Law Enforcement",
+  "subjects": [],
+  "summary_text": null,
+  "centrality_score": 4.0,
+  "match_locations": {
+    "title": [
+      "artificial intelligence"
+    ]
+  },
+  "tier": "A",
+  "stream": "legislation",
+  "versions_available": [
+    {
+      "package_id": "BILLS-118hr8005ih",
+      "version_code": "ih",
+      "date_issued": "2024-04-15"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-118hr8005ih",
+    "version_code": "ih",
+    "date_issued": "2024-04-15"
+  },
+  "actions": [
+    {
+      "actionCode": "H11100",
+      "actionDate": "2024-04-15",
+      "committees": [
+        {
+          "name": "Judiciary Committee",
+          "systemCode": "hsju00",
+          "url": "https://api.congress.gov/v3/committee/house/hsju00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "code": 2,
+        "name": "House floor actions"
+      },
+      "text": "Referred to the House Committee on the Judiciary.",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "Intro-H",
+      "actionDate": "2024-04-15",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in House",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "1000",
+      "actionDate": "2024-04-15",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in House",
+      "type": "IntroReferral"
+    }
+  ],
+  "cosponsors": [
+    {
+      "bioguideId": "F000478",
+      "district": 7,
+      "firstName": "Russell",
+      "fullName": "Rep. Fry, Russell [R-SC-7]",
+      "isOriginalCosponsor": true,
+      "lastName": "Fry",
+      "party": "R",
+      "sponsorshipDate": "2024-04-15",
+      "state": "SC",
+      "url": "https://api.congress.gov/v3/member/F000478?format=json"
+    },
+    {
+      "bioguideId": "L000599",
+      "district": 17,
+      "firstName": "Michael",
+      "fullName": "Rep. Lawler, Michael [R-NY-17]",
+      "isOriginalCosponsor": true,
+      "lastName": "Lawler",
+      "party": "R",
+      "sponsorshipDate": "2024-04-15",
+      "state": "NY",
+      "url": "https://api.congress.gov/v3/member/L000599?format=json"
+    },
+    {
+      "bioguideId": "D000230",
+      "district": 1,
+      "firstName": "Donald",
+      "fullName": "Rep. Davis, Donald G. [D-NC-1]",
+      "isOriginalCosponsor": true,
+      "lastName": "Davis",
+      "middleName": "G.",
+      "party": "D",
+      "sponsorshipDate": "2024-04-15",
+      "state": "NC",
+      "url": "https://api.congress.gov/v3/member/D000230?format=json"
+    },
+    {
+      "bioguideId": "M001211",
+      "district": 15,
+      "firstName": "Mary",
+      "fullName": "Rep. Miller, Mary E. [R-IL-15]",
+      "isOriginalCosponsor": true,
+      "lastName": "Miller",
+      "middleName": "E.",
+      "party": "R",
+      "sponsorshipDate": "2024-04-15",
+      "state": "IL",
+      "url": "https://api.congress.gov/v3/member/M001211?format=json"
+    },
+    {
+      "bioguideId": "N000193",
+      "district": 3,
+      "firstName": "Zachary",
+      "fullName": "Rep. Nunn, Zachary [R-IA-3]",
+      "isOriginalCosponsor": true,
+      "lastName": "Nunn",
+      "party": "R",
+      "sponsorshipDate": "2024-04-15",
+      "state": "IA",
+      "url": "https://api.congress.gov/v3/member/N000193?format=json"
+    },
+    {
+      "bioguideId": "C001072",
+      "district": 7,
+      "firstName": "Andr\u00e9",
+      "fullName": "Rep. Carson, Andr\u00e9 [D-IN-7]",
+      "isOriginalCosponsor": true,
+      "lastName": "Carson",
+      "party": "D",
+      "sponsorshipDate": "2024-04-15",
+      "state": "IN",
+      "url": "https://api.congress.gov/v3/member/C001072?format=json"
+    },
+    {
+      "bioguideId": "H001091",
+      "district": 2,
+      "firstName": "Ashley",
+      "fullName": "Rep. Hinson, Ashley [R-IA-2]",
+      "isOriginalCosponsor": true,
+      "lastName": "Hinson",
+      "party": "R",
+      "sponsorshipDate": "2024-04-15",
+      "state": "IA",
+      "url": "https://api.congress.gov/v3/member/H001091?format=json"
+    },
+    {
+      "bioguideId": "B001298",
+      "district": 2,
+      "firstName": "Don",
+      "fullName": "Rep. Bacon, Don [R-NE-2]",
+      "isOriginalCosponsor": true,
+      "lastName": "Bacon",
+      "party": "R",
+      "sponsorshipDate": "2024-04-15",
+      "state": "NE",
+      "url": "https://api.congress.gov/v3/member/B001298?format=json"
+    },
+    {
+      "bioguideId": "A000370",
+      "district": 12,
+      "firstName": "Alma",
+      "fullName": "Rep. Adams, Alma S. [D-NC-12]",
+      "isOriginalCosponsor": true,
+      "lastName": "Adams",
+      "middleName": "S.",
+      "party": "D",
+      "sponsorshipDate": "2024-04-15",
+      "state": "NC",
+      "url": "https://api.congress.gov/v3/member/A000370?format=json"
+    },
+    {
+      "bioguideId": "T000478",
+      "district": 24,
+      "firstName": "Claudia",
+      "fullName": "Rep. Tenney, Claudia [R-NY-24]",
+      "isOriginalCosponsor": true,
+      "lastName": "Tenney",
+      "party": "R",
+      "sponsorshipDate": "2024-04-15",
+      "state": "NY",
+      "url": "https://api.congress.gov/v3/member/T000478?format=json"
+    },
+    {
+      "bioguideId": "D000632",
+      "district": 4,
+      "firstName": "Anthony",
+      "fullName": "Rep. D'Esposito, Anthony [R-NY-4]",
+      "isOriginalCosponsor": true,
+      "lastName": "D'Esposito",
+      "party": "R",
+      "sponsorshipDate": "2024-04-15",
+      "state": "NY",
+      "url": "https://api.congress.gov/v3/member/D000632?format=json"
+    },
+    {
+      "bioguideId": "V000136",
+      "district": 2,
+      "firstName": "Gabe",
+      "fullName": "Rep. Vasquez, Gabe [D-NM-2]",
+      "isOriginalCosponsor": false,
+      "lastName": "Vasquez",
+      "party": "D",
+      "sponsorshipDate": "2024-04-16",
+      "state": "NM",
+      "url": "https://api.congress.gov/v3/member/V000136?format=json"
+    },
+    {
+      "bioguideId": "B001282",
+      "district": 6,
+      "firstName": "Andy",
+      "fullName": "Rep. Barr, Andy [R-KY-6]",
+      "isOriginalCosponsor": false,
+      "lastName": "Barr",
+      "party": "R",
+      "sponsorshipDate": "2024-04-29",
+      "state": "KY",
+      "url": "https://api.congress.gov/v3/member/B001282?format=json"
+    },
+    {
+      "bioguideId": "S001218",
+      "district": 1,
+      "firstName": "Melanie",
+      "fullName": "Rep. Stansbury, Melanie A. [D-NM-1]",
+      "isOriginalCosponsor": false,
+      "lastName": "Stansbury",
+      "middleName": "A.",
+      "party": "D",
+      "sponsorshipDate": "2024-04-29",
+      "state": "NM",
+      "url": "https://api.congress.gov/v3/member/S001218?format=json"
+    },
+    {
+      "bioguideId": "L000590",
+      "district": 3,
+      "firstName": "Susie",
+      "fullName": "Rep. Lee, Susie [D-NV-3]",
+      "isOriginalCosponsor": false,
+      "lastName": "Lee",
+      "party": "D",
+      "sponsorshipDate": "2024-05-10",
+      "state": "NV",
+      "url": "https://api.congress.gov/v3/member/L000590?format=json"
+    },
+    {
+      "bioguideId": "M001214",
+      "district": 1,
+      "firstName": "Frank",
+      "fullName": "Rep. Mrvan, Frank J. [D-IN-1]",
+      "isOriginalCosponsor": false,
+      "lastName": "Mrvan",
+      "middleName": "J.",
+      "party": "D",
+      "sponsorshipDate": "2024-05-15",
+      "state": "IN",
+      "url": "https://api.congress.gov/v3/member/M001214?format=json"
+    },
+    {
+      "bioguideId": "M001223",
+      "district": 2,
+      "firstName": "Seth",
+      "fullName": "Rep. Magaziner, Seth [D-RI-2]",
+      "isOriginalCosponsor": false,
+      "lastName": "Magaziner",
+      "party": "D",
+      "sponsorshipDate": "2024-06-11",
+      "state": "RI",
+      "url": "https://api.congress.gov/v3/member/M001223?format=json"
+    },
+    {
+      "bioguideId": "T000487",
+      "district": 2,
+      "firstName": "Jill",
+      "fullName": "Rep. Tokuda, Jill N. [D-HI-2]",
+      "isOriginalCosponsor": false,
+      "lastName": "Tokuda",
+      "middleName": "N.",
+      "party": "D",
+      "sponsorshipDate": "2024-06-13",
+      "state": "HI",
+      "url": "https://api.congress.gov/v3/member/T000487?format=json"
+    },
+    {
+      "bioguideId": "J000309",
+      "district": 1,
+      "firstName": "Jonathan",
+      "fullName": "Rep. Jackson, Jonathan L. [D-IL-1]",
+      "isOriginalCosponsor": false,
+      "lastName": "Jackson",
+      "middleName": "L.",
+      "party": "D",
+      "sponsorshipDate": "2024-07-08",
+      "state": "IL",
+      "url": "https://api.congress.gov/v3/member/J000309?format=json"
+    },
+    {
+      "bioguideId": "S001209",
+      "district": 7,
+      "firstName": "Abigail",
+      "fullName": "Rep. Spanberger, Abigail Davis [D-VA-7]",
+      "isOriginalCosponsor": false,
+      "lastName": "Spanberger",
+      "middleName": "Davis",
+      "party": "D",
+      "sponsorshipDate": "2024-07-15",
+      "state": "VA",
+      "url": "https://api.congress.gov/v3/member/S001209?format=json"
+    }
+  ]
+}

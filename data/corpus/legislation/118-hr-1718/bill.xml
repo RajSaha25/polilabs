@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="billres.xsl"?>
+<!DOCTYPE bill PUBLIC "-//US Congress//DTDs/bill.dtd//EN" "bill.dtd">
+<bill bill-stage="Introduced-in-House" dms-id="H326BA06DB9554D548DBC7A638427DD41" public-private="public" key="H" bill-type="olc"><metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+<dublinCore>
+<dc:title>118 HR 1718 IH: AI for National Security Act</dc:title>
+<dc:publisher>U.S. House of Representatives</dc:publisher>
+<dc:date>2023-03-22</dc:date>
+<dc:format>text/xml</dc:format>
+<dc:language>EN</dc:language>
+<dc:rights>Pursuant to Title 17 Section 105 of the United States Code, this file is not subject to copyright protection and is in the public domain.</dc:rights>
+</dublinCore>
+</metadata>
+<form>
+<distribution-code display="yes">I</distribution-code><congress display="yes">118th CONGRESS</congress><session display="yes">1st Session</session><legis-num display="yes">H. R. 1718</legis-num><current-chamber>IN THE HOUSE OF REPRESENTATIVES</current-chamber><action display="yes"><action-date date="20230322">March 22, 2023</action-date><action-desc><sponsor name-id="O000019">Mr. Obernolte</sponsor> (for himself and <cosponsor name-id="P000613">Mr. Panetta</cosponsor>) introduced the following bill; which was referred to the <committee-name committee-id="HAS00">Committee on Armed Services</committee-name></action-desc></action><legis-type>A BILL</legis-type><official-title display="yes">To make certain improvements to the enterprise-wide procurement of cyber data products and services by the Department of Defense, and for other purposes.</official-title></form><legis-body id="H435457A5D6B44C96A5E84CFF6D06D617" style="OLC"> 
+<section id="HFBF449B8B0CB4DF38DA3FDE004DDEAEA" section-type="section-one"><enum>1.</enum><header>Short title</header><text display-inline="no-display-inline">This Act may be cited as the <quote><short-title>AI for National Security Act</short-title></quote>. </text></section> <section id="H9621A2543A4D4C76AD442F5407C3F5DD"><enum>2.</enum><header>Department of Defense enterprise-wide procurement of cyber data products and services</header><text display-inline="no-display-inline">Section 1521 of the National Defense Authorization Act for Fiscal Year 2022 (<external-xref legal-doc="public-law" parsable-cite="pl/117/81">Public Law 117–81</external-xref>; <external-xref legal-doc="usc" parsable-cite="usc/10/2224">10 U.S.C. 2224</external-xref> note) is amended—</text>
+<paragraph id="H5ECE005292EE4AFAA94BB4A0758F3A49"><enum>(1)</enum><text>in subsection (a)(5), by inserting <quote>, including the use of artificial intelligence-based endpoint security that prevents cyber attacks and does not require constant internet connectivity to function,</quote> after <quote>services</quote>; and</text></paragraph> <paragraph id="HA3B54CAE5AEF40A9A3885701AAE78106"><enum>(2)</enum><text>in subsection (b), by inserting <quote>, including by enhancing the security of the software supply chain of the Department</quote> after <quote>best interests of the Department</quote>.</text></paragraph></section> 
+</legis-body></bill>
+

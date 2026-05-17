@@ -1,0 +1,74 @@
+{
+  "bill_id": "119-s-3202",
+  "congress": 119,
+  "bill_type": "s",
+  "bill_number": 3202,
+  "title": "Advanced Artificial Intelligence Security Readiness Act of 2025",
+  "short_title": null,
+  "sponsor": "Sen. Young, Todd [R-IN] (R-IN)",
+  "introduced_date": "2025-11-19",
+  "latest_action": "2025-11-19: Read twice and referred to the Select Committee on Intelligence.",
+  "policy_area": "Armed Forces and National Security",
+  "subjects": [],
+  "summary_text": null,
+  "centrality_score": 4.0,
+  "match_locations": {
+    "title": [
+      "artificial intelligence"
+    ]
+  },
+  "tier": "A",
+  "stream": "legislation",
+  "versions_available": [
+    {
+      "package_id": "BILLS-119s3202is",
+      "version_code": "is",
+      "date_issued": "2025-11-19"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-119s3202is",
+    "version_code": "is",
+    "date_issued": "2025-11-19"
+  },
+  "actions": [
+    {
+      "actionDate": "2025-11-19",
+      "committees": [
+        {
+          "name": "Intelligence (Select) Committee",
+          "systemCode": "slin00",
+          "url": "https://api.congress.gov/v3/committee/senate/slin00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "name": "Senate"
+      },
+      "text": "Read twice and referred to the Select Committee on Intelligence.",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "10000",
+      "actionDate": "2025-11-19",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in Senate",
+      "type": "IntroReferral"
+    }
+  ],
+  "cosponsors": [
+    {
+      "bioguideId": "K000377",
+      "firstName": "Mark",
+      "fullName": "Sen. Kelly, Mark [D-AZ]",
+      "isOriginalCosponsor": true,
+      "lastName": "Kelly",
+      "party": "D",
+      "sponsorshipDate": "2025-11-19",
+      "state": "AZ",
+      "url": "https://api.congress.gov/v3/member/K000377?format=json"
+    }
+  ]
+}

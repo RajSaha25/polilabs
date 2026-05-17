@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="billres.xsl"?>
+<!DOCTYPE bill PUBLIC "-//US Congress//DTDs/bill.dtd//EN" "bill.dtd">
+<bill bill-stage="Introduced-in-House" dms-id="HB00E4EDC4C1345F4A28D6286281F041B" public-private="public" key="H" bill-type="olc">
+<metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+<dublinCore>
+<dc:title>118 HR 4683 IH: CLOUD AI Act</dc:title>
+<dc:publisher>U.S. House of Representatives</dc:publisher>
+<dc:date>2023-07-17</dc:date>
+<dc:format>text/xml</dc:format>
+<dc:language>EN</dc:language>
+<dc:rights>Pursuant to Title 17 Section 105 of the United States Code, this file is not subject to copyright protection and is in the public domain.</dc:rights>
+</dublinCore>
+</metadata>
+<form>
+<distribution-code display="yes">I</distribution-code>
+<congress display="yes">118th CONGRESS</congress><session display="yes">1st Session</session>
+<legis-num display="yes">H. R. 4683</legis-num>
+<current-chamber>IN THE HOUSE OF REPRESENTATIVES</current-chamber>
+<action display="yes">
+<action-date date="20230717">July 17, 2023</action-date>
+<action-desc><sponsor name-id="J000308">Mr. Jackson of North Carolina</sponsor> (for himself, <cosponsor name-id="L000599">Mr. Lawler</cosponsor>, <cosponsor name-id="C001130">Ms. Crockett</cosponsor>, and <cosponsor name-id="M001218">Mr. McCormick</cosponsor>) introduced the following bill; which was referred to the <committee-name committee-id="HFA00">Committee on Foreign Affairs</committee-name></action-desc>
+</action>
+<legis-type>A BILL</legis-type>
+<official-title display="yes">To prohibit support for the remote use or cloud use of integrated circuits listed under Export Control Classification Number 3A090 and 4A090 of the Export Administration Regulations by entities located in the People’s Republic of China or Macau.</official-title>
+</form>
+<legis-body id="H03EF8EC44FB74CF1AE0E1CFE95CB06DA" style="OLC">
+<section id="HB1C61E1531CC4D6FA015E41DC946AB14" section-type="section-one" commented="no"><enum>1.</enum><header>Short title</header><text display-inline="no-display-inline">This Act may be cited as the <quote><short-title>Closing Loopholes for the Overseas Use and Development of Artificial Intelligence Act</short-title></quote> or the <quote>CLOUD AI Act</quote>. </text></section> <section id="H407966D7A1A946489E1AD10F8F644666"><enum>2.</enum><header>Findings</header><text display-inline="no-display-inline">Congress makes the following findings:</text>
+<paragraph id="HC2A99B468DCC4DA39B8F1003AE9C9537"><enum>(1)</enum><text display-inline="yes-display-inline">The People’s Republic of China, the Russian Federation, and other adversarial countries have taken actions to undermine global stability as well as the United States national security and foreign policy objectives.</text></paragraph> <paragraph id="H69707A8D28C8463CB9CEE2F135FE14C9"><enum>(2)</enum><text>China has used commercially available civilian technology to modernize its military forces in a policy known as military-civil fusion.</text></paragraph>
+<paragraph id="HFEB49C3FB2144294BD2371E2B200684D"><enum>(3)</enum><text>As part of its policy of military-civil fusion, China is working to modernize its nuclear, chemical, missile, and biological weapons capacity.</text></paragraph> <paragraph id="H4F360023284D458CA34C3594BC8141D1"><enum>(4)</enum><text>The United States and its allies have long regulated items and activities that support the development, production, or use of otherwise commercial items if those items are aid in the development, production, or use of nuclear, chemical, missile, or biological weapons.</text></paragraph>
+<paragraph id="H47B654DBD1A1422D806FF077C9560BEF"><enum>(5)</enum><text display-inline="yes-display-inline">Artificial intelligence tools could be used to support the development, production, or use of nuclear, chemical, missile, or biological weapons or enhance the destructive capabilities of those weapons.</text></paragraph> <paragraph id="HAF56099947BA477FB2478D722A91C1A7"><enum>(6)</enum><text display-inline="yes-display-inline">Advanced semiconductors and supercomputer components such as graphics processing units can be used to develop or train artificial intelligence tools and models. </text></paragraph>
+<paragraph id="H727B7863420D4C1EB7F1F4607011E3BE"><enum>(7)</enum><text display-inline="yes-display-inline">In October 2022, the Department of Commerce promulgated export control rules to prevent the export of advanced semiconductors and supercomputer components to China or Macau.</text></paragraph> <paragraph id="HE6684A4DB12E48878B60FC7902C26EF6"><enum>(8)</enum><text display-inline="yes-display-inline">Notwithstanding these controls, recent reporting indicates that though entities located in China and Macau can no longer purchase and import advanced semiconductors and supercomputer components because of the October 2022 export controls, Chinese entities are still developing artificial intelligence tools and models by purchasing remote and cloud access to these same advanced components to train artificial intelligence models and tools. </text></paragraph></section>
+<section id="H103336330E2245C3A3B54C6E154EAD71"><enum>3.</enum><header>Prohibition on support for remote use or cloud use of integrated circuits listed under Export Control Classification Number 3A090 and 4A090 of the Export Administration Regulations by entities located in the People’s Republic of China or Macau</header>
+<subsection id="H93284A0B018B4E47AA393DF29EA68421"><enum>(a)</enum><header>In general</header><text display-inline="yes-display-inline">Not later than 180 days after the date of the enactment of this Act, the Secretary of Commerce shall prohibit United States persons and United States subsidiaries from providing support for the remote use or cloud use of any integrated circuit listed under Export Control Classification Number 3A090 and 4A090 of the Export Administration Regulations by an entity located in the People’s Republic of China or Macau.</text></subsection> <subsection id="HAB5FBA252DE04059AE0E9AD3AF01269A"><enum>(b)</enum><header>Regulations</header><text>The Secretary of Commerce shall issue such regulations as may be necessary to carry out this section.</text></subsection>
+<subsection id="HD187A2A3854344578E564C7692109DDF"><enum>(c)</enum><header>Definitions</header><text display-inline="yes-display-inline">In this section—</text> <paragraph id="H6A8842FBE26745A194A827BAA87E969D"><enum>(1)</enum><text>the term <quote>Export Administration Regulations</quote> means the regulations set forth in subchapter C of chapter VII of title 15, Code of Federal Regulations;</text></paragraph>
+<paragraph id="HF195255A289F4160B4E3C7C36E7DE135"><enum>(2)</enum><text>the term <quote>support</quote> has the meaning given that term in section 744.6 of title 15, Code of Federal Regulations; </text></paragraph> <paragraph id="HDF11E5BD0C704112A33E4A89C366115D"><enum>(3)</enum><text>the term <quote>United States person</quote> has the meaning given the term <quote>U.S. Person</quote> in section 772.1 of title 15, Code of Federal Regulations; and</text></paragraph>
+<paragraph id="HE0580659EBD84E9C89AAABB9965292C3"><enum>(4)</enum><text>the term <quote>United States subsidiary</quote> has the meaning given the term <quote>U.S. Subsidiary</quote> in section 772.1 of title 15, Code of Federal Regulations, notwithstanding the limitation applied with respect to encryption items in that definition.</text></paragraph></subsection></section> </legis-body> </bill> 
+

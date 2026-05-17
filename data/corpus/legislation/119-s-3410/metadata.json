@@ -1,0 +1,74 @@
+{
+  "bill_id": "119-s-3410",
+  "congress": 119,
+  "bill_type": "s",
+  "bill_number": 3410,
+  "title": "A bill to establish Federal agency technology and artificial intelligence talent teams to improve competitive service hiring practices, and for other purposes.",
+  "short_title": null,
+  "sponsor": "Sen. Kim, Andy [D-NJ] (D-NJ)",
+  "introduced_date": "2025-12-10",
+  "latest_action": "2025-12-10: Read twice and referred to the Committee on Homeland Security and Governmental Affairs.",
+  "policy_area": "Government Operations and Politics",
+  "subjects": [],
+  "summary_text": null,
+  "centrality_score": 4.0,
+  "match_locations": {
+    "title": [
+      "artificial intelligence"
+    ]
+  },
+  "tier": "A",
+  "stream": "legislation",
+  "versions_available": [
+    {
+      "package_id": "BILLS-119s3410is",
+      "version_code": "is",
+      "date_issued": "2025-12-10"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-119s3410is",
+    "version_code": "is",
+    "date_issued": "2025-12-10"
+  },
+  "actions": [
+    {
+      "actionDate": "2025-12-10",
+      "committees": [
+        {
+          "name": "Homeland Security and Governmental Affairs Committee",
+          "systemCode": "ssga00",
+          "url": "https://api.congress.gov/v3/committee/senate/ssga00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "name": "Senate"
+      },
+      "text": "Read twice and referred to the Committee on Homeland Security and Governmental Affairs.",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "10000",
+      "actionDate": "2025-12-10",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in Senate",
+      "type": "IntroReferral"
+    }
+  ],
+  "cosponsors": [
+    {
+      "bioguideId": "H001104",
+      "firstName": "Jon",
+      "fullName": "Sen. Husted, Jon [R-OH]",
+      "isOriginalCosponsor": false,
+      "lastName": "Husted",
+      "party": "R",
+      "sponsorshipDate": "2026-01-08",
+      "state": "OH",
+      "url": "https://api.congress.gov/v3/member/H001104?format=json"
+    }
+  ]
+}

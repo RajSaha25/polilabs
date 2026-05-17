@@ -1,0 +1,129 @@
+{
+  "bill_id": "118-hr-7781",
+  "congress": 118,
+  "bill_type": "hr",
+  "bill_number": 7781,
+  "title": "AI PLAN Act",
+  "short_title": null,
+  "sponsor": "Rep. Nunn, Zachary [R-IA-3] (R-IA)",
+  "introduced_date": "2024-03-21",
+  "latest_action": "2024-03-21: Referred to the House Committee on Financial Services.",
+  "policy_area": "Finance and Financial Sector",
+  "subjects": [],
+  "summary_text": "Artificial Intelligence Practices, Logistics, Actions, and Necessities Act or the AI PLAN ActThis bill requires the Department of the Treasury, the Department of Homeland Security (DHS), and the Department of Commerce (DOC) to submit a report that discusses the national and economic security risks posed by the use of artificial intelligence in the commission of financial crimes and a list of resources needed by federal agencies to combat these risks. The report must consider the risks of deepfakes, voice cloning, foreign election interference, synthetic identities, false flags, and general digital fraud.After submission of this report, Treasury, DHS, and DOC must make recommendations for legislation and best practices for businesses and government entities to address these risks.&nbsp;",
+  "centrality_score": 6.0,
+  "match_locations": {
+    "title": [
+      "AI"
+    ],
+    "summary": [
+      "artificial intelligence",
+      "AI"
+    ]
+  },
+  "tier": "A",
+  "stream": "legislation",
+  "versions_available": [
+    {
+      "package_id": "BILLS-118hr7781ih",
+      "version_code": "ih",
+      "date_issued": "2024-03-21"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-118hr7781ih",
+    "version_code": "ih",
+    "date_issued": "2024-03-21"
+  },
+  "actions": [
+    {
+      "actionCode": "H11100",
+      "actionDate": "2024-03-21",
+      "committees": [
+        {
+          "name": "Financial Services Committee",
+          "systemCode": "hsba00",
+          "url": "https://api.congress.gov/v3/committee/house/hsba00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "code": 2,
+        "name": "House floor actions"
+      },
+      "text": "Referred to the House Committee on Financial Services.",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "Intro-H",
+      "actionDate": "2024-03-21",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in House",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "1000",
+      "actionDate": "2024-03-21",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in House",
+      "type": "IntroReferral"
+    }
+  ],
+  "cosponsors": [
+    {
+      "bioguideId": "S001209",
+      "district": 7,
+      "firstName": "Abigail",
+      "fullName": "Rep. Spanberger, Abigail Davis [D-VA-7]",
+      "isOriginalCosponsor": true,
+      "lastName": "Spanberger",
+      "middleName": "Davis",
+      "party": "D",
+      "sponsorshipDate": "2024-03-21",
+      "state": "VA",
+      "url": "https://api.congress.gov/v3/member/S001209?format=json"
+    },
+    {
+      "bioguideId": "E000215",
+      "district": 16,
+      "firstName": "Anna",
+      "fullName": "Rep. Eshoo, Anna G. [D-CA-16]",
+      "isOriginalCosponsor": false,
+      "lastName": "Eshoo",
+      "middleName": "G.",
+      "party": "D",
+      "sponsorshipDate": "2024-09-16",
+      "state": "CA",
+      "url": "https://api.congress.gov/v3/member/E000215?format=json"
+    },
+    {
+      "bioguideId": "P000620",
+      "district": 7,
+      "firstName": "Brittany",
+      "fullName": "Rep. Pettersen, Brittany [D-CO-7]",
+      "isOriginalCosponsor": false,
+      "lastName": "Pettersen",
+      "party": "D",
+      "sponsorshipDate": "2024-09-18",
+      "state": "CO",
+      "url": "https://api.congress.gov/v3/member/P000620?format=json"
+    },
+    {
+      "bioguideId": "B001278",
+      "district": 1,
+      "firstName": "Suzanne",
+      "fullName": "Rep. Bonamici, Suzanne [D-OR-1]",
+      "isOriginalCosponsor": false,
+      "lastName": "Bonamici",
+      "party": "D",
+      "sponsorshipDate": "2024-09-18",
+      "state": "OR",
+      "url": "https://api.congress.gov/v3/member/B001278?format=json"
+    }
+  ]
+}

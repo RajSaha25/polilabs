@@ -1,0 +1,74 @@
+{
+  "bill_id": "119-hr-3303",
+  "congress": 119,
+  "bill_type": "hr",
+  "bill_number": 3303,
+  "title": "America\u2014Israel AI Cooperation Act",
+  "short_title": null,
+  "sponsor": "Rep. Ogles, Andrew [R-TN-5] (R-TN)",
+  "introduced_date": "2025-05-08",
+  "latest_action": "2025-05-08: Referred to the House Committee on Foreign Affairs.",
+  "policy_area": "International Affairs",
+  "subjects": [],
+  "summary_text": null,
+  "centrality_score": 4.0,
+  "match_locations": {
+    "title": [
+      "AI"
+    ]
+  },
+  "tier": "A",
+  "stream": "legislation",
+  "versions_available": [
+    {
+      "package_id": "BILLS-119hr3303ih",
+      "version_code": "ih",
+      "date_issued": "2025-05-08"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-119hr3303ih",
+    "version_code": "ih",
+    "date_issued": "2025-05-08"
+  },
+  "actions": [
+    {
+      "actionCode": "H11100",
+      "actionDate": "2025-05-08",
+      "committees": [
+        {
+          "name": "Foreign Affairs Committee",
+          "systemCode": "hsfa00",
+          "url": "https://api.congress.gov/v3/committee/house/hsfa00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "code": 2,
+        "name": "House floor actions"
+      },
+      "text": "Referred to the House Committee on Foreign Affairs.",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "Intro-H",
+      "actionDate": "2025-05-08",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in House",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "1000",
+      "actionDate": "2025-05-08",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in House",
+      "type": "IntroReferral"
+    }
+  ],
+  "cosponsors": []
+}

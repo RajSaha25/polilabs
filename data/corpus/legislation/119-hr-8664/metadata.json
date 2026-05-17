@@ -1,0 +1,74 @@
+{
+  "bill_id": "119-hr-8664",
+  "congress": 119,
+  "bill_type": "hr",
+  "bill_number": 8664,
+  "title": "SBA AI Adoption Reporting Act of 2026",
+  "short_title": null,
+  "sponsor": "Rep. Scholten, Hillary J. [D-MI-3] (D-MI)",
+  "introduced_date": "2026-05-04",
+  "latest_action": "2026-05-04: Referred to the House Committee on Small Business.",
+  "policy_area": null,
+  "subjects": [],
+  "summary_text": null,
+  "centrality_score": 4.0,
+  "match_locations": {
+    "title": [
+      "AI"
+    ]
+  },
+  "tier": "A",
+  "stream": "legislation",
+  "versions_available": [
+    {
+      "package_id": "BILLS-119hr8664ih",
+      "version_code": "ih",
+      "date_issued": "2026-05-04"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-119hr8664ih",
+    "version_code": "ih",
+    "date_issued": "2026-05-04"
+  },
+  "actions": [
+    {
+      "actionCode": "H11100",
+      "actionDate": "2026-05-04",
+      "committees": [
+        {
+          "name": "Small Business Committee",
+          "systemCode": "hssm00",
+          "url": "https://api.congress.gov/v3/committee/house/hssm00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "code": 2,
+        "name": "House floor actions"
+      },
+      "text": "Referred to the House Committee on Small Business.",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "Intro-H",
+      "actionDate": "2026-05-04",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in House",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "1000",
+      "actionDate": "2026-05-04",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in House",
+      "type": "IntroReferral"
+    }
+  ],
+  "cosponsors": []
+}

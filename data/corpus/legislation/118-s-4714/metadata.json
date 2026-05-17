@@ -1,0 +1,108 @@
+{
+  "bill_id": "118-s-4714",
+  "congress": 118,
+  "bill_type": "s",
+  "bill_number": 4714,
+  "title": "Fraudulent Artificial Intelligence Regulations (FAIR) Elections Act of 2024",
+  "short_title": null,
+  "sponsor": "Sen. Merkley, Jeff [D-OR] (D-OR)",
+  "introduced_date": "2024-07-11",
+  "latest_action": "2024-07-11: Read twice and referred to the Committee on Rules and Administration.",
+  "policy_area": "Government Operations and Politics",
+  "subjects": [],
+  "summary_text": null,
+  "centrality_score": 4.0,
+  "match_locations": {
+    "title": [
+      "artificial intelligence"
+    ]
+  },
+  "tier": "A",
+  "stream": "legislation",
+  "versions_available": [
+    {
+      "package_id": "BILLS-118s4714is",
+      "version_code": "is",
+      "date_issued": "2024-07-11"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-118s4714is",
+    "version_code": "is",
+    "date_issued": "2024-07-11"
+  },
+  "actions": [
+    {
+      "actionDate": "2024-07-11",
+      "committees": [
+        {
+          "name": "Rules and Administration Committee",
+          "systemCode": "ssra00",
+          "url": "https://api.congress.gov/v3/committee/senate/ssra00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "name": "Senate"
+      },
+      "text": "Read twice and referred to the Committee on Rules and Administration.",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "10000",
+      "actionDate": "2024-07-11",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in Senate",
+      "type": "IntroReferral"
+    }
+  ],
+  "cosponsors": [
+    {
+      "bioguideId": "P000145",
+      "firstName": "Alex",
+      "fullName": "Sen. Padilla, Alex [D-CA]",
+      "isOriginalCosponsor": true,
+      "lastName": "Padilla",
+      "party": "D",
+      "sponsorshipDate": "2024-07-11",
+      "state": "CA",
+      "url": "https://api.congress.gov/v3/member/P000145?format=json"
+    },
+    {
+      "bioguideId": "H001042",
+      "firstName": "Mazie",
+      "fullName": "Sen. Hirono, Mazie K. [D-HI]",
+      "isOriginalCosponsor": true,
+      "lastName": "Hirono",
+      "middleName": "K.",
+      "party": "D",
+      "sponsorshipDate": "2024-07-11",
+      "state": "HI",
+      "url": "https://api.congress.gov/v3/member/H001042?format=json"
+    },
+    {
+      "bioguideId": "W000800",
+      "firstName": "Peter",
+      "fullName": "Sen. Welch, Peter [D-VT]",
+      "isOriginalCosponsor": true,
+      "lastName": "Welch",
+      "party": "D",
+      "sponsorshipDate": "2024-07-11",
+      "state": "VT",
+      "url": "https://api.congress.gov/v3/member/W000800?format=json"
+    },
+    {
+      "bioguideId": "W000802",
+      "firstName": "Sheldon",
+      "fullName": "Sen. Whitehouse, Sheldon [D-RI]",
+      "isOriginalCosponsor": true,
+      "lastName": "Whitehouse",
+      "party": "D",
+      "sponsorshipDate": "2024-07-11",
+      "state": "RI",
+      "url": "https://api.congress.gov/v3/member/W000802?format=json"
+    }
+  ]
+}

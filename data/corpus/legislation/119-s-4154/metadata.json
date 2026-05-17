@@ -1,0 +1,85 @@
+{
+  "bill_id": "119-s-4154",
+  "congress": 119,
+  "bill_type": "s",
+  "bill_number": 4154,
+  "title": "Research and Oversight of AI in Courts Act of 2026",
+  "short_title": null,
+  "sponsor": "Sen. Wicker, Roger F. [R-MS] (R-MS)",
+  "introduced_date": "2026-03-19",
+  "latest_action": "2026-03-19: Read twice and referred to the Committee on the Judiciary.",
+  "policy_area": "Law",
+  "subjects": [],
+  "summary_text": null,
+  "centrality_score": 4.0,
+  "match_locations": {
+    "title": [
+      "AI"
+    ]
+  },
+  "tier": "A",
+  "stream": "legislation",
+  "versions_available": [
+    {
+      "package_id": "BILLS-119s4154is",
+      "version_code": "is",
+      "date_issued": "2026-03-19"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-119s4154is",
+    "version_code": "is",
+    "date_issued": "2026-03-19"
+  },
+  "actions": [
+    {
+      "actionDate": "2026-03-19",
+      "committees": [
+        {
+          "name": "Judiciary Committee",
+          "systemCode": "ssju00",
+          "url": "https://api.congress.gov/v3/committee/senate/ssju00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "name": "Senate"
+      },
+      "text": "Read twice and referred to the Committee on the Judiciary.",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "10000",
+      "actionDate": "2026-03-19",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in Senate",
+      "type": "IntroReferral"
+    }
+  ],
+  "cosponsors": [
+    {
+      "bioguideId": "W000800",
+      "firstName": "Peter",
+      "fullName": "Sen. Welch, Peter [D-VT]",
+      "isOriginalCosponsor": true,
+      "lastName": "Welch",
+      "party": "D",
+      "sponsorshipDate": "2026-03-19",
+      "state": "VT",
+      "url": "https://api.congress.gov/v3/member/W000800?format=json"
+    },
+    {
+      "bioguideId": "H001079",
+      "firstName": "Cindy",
+      "fullName": "Sen. Hyde-Smith, Cindy [R-MS]",
+      "isOriginalCosponsor": false,
+      "lastName": "Hyde-Smith",
+      "party": "R",
+      "sponsorshipDate": "2026-03-26",
+      "state": "MS",
+      "url": "https://api.congress.gov/v3/member/H001079?format=json"
+    }
+  ]
+}

@@ -1,0 +1,117 @@
+{
+  "bill_id": "118-hr-7381",
+  "congress": 118,
+  "bill_type": "hr",
+  "bill_number": 7381,
+  "title": "HEALTH AI",
+  "short_title": null,
+  "sponsor": "Rep. Lieu, Ted [D-CA-36] (D-CA)",
+  "introduced_date": "2024-02-15",
+  "latest_action": "2024-02-16: Referred to the Subcommittee on Health.",
+  "policy_area": "Health",
+  "subjects": [],
+  "summary_text": null,
+  "centrality_score": 4.0,
+  "match_locations": {
+    "title": [
+      "AI"
+    ]
+  },
+  "tier": "A",
+  "stream": "legislation",
+  "versions_available": [
+    {
+      "package_id": "BILLS-118hr7381ih",
+      "version_code": "ih",
+      "date_issued": "2024-02-15"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-118hr7381ih",
+    "version_code": "ih",
+    "date_issued": "2024-02-15"
+  },
+  "actions": [
+    {
+      "actionCode": "H11000",
+      "actionDate": "2024-02-16",
+      "committees": [
+        {
+          "name": "Health Subcommittee",
+          "systemCode": "hsif14",
+          "url": "https://api.congress.gov/v3/committee/house/hsif14?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "code": 1,
+        "name": "House committee actions"
+      },
+      "text": "Referred to the Subcommittee on Health.",
+      "type": "Committee"
+    },
+    {
+      "actionCode": "H11100",
+      "actionDate": "2024-02-15",
+      "committees": [
+        {
+          "name": "Energy and Commerce Committee",
+          "systemCode": "hsif00",
+          "url": "https://api.congress.gov/v3/committee/house/hsif00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "code": 2,
+        "name": "House floor actions"
+      },
+      "text": "Referred to the House Committee on Energy and Commerce.",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "Intro-H",
+      "actionDate": "2024-02-15",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in House",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "1000",
+      "actionDate": "2024-02-15",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in House",
+      "type": "IntroReferral"
+    }
+  ],
+  "cosponsors": [
+    {
+      "bioguideId": "B001287",
+      "district": 6,
+      "firstName": "Ami",
+      "fullName": "Rep. Bera, Ami [D-CA-6]",
+      "isOriginalCosponsor": false,
+      "lastName": "Bera",
+      "party": "D",
+      "sponsorshipDate": "2024-05-28",
+      "state": "CA",
+      "url": "https://api.congress.gov/v3/member/B001287?format=json"
+    },
+    {
+      "bioguideId": "M001221",
+      "district": 19,
+      "firstName": "Marcus",
+      "fullName": "Rep. Molinaro, Marcus J. [R-NY-19]",
+      "isOriginalCosponsor": false,
+      "lastName": "Molinaro",
+      "middleName": "J.",
+      "party": "R",
+      "sponsorshipDate": "2024-10-22",
+      "state": "NY",
+      "url": "https://api.congress.gov/v3/member/M001221?format=json"
+    }
+  ]
+}

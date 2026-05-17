@@ -1,0 +1,134 @@
+{
+  "bill_id": "118-hr-6466",
+  "congress": 118,
+  "bill_type": "hr",
+  "bill_number": 6466,
+  "title": "AI Labeling Act of 2023",
+  "short_title": null,
+  "sponsor": "Rep. Kean, Thomas H. [R-NJ-7] (R-NJ)",
+  "introduced_date": "2023-11-21",
+  "latest_action": "2023-11-24: Referred to the Subcommittee on Innovation, Data, and Commerce.",
+  "policy_area": "Commerce",
+  "subjects": [],
+  "summary_text": null,
+  "centrality_score": 4.0,
+  "match_locations": {
+    "title": [
+      "AI"
+    ]
+  },
+  "tier": "A",
+  "stream": "legislation",
+  "versions_available": [
+    {
+      "package_id": "BILLS-118hr6466ih",
+      "version_code": "ih",
+      "date_issued": "2023-11-21"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-118hr6466ih",
+    "version_code": "ih",
+    "date_issued": "2023-11-21"
+  },
+  "actions": [
+    {
+      "actionCode": "H11000",
+      "actionDate": "2023-11-24",
+      "committees": [
+        {
+          "name": "Commerce, Manufacturing, and Trade Subcommittee",
+          "systemCode": "hsif17",
+          "url": "https://api.congress.gov/v3/committee/house/hsif17?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "code": 1,
+        "name": "House committee actions"
+      },
+      "text": "Referred to the Subcommittee on Innovation, Data, and Commerce.",
+      "type": "Committee"
+    },
+    {
+      "actionCode": "H11100",
+      "actionDate": "2023-11-21",
+      "committees": [
+        {
+          "name": "Science, Space, and Technology Committee",
+          "systemCode": "hssy00",
+          "url": "https://api.congress.gov/v3/committee/house/hssy00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "code": 2,
+        "name": "House floor actions"
+      },
+      "text": "Referred to the Committee on Energy and Commerce, and in addition to the Committee on Science, Space, and Technology, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "H11100",
+      "actionDate": "2023-11-21",
+      "committees": [
+        {
+          "name": "Energy and Commerce Committee",
+          "systemCode": "hsif00",
+          "url": "https://api.congress.gov/v3/committee/house/hsif00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "code": 2,
+        "name": "House floor actions"
+      },
+      "text": "Referred to the Committee on Energy and Commerce, and in addition to the Committee on Science, Space, and Technology, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "Intro-H",
+      "actionDate": "2023-11-21",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in House",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "1000",
+      "actionDate": "2023-11-21",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in House",
+      "type": "IntroReferral"
+    }
+  ],
+  "cosponsors": [
+    {
+      "bioguideId": "G000593",
+      "district": 28,
+      "firstName": "Carlos",
+      "fullName": "Rep. Gimenez, Carlos A. [R-FL-28]",
+      "isOriginalCosponsor": false,
+      "lastName": "Gimenez",
+      "middleName": "A.",
+      "party": "R",
+      "sponsorshipDate": "2024-02-06",
+      "state": "FL",
+      "url": "https://api.congress.gov/v3/member/G000593?format=json"
+    },
+    {
+      "bioguideId": "S001207",
+      "district": 11,
+      "firstName": "Mikie",
+      "fullName": "Rep. Sherrill, Mikie [D-NJ-11]",
+      "isOriginalCosponsor": false,
+      "lastName": "Sherrill",
+      "party": "D",
+      "sponsorshipDate": "2024-03-07",
+      "state": "NJ",
+      "url": "https://api.congress.gov/v3/member/S001207?format=json"
+    }
+  ]
+}

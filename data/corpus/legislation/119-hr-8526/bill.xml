@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="billres.xsl"?>
+<!DOCTYPE bill PUBLIC "-//US Congress//DTDs/bill.dtd//EN" "bill.dtd">
+<bill bill-stage="Introduced-in-House" dms-id="H4914DB6AB402415BAA94F8AE2728C4AB" public-private="public" key="H" bill-type="olc"><metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+<dublinCore>
+<dc:title>119 HR 8526 IH: To amend the Public Health Service Act to update quality standards for mammography facilities for the use of AI systems, and for other purposes.</dc:title>
+<dc:publisher>U.S. House of Representatives</dc:publisher>
+<dc:date>2026-04-27</dc:date>
+<dc:format>text/xml</dc:format>
+<dc:language>EN</dc:language>
+<dc:rights>Pursuant to Title 17 Section 105 of the United States Code, this file is not subject to copyright protection and is in the public domain.</dc:rights>
+</dublinCore>
+</metadata>
+<form>
+<distribution-code display="yes">I</distribution-code><congress display="yes">119th CONGRESS</congress><session display="yes">2d Session</session><legis-num display="yes">H. R. 8526</legis-num><current-chamber>IN THE HOUSE OF REPRESENTATIVES</current-chamber><action display="yes"><action-date date="20260427">April 27, 2026</action-date><action-desc><sponsor name-id="S001183">Mr. Schweikert</sponsor> introduced the following bill; which was referred to the <committee-name committee-id="HIF00">Committee on Energy and Commerce</committee-name></action-desc></action><legis-type>A BILL</legis-type><official-title display="yes">To amend the Public Health Service Act to update quality standards for mammography facilities for the use of AI systems, and for other purposes.</official-title></form><legis-body id="H8BDA1E2049704A818599D579F9C888FA" style="OLC"> 
+<section id="H6DEFE894BA164D90BE95E23C22FC430D" section-type="section-one"><enum>1.</enum><header>Updating quality standards for mammography facilities for use of AI systems</header><text display-inline="no-display-inline">Section 354(f)(1) of the Public Health Service Act (<external-xref legal-doc="usc" parsable-cite="usc/42/263b">42 U.S.C. 263b(f)(1)</external-xref>) is amended—</text> <paragraph id="HA455D51921214D8C8DF4B09AD567A016"><enum>(1)</enum><text>in subparagraph (D)—</text> 
+<subparagraph id="HED03DC81BB3648BAAC2B9F733EA9A28D"><enum>(A)</enum><text>in the matter preceding clause (i), by striking <quote>physician who</quote> and inserting <quote>physician, or a machine-learning or artificial intelligence system, that</quote>; and</text></subparagraph> <subparagraph id="HB3BD4A6D81434D93BC73FC909143B074"><enum>(B)</enum><text>in clause (ii), by striking <quote>who</quote> and inserting <quote>that</quote>; and </text></subparagraph></paragraph> 
+<paragraph id="H9F189C1416A54147B2744065F80A6736"><enum>(2)</enum><text>in subparagraph (G)(ii)(I), by striking <quote>signed by the interpreting physician</quote>. </text> </paragraph></section> </legis-body></bill>
+

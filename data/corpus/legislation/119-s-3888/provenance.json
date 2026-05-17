@@ -1,0 +1,16 @@
+{
+  "bill_id": "119-s-3888",
+  "criteria_version": "v1.0",
+  "canonical_package_id": "BILLS-119s3888is",
+  "sources": {
+    "govinfo_xml": "https://api.govinfo.gov/packages/BILLS-119s3888is/uslm",
+    "govinfo_htm": "https://api.govinfo.gov/packages/BILLS-119s3888is/htm",
+    "congress_gov_bill": "https://api.congress.gov/v3/bill/119/s/3888"
+  },
+  "files": {
+    "bill.xml": true,
+    "bill.htm": true,
+    "metadata.json": true
+  },
+  "fetched_at": "2026-05-17T15:56:49.572988+00:00"
+}

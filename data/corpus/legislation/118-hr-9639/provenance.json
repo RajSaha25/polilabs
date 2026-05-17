@@ -1,0 +1,16 @@
+{
+  "bill_id": "118-hr-9639",
+  "criteria_version": "v1.0",
+  "canonical_package_id": "BILLS-118hr9639ih",
+  "sources": {
+    "govinfo_xml": "https://api.govinfo.gov/packages/BILLS-118hr9639ih/uslm",
+    "govinfo_htm": "https://api.govinfo.gov/packages/BILLS-118hr9639ih/htm",
+    "congress_gov_bill": "https://api.congress.gov/v3/bill/118/hr/9639"
+  },
+  "files": {
+    "bill.xml": true,
+    "bill.htm": true,
+    "metadata.json": true
+  },
+  "fetched_at": "2026-05-17T15:59:50.540927+00:00"
+}

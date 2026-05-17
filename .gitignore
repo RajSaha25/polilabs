@@ -1,1 +1,10 @@
 .DS_Store
+.env
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+data/raw/
+data/cache/
+data/polilabs.db
+data/polilabs.db-*

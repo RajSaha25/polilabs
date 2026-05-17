@@ -1,0 +1,87 @@
+{
+  "bill_id": "119-hr-6909",
+  "congress": 119,
+  "bill_type": "hr",
+  "bill_number": 6909,
+  "title": "China AI Threat Assessment Act",
+  "short_title": null,
+  "sponsor": "Rep. Vindman, Eugene Simon [D-VA-7] (D-VA)",
+  "introduced_date": "2025-12-18",
+  "latest_action": "2025-12-18: Referred to the House Permanent Select Committee on Intelligence.",
+  "policy_area": "Armed Forces and National Security",
+  "subjects": [],
+  "summary_text": null,
+  "centrality_score": 4.0,
+  "match_locations": {
+    "title": [
+      "AI"
+    ]
+  },
+  "tier": "A",
+  "stream": "legislation",
+  "versions_available": [
+    {
+      "package_id": "BILLS-119hr6909ih",
+      "version_code": "ih",
+      "date_issued": "2025-12-18"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-119hr6909ih",
+    "version_code": "ih",
+    "date_issued": "2025-12-18"
+  },
+  "actions": [
+    {
+      "actionCode": "H11100",
+      "actionDate": "2025-12-18",
+      "committees": [
+        {
+          "name": "Intelligence (Permanent Select) Committee",
+          "systemCode": "hlig00",
+          "url": "https://api.congress.gov/v3/committee/house/hlig00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "code": 2,
+        "name": "House floor actions"
+      },
+      "text": "Referred to the House Permanent Select Committee on Intelligence.",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "Intro-H",
+      "actionDate": "2025-12-18",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in House",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "1000",
+      "actionDate": "2025-12-18",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in House",
+      "type": "IntroReferral"
+    }
+  ],
+  "cosponsors": [
+    {
+      "bioguideId": "P000048",
+      "district": 11,
+      "firstName": "August",
+      "fullName": "Rep. Pfluger, August [R-TX-11]",
+      "isOriginalCosponsor": true,
+      "lastName": "Pfluger",
+      "party": "R",
+      "sponsorshipDate": "2025-12-18",
+      "state": "TX",
+      "url": "https://api.congress.gov/v3/member/P000048?format=json"
+    }
+  ]
+}

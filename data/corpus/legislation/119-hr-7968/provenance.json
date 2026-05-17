@@ -1,0 +1,16 @@
+{
+  "bill_id": "119-hr-7968",
+  "criteria_version": "v1.0",
+  "canonical_package_id": "BILLS-119hr7968ih",
+  "sources": {
+    "govinfo_xml": "https://api.govinfo.gov/packages/BILLS-119hr7968ih/uslm",
+    "govinfo_htm": "https://api.govinfo.gov/packages/BILLS-119hr7968ih/htm",
+    "congress_gov_bill": "https://api.congress.gov/v3/bill/119/hr/7968"
+  },
+  "files": {
+    "bill.xml": true,
+    "bill.htm": true,
+    "metadata.json": true
+  },
+  "fetched_at": "2026-05-17T15:56:17.942109+00:00"
+}

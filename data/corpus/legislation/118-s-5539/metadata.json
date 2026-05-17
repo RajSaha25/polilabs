@@ -1,0 +1,75 @@
+{
+  "bill_id": "118-s-5539",
+  "congress": 118,
+  "bill_type": "s",
+  "bill_number": 5539,
+  "title": "TBD AI Act of 2024",
+  "short_title": null,
+  "sponsor": "Sen. Welch, Peter [D-VT] (D-VT)",
+  "introduced_date": "2024-12-16",
+  "latest_action": "2024-12-16: Read twice and referred to the Committee on Homeland Security and Governmental Affairs.",
+  "policy_area": "Government Operations and Politics",
+  "subjects": [],
+  "summary_text": null,
+  "centrality_score": 4.0,
+  "match_locations": {
+    "title": [
+      "AI"
+    ]
+  },
+  "tier": "A",
+  "stream": "legislation",
+  "versions_available": [
+    {
+      "package_id": "BILLS-118s5539is",
+      "version_code": "is",
+      "date_issued": "2024-12-16"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-118s5539is",
+    "version_code": "is",
+    "date_issued": "2024-12-16"
+  },
+  "actions": [
+    {
+      "actionDate": "2024-12-16",
+      "committees": [
+        {
+          "name": "Homeland Security and Governmental Affairs Committee",
+          "systemCode": "ssga00",
+          "url": "https://api.congress.gov/v3/committee/senate/ssga00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "name": "Senate"
+      },
+      "text": "Read twice and referred to the Committee on Homeland Security and Governmental Affairs.",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "10000",
+      "actionDate": "2024-12-16",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in Senate",
+      "type": "IntroReferral"
+    }
+  ],
+  "cosponsors": [
+    {
+      "bioguideId": "L000570",
+      "firstName": "Ben",
+      "fullName": "Sen. Luj\u00e1n, Ben Ray [D-NM]",
+      "isOriginalCosponsor": true,
+      "lastName": "Luj\u00e1n",
+      "middleName": "R.",
+      "party": "D",
+      "sponsorshipDate": "2024-12-16",
+      "state": "NM",
+      "url": "https://api.congress.gov/v3/member/L000570?format=json"
+    }
+  ]
+}

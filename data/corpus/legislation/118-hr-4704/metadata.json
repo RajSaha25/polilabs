@@ -1,0 +1,158 @@
+{
+  "bill_id": "118-hr-4704",
+  "congress": 118,
+  "bill_type": "hr",
+  "bill_number": 4704,
+  "title": "Artificial Intelligence and Biosecurity Risk Assessment Act",
+  "short_title": null,
+  "sponsor": "Rep. Eshoo, Anna G. [D-CA-16] (D-CA)",
+  "introduced_date": "2023-07-18",
+  "latest_action": "2023-07-21: Referred to the Subcommittee on Health.",
+  "policy_area": "Health",
+  "subjects": [],
+  "summary_text": "Artificial Intelligence and Biosecurity Risk Assessment ActThis bill requires the Administration for Strategic Preparedness and Response to assess the risks posed by artificial intelligence in developing novel pathogens, viruses, bioweapons, or chemical weapons and to address these risks through related initiatives and activities, such as by including the risk assessment in the National Health Security Strategy (a coordinated strategy among federal, state, and local entities to address public health emergencies).",
+  "centrality_score": 5.0,
+  "match_locations": {
+    "title": [
+      "artificial intelligence"
+    ],
+    "summary": [
+      "artificial intelligence"
+    ]
+  },
+  "tier": "A",
+  "stream": "legislation",
+  "versions_available": [
+    {
+      "package_id": "BILLS-118hr4704ih",
+      "version_code": "ih",
+      "date_issued": "2023-07-18"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-118hr4704ih",
+    "version_code": "ih",
+    "date_issued": "2023-07-18"
+  },
+  "actions": [
+    {
+      "actionCode": "H11000",
+      "actionDate": "2023-07-21",
+      "committees": [
+        {
+          "name": "Health Subcommittee",
+          "systemCode": "hsif14",
+          "url": "https://api.congress.gov/v3/committee/house/hsif14?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "code": 1,
+        "name": "House committee actions"
+      },
+      "text": "Referred to the Subcommittee on Health.",
+      "type": "Committee"
+    },
+    {
+      "actionCode": "H11100",
+      "actionDate": "2023-07-18",
+      "committees": [
+        {
+          "name": "Energy and Commerce Committee",
+          "systemCode": "hsif00",
+          "url": "https://api.congress.gov/v3/committee/house/hsif00?format=json"
+        }
+      ],
+      "sourceSystem": {
+        "code": 2,
+        "name": "House floor actions"
+      },
+      "text": "Referred to the House Committee on Energy and Commerce.",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "Intro-H",
+      "actionDate": "2023-07-18",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in House",
+      "type": "IntroReferral"
+    },
+    {
+      "actionCode": "1000",
+      "actionDate": "2023-07-18",
+      "sourceSystem": {
+        "code": 9,
+        "name": "Library of Congress"
+      },
+      "text": "Introduced in House",
+      "type": "IntroReferral"
+    }
+  ],
+  "cosponsors": [
+    {
+      "bioguideId": "C001120",
+      "district": 2,
+      "firstName": "Dan",
+      "fullName": "Rep. Crenshaw, Dan [R-TX-2]",
+      "isOriginalCosponsor": true,
+      "lastName": "Crenshaw",
+      "party": "R",
+      "sponsorshipDate": "2023-07-18",
+      "state": "TX",
+      "url": "https://api.congress.gov/v3/member/C001120?format=json"
+    },
+    {
+      "bioguideId": "T000483",
+      "district": 6,
+      "firstName": "David",
+      "fullName": "Rep. Trone, David J. [D-MD-6]",
+      "isOriginalCosponsor": false,
+      "lastName": "Trone",
+      "middleName": "J.",
+      "party": "D",
+      "sponsorshipDate": "2023-12-06",
+      "state": "MD",
+      "url": "https://api.congress.gov/v3/member/T000483?format=json"
+    },
+    {
+      "bioguideId": "M001221",
+      "district": 19,
+      "firstName": "Marcus",
+      "fullName": "Rep. Molinaro, Marcus J. [R-NY-19]",
+      "isOriginalCosponsor": false,
+      "lastName": "Molinaro",
+      "middleName": "J.",
+      "party": "R",
+      "sponsorshipDate": "2023-12-19",
+      "state": "NY",
+      "url": "https://api.congress.gov/v3/member/M001221?format=json"
+    },
+    {
+      "bioguideId": "P000616",
+      "district": 3,
+      "firstName": "Dean",
+      "fullName": "Rep. Phillips, Dean [D-MN-3]",
+      "isOriginalCosponsor": false,
+      "lastName": "Phillips",
+      "party": "D",
+      "sponsorshipDate": "2024-03-06",
+      "state": "MN",
+      "url": "https://api.congress.gov/v3/member/P000616?format=json"
+    },
+    {
+      "bioguideId": "F000466",
+      "district": 1,
+      "firstName": "Brian",
+      "fullName": "Rep. Fitzpatrick, Brian K. [R-PA-1]",
+      "isOriginalCosponsor": false,
+      "lastName": "Fitzpatrick",
+      "middleName": "K.",
+      "party": "R",
+      "sponsorshipDate": "2024-08-06",
+      "state": "PA",
+      "url": "https://api.congress.gov/v3/member/F000466?format=json"
+    }
+  ]
+}
