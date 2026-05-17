@@ -8,6 +8,7 @@ dependencies = [
     "python-dotenv>=1.0",
     "anthropic>=0.92.0",
     "mcp>=1.0.0",
+    "gradio>=5.0",
 ]
 
 [tool.setuptools.packages.find]

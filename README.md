@@ -55,6 +55,16 @@ You get an interactive REPL backed by Claude Opus 4.7 with the six polilabs prim
 - "Are there any bills about facial recognition in federal contracting?"
 - "What's NOT in this corpus?"
 
+## Drive it from a browser
+
+Same agent, same tools, behind a Gradio chat UI:
+
+```bash
+python scripts/web.py
+```
+
+Opens at <http://localhost:7860>. Add `--share` for a public *.gradio.live tunnel — convenient for sending a link, but proceed with caution since it exposes your Anthropic-billed quota.
+
 ## Drive it from any MCP client
 
 `mcp_server.py` exposes the same six primitives over MCP stdio. Add to your MCP client's server config:
