@@ -8,3 +8,6 @@ data/raw/
 data/cache/
 data/polilabs.db
 data/polilabs.db-*
+data/polilabs.kuzu
+data/polilabs.kuzu.*
+data/polilabs.kuzu-*
