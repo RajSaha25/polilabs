@@ -10,4 +10,4 @@ dependencies = [
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["sources*"]
+include = ["sources*", "api*"]
