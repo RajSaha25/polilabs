@@ -1,0 +1,13 @@
+[project]
+name = "polilabs"
+version = "0.0.1"
+description = "Queryable, citation-accurate DB of US federal legislation."
+requires-python = ">=3.11"
+dependencies = [
+    "requests>=2.31",
+    "python-dotenv>=1.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["sources*"]
