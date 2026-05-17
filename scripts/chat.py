@@ -25,6 +25,8 @@ from anthropic import beta_tool
 from agent.tools import (
     SYSTEM_PROMPT,
     tool_corpus_coverage,
+    tool_get_amendments,
+    tool_get_amendments_targeting,
     tool_get_bill,
     tool_get_citation_graph,
     tool_get_defined_terms,
@@ -161,9 +163,45 @@ def get_defined_terms(bill_id: str) -> str:
     return tool_get_defined_terms(bill_id)
 
 
+@beta_tool
+def get_amendments(bill_id: str) -> str:
+    """Get every amendment a bill makes to existing U.S. Code.
+
+    Each Amendment carries operation_type, target_canonical_citation,
+    target_locator_json (structured target locator), and verbatim
+    before_text + after_text. Use to answer 'what does this bill
+    actually change about existing law?'
+
+    target_text_unverified is True on every operation in v1 — we have
+    not yet ingested OLRC U.S. Code text, so before_text has not been
+    checked against the statute as it stands today. Always mention this
+    caveat in summaries.
+
+    Args:
+        bill_id: Bill identifier (legacy '119-hr-8516' or URN).
+    """
+    return tool_get_amendments(bill_id)
+
+
+@beta_tool
+def get_amendments_targeting(statute_section_id: str) -> str:
+    """Get all amendments in the corpus targeting a U.S. Code section.
+
+    Use when researching "what other bills this session amend the same
+    statute?" — surfaces every (bill, section, operation) triple that
+    touches a given USC section.
+
+    Args:
+        statute_section_id: URN ('statute:us/usc/5/552'), slash form
+            ('5/552'), or prose ('5 U.S.C. 552').
+    """
+    return tool_get_amendments_targeting(statute_section_id)
+
+
 TOOLS = [
     search_corpus, get_bill, get_section, resolve_citation,
     corpus_coverage, get_citation_graph, get_defined_terms,
+    get_amendments, get_amendments_targeting,
 ]
 
 

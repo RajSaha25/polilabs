@@ -36,6 +36,10 @@ except ImportError:  # pragma: no cover
 
 from .types import (
     AdjacencySummary,
+    Amendment,
+    AmendmentOperationType,
+    AmendmentsResult,
+    AmendmentsTargetingResult,
     Bill,
     BillVersion,
     CitationEdge,
@@ -891,3 +895,171 @@ def get_defined_terms(bill_id: str) -> DefinedTermsResult:
             f"({direct_n} direct, {by_ref_n} by-reference) "
             f"from bill {urn_bill}")
     return DefinedTermsResult(bill_id=bill_id, terms=out_terms, coverage_note=note)
+
+
+# ----- get_amendments / get_amendments_targeting -----
+
+def _amendment_from_row(
+    amendment_id: str,
+    source_section_id_urn: str,
+    source_citation: str,
+    operation_type: str,
+    operation_text: str,
+    target_statute_section_id: str | None,
+    target_canonical: str | None,
+    target_locator_json: str,
+    before_text: str | None,
+    after_text: str,
+    target_text_unverified: bool,
+) -> Amendment:
+    return Amendment(
+        amendment_id=amendment_id,
+        source_section_id=_from_urn_section_id(source_section_id_urn),
+        source_section_citation=source_citation or "",
+        operation_type=operation_type or "other",  # type: ignore[arg-type]
+        operation_text=operation_text or "",
+        target_statute_section_id=target_statute_section_id,
+        target_canonical_citation=target_canonical,
+        target_locator_json=target_locator_json or "{}",
+        before_text=before_text,
+        after_text=after_text or "",
+        target_text_unverified=bool(target_text_unverified),
+        provenance=_make_provenance(
+            sources=[f"polilabs:kuzu/AmendmentOperation({amendment_id})"],
+            notes=(
+                "derivation=mechanical, source=<quoted-block> in bill XML; "
+                "target_text_unverified=True until OLRC USC ingestion"
+            ),
+        ),
+    )
+
+
+def get_amendments(bill_id: str) -> AmendmentsResult:
+    """Every AmendmentOperation issued by sections of a given bill.
+
+    Answers "what does this bill change about existing law?" — design
+    doc Q1. Each Amendment carries the operation type, the target USC
+    citation (when resolved), and the before/after text payloads.
+    target_text_unverified is True in v1 because we do not yet ingest
+    OLRC USC text; downstream EnactmentVersion synthesis will use that
+    flag to surface ConflictNote markers.
+    """
+    k = _kuzu()
+    if k is None:
+        return AmendmentsResult(
+            bill_id=bill_id, amendments=[],
+            coverage_note="graph store unavailable; run scripts/build_kuzu_index.py",
+        )
+
+    urn_bill = _to_urn_bill_id(bill_id)
+    cypher = """
+    MATCH (b:Bill {bill_id: $bid})-[:HAS_VERSION]->(:BillVersion)
+          -[:HAS_SECTION|PARENT_OF*]->(s:Section)-[:AMENDS]->(a:AmendmentOperation)
+    OPTIONAL MATCH (a)-[:TARGETS]->(t:StatuteSection)
+    RETURN a.amendment_id, s.section_id, s.canonical_citation,
+           a.operation_type, a.target_locator_json,
+           a.before_text, a.after_text, a.target_text_unverified,
+           t.statute_section_id, t.canonical_citation,
+           coalesce(a.before_text, "") + " " + coalesce(a.after_text, "") AS _pad,
+           "" AS _operation_text_placeholder
+    ORDER BY s.section_id, a.amendment_id
+    """
+    # Note: Kùzu schema stores operation_text in the prose-driving prop
+    # name we used at insert time. The full operation prose is on the
+    # AmendmentOperation node — fetch it explicitly via a separate field.
+    cypher = """
+    MATCH (b:Bill {bill_id: $bid})-[:HAS_VERSION]->(:BillVersion)
+          -[:HAS_SECTION|PARENT_OF*]->(s:Section)-[:AMENDS]->(a:AmendmentOperation)
+    OPTIONAL MATCH (a)-[:TARGETS]->(t:StatuteSection)
+    RETURN a.amendment_id, s.section_id, s.canonical_citation,
+           a.operation_type, a.target_locator_json,
+           a.before_text, a.after_text, a.target_text_unverified,
+           t.statute_section_id, t.canonical_citation
+    ORDER BY s.section_id, a.amendment_id
+    """
+    r = k.execute(cypher, {"bid": urn_bill})
+    amends: list[Amendment] = []
+    while r.has_next():
+        (aid, src_sid_urn, src_cite, op, locator,
+         before, after, unverified,
+         tgt_sid, tgt_canon) = r.get_next()
+        amends.append(_amendment_from_row(
+            amendment_id=aid, source_section_id_urn=src_sid_urn,
+            source_citation=src_cite, operation_type=op,
+            operation_text="",  # not stored as a node prop in v1 schema
+            target_statute_section_id=tgt_sid,
+            target_canonical=tgt_canon,
+            target_locator_json=locator,
+            before_text=before, after_text=after,
+            target_text_unverified=unverified,
+        ))
+
+    note = (f"{len(amends)} amendment operations from bill {urn_bill}; "
+            f"target_text_unverified=true (USC not yet ingested — synthesis "
+            f"queries will return ConflictNote markers when verification runs)")
+    return AmendmentsResult(bill_id=bill_id, amendments=amends, coverage_note=note)
+
+
+def get_amendments_targeting(statute_section_id: str) -> AmendmentsTargetingResult:
+    """All amendments in the corpus that target a given USC section.
+
+    Answers "what other bills this session amend the same statute?" —
+    design doc Q2. Accept either the URN form
+    ('statute:us/usc/5/552') or a short '15/9401' / '15 U.S.C. 9401'
+    style; this helper normalizes.
+    """
+    k = _kuzu()
+    if k is None:
+        return AmendmentsTargetingResult(
+            statute_section_id=statute_section_id, statute_canonical="",
+            amendments=[], coverage_note="graph store unavailable",
+        )
+    sid = statute_section_id.strip()
+    if not sid.startswith("statute:"):
+        # Accept "15/9401" shorthand.
+        if "/" in sid and re.match(r"^\d+/", sid):
+            sid = f"statute:us/usc/{sid}"
+        else:
+            # Accept "15 U.S.C. 9401" prose form.
+            m = re.match(
+                r"^(?P<title>\d+)\s*U\.?\s*S\.?\s*C\.?\s*[§\.]?\s*(?P<section>\S+)$",
+                sid, re.IGNORECASE,
+            )
+            if m:
+                sid = f"statute:us/usc/{m.group('title')}/{m.group('section')}"
+    cypher = """
+    MATCH (a:AmendmentOperation)-[:TARGETS]->(t:StatuteSection {statute_section_id: $sid})
+    MATCH (s:Section)-[:AMENDS]->(a)
+    RETURN a.amendment_id, s.section_id, s.canonical_citation,
+           a.operation_type, a.target_locator_json,
+           a.before_text, a.after_text, a.target_text_unverified,
+           t.statute_section_id, t.canonical_citation
+    ORDER BY s.section_id, a.amendment_id
+    """
+    r = k.execute(cypher, {"sid": sid})
+    amends: list[Amendment] = []
+    statute_canon = sid
+    while r.has_next():
+        (aid, src_sid_urn, src_cite, op, locator,
+         before, after, unverified,
+         tgt_sid, tgt_canon) = r.get_next()
+        statute_canon = tgt_canon or sid
+        amends.append(_amendment_from_row(
+            amendment_id=aid, source_section_id_urn=src_sid_urn,
+            source_citation=src_cite, operation_type=op,
+            operation_text="",
+            target_statute_section_id=tgt_sid,
+            target_canonical=tgt_canon,
+            target_locator_json=locator,
+            before_text=before, after_text=after,
+            target_text_unverified=unverified,
+        ))
+
+    bills_touched = len({a.source_section_id.split("::")[0] for a in amends})
+    note = (f"{len(amends)} amendment operations from {bills_touched} bill(s) "
+            f"target {statute_canon}; target_text_unverified=true (synthesis "
+            f"will surface ConflictNote markers when USC ingestion runs)")
+    return AmendmentsTargetingResult(
+        statute_section_id=sid, statute_canonical=statute_canon,
+        amendments=amends, coverage_note=note,
+    )

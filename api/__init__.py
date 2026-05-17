@@ -11,6 +11,8 @@ from __future__ import annotations
 
 from ._impl import (
     corpus_coverage,
+    get_amendments,
+    get_amendments_targeting,
     get_bill,
     get_citation_graph,
     get_defined_terms,
@@ -21,6 +23,10 @@ from ._impl import (
 from .types import (
     AdjacencySummary,
     AgreementScore,
+    Amendment,
+    AmendmentOperationType,
+    AmendmentsResult,
+    AmendmentsTargetingResult,
     Bill,
     BillVersion,
     CitationEdge,
@@ -50,11 +56,17 @@ __all__ = [
     "get_section",
     "get_citation_graph",
     "get_defined_terms",
+    "get_amendments",
+    "get_amendments_targeting",
     "resolve_citation",
     "corpus_coverage",
     # types re-exported for callers
     "AdjacencySummary",
     "AgreementScore",
+    "Amendment",
+    "AmendmentOperationType",
+    "AmendmentsResult",
+    "AmendmentsTargetingResult",
     "Bill",
     "BillVersion",
     "CitationEdge",

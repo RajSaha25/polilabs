@@ -53,6 +53,10 @@ def main() -> int:
           f"(across {stats['bills_with_definitions']} bills)")
     print(f"  DEFINES edges         {stats['defines_edges']:>6}")
     print(f"  BY_REFERENCE edges    {stats['by_reference_edges']:>6}")
+    print(f"  amendments            {stats['amendments_in_db']:>6}  "
+          f"(across {stats['bills_with_amendments']} bills)")
+    print(f"  AMENDS edges          {stats['amends_edges']:>6}")
+    print(f"  TARGETS edges         {stats['targets_edges']:>6}")
     print(f"  parse / insert errors {stats['parse_errors']:>6}")
     print(f"  xml format mix        {stats['format']}")
     print(f"  elapsed               {elapsed:>6.1f}s")

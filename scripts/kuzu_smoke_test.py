@@ -49,6 +49,14 @@ CHECKS: list[tuple[str, str]] = [
      "MATCH ()-[r:BY_REFERENCE]->() RETURN COUNT(r)"),
     ("bills with at least one defined term",
      "MATCH (b:Bill)-[:HAS_VERSION]->(:BillVersion)-[:HAS_SECTION|PARENT_OF*]->(:Section)-[:DEFINES]->() RETURN COUNT(DISTINCT b)"),
+    ("amendment operations (PR4)",
+     "MATCH (a:AmendmentOperation) RETURN COUNT(a)"),
+    ("AMENDS edges (PR4)",
+     "MATCH ()-[r:AMENDS]->() RETURN COUNT(r)"),
+    ("TARGETS edges (PR4)",
+     "MATCH ()-[r:TARGETS]->() RETURN COUNT(r)"),
+    ("bills with at least one amendment",
+     "MATCH (b:Bill)-[:HAS_VERSION]->(:BillVersion)-[:HAS_SECTION|PARENT_OF*]->(:Section)-[:AMENDS]->() RETURN COUNT(DISTINCT b)"),
 ]
 
 SAMPLE_QUERIES: list[tuple[str, str]] = [
@@ -89,6 +97,15 @@ SAMPLE_QUERIES: list[tuple[str, str]] = [
      "-[:HAS_SECTION|PARENT_OF*]->(:Section)-[:DEFINES]->(d:DefinedTerm) "
      "WHERE d.definition_type = 'direct' AND lower(d.surface_form) = 'artificial intelligence' "
      "RETURN DISTINCT b.bill_id, b.official_title LIMIT 10"),
+    ("Top USC sections most amended across the corpus (Q2 from design doc)",
+     "MATCH (a:AmendmentOperation)-[:TARGETS]->(t:StatuteSection) "
+     "RETURN t.canonical_citation, COUNT(a) AS amend_count "
+     "ORDER BY amend_count DESC LIMIT 5"),
+    ("All bills amending 15 U.S.C. 9401 (the federal AI definition source)",
+     "MATCH (b:Bill)-[:HAS_VERSION]->(:BillVersion)"
+     "-[:HAS_SECTION|PARENT_OF*]->(s:Section)-[:AMENDS]->(a:AmendmentOperation)"
+     "-[:TARGETS]->(:StatuteSection {statute_section_id: 'statute:us/usc/15/9401'}) "
+     "RETURN DISTINCT b.bill_id, b.official_title, a.operation_type LIMIT 10"),
 ]
 
 

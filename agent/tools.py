@@ -135,6 +135,24 @@ def tool_get_defined_terms(bill_id: str) -> str:
         return json.dumps({"error": f"{type(e).__name__}: {e}"})
 
 
+def tool_get_amendments(bill_id: str) -> str:
+    """Get all AmendmentOperations issued by a bill."""
+    try:
+        result = api.get_amendments(bill_id)
+        return _dump(result)
+    except Exception as e:
+        return json.dumps({"error": f"{type(e).__name__}: {e}"})
+
+
+def tool_get_amendments_targeting(statute_section_id: str) -> str:
+    """Get all amendments in the corpus targeting a given USC section."""
+    try:
+        result = api.get_amendments_targeting(statute_section_id)
+        return _dump(result)
+    except Exception as e:
+        return json.dumps({"error": f"{type(e).__name__}: {e}"})
+
+
 # -----------------------------------------------------------------------------
 # JSON-schema-compatible tool descriptors — used by the MCP server.
 # The Anthropic SDK derives schemas from @beta_tool function signatures
@@ -200,6 +218,25 @@ TOOL_DESCRIPTIONS = {
         "defining_section_citation field gives you the exact 'Sec. X(y)(z) "
         "of H.R. N' to quote."
     ),
+    "get_amendments": (
+        "Get every amendment operation a bill issues: what statute it "
+        "changes, what operation (insert / strike / strike_and_insert / "
+        "add_at_end / replace / repeal / redesignate), and the verbatim "
+        "before/after text. Use this to answer 'what does this bill "
+        "actually change about existing law?' "
+        "target_text_unverified=true on every operation in v1: we have "
+        "not yet ingested OLRC U.S. Code text, so we cannot verify that "
+        "before_text matches the statute as it stands today. Always "
+        "report this caveat when discussing amendments."
+    ),
+    "get_amendments_targeting": (
+        "Get every amendment operation in the corpus that targets a "
+        "given U.S. Code section. Use this to answer 'what other bills "
+        "this session amend the same statute?' Accepts URN form "
+        "('statute:us/usc/5/552'), slash shorthand ('5/552'), or prose "
+        "form ('5 U.S.C. 552'). Like get_amendments, all results are "
+        "target_text_unverified=true until USC ingestion lands."
+    ),
 }
 
 
@@ -257,6 +294,20 @@ TOOL_SCHEMAS = {
         },
         "required": ["bill_id"],
     },
+    "get_amendments": {
+        "type": "object",
+        "properties": {
+            "bill_id": {"type": "string", "description": "Bill identifier; legacy ('119-hr-8516') or URN ('bill:us/119/hr/8516')."},
+        },
+        "required": ["bill_id"],
+    },
+    "get_amendments_targeting": {
+        "type": "object",
+        "properties": {
+            "statute_section_id": {"type": "string", "description": "U.S. Code section: URN ('statute:us/usc/5/552'), slash ('5/552'), or prose ('5 U.S.C. 552')."},
+        },
+        "required": ["statute_section_id"],
+    },
 }
 
 
@@ -268,6 +319,8 @@ TOOL_FUNCTIONS = {
     "corpus_coverage": tool_corpus_coverage,
     "get_citation_graph": tool_get_citation_graph,
     "get_defined_terms": tool_get_defined_terms,
+    "get_amendments": tool_get_amendments,
+    "get_amendments_targeting": tool_get_amendments_targeting,
 }
 
 
@@ -283,8 +336,10 @@ Workflow:
   3. get_section — verbatim section text + the canonical citation you must quote. The `adjacency_summary` field reports how many statute citations this section makes; if it's >0, call get_citation_graph to see them.
   4. get_citation_graph — typed citation graph around a section (PR2 ships outbound CITES_EXTERNAL edges to U.S. Code targets, depth=1). Use to answer "what does this section cite?" and to ground claims about which statutes a bill touches. Always cite the target's `canonical_citation` field verbatim.
   5. get_defined_terms — every term the bill formally defines. CRITICAL for any question involving "AI", "AI system", "foundation model", "frontier model", "covered entity", "high-risk", etc. The same surface form often has different definitions across bills (e.g., one bill says "AI" by reference to 15 U.S.C. 9401; another defines it directly with a narrower scope). NEVER answer a definitional question from prior knowledge — always call get_defined_terms first and quote the bill's own definition_text.
-  6. resolve_citation — when the user gives you a citation like 'Sec. 3(a)(1) of H.R. 1736', use this to find the section_id.
-  7. corpus_coverage — when asked about scope, or when a search returns nothing, use this to give an honest answer about what is and isn't in the corpus.
+  6. get_amendments — what does THIS bill change about existing law? Returns each AmendmentOperation: target statute, operation type (insert/strike/replace/etc.), before/after text. Every operation carries target_text_unverified=true in v1; always mention this caveat when summarizing amendments.
+  7. get_amendments_targeting — what OTHER bills change the same statute this one does? Powerful when researching conflicting reform proposals.
+  8. resolve_citation — when the user gives you a citation like 'Sec. 3(a)(1) of H.R. 1736', use this to find the section_id.
+  9. corpus_coverage — when asked about scope, or when a search returns nothing, use this to give an honest answer about what is and isn't in the corpus.
 
 When you cite a section, format like: "Sec. 3(a)(1) of H.R. 1736, 119th Cong." (the exact `canonical_citation` string).
 

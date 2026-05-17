@@ -210,3 +210,52 @@ class DefinedTermsResult:
     bill_id: str
     terms: list[DefinedTerm]
     coverage_note: str       # e.g. "8 terms across 1 Definitions container"
+
+
+# ----- amendment subsystem (PR4) -----
+
+AmendmentOperationType = Literal[
+    "strike", "insert", "strike_and_insert", "replace",
+    "add_at_end", "repeal", "redesignate", "other",
+]
+
+
+@dataclass(frozen=True)
+class Amendment:
+    """A reified amendment operation. See schema_design.md §4.
+
+    target_text_unverified is True for every operation in v1 — we do not
+    yet ingest OLRC USC text, so we cannot verify before_text against the
+    statute as it stands today. The synthesis function (Q5 in the doc)
+    will emit ConflictNote markers rather than picking a winner when
+    verification ultimately runs.
+    """
+    amendment_id: str
+    source_section_id: str              # the bill section issuing the operation (legacy form)
+    source_section_citation: str        # 'Sec. 4 of H.R. 8516, 119th Cong.'
+    operation_type: AmendmentOperationType
+    operation_text: str                 # the prose surrounding the operation, ≤500 chars
+    target_statute_section_id: str | None      # 'statute:us/usc/15/9401' when resolved
+    target_canonical_citation: str | None      # '15 U.S.C. 9401'
+    target_locator_json: str            # structured locator (code, title, section, subdivisions)
+    before_text: str | None             # captured from "by striking '...'" patterns
+    after_text: str                     # verbatim quoted-block contents (≤4000 chars)
+    target_text_unverified: bool        # True in v1 (USC not ingested)
+    provenance: Provenance
+
+
+@dataclass(frozen=True)
+class AmendmentsResult:
+    """Response from get_amendments(bill_id)."""
+    bill_id: str
+    amendments: list[Amendment]
+    coverage_note: str
+
+
+@dataclass(frozen=True)
+class AmendmentsTargetingResult:
+    """Response from get_amendments_targeting(statute_section_id)."""
+    statute_section_id: str
+    statute_canonical: str
+    amendments: list[Amendment]
+    coverage_note: str
