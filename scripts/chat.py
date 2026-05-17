@@ -26,6 +26,7 @@ from agent.tools import (
     SYSTEM_PROMPT,
     tool_corpus_coverage,
     tool_get_bill,
+    tool_get_citation_graph,
     tool_get_section,
     tool_resolve_citation,
     tool_search_corpus,
@@ -115,7 +116,31 @@ def corpus_coverage() -> str:
     return tool_corpus_coverage()
 
 
-TOOLS = [search_corpus, get_bill, get_section, resolve_citation, corpus_coverage]
+@beta_tool
+def get_citation_graph(
+    section_id: str,
+    direction: str = "both",
+    max_nodes: int = 25,
+) -> str:
+    """Get the typed citation graph around a section (depth=1).
+
+    Returns a list of `nodes` and `edges`: which statutes the section
+    cites (outbound) and which sections cite this one (inbound). PR2
+    populates CITES_EXTERNAL edges to U.S. Code sections; AMENDS /
+    repeals / references land in later PRs.
+
+    Args:
+        section_id: Section ID (legacy '119-hr-1736::H7CA...' or URN
+            'bill:us/119/hr/1736::H7CA...') — typically copied from a
+            get_bill or get_section response.
+        direction: 'out' (this section cites X), 'in' (X cites this
+            section), or 'both'. Default: both.
+        max_nodes: Cap per direction (1-100). Default: 25.
+    """
+    return tool_get_citation_graph(section_id, direction=direction, max_nodes=max_nodes)
+
+
+TOOLS = [search_corpus, get_bill, get_section, resolve_citation, corpus_coverage, get_citation_graph]
 
 
 def _check_db_ready() -> None:

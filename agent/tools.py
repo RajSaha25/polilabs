@@ -106,6 +106,26 @@ def tool_corpus_coverage() -> str:
         return json.dumps({"error": f"{type(e).__name__}: {e}"})
 
 
+def tool_get_citation_graph(
+    section_id: str,
+    *,
+    direction: str = "both",
+    max_nodes: int = 25,
+) -> str:
+    """Get typed citation graph around a section (depth=1 in PR2)."""
+    if direction not in ("out", "in", "both"):
+        return json.dumps({"error": f"direction must be one of out|in|both, got {direction!r}"})
+    try:
+        result = api.get_citation_graph(
+            section_id,
+            direction=direction,  # type: ignore[arg-type]
+            max_nodes=min(max(max_nodes, 1), 100),
+        )
+        return _dump(result)
+    except Exception as e:
+        return json.dumps({"error": f"{type(e).__name__}: {e}"})
+
+
 # -----------------------------------------------------------------------------
 # JSON-schema-compatible tool descriptors — used by the MCP server.
 # The Anthropic SDK derives schemas from @beta_tool function signatures
@@ -149,6 +169,15 @@ TOOL_DESCRIPTIONS = {
         "tells you what the corpus does and does not cover, so you can "
         "say 'I don't know' honestly instead of confabulating."
     ),
+    "get_citation_graph": (
+        "Get the typed citation graph around a section: which statutes it "
+        "cites (outbound) and which sections cite it (inbound). PR2 "
+        "populates CITES_EXTERNAL edges to U.S. Code sections; "
+        "CITES_INTERNAL (Section→Section) and AMENDS / repeals / "
+        "references land in later PRs. Accepts either legacy "
+        "('119-hr-1736::H7CA...') or URN "
+        "('bill:us/119/hr/1736::H7CA...') section IDs."
+    ),
 }
 
 
@@ -190,6 +219,15 @@ TOOL_SCHEMAS = {
         "type": "object",
         "properties": {},
     },
+    "get_citation_graph": {
+        "type": "object",
+        "properties": {
+            "section_id": {"type": "string", "description": "Section identifier; legacy ('119-hr-1736::H7CA...') or URN ('bill:us/119/hr/1736::H7CA...')."},
+            "direction": {"type": "string", "enum": ["out", "in", "both"], "default": "both", "description": "Citation direction: 'out' = sections this cites; 'in' = sections that cite this; 'both' = both."},
+            "max_nodes": {"type": "integer", "default": 25, "description": "Max nodes per direction (1-100)."},
+        },
+        "required": ["section_id"],
+    },
 }
 
 
@@ -199,6 +237,7 @@ TOOL_FUNCTIONS = {
     "get_section": tool_get_section,
     "resolve_citation": tool_resolve_citation,
     "corpus_coverage": tool_corpus_coverage,
+    "get_citation_graph": tool_get_citation_graph,
 }
 
 
@@ -211,9 +250,10 @@ Every claim about legislation MUST come from the tools. Never reconstruct a cita
 Workflow:
   1. search_corpus — discover relevant bills. The hit is lightweight; use to find bill_ids, then drill down.
   2. get_bill — bill metadata + section table of contents. No body text.
-  3. get_section — verbatim section text + the canonical citation you must quote.
-  4. resolve_citation — when the user gives you a citation like 'Sec. 3(a)(1) of H.R. 1736', use this to find the section_id.
-  5. corpus_coverage — when asked about scope, or when a search returns nothing, use this to give an honest answer about what is and isn't in the corpus.
+  3. get_section — verbatim section text + the canonical citation you must quote. The `adjacency_summary` field reports how many statute citations this section makes; if it's >0, call get_citation_graph to see them.
+  4. get_citation_graph — typed citation graph around a section (PR2 ships outbound CITES_EXTERNAL edges to U.S. Code targets, depth=1). Use to answer "what does this section cite?" and to ground claims about which statutes a bill touches. Always cite the target's `canonical_citation` field verbatim.
+  5. resolve_citation — when the user gives you a citation like 'Sec. 3(a)(1) of H.R. 1736', use this to find the section_id.
+  6. corpus_coverage — when asked about scope, or when a search returns nothing, use this to give an honest answer about what is and isn't in the corpus.
 
 When you cite a section, format like: "Sec. 3(a)(1) of H.R. 1736, 119th Cong." (the exact `canonical_citation` string).
 

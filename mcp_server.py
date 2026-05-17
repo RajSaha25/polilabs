@@ -1,4 +1,4 @@
-"""MCP server — exposes the six polilabs primitives as MCP tools over stdio.
+"""MCP server — exposes the polilabs primitives as MCP tools over stdio.
 
 Lets any MCP-compatible client query the corpus.
 
@@ -10,14 +10,18 @@ Configure in your MCP client with something like:
           "command": "/path/to/polilabs/.venv/bin/python",
           "args": ["/path/to/polilabs/mcp_server.py"],
           "env": {
-            "POLILABS_DB": "/path/to/polilabs/data/polilabs.db"
+            "POLILABS_DB":   "/path/to/polilabs/data/polilabs.db",
+            "POLILABS_KUZU": "/path/to/polilabs/data/polilabs.kuzu"
           }
         }
       }
     }
 
-Note: this server does not require ANTHROPIC_API_KEY — it only reads from
-data/polilabs.db. Build the DB first with `python scripts/build_index.py`.
+This server does not require ANTHROPIC_API_KEY — it reads from
+data/polilabs.db (SQLite) and data/polilabs.kuzu (graph). Build them
+first with:
+    python scripts/build_index.py        # SQLite (FTS + bibliographic)
+    python scripts/build_kuzu_index.py   # Kùzu graph (citations etc.)
 """
 from __future__ import annotations
 

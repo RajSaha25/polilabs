@@ -13,12 +13,18 @@ Two-phase build:
 Destructive: deletes any existing DB at the target path. The Kùzu store
 is regenerable from data/corpus/, which is the source of truth.
 
-Out of scope for PR1 (these populate in later PRs):
-  - CITES_EXTERNAL / CITES_INTERNAL (PR2)
+Populated in this PR (PR2):
+  - CITES_EXTERNAL (USC + USC-chapter + USC-appendix; pre-USLM bills)
+  - StatuteSection nodes for citation targets (lazily MERGEd; no text
+    until OLRC ingestion happens later)
+
+Out of scope (populates in later PRs):
+  - CITES_INTERNAL (PR2.1 — needs USLM <ref href> parsing)
   - DEFINES / RESOLVED_TO / UnresolvedTermUse (PR3)
   - AmendmentOperation / TARGETS (PR4)
   - StatuteVersion ingestion from OLRC (deferred per design decision)
   - Committee / REFERRED_TO extraction (deferred to a follow-up)
+  - Public Law citations (74 in corpus; need a PublicLaw node type)
 
 Honesty notes:
   - Primary sponsors lack bioguide IDs in metadata.json; we mint
@@ -43,6 +49,10 @@ import kuzu
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from index.parse_uslm import parse_bill_xml  # noqa: E402
 
+from .extract_citations import (  # noqa: E402
+    ExternalCitation,
+    extract_external_citations,
+)
 from .schema_kuzu import apply_schema  # noqa: E402
 
 CORPUS_DIR = Path("data/corpus/legislation")
@@ -50,6 +60,7 @@ GRAPH_PATH = Path("data/polilabs.kuzu")
 
 JURISDICTION_URN = "us"
 BIBLIOGRAPHIC_EXTRACTOR_ID = "polilabs/bibliographic_builder@v1"
+CITATION_EXTRACTOR_ID = "polilabs/uslm_external_xref_extractor@v1"
 
 # UNWIND chunk size. 2000 keeps peak memory modest while amortizing the
 # Cypher round-trip cost over ~2000 rows.
@@ -112,15 +123,18 @@ class Accum:
     bill_versions: list[dict[str, Any]] = field(default_factory=list)
     sections: list[dict[str, Any]] = field(default_factory=list)
     sponsors: dict[str, dict[str, Any]] = field(default_factory=dict)
+    statute_sections: dict[str, dict[str, Any]] = field(default_factory=dict)
     of_jurisdiction: list[dict[str, Any]] = field(default_factory=list)
     has_version: list[dict[str, Any]] = field(default_factory=list)
     has_section: list[dict[str, Any]] = field(default_factory=list)
     parent_of: list[dict[str, Any]] = field(default_factory=list)
     sponsored_by: list[dict[str, Any]] = field(default_factory=list)
     cosponsored_by: list[dict[str, Any]] = field(default_factory=list)
+    cites_external: list[dict[str, Any]] = field(default_factory=list)
     format_counts: dict[str, int] = field(default_factory=dict)
     parse_errors: int = 0
     bills_collected: int = 0
+    bills_with_citations: int = 0
 
 
 _KNOWN_BILL_PREFIXES = (
@@ -258,6 +272,41 @@ def _accumulate_bill(meta: dict, fmt: str, section_rows: list, acc: Accum) -> No
     acc.format_counts[fmt] = acc.format_counts.get(fmt, 0) + 1
 
 
+def _accumulate_citations(
+    meta: dict,
+    xml_path: Path,
+    citation_provenance_id: str,
+    acc: Accum,
+) -> None:
+    """Phase-1 citation extraction. Appends StatuteSection rows and
+    CITES_EXTERNAL edge rows to the accumulator.
+    """
+    bid = bill_urn(meta["congress"], meta["bill_type"], meta["bill_number"])
+    edges = extract_external_citations(xml_path, bill_id=bid)
+    if not edges:
+        return
+    acc.bills_with_citations += 1
+    for e in edges:
+        # Lazily dedupe StatuteSection nodes — many bills cite the same
+        # USC section.
+        if e.target_statute_section_id not in acc.statute_sections:
+            acc.statute_sections[e.target_statute_section_id] = {
+                "ssid": e.target_statute_section_id,
+                "sid": e.target_statute_id,
+                "enum_path": "",  # parsable-cite is section-level only
+                "citation": e.target_canonical_citation,
+            }
+        acc.cites_external.append({
+            "src": e.source_section_id,
+            "tgt": e.target_statute_section_id,
+            "raw": e.raw_text,
+            "xml_ref_id": e.xml_ref_id,
+            "derivation": "mechanical",
+            "confidence": 1.0,
+            "pid": citation_provenance_id,
+        })
+
+
 # -----------------------------------------------------------------------------
 # Phase-2 bulk inserts: one UNWIND per table, chunked.
 # -----------------------------------------------------------------------------
@@ -367,6 +416,27 @@ def _bulk_create_cosponsored_by(conn: kuzu.Connection, rows: list) -> None:
         CREATE (b)-[:COSPONSORED_BY {sponsorship_date: r.d, is_original: r.orig}]->(s)""")
 
 
+def _bulk_create_statute_sections(conn: kuzu.Connection, rows: list) -> None:
+    _bulk(conn, "StatuteSection", rows, """
+        UNWIND $rows AS r
+        CREATE (:StatuteSection {
+            statute_section_id: r.ssid, statute_id: r.sid,
+            enum_path: r.enum_path, canonical_citation: r.citation
+        })""")
+
+
+def _bulk_create_cites_external(conn: kuzu.Connection, rows: list) -> None:
+    _bulk(conn, "CITES_EXTERNAL", rows, """
+        UNWIND $rows AS r
+        MATCH (src:Section {section_id: r.src}),
+              (tgt:StatuteSection {statute_section_id: r.tgt})
+        CREATE (src)-[:CITES_EXTERNAL {
+            raw_text: r.raw, xml_ref_id: r.xml_ref_id,
+            derivation: r.derivation, confidence: r.confidence,
+            provenance_id: r.pid
+        }]->(tgt)""")
+
+
 # -----------------------------------------------------------------------------
 # DB lifecycle.
 # -----------------------------------------------------------------------------
@@ -388,31 +458,43 @@ def _open_fresh_db(db_path: Path) -> tuple[kuzu.Database, kuzu.Connection]:
     return db, conn
 
 
-def _seed_static_nodes(conn: kuzu.Connection) -> None:
-    """Insert per-build seed nodes: Jurisdiction, Extractor, ProvenanceRecord."""
+def _seed_static_nodes(conn: kuzu.Connection) -> dict[str, str]:
+    """Insert per-build seed nodes: Jurisdiction, Extractors, ProvenanceRecords.
+
+    Returns a dict mapping extractor_id → its run-specific provenance_id,
+    so per-edge inserts can attach the right ProvenanceRecord.
+    """
     conn.execute(
         "CREATE (:Jurisdiction {urn: $urn, name: $name, legal_system: $ls})",
         {"urn": JURISDICTION_URN, "name": "United States (federal)", "ls": "common_law"},
     )
-    conn.execute(
-        "CREATE (:Extractor {extractor_id: $eid, version: $v, kind: $k})",
-        {"eid": BIBLIOGRAPHIC_EXTRACTOR_ID, "v": "1.0", "k": "parser"},
-    )
     now = datetime.now(timezone.utc)
-    pid = _provenance_id_for(f"{BIBLIOGRAPHIC_EXTRACTOR_ID}:{now.isoformat()}")
-    conn.execute(
-        """CREATE (:ProvenanceRecord {
-             provenance_id: $pid, extractor_id: $eid,
-             derived_at: $derived_at, confidence: 1.0
-           })""",
-        {"pid": pid, "eid": BIBLIOGRAPHIC_EXTRACTOR_ID, "derived_at": now},
-    )
-    conn.execute(
-        """MATCH (e:Extractor {extractor_id: $eid}),
-                 (p:ProvenanceRecord {provenance_id: $pid})
-           CREATE (e)-[:PRODUCED]->(p)""",
-        {"eid": BIBLIOGRAPHIC_EXTRACTOR_ID, "pid": pid},
-    )
+    pids: dict[str, str] = {}
+
+    for eid, kind in (
+        (BIBLIOGRAPHIC_EXTRACTOR_ID, "parser"),
+        (CITATION_EXTRACTOR_ID, "parser"),
+    ):
+        conn.execute(
+            "CREATE (:Extractor {extractor_id: $eid, version: $v, kind: $k})",
+            {"eid": eid, "v": "1.0", "k": kind},
+        )
+        pid = _provenance_id_for(f"{eid}:{now.isoformat()}")
+        conn.execute(
+            """CREATE (:ProvenanceRecord {
+                 provenance_id: $pid, extractor_id: $eid,
+                 derived_at: $derived_at, confidence: 1.0
+               })""",
+            {"pid": pid, "eid": eid, "derived_at": now},
+        )
+        conn.execute(
+            """MATCH (e:Extractor {extractor_id: $eid}),
+                     (p:ProvenanceRecord {provenance_id: $pid})
+               CREATE (e)-[:PRODUCED]->(p)""",
+            {"eid": eid, "pid": pid},
+        )
+        pids[eid] = pid
+    return pids
 
 
 def build_graph(
@@ -422,7 +504,8 @@ def build_graph(
     verbose: bool = True,
 ) -> dict:
     db, conn = _open_fresh_db(db_path)
-    _seed_static_nodes(conn)
+    extractor_pids = _seed_static_nodes(conn)
+    citation_pid = extractor_pids[CITATION_EXTRACTOR_ID]
 
     # ----- Phase 1: collect -----
     acc = Accum()
@@ -453,12 +536,20 @@ def build_graph(
             if verbose:
                 print(f"[collect-error] {meta['bill_id']}: {type(e).__name__}: {e}")
             continue
+        try:
+            _accumulate_citations(meta, xml_path, citation_pid, acc)
+        except Exception as e:
+            # Citation-extraction failures don't abort the bibliographic
+            # ingest — just log and continue with empty citations.
+            if verbose:
+                print(f"[citation-error] {meta['bill_id']}: {type(e).__name__}: {e}")
         if verbose and (i + 1) % 50 == 0:
             print(f"  collected {i + 1}/{len(bill_dirs)} bills; sections so far: {len(acc.sections)}")
 
     if verbose:
         print(f"  phase 1 done: {acc.bills_collected} bills, {len(acc.sections)} sections, "
-              f"{len(acc.sponsors)} unique sponsors")
+              f"{len(acc.sponsors)} unique sponsors, "
+              f"{len(acc.cites_external)} citations across {acc.bills_with_citations} bills")
         print(f"  phase 2 starting: bulk insert via UNWIND (chunk={CHUNK})")
 
     # ----- Phase 2: bulk insert (order matters — nodes before their edges) -----
@@ -466,12 +557,14 @@ def build_graph(
     _bulk_create_bill_versions(conn, acc.bill_versions)
     _bulk_create_sections(conn, acc.sections)
     _bulk_merge_sponsors(conn, list(acc.sponsors.values()))
+    _bulk_create_statute_sections(conn, list(acc.statute_sections.values()))
     _bulk_create_of_jurisdiction(conn, acc.of_jurisdiction)
     _bulk_create_has_version(conn, acc.has_version)
     _bulk_create_has_section(conn, acc.has_section)
     _bulk_create_parent_of(conn, acc.parent_of)
     _bulk_create_sponsored_by(conn, acc.sponsored_by)
     _bulk_create_cosponsored_by(conn, acc.cosponsored_by)
+    _bulk_create_cites_external(conn, acc.cites_external)
 
     # ----- Final-state counts via Cypher -----
     def _scalar(query: str) -> int:
@@ -486,9 +579,12 @@ def build_graph(
         "bill_versions_in_db": _scalar("MATCH (v:BillVersion) RETURN COUNT(v)"),
         "sections_in_db": _scalar("MATCH (s:Section) RETURN COUNT(s)"),
         "sponsors_in_db": _scalar("MATCH (s:Sponsor) RETURN COUNT(s)"),
+        "statute_sections_in_db": _scalar("MATCH (s:StatuteSection) RETURN COUNT(s)"),
         "has_section_edges": _scalar("MATCH ()-[r:HAS_SECTION]->() RETURN COUNT(r)"),
         "parent_of_edges": _scalar("MATCH ()-[r:PARENT_OF]->() RETURN COUNT(r)"),
         "sponsored_by_edges": _scalar("MATCH ()-[r:SPONSORED_BY]->() RETURN COUNT(r)"),
         "cosponsored_by_edges": _scalar("MATCH ()-[r:COSPONSORED_BY]->() RETURN COUNT(r)"),
+        "cites_external_edges": _scalar("MATCH ()-[r:CITES_EXTERNAL]->() RETURN COUNT(r)"),
+        "bills_with_citations": acc.bills_with_citations,
     }
     return stats
