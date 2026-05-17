@@ -96,7 +96,7 @@ python scripts/kuzu_smoke_test.py         # structural Cypher checks + sample qu
 
 Output goes to `data/polilabs.kuzu` (gitignored, regenerable from `data/corpus/`). The build is destructive: the existing graph is deleted and rebuilt.
 
-What populates after PR2 (191 bills):
+What populates after PR3 (191 bills):
 
 | Element | Count |
 |---|---|
@@ -105,8 +105,10 @@ What populates after PR2 (191 bills):
 | `PARENT_OF` / `HAS_SECTION` edges | 28,969 / 647 |
 | `SPONSORED_BY` / `COSPONSORED_BY` | 191 / 688 |
 | `CITES_EXTERNAL` (USC citations) | 646, across 137 bills, 172 unique USC targets |
+| `DefinedTerm` nodes | 1,241, across 104 bills |
+| `DEFINES` / `BY_REFERENCE` edges | 1,244 / 114 |
 
-The agent-facing API in `api/_impl.py` reads from Kùzu for `get_citation_graph` and `get_section`'s `adjacency_summary`; bibliographic primitives (`get_bill`, `search_corpus`, etc.) still read from SQLite. Section IDs round-trip between legacy (`119-hr-1736::H7CA...`) and URN (`bill:us/119/hr/1736::H7CA...`) forms transparently.
+The agent-facing API reads from Kùzu for `get_citation_graph`, `get_defined_terms`, and `get_section`'s `adjacency_summary`; bibliographic primitives (`get_bill`, `search_corpus`, etc.) still read from SQLite. Section IDs round-trip between legacy (`119-hr-1736::H7CA...`) and URN (`bill:us/119/hr/1736::H7CA...`) forms transparently.
 
 ## Layout
 

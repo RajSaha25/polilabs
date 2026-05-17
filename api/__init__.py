@@ -1,9 +1,9 @@
-"""polilabs agent-facing API — six primitives.
+"""polilabs agent-facing API.
 
 See api/SPEC.md for the design contract. Implementations live in api/_impl.py
-and are backed by data/polilabs.db (build with `python scripts/build_index.py`).
+and are backed by data/polilabs.db (SQLite, FTS) + data/polilabs.kuzu (graph).
 
-The six primitives are the ONLY supported way for an agent to query the
+These primitives are the ONLY supported way for an agent to query the
 corpus. Lower-level direct DB/file access is for ingestion and tooling,
 not for agents.
 """
@@ -13,6 +13,7 @@ from ._impl import (
     corpus_coverage,
     get_bill,
     get_citation_graph,
+    get_defined_terms,
     get_section,
     resolve_citation,
     search_corpus,
@@ -26,6 +27,10 @@ from .types import (
     CitationGraph,
     CitationType,
     CoverageReport,
+    DefinedTerm,
+    DefinedTermsResult,
+    DefinitionScope,
+    DefinitionType,
     Provenance,
     ResolvedCitation,
     ResolvedRef,
@@ -44,6 +49,7 @@ __all__ = [
     "get_bill",
     "get_section",
     "get_citation_graph",
+    "get_defined_terms",
     "resolve_citation",
     "corpus_coverage",
     # types re-exported for callers
@@ -55,6 +61,10 @@ __all__ = [
     "CitationGraph",
     "CitationType",
     "CoverageReport",
+    "DefinedTerm",
+    "DefinedTermsResult",
+    "DefinitionScope",
+    "DefinitionType",
     "Provenance",
     "ResolvedCitation",
     "ResolvedRef",
@@ -67,5 +77,3 @@ __all__ = [
     "StreamStatus",
     "Tier",
 ]
-
-

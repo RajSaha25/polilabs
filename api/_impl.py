@@ -42,6 +42,10 @@ from .types import (
     CitationGraph,
     CitationType,
     CoverageReport,
+    DefinedTerm,
+    DefinedTermsResult,
+    DefinitionScope,
+    DefinitionType,
     Provenance,
     ResolvedCitation,
     ResolvedRef,
@@ -786,8 +790,11 @@ def corpus_coverage() -> CoverageReport:
 
     known_gaps = [
         "Bill text point-in-time history not yet indexed (one canonical version per bill).",
-        "Citation graph empty (Phase 4 work).",
-        "Multi-source agreement scoring not yet populated (Phase 4 work).",
+        "USLM <ref href='...'> citations from 2 USLM bills not yet extracted (PR2.1).",
+        "Public Law (74) and CITES_INTERNAL citations not yet extracted (PR2.1).",
+        "Definition use-site resolution (RESOLVED_TO / UnresolvedTermUse) not yet wired (PR3.1).",
+        "AmendmentOperation extraction not yet wired (PR4).",
+        "Multi-source agreement scoring not yet populated.",
     ]
 
     return CoverageReport(
@@ -802,3 +809,85 @@ def corpus_coverage() -> CoverageReport:
         source_freshness=freshness,
         known_gaps=known_gaps,
     )
+
+
+# ----- get_defined_terms -----
+
+_URN_BILL_RE = re.compile(r"^bill:us/(\d+)/([a-z]+)/(\d+)$")
+
+
+def _to_urn_bill_id(bill_id: str) -> str:
+    """Translate legacy bill_id like '119-hr-1736' to URN form."""
+    if bill_id.startswith("bill:"):
+        return bill_id
+    m = re.match(r"^(\d+)-([a-z]+)-(\d+)$", bill_id)
+    if not m:
+        return bill_id
+    congress, btype, bnum = m.groups()
+    return f"bill:us/{congress}/{btype}/{bnum}"
+
+
+def get_defined_terms(bill_id: str) -> DefinedTermsResult:
+    """All DefinedTerm nodes scoped under a given bill.
+
+    Returns every term defined in the bill's Definitions section(s),
+    each with its definition text, type (direct vs. by_reference), and
+    by-reference target (USC section URN + canonical citation) when
+    applicable. Pass either legacy ('119-hr-1736') or URN
+    ('bill:us/119/hr/1736') bill IDs.
+    """
+    k = _kuzu()
+    if k is None:
+        return DefinedTermsResult(
+            bill_id=bill_id, terms=[],
+            coverage_note="graph store unavailable; run scripts/build_kuzu_index.py",
+        )
+
+    urn_bill = _to_urn_bill_id(bill_id)
+    legacy_bill = _from_urn_section_id(urn_bill + "::").rstrip("::") if urn_bill.startswith("bill:") else bill_id
+
+    # The Definitions container can sit at any depth in the bill, so we
+    # traverse HAS_SECTION ∪ PARENT_OF transitively.
+    cypher = """
+    MATCH (b:Bill {bill_id: $bid})-[:HAS_VERSION]->(:BillVersion)
+          -[:HAS_SECTION|PARENT_OF*]->(s:Section)-[def:DEFINES]->(d:DefinedTerm)
+    OPTIONAL MATCH (d)-[:BY_REFERENCE]->(t:StatuteSection)
+    RETURN d.defined_term_id, d.surface_form, d.scope, d.definition_type,
+           d.definition_text, d.defining_section_id, s.canonical_citation,
+           t.statute_section_id, t.canonical_citation
+    ORDER BY d.surface_form
+    """
+    r = k.execute(cypher, {"bid": urn_bill})
+
+    out_terms: list[DefinedTerm] = []
+    seen: set[str] = set()
+    while r.has_next():
+        (dtid, surface, scope, dtype, dtext,
+         defining_sid_urn, defining_citation,
+         br_target_sid, br_target_citation) = r.get_next()
+        if dtid in seen:
+            continue
+        seen.add(dtid)
+        out_terms.append(DefinedTerm(
+            defined_term_id=dtid,
+            surface_form=surface,
+            bill_id=legacy_bill if not bill_id.startswith("bill:") else urn_bill,
+            defining_section_id=_from_urn_section_id(defining_sid_urn),
+            defining_section_citation=defining_citation or "",
+            scope=scope or "section_local",  # type: ignore[arg-type]
+            definition_type=dtype or "direct",  # type: ignore[arg-type]
+            definition_text=dtext or "",
+            by_reference_target_id=br_target_sid,
+            by_reference_target_citation=br_target_citation,
+            provenance=_make_provenance(
+                sources=[f"polilabs:kuzu/DefinedTerm({dtid})"],
+                notes="derivation=mechanical, source=Definitions container in bill XML",
+            ),
+        ))
+
+    direct_n = sum(1 for t in out_terms if t.definition_type == "direct")
+    by_ref_n = sum(1 for t in out_terms if t.definition_type == "by_reference")
+    note = (f"{len(out_terms)} defined terms "
+            f"({direct_n} direct, {by_ref_n} by-reference) "
+            f"from bill {urn_bill}")
+    return DefinedTermsResult(bill_id=bill_id, terms=out_terms, coverage_note=note)

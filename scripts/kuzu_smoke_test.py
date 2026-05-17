@@ -41,8 +41,14 @@ CHECKS: list[tuple[str, str]] = [
      "MATCH (t:StatuteSection) RETURN COUNT(t)"),
     ("bills with at least one USC citation",
      "MATCH (b:Bill)-[:HAS_VERSION]->(:BillVersion)-[:HAS_SECTION|PARENT_OF*]->(s:Section)-[:CITES_EXTERNAL]->() RETURN COUNT(DISTINCT b)"),
-    ("defined terms (should be 0 until PR3)",
+    ("defined terms (PR3)",
      "MATCH (d:DefinedTerm) RETURN COUNT(d)"),
+    ("DEFINES edges (PR3)",
+     "MATCH ()-[r:DEFINES]->() RETURN COUNT(r)"),
+    ("BY_REFERENCE edges (PR3)",
+     "MATCH ()-[r:BY_REFERENCE]->() RETURN COUNT(r)"),
+    ("bills with at least one defined term",
+     "MATCH (b:Bill)-[:HAS_VERSION]->(:BillVersion)-[:HAS_SECTION|PARENT_OF*]->(:Section)-[:DEFINES]->() RETURN COUNT(DISTINCT b)"),
 ]
 
 SAMPLE_QUERIES: list[tuple[str, str]] = [
@@ -66,6 +72,22 @@ SAMPLE_QUERIES: list[tuple[str, str]] = [
     ("All bills that cite 15 U.S.C. § 9401 (NAIIA — defines 'AI')",
      "MATCH (b:Bill)-[:HAS_VERSION]->(:BillVersion)-[:HAS_SECTION|PARENT_OF*]->(s:Section)"
      "-[:CITES_EXTERNAL]->(:StatuteSection {statute_section_id: 'statute:us/usc/15/9401'}) "
+     "RETURN DISTINCT b.bill_id, b.official_title LIMIT 10"),
+    ("H.R. 1736 (119th Cong.) — all defined terms",
+     "MATCH (b:Bill {bill_id: 'bill:us/119/hr/1736'})-[:HAS_VERSION]->(:BillVersion)"
+     "-[:HAS_SECTION|PARENT_OF*]->(:Section)-[:DEFINES]->(d:DefinedTerm) "
+     "OPTIONAL MATCH (d)-[:BY_REFERENCE]->(t:StatuteSection) "
+     "RETURN d.surface_form, d.definition_type, t.canonical_citation "
+     "ORDER BY d.surface_form"),
+    ("Definitional consensus: bills defining 'AI' by reference to 15 U.S.C. 9401",
+     "MATCH (b:Bill)-[:HAS_VERSION]->(:BillVersion)"
+     "-[:HAS_SECTION|PARENT_OF*]->(:Section)-[:DEFINES]->(d:DefinedTerm)"
+     "-[:BY_REFERENCE]->(:StatuteSection {statute_section_id: 'statute:us/usc/15/9401'}) "
+     "RETURN DISTINCT b.bill_id, b.official_title LIMIT 10"),
+    ("Definitional divergence: bills with their own DIRECT 'artificial intelligence' definition",
+     "MATCH (b:Bill)-[:HAS_VERSION]->(:BillVersion)"
+     "-[:HAS_SECTION|PARENT_OF*]->(:Section)-[:DEFINES]->(d:DefinedTerm) "
+     "WHERE d.definition_type = 'direct' AND lower(d.surface_form) = 'artificial intelligence' "
      "RETURN DISTINCT b.bill_id, b.official_title LIMIT 10"),
 ]
 

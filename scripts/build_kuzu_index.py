@@ -49,6 +49,10 @@ def main() -> int:
     print(f"  COSPONSORED_BY edges  {stats['cosponsored_by_edges']:>6}")
     print(f"  CITES_EXTERNAL edges  {stats['cites_external_edges']:>6}  "
           f"(across {stats['bills_with_citations']} bills)")
+    print(f"  defined terms         {stats['defined_terms_in_db']:>6}  "
+          f"(across {stats['bills_with_definitions']} bills)")
+    print(f"  DEFINES edges         {stats['defines_edges']:>6}")
+    print(f"  BY_REFERENCE edges    {stats['by_reference_edges']:>6}")
     print(f"  parse / insert errors {stats['parse_errors']:>6}")
     print(f"  xml format mix        {stats['format']}")
     print(f"  elapsed               {elapsed:>6.1f}s")

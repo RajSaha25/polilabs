@@ -171,3 +171,42 @@ class CoverageReport:
     bill_count_by_tier: dict[Tier, int]
     source_freshness: list[SourceFreshness]
     known_gaps: list[str]
+
+
+# ----- definitions subsystem (PR3) -----
+
+DefinitionType = Literal["direct", "by_reference"]
+DefinitionScope = Literal["section_local", "title_local", "bill_local", "statute_global", "jurisdiction_global"]
+
+
+@dataclass(frozen=True)
+class DefinedTerm:
+    """A term defined in a specific bill, with its scope and (optional) by-reference target.
+
+    See schema_design.md §3. The `by_reference_target_citation` is set
+    when the definition is "has the meaning given such term in
+    [USC citation]" — i.e., the bill inherits another statute's
+    definition rather than defining the term from scratch. Cross-bill
+    consensus / divergence is visible by grouping DefinedTerms with the
+    same `surface_form` and comparing definition_type +
+    by_reference_target_id.
+    """
+    defined_term_id: str
+    surface_form: str
+    bill_id: str                         # the bill (legacy form like '119-hr-1736')
+    defining_section_id: str             # legacy form
+    defining_section_citation: str       # human-readable, e.g. 'Sec. 3(c)(2) of H.R. 1736, 119th Cong.'
+    scope: DefinitionScope
+    definition_type: DefinitionType
+    definition_text: str
+    by_reference_target_id: str | None   # 'statute:us/usc/15/9401' when by_reference + USC
+    by_reference_target_citation: str | None  # '15 U.S.C. 9401'
+    provenance: Provenance
+
+
+@dataclass(frozen=True)
+class DefinedTermsResult:
+    """Response from get_defined_terms(bill_id)."""
+    bill_id: str
+    terms: list[DefinedTerm]
+    coverage_note: str       # e.g. "8 terms across 1 Definitions container"

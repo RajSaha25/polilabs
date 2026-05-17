@@ -126,6 +126,15 @@ def tool_get_citation_graph(
         return json.dumps({"error": f"{type(e).__name__}: {e}"})
 
 
+def tool_get_defined_terms(bill_id: str) -> str:
+    """Get all DefinedTerm nodes scoped under a bill."""
+    try:
+        result = api.get_defined_terms(bill_id)
+        return _dump(result)
+    except Exception as e:
+        return json.dumps({"error": f"{type(e).__name__}: {e}"})
+
+
 # -----------------------------------------------------------------------------
 # JSON-schema-compatible tool descriptors — used by the MCP server.
 # The Anthropic SDK derives schemas from @beta_tool function signatures
@@ -178,6 +187,19 @@ TOOL_DESCRIPTIONS = {
         "('119-hr-1736::H7CA...') or URN "
         "('bill:us/119/hr/1736::H7CA...') section IDs."
     ),
+    "get_defined_terms": (
+        "Get every defined term scoped under a bill. Each term carries: "
+        "surface form (the term being defined), definition_type ('direct' "
+        "if the bill states the meaning itself; 'by_reference' if the bill "
+        "says 'has the meaning given such term in [U.S.C. citation]'), "
+        "definition_text (verbatim), and — for by_reference terms — the "
+        "U.S.C. target. Use this BEFORE making claims about what a bill "
+        "means by 'AI', 'frontier model', 'covered entity', etc.: the "
+        "same surface form is defined differently across bills, and "
+        "conflating definitions is a top hallucination cause. The "
+        "defining_section_citation field gives you the exact 'Sec. X(y)(z) "
+        "of H.R. N' to quote."
+    ),
 }
 
 
@@ -228,6 +250,13 @@ TOOL_SCHEMAS = {
         },
         "required": ["section_id"],
     },
+    "get_defined_terms": {
+        "type": "object",
+        "properties": {
+            "bill_id": {"type": "string", "description": "Bill identifier; legacy ('119-hr-1736') or URN ('bill:us/119/hr/1736')."},
+        },
+        "required": ["bill_id"],
+    },
 }
 
 
@@ -238,6 +267,7 @@ TOOL_FUNCTIONS = {
     "resolve_citation": tool_resolve_citation,
     "corpus_coverage": tool_corpus_coverage,
     "get_citation_graph": tool_get_citation_graph,
+    "get_defined_terms": tool_get_defined_terms,
 }
 
 
@@ -252,8 +282,9 @@ Workflow:
   2. get_bill — bill metadata + section table of contents. No body text.
   3. get_section — verbatim section text + the canonical citation you must quote. The `adjacency_summary` field reports how many statute citations this section makes; if it's >0, call get_citation_graph to see them.
   4. get_citation_graph — typed citation graph around a section (PR2 ships outbound CITES_EXTERNAL edges to U.S. Code targets, depth=1). Use to answer "what does this section cite?" and to ground claims about which statutes a bill touches. Always cite the target's `canonical_citation` field verbatim.
-  5. resolve_citation — when the user gives you a citation like 'Sec. 3(a)(1) of H.R. 1736', use this to find the section_id.
-  6. corpus_coverage — when asked about scope, or when a search returns nothing, use this to give an honest answer about what is and isn't in the corpus.
+  5. get_defined_terms — every term the bill formally defines. CRITICAL for any question involving "AI", "AI system", "foundation model", "frontier model", "covered entity", "high-risk", etc. The same surface form often has different definitions across bills (e.g., one bill says "AI" by reference to 15 U.S.C. 9401; another defines it directly with a narrower scope). NEVER answer a definitional question from prior knowledge — always call get_defined_terms first and quote the bill's own definition_text.
+  6. resolve_citation — when the user gives you a citation like 'Sec. 3(a)(1) of H.R. 1736', use this to find the section_id.
+  7. corpus_coverage — when asked about scope, or when a search returns nothing, use this to give an honest answer about what is and isn't in the corpus.
 
 When you cite a section, format like: "Sec. 3(a)(1) of H.R. 1736, 119th Cong." (the exact `canonical_citation` string).
 

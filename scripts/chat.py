@@ -27,6 +27,7 @@ from agent.tools import (
     tool_corpus_coverage,
     tool_get_bill,
     tool_get_citation_graph,
+    tool_get_defined_terms,
     tool_get_section,
     tool_resolve_citation,
     tool_search_corpus,
@@ -140,7 +141,30 @@ def get_citation_graph(
     return tool_get_citation_graph(section_id, direction=direction, max_nodes=max_nodes)
 
 
-TOOLS = [search_corpus, get_bill, get_section, resolve_citation, corpus_coverage, get_citation_graph]
+@beta_tool
+def get_defined_terms(bill_id: str) -> str:
+    """Get every term the bill formally defines.
+
+    Each term carries surface_form, definition_type ('direct' or
+    'by_reference'), definition_text (verbatim), defining_section_citation
+    (the exact 'Sec. X(y)(z) of H.R. N' to quote), and — for
+    by_reference terms — the U.S.C. target (e.g. '15 U.S.C. 9401').
+
+    CRITICAL: same surface form often has different definitions across
+    bills. Always call this before answering definitional questions —
+    don't rely on prior knowledge.
+
+    Args:
+        bill_id: Bill identifier (legacy '119-hr-1736' or URN
+            'bill:us/119/hr/1736').
+    """
+    return tool_get_defined_terms(bill_id)
+
+
+TOOLS = [
+    search_corpus, get_bill, get_section, resolve_citation,
+    corpus_coverage, get_citation_graph, get_defined_terms,
+]
 
 
 def _check_db_ready() -> None:
