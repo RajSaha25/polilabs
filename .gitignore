@@ -6,3 +6,5 @@ __pycache__/
 *.egg-info/
 data/raw/
 data/cache/
+data/polilabs.db
+data/polilabs.db-*
