@@ -55,7 +55,7 @@ You get an interactive REPL backed by Claude Opus 4.7 with the six polilabs prim
 - "Are there any bills about facial recognition in federal contracting?"
 - "What's NOT in this corpus?"
 
-## Drive it from a browser
+## Drive it from a browser (Gradio quick path)
 
 Same agent, same tools, behind a Gradio chat UI:
 
@@ -64,6 +64,35 @@ python scripts/web.py
 ```
 
 Opens at <http://localhost:7860>. Add `--share` for a public *.gradio.live tunnel — convenient for sending a link, but proceed with caution since it exposes your Anthropic-billed quota.
+
+## Drive it from any frontend (HTTP/SSE API)
+
+For full design control (Lovable, custom React, plain HTML), start the FastAPI backend:
+
+```bash
+python server.py
+```
+
+This exposes:
+
+| Endpoint | What it does |
+|---|---|
+| `POST /chat` | Streams the chat response as Server-Sent Events. Body: `{message, history}`. Yields events of type `text`, `tool_call`, `done`, `error`. |
+| `GET /coverage` | Returns the `corpus_coverage()` snapshot as JSON. |
+| `GET /health` | Liveness check. |
+| `GET /` | Serves `static/index.html` — a bare-bones test page that hits `/chat`. |
+
+Visit <http://localhost:8000/> to see the test page; it's deliberately minimal but proves the backend works end-to-end without any framework.
+
+### Wiring up a Lovable frontend
+
+1. Build the chat UI in Lovable (whatever design you want — message bubbles, tool-call accordions, sidebar, etc.).
+2. Point Lovable's chat code at `POST /chat` (this server) with the body shape `{message, history}`. Parse the SSE stream the same way `static/index.html` does (look at the `<script>` block — about 30 lines of EventSource-style reading).
+3. **Lovable's cloud preview can't reach `localhost`.** Two options:
+   - **Tunnel during dev:** run `cloudflared tunnel --url http://localhost:8000` (or `ngrok http 8000`), point Lovable at the public URL it gives you.
+   - **Export and run frontend locally:** push the Lovable project to GitHub, clone, run `npm run dev`, point it at `http://localhost:8000`.
+
+CORS is open by default (`allow_origins=["*"]`) for dev. Lock it down to your Lovable domain before deploying anywhere public.
 
 ## Drive it from any MCP client
 
