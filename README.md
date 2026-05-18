@@ -112,6 +112,29 @@ What populates after PR4 (191 bills):
 
 The agent-facing API reads from Kùzu for `get_citation_graph`, `get_defined_terms`, `get_amendments`, `get_amendments_targeting`, and `get_section`'s `adjacency_summary`; bibliographic primitives (`get_bill`, `search_corpus`, etc.) still read from SQLite. Section IDs round-trip between legacy (`119-hr-1736::H7CA...`) and URN (`bill:us/119/hr/1736::H7CA...`) forms transparently.
 
+## Eval harness (agent accuracy)
+
+`eval/` ships a committed query set + runner that drives Claude with the polilabs tools and scores its answers for the two failure modes the project guards against:
+
+- **Under-coverage** — agent gives a safe partial answer (low recall on set-valued queries; missed required substrings; abstains when the answer is actually in the corpus).
+- **Over-confidence** — agent fabricates beyond the source (low precision; substrings that must NOT appear; ungrounded citations the agent invented).
+
+Files:
+
+- `eval/queries.yaml` — hand-curated query set (13 in v1) across 6 categories: `definition_lookup`, `cross_bill_consensus`, `cross_bill_targeting`, `amendment_lookup`, `citation_grounding`, `out_of_scope`. Each carries a structured `pass_criteria` block.
+- `eval/runner.py` — spawns the Anthropic SDK tool_runner with the same nine polilabs tools `scripts/chat.py` exposes; captures the final answer + tool-call trace.
+- `eval/scorer.py` — applies `pass_criteria` per query. Computes precision, recall, F1 on set-valued queries. Catches hallucinated citations by checking every `Sec. X(...) of H.R. N` in the agent's answer against the tool-response trace.
+- `eval/report.py` — markdown report (gitignored by default; pass `--out` to write somewhere committable for benchmarking across PRs).
+
+Run it:
+
+```bash
+python scripts/run_eval.py --dry-run        # verify wiring, no API call
+python scripts/run_eval.py                  # full run (~$5–10 in Opus 4.7 spend)
+python scripts/run_eval.py --query def_1736_ai  # single query
+python scripts/run_eval.py --category out_of_scope  # one category only
+```
+
 ## Layout
 
 ```

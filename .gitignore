@@ -11,3 +11,4 @@ data/polilabs.db-*
 data/polilabs.kuzu
 data/polilabs.kuzu.*
 data/polilabs.kuzu-*
+eval/last_report.md
