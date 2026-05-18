@@ -35,9 +35,13 @@ CHECKS: list[tuple[str, str]] = [
      "MATCH ()-[r:HAS_SECTION]->() RETURN COUNT(r)"),
     ("section hierarchy edges (PARENT_OF)",
      "MATCH ()-[r:PARENT_OF]->() RETURN COUNT(r)"),
-    ("citation edges (should be 0 in PR1)",
+    ("USC citation edges (CITES_EXTERNAL)",
      "MATCH ()-[r:CITES_EXTERNAL]->() RETURN COUNT(r)"),
-    ("defined terms (should be 0 in PR1)",
+    ("unique USC sections cited",
+     "MATCH (t:StatuteSection) RETURN COUNT(t)"),
+    ("bills with at least one USC citation",
+     "MATCH (b:Bill)-[:HAS_VERSION]->(:BillVersion)-[:HAS_SECTION|PARENT_OF*]->(s:Section)-[:CITES_EXTERNAL]->() RETURN COUNT(DISTINCT b)"),
+    ("defined terms (should be 0 until PR3)",
      "MATCH (d:DefinedTerm) RETURN COUNT(d)"),
 ]
 
@@ -51,10 +55,18 @@ SAMPLE_QUERIES: list[tuple[str, str]] = [
     ("All bills cosponsored by Rep. Guest (bioguide G000591)",
      "MATCH (b:Bill)-[:COSPONSORED_BY]->(s:Sponsor {bioguide_id: 'G000591'}) "
      "RETURN b.bill_id, b.official_title LIMIT 5"),
-    ("How many sections does each bill have? (top 5 by section count)",
-     "MATCH (b:Bill)-[:HAS_VERSION]->(v:BillVersion)-[:HAS_SECTION]->(s:Section) "
-     "RETURN b.bill_id, COUNT(s) AS section_count "
-     "ORDER BY section_count DESC LIMIT 5"),
+    ("H.R. 1736 §3(c)(2) outbound citations (what does the 'AI' definition cite?)",
+     "MATCH (s:Section {section_id: 'bill:us/119/hr/1736::H7CAC109828184C1ABB66E020E99B7701'})"
+     "-[:CITES_EXTERNAL]->(t:StatuteSection) "
+     "RETURN s.canonical_citation, t.canonical_citation"),
+    ("Top 5 most-cited USC sections in the corpus",
+     "MATCH (:Section)-[c:CITES_EXTERNAL]->(t:StatuteSection) "
+     "RETURN t.canonical_citation, COUNT(c) AS times_cited "
+     "ORDER BY times_cited DESC LIMIT 5"),
+    ("All bills that cite 15 U.S.C. § 9401 (NAIIA — defines 'AI')",
+     "MATCH (b:Bill)-[:HAS_VERSION]->(:BillVersion)-[:HAS_SECTION|PARENT_OF*]->(s:Section)"
+     "-[:CITES_EXTERNAL]->(:StatuteSection {statute_section_id: 'statute:us/usc/15/9401'}) "
+     "RETURN DISTINCT b.bill_id, b.official_title LIMIT 10"),
 ]
 
 

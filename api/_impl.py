@@ -24,6 +24,16 @@ from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Literal
 
+# Kùzu drives the citation subsystem (PR2). The rest of the primitives
+# still read from SQLite; they migrate one at a time as the graph
+# spine populates. Import is best-effort so api/* still works in
+# environments where kuzu isn't installed yet — get_citation_graph
+# returns an honest empty-with-note response in that case.
+try:
+    import kuzu as _kuzu_mod
+except ImportError:  # pragma: no cover
+    _kuzu_mod = None
+
 from .types import (
     AdjacencySummary,
     Bill,
@@ -46,8 +56,11 @@ from .types import (
 )
 
 DB_PATH = Path(os.environ.get("POLILABS_DB", "data/polilabs.db"))
+KUZU_PATH = Path(os.environ.get("POLILABS_KUZU", "data/polilabs.kuzu"))
 
 _CONN: sqlite3.Connection | None = None
+_KUZU_DB = None  # type: ignore[assignment]
+_KUZU_CONN = None  # type: ignore[assignment]
 
 
 def _db() -> sqlite3.Connection:
@@ -62,6 +75,56 @@ def _db() -> sqlite3.Connection:
         _CONN = sqlite3.connect(str(DB_PATH), check_same_thread=False)
         _CONN.row_factory = sqlite3.Row
     return _CONN
+
+
+def _kuzu():
+    """Lazy-open the Kùzu graph; returns the connection, or None if
+    the kuzu package isn't installed or the DB hasn't been built yet."""
+    global _KUZU_DB, _KUZU_CONN
+    if _kuzu_mod is None:
+        return None
+    if _KUZU_CONN is None:
+        if not KUZU_PATH.exists():
+            return None
+        _KUZU_DB = _kuzu_mod.Database(str(KUZU_PATH))
+        _KUZU_CONN = _kuzu_mod.Connection(_KUZU_DB)
+    return _KUZU_CONN
+
+
+_LEGACY_BILL_RE = re.compile(r"^(\d+)-([a-z]+)-(\d+)$")
+
+
+def _to_urn_section_id(section_id: str) -> str:
+    """Translate `118-hr-5949::H42A...` → `bill:us/118/hr/5949::H42A...`.
+
+    Kùzu stores sections under URN-style bill IDs. SQLite-backed
+    primitives (get_bill, get_section) still return legacy IDs. This
+    bridge lets a caller pass either form to get_citation_graph and
+    have it work. URN-form inputs pass through unchanged.
+    """
+    if section_id.startswith("bill:") or "::" not in section_id:
+        return section_id
+    bid_legacy, _, xml_id = section_id.partition("::")
+    m = _LEGACY_BILL_RE.match(bid_legacy)
+    if not m:
+        return section_id
+    congress, btype, bnum = m.groups()
+    return f"bill:us/{congress}/{btype}/{bnum}::{xml_id}"
+
+
+def _from_urn_section_id(urn_section_id: str) -> str:
+    """Inverse of `_to_urn_section_id` — used when returning section IDs to
+    legacy-shaped callers. Pass through anything that's not in URN form."""
+    if not urn_section_id.startswith("bill:us/"):
+        return urn_section_id
+    # bill:us/118/hr/5949::H42A...
+    body = urn_section_id[len("bill:us/"):]
+    head, sep, tail = body.partition("::")
+    parts = head.split("/")
+    if len(parts) != 3:
+        return urn_section_id
+    congress, btype, bnum = parts
+    return f"{congress}-{btype}-{bnum}{sep}{tail}"
 
 
 def _now_utc() -> datetime:
@@ -328,6 +391,46 @@ def get_bill(bill_id: str) -> Bill:
 # ----- get_section -----
 
 def _adjacency(conn: sqlite3.Connection, section_id: str) -> AdjacencySummary:
+    """Citation in/out counts for a section.
+
+    PR2: reads from the Kùzu graph if it's available — that's where
+    CITES_EXTERNAL lives. Falls back to the (empty) SQLite citations
+    table if Kùzu isn't built, so the function never raises.
+    """
+    k = _kuzu()
+    if k is not None:
+        urn = _to_urn_section_id(section_id)
+        # 'cites' covers CITES_EXTERNAL (USC) and CITES_INTERNAL when PR2.1
+        # lands. Other CitationTypes (amends/repeals/references) come
+        # online in PR4.
+        out_count = 0
+        in_count = 0
+        try:
+            r = k.execute(
+                "MATCH (:Section {section_id: $sid})-[c:CITES_EXTERNAL]->() RETURN COUNT(c)",
+                {"sid": urn},
+            )
+            if r.has_next():
+                out_count = int(r.get_next()[0])
+            r = k.execute(
+                "MATCH ()-[c:CITES_EXTERNAL]->(:Section {section_id: $sid}) RETURN COUNT(c)",
+                {"sid": urn},
+            )
+            if r.has_next():
+                in_count = int(r.get_next()[0])
+        except Exception:
+            # If Kùzu errors, fall through to the SQLite path below.
+            pass
+        else:
+            by_out: dict[CitationType, int] = {"cites": out_count} if out_count else {}
+            by_in: dict[CitationType, int] = {"cites": in_count} if in_count else {}
+            return AdjacencySummary(
+                citations_out_count=out_count,
+                citations_in_count=in_count,
+                by_type_out=by_out,
+                by_type_in=by_in,
+            )
+
     out_rows = conn.execute(
         "SELECT type, COUNT(*) c FROM citations WHERE source_section_id = ? GROUP BY type",
         (section_id,),
@@ -415,19 +518,118 @@ def get_citation_graph(
     direction: Literal["out", "in", "both"] = "both",
     max_nodes: int = 50,
 ) -> CitationGraph:
-    conn = _db()
-    # citations table is empty in v1; check that section exists then return empty graph with note
-    exists = conn.execute("SELECT 1 FROM sections WHERE section_id = ?", (section_id,)).fetchone()
-    if not exists:
+    """Typed citation graph around a section.
+
+    PR2 scope: CITES_EXTERNAL (USC) edges, depth=1 only. The schema-design
+    contract supports deeper traversals and additional edge types
+    (AMENDS / repeals / references); those land with PR4 and a depth>1
+    BFS extension. The accepted `section_id` may be either legacy form
+    (`118-hr-5949::H42A...`) or URN form (`bill:us/118/hr/5949::H42A...`).
+    """
+    k = _kuzu()
+    urn = _to_urn_section_id(section_id)
+
+    if k is None:
+        # Honest empty response — the graph store isn't available yet.
         return CitationGraph(
             root_section_id=section_id, nodes=[], edges=[], truncated=False,
         )
-    # Citation extraction is Phase 4 — return empty graph honestly
+
+    # Confirm the section exists; if not, return an empty graph.
+    r = k.execute("MATCH (s:Section {section_id: $sid}) RETURN s.section_id", {"sid": urn})
+    if not r.has_next():
+        return CitationGraph(
+            root_section_id=section_id, nodes=[], edges=[], truncated=False,
+        )
+
+    # The caller's edge-type filter is applied post-hoc. PR2 only
+    # populates CITES_EXTERNAL, so `cites` is the only type that can
+    # appear in the response today.
+    type_filter = set(edge_types) if edge_types else None
+
+    nodes: dict[str, SectionRef] = {}
+    edges: list[CitationEdge] = []
+    truncated = False
+    edge_prov = _make_provenance(
+        sources=["polilabs:kuzu/CITES_EXTERNAL"],
+        notes="derivation=mechanical, source=USLM <external-xref>",
+    )
+
+    def _add_target(target_id: str, citation: str) -> SectionRef:
+        # Synthetic SectionRef for a StatuteSection target. The schema
+        # has a distinct StatuteSection node type; the CitationGraph
+        # response shape doesn't yet — synthesizing here keeps the
+        # existing API stable. A schema-faithful response (separate
+        # statute_nodes list) is a candidate post-PR follow-up.
+        if target_id not in nodes:
+            nodes[target_id] = SectionRef(
+                section_id=target_id,
+                bill_id="",
+                heading=citation,
+                parent_section_id=None,
+                version_count=0,
+            )
+        return nodes[target_id]
+
+    # Root node (the queried section itself)
+    root_r = k.execute(
+        "MATCH (s:Section {section_id: $sid}) "
+        "RETURN s.section_id, s.heading, s.version_id",
+        {"sid": urn},
+    )
+    if root_r.has_next():
+        rs, rh, rv = root_r.get_next()
+        nodes[rs] = SectionRef(
+            section_id=rs, bill_id=rv.split("@")[0] if rv else "",
+            heading=rh or "", parent_section_id=None, version_count=1,
+        )
+
+    # Outbound: Section → StatuteSection
+    if direction in ("out", "both") and (type_filter is None or "cites" in type_filter):
+        r = k.execute(
+            "MATCH (:Section {section_id: $sid})-[c:CITES_EXTERNAL]->(t:StatuteSection) "
+            "RETURN t.statute_section_id, t.canonical_citation, c.raw_text "
+            "LIMIT $lim",
+            {"sid": urn, "lim": max_nodes},
+        )
+        out_rows = []
+        while r.has_next():
+            out_rows.append(r.get_next())
+        if len(out_rows) == max_nodes:
+            truncated = True
+        for tid, tcit, raw in out_rows:
+            _add_target(tid, tcit or tid)
+            edges.append(CitationEdge(
+                source_id=urn, target_id=tid, type="cites", provenance=edge_prov,
+            ))
+
+    # Inbound: ? → Section (other sections citing THIS section). v1
+    # corpus has no Section→Section citations yet (PR2.1) — but the
+    # query is included so the API behaves correctly once they land.
+    if direction in ("in", "both") and (type_filter is None or "cites" in type_filter):
+        r = k.execute(
+            "MATCH (src:Section)-[c:CITES_INTERNAL]->(:Section {section_id: $sid}) "
+            "RETURN src.section_id, src.heading, c.raw_text "
+            "LIMIT $lim",
+            {"sid": urn, "lim": max_nodes},
+        )
+        while r.has_next():
+            src_id, src_heading, raw = r.get_next()
+            if src_id not in nodes:
+                nodes[src_id] = SectionRef(
+                    section_id=src_id, bill_id="",
+                    heading=src_heading or "", parent_section_id=None,
+                    version_count=1,
+                )
+            edges.append(CitationEdge(
+                source_id=src_id, target_id=urn, type="cites", provenance=edge_prov,
+            ))
+
     return CitationGraph(
         root_section_id=section_id,
-        nodes=[],
-        edges=[],
-        truncated=False,
+        nodes=list(nodes.values()),
+        edges=edges,
+        truncated=truncated,
     )
 
 

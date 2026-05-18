@@ -116,16 +116,26 @@ The MCP server reads the same SQLite index — no Anthropic API key needed for t
 
 ## Build the graph index
 
-In parallel with the SQLite index, polilabs now maintains a Kùzu property-graph index that backs the schema described in `schema_design.md`. PR1 ships the bibliographic spine; citations, definitions, and amendments land in PR2–PR4.
+In parallel with the SQLite index, polilabs maintains a Kùzu property-graph index that backs the schema in `schema_design.md`. PR1 shipped the bibliographic spine; PR2 adds the citation graph; definitions and amendments are PR3–PR4.
 
 ```bash
 python scripts/build_kuzu_index.py        # ~70s on the v1 corpus
-python scripts/kuzu_smoke_test.py         # structural Cypher checks
+python scripts/kuzu_smoke_test.py         # structural Cypher checks + sample queries
 ```
 
 Output goes to `data/polilabs.kuzu` (gitignored, regenerable from `data/corpus/`). The build is destructive: the existing graph is deleted and rebuilt.
 
-The Kùzu store and the SQLite store coexist during the transition. The agent-facing API in `api/_impl.py` still reads from SQLite; later PRs migrate primitives one at a time as the graph populates.
+What populates after PR2 (191 bills):
+
+| Element | Count |
+|---|---|
+| Bills / BillVersions / Sections | 191 / 191 / 29,616 |
+| Unique Sponsors | 411 |
+| `PARENT_OF` / `HAS_SECTION` edges | 28,969 / 647 |
+| `SPONSORED_BY` / `COSPONSORED_BY` | 191 / 688 |
+| `CITES_EXTERNAL` (USC citations) | 646, across 137 bills, 172 unique USC targets |
+
+The agent-facing API in `api/_impl.py` reads from Kùzu for `get_citation_graph` and `get_section`'s `adjacency_summary`; bibliographic primitives (`get_bill`, `search_corpus`, etc.) still read from SQLite. Section IDs round-trip between legacy (`119-hr-1736::H7CA...`) and URN (`bill:us/119/hr/1736::H7CA...`) forms transparently.
 
 ## Layout
 

@@ -42,10 +42,13 @@ def main() -> int:
     print(f"  bill versions         {stats['bill_versions_in_db']:>6}")
     print(f"  sections              {stats['sections_in_db']:>6}")
     print(f"  sponsors (unique)     {stats['sponsors_in_db']:>6}")
+    print(f"  statute sections      {stats['statute_sections_in_db']:>6}  (citation targets, lazily MERGEd)")
     print(f"  HAS_SECTION edges     {stats['has_section_edges']:>6}")
     print(f"  PARENT_OF edges       {stats['parent_of_edges']:>6}")
     print(f"  SPONSORED_BY edges    {stats['sponsored_by_edges']:>6}")
     print(f"  COSPONSORED_BY edges  {stats['cosponsored_by_edges']:>6}")
+    print(f"  CITES_EXTERNAL edges  {stats['cites_external_edges']:>6}  "
+          f"(across {stats['bills_with_citations']} bills)")
     print(f"  parse / insert errors {stats['parse_errors']:>6}")
     print(f"  xml format mix        {stats['format']}")
     print(f"  elapsed               {elapsed:>6.1f}s")
