@@ -153,6 +153,46 @@ def tool_get_amendments_targeting(statute_section_id: str) -> str:
         return json.dumps({"error": f"{type(e).__name__}: {e}"})
 
 
+def tool_find_bills_defining(
+    term: str,
+    *,
+    definition_type: str | None = None,
+    by_reference_to: str | None = None,
+    also_match: list[str] | None = None,
+) -> str:
+    """Find every bill that formally defines a given term — one call."""
+    try:
+        if definition_type not in (None, "direct", "by_reference"):
+            return json.dumps({"error": f"definition_type must be 'direct' | 'by_reference' | null, got {definition_type!r}"})
+        result = api.find_bills_defining(
+            term,
+            definition_type=definition_type,  # type: ignore[arg-type]
+            by_reference_to=by_reference_to,
+            also_match=also_match,
+        )
+        return _dump(result)
+    except Exception as e:
+        return json.dumps({"error": f"{type(e).__name__}: {e}"})
+
+
+def tool_find_bills_amending(statute_section_id: str) -> str:
+    """Per-bill rollup of bills amending a USC section — one call."""
+    try:
+        result = api.find_bills_amending(statute_section_id)
+        return _dump(result)
+    except Exception as e:
+        return json.dumps({"error": f"{type(e).__name__}: {e}"})
+
+
+def tool_find_definitions_of(term: str) -> str:
+    """Every bill's definition of a term, side by side — one call."""
+    try:
+        result = api.find_definitions_of(term)
+        return _dump(result)
+    except Exception as e:
+        return json.dumps({"error": f"{type(e).__name__}: {e}"})
+
+
 # -----------------------------------------------------------------------------
 # JSON-schema-compatible tool descriptors — used by the MCP server.
 # The Anthropic SDK derives schemas from @beta_tool function signatures
@@ -237,6 +277,36 @@ TOOL_DESCRIPTIONS = {
         "form ('5 U.S.C. 552'). Like get_amendments, all results are "
         "target_text_unverified=true until USC ingestion lands."
     ),
+    "find_bills_defining": (
+        "AGGREGATE: Every bill in the corpus that formally defines a "
+        "given term, in ONE call. Use this for 'which bills define X' "
+        "and 'list every bill defining X by reference to USC Y' style "
+        "questions. PREFER over the search → loop get_defined_terms "
+        "pattern. Accepts optional filters: definition_type "
+        "('direct' | 'by_reference'), by_reference_to (USC citation — "
+        "implies by_reference), and also_match (list of synonym surface "
+        "forms to OR in, e.g. ['AI'] when the primary term is "
+        "'artificial intelligence' — bills frequently define the "
+        "abbreviation as the canonical term). Returns the COMPLETE list "
+        "— no pagination."
+    ),
+    "find_bills_amending": (
+        "AGGREGATE: Per-bill rollup of every bill that amends a given "
+        "U.S. Code section, in ONE call. Returns one row per bill with "
+        "operation count + distinct operation types. PREFER over "
+        "get_amendments_targeting when you only need to know WHICH bills "
+        "amend a statute (e.g. 'list every bill amending 15 U.S.C. "
+        "9401'); use get_amendments_targeting only when you need the "
+        "operation-level detail (before/after text, locator)."
+    ),
+    "find_definitions_of": (
+        "AGGREGATE: Every bill's verbatim definition of a single term, "
+        "side by side, in ONE call. Use for cross-bill consensus or "
+        "divergence analysis: 'how do bills define foundation model?', "
+        "'are definitions of AI consistent across the corpus?'. Returns "
+        "definition_text (verbatim) + definition_type + by_reference "
+        "target for each. Case-insensitive exact match on surface form."
+    ),
 }
 
 
@@ -308,6 +378,30 @@ TOOL_SCHEMAS = {
         },
         "required": ["statute_section_id"],
     },
+    "find_bills_defining": {
+        "type": "object",
+        "properties": {
+            "term": {"type": "string", "description": "Surface form of the term being defined (e.g. 'artificial intelligence'). Case-insensitive exact match."},
+            "definition_type": {"type": "string", "enum": ["direct", "by_reference"], "description": "Filter: 'direct' = bill defines with own text; 'by_reference' = bill defers to another statute. Omit for both."},
+            "by_reference_to": {"type": "string", "description": "USC citation the bill's definition cross-references (e.g. '15 U.S.C. 9401' or '15/9401'). Implies definition_type='by_reference'."},
+            "also_match": {"type": "array", "items": {"type": "string"}, "description": "Additional surface forms to OR with `term` (e.g. ['AI'] when term is 'artificial intelligence')."},
+        },
+        "required": ["term"],
+    },
+    "find_bills_amending": {
+        "type": "object",
+        "properties": {
+            "statute_section_id": {"type": "string", "description": "U.S. Code section: URN ('statute:us/usc/15/9401'), slash ('15/9401'), or prose ('15 U.S.C. 9401')."},
+        },
+        "required": ["statute_section_id"],
+    },
+    "find_definitions_of": {
+        "type": "object",
+        "properties": {
+            "term": {"type": "string", "description": "Surface form to look up across the corpus."},
+        },
+        "required": ["term"],
+    },
 }
 
 
@@ -321,6 +415,9 @@ TOOL_FUNCTIONS = {
     "get_defined_terms": tool_get_defined_terms,
     "get_amendments": tool_get_amendments,
     "get_amendments_targeting": tool_get_amendments_targeting,
+    "find_bills_defining": tool_find_bills_defining,
+    "find_bills_amending": tool_find_bills_amending,
+    "find_definitions_of": tool_find_definitions_of,
 }
 
 
@@ -330,17 +427,40 @@ The corpus is small and deliberate: 191 bills from the 118th and 119th US Congre
 
 Every claim about legislation MUST come from the tools. Never reconstruct a citation from prose or training data — quote the `canonical_citation` field that get_section returns. If a fact is not in the tool output, do not assert it.
 
-Workflow:
-  1. search_corpus — discover relevant bills. The hit is lightweight; use to find bill_ids, then drill down.
+## CRITICAL: prefer aggregate primitives over search → loop patterns
+
+For ANY question of the shape "which bills do X" or "list every bill that Y" — DO NOT search_corpus and then loop drill-in calls. Use the aggregate primitive that answers the whole question in one call:
+
+  • "Which bills define 'AI' by reference to 15 U.S.C. 9401?"
+      → find_bills_defining("artificial intelligence", by_reference_to="15/9401", also_match=["AI"])
+      NOT: search_corpus → loop get_defined_terms
+
+  • "Which bills define 'AI' directly with their own text?"
+      → find_bills_defining("artificial intelligence", definition_type="direct", also_match=["AI"])
+      NOT: search_corpus → loop get_defined_terms
+
+  • "Which bills amend 15 U.S.C. 9401?"
+      → find_bills_amending("15 U.S.C. 9401")
+      NOT: search_corpus → loop get_amendments
+
+  • "How does each bill define 'foundation model'?"
+      → find_definitions_of("foundation model")
+      NOT: search_corpus → loop get_defined_terms
+
+These primitives return the COMPLETE list with no pagination — when one returns N results, that's the entire answer. Bills frequently define abbreviations ("AI", "GAI") as the canonical term — pass synonyms via `also_match=[...]` rather than running multiple queries.
+
+## Workflow for narrower questions
+
+  1. search_corpus — discover relevant bills. Use when there's no aggregate primitive for the question. Pay attention to the `pagination_hint` field — it tells you whether to paginate or switch tools.
   2. get_bill — bill metadata + section table of contents. No body text.
   3. get_section — verbatim section text + the canonical citation you must quote. The `adjacency_summary` field reports how many statute citations this section makes; if it's >0, call get_citation_graph to see them.
-  4. get_citation_graph — typed citation graph around a section (PR2 ships outbound CITES_EXTERNAL edges to U.S. Code targets, depth=1). Use to answer "what does this section cite?" and to ground claims about which statutes a bill touches. Always cite the target's `canonical_citation` field verbatim.
-  5. get_defined_terms — every term the bill formally defines. CRITICAL for any question involving "AI", "AI system", "foundation model", "frontier model", "covered entity", "high-risk", etc. The same surface form often has different definitions across bills (e.g., one bill says "AI" by reference to 15 U.S.C. 9401; another defines it directly with a narrower scope). NEVER answer a definitional question from prior knowledge — always call get_defined_terms first and quote the bill's own definition_text.
-  6. get_amendments — what does THIS bill change about existing law? Returns each AmendmentOperation: target statute, operation type (insert/strike/replace/etc.), before/after text. Every operation carries target_text_unverified=true in v1; always mention this caveat when summarizing amendments.
-  7. get_amendments_targeting — what OTHER bills change the same statute this one does? Powerful when researching conflicting reform proposals.
-  8. resolve_citation — when the user gives you a citation like 'Sec. 3(a)(1) of H.R. 1736', use this to find the section_id.
-  9. corpus_coverage — when asked about scope, or when a search returns nothing, use this to give an honest answer about what is and isn't in the corpus.
+  4. get_citation_graph — typed citation graph around a section (depth=1). Use for "what does this section cite?" Always cite the target's `canonical_citation` field verbatim.
+  5. get_defined_terms — every term ONE bill formally defines. Use when the question is about a single bill ("what does H.R. 7913 define as a generative AI system?"). For cross-bill questions, use find_bills_defining / find_definitions_of instead.
+  6. get_amendments — what does ONE bill change about existing law? Returns each AmendmentOperation with before/after text. target_text_unverified=true in v1; mention the caveat when summarizing.
+  7. get_amendments_targeting — operation-level detail of every change to a statute. Use only when you need the before/after text; otherwise prefer find_bills_amending (compact, per-bill rollup).
+  8. resolve_citation — turn a free-text citation like 'Sec. 3(a)(1) of H.R. 1736' into a section_id.
+  9. corpus_coverage — when asked about scope, or when a search returns nothing.
 
 When you cite a section, format like: "Sec. 3(a)(1) of H.R. 1736, 119th Cong." (the exact `canonical_citation` string).
 
-If something is outside the corpus (regulatory, executive, pre-2023, or a bill the search misses), say so explicitly. Do not bluff."""
+If something is outside the corpus (regulatory, executive, pre-2023, or a bill that's genuinely missing), say so explicitly. Do not bluff."""

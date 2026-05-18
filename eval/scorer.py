@@ -102,6 +102,7 @@ def _check_abstain(answer: str) -> CheckResult:
     al = answer.lower()
     abstain_signals = [
         "not in the corpus", "not in my corpus", "outside the corpus",
+        "outside the scope", "outside this corpus",
         "out of scope", "out of v1 scope", "not covered",
         "i don't have", "i don't know", "cannot find",
         "i do not have", "no information",
@@ -116,6 +117,105 @@ def _check_abstain(answer: str) -> CheckResult:
     )
 
 
+_BILLTYPE_PROSE = {
+    "hr": [r"H\.?\s*R\.?"],
+    "s": [r"S\.?"],
+    "hjres": [r"H\.?\s*J\.?\s*Res\.?"],
+    "sjres": [r"S\.?\s*J\.?\s*Res\.?"],
+    "hconres": [r"H\.?\s*Con\.?\s*Res\.?"],
+    "sconres": [r"S\.?\s*Con\.?\s*Res\.?"],
+}
+
+
+_VALID_CONGRESS = {"118", "119"}  # widen as corpus expands to new congresses
+
+
+def _congress_after(answer: str, end: int, window: int = 60) -> str | None:
+    """Find a congress marker immediately AFTER position `end`, within
+    `window` chars. Forward-only because in tables ('H.R. 2385 | 119th |
+    ...') the congress always trails the bill number in the same row.
+
+    Restricts to known-valid congresses so a page count or dollar amount
+    near a bill number doesn't get misread as a congress."""
+    look = answer[end: end + window]
+    for m in re.finditer(r"\b(\d{3})(?:st|nd|rd|th)?\b", look):
+        if m.group(1) in _VALID_CONGRESS:
+            return m.group(1)
+    return None
+
+
+# Heading-style congress context, e.g. "## 118th Congress", "**119th
+# Congress (19 bills)**", "In the 118th Congress, ...". Used to attach
+# congress to bills listed under that heading when the row itself omits it.
+_CONGRESS_HEADING_RE = re.compile(
+    r"\b(?P<num>\d{3})(?:st|nd|rd|th)\s*Cong(?:ress)?\b", re.IGNORECASE,
+)
+
+
+def _congress_context_at(answer: str, pos: int) -> str | None:
+    """Look BACKWARD up to 2000 chars for the most recent
+    `Nth Congress` heading. Returns the most recent valid one or None."""
+    look = answer[max(0, pos - 2000): pos]
+    matches = list(_CONGRESS_HEADING_RE.finditer(look))
+    for m in reversed(matches):
+        if m.group("num") in _VALID_CONGRESS:
+            return m.group("num")
+    return None
+
+
+def _bill_id_mentioned(answer: str, bill_id: str) -> bool:
+    """True iff bill_id appears in answer in any reasonable form.
+
+    Accepts: canonical (118-hr-5077), URN (bill:us/118/hr/5077), prose
+    (H.R. 5077 ... 118th Cong.). For prose forms the congress marker must
+    appear within ~60 chars AFTER the bill number — forward-only, so
+    table-row formats don't bleed congress markers across rows.
+    """
+    if bill_id in answer:
+        return True
+    parts = bill_id.split("-")
+    if len(parts) != 3:
+        return False
+    congress, btype, bnum = parts
+    if f"bill:us/{congress}/{btype}/{bnum}" in answer:
+        return True
+    proses = _BILLTYPE_PROSE.get(btype, [])
+    for prose in proses:
+        pat = re.compile(rf"\b{prose}\s*{bnum}\b", re.IGNORECASE)
+        for m in pat.finditer(answer):
+            cong = _congress_after(answer, m.end())
+            if cong is None:
+                # Fall back to the nearest preceding heading-style context
+                # ("## 118th Congress (19 bills)" — agents group bills that
+                # way in cross-congress tables).
+                cong = _congress_context_at(answer, m.start())
+            if cong == congress:
+                return True
+    return False
+
+
+def _bill_set_extracted(answer: str) -> set[str]:
+    """Best-effort extraction of every bill ID the agent mentioned, used
+    for precision (penalizing over-confident extras). Misses prose forms
+    that lack a congress marker — those go uncounted toward precision."""
+    mentioned: set[str] = set()
+    for m in re.finditer(r"\b(\d+)-([a-z]+)-(\d+)\b", answer):
+        mentioned.add(f"{m.group(1)}-{m.group(2)}-{m.group(3)}")
+    for m in re.finditer(r"bill:us/(\d+)/([a-z]+)/(\d+)", answer):
+        mentioned.add(f"{m.group(1)}-{m.group(2)}-{m.group(3)}")
+    for prose_btype, patterns in _BILLTYPE_PROSE.items():
+        for prose in patterns:
+            for m in re.finditer(
+                rf"\b{prose}\s*(?P<num>\d+)\b", answer, re.IGNORECASE,
+            ):
+                cong = _congress_after(answer, m.end())
+                if cong is None:
+                    cong = _congress_context_at(answer, m.start())
+                if cong:
+                    mentioned.add(f"{cong}-{prose_btype}-{m.group('num')}")
+    return mentioned
+
+
 def _check_bill_set(answer: str, full_set: list[str] | None,
                     min_set: list[str] | None) -> tuple[CheckResult, float, float]:
     """Score a set-valued answer for precision + recall against ground truth.
@@ -123,24 +223,25 @@ def _check_bill_set(answer: str, full_set: list[str] | None,
     Returns (CheckResult, precision, recall). full_set is the complete
     ground-truth list; min_set is the minimum subset that MUST appear.
     """
-    # Normalize: bill IDs look like '119-hr-1736' or 'bill:us/119/hr/1736'.
-    mentioned = set()
-    # Match both forms in agent output.
-    for m in re.finditer(r"\b(\d+)-([a-z]+)-(\d+)\b", answer):
-        mentioned.add(f"{m.group(1)}-{m.group(2)}-{m.group(3)}")
-    for m in re.finditer(r"bill:us/(\d+)/([a-z]+)/(\d+)", answer):
-        mentioned.add(f"{m.group(1)}-{m.group(2)}-{m.group(3)}")
+    truth_list = full_set or []
+    minreq_list = min_set or []
+    # Per-bill membership check tolerates prose forms ("H.R. 5077 ... 118th Cong.").
+    found_truth = {b for b in truth_list if _bill_id_mentioned(answer, b)}
+    found_min = {b for b in minreq_list if _bill_id_mentioned(answer, b)}
+    # Aggregate set for precision math (treats truth + min as recall base).
+    mentioned = _bill_set_extracted(answer)
 
-    truth = set(full_set or [])
-    minreq = set(min_set or [])
+    truth = set(truth_list)
+    minreq = set(minreq_list)
 
     if not truth and not minreq:
         return (CheckResult("bill_set", True, "no ground truth specified"), 1.0, 1.0)
 
     # Recall: of the bills the agent SHOULD have named, how many did it?
+    # Uses per-bill membership check so prose ("H.R. 5077") counts.
     recall_base = truth or minreq
-    found = mentioned & recall_base
-    recall = len(found) / len(recall_base) if recall_base else 1.0
+    found_recall = found_truth if truth else found_min
+    recall = len(found_recall) / len(recall_base) if recall_base else 1.0
 
     # Precision: of the bills the agent named, how many are correct?
     # An agent that names bills outside the ground-truth set is over-confident.
@@ -148,12 +249,10 @@ def _check_bill_set(answer: str, full_set: list[str] | None,
     if precision_base and truth:
         precision = len(precision_base & truth) / len(precision_base)
     else:
-        # If we don't have a complete ground truth (only min_set), don't
-        # penalize precision — the bill might be legitimately in the answer.
         precision = 1.0 if precision_base & recall_base else 0.0
 
-    # min_set check is binary
-    missing_min = minreq - mentioned
+    # min_set check is binary — use per-bill (prose-tolerant) detection.
+    missing_min = minreq - found_min
     if missing_min:
         return (CheckResult(
             "bill_set", False,
@@ -175,10 +274,28 @@ def _check_bill_set(answer: str, full_set: list[str] | None,
     ), precision, recall)
 
 
+_CITATION_DECOMPOSE_RE = re.compile(
+    r"(?P<head>Sec\.\s+\d+[a-zA-Z]?)(?P<subs>(?:\([^)]+\))*)"
+    r"(?P<tail>\s+of\s+(?:H\.R\.|S\.|H\.J\. Res\.|S\.J\. Res\.|H\. Con\. Res\.|S\. Con\. Res\.)\s+\d+,?\s+\d+(?:st|nd|rd|th)?\s+Cong\.)",
+)
+
+
+def _citation_section_root(citation: str) -> str:
+    """Strip subsection enums from a citation, leaving the section-level
+    anchor. 'Sec. 2(a)(1) of H.R. 7913, 118th Cong.' → 'Sec. 2 of H.R.
+    7913, 118th Cong.'. Used for grounding: subsection drilling within a
+    section returned by get_section is legitimate, not hallucination."""
+    m = _CITATION_DECOMPOSE_RE.match(citation)
+    if not m:
+        return citation
+    return m.group("head") + m.group("tail")
+
+
 def _check_citation_grounding(run: QueryRun) -> tuple[int, int, CheckResult]:
     """Every Sec. X(y)(z) of H.R. N citation in the final answer must
-    appear in at least one tool response (i.e., the agent quoted it from
-    a get_section or get_defined_terms call, not invented it).
+    map to a section the agent actually fetched. We match at section
+    level (subsection enums stripped): once the agent has the verbatim
+    text of Sec. 2(a) it can correctly cite Sec. 2(a)(1) inside it.
     """
     cites_in_answer = _extract_citations(run.final_answer)
     if not cites_in_answer:
@@ -187,7 +304,7 @@ def _check_citation_grounding(run: QueryRun) -> tuple[int, int, CheckResult]:
     grounded = []
     ungrounded = []
     for c in cites_in_answer:
-        if c in tool_text:
+        if c in tool_text or _citation_section_root(c) in tool_text:
             grounded.append(c)
         else:
             ungrounded.append(c)

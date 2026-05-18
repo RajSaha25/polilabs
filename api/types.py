@@ -69,6 +69,13 @@ class SearchResults:
     query: str
     coverage_note: str
     in_scope: bool  # distinguishes 0-hits-in-scope from query-out-of-scope
+    # Natural-language pagination cue. Practitioner consensus (MCP +
+    # Anthropic tool-design docs) is that agents truncate when
+    # continuation is only a schema field; an explicit prose hint like
+    # "Returned 10 of 133. For 'list every bill' tasks, use one of the
+    # find_bills_* aggregate tools instead of paginating." reliably
+    # routes the agent to the right next step.
+    pagination_hint: str = ""
 
 
 @dataclass(frozen=True)
@@ -258,4 +265,85 @@ class AmendmentsTargetingResult:
     statute_section_id: str
     statute_canonical: str
     amendments: list[Amendment]
+    coverage_note: str
+
+
+# ----- aggregate primitives (post-eval-review) -----
+#
+# These tools collapse N+1 patterns into single Cypher queries. Each one
+# answers a "find every X matching Y" question that previously required
+# the agent to search_corpus then loop get_defined_terms / get_amendments
+# over every hit. See schema_design.md §7 query patterns; the underlying
+# graph already knows the answer — these surface it in one call.
+
+
+@dataclass(frozen=True)
+class BillDefinitionMatch:
+    """One row of `find_bills_defining`. Each match is a (bill, term)
+    pair; a bill that defines the term in multiple sections returns
+    multiple rows, one per defining section."""
+    bill_id: str                          # legacy form '118-hr-6881'
+    bill_short_title: str | None
+    bill_title: str
+    congress: int
+    surface_form: str                     # exact form as it appears in the bill
+    defining_section_id: str
+    defining_section_citation: str        # 'Sec. 2(d)(4) of H.R. 7913, 118th Cong.'
+    definition_type: DefinitionType
+    by_reference_target_id: str | None    # 'statute:us/usc/15/9401'
+    by_reference_target_citation: str | None  # '15 U.S.C. 9401'
+
+
+@dataclass(frozen=True)
+class BillsDefiningResult:
+    """Response from find_bills_defining."""
+    term: str
+    matches: list[BillDefinitionMatch]
+    total: int
+    coverage_note: str                    # describes filters applied + scope
+
+
+@dataclass(frozen=True)
+class BillAmendmentSummary:
+    """One row of `find_bills_amending`. Compact per-bill rollup of
+    amendment operations targeting a given USC section."""
+    bill_id: str
+    bill_short_title: str | None
+    bill_title: str
+    congress: int
+    n_operations: int                     # count of AmendmentOperations targeting this statute
+    operation_types: list[AmendmentOperationType]  # distinct ops, e.g. ['insert', 'add_at_end']
+
+
+@dataclass(frozen=True)
+class BillsAmendingResult:
+    """Response from find_bills_amending."""
+    statute_section_id: str
+    statute_canonical: str
+    bills: list[BillAmendmentSummary]
+    total: int
+    coverage_note: str
+
+
+@dataclass(frozen=True)
+class DefinitionAcrossCorpus:
+    """One row of `find_definitions_of` — every bill's take on a term,
+    with the bits an agent needs to compare definitions side by side."""
+    bill_id: str
+    bill_short_title: str | None
+    congress: int
+    defining_section_citation: str
+    definition_type: DefinitionType
+    definition_text: str                  # verbatim
+    by_reference_target_citation: str | None
+
+
+@dataclass(frozen=True)
+class DefinitionsAcrossCorpusResult:
+    """Response from find_definitions_of."""
+    term: str
+    definitions: list[DefinitionAcrossCorpus]
+    total: int
+    direct_count: int
+    by_reference_count: int
     coverage_note: str

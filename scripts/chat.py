@@ -25,6 +25,9 @@ from anthropic import beta_tool
 from agent.tools import (
     SYSTEM_PROMPT,
     tool_corpus_coverage,
+    tool_find_bills_amending,
+    tool_find_bills_defining,
+    tool_find_definitions_of,
     tool_get_amendments,
     tool_get_amendments_targeting,
     tool_get_bill,
@@ -198,10 +201,65 @@ def get_amendments_targeting(statute_section_id: str) -> str:
     return tool_get_amendments_targeting(statute_section_id)
 
 
+@beta_tool
+def find_bills_defining(
+    term: str,
+    definition_type: str | None = None,
+    by_reference_to: str | None = None,
+    also_match: list[str] | None = None,
+) -> str:
+    """AGGREGATE: every bill in the corpus that formally defines a term — one call.
+
+    PREFER this over the search_corpus → loop get_defined_terms pattern for
+    "which bills define X" style questions. Returns the COMPLETE list with
+    no pagination. Bills frequently define abbreviations as the canonical
+    term — pass synonyms via also_match (e.g. ['AI'] when querying for
+    'artificial intelligence') rather than re-running the query.
+
+    Args:
+        term: Surface form of the term (case-insensitive exact match).
+        definition_type: 'direct' (own text) or 'by_reference' (defers to USC).
+        by_reference_to: USC citation for by_reference filter (e.g. '15 U.S.C. 9401').
+            Implies definition_type='by_reference'.
+        also_match: Additional surface forms to OR with `term`.
+    """
+    return tool_find_bills_defining(
+        term, definition_type=definition_type,
+        by_reference_to=by_reference_to, also_match=also_match,
+    )
+
+
+@beta_tool
+def find_bills_amending(statute_section_id: str) -> str:
+    """AGGREGATE: per-bill rollup of bills amending a USC section — one call.
+
+    Returns one row per bill with operation count + distinct operation types.
+    PREFER over get_amendments_targeting when you only need to know WHICH
+    bills amend a statute.
+
+    Args:
+        statute_section_id: URN, slash ('15/9401'), or prose ('15 U.S.C. 9401').
+    """
+    return tool_find_bills_amending(statute_section_id)
+
+
+@beta_tool
+def find_definitions_of(term: str) -> str:
+    """AGGREGATE: every bill's verbatim definition of a term, side by side — one call.
+
+    Use for cross-bill consensus / divergence analysis.
+
+    Args:
+        term: Surface form to look up across the corpus (case-insensitive).
+    """
+    return tool_find_definitions_of(term)
+
+
 TOOLS = [
     search_corpus, get_bill, get_section, resolve_citation,
     corpus_coverage, get_citation_graph, get_defined_terms,
     get_amendments, get_amendments_targeting,
+    find_bills_defining, find_bills_amending, find_definitions_of,
 ]
 
 

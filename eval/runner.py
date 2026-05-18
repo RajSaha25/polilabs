@@ -117,6 +117,9 @@ def run_queries(
     from agent.tools import (
         SYSTEM_PROMPT,
         tool_corpus_coverage,
+        tool_find_bills_amending,
+        tool_find_bills_defining,
+        tool_find_definitions_of,
         tool_get_amendments,
         tool_get_amendments_targeting,
         tool_get_bill,
@@ -127,66 +130,122 @@ def run_queries(
         tool_search_corpus,
     )
 
-    # Wrap each tool with @beta_tool so the SDK builds the right schemas.
-    # We duplicate the wrapping pattern from scripts/chat.py — keeping it
-    # local here lets the runner be self-contained.
+    # Per-query recorder. The SDK's tool_runner executes tools inside its
+    # iterator and we don't see tool_result blocks when iterating, so the
+    # only honest way to capture (name, args, response) tuples is to wrap
+    # each tool with a recorder that appends to this list before
+    # returning. Reset at the top of every query.
+    _recorder: list[ToolCall] = []
+
+    def _record(name):
+        def wrapper(fn):
+            def wrapped(**kwargs):
+                response = fn(**kwargs)
+                _recorder.append(ToolCall(
+                    name=name, arguments=dict(kwargs),
+                    response_text=response,
+                    response_summary=_summarize_tool_response(name, response),
+                ))
+                return response
+            wrapped.__name__ = fn.__name__
+            wrapped.__doc__ = fn.__doc__
+            return wrapped
+        return wrapper
+
     @beta_tool
+    @_record("search_corpus")
     def search_corpus(query: str, tier: str | None = None,
                        congress: int | None = None, limit: int = 5) -> str:
         """Search the polilabs corpus by free-text query."""
         return tool_search_corpus(query, tier=tier, congress=congress, limit=limit)
 
     @beta_tool
+    @_record("get_bill")
     def get_bill(bill_id: str) -> str:
         """Get a bill's metadata and section table of contents."""
         return tool_get_bill(bill_id)
 
     @beta_tool
+    @_record("get_section")
     def get_section(section_id: str, as_of: str | None = None) -> str:
         """Get verbatim section text with canonical citation."""
         return tool_get_section(section_id, as_of=as_of)
 
     @beta_tool
+    @_record("resolve_citation")
     def resolve_citation(citation_string: str) -> str:
         """Parse a free-text citation into canonical section IDs."""
         return tool_resolve_citation(citation_string)
 
     @beta_tool
+    @_record("corpus_coverage")
     def corpus_coverage() -> str:
         """Report exactly what is in the corpus and what is not."""
         return tool_corpus_coverage()
 
     @beta_tool
+    @_record("get_citation_graph")
     def get_citation_graph(section_id: str, direction: str = "both",
                            max_nodes: int = 25) -> str:
         """Typed citation graph around a section (depth=1)."""
         return tool_get_citation_graph(section_id, direction=direction, max_nodes=max_nodes)
 
     @beta_tool
+    @_record("get_defined_terms")
     def get_defined_terms(bill_id: str) -> str:
         """Every term a bill formally defines."""
         return tool_get_defined_terms(bill_id)
 
     @beta_tool
+    @_record("get_amendments")
     def get_amendments(bill_id: str) -> str:
         """Every amendment a bill makes to existing law."""
         return tool_get_amendments(bill_id)
 
     @beta_tool
+    @_record("get_amendments_targeting")
     def get_amendments_targeting(statute_section_id: str) -> str:
         """Every amendment in the corpus targeting a U.S. Code section."""
         return tool_get_amendments_targeting(statute_section_id)
+
+    @beta_tool
+    @_record("find_bills_defining")
+    def find_bills_defining(
+        term: str,
+        definition_type: str | None = None,
+        by_reference_to: str | None = None,
+        also_match: list[str] | None = None,
+    ) -> str:
+        """AGGREGATE: every bill defining a term, in one call. Prefer over search+loop."""
+        return tool_find_bills_defining(
+            term, definition_type=definition_type,
+            by_reference_to=by_reference_to, also_match=also_match,
+        )
+
+    @beta_tool
+    @_record("find_bills_amending")
+    def find_bills_amending(statute_section_id: str) -> str:
+        """AGGREGATE: per-bill rollup of bills amending a USC section."""
+        return tool_find_bills_amending(statute_section_id)
+
+    @beta_tool
+    @_record("find_definitions_of")
+    def find_definitions_of(term: str) -> str:
+        """AGGREGATE: every bill's verbatim definition of a term, side by side."""
+        return tool_find_definitions_of(term)
 
     TOOLS = [
         search_corpus, get_bill, get_section, resolve_citation,
         corpus_coverage, get_citation_graph, get_defined_terms,
         get_amendments, get_amendments_targeting,
+        find_bills_defining, find_bills_amending, find_definitions_of,
     ]
 
     client = anthropic.Anthropic()
     runs: list[QueryRun] = []
     for i, q in enumerate(queries):
         run = QueryRun(query_id=q["id"], category=q["category"], question=q["question"])
+        _recorder.clear()  # fresh recording per query
         if verbose:
             print(f"  [{i+1}/{len(queries)}] {q['id']:<32} {q['question'][:60]}")
         started = time.monotonic()
@@ -214,35 +273,13 @@ def run_queries(
                 run.input_tokens += getattr(message.usage, "input_tokens", 0) or 0
                 run.output_tokens += getattr(message.usage, "output_tokens", 0) or 0
                 for block in message.content:
-                    btype = getattr(block, "type", None)
-                    if btype == "text" and getattr(block, "text", ""):
+                    if getattr(block, "type", None) == "text" and getattr(block, "text", ""):
                         final_text_parts.append(block.text)
-                    elif btype == "tool_use":
-                        name = block.name
-                        args = block.input or {}
-                        # The tool_runner already executed and appended the
-                        # result; we don't see it here directly — best-effort
-                        # capture from the next message's tool_result blocks.
-                        run.tool_calls.append(ToolCall(
-                            name=name, arguments=dict(args),
-                            response_text="", response_summary="(see following tool_result)",
-                        ))
-                    elif btype == "tool_result":
-                        # Match to the most recent ToolCall without a response
-                        for tc in reversed(run.tool_calls):
-                            if not tc.response_text:
-                                content = block.content
-                                if isinstance(content, list) and content:
-                                    text = "".join(
-                                        getattr(c, "text", "") for c in content
-                                        if getattr(c, "type", "") == "text"
-                                    )
-                                else:
-                                    text = str(content)
-                                tc.response_text = text
-                                tc.response_summary = _summarize_tool_response(tc.name, text)
-                                break
-
+            # The tool_runner yields assistant messages only; tool_use/
+            # tool_result blocks are consumed internally. The wrapped tools
+            # have appended every (name, args, response) into _recorder as
+            # they fired — copy it onto the run now.
+            run.tool_calls = list(_recorder)
             run.final_answer = "".join(final_text_parts).strip() or "(no final text)"
         except Exception as e:
             run.error = f"{type(e).__name__}: {e}"

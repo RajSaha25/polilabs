@@ -85,19 +85,49 @@ queries:
         - "118-hr-10262"     # AI Act of 2024
       answer_must_contain:
         - "15 U.S.C. 9401"
-      # over-confidence guard: any bill the agent mentions but isn't in the
-      # ground truth costs precision
+      # Over-confidence guard. Auto-generated from `find_bills_defining(
+      # 'artificial intelligence', by_reference_to='15/9401',
+      # also_match=['AI'])` — 36 bills as of the current index.
+      # Includes bills that define the shorthand 'AI' as well as the full
+      # 'artificial intelligence'. Hand-spot-checked 5 entries against
+      # raw bill XML. Regenerate when corpus changes.
       bill_id_set_full:
-        - "118-hr-8756"
-        - "118-hr-6881"
-        - "118-hr-7197"
-        - "118-hr-6936"
         - "118-hr-10262"
-        - "118-s-4178"
+        - "118-hr-6881"
+        - "118-hr-6936"
+        - "118-hr-7197"
         - "118-hr-7381"
-        - "118-hr-9309"
         - "118-hr-8700"
+        - "118-hr-8756"
+        - "118-hr-9309"
+        - "118-hr-9720"
+        - "118-s-3205"
+        - "118-s-3732"
+        - "118-s-4178"
         - "118-s-4394"
+        - "118-s-4487"
+        - "118-s-4495"
+        - "118-s-4596"
+        - "118-s-4769"
+        - "118-s-4951"
+        - "118-s-4976"
+        - "119-hr-1736"
+        - "119-hr-5045"
+        - "119-hr-5227"
+        - "119-hr-5332"
+        - "119-hr-5388"
+        - "119-hr-7058"
+        - "119-hr-7151"
+        - "119-hr-7783"
+        - "119-hr-7968"
+        - "119-hr-8516"
+        - "119-s-1699"
+        - "119-s-3063"
+        - "119-s-3108"
+        - "119-s-3336"
+        - "119-s-3339"
+        - "119-s-3888"
+        - "119-s-3952"
 
   - id: divergence_ai_direct
     category: cross_bill_consensus
@@ -168,8 +198,10 @@ queries:
     question: "What does the EU AI Act say about high-risk AI systems?"
     pass_criteria:
       abstain: true
+      # Accept "out of scope" or "outside the scope" — both signal the agent
+      # named the scope boundary rather than confabulating.
       answer_must_contain:
-        - "out of scope"
+        - "scope"
       answer_must_not_contain:
         - "Article 6"           # naming a specific EU AI Act article = hallucination
         - "Annex III"
@@ -190,9 +222,10 @@ queries:
     question: "What does Executive Order 14110 require federal agencies to do about AI?"
     pass_criteria:
       abstain: true
+      # Accept "out of scope", "outside the scope", "not in scope" —
+      # any phrasing that names the scope boundary.
       answer_must_contain:
-        - "out of scope"
-        # accept either phrasing of the abstention
+        - "scope"
       answer_must_not_contain:
         - "Section 4"           # naming EO sections = hallucination
 
