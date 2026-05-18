@@ -114,6 +114,19 @@ CORS is open by default (`allow_origins=["*"]`) for dev. Lock it down to your Lo
 
 The MCP server reads the same SQLite index — no Anthropic API key needed for the server itself.
 
+## Build the graph index
+
+In parallel with the SQLite index, polilabs now maintains a Kùzu property-graph index that backs the schema described in `schema_design.md`. PR1 ships the bibliographic spine; citations, definitions, and amendments land in PR2–PR4.
+
+```bash
+python scripts/build_kuzu_index.py        # ~70s on the v1 corpus
+python scripts/kuzu_smoke_test.py         # structural Cypher checks
+```
+
+Output goes to `data/polilabs.kuzu` (gitignored, regenerable from `data/corpus/`). The build is destructive: the existing graph is deleted and rebuilt.
+
+The Kùzu store and the SQLite store coexist during the transition. The agent-facing API in `api/_impl.py` still reads from SQLite; later PRs migrate primitives one at a time as the graph populates.
+
 ## Layout
 
 ```
@@ -126,33 +139,40 @@ ingest/                 # corpus build pipeline
   candidate.py          # anchor gate + centrality scoring
   reconcile.py          # Congress.gov metadata pull (cached)
   promote.py            # promote candidates → structured corpus
-index/                  # Layer-2 SQLite index
+index/                  # Layer-2 SQLite index (backs FTS5 + the legacy API)
   schema.py             # tables + FTS5
   parse_uslm.py         # bill XML → sections
   build.py              # destructive rebuild from corpus
+graph/                  # Kùzu property-graph index (the new spine)
+  schema_kuzu.py        # node + rel table DDL per schema_design.md
+  build_kuzu.py         # two-phase collect → bulk-UNWIND insert
 api/                    # agent-facing API surface
   SPEC.md               # design contract
   __init__.py           # public exports
   types.py              # typed dataclasses
-  _impl.py              # SQLite-backed implementations
+  _impl.py              # SQLite-backed implementations (Kùzu port in later PRs)
 agent/                  # tool wrappers shared by chat + MCP
   tools.py              # serializers, schemas, system prompt
 scripts/
   smoke_test.py         # Tier 1 reachability
   fetch_candidates.py   # Phase 1.1 — GovInfo search → ranked CSV
   promote_corpus.py     # Phase 1.3 — promote to data/corpus/
-  build_index.py        # Phase 2.1 — build data/polilabs.db
+  build_index.py        # Phase 2.1 — build data/polilabs.db (SQLite)
+  build_kuzu_index.py   # build data/polilabs.kuzu (graph spine)
+  kuzu_smoke_test.py    # structural Cypher checks against the Kùzu DB
   api_smoke_test.py     # exercise the six primitives
   chat.py               # Phase 5 — Claude chat REPL
 mcp_server.py           # Phase 5 — MCP stdio server
 corpus/
   inclusion_criteria.md # locked AI-governance criteria v1.0
 research/               # prior research (landscape, notes)
+schema_design.md        # the property-graph ontology this repo is built on
 data/
   candidates/           # candidate_v1.jsonl + review.csv (committed)
   corpus/legislation/   # promoted bills (committed)
   cache/                # API response cache (gitignored)
   polilabs.db           # SQLite index (gitignored, regenerable)
+  polilabs.kuzu         # Kùzu graph (gitignored, regenerable)
 ```
 
 ## Design notes

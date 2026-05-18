@@ -1,0 +1,494 @@
+"""Build the polilabs Kùzu graph from data/corpus/legislation/.
+
+Two-phase build:
+
+  Phase 1 (collect): walk every bill directory, parse metadata + XML, and
+  accumulate rows into per-table Python lists. No DB writes here.
+
+  Phase 2 (bulk insert): one UNWIND-based query per node table and per
+  rel table, chunked for memory bounds. UNWIND batches 1000s of rows per
+  Cypher round-trip; one-CREATE-per-row was ~15 min for this corpus, the
+  batched version takes ~10–30s.
+
+Destructive: deletes any existing DB at the target path. The Kùzu store
+is regenerable from data/corpus/, which is the source of truth.
+
+Out of scope for PR1 (these populate in later PRs):
+  - CITES_EXTERNAL / CITES_INTERNAL (PR2)
+  - DEFINES / RESOLVED_TO / UnresolvedTermUse (PR3)
+  - AmendmentOperation / TARGETS (PR4)
+  - StatuteVersion ingestion from OLRC (deferred per design decision)
+  - Committee / REFERRED_TO extraction (deferred to a follow-up)
+
+Honesty notes:
+  - Primary sponsors lack bioguide IDs in metadata.json; we mint
+    `_legacy:` IDs tagged id_source='fallback' so a later
+    Congress.gov reconciliation pass can swap them.
+"""
+from __future__ import annotations
+
+import hashlib
+import json
+import re
+import shutil
+import sys
+from dataclasses import dataclass, field
+from datetime import date, datetime, timezone
+from pathlib import Path
+from typing import Any
+
+import kuzu
+
+# Reuse the existing XML parser — handles both USLM and pre-USLM dialects.
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from index.parse_uslm import parse_bill_xml  # noqa: E402
+
+from .schema_kuzu import apply_schema  # noqa: E402
+
+CORPUS_DIR = Path("data/corpus/legislation")
+GRAPH_PATH = Path("data/polilabs.kuzu")
+
+JURISDICTION_URN = "us"
+BIBLIOGRAPHIC_EXTRACTOR_ID = "polilabs/bibliographic_builder@v1"
+
+# UNWIND chunk size. 2000 keeps peak memory modest while amortizing the
+# Cypher round-trip cost over ~2000 rows.
+CHUNK = 2000
+
+
+# -----------------------------------------------------------------------------
+# Identifier helpers — URN-style per schema_design.md §1.
+# -----------------------------------------------------------------------------
+
+def bill_urn(congress: int, bill_type: str, bill_number: int) -> str:
+    return f"bill:{JURISDICTION_URN}/{congress}/{bill_type}/{bill_number}"
+
+
+def version_urn(bill_id: str, date_iso: str, stage_code: str) -> str:
+    return f"{bill_id}@{date_iso}/{stage_code}"
+
+
+def _slug(name: str) -> str:
+    s = re.sub(r"[^a-zA-Z0-9]+", "-", name.lower()).strip("-")
+    return s or "unnamed"
+
+
+def fallback_sponsor_id(display_name: str, congress: int) -> str:
+    h = hashlib.sha1(f"{display_name}|{congress}".encode()).hexdigest()[:10]
+    return f"_legacy:{_slug(display_name)[:40]}:{h}"
+
+
+def bioguide_sponsor_id(bioguide_id: str) -> str:
+    return f"person:bioguide/{bioguide_id}"
+
+
+def _provenance_id_for(label: str) -> str:
+    h = hashlib.sha1(label.encode()).hexdigest()[:12]
+    return f"prov:{h}"
+
+
+def _date_or_none(s: str | None) -> date | None:
+    """Parse an ISO date prefix into a `datetime.date`.
+
+    Kùzu's Python binding does not implicitly cast STRING → DATE;
+    binding a raw ISO string to a DATE column raises BinderException.
+    Always pass real `date` objects.
+    """
+    if not s:
+        return None
+    try:
+        return datetime.fromisoformat(s[:10]).date()
+    except ValueError:
+        return None
+
+
+# -----------------------------------------------------------------------------
+# Phase-1 accumulators.
+# -----------------------------------------------------------------------------
+
+@dataclass
+class Accum:
+    bills: list[dict[str, Any]] = field(default_factory=list)
+    bill_versions: list[dict[str, Any]] = field(default_factory=list)
+    sections: list[dict[str, Any]] = field(default_factory=list)
+    sponsors: dict[str, dict[str, Any]] = field(default_factory=dict)
+    of_jurisdiction: list[dict[str, Any]] = field(default_factory=list)
+    has_version: list[dict[str, Any]] = field(default_factory=list)
+    has_section: list[dict[str, Any]] = field(default_factory=list)
+    parent_of: list[dict[str, Any]] = field(default_factory=list)
+    sponsored_by: list[dict[str, Any]] = field(default_factory=list)
+    cosponsored_by: list[dict[str, Any]] = field(default_factory=list)
+    format_counts: dict[str, int] = field(default_factory=dict)
+    parse_errors: int = 0
+    bills_collected: int = 0
+
+
+_KNOWN_BILL_PREFIXES = (
+    "Rep.", "Sen.", "Del.", "Rescom.", "Resident Commissioner",
+)
+
+
+def _accumulate_bill(meta: dict, fmt: str, section_rows: list, acc: Accum) -> None:
+    """Phase-1 work for one bill: append rows; no DB I/O."""
+    bid = bill_urn(meta["congress"], meta["bill_type"], meta["bill_number"])
+
+    # ----- Bill -----
+    latest_action = meta.get("latest_action") or ""
+    if ":" in latest_action:
+        la_date_str, _, la_text = latest_action.partition(":")
+    else:
+        la_date_str, la_text = "", latest_action
+    primary_sponsor_display = meta.get("sponsor")
+
+    acc.bills.append({
+        "bill_id": bid,
+        "congress": int(meta["congress"]),
+        "bill_type": meta["bill_type"],
+        "bill_number": int(meta["bill_number"]),
+        "jur": JURISDICTION_URN,
+        "title": meta.get("title"),
+        "short_title": meta.get("short_title"),
+        "primary_subject": meta.get("policy_area"),
+        "summary": meta.get("summary_text"),
+        "status": (la_text.strip()[:120] or None) if la_text else None,
+        "la_date": _date_or_none(la_date_str.strip()),
+        "la_text": la_text.strip() or None,
+        "tier": meta.get("tier"),
+        "stream": meta.get("stream", "legislation"),
+        "cs": float(meta.get("centrality_score") or 0.0),
+        "sponsor_name": primary_sponsor_display,
+    })
+    acc.of_jurisdiction.append({"bid": bid, "urn": JURISDICTION_URN})
+
+    # ----- BillVersion (canonical only) -----
+    canonical = meta.get("canonical_version") or {}
+    vid: str | None = None
+    if canonical.get("date_issued") and canonical.get("version_code"):
+        vid = version_urn(bid, canonical["date_issued"], canonical["version_code"])
+        acc.bill_versions.append({
+            "vid": vid,
+            "bid": bid,
+            "stage": canonical["version_code"],
+            "vd": _date_or_none(canonical["date_issued"]),
+            "rec": datetime.now(timezone.utc),
+            "fmt": fmt,
+            "pkg": canonical.get("package_id"),
+        })
+        acc.has_version.append({"bid": bid, "vid": vid})
+
+    # ----- Sections -----
+    if vid is not None and section_rows:
+        # The parser keys section_id by the input bill_id prefix; re-key
+        # all section_ids to the URN-style bill_id for graph consistency.
+        old_prefix = section_rows[0].bill_id
+
+        def rekey(s: str | None) -> str | None:
+            if s is None:
+                return None
+            return s.replace(old_prefix, bid, 1)
+
+        for r in section_rows:
+            new_sid = rekey(r.section_id)
+            acc.sections.append({
+                "sid": new_sid,
+                "vid": vid,
+                "level": r.level,
+                "enum": r.enum,
+                "heading": r.heading,
+                "text_self": r.text_self,
+                "text_full": r.text_full,
+                "citation": r.canonical_citation,
+                "ordinal": int(r.ordinal),
+                "xml_id": r.xml_id,
+            })
+            if r.parent_section_id is None:
+                acc.has_section.append({
+                    "vid": vid, "sid": new_sid, "ord": int(r.ordinal),
+                })
+            else:
+                acc.parent_of.append({
+                    "pid": rekey(r.parent_section_id),
+                    "cid": new_sid,
+                    "ord": int(r.ordinal),
+                })
+
+    # ----- Primary sponsor -----
+    if primary_sponsor_display:
+        sid = fallback_sponsor_id(primary_sponsor_display, meta["congress"])
+        if sid not in acc.sponsors:
+            acc.sponsors[sid] = {
+                "sid": sid, "bioguide": None, "display": primary_sponsor_display,
+                "first": None, "last": None, "party": None, "state": None,
+                "district": None, "id_source": "fallback",
+            }
+        acc.sponsored_by.append({
+            "bid": bid, "sid": sid,
+            "d": _date_or_none(meta.get("introduced_date")),
+        })
+
+    # ----- Cosponsors -----
+    seen_in_bill: set[str] = set()
+    for cs in meta.get("cosponsors", []) or []:
+        bioguide = cs.get("bioguideId")
+        if not bioguide:
+            continue
+        sid = bioguide_sponsor_id(bioguide)
+        if sid in seen_in_bill:
+            continue
+        seen_in_bill.add(sid)
+        if sid not in acc.sponsors:
+            acc.sponsors[sid] = {
+                "sid": sid,
+                "bioguide": bioguide,
+                "display": cs.get("fullName") or cs.get("lastName") or bioguide,
+                "first": cs.get("firstName"),
+                "last": cs.get("lastName"),
+                "party": cs.get("party"),
+                "state": cs.get("state"),
+                "district": str(cs.get("district")) if cs.get("district") is not None else None,
+                "id_source": "bioguide",
+            }
+        acc.cosponsored_by.append({
+            "bid": bid, "sid": sid,
+            "d": _date_or_none(cs.get("sponsorshipDate")),
+            "orig": bool(cs.get("isOriginalCosponsor")),
+        })
+
+    acc.bills_collected += 1
+    acc.format_counts[fmt] = acc.format_counts.get(fmt, 0) + 1
+
+
+# -----------------------------------------------------------------------------
+# Phase-2 bulk inserts: one UNWIND per table, chunked.
+# -----------------------------------------------------------------------------
+
+def _chunked(rows: list[dict[str, Any]], size: int = CHUNK):
+    for i in range(0, len(rows), size):
+        yield rows[i:i + size]
+
+
+def _bulk(conn: kuzu.Connection, label: str, rows: list[dict[str, Any]], query: str) -> None:
+    """Run an UNWIND query in chunks over rows. Skips silently if rows is empty."""
+    if not rows:
+        return
+    total = len(rows)
+    done = 0
+    for chunk in _chunked(rows):
+        conn.execute(query, {"rows": chunk})
+        done += len(chunk)
+
+
+def _bulk_create_bills(conn: kuzu.Connection, rows: list) -> None:
+    _bulk(conn, "Bill", rows, """
+        UNWIND $rows AS r
+        CREATE (:Bill {
+            bill_id: r.bill_id, congress: r.congress, bill_type: r.bill_type,
+            bill_number: r.bill_number, jurisdiction_urn: r.jur,
+            official_title: r.title, short_title: r.short_title,
+            primary_subject: r.primary_subject, summary_text: r.summary,
+            current_status: r.status, latest_action_date: r.la_date,
+            latest_action_text: r.la_text, tier: r.tier, stream: r.stream,
+            centrality_score: r.cs, sponsor_display_name: r.sponsor_name
+        })""")
+
+
+def _bulk_create_bill_versions(conn: kuzu.Connection, rows: list) -> None:
+    _bulk(conn, "BillVersion", rows, """
+        UNWIND $rows AS r
+        CREATE (:BillVersion {
+            version_id: r.vid, bill_id: r.bid, stage: r.stage,
+            version_observed_at: r.vd, knowledge_recorded_at: r.rec,
+            xml_format: r.fmt, source_package_id: r.pkg, is_current: true
+        })""")
+
+
+def _bulk_create_sections(conn: kuzu.Connection, rows: list) -> None:
+    _bulk(conn, "Section", rows, """
+        UNWIND $rows AS r
+        CREATE (:Section {
+            section_id: r.sid, version_id: r.vid, level: r.level,
+            enum: r.enum, heading: r.heading, text_self: r.text_self,
+            text_full: r.text_full, canonical_citation: r.citation,
+            ordinal: r.ordinal, xml_id: r.xml_id
+        })""")
+
+
+def _bulk_merge_sponsors(conn: kuzu.Connection, rows: list) -> None:
+    # All sponsors are deduplicated in the accumulator already, so CREATE
+    # is safe and faster than MERGE.
+    _bulk(conn, "Sponsor", rows, """
+        UNWIND $rows AS r
+        CREATE (:Sponsor {
+            sponsor_id: r.sid, bioguide_id: r.bioguide, display_name: r.display,
+            first_name: r.first, last_name: r.last, party: r.party,
+            state: r.state, district: r.district, id_source: r.id_source
+        })""")
+
+
+def _bulk_create_of_jurisdiction(conn: kuzu.Connection, rows: list) -> None:
+    _bulk(conn, "OF_JURISDICTION", rows, """
+        UNWIND $rows AS r
+        MATCH (b:Bill {bill_id: r.bid}), (j:Jurisdiction {urn: r.urn})
+        CREATE (b)-[:OF_JURISDICTION]->(j)""")
+
+
+def _bulk_create_has_version(conn: kuzu.Connection, rows: list) -> None:
+    _bulk(conn, "HAS_VERSION", rows, """
+        UNWIND $rows AS r
+        MATCH (b:Bill {bill_id: r.bid}), (v:BillVersion {version_id: r.vid})
+        CREATE (b)-[:HAS_VERSION {is_current: true}]->(v)""")
+
+
+def _bulk_create_has_section(conn: kuzu.Connection, rows: list) -> None:
+    _bulk(conn, "HAS_SECTION", rows, """
+        UNWIND $rows AS r
+        MATCH (v:BillVersion {version_id: r.vid}), (s:Section {section_id: r.sid})
+        CREATE (v)-[:HAS_SECTION {ordinal: r.ord}]->(s)""")
+
+
+def _bulk_create_parent_of(conn: kuzu.Connection, rows: list) -> None:
+    _bulk(conn, "PARENT_OF", rows, """
+        UNWIND $rows AS r
+        MATCH (p:Section {section_id: r.pid}), (c:Section {section_id: r.cid})
+        CREATE (p)-[:PARENT_OF {ordinal: r.ord}]->(c)""")
+
+
+def _bulk_create_sponsored_by(conn: kuzu.Connection, rows: list) -> None:
+    _bulk(conn, "SPONSORED_BY", rows, """
+        UNWIND $rows AS r
+        MATCH (b:Bill {bill_id: r.bid}), (s:Sponsor {sponsor_id: r.sid})
+        CREATE (b)-[:SPONSORED_BY {sponsorship_date: r.d}]->(s)""")
+
+
+def _bulk_create_cosponsored_by(conn: kuzu.Connection, rows: list) -> None:
+    _bulk(conn, "COSPONSORED_BY", rows, """
+        UNWIND $rows AS r
+        MATCH (b:Bill {bill_id: r.bid}), (s:Sponsor {sponsor_id: r.sid})
+        CREATE (b)-[:COSPONSORED_BY {sponsorship_date: r.d, is_original: r.orig}]->(s)""")
+
+
+# -----------------------------------------------------------------------------
+# DB lifecycle.
+# -----------------------------------------------------------------------------
+
+def _open_fresh_db(db_path: Path) -> tuple[kuzu.Database, kuzu.Connection]:
+    """Delete and recreate the Kùzu DB at db_path. Returns (db, conn)."""
+    db_path.parent.mkdir(parents=True, exist_ok=True)
+    if db_path.exists():
+        if db_path.is_dir():
+            shutil.rmtree(db_path)
+        else:
+            db_path.unlink()
+    wal = db_path.with_suffix(db_path.suffix + ".wal")
+    if wal.exists():
+        wal.unlink()
+    db = kuzu.Database(str(db_path))
+    conn = kuzu.Connection(db)
+    apply_schema(conn)
+    return db, conn
+
+
+def _seed_static_nodes(conn: kuzu.Connection) -> None:
+    """Insert per-build seed nodes: Jurisdiction, Extractor, ProvenanceRecord."""
+    conn.execute(
+        "CREATE (:Jurisdiction {urn: $urn, name: $name, legal_system: $ls})",
+        {"urn": JURISDICTION_URN, "name": "United States (federal)", "ls": "common_law"},
+    )
+    conn.execute(
+        "CREATE (:Extractor {extractor_id: $eid, version: $v, kind: $k})",
+        {"eid": BIBLIOGRAPHIC_EXTRACTOR_ID, "v": "1.0", "k": "parser"},
+    )
+    now = datetime.now(timezone.utc)
+    pid = _provenance_id_for(f"{BIBLIOGRAPHIC_EXTRACTOR_ID}:{now.isoformat()}")
+    conn.execute(
+        """CREATE (:ProvenanceRecord {
+             provenance_id: $pid, extractor_id: $eid,
+             derived_at: $derived_at, confidence: 1.0
+           })""",
+        {"pid": pid, "eid": BIBLIOGRAPHIC_EXTRACTOR_ID, "derived_at": now},
+    )
+    conn.execute(
+        """MATCH (e:Extractor {extractor_id: $eid}),
+                 (p:ProvenanceRecord {provenance_id: $pid})
+           CREATE (e)-[:PRODUCED]->(p)""",
+        {"eid": BIBLIOGRAPHIC_EXTRACTOR_ID, "pid": pid},
+    )
+
+
+def build_graph(
+    *,
+    corpus_dir: Path = CORPUS_DIR,
+    db_path: Path = GRAPH_PATH,
+    verbose: bool = True,
+) -> dict:
+    db, conn = _open_fresh_db(db_path)
+    _seed_static_nodes(conn)
+
+    # ----- Phase 1: collect -----
+    acc = Accum()
+    bill_dirs = sorted([p for p in corpus_dir.iterdir() if p.is_dir()])
+    for i, d in enumerate(bill_dirs):
+        meta_path = d / "metadata.json"
+        xml_path = d / "bill.xml"
+        if not meta_path.exists() or not xml_path.exists():
+            continue
+        meta = json.loads(meta_path.read_text())
+        try:
+            section_rows, fmt = parse_bill_xml(
+                xml_path,
+                bill_id=meta["bill_id"],
+                congress=meta["congress"],
+                bill_type=meta["bill_type"],
+                bill_number=meta["bill_number"],
+            )
+        except Exception as e:
+            acc.parse_errors += 1
+            if verbose:
+                print(f"[parse-error] {meta['bill_id']}: {type(e).__name__}: {e}")
+            continue
+        try:
+            _accumulate_bill(meta, fmt, section_rows, acc)
+        except Exception as e:
+            acc.parse_errors += 1
+            if verbose:
+                print(f"[collect-error] {meta['bill_id']}: {type(e).__name__}: {e}")
+            continue
+        if verbose and (i + 1) % 50 == 0:
+            print(f"  collected {i + 1}/{len(bill_dirs)} bills; sections so far: {len(acc.sections)}")
+
+    if verbose:
+        print(f"  phase 1 done: {acc.bills_collected} bills, {len(acc.sections)} sections, "
+              f"{len(acc.sponsors)} unique sponsors")
+        print(f"  phase 2 starting: bulk insert via UNWIND (chunk={CHUNK})")
+
+    # ----- Phase 2: bulk insert (order matters — nodes before their edges) -----
+    _bulk_create_bills(conn, acc.bills)
+    _bulk_create_bill_versions(conn, acc.bill_versions)
+    _bulk_create_sections(conn, acc.sections)
+    _bulk_merge_sponsors(conn, list(acc.sponsors.values()))
+    _bulk_create_of_jurisdiction(conn, acc.of_jurisdiction)
+    _bulk_create_has_version(conn, acc.has_version)
+    _bulk_create_has_section(conn, acc.has_section)
+    _bulk_create_parent_of(conn, acc.parent_of)
+    _bulk_create_sponsored_by(conn, acc.sponsored_by)
+    _bulk_create_cosponsored_by(conn, acc.cosponsored_by)
+
+    # ----- Final-state counts via Cypher -----
+    def _scalar(query: str) -> int:
+        r = conn.execute(query)
+        return int(r.get_next()[0]) if r.has_next() else 0
+
+    stats = {
+        "bills_collected": acc.bills_collected,
+        "parse_errors": acc.parse_errors,
+        "format": acc.format_counts,
+        "bills_in_db": _scalar("MATCH (b:Bill) RETURN COUNT(b)"),
+        "bill_versions_in_db": _scalar("MATCH (v:BillVersion) RETURN COUNT(v)"),
+        "sections_in_db": _scalar("MATCH (s:Section) RETURN COUNT(s)"),
+        "sponsors_in_db": _scalar("MATCH (s:Sponsor) RETURN COUNT(s)"),
+        "has_section_edges": _scalar("MATCH ()-[r:HAS_SECTION]->() RETURN COUNT(r)"),
+        "parent_of_edges": _scalar("MATCH ()-[r:PARENT_OF]->() RETURN COUNT(r)"),
+        "sponsored_by_edges": _scalar("MATCH ()-[r:SPONSORED_BY]->() RETURN COUNT(r)"),
+        "cosponsored_by_edges": _scalar("MATCH ()-[r:COSPONSORED_BY]->() RETURN COUNT(r)"),
+    }
+    return stats
