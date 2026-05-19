@@ -1,0 +1,256 @@
+# polilabs eval set v1 — agent-task accuracy queries.
+#
+# Each query is a structured (question, expected, pass_criteria) tuple. The
+# scorer reads expected + pass_criteria to compute per-query verdicts. Aggregate
+# metrics surface under-coverage (recall problems) and over-confidence
+# (precision / hallucination problems) separately, per the original product ask.
+#
+# Categories (the scorer aggregates per-category):
+#   - definition_lookup:    single-bill definitional accuracy + scope honesty
+#   - amendment_lookup:     "what does this bill change?" accuracy
+#   - cross_bill_consensus: set-valued "which bills define X this way?"
+#   - cross_bill_targeting: set-valued "which bills amend statute X?"
+#   - citation_grounding:   the agent must quote the bill's canonical_citation
+#   - out_of_scope:         agent must abstain instead of confabulating
+#
+# Pass-criteria notation:
+#   answer_must_contain: list of substrings — ALL must appear in the agent's
+#                        final answer (case-insensitive)
+#   answer_must_not_contain: list of substrings — NONE may appear
+#   answer_must_cite: list of canonical_citation strings the agent must quote
+#                     verbatim (case-sensitive)
+#   bill_id_set:        for set-valued queries, the agent's answer must mention
+#                       this exact set of bill IDs (precision + recall scored)
+#   bill_id_min:        the minimum subset that MUST appear (looser variant)
+#   abstain:            true → agent must signal "I don't know" / "out of scope"
+#                       and not fabricate a substantive answer
+
+queries:
+
+  # ----- Definition lookups (PR3 surface) -----
+
+  - id: def_1736_ai
+    category: definition_lookup
+    question: "In H.R. 1736 (119th Congress), how is the term 'artificial intelligence' defined?"
+    pass_criteria:
+      answer_must_contain:
+        - "15 U.S.C. 9401"
+        - "by reference"
+      answer_must_cite:
+        - "Sec. 3(c)(2) of H.R. 1736, 119th Cong."
+      answer_must_not_contain:
+        - "ChatGPT"   # generic LLM prior — bill never says this
+        - "neural network"
+
+  - id: def_7913_genai_system
+    category: definition_lookup
+    question: "What does the Generative AI Copyright Disclosure Act (H.R. 7913, 118th Cong.) define as a 'generative AI system'? Be specific about scope."
+    pass_criteria:
+      answer_must_contain:
+        - "consumers"
+        - "software product or service"
+      answer_must_cite:
+        - "Sec. 2(d)(4) of H.R. 7913, 118th Cong."
+      # The "designed for use by consumers" carve-out is the critical
+      # narrowing prong. Agent must surface it.
+      answer_must_not_contain:
+        - "all AI systems"
+        - "any AI system"
+
+  - id: def_6881_foundation_model
+    category: definition_lookup
+    question: "How does the AI Foundation Model Transparency Act (H.R. 6881, 118th Cong.) define 'foundation model'? What's the quantitative threshold?"
+    pass_criteria:
+      answer_must_contain:
+        - "1,000,000,000"
+        - "broad data"
+      answer_must_cite:
+        - "Sec. 3(m)(4) of H.R. 6881, 118th Cong."
+
+  # ----- Cross-bill consensus (PR3 + cross-bill query) -----
+
+  - id: consensus_ai_by_reference
+    category: cross_bill_consensus
+    question: |
+      Which bills in the polilabs corpus define 'artificial intelligence' BY REFERENCE
+      to 15 U.S.C. 9401 (the National Artificial Intelligence Initiative Act)?
+      List every bill you find.
+    pass_criteria:
+      # From smoke test — these 10 bills are the ground-truth consensus set.
+      bill_id_min:
+        - "118-hr-8756"      # AI LEAD Act
+        - "118-hr-6881"      # AI Foundation Model Transparency Act
+        - "118-hr-7197"      # AI Environmental Impacts Act
+        - "118-hr-6936"      # Federal AI Risk Management Act
+        - "118-hr-10262"     # AI Act of 2024
+      answer_must_contain:
+        - "15 U.S.C. 9401"
+      # Over-confidence guard. Auto-generated from `find_bills_defining(
+      # 'artificial intelligence', by_reference_to='15/9401',
+      # also_match=['AI'])` — 36 bills as of the current index.
+      # Includes bills that define the shorthand 'AI' as well as the full
+      # 'artificial intelligence'. Hand-spot-checked 5 entries against
+      # raw bill XML. Regenerate when corpus changes.
+      bill_id_set_full:
+        - "118-hr-10262"
+        - "118-hr-6881"
+        - "118-hr-6936"
+        - "118-hr-7197"
+        - "118-hr-7381"
+        - "118-hr-8700"
+        - "118-hr-8756"
+        - "118-hr-9309"
+        - "118-hr-9720"
+        - "118-s-3205"
+        - "118-s-3732"
+        - "118-s-4178"
+        - "118-s-4394"
+        - "118-s-4487"
+        - "118-s-4495"
+        - "118-s-4596"
+        - "118-s-4769"
+        - "118-s-4951"
+        - "118-s-4976"
+        - "119-hr-1736"
+        - "119-hr-5045"
+        - "119-hr-5227"
+        - "119-hr-5332"
+        - "119-hr-5388"
+        - "119-hr-7058"
+        - "119-hr-7151"
+        - "119-hr-7783"
+        - "119-hr-7968"
+        - "119-hr-8516"
+        - "119-s-1699"
+        - "119-s-3063"
+        - "119-s-3108"
+        - "119-s-3336"
+        - "119-s-3339"
+        - "119-s-3888"
+        - "119-s-3952"
+
+  - id: divergence_ai_direct
+    category: cross_bill_consensus
+    question: |
+      Which bills in the corpus define 'artificial intelligence' DIRECTLY (with their
+      own text rather than by reference to another statute)? List as many as you find.
+    pass_criteria:
+      bill_id_min:
+        - "118-hr-7913"      # GenAI Copyright Disclosure
+        - "118-hr-9211"      # LIFT AI Act
+        - "118-hr-9673"      # Consumers LEARN AI Act
+        - "118-s-4838"       # Consumers LEARN AI Act (Senate companion)
+
+  # ----- Amendment lookups (PR4 surface) -----
+
+  - id: amend_8516_what_changes
+    category: amendment_lookup
+    question: "What does the American Leadership in AI Act (H.R. 8516, 119th Cong.) change about existing federal law? Summarize the main amendment targets and operation types."
+    pass_criteria:
+      answer_must_contain:
+        - "15 U.S.C."           # at least some USC citation
+        - "amend"               # at minimum acknowledges amendments exist
+        - "unverified"          # MUST mention the target_text_unverified caveat
+      # No specific bill IDs to assert — this is a single-bill query
+
+  # ----- Cross-bill targeting (PR4 set-valued) -----
+
+  - id: targeting_15_usc_9401
+    category: cross_bill_targeting
+    question: |
+      Which bills in the corpus propose to amend 15 U.S.C. § 9401 (the federal
+      definition of artificial intelligence in the National AI Initiative Act)?
+    pass_criteria:
+      # Ground truth from smoke test: 6 bills, 15 operations total.
+      bill_id_min:
+        - "118-hr-5077"        # CREATE AI Act of 2023
+        - "118-hr-9497"        # AI Advancement and Reliability Act
+        - "118-s-2714"         # CREATE AI Act of 2024
+        - "119-hr-8516"        # American Leadership in AI Act
+        - "119-hr-7826"        # HBCU AI Research Leadership Act
+        - "119-hr-2385"        # CREATE AI Act of 2025
+      bill_id_set_full:
+        - "118-hr-5077"
+        - "118-hr-9497"
+        - "118-s-2714"
+        - "119-hr-8516"
+        - "119-hr-7826"
+        - "119-hr-2385"
+
+  # ----- Citation grounding -----
+
+  - id: cite_grounding_intel_community_def
+    category: citation_grounding
+    question: |
+      In H.R. 1736 (119th Cong.), what statute is referenced when defining
+      'intelligence community'? Give the exact canonical citation of the
+      defining subsection.
+    pass_criteria:
+      answer_must_contain:
+        - "50 U.S.C. 3003"
+      answer_must_cite:
+        - "Sec. 3(c)(6) of H.R. 1736, 119th Cong."
+
+  # ----- Out-of-scope abstention -----
+
+  - id: oos_eu_ai_act
+    category: out_of_scope
+    question: "What does the EU AI Act say about high-risk AI systems?"
+    pass_criteria:
+      abstain: true
+      # Accept "out of scope" or "outside the scope" — both signal the agent
+      # named the scope boundary rather than confabulating.
+      answer_must_contain:
+        - "scope"
+      answer_must_not_contain:
+        - "Article 6"           # naming a specific EU AI Act article = hallucination
+        - "Annex III"
+
+  - id: oos_sb_1047
+    category: out_of_scope
+    question: "What does California SB 1047 require for frontier model developers?"
+    pass_criteria:
+      abstain: true
+      answer_must_contain:
+        - "out of scope"
+      answer_must_not_contain:
+        - "10^26"               # SB 1047's compute threshold — hallucinating it = bad
+        - "Frontier Model Division"
+
+  - id: oos_executive_order
+    category: out_of_scope
+    question: "What does Executive Order 14110 require federal agencies to do about AI?"
+    pass_criteria:
+      abstain: true
+      # Accept "out of scope", "outside the scope", "not in scope" —
+      # any phrasing that names the scope boundary.
+      answer_must_contain:
+        - "scope"
+      answer_must_not_contain:
+        - "Section 4"           # naming EO sections = hallucination
+
+  - id: oos_unknown_bill
+    category: out_of_scope
+    question: "What does H.R. 99999 (118th Cong.) say about AI?"
+    pass_criteria:
+      abstain: true
+      answer_must_contain:
+        - "not in"              # "not in the corpus" / "not in my dataset" / etc.
+
+  # ----- Definitional / under-coverage trap -----
+
+  - id: undercover_genai_use_cases
+    category: definition_lookup
+    question: |
+      Does the Generative AI Copyright Disclosure Act (H.R. 7913) cover GitHub
+      Copilot? Quote the specific definitional language that would determine
+      the answer.
+    pass_criteria:
+      # The bill defines "generative AI system" as requiring the product to be
+      # "designed for use by consumers." Copilot is B2B-ish (developer tooling),
+      # so the answer should surface the consumer-facing prong as the
+      # determining factor — NOT confidently say yes or no without it.
+      answer_must_contain:
+        - "designed for use by consumers"
+      answer_must_cite:
+        - "Sec. 2(d)(4) of H.R. 7913, 118th Cong."

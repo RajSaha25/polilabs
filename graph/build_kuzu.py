@@ -13,15 +13,18 @@ Two-phase build:
 Destructive: deletes any existing DB at the target path. The Kùzu store
 is regenerable from data/corpus/, which is the source of truth.
 
-Populated in this PR (PR2):
-  - CITES_EXTERNAL (USC + USC-chapter + USC-appendix; pre-USLM bills)
-  - StatuteSection nodes for citation targets (lazily MERGEd; no text
-    until OLRC ingestion happens later)
+Populated through PR4:
+  - PR1: bibliographic spine (Bill, BillVersion, Section, Sponsor, etc.)
+  - PR2: CITES_EXTERNAL (USC) + StatuteSection lazy-MERGE
+  - PR3: DefinedTerm + DEFINES (Section→DefinedTerm) + BY_REFERENCE
+         (DefinedTerm→StatuteSection)
+  - PR4: AmendmentOperation reified nodes + AMENDS (Section→Op) +
+         TARGETS (Op→StatuteSection). All operations carry
+         target_text_unverified=true until OLRC USC ingestion.
 
 Out of scope (populates in later PRs):
+  - RESOLVED_TO + UnresolvedTermUse use-site resolution (PR3.1)
   - CITES_INTERNAL (PR2.1 — needs USLM <ref href> parsing)
-  - DEFINES / RESOLVED_TO / UnresolvedTermUse (PR3)
-  - AmendmentOperation / TARGETS (PR4)
   - StatuteVersion ingestion from OLRC (deferred per design decision)
   - Committee / REFERRED_TO extraction (deferred to a follow-up)
   - Public Law citations (74 in corpus; need a PublicLaw node type)
@@ -53,6 +56,14 @@ from .extract_citations import (  # noqa: E402
     ExternalCitation,
     extract_external_citations,
 )
+from .extract_amendments import (  # noqa: E402
+    AmendmentRow,
+    extract_amendments,
+)
+from .extract_definitions import (  # noqa: E402
+    DefinedTermRow,
+    extract_defined_terms,
+)
 from .schema_kuzu import apply_schema  # noqa: E402
 
 CORPUS_DIR = Path("data/corpus/legislation")
@@ -61,6 +72,8 @@ GRAPH_PATH = Path("data/polilabs.kuzu")
 JURISDICTION_URN = "us"
 BIBLIOGRAPHIC_EXTRACTOR_ID = "polilabs/bibliographic_builder@v1"
 CITATION_EXTRACTOR_ID = "polilabs/uslm_external_xref_extractor@v1"
+DEFINITIONS_EXTRACTOR_ID = "polilabs/definitions_extractor@v1"
+AMENDMENTS_EXTRACTOR_ID = "polilabs/amendments_extractor@v1"
 
 # UNWIND chunk size. 2000 keeps peak memory modest while amortizing the
 # Cypher round-trip cost over ~2000 rows.
@@ -124,6 +137,7 @@ class Accum:
     sections: list[dict[str, Any]] = field(default_factory=list)
     sponsors: dict[str, dict[str, Any]] = field(default_factory=dict)
     statute_sections: dict[str, dict[str, Any]] = field(default_factory=dict)
+    defined_terms: dict[str, dict[str, Any]] = field(default_factory=dict)
     of_jurisdiction: list[dict[str, Any]] = field(default_factory=list)
     has_version: list[dict[str, Any]] = field(default_factory=list)
     has_section: list[dict[str, Any]] = field(default_factory=list)
@@ -131,10 +145,17 @@ class Accum:
     sponsored_by: list[dict[str, Any]] = field(default_factory=list)
     cosponsored_by: list[dict[str, Any]] = field(default_factory=list)
     cites_external: list[dict[str, Any]] = field(default_factory=list)
+    defines_edges: list[dict[str, Any]] = field(default_factory=list)
+    by_reference_edges: list[dict[str, Any]] = field(default_factory=list)
+    amendments: list[dict[str, Any]] = field(default_factory=list)
+    amends_edges: list[dict[str, Any]] = field(default_factory=list)
+    targets_edges: list[dict[str, Any]] = field(default_factory=list)
     format_counts: dict[str, int] = field(default_factory=dict)
     parse_errors: int = 0
     bills_collected: int = 0
     bills_with_citations: int = 0
+    bills_with_definitions: int = 0
+    bills_with_amendments: int = 0
 
 
 _KNOWN_BILL_PREFIXES = (
@@ -270,6 +291,136 @@ def _accumulate_bill(meta: dict, fmt: str, section_rows: list, acc: Accum) -> No
 
     acc.bills_collected += 1
     acc.format_counts[fmt] = acc.format_counts.get(fmt, 0) + 1
+
+
+def _accumulate_definitions(
+    meta: dict,
+    xml_path: Path,
+    valid_section_ids: set[str],
+    acc: Accum,
+) -> None:
+    """Phase-1 definition extraction.
+
+    Appends DefinedTerm rows + DEFINES edges + BY_REFERENCE edges
+    (when the definition references a USC section). Also lazily MERGEs
+    the BY_REFERENCE target into statute_sections in case PR2's citation
+    pass didn't already capture it (some bills define-by-reference to a
+    USC section they don't otherwise cite in body text).
+
+    `valid_section_ids` is the set of section IDs that parse_uslm
+    produced for this bill. DefinedTerms whose defining_section_id isn't
+    in that set are silently dropped — mostly an artifact of USLM-format
+    coverage gaps in parse_uslm (118-hr-5009 in particular). They'll
+    return when parse_uslm gets a USLM-coverage fix.
+    """
+    bid = bill_urn(meta["congress"], meta["bill_type"], meta["bill_number"])
+    terms = extract_defined_terms(xml_path, bill_id=bid)
+    if not terms:
+        return
+    bill_had_any = False
+    for t in terms:
+        if t.defining_section_id not in valid_section_ids:
+            continue
+        bill_had_any = True
+        # Dedupe DefinedTerm by ID (cross-bill collisions are not
+        # expected because the ID embeds the container_section_id which
+        # embeds the bill URN).
+        if t.defined_term_id not in acc.defined_terms:
+            acc.defined_terms[t.defined_term_id] = {
+                "dtid": t.defined_term_id,
+                "surface": t.surface_form,
+                "defining_section_id": t.defining_section_id,
+                "scope": t.scope,
+                "def_text": t.definition_text,
+                "def_type": t.definition_type,
+                "br_target": t.by_reference_statute_section_id,
+            }
+        # DEFINES edge: Section (defining_section_id) -> DefinedTerm
+        acc.defines_edges.append({
+            "sid": t.defining_section_id,
+            "dtid": t.defined_term_id,
+            "def_type": t.definition_type,
+        })
+        # BY_REFERENCE edge: DefinedTerm -> StatuteSection (USC target)
+        if t.by_reference_statute_section_id:
+            # Make sure the target StatuteSection exists in the accumulator.
+            tgt = t.by_reference_statute_section_id
+            if tgt not in acc.statute_sections:
+                acc.statute_sections[tgt] = {
+                    "ssid": tgt,
+                    "sid": "/".join(tgt.split("/")[:-1]),  # statute:us/usc/{title}
+                    "enum_path": "",
+                    "citation": t.by_reference_canonical or tgt,
+                }
+            acc.by_reference_edges.append({
+                "dtid": t.defined_term_id,
+                "ssid": tgt,
+                "confidence": 1.0,
+            })
+    if bill_had_any:
+        acc.bills_with_definitions += 1
+
+
+def _accumulate_amendments(
+    meta: dict,
+    xml_path: Path,
+    valid_section_ids: set[str],
+    acc: Accum,
+) -> None:
+    """Phase-1 amendment extraction.
+
+    Appends AmendmentOperation rows + AMENDS edges + TARGETS edges (to
+    StatuteSection). Also lazily MERGEs the target StatuteSection if
+    it wasn't already captured by PR2's citation pass — some amendments
+    target statutes that the bill doesn't otherwise cite in body text.
+    """
+    bid = bill_urn(meta["congress"], meta["bill_type"], meta["bill_number"])
+    amends = extract_amendments(xml_path, bill_id=bid)
+    if not amends:
+        return
+    bill_had_any = False
+    for a in amends:
+        if a.source_section_id not in valid_section_ids:
+            # Source section wasn't emitted by parse_uslm (USLM coverage
+            # gaps — same class of bug noted in PR3). Silently drop.
+            continue
+        bill_had_any = True
+
+        acc.amendments.append({
+            "amend_id": a.amendment_id,
+            "src_sid": a.source_section_id,
+            "op": a.operation_type,
+            "op_text": a.operation_text,
+            "locator": a.target_locator_json,
+            "before": a.before_text,
+            "after": a.after_text,
+            "xml_ref_id": a.xml_ref_id,
+            "unverified": True,
+        })
+        acc.amends_edges.append({
+            "src_sid": a.source_section_id,
+            "amend_id": a.amendment_id,
+            "xml_ref_id": a.xml_ref_id,
+        })
+        if a.target_statute_section_id is not None:
+            # Lazily ensure the StatuteSection target exists.
+            if a.target_statute_section_id not in acc.statute_sections:
+                acc.statute_sections[a.target_statute_section_id] = {
+                    "ssid": a.target_statute_section_id,
+                    "sid": "/".join(a.target_statute_section_id.split("/")[:-1]),
+                    "enum_path": "",
+                    "citation": a.target_canonical_citation or a.target_statute_section_id,
+                }
+            acc.targets_edges.append({
+                "amend_id": a.amendment_id,
+                "ssid": a.target_statute_section_id,
+                "enum_path": "",  # PR4 doesn't parse (b)(2) into enum_path yet
+            })
+        # If target_statute_section_id is None, the AmendmentOperation
+        # exists but with no TARGETS edge — the locator JSON records what
+        # we know. PR4.1 / Public-Law support fills this in later.
+    if bill_had_any:
+        acc.bills_with_amendments += 1
 
 
 def _accumulate_citations(
@@ -437,6 +588,62 @@ def _bulk_create_cites_external(conn: kuzu.Connection, rows: list) -> None:
         }]->(tgt)""")
 
 
+def _bulk_create_defined_terms(conn: kuzu.Connection, rows: list) -> None:
+    _bulk(conn, "DefinedTerm", rows, """
+        UNWIND $rows AS r
+        CREATE (:DefinedTerm {
+            defined_term_id: r.dtid, surface_form: r.surface,
+            defining_section_id: r.defining_section_id,
+            scope: r.scope, definition_text: r.def_text,
+            definition_type: r.def_type,
+            by_reference_target_id: r.br_target
+        })""")
+
+
+def _bulk_create_defines(conn: kuzu.Connection, rows: list) -> None:
+    _bulk(conn, "DEFINES", rows, """
+        UNWIND $rows AS r
+        MATCH (s:Section {section_id: r.sid}),
+              (d:DefinedTerm {defined_term_id: r.dtid})
+        CREATE (s)-[:DEFINES {definition_type: r.def_type}]->(d)""")
+
+
+def _bulk_create_by_reference(conn: kuzu.Connection, rows: list) -> None:
+    _bulk(conn, "BY_REFERENCE", rows, """
+        UNWIND $rows AS r
+        MATCH (d:DefinedTerm {defined_term_id: r.dtid}),
+              (s:StatuteSection {statute_section_id: r.ssid})
+        CREATE (d)-[:BY_REFERENCE {confidence: r.confidence}]->(s)""")
+
+
+def _bulk_create_amendments(conn: kuzu.Connection, rows: list) -> None:
+    _bulk(conn, "AmendmentOperation", rows, """
+        UNWIND $rows AS r
+        CREATE (:AmendmentOperation {
+            amendment_id: r.amend_id, source_section_id: r.src_sid,
+            operation_type: r.op,
+            target_locator_json: r.locator,
+            before_text: r.before, after_text: r.after,
+            target_text_unverified: r.unverified
+        })""")
+
+
+def _bulk_create_amends(conn: kuzu.Connection, rows: list) -> None:
+    _bulk(conn, "AMENDS", rows, """
+        UNWIND $rows AS r
+        MATCH (s:Section {section_id: r.src_sid}),
+              (a:AmendmentOperation {amendment_id: r.amend_id})
+        CREATE (s)-[:AMENDS {xml_ref_id: r.xml_ref_id}]->(a)""")
+
+
+def _bulk_create_targets(conn: kuzu.Connection, rows: list) -> None:
+    _bulk(conn, "TARGETS", rows, """
+        UNWIND $rows AS r
+        MATCH (a:AmendmentOperation {amendment_id: r.amend_id}),
+              (t:StatuteSection {statute_section_id: r.ssid})
+        CREATE (a)-[:TARGETS {enum_path_in_target: r.enum_path}]->(t)""")
+
+
 # -----------------------------------------------------------------------------
 # DB lifecycle.
 # -----------------------------------------------------------------------------
@@ -474,6 +681,8 @@ def _seed_static_nodes(conn: kuzu.Connection) -> dict[str, str]:
     for eid, kind in (
         (BIBLIOGRAPHIC_EXTRACTOR_ID, "parser"),
         (CITATION_EXTRACTOR_ID, "parser"),
+        (DEFINITIONS_EXTRACTOR_ID, "parser"),
+        (AMENDMENTS_EXTRACTOR_ID, "parser"),
     ):
         conn.execute(
             "CREATE (:Extractor {extractor_id: $eid, version: $v, kind: $k})",
@@ -543,13 +752,34 @@ def build_graph(
             # ingest — just log and continue with empty citations.
             if verbose:
                 print(f"[citation-error] {meta['bill_id']}: {type(e).__name__}: {e}")
+        # parse_uslm produces section_ids prefixed with the LEGACY
+        # bill_id; the accumulator stores them with the URN prefix.
+        # Build the valid-set in URN form so it matches what the
+        # downstream extractors will produce.
+        urn_bid = bill_urn(meta["congress"], meta["bill_type"], meta["bill_number"])
+        old_prefix = meta["bill_id"]
+        valid_sids = {
+            r.section_id.replace(old_prefix, urn_bid, 1) for r in section_rows
+        }
+        try:
+            _accumulate_definitions(meta, xml_path, valid_sids, acc)
+        except Exception as e:
+            if verbose:
+                print(f"[definition-error] {meta['bill_id']}: {type(e).__name__}: {e}")
+        try:
+            _accumulate_amendments(meta, xml_path, valid_sids, acc)
+        except Exception as e:
+            if verbose:
+                print(f"[amendment-error] {meta['bill_id']}: {type(e).__name__}: {e}")
         if verbose and (i + 1) % 50 == 0:
             print(f"  collected {i + 1}/{len(bill_dirs)} bills; sections so far: {len(acc.sections)}")
 
     if verbose:
         print(f"  phase 1 done: {acc.bills_collected} bills, {len(acc.sections)} sections, "
               f"{len(acc.sponsors)} unique sponsors, "
-              f"{len(acc.cites_external)} citations across {acc.bills_with_citations} bills")
+              f"{len(acc.cites_external)} citations across {acc.bills_with_citations} bills, "
+              f"{len(acc.defined_terms)} defined terms across {acc.bills_with_definitions} bills, "
+              f"{len(acc.amendments)} amendments across {acc.bills_with_amendments} bills")
         print(f"  phase 2 starting: bulk insert via UNWIND (chunk={CHUNK})")
 
     # ----- Phase 2: bulk insert (order matters — nodes before their edges) -----
@@ -558,6 +788,8 @@ def build_graph(
     _bulk_create_sections(conn, acc.sections)
     _bulk_merge_sponsors(conn, list(acc.sponsors.values()))
     _bulk_create_statute_sections(conn, list(acc.statute_sections.values()))
+    _bulk_create_defined_terms(conn, list(acc.defined_terms.values()))
+    _bulk_create_amendments(conn, acc.amendments)
     _bulk_create_of_jurisdiction(conn, acc.of_jurisdiction)
     _bulk_create_has_version(conn, acc.has_version)
     _bulk_create_has_section(conn, acc.has_section)
@@ -565,6 +797,10 @@ def build_graph(
     _bulk_create_sponsored_by(conn, acc.sponsored_by)
     _bulk_create_cosponsored_by(conn, acc.cosponsored_by)
     _bulk_create_cites_external(conn, acc.cites_external)
+    _bulk_create_defines(conn, acc.defines_edges)
+    _bulk_create_by_reference(conn, acc.by_reference_edges)
+    _bulk_create_amends(conn, acc.amends_edges)
+    _bulk_create_targets(conn, acc.targets_edges)
 
     # ----- Final-state counts via Cypher -----
     def _scalar(query: str) -> int:
@@ -585,6 +821,14 @@ def build_graph(
         "sponsored_by_edges": _scalar("MATCH ()-[r:SPONSORED_BY]->() RETURN COUNT(r)"),
         "cosponsored_by_edges": _scalar("MATCH ()-[r:COSPONSORED_BY]->() RETURN COUNT(r)"),
         "cites_external_edges": _scalar("MATCH ()-[r:CITES_EXTERNAL]->() RETURN COUNT(r)"),
+        "defined_terms_in_db": _scalar("MATCH (d:DefinedTerm) RETURN COUNT(d)"),
+        "defines_edges": _scalar("MATCH ()-[r:DEFINES]->() RETURN COUNT(r)"),
+        "by_reference_edges": _scalar("MATCH ()-[r:BY_REFERENCE]->() RETURN COUNT(r)"),
+        "amendments_in_db": _scalar("MATCH (a:AmendmentOperation) RETURN COUNT(a)"),
+        "amends_edges": _scalar("MATCH ()-[r:AMENDS]->() RETURN COUNT(r)"),
+        "targets_edges": _scalar("MATCH ()-[r:TARGETS]->() RETURN COUNT(r)"),
         "bills_with_citations": acc.bills_with_citations,
+        "bills_with_definitions": acc.bills_with_definitions,
+        "bills_with_amendments": acc.bills_with_amendments,
     }
     return stats

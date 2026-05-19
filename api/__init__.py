@@ -1,9 +1,9 @@
-"""polilabs agent-facing API — six primitives.
+"""polilabs agent-facing API.
 
 See api/SPEC.md for the design contract. Implementations live in api/_impl.py
-and are backed by data/polilabs.db (build with `python scripts/build_index.py`).
+and are backed by data/polilabs.db (SQLite, FTS) + data/polilabs.kuzu (graph).
 
-The six primitives are the ONLY supported way for an agent to query the
+These primitives are the ONLY supported way for an agent to query the
 corpus. Lower-level direct DB/file access is for ingestion and tooling,
 not for agents.
 """
@@ -11,8 +11,14 @@ from __future__ import annotations
 
 from ._impl import (
     corpus_coverage,
+    find_bills_amending,
+    find_bills_defining,
+    find_definitions_of,
+    get_amendments,
+    get_amendments_targeting,
     get_bill,
     get_citation_graph,
+    get_defined_terms,
     get_section,
     resolve_citation,
     search_corpus,
@@ -20,12 +26,26 @@ from ._impl import (
 from .types import (
     AdjacencySummary,
     AgreementScore,
+    Amendment,
+    AmendmentOperationType,
+    AmendmentsResult,
+    AmendmentsTargetingResult,
     Bill,
+    BillAmendmentSummary,
+    BillDefinitionMatch,
+    BillsAmendingResult,
+    BillsDefiningResult,
     BillVersion,
     CitationEdge,
     CitationGraph,
     CitationType,
     CoverageReport,
+    DefinedTerm,
+    DefinedTermsResult,
+    DefinitionAcrossCorpus,
+    DefinitionScope,
+    DefinitionsAcrossCorpusResult,
+    DefinitionType,
     Provenance,
     ResolvedCitation,
     ResolvedRef,
@@ -44,17 +64,37 @@ __all__ = [
     "get_bill",
     "get_section",
     "get_citation_graph",
+    "get_defined_terms",
+    "get_amendments",
+    "get_amendments_targeting",
+    "find_bills_defining",
+    "find_bills_amending",
+    "find_definitions_of",
     "resolve_citation",
     "corpus_coverage",
     # types re-exported for callers
     "AdjacencySummary",
     "AgreementScore",
+    "Amendment",
+    "AmendmentOperationType",
+    "AmendmentsResult",
+    "AmendmentsTargetingResult",
     "Bill",
+    "BillAmendmentSummary",
+    "BillDefinitionMatch",
+    "BillsAmendingResult",
+    "BillsDefiningResult",
     "BillVersion",
     "CitationEdge",
     "CitationGraph",
     "CitationType",
     "CoverageReport",
+    "DefinedTerm",
+    "DefinedTermsResult",
+    "DefinitionAcrossCorpus",
+    "DefinitionScope",
+    "DefinitionsAcrossCorpusResult",
+    "DefinitionType",
     "Provenance",
     "ResolvedCitation",
     "ResolvedRef",
@@ -67,5 +107,3 @@ __all__ = [
     "StreamStatus",
     "Tier",
 ]
-
-

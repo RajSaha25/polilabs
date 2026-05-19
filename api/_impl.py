@@ -36,12 +36,26 @@ except ImportError:  # pragma: no cover
 
 from .types import (
     AdjacencySummary,
+    Amendment,
+    AmendmentOperationType,
+    AmendmentsResult,
+    AmendmentsTargetingResult,
     Bill,
+    BillAmendmentSummary,
+    BillDefinitionMatch,
+    BillsAmendingResult,
+    BillsDefiningResult,
     BillVersion,
     CitationEdge,
     CitationGraph,
     CitationType,
     CoverageReport,
+    DefinedTerm,
+    DefinedTermsResult,
+    DefinitionAcrossCorpus,
+    DefinitionScope,
+    DefinitionsAcrossCorpusResult,
+    DefinitionType,
     Provenance,
     ResolvedCitation,
     ResolvedRef,
@@ -92,6 +106,71 @@ def _kuzu():
 
 
 _LEGACY_BILL_RE = re.compile(r"^(\d+)-([a-z]+)-(\d+)$")
+
+# Accepts prose forms like:
+#   H.R. 1736 (119th Cong.)        -> 119-hr-1736
+#   HR1736 119                     -> 119-hr-1736
+#   H. J. Res. 24, 118th Congress  -> 118-hjres-24
+_PROSE_BILL_RE = re.compile(
+    r"""(?ix)
+    ^\s*
+    (?P<billtype>H\.?\s*R\.?|S\.?|H\.?\s*J\.?\s*Res\.?|S\.?\s*J\.?\s*Res\.?
+                 |H\.?\s*Con\.?\s*Res\.?|S\.?\s*Con\.?\s*Res\.?)
+    \s*(?P<num>\d+)
+    (?:[,\s(]+(?P<congress>\d+)(?:st|nd|rd|th)?(?:\s*Cong(?:ress)?\.?)?\)?)?
+    \s*$
+    """,
+)
+
+
+def _normalize_bill_id(raw: str) -> str:
+    """Coerce common bill-id forms into the canonical '119-hr-1736' form.
+
+    Pass-through for already-canonical or URN form. For prose ('H.R. 1736
+    119th Cong.'), parses and rebuilds. If the input is prose but the
+    congress is missing, looks up the corpus for an unambiguous match —
+    if 0 or 2+ congresses contain the bill, raises KeyError with a
+    pointer message rather than silently returning empty.
+    """
+    s = raw.strip()
+    if not s:
+        raise KeyError("empty bill_id")
+    if _LEGACY_BILL_RE.match(s):
+        return s
+    if s.startswith("bill:us/"):
+        body = s[len("bill:us/"):]
+        parts = body.split("/")
+        if len(parts) == 3:
+            return f"{parts[0]}-{parts[1]}-{parts[2]}"
+    m = _PROSE_BILL_RE.match(s)
+    if m is None:
+        raise KeyError(
+            f"bill_id {raw!r} not recognized. Expected canonical form like "
+            f"'119-hr-1736' or prose like 'H.R. 1736 (119th Cong.)'."
+        )
+    btype = _normalize_billtype(m.group("billtype"))
+    bnum = m.group("num")
+    cong = m.group("congress")
+    if btype is None:
+        raise KeyError(f"could not parse bill type from {raw!r}")
+    if cong:
+        return f"{cong}-{btype}-{bnum}"
+    # Congress missing — disambiguate from corpus.
+    rows = _db().execute(
+        "SELECT congress FROM bills WHERE bill_type=? AND bill_number=?",
+        (btype, int(bnum)),
+    ).fetchall()
+    if len(rows) == 1:
+        return f"{rows[0][0]}-{btype}-{bnum}"
+    if len(rows) == 0:
+        raise KeyError(
+            f"bill {btype.upper()} {bnum} not found in corpus across any congress"
+        )
+    options = sorted(f"{r[0]}-{btype}-{bnum}" for r in rows)
+    raise KeyError(
+        f"bill {btype.upper()} {bnum} ambiguous across congresses; "
+        f"specify one of: {options}"
+    )
 
 
 def _to_urn_section_id(section_id: str) -> str:
@@ -304,12 +383,30 @@ def search_corpus(
     total = len(hits)
     hits = hits[offset:offset + limit]
 
+    # Natural-language pagination hint — agents truncate when continuation
+    # is only a schema field; an explicit prose nudge routes them to the
+    # right next step (paginate vs. switch to an aggregate primitive).
+    if total > len(hits):
+        hint = (
+            f"Returned {len(hits)} of {total} matching bills. "
+            f"For 'list every bill that ...' tasks, do NOT paginate "
+            f"through search hits — call one of the aggregate primitives "
+            f"(`find_bills_defining`, `find_bills_amending`, "
+            f"`find_definitions_of`) which return the complete answer in "
+            f"one call. Paginate only if you genuinely need bill-level "
+            f"metadata for many bills (rare)."
+        )
+    elif total == 0:
+        hint = "No matches. Try `corpus_coverage` to verify scope."
+    else:
+        hint = f"Returned all {total} matching bills (complete)."
     return SearchResults(
         hits=hits,
         total=total,
         query=query,
         coverage_note=_coverage_note_static(conn),
         in_scope=True,
+        pagination_hint=hint,
     )
 
 
@@ -327,6 +424,7 @@ def _coverage_note_static(conn: sqlite3.Connection) -> str:
 
 def get_bill(bill_id: str) -> Bill:
     conn = _db()
+    bill_id = _normalize_bill_id(bill_id)
     bill = conn.execute("SELECT * FROM bills WHERE bill_id = ?", (bill_id,)).fetchone()
     if bill is None:
         raise KeyError(f"bill_id {bill_id!r} not in corpus")
@@ -786,8 +884,11 @@ def corpus_coverage() -> CoverageReport:
 
     known_gaps = [
         "Bill text point-in-time history not yet indexed (one canonical version per bill).",
-        "Citation graph empty (Phase 4 work).",
-        "Multi-source agreement scoring not yet populated (Phase 4 work).",
+        "USLM <ref href='...'> citations from 2 USLM bills not yet extracted (PR2.1).",
+        "Public Law (74) and CITES_INTERNAL citations not yet extracted (PR2.1).",
+        "Definition use-site resolution (RESOLVED_TO / UnresolvedTermUse) not yet wired (PR3.1).",
+        "AmendmentOperation extraction not yet wired (PR4).",
+        "Multi-source agreement scoring not yet populated.",
     ]
 
     return CoverageReport(
@@ -801,4 +902,487 @@ def corpus_coverage() -> CoverageReport:
         bill_count_by_tier=tier_counts,
         source_freshness=freshness,
         known_gaps=known_gaps,
+    )
+
+
+# ----- get_defined_terms -----
+
+_URN_BILL_RE = re.compile(r"^bill:us/(\d+)/([a-z]+)/(\d+)$")
+
+
+def _normalize_statute_id(raw: str) -> str:
+    """Coerce 'statute:us/usc/15/9401' | '15/9401' | '15 U.S.C. 9401' |
+    '15 USC § 9401' all to the URN form."""
+    sid = raw.strip()
+    if sid.startswith("statute:"):
+        return sid
+    if "/" in sid and re.match(r"^\d+/", sid):
+        return f"statute:us/usc/{sid}"
+    m = re.match(
+        r"^(?P<title>\d+)\s*U\.?\s*S\.?\s*C\.?\s*[§\.]?\s*(?P<section>\S+)$",
+        sid, re.IGNORECASE,
+    )
+    if m:
+        return f"statute:us/usc/{m.group('title')}/{m.group('section')}"
+    return sid  # pass-through; caller's query will return empty
+
+
+def _to_urn_bill_id(bill_id: str) -> str:
+    """Translate legacy bill_id like '119-hr-1736' to URN form."""
+    if bill_id.startswith("bill:"):
+        return bill_id
+    m = re.match(r"^(\d+)-([a-z]+)-(\d+)$", bill_id)
+    if not m:
+        return bill_id
+    congress, btype, bnum = m.groups()
+    return f"bill:us/{congress}/{btype}/{bnum}"
+
+
+def get_defined_terms(bill_id: str) -> DefinedTermsResult:
+    """All DefinedTerm nodes scoped under a given bill.
+
+    Returns every term defined in the bill's Definitions section(s),
+    each with its definition text, type (direct vs. by_reference), and
+    by-reference target (USC section URN + canonical citation) when
+    applicable. Pass either legacy ('119-hr-1736') or URN
+    ('bill:us/119/hr/1736') bill IDs.
+    """
+    bill_id = _normalize_bill_id(bill_id)
+    k = _kuzu()
+    if k is None:
+        return DefinedTermsResult(
+            bill_id=bill_id, terms=[],
+            coverage_note="graph store unavailable; run scripts/build_kuzu_index.py",
+        )
+
+    urn_bill = _to_urn_bill_id(bill_id)
+    legacy_bill = _from_urn_section_id(urn_bill + "::").rstrip("::") if urn_bill.startswith("bill:") else bill_id
+
+    # The Definitions container can sit at any depth in the bill, so we
+    # traverse HAS_SECTION ∪ PARENT_OF transitively.
+    cypher = """
+    MATCH (b:Bill {bill_id: $bid})-[:HAS_VERSION]->(:BillVersion)
+          -[:HAS_SECTION|PARENT_OF*]->(s:Section)-[def:DEFINES]->(d:DefinedTerm)
+    OPTIONAL MATCH (d)-[:BY_REFERENCE]->(t:StatuteSection)
+    RETURN d.defined_term_id, d.surface_form, d.scope, d.definition_type,
+           d.definition_text, d.defining_section_id, s.canonical_citation,
+           t.statute_section_id, t.canonical_citation
+    ORDER BY d.surface_form
+    """
+    r = k.execute(cypher, {"bid": urn_bill})
+
+    out_terms: list[DefinedTerm] = []
+    seen: set[str] = set()
+    while r.has_next():
+        (dtid, surface, scope, dtype, dtext,
+         defining_sid_urn, defining_citation,
+         br_target_sid, br_target_citation) = r.get_next()
+        if dtid in seen:
+            continue
+        seen.add(dtid)
+        out_terms.append(DefinedTerm(
+            defined_term_id=dtid,
+            surface_form=surface,
+            bill_id=legacy_bill if not bill_id.startswith("bill:") else urn_bill,
+            defining_section_id=_from_urn_section_id(defining_sid_urn),
+            defining_section_citation=defining_citation or "",
+            scope=scope or "section_local",  # type: ignore[arg-type]
+            definition_type=dtype or "direct",  # type: ignore[arg-type]
+            definition_text=dtext or "",
+            by_reference_target_id=br_target_sid,
+            by_reference_target_citation=br_target_citation,
+            provenance=_make_provenance(
+                sources=[f"polilabs:kuzu/DefinedTerm({dtid})"],
+                notes="derivation=mechanical, source=Definitions container in bill XML",
+            ),
+        ))
+
+    direct_n = sum(1 for t in out_terms if t.definition_type == "direct")
+    by_ref_n = sum(1 for t in out_terms if t.definition_type == "by_reference")
+    note = (f"{len(out_terms)} defined terms "
+            f"({direct_n} direct, {by_ref_n} by-reference) "
+            f"from bill {urn_bill}")
+    return DefinedTermsResult(bill_id=bill_id, terms=out_terms, coverage_note=note)
+
+
+# ----- get_amendments / get_amendments_targeting -----
+
+def _amendment_from_row(
+    amendment_id: str,
+    source_section_id_urn: str,
+    source_citation: str,
+    operation_type: str,
+    operation_text: str,
+    target_statute_section_id: str | None,
+    target_canonical: str | None,
+    target_locator_json: str,
+    before_text: str | None,
+    after_text: str,
+    target_text_unverified: bool,
+) -> Amendment:
+    return Amendment(
+        amendment_id=amendment_id,
+        source_section_id=_from_urn_section_id(source_section_id_urn),
+        source_section_citation=source_citation or "",
+        operation_type=operation_type or "other",  # type: ignore[arg-type]
+        operation_text=operation_text or "",
+        target_statute_section_id=target_statute_section_id,
+        target_canonical_citation=target_canonical,
+        target_locator_json=target_locator_json or "{}",
+        before_text=before_text,
+        after_text=after_text or "",
+        target_text_unverified=bool(target_text_unverified),
+        provenance=_make_provenance(
+            sources=[f"polilabs:kuzu/AmendmentOperation({amendment_id})"],
+            notes=(
+                "derivation=mechanical, source=<quoted-block> in bill XML; "
+                "target_text_unverified=True until OLRC USC ingestion"
+            ),
+        ),
+    )
+
+
+def get_amendments(bill_id: str) -> AmendmentsResult:
+    """Every AmendmentOperation issued by sections of a given bill.
+
+    Answers "what does this bill change about existing law?" — design
+    doc Q1. Each Amendment carries the operation type, the target USC
+    citation (when resolved), and the before/after text payloads.
+    target_text_unverified is True in v1 because we do not yet ingest
+    OLRC USC text; downstream EnactmentVersion synthesis will use that
+    flag to surface ConflictNote markers.
+    """
+    bill_id = _normalize_bill_id(bill_id)
+    k = _kuzu()
+    if k is None:
+        return AmendmentsResult(
+            bill_id=bill_id, amendments=[],
+            coverage_note="graph store unavailable; run scripts/build_kuzu_index.py",
+        )
+
+    urn_bill = _to_urn_bill_id(bill_id)
+    cypher = """
+    MATCH (b:Bill {bill_id: $bid})-[:HAS_VERSION]->(:BillVersion)
+          -[:HAS_SECTION|PARENT_OF*]->(s:Section)-[:AMENDS]->(a:AmendmentOperation)
+    OPTIONAL MATCH (a)-[:TARGETS]->(t:StatuteSection)
+    RETURN a.amendment_id, s.section_id, s.canonical_citation,
+           a.operation_type, a.target_locator_json,
+           a.before_text, a.after_text, a.target_text_unverified,
+           t.statute_section_id, t.canonical_citation,
+           coalesce(a.before_text, "") + " " + coalesce(a.after_text, "") AS _pad,
+           "" AS _operation_text_placeholder
+    ORDER BY s.section_id, a.amendment_id
+    """
+    # Note: Kùzu schema stores operation_text in the prose-driving prop
+    # name we used at insert time. The full operation prose is on the
+    # AmendmentOperation node — fetch it explicitly via a separate field.
+    cypher = """
+    MATCH (b:Bill {bill_id: $bid})-[:HAS_VERSION]->(:BillVersion)
+          -[:HAS_SECTION|PARENT_OF*]->(s:Section)-[:AMENDS]->(a:AmendmentOperation)
+    OPTIONAL MATCH (a)-[:TARGETS]->(t:StatuteSection)
+    RETURN a.amendment_id, s.section_id, s.canonical_citation,
+           a.operation_type, a.target_locator_json,
+           a.before_text, a.after_text, a.target_text_unverified,
+           t.statute_section_id, t.canonical_citation
+    ORDER BY s.section_id, a.amendment_id
+    """
+    r = k.execute(cypher, {"bid": urn_bill})
+    amends: list[Amendment] = []
+    while r.has_next():
+        (aid, src_sid_urn, src_cite, op, locator,
+         before, after, unverified,
+         tgt_sid, tgt_canon) = r.get_next()
+        amends.append(_amendment_from_row(
+            amendment_id=aid, source_section_id_urn=src_sid_urn,
+            source_citation=src_cite, operation_type=op,
+            operation_text="",  # not stored as a node prop in v1 schema
+            target_statute_section_id=tgt_sid,
+            target_canonical=tgt_canon,
+            target_locator_json=locator,
+            before_text=before, after_text=after,
+            target_text_unverified=unverified,
+        ))
+
+    note = (f"{len(amends)} amendment operations from bill {urn_bill}; "
+            f"target_text_unverified=true (USC not yet ingested — synthesis "
+            f"queries will return ConflictNote markers when verification runs)")
+    return AmendmentsResult(bill_id=bill_id, amendments=amends, coverage_note=note)
+
+
+def get_amendments_targeting(statute_section_id: str) -> AmendmentsTargetingResult:
+    """All amendments in the corpus that target a given USC section.
+
+    Answers "what other bills this session amend the same statute?" —
+    design doc Q2. Accept either the URN form
+    ('statute:us/usc/5/552') or a short '15/9401' / '15 U.S.C. 9401'
+    style; this helper normalizes.
+    """
+    k = _kuzu()
+    if k is None:
+        return AmendmentsTargetingResult(
+            statute_section_id=statute_section_id, statute_canonical="",
+            amendments=[], coverage_note="graph store unavailable",
+        )
+    sid = _normalize_statute_id(statute_section_id)
+    cypher = """
+    MATCH (a:AmendmentOperation)-[:TARGETS]->(t:StatuteSection {statute_section_id: $sid})
+    MATCH (s:Section)-[:AMENDS]->(a)
+    RETURN a.amendment_id, s.section_id, s.canonical_citation,
+           a.operation_type, a.target_locator_json,
+           a.before_text, a.after_text, a.target_text_unverified,
+           t.statute_section_id, t.canonical_citation
+    ORDER BY s.section_id, a.amendment_id
+    """
+    r = k.execute(cypher, {"sid": sid})
+    amends: list[Amendment] = []
+    statute_canon = sid
+    while r.has_next():
+        (aid, src_sid_urn, src_cite, op, locator,
+         before, after, unverified,
+         tgt_sid, tgt_canon) = r.get_next()
+        statute_canon = tgt_canon or sid
+        amends.append(_amendment_from_row(
+            amendment_id=aid, source_section_id_urn=src_sid_urn,
+            source_citation=src_cite, operation_type=op,
+            operation_text="",
+            target_statute_section_id=tgt_sid,
+            target_canonical=tgt_canon,
+            target_locator_json=locator,
+            before_text=before, after_text=after,
+            target_text_unverified=unverified,
+        ))
+
+    bills_touched = len({a.source_section_id.split("::")[0] for a in amends})
+    note = (f"{len(amends)} amendment operations from {bills_touched} bill(s) "
+            f"target {statute_canon}; target_text_unverified=true (synthesis "
+            f"will surface ConflictNote markers when USC ingestion runs)")
+    return AmendmentsTargetingResult(
+        statute_section_id=sid, statute_canonical=statute_canon,
+        amendments=amends, coverage_note=note,
+    )
+
+
+# ----- aggregate primitives (eliminate N+1 patterns) -----
+#
+# These collapse "search → loop drill-in → aggregate" agent workflows
+# into single Cypher queries. The eval-driven motivation: agents
+# systematically truncate at 10-20 sequential tool calls (per BFCL v4
+# and Anthropic's tool-design guidance), so exhaustive-list queries
+# fail when modeled as search+loop. Each primitive here is one server-
+# side join over the graph.
+
+
+def find_bills_defining(
+    term: str,
+    *,
+    definition_type: DefinitionType | None = None,
+    by_reference_to: str | None = None,
+    also_match: list[str] | None = None,
+) -> BillsDefiningResult:
+    """Every bill in the corpus that formally defines a term.
+
+    `term` is matched case-insensitively on DefinedTerm.surface_form
+    (exact match — does not pull "artificial intelligence system" when
+    the agent asks for "artificial intelligence").
+
+    Optional filters:
+      - `definition_type='direct'` — bill defines the term with its own
+        text; `'by_reference'` — bill defers to another statute.
+      - `by_reference_to='15 U.S.C. 9401'` — only bills whose definition
+        cross-references a specific USC section. Accepts URN, slash, or
+        prose form. Implies `definition_type='by_reference'`.
+      - `also_match=['AI']` — additional surface forms to OR into the
+        match. Useful because bills routinely define abbreviations
+        ('AI', 'GAI') as shorthand for the full term — pass both in one
+        call rather than re-querying.
+
+    Replaces the search_corpus → loop get_defined_terms pattern that
+    forces 50+ sequential tool calls on the agent.
+    """
+    k = _kuzu()
+    if k is None:
+        return BillsDefiningResult(
+            term=term, matches=[], total=0,
+            coverage_note="graph store unavailable; run scripts/build_kuzu_index.py",
+        )
+
+    # WHERE on the primary MATCH must come BEFORE OPTIONAL MATCH —
+    # Cypher binds a trailing WHERE to its nearest preceding (OPTIONAL)
+    # MATCH, which would silently no-op the surface_form filter.
+    all_terms = [term] + (also_match or [])
+    primary_where = [
+        "toLower(d.surface_form) IN [" +
+        ", ".join(f"toLower($term_{i})" for i in range(len(all_terms))) +
+        "]"
+    ]
+    params: dict = {f"term_{i}": t for i, t in enumerate(all_terms)}
+    if by_reference_to:
+        # Implies by_reference; also requires the join.
+        definition_type = "by_reference"
+        params["statute_sid"] = _normalize_statute_id(by_reference_to)
+    if definition_type:
+        primary_where.append("d.definition_type = $deftype")
+        params["deftype"] = definition_type
+
+    if by_reference_to:
+        # Inner-join on StatuteSection when the caller asked for a
+        # specific target — turns OPTIONAL into required.
+        cypher = f"""
+        MATCH (b:Bill)-[:HAS_VERSION]->(:BillVersion)
+              -[:HAS_SECTION|PARENT_OF*]->(s:Section)-[:DEFINES]->(d:DefinedTerm)
+              -[:BY_REFERENCE]->(t:StatuteSection {{statute_section_id: $statute_sid}})
+        WHERE {' AND '.join(primary_where)}
+        RETURN DISTINCT b.bill_id, b.short_title, b.official_title, b.congress,
+               d.surface_form, d.defining_section_id, s.canonical_citation,
+               d.definition_type, t.statute_section_id, t.canonical_citation
+        ORDER BY b.congress, b.bill_id
+        """
+    else:
+        cypher = f"""
+        MATCH (b:Bill)-[:HAS_VERSION]->(:BillVersion)
+              -[:HAS_SECTION|PARENT_OF*]->(s:Section)-[:DEFINES]->(d:DefinedTerm)
+        WHERE {' AND '.join(primary_where)}
+        OPTIONAL MATCH (d)-[:BY_REFERENCE]->(t:StatuteSection)
+        RETURN DISTINCT b.bill_id, b.short_title, b.official_title, b.congress,
+               d.surface_form, d.defining_section_id, s.canonical_citation,
+               d.definition_type, t.statute_section_id, t.canonical_citation
+        ORDER BY b.congress, b.bill_id
+        """
+    r = k.execute(cypher, params)
+    matches: list[BillDefinitionMatch] = []
+    while r.has_next():
+        (bid_urn, short_title, title, congress, surface, defining_sid_urn,
+         defining_citation, dtype, br_target, br_target_citation) = r.get_next()
+        matches.append(BillDefinitionMatch(
+            bill_id=_from_urn_section_id(bid_urn + "::").rstrip("::"),
+            bill_short_title=short_title,
+            bill_title=title or "",
+            congress=congress,
+            surface_form=surface,
+            defining_section_id=_from_urn_section_id(defining_sid_urn),
+            defining_section_citation=defining_citation or "",
+            definition_type=dtype,  # type: ignore[arg-type]
+            by_reference_target_id=br_target,
+            by_reference_target_citation=br_target_citation,
+        ))
+
+    filter_desc = []
+    if definition_type:
+        filter_desc.append(f"definition_type={definition_type!r}")
+    if by_reference_to:
+        filter_desc.append(f"by_reference_to={by_reference_to!r}")
+    fdesc = f" with {', '.join(filter_desc)}" if filter_desc else ""
+    note = (
+        f"{len(matches)} bill(s) define {term!r}{fdesc}. "
+        f"This is the complete answer — no pagination needed."
+    )
+    return BillsDefiningResult(
+        term=term, matches=matches, total=len(matches), coverage_note=note,
+    )
+
+
+def find_bills_amending(statute_section_id: str) -> BillsAmendingResult:
+    """Per-bill rollup of every bill that amends a given USC section.
+
+    Compact response: one row per bill, with operation count + distinct
+    operation types. Use this for "which bills amend 15 U.S.C. 9401"
+    questions; use `get_amendments_targeting` when you need the
+    operation-level detail (before/after text).
+    """
+    k = _kuzu()
+    if k is None:
+        return BillsAmendingResult(
+            statute_section_id=statute_section_id, statute_canonical="",
+            bills=[], total=0, coverage_note="graph store unavailable",
+        )
+    sid = _normalize_statute_id(statute_section_id)
+    cypher = """
+    MATCH (b:Bill)-[:HAS_VERSION]->(:BillVersion)
+          -[:HAS_SECTION|PARENT_OF*]->(:Section)-[:AMENDS]->(a:AmendmentOperation)
+          -[:TARGETS]->(t:StatuteSection {statute_section_id: $sid})
+    RETURN b.bill_id, b.short_title, b.official_title, b.congress,
+           COUNT(DISTINCT a) AS n_ops,
+           COLLECT(DISTINCT a.operation_type) AS op_types,
+           t.canonical_citation
+    ORDER BY n_ops DESC, b.bill_id
+    """
+    r = k.execute(cypher, {"sid": sid})
+    bills: list[BillAmendmentSummary] = []
+    statute_canon = sid
+    while r.has_next():
+        bid_urn, short_title, title, congress, n_ops, op_types, canon = r.get_next()
+        statute_canon = canon or sid
+        bills.append(BillAmendmentSummary(
+            bill_id=_from_urn_section_id(bid_urn + "::").rstrip("::"),
+            bill_short_title=short_title,
+            bill_title=title or "",
+            congress=congress,
+            n_operations=int(n_ops),
+            operation_types=sorted(set(op_types)),  # type: ignore[arg-type]
+        ))
+    note = (
+        f"{len(bills)} bill(s) amend {statute_canon}. "
+        f"This is the complete answer — no pagination needed. "
+        f"Call get_amendments_targeting for operation-level detail."
+    )
+    return BillsAmendingResult(
+        statute_section_id=sid, statute_canonical=statute_canon,
+        bills=bills, total=len(bills), coverage_note=note,
+    )
+
+
+def find_definitions_of(term: str) -> DefinitionsAcrossCorpusResult:
+    """Every bill's take on a single term, side by side.
+
+    Returns the definition text (verbatim), the definition type (direct
+    vs by_reference), and the by-reference target (when applicable) for
+    every bill in the corpus that defines `term`. Use this to compare
+    cross-bill consensus / divergence on a term like 'AI', 'frontier
+    model', 'covered entity'. Case-insensitive exact match on
+    surface_form.
+    """
+    k = _kuzu()
+    if k is None:
+        return DefinitionsAcrossCorpusResult(
+            term=term, definitions=[], total=0,
+            direct_count=0, by_reference_count=0,
+            coverage_note="graph store unavailable",
+        )
+    # WHERE before OPTIONAL MATCH so the filter actually applies.
+    cypher = """
+    MATCH (b:Bill)-[:HAS_VERSION]->(:BillVersion)
+          -[:HAS_SECTION|PARENT_OF*]->(s:Section)-[:DEFINES]->(d:DefinedTerm)
+    WHERE toLower(d.surface_form) = toLower($term)
+    OPTIONAL MATCH (d)-[:BY_REFERENCE]->(t:StatuteSection)
+    RETURN DISTINCT b.bill_id, b.short_title, b.congress,
+           s.canonical_citation, d.definition_type, d.definition_text,
+           t.canonical_citation
+    ORDER BY b.congress, b.bill_id
+    """
+    r = k.execute(cypher, {"term": term})
+    defs: list[DefinitionAcrossCorpus] = []
+    direct = by_ref = 0
+    while r.has_next():
+        (bid_urn, short_title, congress, defining_citation,
+         dtype, dtext, br_target_citation) = r.get_next()
+        if dtype == "direct":
+            direct += 1
+        elif dtype == "by_reference":
+            by_ref += 1
+        defs.append(DefinitionAcrossCorpus(
+            bill_id=_from_urn_section_id(bid_urn + "::").rstrip("::"),
+            bill_short_title=short_title,
+            congress=congress,
+            defining_section_citation=defining_citation or "",
+            definition_type=dtype,  # type: ignore[arg-type]
+            definition_text=dtext or "",
+            by_reference_target_citation=br_target_citation,
+        ))
+    note = (
+        f"{len(defs)} bill(s) define {term!r} ({direct} direct, {by_ref} by_reference). "
+        f"This is the complete answer — no pagination needed."
+    )
+    return DefinitionsAcrossCorpusResult(
+        term=term, definitions=defs, total=len(defs),
+        direct_count=direct, by_reference_count=by_ref, coverage_note=note,
     )

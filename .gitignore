@@ -11,3 +11,8 @@ data/polilabs.db-*
 data/polilabs.kuzu
 data/polilabs.kuzu.*
 data/polilabs.kuzu-*
+eval/last_report.md
+# Local Claude Code state (worktrees + per-machine settings/hooks)
+.claude/
+# Graphify output — regenerable from source via `graphify update .`
+graphify-out/

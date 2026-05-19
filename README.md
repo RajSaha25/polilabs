@@ -1,69 +1,85 @@
 # polilabs
 
-Queryable, citation-accurate database of US federal legislation for scholars.
+Agent-native queryable knowledge graph of US federal legislation. Built so any LLM agent — Claude, Cursor, ChatGPT, your own — can dig into the structured corpus and report back to legislative researchers without hallucinating.
 
-The v1 wedge corpus is **AI-governance** legislation: federal bills since ~2017 that touch AI, machine learning, algorithmic decision-making, or related policy. The architecture is built to generalize to any domain.
+v1 corpus: **191 AI-governance bills** from the 118th and 119th US Congresses (2023–present). v1 scope: legislation only — regulatory actions (FTC, NIST, Commerce) and executive orders are explicitly out.
 
-## Tier 1 data sources (this commit)
+## Product framing
 
-| Source | Role | Auth | Cost |
-|---|---|---|---|
-| **Congress.gov API** | Bill metadata, sponsors, votes, actions | API key | Free |
-| **GovInfo API** | Full text of bills, public laws, US Code | API key | Free |
-| **OLRC bulk XML** | US Code as point-in-time release points | None | Free |
+The product is the **agent-facing API surface**, not the data files. Anyone can mirror Congress.gov XML. The value is:
 
-Together these are the public-domain spine. A future Tier 2 layer (Lexis / Bloomberg / Westlaw citator APIs) is intentionally deferred — see project notes.
+1. **Reconciliation across sources** — bill metadata from Congress.gov, full text from GovInfo, U.S. Code from OLRC, all stitched together into one queryable graph.
+2. **Agent-native primitives** — `find_bills_defining`, `get_amendments`, `resolve_citation`, etc. Aggregate queries are one tool call, not 50 sequential ones. Designed against documented LLM tool-use failure modes (N+1, context degradation, pagination truncation).
+3. **Anti-hallucination guardrails** — every cited fact carries verbatim provenance from a tool response. Bills define terms locally; the same surface form ("AI", "frontier model") has different definitions across bills, and the API surfaces that divergence rather than collapsing it.
+
+The agent doing the research is **NOT** polilabs' own agent. polilabs is the backend; the agent is yours.
+
+## Three ways to drive it
+
+```bash
+# 1. Terminal REPL (Claude Opus 4.7 + the 12 polilabs tools)
+python scripts/chat.py
+
+# 2. Browser UI (same agent behind a Gradio chat)
+python scripts/web.py
+
+# 3. MCP stdio server — wire into Claude Desktop, Cursor, any MCP client
+#    See "MCP setup" below.
+python mcp_server.py
+```
+
+All three share the same agent tools and system prompt (defined in `agent/tools.py`).
 
 ## Setup
 
-### 1. Get API keys (instant)
-
-- **Congress.gov**: sign up at <https://api.congress.gov/sign-up/>. Key arrives by email in seconds. Rate limit: 5,000 req/hr.
-- **GovInfo**: sign up at <https://api.govinfo.gov/docs> (the "Get API Key" link goes to api.data.gov). Key shown immediately and emailed.
-
-OLRC needs no key — it's just static ZIP downloads of US Code release points.
-
-### 2. Drop keys into `.env`
-
 ```bash
+# Tier 1 data sources — sign up at console URLs, keys arrive instantly
+#   Congress.gov:  https://api.congress.gov/sign-up/
+#   GovInfo:       https://api.govinfo.gov/docs (api.data.gov)
+#   Anthropic:     https://console.anthropic.com/
 cp .env.example .env
-# then edit .env and paste in the two keys
-```
+# edit .env: paste in CONGRESS_GOV_API_KEY, GOVINFO_API_KEY, ANTHROPIC_API_KEY
 
-### 3. Install and smoke-test
-
-```bash
+# Install + smoke-test
 python -m venv .venv && source .venv/bin/activate
 pip install -e .
-python scripts/smoke_test.py
+python scripts/smoke_test.py       # Tier 1 reachability
 ```
 
-You should see one bill from the 118th Congress, six GovInfo collection codes, and an HTTP 200 from the OLRC release-points index.
-
-## Drive it from a chat
-
-After building the index (`python scripts/build_index.py`), put your `ANTHROPIC_API_KEY` in `.env` and run:
+The v1 corpus (191 bills) is already committed under `data/corpus/legislation/`, so the only build step needed for normal use is the indexes:
 
 ```bash
-python scripts/chat.py
+python scripts/build_index.py          # ~30s — SQLite FTS index
+python scripts/build_kuzu_index.py     # ~70s — Kùzu property graph
+python scripts/kuzu_smoke_test.py      # verify graph structure
+python scripts/api_smoke_test.py       # exercise the agent-facing API
 ```
 
-You get an interactive REPL backed by Claude Opus 4.7 with the six polilabs primitives wired in as tools. The system prompt constrains the agent to cite verbatim from `get_section` (no reconstructed citations) and to acknowledge corpus-scope limits honestly. Try things like:
+`Re-fetching the corpus` from Congress.gov / GovInfo is a separate flow (`scripts/fetch_candidates.py` → `scripts/promote_corpus.py`); only needed if you're expanding scope or refreshing data.
 
-- "What bills in the 119th Congress address frontier model safety?"
-- "What does Sec. 3(a)(1) of H.R. 1736 actually require?"
-- "Are there any bills about facial recognition in federal contracting?"
-- "What's NOT in this corpus?"
+## Agent tool surface (12 tools)
 
 ## Drive it from a browser (Gradio quick path)
 
-Same agent, same tools, behind a Gradio chat UI:
+**Discovery + scope**
+- `search_corpus` — full-text search; returns ranked bill hits + `pagination_hint` that routes to aggregate tools when appropriate
+- `corpus_coverage` — what's in / out of scope (use when answering scope questions or when a search returns nothing)
 
-```bash
-python scripts/web.py
-```
+**Single-bill drill-in**
+- `get_bill` — metadata + section table of contents (no body text)
+- `get_section` — verbatim section text + canonical citation (cite this string *verbatim*)
+- `get_defined_terms` — all terms one bill formally defines
+- `get_amendments` — all amendments one bill makes
 
-Opens at <http://localhost:7860>. Add `--share` for a public *.gradio.live tunnel — convenient for sending a link, but proceed with caution since it exposes your Anthropic-billed quota.
+**Cross-reference + targeting**
+- `get_citation_graph` — typed citation graph around a section (CITES_EXTERNAL → USC)
+- `get_amendments_targeting` — operation-level detail of every amendment to a USC section
+- `resolve_citation` — "Sec. 3(a)(1) of H.R. 1736, 119th Cong." → canonical section_id
+
+**Aggregate / "list every bill that..." (added post-eval to fix N+1)**
+- `find_bills_defining(term, ...)` — every bill defining a term, one call
+- `find_bills_amending(statute_section_id)` — per-bill rollup of bills amending a USC section
+- `find_definitions_of(term)` — every bill's verbatim definition of a term, side by side
 
 ## Drive it from any frontend (HTTP/SSE API)
 
@@ -96,7 +112,9 @@ CORS is open by default (`allow_origins=["*"]`) for dev. Lock it down to your Lo
 
 ## Drive it from any MCP client
 
-`mcp_server.py` exposes the same six primitives over MCP stdio. Add to your MCP client's server config:
+## MCP setup
+
+`mcp_server.py` exposes the same tools over MCP stdio. Add to your client's config:
 
 ```json
 {
@@ -105,88 +123,62 @@ CORS is open by default (`allow_origins=["*"]`) for dev. Lock it down to your Lo
       "command": "/absolute/path/to/polilabs/.venv/bin/python",
       "args": ["/absolute/path/to/polilabs/mcp_server.py"],
       "env": {
-        "POLILABS_DB": "/absolute/path/to/polilabs/data/polilabs.db"
+        "POLILABS_DB":   "/absolute/path/to/polilabs/data/polilabs.db",
+        "POLILABS_KUZU": "/absolute/path/to/polilabs/data/polilabs.kuzu"
       }
     }
   }
 }
 ```
 
-The MCP server reads the same SQLite index — no Anthropic API key needed for the server itself.
+The MCP server needs no Anthropic key — it just serves the tools. The client provides the LLM.
 
-## Build the graph index
+## Eval status
 
-In parallel with the SQLite index, polilabs maintains a Kùzu property-graph index that backs the schema in `schema_design.md`. PR1 shipped the bibliographic spine; PR2 adds the citation graph; definitions and amendments are PR3–PR4.
+`eval/` ships a 13-query hand-curated test set across 6 categories (definition lookup, cross-bill consensus / divergence / targeting, amendment lookup, citation grounding, out-of-scope abstention). Each query has structured pass criteria scoring two failure modes:
+
+- **Under-coverage** (low recall on set-valued queries; missing required substrings; abstaining when answer exists)
+- **Over-confidence** (extra bills not in ground truth; forbidden substrings present; hallucinated citations)
+
+Latest baseline: **12/13 passed** (92%), with 100% citation grounding (0 hallucinated). Single remaining failure is LLM variance on a stylistic precision check, not a code bug. See `eval/README.md` for the full eval contract.
 
 ```bash
-python scripts/build_kuzu_index.py        # ~70s on the v1 corpus
-python scripts/kuzu_smoke_test.py         # structural Cypher checks + sample queries
+python scripts/run_eval.py --dry-run   # verify wiring, no API call
+python scripts/run_eval.py             # full run (~$5–10 in Opus spend)
+python scripts/run_eval.py --query def_1736_ai
 ```
-
-Output goes to `data/polilabs.kuzu` (gitignored, regenerable from `data/corpus/`). The build is destructive: the existing graph is deleted and rebuilt.
-
-What populates after PR2 (191 bills):
-
-| Element | Count |
-|---|---|
-| Bills / BillVersions / Sections | 191 / 191 / 29,616 |
-| Unique Sponsors | 411 |
-| `PARENT_OF` / `HAS_SECTION` edges | 28,969 / 647 |
-| `SPONSORED_BY` / `COSPONSORED_BY` | 191 / 688 |
-| `CITES_EXTERNAL` (USC citations) | 646, across 137 bills, 172 unique USC targets |
-
-The agent-facing API in `api/_impl.py` reads from Kùzu for `get_citation_graph` and `get_section`'s `adjacency_summary`; bibliographic primitives (`get_bill`, `search_corpus`, etc.) still read from SQLite. Section IDs round-trip between legacy (`119-hr-1736::H7CA...`) and URN (`bill:us/119/hr/1736::H7CA...`) forms transparently.
 
 ## Layout
 
+Each folder has its own README explaining purpose, key files, and where it fits.
+
 ```
-sources/                # raw source clients (input layer)
-  congress_gov.py       # Library of Congress API
-  govinfo.py            # GPO GovInfo API
-  olrc.py               # OLRC US Code bulk-XML helpers
-ingest/                 # corpus build pipeline
-  govinfo_search.py     # full-text search for candidates
-  candidate.py          # anchor gate + centrality scoring
-  reconcile.py          # Congress.gov metadata pull (cached)
-  promote.py            # promote candidates → structured corpus
-index/                  # Layer-2 SQLite index (backs FTS5 + the legacy API)
-  schema.py             # tables + FTS5
-  parse_uslm.py         # bill XML → sections
-  build.py              # destructive rebuild from corpus
-graph/                  # Kùzu property-graph index (the new spine)
-  schema_kuzu.py        # node + rel table DDL per schema_design.md
-  build_kuzu.py         # two-phase collect → bulk-UNWIND insert
-api/                    # agent-facing API surface
-  SPEC.md               # design contract
-  __init__.py           # public exports
-  types.py              # typed dataclasses
-  _impl.py              # SQLite-backed implementations (Kùzu port in later PRs)
-agent/                  # tool wrappers shared by chat + MCP
-  tools.py              # serializers, schemas, system prompt
-scripts/
-  smoke_test.py         # Tier 1 reachability
-  fetch_candidates.py   # Phase 1.1 — GovInfo search → ranked CSV
-  promote_corpus.py     # Phase 1.3 — promote to data/corpus/
-  build_index.py        # Phase 2.1 — build data/polilabs.db (SQLite)
-  build_kuzu_index.py   # build data/polilabs.kuzu (graph spine)
-  kuzu_smoke_test.py    # structural Cypher checks against the Kùzu DB
-  api_smoke_test.py     # exercise the six primitives
-  chat.py               # Phase 5 — Claude chat REPL
-mcp_server.py           # Phase 5 — MCP stdio server
-corpus/
-  inclusion_criteria.md # locked AI-governance criteria v1.0
-research/               # prior research (landscape, notes)
-schema_design.md        # the property-graph ontology this repo is built on
-data/
-  candidates/           # candidate_v1.jsonl + review.csv (committed)
-  corpus/legislation/   # promoted bills (committed)
-  cache/                # API response cache (gitignored)
-  polilabs.db           # SQLite index (gitignored, regenerable)
-  polilabs.kuzu         # Kùzu graph (gitignored, regenerable)
+sources/      # Raw API clients (Congress.gov, GovInfo, OLRC) — see sources/README.md
+ingest/       # Corpus build pipeline: search → score → reconcile → promote
+index/        # SQLite FTS index — what most agent reads hit first
+graph/        # Kùzu property graph — the agent-facing graph spine
+api/          # Typed agent-facing API (the design contract is api/SPEC.md)
+agent/        # Tool wrappers + system prompt shared by chat / web / MCP
+eval/         # Eval harness: hand-curated queries + scorer + report
+scripts/      # CLI entry points (build, smoke-test, chat, eval)
+corpus/       # Locked inclusion criteria — what counts as "AI-governance"
+research/     # Background research (landscape, design principles)
+data/         # Committed corpus + gitignored indexes — see .gitignore
+
+schema_design.md     # The property-graph ontology (~7,500 words) — read this first
+                     # if you're touching graph/, api/, or eval/
 ```
 
-## Design notes
+## Design philosophy
 
-- **Cross-check, don't wrap.** The product value comes from the reconciliation layer across sources — not from being a wrapper on any single API. Each client here is intentionally thin.
-- **AI-native is what we build, not what we consume.** Raw GovInfo XML is authoritative but not agent-queryable; making it queryable is the project.
-- **Versioned law matters.** Scholars need "what did the law say on date X." That's why OLRC release points are in Tier 1, not the live Congress.gov bill text alone.
+- **Cross-check, don't wrap.** The product value is the reconciliation layer across sources. Each `sources/*.py` client is intentionally thin.
+- **AI-native is what we build, not what we consume.** Raw USLM XML is authoritative but not agent-queryable. Making it queryable is the project.
+- **Versioned law matters.** Scholars need "what did 5 U.S.C. § 552 say on date X." OLRC release points are in Tier 1 for that reason. (v1 stores one canonical version per bill; bitemporal versioning is in the schema, not yet wired.)
+- **Anti-hallucination by construction.** Every claim returnable through the API carries a `provenance` field. Definitions are scoped to the bill that defines them — no global "AI system" node — so an agent reporting a definition can never mix bills.
+- **Aggregate primitives over CRUD primitives.** The eval drove this: agents fail systematically on "search → loop → aggregate" patterns at ~20+ tool calls. Every N+1 pattern observed in the eval got an aggregate tool. See `eval/README.md` for the failure-mode analysis.
+
+## For agents
+
+If you're an LLM agent working in this repo, the canonical knowledge graph is `graphify-out/graph.json` (generated by [graphify](https://github.com/safishamsi/graphify)). The Claude Code PreToolUse hook will query it before exploration. Start there for code navigation, then read the relevant folder's README.
+
+For the data model, read `schema_design.md` end-to-end before changing anything in `graph/`, `api/`, or `eval/`.
