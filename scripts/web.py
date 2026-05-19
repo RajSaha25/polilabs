@@ -3,10 +3,16 @@
 Launches a local site at http://localhost:7860 with a chat interface backed
 by Claude Opus 4.7 and the six polilabs API primitives.
 
+UI design:
+  - Tool calls render as collapsed accordions (Gradio ChatMessage metadata)
+    so they're visually distinct from the agent's actual response text.
+  - Soft theme with slate hues + a custom font and tightened layout.
+  - Examples laid out as one-click prompts above the input.
+
 Run:
     python scripts/web.py
-    # Add --share to expose a public *.gradio.live tunnel (proceed with caution —
-    # exposes your Anthropic-billed quota to anyone with the link).
+    # Add --share to expose a public *.gradio.live tunnel (proceed with
+    # caution — exposes your Anthropic-billed quota to anyone with the link).
 """
 from __future__ import annotations
 
@@ -99,36 +105,57 @@ def corpus_coverage() -> str:
 TOOLS = [search_corpus, get_bill, get_section, resolve_citation, corpus_coverage]
 
 
-def _format_tool_call(name: str, args: dict) -> str:
-    """Render a tool call as a one-line italic note to interleave in the response."""
-    args_str = ", ".join(f"{k}={v!r}" for k, v in (args or {}).items())
-    if len(args_str) > 120:
-        args_str = args_str[:117] + "..."
-    return f"\n\n_→ {name}({args_str})_\n\n"
+# ---- helpers ----
+
+def _safe_repr(v) -> str:
+    """Repr that keeps strings reasonably short."""
+    if isinstance(v, str):
+        if len(v) > 80:
+            return repr(v[:77] + "...")
+        return repr(v)
+    return repr(v)
+
+
+def _format_tool_args(args: dict | None) -> str:
+    """Render a tool call's args as one compact code line."""
+    if not args:
+        return "(no arguments)"
+    parts = [f"{k}={_safe_repr(v)}" for k, v in args.items()]
+    return ", ".join(parts)
 
 
 def _to_anthropic_history(messages: list) -> list:
     """Convert Gradio's messages-format history into the Anthropic shape.
 
-    Gradio (type='messages') uses [{'role': ..., 'content': str}, ...]. We
-    drop the assistant messages because tool_use/tool_result blocks must
-    travel together with their matching pairs to be valid, and the UI
-    history only stores final-rendered text. Keeping just user turns gives
-    Claude the conversational context without breaking tool-use validity.
+    The UI history can include assistant messages with metadata (tool call
+    accordions), but those are display-only — they don't carry the raw
+    tool_use/tool_result block pairs the Anthropic API requires to be
+    intact. We drop all assistant messages and re-send user turns only;
+    Claude gets conversational context and re-calls tools as needed.
     """
     out = []
     for m in messages:
-        if m["role"] == "user":
+        if m.get("role") == "user" and isinstance(m.get("content"), str):
             out.append({"role": "user", "content": m["content"]})
     return out
 
 
 def respond(message: str, history: list):
-    """Streaming generator yielding partial response strings to Gradio."""
+    """Streaming generator yielding a growing list of assistant ChatMessage dicts.
+
+    For each block from Claude:
+      - text blocks extend a single text bubble (or start a new one after a tool call)
+      - tool_use blocks emit a separate metadata-tagged bubble that renders
+        as a collapsed accordion in Gradio's chat UI
+    """
     client = anthropic.Anthropic()
 
     prior = _to_anthropic_history(history)
     request_messages = prior + [{"role": "user", "content": message}]
+
+    # `messages` is the running list of assistant bubbles for this turn.
+    messages: list[dict] = []
+    text_bubble_idx: int | None = None  # index of the currently-extending text bubble
 
     try:
         runner = client.beta.messages.tool_runner(
@@ -145,19 +172,32 @@ def respond(message: str, history: list):
             messages=request_messages,
         )
 
-        accumulated = ""
         for msg in runner:
             for block in msg.content:
                 if block.type == "text" and block.text:
-                    accumulated += block.text
-                    yield accumulated
+                    if text_bubble_idx is None:
+                        messages.append({"role": "assistant", "content": block.text})
+                        text_bubble_idx = len(messages) - 1
+                    else:
+                        messages[text_bubble_idx]["content"] += block.text
+                    yield messages
                 elif block.type == "tool_use":
-                    accumulated += _format_tool_call(block.name, block.input or {})
-                    yield accumulated
+                    args_str = _format_tool_args(block.input)
+                    messages.append({
+                        "role": "assistant",
+                        "content": f"```\n{block.name}({args_str})\n```",
+                        "metadata": {
+                            "title": f"🔍 Used {block.name}",
+                            "status": "done",
+                        },
+                    })
+                    # Subsequent text starts a new bubble below the accordion.
+                    text_bubble_idx = None
+                    yield messages
     except anthropic.APIError as e:
-        yield f"**API error:** `{type(e).__name__}: {e}`"
+        yield [{"role": "assistant", "content": f"**API error:** `{type(e).__name__}: {e}`"}]
     except Exception as e:
-        yield f"**Error:** `{type(e).__name__}: {e}`"
+        yield [{"role": "assistant", "content": f"**Error:** `{type(e).__name__}: {e}`"}]
 
 
 EXAMPLES = [
@@ -173,11 +213,91 @@ DESCRIPTION = """\
 A queryable, citation-accurate database of US federal AI-governance legislation —
 **191 bills** from the **118th and 119th Congress** (2023–present).
 
-Powered by Claude Opus 4.7 with five tools: `search_corpus`, `get_bill`,
-`get_section`, `resolve_citation`, `corpus_coverage`. Every citation is quoted
-verbatim from the corpus; nothing is reconstructed from memory.
+Every citation is quoted verbatim from the corpus; nothing is reconstructed from memory.
 
 _Out of v1 scope: regulatory actions (FTC, NIST, Commerce) and executive orders._"""
+
+
+THEME = gr.themes.Soft(
+    primary_hue="slate",
+    secondary_hue="slate",
+    neutral_hue="slate",
+    text_size=gr.themes.sizes.text_md,
+    spacing_size=gr.themes.sizes.spacing_md,
+    radius_size=gr.themes.sizes.radius_md,
+    font=[
+        gr.themes.GoogleFont("Inter"),
+        "ui-sans-serif",
+        "system-ui",
+        "sans-serif",
+    ],
+    font_mono=[
+        gr.themes.GoogleFont("JetBrains Mono"),
+        "ui-monospace",
+        "monospace",
+    ],
+).set(
+    body_background_fill="#f8fafc",
+    background_fill_primary="#ffffff",
+    background_fill_secondary="#f1f5f9",
+    block_border_width="1px",
+    block_border_color="#e2e8f0",
+    block_radius="12px",
+    block_shadow="0 1px 2px 0 rgb(0 0 0 / 0.04)",
+)
+
+
+CUSTOM_CSS = """
+/* Layout — center the chat in a comfortable reading column */
+.gradio-container {
+    max-width: 920px !important;
+    margin: 0 auto !important;
+    padding-top: 1.5rem !important;
+}
+
+/* Header */
+.gradio-container h1 {
+    font-weight: 600 !important;
+    letter-spacing: -0.02em !important;
+    color: #0f172a !important;
+    margin-bottom: 0.25rem !important;
+}
+.markdown { color: #475569 !important; line-height: 1.55 !important; }
+
+/* Chat messages */
+.message { font-size: 15px !important; line-height: 1.6 !important; }
+.message-bubble-border { border-color: #e2e8f0 !important; }
+
+/* Tool-call accordion blocks — subdued so they don't compete with the answer */
+.metadata-message,
+[class*="metadata"] .message {
+    opacity: 0.85;
+    font-size: 13.5px !important;
+}
+[class*="metadata"] code,
+[class*="metadata"] pre {
+    background: #f1f5f9 !important;
+    color: #475569 !important;
+    border-radius: 6px !important;
+}
+
+/* Examples row — make them feel like quick-pick buttons */
+.gr-button.gr-sample-button,
+.gr-button[id*="example"] {
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    color: #334155 !important;
+    font-weight: 500 !important;
+}
+.gr-button.gr-sample-button:hover,
+.gr-button[id*="example"]:hover {
+    background: #f1f5f9 !important;
+    border-color: #cbd5e1 !important;
+}
+
+/* Hide the Gradio footer for a cleaner look */
+footer { display: none !important; }
+"""
 
 
 def _check_setup() -> None:
@@ -200,18 +320,32 @@ def main() -> None:
 
     _check_setup()
 
-    demo = gr.ChatInterface(
-        fn=respond,
-        title="polilabs",
-        description=DESCRIPTION,
-        examples=EXAMPLES,
-        cache_examples=False,
-        chatbot=gr.Chatbot(height=540, label="Conversation"),
-        textbox=gr.Textbox(placeholder="Ask about an AI-governance bill...", autofocus=True),
-        analytics_enabled=False,
-    )
+    with gr.Blocks(title="polilabs", analytics_enabled=False) as demo:
+        gr.ChatInterface(
+            fn=respond,
+            title="polilabs",
+            description=DESCRIPTION,
+            examples=EXAMPLES,
+            cache_examples=False,
+            chatbot=gr.Chatbot(
+                height=560,
+                label="Conversation",
+                avatar_images=(None, None),
+            ),
+            textbox=gr.Textbox(
+                placeholder="Ask about an AI-governance bill...",
+                autofocus=True,
+                container=False,
+            ),
+        )
 
-    demo.launch(server_port=args.port, share=args.share, inbrowser=not args.share)
+    demo.launch(
+        server_port=args.port,
+        share=args.share,
+        inbrowser=not args.share,
+        theme=THEME,
+        css=CUSTOM_CSS,
+    )
 
 
 if __name__ == "__main__":

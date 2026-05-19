@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>polilabs (test page)</title>
+<style>
+  :root {
+    --bg: #f6f7f9;
+    --surface: #ffffff;
+    --border: #e2e8f0;
+    --ink: #0f172a;
+    --ink-2: #475569;
+    --ink-3: #94a3b8;
+    --accent: #475569;
+    --tool: #eef2f7;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Inter", system-ui, sans-serif;
+    line-height: 1.55;
+  }
+  main {
+    max-width: 760px;
+    margin: 2rem auto;
+    padding: 0 1rem 6rem;
+  }
+  header {
+    margin-bottom: 1rem;
+  }
+  h1 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+  .subtitle {
+    color: var(--ink-2);
+    font-size: 0.92rem;
+    margin-top: 0.25rem;
+  }
+  .note {
+    margin-top: 0.5rem;
+    color: var(--ink-3);
+    font-size: 0.85rem;
+  }
+  .chat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1rem;
+    margin-top: 1rem;
+    min-height: 60vh;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+  }
+  .turn { margin-bottom: 1.1rem; }
+  .role {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-3);
+    margin-bottom: 0.25rem;
+  }
+  .bubble {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+  .user .bubble {
+    background: #f1f5f9;
+    padding: 0.6rem 0.8rem;
+    border-radius: 10px;
+    display: inline-block;
+  }
+  .tool {
+    font-family: ui-monospace, "JetBrains Mono", monospace;
+    font-size: 0.82rem;
+    background: var(--tool);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.35rem 0.6rem;
+    margin: 0.35rem 0;
+    color: var(--ink-2);
+    display: inline-block;
+  }
+  .tool::before {
+    content: "→ ";
+    color: var(--ink-3);
+  }
+  form {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(to top, var(--bg) 70%, transparent);
+    padding: 1rem;
+  }
+  .input-row {
+    max-width: 760px;
+    margin: 0 auto;
+    display: flex;
+    gap: 0.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 0.4rem 0.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  input[type=text] {
+    flex: 1;
+    border: 0;
+    background: transparent;
+    font-size: 1rem;
+    padding: 0.5rem 0.4rem;
+    color: var(--ink);
+    outline: none;
+  }
+  button {
+    border: 0;
+    background: var(--ink);
+    color: white;
+    padding: 0.55rem 0.95rem;
+    border-radius: 8px;
+    font-size: 0.92rem;
+    cursor: pointer;
+    font-weight: 500;
+  }
+  button:disabled { background: var(--ink-3); cursor: not-allowed; }
+  .examples {
+    margin: 0.5rem 0 0.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .ex {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.3rem 0.7rem;
+    font-size: 0.82rem;
+    color: var(--ink-2);
+    cursor: pointer;
+  }
+  .ex:hover { background: #f1f5f9; }
+  code { font-family: ui-monospace, "JetBrains Mono", monospace; font-size: 0.88em; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>polilabs</h1>
+    <div class="subtitle">Queryable, citation-accurate database of US federal AI-governance legislation — 191 bills, 118th–119th Congress.</div>
+    <div class="note">Bare-bones test page. Proves the <code>POST /chat</code> backend works without a framework. The real frontend can be anything (Lovable, custom React, etc.) that hits the same API.</div>
+  </header>
+
+  <div class="examples" id="examples">
+    <button class="ex">What bills address frontier model safety?</button>
+    <button class="ex">What does Sec. 3(a)(1) of H.R. 1736 require?</button>
+    <button class="ex">Are there facial recognition bills?</button>
+    <button class="ex">What's NOT in this corpus?</button>
+  </div>
+
+  <div class="chat" id="chat"></div>
+</main>
+
+<form id="form">
+  <div class="input-row">
+    <input type="text" id="msg" placeholder="Ask about an AI-governance bill..." autofocus />
+    <button id="send" type="submit">Send</button>
+  </div>
+</form>
+
+<script>
+const chatEl = document.getElementById('chat');
+const inputEl = document.getElementById('msg');
+const formEl = document.getElementById('form');
+const sendEl = document.getElementById('send');
+const history = []; // {role, content}
+
+function el(html) {
+  const t = document.createElement('template');
+  t.innerHTML = html.trim();
+  return t.content.firstChild;
+}
+
+function addUserTurn(text) {
+  const node = el(`<div class="turn user"><div class="role">You</div><div class="bubble"></div></div>`);
+  node.querySelector('.bubble').textContent = text;
+  chatEl.appendChild(node);
+  node.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  return node;
+}
+
+function addAssistantTurn() {
+  const node = el(`<div class="turn assistant"><div class="role">polilabs</div><div class="content"></div></div>`);
+  chatEl.appendChild(node);
+  return node;
+}
+
+async function send(message) {
+  if (!message.trim()) return;
+  addUserTurn(message);
+  history.push({ role: 'user', content: message });
+  inputEl.value = '';
+  sendEl.disabled = true;
+
+  const aNode = addAssistantTurn();
+  const contentEl = aNode.querySelector('.content');
+  let textBuf = document.createElement('div');
+  textBuf.className = 'bubble';
+  contentEl.appendChild(textBuf);
+
+  let accumulated = '';
+  try {
+    const res = await fetch('/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message, history }),
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder('utf-8');
+    let buffer = '';
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+      const events = buffer.split('\n\n');
+      buffer = events.pop() || '';
+      for (const ev of events) {
+        const line = ev.split('\n').find(l => l.startsWith('data: '));
+        if (!line) continue;
+        const payload = JSON.parse(line.slice(6));
+        if (payload.type === 'text') {
+          accumulated += payload.delta;
+          textBuf.textContent = accumulated;
+          aNode.scrollIntoView({ behavior: 'smooth', block: 'end' });
+        } else if (payload.type === 'tool_call') {
+          const args = Object.entries(payload.args || {})
+            .map(([k, v]) => `${k}=${JSON.stringify(v)}`)
+            .join(', ');
+          const toolEl = el(`<div class="tool"></div>`);
+          toolEl.textContent = `${payload.name}(${args})`;
+          contentEl.appendChild(toolEl);
+          // After a tool call, subsequent text starts a new bubble below
+          textBuf = document.createElement('div');
+          textBuf.className = 'bubble';
+          contentEl.appendChild(textBuf);
+          accumulated = '';
+        } else if (payload.type === 'error') {
+          const errEl = el(`<div class="bubble" style="color:#b91c1c"></div>`);
+          errEl.textContent = `Error: ${payload.message}`;
+          contentEl.appendChild(errEl);
+        } else if (payload.type === 'done') {
+          // record the final assistant text in history (text only — tool blocks aren't echoed)
+          const final = Array.from(contentEl.querySelectorAll('.bubble')).map(b => b.textContent).join('\n').trim();
+          if (final) history.push({ role: 'assistant', content: final });
+        }
+      }
+    }
+  } catch (e) {
+    const errEl = el(`<div class="bubble" style="color:#b91c1c"></div>`);
+    errEl.textContent = `Error: ${e.message}`;
+    contentEl.appendChild(errEl);
+  } finally {
+    sendEl.disabled = false;
+    inputEl.focus();
+  }
+}
+
+formEl.addEventListener('submit', (e) => {
+  e.preventDefault();
+  send(inputEl.value);
+});
+
+document.getElementById('examples').addEventListener('click', (e) => {
+  if (e.target.classList.contains('ex')) send(e.target.textContent);
+});
+</script>
+</body>
+</html>

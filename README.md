@@ -59,7 +59,7 @@ python scripts/api_smoke_test.py       # exercise the agent-facing API
 
 ## Agent tool surface (12 tools)
 
-The agent gets these via `agent/tools.py`. Grouped by purpose:
+## Drive it from a browser (Gradio quick path)
 
 **Discovery + scope**
 - `search_corpus` — full-text search; returns ranked bill hits + `pagination_hint` that routes to aggregate tools when appropriate
@@ -81,7 +81,36 @@ The agent gets these via `agent/tools.py`. Grouped by purpose:
 - `find_bills_amending(statute_section_id)` — per-bill rollup of bills amending a USC section
 - `find_definitions_of(term)` — every bill's verbatim definition of a term, side by side
 
-The system prompt explicitly routes "which bills do X" questions to the aggregate tools. See `agent/tools.py:SYSTEM_PROMPT`.
+## Drive it from any frontend (HTTP/SSE API)
+
+For full design control (Lovable, custom React, plain HTML), start the FastAPI backend:
+
+```bash
+python server.py
+```
+
+This exposes:
+
+| Endpoint | What it does |
+|---|---|
+| `POST /chat` | Streams the chat response as Server-Sent Events. Body: `{message, history}`. Yields events of type `text`, `tool_call`, `done`, `error`. |
+| `GET /coverage` | Returns the `corpus_coverage()` snapshot as JSON. |
+| `GET /health` | Liveness check. |
+| `GET /` | Serves `static/index.html` — a bare-bones test page that hits `/chat`. |
+
+Visit <http://localhost:8000/> to see the test page; it's deliberately minimal but proves the backend works end-to-end without any framework.
+
+### Wiring up a Lovable frontend
+
+1. Build the chat UI in Lovable (whatever design you want — message bubbles, tool-call accordions, sidebar, etc.).
+2. Point Lovable's chat code at `POST /chat` (this server) with the body shape `{message, history}`. Parse the SSE stream the same way `static/index.html` does (look at the `<script>` block — about 30 lines of EventSource-style reading).
+3. **Lovable's cloud preview can't reach `localhost`.** Two options:
+   - **Tunnel during dev:** run `cloudflared tunnel --url http://localhost:8000` (or `ngrok http 8000`), point Lovable at the public URL it gives you.
+   - **Export and run frontend locally:** push the Lovable project to GitHub, clone, run `npm run dev`, point it at `http://localhost:8000`.
+
+CORS is open by default (`allow_origins=["*"]`) for dev. Lock it down to your Lovable domain before deploying anywhere public.
+
+## Drive it from any MCP client
 
 ## MCP setup
 
