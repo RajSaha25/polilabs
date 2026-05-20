@@ -4,8 +4,9 @@ import type { RankedBill, SectionNode } from "../api/types";
 import { useEffectiveMode } from "../decomp/selectMode";
 import {
   buildSectionRootIndex,
+  buildSegments,
   findSpan,
-  segmentText,
+  formatStructure,
   type LocatedSpan,
   type TextSegment,
 } from "../decomp/highlight";
@@ -46,11 +47,15 @@ function TopSection({
         </div>
       )}
       {node.text && (
-        <p className="whitespace-pre-wrap font-serif text-base leading-relaxed text-ink">
-          {segments.map((seg, i) =>
-            seg.kind === "plain" ? (
-              <span key={i}>{seg.text}</span>
-            ) : (
+        <div className="whitespace-pre-wrap font-serif text-base leading-relaxed text-ink">
+          {segments.map((seg, i) => {
+            if (seg.kind === "break") {
+              return <span key={i} aria-hidden className="block h-2.5" />;
+            }
+            if (seg.kind === "plain") {
+              return <span key={i}>{seg.text}</span>;
+            }
+            return (
               <HighlightSpan
                 key={i}
                 itemId={seg.itemId}
@@ -59,9 +64,9 @@ function TopSection({
               >
                 {seg.text}
               </HighlightSpan>
-            ),
-          )}
-        </p>
+            );
+          })}
+        </div>
       )}
     </section>
   );
@@ -108,9 +113,21 @@ export function TextPanel({ bill }: { bill: RankedBill }) {
     [tree],
   );
 
-  // Each top-level section's text, pre-split into plain / marked
-  // segments. An anchor whose verbatim string cannot be located is
-  // simply dropped — the highlight degrades, it is never fabricated.
+  // Structural break offsets per top-level section. Depends only on the
+  // bill text, so switching Decomp mode never re-scans it.
+  const sectionBreaks = useMemo(() => {
+    const result = new Map<string, number[]>();
+    if (tree) {
+      for (const section of tree.sections) {
+        result.set(section.section_id, formatStructure(section.text ?? ""));
+      }
+    }
+    return result;
+  }, [tree]);
+
+  // Each top-level section's text, pre-split into plain / marked /
+  // break segments. An anchor whose verbatim string cannot be located
+  // is simply dropped — the highlight degrades, it is never fabricated.
   const sectionSegments = useMemo(() => {
     const result = new Map<string, TextSegment[]>();
     if (!tree) return result;
@@ -131,10 +148,13 @@ export function TextPanel({ bill }: { bill: RankedBill }) {
         const span = findSpan(text, anchor.text);
         if (span) spans.push({ ...span, itemId: anchor.itemId });
       }
-      result.set(section.section_id, segmentText(text, spans));
+      result.set(
+        section.section_id,
+        buildSegments(text, spans, sectionBreaks.get(section.section_id) ?? []),
+      );
     }
     return result;
-  }, [tree, anchors, rootIndex]);
+  }, [tree, anchors, rootIndex, sectionBreaks]);
 
   const activeItemId =
     activeHighlight?.billId === billId ? activeHighlight.itemId : null;

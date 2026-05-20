@@ -139,13 +139,11 @@ function AmendmentCard({
         interactive ? "cursor-pointer hover:border-line-strong" : "cursor-default",
       )}
     >
-      <div className="flex items-baseline justify-between gap-2">
-        <span className="truncate font-mono text-xs text-ink-soft">
-          {amendment.source_section_citation}
-        </span>
-        <span className="shrink-0">
-          <Tag>{operationLabel(amendment.operation_type)}</Tag>
-        </span>
+      <div>
+        <Tag>{operationLabel(amendment.operation_type)}</Tag>
+      </div>
+      <div className="mt-1.5 font-mono text-xs leading-snug text-ink-soft">
+        {amendment.source_section_citation}
       </div>
       {amendment.target_canonical_citation && (
         <div className="mt-1.5 text-xs text-ink-soft">

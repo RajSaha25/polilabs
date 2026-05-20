@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAppStore } from "../store/useAppStore";
+import { activeTurn, useAppStore } from "../store/useAppStore";
 
 /** A one-line summary of a tool call's arguments. */
 function summarizeArgs(args: Record<string, unknown>): string {
@@ -15,7 +15,7 @@ function summarizeArgs(args: Record<string, unknown>): string {
  *  the accountability trace. Quiet on purpose: it should never compete
  *  with the answer. */
 export function ToolTrace() {
-  const toolCalls = useAppStore((s) => s.toolCalls);
+  const toolCalls = useAppStore((s) => activeTurn(s).toolCalls);
   const [open, setOpen] = useState(false);
 
   if (toolCalls.length === 0) return null;

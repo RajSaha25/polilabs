@@ -111,6 +111,27 @@ def _sse(event: dict[str, Any]) -> str:
     return f"data: {json.dumps(event, default=str)}\n\n"
 
 
+def _friendly_error(exc: Exception) -> str:
+    """Map an exception to a short, human-readable message for the UI.
+
+    The raw exception is logged server-side; the client never sees a
+    stack-trace fragment or a raw API error dict — a research tool
+    should fail legibly."""
+    status = getattr(exc, "status_code", None)
+    if status == 529:
+        return ("The model service is temporarily overloaded. "
+                "Please retry in a moment.")
+    if status == 429:
+        return "Rate limit reached. Please wait a few seconds and retry."
+    if status in (401, 403):
+        return "The server's API key was rejected — check ANTHROPIC_API_KEY."
+    if isinstance(exc, (anthropic.APIConnectionError, anthropic.APITimeoutError)):
+        return "Couldn't reach the model service. Check the connection and retry."
+    if isinstance(status, int) and status >= 500:
+        return "The model service hit an error. Please retry."
+    return "Something went wrong handling that request. Please retry."
+
+
 # ---- agent path: POST /chat ----
 
 
@@ -291,9 +312,11 @@ def _stream_chat(req: ChatRequest):
             emitted += 1
         yield _sse({"type": "done"})
     except anthropic.APIError as e:
-        yield _sse({"type": "error", "message": f"{type(e).__name__}: {e}"})
+        print(f"[/chat] API error: {type(e).__name__}: {e}", file=sys.stderr)
+        yield _sse({"type": "error", "message": _friendly_error(e)})
     except Exception as e:
-        yield _sse({"type": "error", "message": f"{type(e).__name__}: {e}"})
+        print(f"[/chat] unexpected error: {type(e).__name__}: {e}", file=sys.stderr)
+        yield _sse({"type": "error", "message": _friendly_error(e)})
 
 
 @app.post("/chat")
@@ -350,20 +373,24 @@ def _full_section_tree(bill_id: str) -> str:
     if bill.get("error") or bill.get("not_found"):
         return json.dumps(bill)
 
-    def _node(section_id: str) -> dict:
+    def _node(section_id: str, top_level: bool) -> dict:
         sec = json.loads(tool_get_section(section_id))
         children = sec.get("child_section_ids") or []
         return {
             "section_id": sec.get("section_id"),
             "heading": sec.get("heading"),
             "canonical_citation": sec.get("canonical_citation"),
-            "text": sec.get("text"),
-            "children": [_node(c) for c in children],
+            # `text` is text_full — it already contains every descendant's
+            # text. Including it on nested nodes would repeat the whole
+            # subtree at each level (megabytes for deep bills); only the
+            # Text panel needs it, and only for top-level sections.
+            "text": sec.get("text") if top_level else None,
+            "children": [_node(c, False) for c in children],
         }
 
     tree = {
         "bill_id": bill_id,
-        "sections": [_node(s["section_id"]) for s in bill.get("sections", [])],
+        "sections": [_node(s["section_id"], True) for s in bill.get("sections", [])],
     }
     return json.dumps(tree)
 

@@ -34,7 +34,8 @@ export function PromptBox() {
           streaming ? "Researching…" : "Ask about a bill, term, or amendment…"
         }
         className={cn(
-          "w-full resize-none rounded-[5px] border bg-surface px-2.5 py-2 text-sm text-ink placeholder:text-ink-faint",
+          "w-full resize-y rounded-[5px] border bg-surface px-2.5 py-2 text-sm text-ink placeholder:text-ink-faint",
+          "min-h-[4.5rem] max-h-[18rem]",
           streaming
             ? "cursor-not-allowed border-line bg-paper text-ink-faint"
             : "border-line-strong",

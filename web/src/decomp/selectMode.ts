@@ -6,7 +6,7 @@
 
 import { useMemo } from "react";
 import type { DecompMode, ToolResult } from "../api/types";
-import { useAppStore } from "../store/useAppStore";
+import { activeTurn, useAppStore } from "../store/useAppStore";
 
 const DEFINITION_TOOLS = new Set([
   "get_defined_terms",
@@ -40,7 +40,7 @@ export function selectAutoMode(toolResults: ToolResult[]): DecompMode {
  *  when the user picked one, otherwise the turn's auto mode. */
 export function useEffectiveMode(billId: string): DecompMode {
   const override = useAppStore((s) => s.decompMode[billId]);
-  const toolResults = useAppStore((s) => s.toolResults);
+  const toolResults = useAppStore((s) => activeTurn(s).toolResults);
   const auto = useMemo(() => selectAutoMode(toolResults), [toolResults]);
   return override ?? auto;
 }
