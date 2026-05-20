@@ -27,10 +27,13 @@ interface AppState {
   /** Per-bill section trees, REST-fetched on demand and cached.
    *  Bill text is immutable in v1, so entries are never invalidated. */
   billData: Record<string, BillData>;
+  /** Text-vs-Decomp column ratio in the bill pane, 0.3–0.7. */
+  splitRatio: number;
 
   sendPrompt: (message: string) => Promise<void>;
   selectBill: (index: number) => void;
   loadBill: (billId: string) => Promise<void>;
+  setSplitRatio: (ratio: number) => void;
   reset: () => void;
 }
 
@@ -44,6 +47,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   rankedBills: [],
   selectedBillIndex: -1,
   billData: {},
+  splitRatio: 0.5,
 
   sendPrompt: async (message: string) => {
     const trimmed = message.trim();
@@ -60,17 +64,33 @@ export const useAppStore = create<AppState>((set, get) => ({
       selectedBillIndex: -1,
     });
 
+    // Text streamed before and after a tool call belongs to separate
+    // assistant messages; concatenating them directly runs sentences
+    // together ('...corpus."No hits...'). Insert a paragraph break the
+    // first time text resumes after any tool event.
+    let sawToolSinceText = false;
+
     await streamChat(trimmed, history, (event) => {
       switch (event.type) {
-        case "text":
-          set((s) => ({ answerText: s.answerText + event.delta }));
+        case "text": {
+          const sep = sawToolSinceText ? "\n\n" : "";
+          sawToolSinceText = false;
+          set((s) => ({
+            answerText:
+              sep && s.answerText && !s.answerText.endsWith("\n")
+                ? s.answerText + sep + event.delta
+                : s.answerText + event.delta,
+          }));
           break;
+        }
         case "tool_call":
+          sawToolSinceText = true;
           set((s) => ({
             toolCalls: [...s.toolCalls, { name: event.name, args: event.args }],
           }));
           break;
         case "tool_result":
+          sawToolSinceText = true;
           set((s) => ({
             toolResults: [
               ...s.toolResults,
@@ -99,6 +119,9 @@ export const useAppStore = create<AppState>((set, get) => ({
     const n = get().rankedBills.length;
     if (index >= 0 && index < n) set({ selectedBillIndex: index });
   },
+
+  setSplitRatio: (ratio: number) =>
+    set({ splitRatio: Math.min(0.7, Math.max(0.3, ratio)) }),
 
   loadBill: async (billId: string) => {
     const existing = get().billData[billId];
@@ -137,5 +160,6 @@ export const useAppStore = create<AppState>((set, get) => ({
       rankedBills: [],
       selectedBillIndex: -1,
       billData: {},
+      splitRatio: 0.5,
     }),
 }));

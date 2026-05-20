@@ -32,7 +32,7 @@ export function TextPanel({ bill }: { bill: RankedBill }) {
   const entry = useAppStore((s) => s.billData[bill.bill_id]);
 
   return (
-    <div className="flex h-full min-h-0 flex-col border-r border-line bg-surface">
+    <div className="flex h-full min-h-0 flex-col bg-surface">
       <div className="border-b border-line px-5 py-3">
         <div className="text-xs font-medium tracking-wide text-ink-faint">
           TEXT

@@ -9,7 +9,7 @@ export default function App() {
   return (
     <div
       className="grid h-full overflow-hidden"
-      style={{ gridTemplateColumns: "320px minmax(0, 1fr)" }}
+      style={{ gridTemplateColumns: "360px minmax(0, 1fr)" }}
     >
       <LeftRail />
       <BillViewer />

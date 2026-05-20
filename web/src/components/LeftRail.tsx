@@ -17,18 +17,18 @@ export function LeftRail() {
 
   return (
     <div className="flex h-full min-h-0 flex-col border-r border-line bg-surface">
-      <header className="border-b border-line px-4 py-3">
-        <div className="font-mono text-sm font-medium tracking-tight text-ink">
+      <header className="border-b border-line px-5 py-4">
+        <div className="font-mono text-xl font-semibold tracking-tight text-ink">
           polilabs
         </div>
-        <div className="mt-0.5 text-xs text-ink-faint">
+        <div className="mt-1 text-xs text-ink-faint">
           US federal AI-governance corpus
         </div>
       </header>
 
       <div className="flex-1 min-h-0 overflow-y-auto">
         {idle ? (
-          <p className="px-4 py-6 text-sm text-ink-faint">
+          <p className="px-5 py-7 text-sm leading-relaxed text-ink-faint">
             Ask a question about US federal AI-governance legislation.
             Every answer is grounded in the corpus and cites its source.
           </p>
