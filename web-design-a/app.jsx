@@ -325,12 +325,11 @@ function App() {
     <div className="app" style={{ "--rail-w": railW + "px" }}>
       <header className="app-header">
         <div className="brand">
-          <div className="brand-mark">P</div>
           <div className="brand-name">polilabs</div>
         </div>
         <div className="header-tools">
           <div className="stat mono"><b>191</b> bills · 118th–119th Congress</div>
-          <div className="stat mono">{streaming ? "agent working…" : "ready"}</div>
+          {streaming && <div className="stat mono">agent working…</div>}
         </div>
       </header>
 
