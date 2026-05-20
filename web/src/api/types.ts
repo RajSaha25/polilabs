@@ -51,3 +51,30 @@ export interface RankedBill {
   congress: number | null;
   tier: string | null;
 }
+
+// ---- REST: GET /api/bill/{id}/sections ----
+//
+// The full nested section tree. A section's `text` is text_full — it
+// already contains every descendant's text — so the Text panel renders
+// only the top-level sections' text; `children` feeds the structure
+// outline (Phase 3), not the body.
+
+export interface SectionNode {
+  section_id: string;
+  heading: string;
+  canonical_citation: string;
+  text: string | null;
+  children: SectionNode[];
+}
+
+export interface BillSectionTree {
+  bill_id: string;
+  sections: SectionNode[];
+}
+
+/** Per-bill REST-fetched state, cached in the store (bill text is
+ *  immutable in v1, so an entry never needs invalidation). */
+export type BillData =
+  | { status: "loading" }
+  | { status: "error"; message: string }
+  | { status: "ready"; tree: BillSectionTree };
