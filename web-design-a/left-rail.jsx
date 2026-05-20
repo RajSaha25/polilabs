@@ -36,7 +36,9 @@ function BillItem({ bill, rank, selected, onClick, showRelevance, showMatches })
         {bill.tier ? <span className={tierClass}>Tier {bill.tier}</span> : null}
       </div>
       <div className="b-title">{bill.short}</div>
-      <div className="b-sponsor">{bill.sponsor || "Sponsor n/a"} · {bill.congress}th</div>
+      <div className="b-sponsor">
+        {bill.sponsor ? bill.sponsor + " · " : ""}{bill.congress}th Congress
+      </div>
       {(showMatches && bill.matches?.length) ? (
         <div className="b-meta">
           {bill.matches.slice(0, 3).map((m) => (
@@ -145,6 +147,7 @@ function AnswerStream({ blocks, streaming }) {
 // ── Prompt input ──────────────────────────────────────────────────────
 function PromptInput({ value, onChange, onSubmit, onPreset, presets, disabled }) {
   const ref = useRef(null);
+  const [showPresets, setShowPresets] = useState(false);
   return (
     <div className="prompt">
       <div className="prompt-shell">
@@ -178,13 +181,25 @@ function PromptInput({ value, onChange, onSubmit, onPreset, presets, disabled })
         </div>
       </div>
       {!value.trim() && presets?.length ? (
-        <div className="preset-row">
-          {presets.map((p, i) => (
-            <button key={i} type="button" className="preset" onClick={() => onPreset(p)}>
-              <span className="arrow">↳</span>
-              <span>{p}</span>
-            </button>
-          ))}
+        <div className="preset-block">
+          <button
+            type="button"
+            className="preset-toggle"
+            onClick={() => setShowPresets((o) => !o)}
+          >
+            <span className="plan-caret">{showPresets ? "▾" : "▸"}</span>
+            <span>Suggested questions</span>
+          </button>
+          {showPresets ? (
+            <div className="preset-row">
+              {presets.map((p, i) => (
+                <button key={i} type="button" className="preset" onClick={() => onPreset(p)}>
+                  <span className="arrow">↳</span>
+                  <span>{p}</span>
+                </button>
+              ))}
+            </div>
+          ) : null}
         </div>
       ) : null}
     </div>
@@ -202,7 +217,7 @@ function LeftRail({
   const railRef = useRef(null);
 
   // Drag-resizable Sources / Answer split (vertical, within the rail).
-  const [sourcesH, setSourcesH] = useState(320);
+  const [sourcesH, setSourcesH] = useState(178);
   const onSourcesResize = (e) => {
     e.preventDefault();
     const move = (ev) => {

@@ -730,11 +730,28 @@ input, textarea { font: inherit; color: inherit; }
 }
 
 /* Preset prompts (when input empty) */
+.preset-block { margin-top: var(--s-3); }
+.preset-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: 0;
+  padding: 2px 0;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+}
+.preset-toggle:hover { color: var(--ink-2); }
+.preset-toggle .plan-caret { color: var(--ink-4); }
 .preset-row {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  margin-top: var(--s-3);
+  margin-top: 6px;
 }
 .preset {
   display: flex;
