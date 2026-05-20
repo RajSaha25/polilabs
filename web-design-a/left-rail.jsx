@@ -56,12 +56,13 @@ function BillItem({ bill, rank, selected, onClick, showRelevance, showMatches })
 }
 
 // ── Markdown answer renderer ──────────────────────────────────────────
+// Inline emphasis is rendered as italic — including Markdown bold. Bold
+// is reserved for section headings so they stand out as the structure;
+// liberal inline **bold** would compete with that.
 function InlineRuns({ runs }) {
   return (runs || []).map((r, i) => {
     if (r.code) return <code key={i} className="md-code">{r.t}</code>;
-    if (r.b && r.i) return <strong key={i}><em>{r.t}</em></strong>;
-    if (r.b) return <strong key={i}>{r.t}</strong>;
-    if (r.i) return <em key={i}>{r.t}</em>;
+    if (r.b || r.i) return <em key={i}>{r.t}</em>;
     return <React.Fragment key={i}>{r.t}</React.Fragment>;
   });
 }
@@ -90,6 +91,7 @@ function AnswerPlan({ text }) {
 
 function AnswerStream({ blocks, streaming }) {
   let leadUsed = false;
+  const headNums = {};   // sequential number per heading level
   return (
     <div className="answer-body md">
       {(blocks || []).map((b, bi) => {
@@ -115,8 +117,10 @@ function AnswerStream({ blocks, streaming }) {
           );
         }
         if (b.type === "h") {
+          headNums[b.level] = (headNums[b.level] || 0) + 1;
           return (
             <div key={bi} className={"md-h md-h" + b.level}>
+              <span className="md-h-num">{headNums[b.level]}.</span>{" "}
               <InlineRuns runs={b.runs} />{caret}
             </div>
           );
@@ -217,7 +221,7 @@ function LeftRail({
   const railRef = useRef(null);
 
   // Drag-resizable Sources / Answer split (vertical, within the rail).
-  const [sourcesH, setSourcesH] = useState(178);
+  const [sourcesH, setSourcesH] = useState(208);
   const onSourcesResize = (e) => {
     e.preventDefault();
     const move = (ev) => {

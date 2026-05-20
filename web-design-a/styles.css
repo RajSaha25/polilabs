@@ -569,7 +569,6 @@ input, textarea { font: inherit; color: inherit; }
 .answer-body.md > *:first-child { margin-top: 0; }
 .answer-body.md > *:last-child { margin-bottom: 0; }
 .answer-body.md p { margin: 0 0 var(--s-3); }
-.answer-body.md strong { font-weight: 600; color: var(--ink); }
 .answer-body.md em { font-style: italic; }
 
 /* Lead paragraph — the direct answer, set prominently up top */
@@ -620,18 +619,19 @@ input, textarea { font: inherit; color: inherit; }
 
 .md-h {
   font-family: var(--font-serif);
-  font-weight: 600;
+  font-weight: 700;
   color: var(--ink);
   line-height: 1.3;
-  margin: var(--s-4) 0 var(--s-2);
+  margin: var(--s-5) 0 var(--s-2);
 }
+.md-h:first-child { margin-top: 0; }
+.md-h-num { color: var(--accent); }
 .md-h1 { font-size: 16px; }
-.md-h2 { font-size: 15px; }
-.md-h3, .md-h4, .md-h5, .md-h6 {
-  font-size: var(--t-xs);
+.md-h2, .md-h3, .md-h4, .md-h5, .md-h6 {
+  font-size: 12.5px;
   text-transform: uppercase;
   letter-spacing: 0.07em;
-  color: var(--ink-3);
+  color: var(--ink);
 }
 .md-list { margin: 0 0 var(--s-3); padding-left: 1.2em; }
 .md-list li { margin: 0 0 4px; }
@@ -884,13 +884,18 @@ input, textarea { font: inherit; color: inherit; }
 
 /* Mode tabs in Decomp panel */
 .mode-tabs {
-  display: inline-flex;
+  display: flex;
   background: var(--subtle);
   border: 1px solid var(--rule);
   border-radius: var(--r-md);
   padding: 2px;
   gap: 2px;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
 }
+.mode-tabs::-webkit-scrollbar { display: none; }
+.mode-tab { flex: 0 0 auto; }
 .mode-tab {
   padding: 3px 9px;
   font-size: var(--t-xs);
