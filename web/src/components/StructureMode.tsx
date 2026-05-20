@@ -1,13 +1,7 @@
 import type { SectionNode } from "../api/types";
 import { useAppStore } from "../store/useAppStore";
 import { cn } from "../lib/cn";
-
-/** Short locator from a canonical citation:
- *  "Sec. 3(b) of H.R. 1736, 119th Cong." -> "Sec. 3(b)". */
-function locator(citation: string): string {
-  const head = citation.split(" of ")[0]?.trim();
-  return head || "§";
-}
+import { locator } from "../lib/citation";
 
 /** One outline row + its descendants. Clicking any row scrolls the
  *  Text panel to the row's top-level section (`rootId`) — the Text

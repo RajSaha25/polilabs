@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { useAppStore } from "../store/useAppStore";
+import { useEffectiveMode } from "../decomp/selectMode";
 import { BillPane } from "./BillPane";
 
 /** The bill viewer — an Embla carousel over the ranked bills. One
@@ -12,6 +13,11 @@ export function BillViewer() {
   const selectedIndex = useAppStore((s) => s.selectedBillIndex);
   const selectBill = useAppStore((s) => s.selectBill);
   const loadBill = useAppStore((s) => s.loadBill);
+  const loadDefinedTerms = useAppStore((s) => s.loadDefinedTerms);
+  const loadAmendments = useAppStore((s) => s.loadAmendments);
+
+  const selectedBill = selectedIndex >= 0 ? bills[selectedIndex] : null;
+  const selectedMode = useEffectiveMode(selectedBill?.bill_id ?? "");
 
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, align: "start" });
 
@@ -41,9 +47,19 @@ export function BillViewer() {
 
   // fetch the active bill's section tree (idempotent + cached)
   useEffect(() => {
-    const bill = selectedIndex >= 0 ? bills[selectedIndex] : null;
-    if (bill) void loadBill(bill.bill_id);
-  }, [selectedIndex, bills, loadBill]);
+    if (selectedBill) void loadBill(selectedBill.bill_id);
+  }, [selectedBill, loadBill]);
+
+  // fetch the active bill's Decomp data for the current mode — only the
+  // selected bill, only what the mode needs (idempotent + cached)
+  useEffect(() => {
+    if (!selectedBill) return;
+    if (selectedMode === "definition") {
+      void loadDefinedTerms(selectedBill.bill_id);
+    } else if (selectedMode === "amendment") {
+      void loadAmendments(selectedBill.bill_id);
+    }
+  }, [selectedBill, selectedMode, loadDefinedTerms, loadAmendments]);
 
   if (bills.length === 0) {
     return (

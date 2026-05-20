@@ -28,6 +28,11 @@
   --color-badge-bg: #efece5;
   --color-badge-ink: #5c574e;
 
+  /* Amendment redline — struck text. Inserted text reuses the accent,
+     so the diff adds only one functional color (a muted deletion red). */
+  --color-del: #8a382f;
+  --color-del-bg: #f2e4e1;
+
   /* Type scale — 12 / 13 / 15 / 18 / 24. Use only these steps. */
   --text-xs: 0.75rem;
   --text-xs--line-height: 1.45;
