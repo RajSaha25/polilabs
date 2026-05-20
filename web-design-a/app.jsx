@@ -71,7 +71,10 @@ function parseMarkdown(text) {
       flushPara(); flushList(); blocks.push({ type: "hr" });
     } else if ((m = line.match(/^(#{1,6})\s+(.*)$/))) {
       flushPara(); flushList();
-      blocks.push({ type: "h", level: m[1].length, runs: parseInline(m[2].trim()) });
+      // Strip any number the agent prefixed ("1. ", "2) ") — AnswerStream
+      // applies its own sequential numbering, so keeping it would double up.
+      const htext = m[2].trim().replace(/^\d+[.):]\s+/, "");
+      blocks.push({ type: "h", level: m[1].length, runs: parseInline(htext) });
     } else if ((m = line.match(/^[-*+]\s+(.*)$/))) {
       flushPara();
       if (!list || list.type !== "ul") { flushList(); list = { type: "ul", items: [] }; }
@@ -138,8 +141,7 @@ function App() {
   const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
   useTweakSync(tweaks);
 
-  // conversation
-  const [history, setHistory] = useState([]);          // [{role:'user', content}]
+  // conversation — each question is answered standalone (see onSubmit).
   const [question, setQuestion] = useState("");        // last submitted prompt
   const [answerText, setAnswerText] = useState("");
   const [planText, setPlanText] = useState("");   // agent narration before the answer
@@ -211,15 +213,15 @@ function App() {
     setActiveAnchor(null);
 
     const collected = [];
-    const priorHistory = history;
 
-    // The agent narrates its plan, calls tools, then writes the answer.
-    // Split the streamed text on tool boundaries: the final text segment
-    // is the answer; everything before it is planning/reasoning.
+    // Send an EMPTY history: the backend's _to_anthropic_history keeps
+    // only user turns and drops every assistant turn, so passing prior
+    // turns would hand Claude a run of unanswered user questions and it
+    // would answer all of them. Each question is answered on its own.
     const segments = [""];
     let sawTool = false;
 
-    B.streamChat(q, priorHistory, (ev) => {
+    B.streamChat(q, [], (ev) => {
       if (ev.type === "text") {
         if (sawTool) { segments.push(""); sawTool = false; }
         segments[segments.length - 1] += ev.delta || "";
@@ -237,7 +239,6 @@ function App() {
         const ranked = B.billsFromToolResults(collected);
         setBills(ranked);
         setBillIdx(0);
-        setHistory([...priorHistory, { role: "user", content: q }]);
       }
     }).catch((e) => {
       setError(String(e));

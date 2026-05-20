@@ -91,6 +91,7 @@ function AnswerPlan({ text }) {
 
 function AnswerStream({ blocks, streaming }) {
   let leadUsed = false;
+  const headNums = {};   // sequential number per heading level
   return (
     <div className="answer-body md">
       {(blocks || []).map((b, bi) => {
@@ -116,8 +117,10 @@ function AnswerStream({ blocks, streaming }) {
           );
         }
         if (b.type === "h") {
+          headNums[b.level] = (headNums[b.level] || 0) + 1;
           return (
             <div key={bi} className={"md-h md-h" + b.level}>
+              <span className="md-h-num">{headNums[b.level]}.</span>{" "}
               <InlineRuns runs={b.runs} />{caret}
             </div>
           );
@@ -218,7 +221,7 @@ function LeftRail({
   const railRef = useRef(null);
 
   // Drag-resizable Sources / Answer split (vertical, within the rail).
-  const [sourcesH, setSourcesH] = useState(178);
+  const [sourcesH, setSourcesH] = useState(208);
   const onSourcesResize = (e) => {
     e.preventDefault();
     const move = (ev) => {
