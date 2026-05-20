@@ -142,6 +142,7 @@ function App() {
   const [history, setHistory] = useState([]);          // [{role:'user', content}]
   const [question, setQuestion] = useState("");        // last submitted prompt
   const [answerText, setAnswerText] = useState("");
+  const [planText, setPlanText] = useState("");   // agent narration before the answer
   const [streaming, setStreaming] = useState(false);
   const [error, setError] = useState(null);
   const [asked, setAsked] = useState(false);           // has a query ever run?
@@ -201,6 +202,7 @@ function App() {
     setQuestion(q);
     setPrompt("");
     setAnswerText("");
+    setPlanText("");
     setError(null);
     setStreaming(true);
     setAsked(true);
@@ -210,14 +212,24 @@ function App() {
 
     const collected = [];
     const priorHistory = history;
-    let acc = "";
+
+    // The agent narrates its plan, calls tools, then writes the answer.
+    // Split the streamed text on tool boundaries: the final text segment
+    // is the answer; everything before it is planning/reasoning.
+    const segments = [""];
+    let sawTool = false;
 
     B.streamChat(q, priorHistory, (ev) => {
       if (ev.type === "text") {
-        acc += ev.delta || "";
-        setAnswerText(acc);
+        if (sawTool) { segments.push(""); sawTool = false; }
+        segments[segments.length - 1] += ev.delta || "";
+        setAnswerText(segments[segments.length - 1]);
+        setPlanText(segments.slice(0, -1).join("\n\n").trim());
+      } else if (ev.type === "tool_call") {
+        sawTool = true;
       } else if (ev.type === "tool_result") {
         collected.push(ev);
+        sawTool = true;
       } else if (ev.type === "error") {
         setError(ev.message || "unknown backend error");
       } else if (ev.type === "done") {
@@ -329,6 +341,7 @@ function App() {
         question={questionObj}
         sourcesMatched={bills.length}
         answerBlocks={answerBlocks}
+        planText={planText}
         selectedId={selectedBill ? selectedBill.id : null}
         onSelect={(id) => {
           const i = bills.findIndex((b) => b.id === id);

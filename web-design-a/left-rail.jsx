@@ -64,12 +64,37 @@ function InlineRuns({ runs }) {
   });
 }
 
+// Collapsible "agent approach" — the planning/reasoning the agent
+// narrated before producing the answer, kept clearly separate from it.
+function AnswerPlan({ text }) {
+  const [open, setOpen] = useState(false);
+  if (!text) return null;
+  const paras = text.split(/\n+/).map((p) => p.trim()).filter(Boolean);
+  return (
+    <div className="answer-plan">
+      <button type="button" className="plan-toggle" onClick={() => setOpen((o) => !o)}>
+        <span className="plan-caret">{open ? "▾" : "▸"}</span>
+        <span>Agent approach</span>
+        <span className="plan-hint">{open ? "hide" : `${paras.length} step${paras.length === 1 ? "" : "s"}`}</span>
+      </button>
+      {open ? (
+        <div className="plan-body">
+          {paras.map((p, i) => <p key={i}>{p}</p>)}
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
 function AnswerStream({ blocks, streaming }) {
+  let leadUsed = false;
   return (
     <div className="answer-body md">
       {(blocks || []).map((b, bi) => {
         const last = bi === blocks.length - 1;
         const caret = streaming && last ? <span className="stream-caret" /> : null;
+        const isLead = b.type === "p" && !leadUsed;
+        if (b.type === "p") leadUsed = true;
         if (b.type === "hr") return <hr key={bi} className="md-hr" />;
         if (b.type === "table") {
           return (
@@ -107,7 +132,11 @@ function AnswerStream({ blocks, streaming }) {
             </Tag>
           );
         }
-        return <p key={bi}><InlineRuns runs={b.runs} />{caret}</p>;
+        return (
+          <p key={bi} className={isLead ? "answer-lead" : undefined}>
+            <InlineRuns runs={b.runs} />{caret}
+          </p>
+        );
       })}
     </div>
   );
@@ -164,7 +193,7 @@ function PromptInput({ value, onChange, onSubmit, onPreset, presets, disabled })
 
 // ── Left rail container ───────────────────────────────────────────────
 function LeftRail({
-  bills, question, answerBlocks, selectedId, onSelect,
+  bills, question, answerBlocks, planText, selectedId, onSelect,
   streaming, promptValue, setPromptValue, onSubmit, onPreset, presets,
   showRelevance, showMatches, sourcesMatched, error,
 }) {
@@ -252,6 +281,7 @@ function LeftRail({
               {question.text}
             </div>
           ) : null}
+          <AnswerPlan text={planText} />
           <AnswerStream blocks={answerBlocks} streaming={streaming} />
         </div>
       </section>

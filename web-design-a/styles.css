@@ -571,15 +571,62 @@ input, textarea { font: inherit; color: inherit; }
 .answer-body.md p { margin: 0 0 var(--s-3); }
 .answer-body.md strong { font-weight: 600; color: var(--ink); }
 .answer-body.md em { font-style: italic; }
+
+/* Lead paragraph — the direct answer, set prominently up top */
+.answer-body.md .answer-lead {
+  font-size: 16.5px;
+  line-height: 1.6;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: var(--s-4);
+  padding-bottom: var(--s-3);
+  border-bottom: 1px solid var(--rule-faint);
+}
+
+/* Agent approach (planning) — clearly separated from the answer */
+.answer-plan {
+  margin-bottom: var(--s-4);
+}
+.plan-toggle {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  width: 100%;
+  background: var(--subtle);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-sm);
+  padding: 5px 9px;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.plan-toggle:hover { color: var(--ink); border-color: var(--rule-strong); }
+.plan-toggle .plan-caret { color: var(--ink-4); }
+.plan-toggle .plan-hint { margin-left: auto; color: var(--ink-4); letter-spacing: 0; text-transform: none; }
+.plan-body {
+  margin-top: var(--s-2);
+  padding-left: var(--s-3);
+  border-left: 2px solid var(--rule-strong);
+  font-family: var(--font-serif);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--ink-3);
+}
+.plan-body p { margin: 0 0 var(--s-2); }
+.plan-body p:last-child { margin-bottom: 0; }
+
 .md-h {
-  font-family: var(--font-ui);
+  font-family: var(--font-serif);
   font-weight: 600;
   color: var(--ink);
-  line-height: 1.35;
+  line-height: 1.3;
   margin: var(--s-4) 0 var(--s-2);
 }
-.md-h1 { font-size: 15px; }
-.md-h2 { font-size: 14px; }
+.md-h1 { font-size: 16px; }
+.md-h2 { font-size: 15px; }
 .md-h3, .md-h4, .md-h5, .md-h6 {
   font-size: var(--t-xs);
   text-transform: uppercase;
@@ -863,7 +910,7 @@ input, textarea { font: inherit; color: inherit; }
 
 .text-body h2 {
   font-family: var(--font-serif);
-  font-size: 26px;
+  font-size: 23px;
   font-weight: 600;
   letter-spacing: -0.015em;
   margin: var(--s-7) 0 var(--s-4);
@@ -877,13 +924,13 @@ input, textarea { font: inherit; color: inherit; }
   margin: 0 0 var(--s-4);
   text-wrap: pretty;
 }
-.text-body .subsec {
+.subsec {
   display: grid;
   grid-template-columns: 36px 1fr;
   gap: var(--s-3);
   margin-bottom: var(--s-3);
 }
-.text-body .subsec .marker {
+.subsec .marker {
   font-family: var(--font-mono);
   font-size: 13px;
   color: var(--ink-4);
@@ -891,7 +938,8 @@ input, textarea { font: inherit; color: inherit; }
   text-align: right;
   padding-right: 4px;
 }
-.text-body .subsec .body p:last-child { margin-bottom: 0; }
+.subsec .body p { margin: 0 0 var(--s-2); }
+.subsec .body p:last-child { margin-bottom: 0; }
 .text-body .term {
   font-weight: 600;
   font-style: italic;
@@ -984,16 +1032,13 @@ input, textarea { font: inherit; color: inherit; }
 }
 .def-card .term-kind.byref { color: var(--warn); }
 .def-card .def-body {
-  font-size: var(--t-md);
-  line-height: 1.55;
-  color: var(--ink-2);
-  margin-bottom: var(--s-3);
-}
-.def-card .def-body .quoted {
   font-family: var(--font-serif);
-  font-style: italic;
+  font-size: var(--t-md);
+  line-height: 1.6;
   color: var(--ink);
+  margin: var(--s-3) 0;
 }
+.def-card .def-body .subsec:last-child { margin-bottom: 0; }
 .def-card .def-footer {
   display: flex;
   align-items: center;

@@ -246,30 +246,45 @@ window.POLILABS_BACKEND =
     return t.trim();
   }
 
+  // Format any tree node into renderable verbatim blocks: the node's own
+  // text (leafHtml — chapeau, or full text if it has no children) plus a
+  // flattened depth-tagged list of every descendant. Shared by the Text
+  // panel and the Definition cards so both render statute text the same.
+  function formatNode(node) {
+    const blocks = [];
+    function walk(n, depth) {
+      blocks.push({
+        id: n.section_id,
+        depth: depth,
+        marker: lastMarker(n.canonical_citation),
+        heading: n.heading || "",
+        html: verbatimHtml(ownText(n)),
+      });
+      for (const c of n.children || []) walk(c, depth + 1);
+    }
+    for (const c of node.children || []) walk(c, 0);
+    return { leafHtml: verbatimHtml(ownText(node)), blocks: blocks };
+  }
+
+  function findNode(tree, id) {
+    const stack = ((tree && tree.sections) || []).slice();
+    while (stack.length) {
+      const n = stack.pop();
+      if (n.section_id === id) return n;
+      for (const c of n.children || []) stack.push(c);
+    }
+    return null;
+  }
+
   function sectionsTreeToText(tree) {
-    const secs = (tree && tree.sections) || [];
-    return secs.map((s) => {
-      const blocks = [];
-      function walk(node, depth) {
-        const kids = node.children || [];
-        blocks.push({
-          id: node.section_id,
-          depth: depth,
-          marker: lastMarker(node.canonical_citation),
-          heading: node.heading || "",
-          html: verbatimHtml(ownText(node)),
-        });
-        for (const c of kids) walk(c, depth + 1);
-      }
-      for (const c of s.children || []) walk(c, 0);
+    return ((tree && tree.sections) || []).map((s) => {
+      const f = formatNode(s);
       return {
         id: s.section_id,
         num: deriveMarker(s.canonical_citation),
         title: s.heading || "(untitled section)",
-        blocks: blocks,
-        // the section's own text (chapeau if it has subsections,
-        // or the full verbatim text if it has none)
-        leafHtml: verbatimHtml(ownText(s)),
+        blocks: f.blocks,
+        leafHtml: f.leafHtml,
       };
     });
   }
@@ -293,18 +308,26 @@ window.POLILABS_BACKEND =
   }
 
   // ── defined_terms result → Definition-mode cards ────────────────────
-  function mapDefinitions(res) {
+  // The definition's verbatim text is rendered from its node in the
+  // section tree (same formatter as the Text panel) so a structured
+  // definition shows as indented subsections, not one run-on block.
+  function mapDefinitions(res, tree) {
     const terms = (res && res.terms) || [];
-    return terms.map((t, i) => ({
-      id: t.defined_term_id || "def-" + i,
-      term: t.surface_form || "(term)",
-      kind: t.definition_type === "by_reference" ? "byref" : "direct",
-      anchor: t.defining_section_id,
-      quoted: t.definition_text || "",
-      refs_to: t.by_reference_target_citation || null,
-      cite: t.defining_section_citation || "",
-      verified: true, // definitions are mechanically extracted from the bill XML
-    }));
+    return terms.map((t, i) => {
+      const node = tree ? findNode(tree, t.defining_section_id) : null;
+      return {
+        id: t.defined_term_id || "def-" + i,
+        term: t.surface_form || "(term)",
+        kind: t.definition_type === "by_reference" ? "byref" : "direct",
+        anchor: t.defining_section_id,
+        body: node
+          ? formatNode(node)
+          : { leafHtml: verbatimHtml(t.definition_text || ""), blocks: [] },
+        refs_to: t.by_reference_target_citation || null,
+        cite: t.defining_section_citation || "",
+        verified: true, // definitions are mechanically extracted from the bill XML
+      };
+    });
   }
 
   // ── amendments result → Amendment-mode cards ────────────────────────
@@ -376,7 +399,7 @@ window.POLILABS_BACKEND =
       apiGet("/api/bill/" + encodeURIComponent(billId) + "/amendments"),
     ]);
     const tree = treeR.status === "fulfilled" ? treeR.value : { sections: [] };
-    const defs = defsR.status === "fulfilled" ? mapDefinitions(defsR.value) : [];
+    const defs = defsR.status === "fulfilled" ? mapDefinitions(defsR.value, tree) : [];
     const ams = amsR.status === "fulfilled" ? mapAmendments(amsR.value) : [];
     const text = sectionsTreeToText(tree);
     const structure = sectionsTreeToStructure(tree, {

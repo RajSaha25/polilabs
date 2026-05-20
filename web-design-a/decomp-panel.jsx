@@ -1,4 +1,4 @@
-/* global React, Icon */
+/* global React, Icon, StatuteBody */
 // Polilabs — Right Decomp panel. Same bill in one of four lenses:
 //   Structure (default), Definition, Amendment, Citation.
 
@@ -58,7 +58,7 @@ function DefinitionMode({ bill, activeAnchor, onSelect }) {
               </span>
             </div>
             <div className="def-body">
-              <span className="quoted">&ldquo;{d.quoted}&rdquo;</span>
+              {d.body ? <StatuteBody leafHtml={d.body.leafHtml} blocks={d.body.blocks} /> : null}
             </div>
             <div className="def-footer">
               <span className="cite-ref">
