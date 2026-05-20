@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+/* polilabs design tokens — see web/DESIGN.md.
+   A research instrument: near-monochrome warm gray, IBM Plex, one
+   functional accent, a highlighter-yellow for synced spans. */
+@theme {
+  --font-sans: "IBM Plex Sans", system-ui, sans-serif;
+  --font-serif: "IBM Plex Serif", Georgia, serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  /* Warm-gray ramp — warm reads less sterile / less "AI" than slate. */
+  --color-paper: #f7f6f3;
+  --color-surface: #ffffff;
+  --color-line: #e6e3dd;
+  --color-line-strong: #d6d2c8;
+  --color-ink: #1b1a17;
+  --color-ink-soft: #57534c;
+  --color-ink-faint: #8a857c;
+
+  /* One functional accent — deep ink-navy, interactive / active state. */
+  --color-accent: #1f3a5f;
+  --color-accent-tint: #eef1f5;
+
+  /* Synced-highlight — soft highlighter-yellow; AA-safe under serif ink. */
+  --color-highlight: #fbe7a2;
+
+  /* Categorical badge tints — muted, never neon. */
+  --color-badge-bg: #efece5;
+  --color-badge-ink: #5c574e;
+
+  /* Type scale — 12 / 13 / 15 / 18 / 24. Use only these steps. */
+  --text-xs: 0.75rem;
+  --text-xs--line-height: 1.45;
+  --text-sm: 0.8125rem;
+  --text-sm--line-height: 1.5;
+  --text-base: 0.9375rem;
+  --text-base--line-height: 1.6;
+  --text-lg: 1.125rem;
+  --text-lg--line-height: 1.5;
+  --text-xl: 1.5rem;
+  --text-xl--line-height: 1.3;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Visible focus everywhere — never a bare outline:none (DESIGN.md). */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 1px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
