@@ -1,0 +1,296 @@
+/* Design System spec page styles — extends styles.css */
+
+body {
+  background: var(--canvas);
+  padding: 0;
+}
+
+.ds-shell {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 56px 40px 96px;
+}
+
+.ds-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 56px;
+  gap: 40px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--rule);
+}
+.ds-header h1 {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 44px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+.ds-header .deck {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-4);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ds-header p {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--ink-3);
+  max-width: 460px;
+  margin: 16px 0 0;
+  text-wrap: pretty;
+}
+.ds-header .meta {
+  text-align: right;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-4);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+.ds-header .meta div + div { margin-top: 4px; }
+
+/* Section */
+.ds-section {
+  margin-top: 72px;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 40px;
+}
+.ds-section .sec-head {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+  padding-top: 4px;
+  position: sticky;
+  top: 32px;
+  align-self: flex-start;
+}
+.ds-section .sec-head h2 {
+  margin: 6px 0 8px;
+  font-family: var(--font-serif);
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  text-transform: none;
+}
+.ds-section .sec-head p {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ink-3);
+  text-transform: none;
+  letter-spacing: 0;
+  text-wrap: pretty;
+}
+
+.ds-block { margin-bottom: 36px; }
+.ds-block:last-child { margin-bottom: 0; }
+.ds-block h3 {
+  margin: 0 0 14px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--ink-3);
+}
+
+/* ── Color swatches ─────────────────────────────────────────────── */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.swatch {
+  background: var(--panel);
+  padding: 14px 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-height: 110px;
+}
+.swatch .chip-color {
+  width: 100%;
+  height: 44px;
+  border-radius: 5px;
+  margin-bottom: 8px;
+  border: 1px solid color-mix(in oklab, currentColor, transparent 90%);
+}
+.swatch .name {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-2);
+  letter-spacing: 0.01em;
+}
+.swatch .token {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--ink-4);
+  letter-spacing: 0.02em;
+}
+.swatch .value {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--ink-4);
+  margin-top: auto;
+}
+
+/* ── Type ────────────────────────────────────────────────────────── */
+.type-row {
+  display: grid;
+  grid-template-columns: 220px 1fr 120px;
+  align-items: baseline;
+  gap: 24px;
+  padding: 18px 0;
+  border-top: 1px solid var(--rule-faint);
+}
+.type-row:first-child { border-top: 0; padding-top: 0; }
+.type-row .label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--ink-3);
+  text-transform: uppercase;
+}
+.type-row .label small {
+  display: block;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--ink-4);
+  margin-top: 2px;
+}
+.type-row .specimen { color: var(--ink); text-wrap: balance; }
+.type-row .meta { font-family: var(--font-mono); font-size: 11px; color: var(--ink-4); text-align: right; }
+
+/* ── Spacing & radius ───────────────────────────────────────────── */
+.scale-row {
+  display: grid;
+  grid-template-columns: 60px 1fr 80px;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-3);
+}
+.scale-row .bar { height: 12px; background: var(--accent); border-radius: 2px; opacity: 0.85; }
+.scale-row .px { color: var(--ink-4); text-align: right; }
+.scale-row .name { color: var(--ink-2); }
+
+.radius-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.radius-card {
+  border: 1px dashed var(--rule-strong);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 12px;
+  background: var(--panel);
+}
+.radius-card .demo {
+  width: 100%;
+  height: 56px;
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-line);
+}
+.radius-card .label { font-family: var(--font-mono); font-size: 11px; color: var(--ink-3); white-space: nowrap; }
+.radius-card .px { font-family: var(--font-mono); font-size: 10px; color: var(--ink-4); white-space: nowrap; }
+
+/* ── Component cards ────────────────────────────────────────────── */
+.comp-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.comp-card {
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  background: var(--panel);
+  overflow: hidden;
+}
+.comp-card .head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--rule);
+  background: var(--panel-2);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-3);
+  letter-spacing: 0.02em;
+}
+.comp-card .head .state {
+  font-size: 10px;
+  color: var(--ink-4);
+}
+.comp-card .body { padding: 16px; }
+.comp-card.wide { grid-column: span 2; }
+.comp-card.dark .body { background: #0f110f; }
+
+/* ── State chips on top of components ──────────────────────────── */
+.state-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--ink-4);
+  background: var(--subtle);
+  border: 1px solid var(--rule);
+  padding: 1px 5px;
+  border-radius: 3px;
+  margin-bottom: 6px;
+}
+
+/* Diff-token block */
+.token-list {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.8;
+  color: var(--ink-2);
+  background: var(--panel-2);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 14px 16px;
+}
+.token-list .k { color: var(--ink); }
+.token-list .v { color: var(--accent); }
+.token-list .c { color: var(--ink-4); }
+
+/* ── Buttons / button row ───────────────────────────────────────── */
+.btn-row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 5px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-2);
+  background: var(--panel);
+  border: 1px solid var(--rule-strong);
+}
+.btn.primary { background: var(--accent); color: white; border-color: var(--accent); }
+.btn.ghost { background: transparent; border: 1px solid var(--rule); color: var(--ink-3); }
+.btn.subtle { background: var(--subtle); border-color: var(--rule); }

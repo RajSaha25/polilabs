@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="en" data-theme="light" data-density="default">
+<head>
+  <meta charset="utf-8" />
+  <title>Polilabs — Design System</title>
+  <meta name="viewport" content="width=1240" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=JetBrains+Mono:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="design-system.css" />
+</head>
+<body>
+  <div class="ds-shell">
+
+    <!-- Header -->
+    <header class="ds-header">
+      <div>
+        <div class="deck">
+          <span style="display:inline-block;width:18px;height:18px;background:var(--ink);color:var(--panel);border-radius:3px;display:inline-grid;place-items:center;font-size:10px;font-family:var(--font-mono);">P</span>
+          polilabs · design system · v0.4
+        </div>
+        <h1>A precision research instrument.</h1>
+        <p>
+          The visual language of Polilabs is shaped by one rule: nothing on
+          screen exists without an authoritative source. Restraint, density,
+          and legibility take precedence over decoration.
+        </p>
+      </div>
+      <div class="meta">
+        <div>Light theme primary · dark supported</div>
+        <div>Federal-blue accent · paper-warm neutrals</div>
+        <div>Audience: policy &amp; legal researchers</div>
+        <div>Compiled 2026-05-19</div>
+      </div>
+    </header>
+
+    <!-- ============== Colors ============== -->
+    <section class="ds-section">
+      <div class="sec-head">
+        <div>01</div>
+        <h2>Color</h2>
+        <p>
+          Paper-warm neutrals do the heavy lifting — light enough to read text
+          on for hours, warm enough not to feel clinical. A single federal-blue
+          accent carries selection, citation, and sync-highlight states.
+        </p>
+      </div>
+      <div>
+        <div class="ds-block">
+          <h3>Surfaces &amp; rules</h3>
+          <div class="swatch-grid">
+            <div class="swatch">
+              <div class="chip-color" style="background:#f7f6f3"></div>
+              <div class="name">Canvas</div>
+              <div class="token">--canvas</div>
+              <div class="value">#f7f6f3</div>
+            </div>
+            <div class="swatch">
+              <div class="chip-color" style="background:#ffffff"></div>
+              <div class="name">Panel</div>
+              <div class="token">--panel</div>
+              <div class="value">#ffffff</div>
+            </div>
+            <div class="swatch">
+              <div class="chip-color" style="background:#fbfaf7"></div>
+              <div class="name">Panel-2</div>
+              <div class="token">--panel-2</div>
+              <div class="value">#fbfaf7</div>
+            </div>
+            <div class="swatch">
+              <div class="chip-color" style="background:#f1efea"></div>
+              <div class="name">Subtle</div>
+              <div class="token">--subtle</div>
+              <div class="value">#f1efea</div>
+            </div>
+            <div class="swatch">
+              <div class="chip-color" style="background:#e7e3da"></div>
+              <div class="name">Rule</div>
+              <div class="token">--rule</div>
+              <div class="value">#e7e3da</div>
+            </div>
+            <div class="swatch">
+              <div class="chip-color" style="background:#d6d0c3"></div>
+              <div class="name">Rule strong</div>
+              <div class="token">--rule-strong</div>
+              <div class="value">#d6d0c3</div>
+            </div>
+            <div class="swatch">
+              <div class="chip-color" style="background:#efece4"></div>
+              <div class="name">Rule faint</div>
+              <div class="token">--rule-faint</div>
+              <div class="value">#efece4</div>
+            </div>
+            <div class="swatch">
+              <div class="chip-color" style="background:#0f110f"></div>
+              <div class="name" style="color:#ece8df">Canvas · dark</div>
+              <div class="token">--canvas / dark</div>
+              <div class="value">#0f110f</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ds-block">
+          <h3>Ink</h3>
+          <div class="swatch-grid">
+            <div class="swatch"><div class="chip-color" style="background:#1a1a17"></div><div class="name">Ink</div><div class="token">--ink</div><div class="value">#1a1a17</div></div>
+            <div class="swatch"><div class="chip-color" style="background:#3d3a33"></div><div class="name">Ink-2</div><div class="token">--ink-2</div><div class="value">#3d3a33</div></div>
+            <div class="swatch"><div class="chip-color" style="background:#6b6660"></div><div class="name">Ink-3</div><div class="token">--ink-3</div><div class="value">#6b6660</div></div>
+            <div class="swatch"><div class="chip-color" style="background:#95918a"></div><div class="name">Ink-4</div><div class="token">--ink-4</div><div class="value">#95918a</div></div>
+          </div>
+        </div>
+
+        <div class="ds-block">
+          <h3>Accent — federal blue</h3>
+          <div class="swatch-grid">
+            <div class="swatch"><div class="chip-color" style="background:#1e3fa8"></div><div class="name" style="color:#ffffff">Accent</div><div class="token">--accent</div><div class="value">#1e3fa8</div></div>
+            <div class="swatch"><div class="chip-color" style="background:#1a3490"></div><div class="name">Accent-2</div><div class="token">--accent-2</div><div class="value">#1a3490</div></div>
+            <div class="swatch"><div class="chip-color" style="background:#eaf0ff"></div><div class="name">Accent soft</div><div class="token">--accent-soft</div><div class="value">#eaf0ff</div></div>
+            <div class="swatch"><div class="chip-color" style="background:#b9c8f1"></div><div class="name">Accent line</div><div class="token">--accent-line</div><div class="value">#b9c8f1</div></div>
+          </div>
+        </div>
+
+        <div class="ds-block">
+          <h3>Signal</h3>
+          <div class="swatch-grid">
+            <div class="swatch"><div class="chip-color" style="background:#fbe79a"></div><div class="name">Sync highlight</div><div class="token">--hl</div><div class="value">#fbe79a</div></div>
+            <div class="swatch"><div class="chip-color" style="background:#1f7a3a"></div><div class="name" style="color:#ffffff">Verified / add</div><div class="token">--verified</div><div class="value">#1f7a3a</div></div>
+            <div class="swatch"><div class="chip-color" style="background:#a8311a"></div><div class="name" style="color:#ffffff">Strike / delete</div><div class="token">--del</div><div class="value">#a8311a</div></div>
+            <div class="swatch"><div class="chip-color" style="background:#9a6b00"></div><div class="name" style="color:#ffffff">Warn / by-ref</div><div class="token">--warn</div><div class="value">#9a6b00</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== Type ============== -->
+    <section class="ds-section">
+      <div class="sec-head">
+        <div>02</div>
+        <h2>Type</h2>
+        <p>
+          Three families do specific work. Geist for UI chrome — small, neutral,
+          gets out of the way. Newsreader for the bill text — literary serif,
+          evokes statutes. JetBrains Mono for IDs, citations, and tokens.
+        </p>
+      </div>
+      <div>
+        <div class="ds-block">
+          <h3>Families</h3>
+          <div class="type-row">
+            <div class="label">Geist <small>UI / sans-serif</small></div>
+            <div class="specimen" style="font-family:var(--font-ui); font-size:32px; font-weight:500; letter-spacing:-0.015em;">191 federal AI-governance bills</div>
+            <div class="meta">400 · 500 · 600 · 700</div>
+          </div>
+          <div class="type-row">
+            <div class="label">Newsreader <small>Bill text / serif</small></div>
+            <div class="specimen serif" style="font-family:var(--font-serif); font-size:30px; font-weight:500; letter-spacing:-0.01em; font-style:italic;">Be it enacted by the Senate and House of Representatives…</div>
+            <div class="meta">400 · 500 · 600 · italic</div>
+          </div>
+          <div class="type-row">
+            <div class="label">JetBrains Mono <small>Tokens / citations</small></div>
+            <div class="specimen mono" style="font-family:var(--font-mono); font-size:24px; font-weight:500;">15 U.S.C. § 45(a)(2)</div>
+            <div class="meta">400 · 500 · 600</div>
+          </div>
+        </div>
+
+        <div class="ds-block">
+          <h3>Scale</h3>
+          <div class="type-row">
+            <div class="label">4xl<small>headline</small></div>
+            <div class="specimen serif" style="font-family:var(--font-serif); font-size:32px; line-height:1.15; font-weight:500; letter-spacing:-0.015em;">AI Foundation Model Transparency Act</div>
+            <div class="meta">32 / 36</div>
+          </div>
+          <div class="type-row">
+            <div class="label">3xl<small>section</small></div>
+            <div class="specimen serif" style="font-family:var(--font-serif); font-size:24px; line-height:1.2; font-weight:500;">Definitions</div>
+            <div class="meta">24 / 28</div>
+          </div>
+          <div class="type-row">
+            <div class="label">2xl<small>subhead</small></div>
+            <div class="specimen" style="font-size:19px;">Required disclosures</div>
+            <div class="meta">19 / 24</div>
+          </div>
+          <div class="type-row">
+            <div class="label">xl<small>card title</small></div>
+            <div class="specimen serif" style="font-family:var(--font-serif); font-size:16px; font-style:italic; font-weight:500;">foundation model</div>
+            <div class="meta">16 / 22</div>
+          </div>
+          <div class="type-row">
+            <div class="label">lg<small>body emphasis</small></div>
+            <div class="specimen" style="font-size:14px;">An artificial-intelligence model trained on broad data.</div>
+            <div class="meta">14 / 22</div>
+          </div>
+          <div class="type-row">
+            <div class="label">md<small>UI default</small></div>
+            <div class="specimen" style="font-size:13px;">Sponsored by Beyer (D-VA) · 4 cosponsors · relevance 96</div>
+            <div class="meta">13 / 19</div>
+          </div>
+          <div class="type-row">
+            <div class="label">sm<small>label / meta</small></div>
+            <div class="specimen" style="font-size:12px;">Beyer (D-VA) · 118th Congress</div>
+            <div class="meta">12 / 18</div>
+          </div>
+          <div class="type-row">
+            <div class="label">xs<small>token / mono</small></div>
+            <div class="specimen mono" style="font-family:var(--font-mono); font-size:11px; letter-spacing:0.04em;">H.R. 6881 · 118TH CONGRESS · TIER A</div>
+            <div class="meta">11 / 16</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== Spacing & radius ============== -->
+    <section class="ds-section">
+      <div class="sec-head">
+        <div>03</div>
+        <h2>Spacing &amp; shape</h2>
+        <p>
+          A 4-px base scale keeps gutters predictable in a dense layout.
+          Radii stay restrained — anything more than 10px reads as soft and
+          consumer-ish, which is the wrong feeling here.
+        </p>
+      </div>
+      <div>
+        <div class="ds-block">
+          <h3>Spacing scale</h3>
+          <div class="scale-row"><span class="name">s-1</span><span class="bar" style="width:4px"></span><span class="px">4 px</span></div>
+          <div class="scale-row"><span class="name">s-2</span><span class="bar" style="width:6px"></span><span class="px">6 px</span></div>
+          <div class="scale-row"><span class="name">s-3</span><span class="bar" style="width:8px"></span><span class="px">8 px</span></div>
+          <div class="scale-row"><span class="name">s-4</span><span class="bar" style="width:12px"></span><span class="px">12 px</span></div>
+          <div class="scale-row"><span class="name">s-5</span><span class="bar" style="width:16px"></span><span class="px">16 px</span></div>
+          <div class="scale-row"><span class="name">s-6</span><span class="bar" style="width:20px"></span><span class="px">20 px</span></div>
+          <div class="scale-row"><span class="name">s-7</span><span class="bar" style="width:24px"></span><span class="px">24 px</span></div>
+          <div class="scale-row"><span class="name">s-8</span><span class="bar" style="width:32px"></span><span class="px">32 px</span></div>
+          <div class="scale-row"><span class="name">s-9</span><span class="bar" style="width:40px"></span><span class="px">40 px</span></div>
+        </div>
+
+        <div class="ds-block">
+          <h3>Radius</h3>
+          <div class="radius-grid">
+            <div class="radius-card"><div class="demo" style="border-radius:3px"></div><div class="label">--r-xs</div><div class="px">3 px</div></div>
+            <div class="radius-card"><div class="demo" style="border-radius:5px"></div><div class="label">--r-sm</div><div class="px">5 px</div></div>
+            <div class="radius-card"><div class="demo" style="border-radius:7px"></div><div class="label">--r-md</div><div class="px">7 px</div></div>
+            <div class="radius-card"><div class="demo" style="border-radius:10px"></div><div class="label">--r-lg</div><div class="px">10 px</div></div>
+          </div>
+        </div>
+
+        <div class="ds-block">
+          <h3>Layout grid</h3>
+          <div class="token-list">
+            <div><span class="c">/* App shell */</span></div>
+            <div><span class="k">--rail-w</span>:     <span class="v">360px</span>;       <span class="c">/* left rail */</span></div>
+            <div><span class="k">--header-h</span>:   <span class="v">44px</span>;</div>
+            <div><span class="k">--footer-h</span>:   <span class="v">28px</span>;</div>
+            <div><span class="c">/* Text + Decomp panels split 1fr / 1fr */</span></div>
+            <div><span class="c">/* Text body max-width 720px, centered */</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== Components ============== -->
+    <section class="ds-section">
+      <div class="sec-head">
+        <div>04</div>
+        <h2>Components</h2>
+        <p>
+          The atoms behind the three-zone view. Every component appears here in
+          its default, hover, selected, and loading states.
+        </p>
+      </div>
+      <div>
+
+        <!-- Bill list item — 4 states -->
+        <div class="ds-block">
+          <h3>Bill list item</h3>
+          <div class="comp-grid">
+            <div class="comp-card">
+              <div class="head">Default <span class="state">/ rest</span></div>
+              <div class="body" style="padding:8px">
+                <button type="button" class="bill-item">
+                  <div class="b-head">
+                    <span class="b-rank mono">#03</span>
+                    <span class="b-id mono">H.R. 5628</span>
+                    <span style="flex:1"></span>
+                    <span class="chip tier-A">Tier A</span>
+                  </div>
+                  <div class="b-title">Algorithmic Accountability Act of 2023</div>
+                  <div class="b-sponsor">Clarke (D-NY) · 118th</div>
+                  <div class="b-meta">
+                    <span class="chip match">general-purpose AI</span>
+                    <span class="chip match">automated decision</span>
+                  </div>
+                  <div class="b-meta" style="margin-top:8px;justify-content:space-between">
+                    <span class="relevance"><span class="bar"><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg"></span><span class="seg"></span></span><span>84</span></span>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            <div class="comp-card">
+              <div class="head">Hover <span class="state">/ pointer over</span></div>
+              <div class="body" style="padding:8px">
+                <button type="button" class="bill-item" style="background:var(--subtle)">
+                  <div class="b-head">
+                    <span class="b-rank mono">#03</span>
+                    <span class="b-id mono">H.R. 5628</span>
+                    <span style="flex:1"></span>
+                    <span class="chip tier-A">Tier A</span>
+                  </div>
+                  <div class="b-title">Algorithmic Accountability Act of 2023</div>
+                  <div class="b-sponsor">Clarke (D-NY) · 118th</div>
+                  <div class="b-meta">
+                    <span class="chip match">general-purpose AI</span>
+                    <span class="chip match">automated decision</span>
+                  </div>
+                  <div class="b-meta" style="margin-top:8px;justify-content:space-between">
+                    <span class="relevance"><span class="bar"><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg"></span><span class="seg"></span></span><span>84</span></span>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            <div class="comp-card">
+              <div class="head">Selected <span class="state">/ aria-selected=true</span></div>
+              <div class="body" style="padding:8px">
+                <button type="button" class="bill-item" aria-selected="true">
+                  <div class="b-head">
+                    <span class="b-rank mono">#01</span>
+                    <span class="b-id mono">H.R. 6881</span>
+                    <span style="flex:1"></span>
+                    <span class="chip tier-A">Tier A</span>
+                  </div>
+                  <div class="b-title">AI Foundation Model Transparency Act</div>
+                  <div class="b-sponsor">Beyer (D-VA) · 118th</div>
+                  <div class="b-meta">
+                    <span class="chip match">foundation model</span>
+                    <span class="chip match">compute threshold</span>
+                  </div>
+                  <div class="b-meta" style="margin-top:8px;justify-content:space-between">
+                    <span class="relevance"><span class="bar"><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span></span><span>96</span></span>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            <div class="comp-card">
+              <div class="head">Loading <span class="state">/ skeleton</span></div>
+              <div class="body" style="padding:8px">
+                <div class="bill-item" style="cursor:default">
+                  <div class="b-head" style="gap:8px">
+                    <div class="skeleton" style="width:22px;height:10px"></div>
+                    <div class="skeleton" style="width:54px;height:10px"></div>
+                    <span style="flex:1"></span>
+                    <div class="skeleton" style="width:44px;height:18px;border-radius:3px"></div>
+                  </div>
+                  <div class="skeleton" style="width:90%;height:14px;margin:6px 0"></div>
+                  <div class="skeleton" style="width:55%;height:11px;margin:4px 0"></div>
+                  <div class="b-meta" style="margin-top:8px;gap:4px">
+                    <div class="skeleton" style="width:80px;height:18px;border-radius:3px"></div>
+                    <div class="skeleton" style="width:96px;height:18px;border-radius:3px"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Definition card -->
+        <div class="ds-block">
+          <h3>Definition card</h3>
+          <div class="comp-grid">
+            <div class="comp-card">
+              <div class="head">Default · direct</div>
+              <div class="body" style="background:var(--canvas)">
+                <div class="def-card">
+                  <div class="term-row">
+                    <span class="term-name">foundation model</span>
+                    <span class="term-kind">direct</span>
+                  </div>
+                  <div class="def-body">
+                    <span class="quoted">&ldquo;an artificial-intelligence model trained on broad data; containing not fewer than 10,000,000,000 parameters; and made available to the public.&rdquo;</span>
+                  </div>
+                  <div class="def-footer">
+                    <span class="cite-ref"><svg class="i" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 7h6v2a3 3 0 11-6 0V7z"/><path d="M12 11v9"/><path d="M5 17a7 7 0 007 3 7 7 0 007-3"/></svg>Sec. 2(3)</span>
+                    <span class="verified-pill"><svg class="i" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg>verified</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="comp-card">
+              <div class="head">Selected · by-reference</div>
+              <div class="body" style="background:var(--canvas)">
+                <div class="def-card" data-active="true">
+                  <div class="term-row">
+                    <span class="term-name">covered entity</span>
+                    <span class="term-kind byref">by reference</span>
+                  </div>
+                  <div class="def-body">
+                    <span class="quoted">&ldquo;a person that develops, or substantially modifies, a foundation model made available in the United States.&rdquo;</span>
+                  </div>
+                  <div class="def-footer">
+                    <span class="cite-ref"><svg class="i" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 7h6v2a3 3 0 11-6 0V7z"/><path d="M12 11v9"/><path d="M5 17a7 7 0 007 3 7 7 0 007-3"/></svg>Sec. 2(4) <span style="color:var(--ink-4); margin-left:6px">→ Sec. 2(3)</span></span>
+                    <span class="verified-pill"><svg class="i" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg>verified</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Amendment card -->
+        <div class="ds-block">
+          <h3>Amendment card</h3>
+          <div class="comp-grid">
+            <div class="comp-card wide">
+              <div class="head">Default · op tags: strike / insert / replace / append</div>
+              <div class="body" style="background:var(--canvas);display:grid;grid-template-columns:1fr 1fr;gap:14px">
+                <div class="amend-card">
+                  <div class="am-head">
+                    <span class="am-op insert">insert</span>
+                    <span class="am-target">new subparagraph (C) — inserted after (B)</span>
+                    <span class="mono" style="color:var(--ink-4)">15 U.S.C. § 45</span>
+                  </div>
+                  <div class="am-body">
+                    <div class="diff-row add"><span class="marker">+</span><span class="text">(C) covered entities subject to the AI Foundation Model Transparency Act of 2024; and</span></div>
+                  </div>
+                  <div class="am-foot">
+                    <span class="cite-ref">Sec. 5(a)(3)</span>
+                    <span style="color:var(--verified);display:inline-flex;align-items:center;gap:4px"><svg class="i" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg>verified</span>
+                  </div>
+                </div>
+                <div class="amend-card">
+                  <div class="am-head">
+                    <span class="am-op replace">replace</span>
+                    <span class="am-target">redesignation (C) → (D)</span>
+                    <span class="mono" style="color:var(--ink-4)">15 U.S.C. § 45</span>
+                  </div>
+                  <div class="am-body">
+                    <div class="diff-row del"><span class="marker">−</span><span class="text">(C) common carriers subject to the Acts to regulate commerce;</span></div>
+                    <div class="diff-row add"><span class="marker">+</span><span class="text">(D) common carriers subject to the Acts to regulate commerce;</span></div>
+                  </div>
+                  <div class="am-foot">
+                    <span class="cite-ref">Sec. 5(a)(2)</span>
+                    <span style="color:var(--verified);display:inline-flex;align-items:center;gap:4px"><svg class="i" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg>verified</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chips -->
+        <div class="ds-block">
+          <h3>Chips &amp; pills</h3>
+          <div class="comp-card">
+            <div class="head">Inventory</div>
+            <div class="body" style="display:flex;flex-wrap:wrap;gap:10px;align-items:center">
+              <span class="chip">default</span>
+              <span class="chip tier-A">Tier A</span>
+              <span class="chip tier-B">Tier B</span>
+              <span class="chip tier-C">Tier C</span>
+              <span class="chip match">matched keyword</span>
+              <span class="chip muted">muted</span>
+              <span class="pill" style="display:inline-flex;align-items:center;gap:5px;color:var(--verified);background:var(--verified-soft);border:1px solid color-mix(in oklab, var(--verified), transparent 70%);padding:2px 8px;border-radius:3px;font-family:var(--font-mono);font-size:11px"><span style="width:6px;height:6px;border-radius:50%;background:var(--verified);display:inline-block"></span> 0 hallucinations</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mode tabs + Buttons -->
+        <div class="ds-block">
+          <h3>Mode tabs &amp; buttons</h3>
+          <div class="comp-grid">
+            <div class="comp-card">
+              <div class="head">Decomp mode tabs</div>
+              <div class="body" style="display:flex;justify-content:center">
+                <div class="mode-tabs">
+                  <button class="mode-tab" aria-selected="true">Structure <span class="count mono">13</span></button>
+                  <button class="mode-tab">Definition <span class="count mono">5</span></button>
+                  <button class="mode-tab">Amendment <span class="count mono">4</span></button>
+                  <button class="mode-tab">Citation <span class="count mono">7</span></button>
+                </div>
+              </div>
+            </div>
+            <div class="comp-card">
+              <div class="head">Buttons</div>
+              <div class="body">
+                <div class="btn-row">
+                  <button class="btn primary">Ask <span style="opacity:0.6;margin-left:4px">⌘↵</span></button>
+                  <button class="btn">Secondary</button>
+                  <button class="btn subtle">Subtle</button>
+                  <button class="btn ghost">Ghost</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Prompt input -->
+        <div class="ds-block">
+          <h3>Prompt input</h3>
+          <div class="comp-grid">
+            <div class="comp-card">
+              <div class="head">Default · empty</div>
+              <div class="body" style="background:var(--panel-2);padding:14px">
+                <div class="prompt-shell">
+                  <textarea readonly placeholder="Ask anything across 191 federal AI-governance bills…" rows="2" style="pointer-events:none"></textarea>
+                  <div class="row">
+                    <span class="scope mono">118th–119th · all chambers</span>
+                    <button class="prompt-send accent">Ask <span class="k">⌘↵</span></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="comp-card">
+              <div class="head">Focused · with text</div>
+              <div class="body" style="background:var(--panel-2);padding:14px">
+                <div class="prompt-shell" style="border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)">
+                  <textarea readonly rows="2" style="pointer-events:none">Which bills amend the Federal Trade Commission Act?</textarea>
+                  <div class="row">
+                    <span class="scope mono">118th–119th · all chambers</span>
+                    <button class="prompt-send accent">Ask <span class="k">⌘↵</span></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Structure node + Citation row -->
+        <div class="ds-block">
+          <h3>List rows</h3>
+          <div class="comp-grid">
+            <div class="comp-card">
+              <div class="head">Structure node — default · selected</div>
+              <div class="body">
+                <div class="struct-node level-1"><span class="marker">Sec. 2</span><span class="title">Definitions</span><span class="pages">pp. 1–2</span></div>
+                <div class="struct-node level-2" data-active="true"><span class="marker">(3)</span><span class="title">‘Foundation model’</span><span class="pages">p. 2</span></div>
+                <div class="struct-node level-3"><span class="marker">(C)</span><span class="title">trained using &gt; 10²⁵ ops</span><span class="pages">p. 2</span></div>
+              </div>
+            </div>
+            <div class="comp-card">
+              <div class="head">Citation row — default · selected</div>
+              <div class="body">
+                <div class="cite-row"><span class="ref">15 U.S.C. § 45</span><span class="title">Unfair methods of competition</span><span class="source verified"><svg class="i" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg> U.S. Code</span></div>
+                <div class="cite-row" data-active="true"><span class="ref">E.O. 14110 § 4.1</span><span class="title">Safety of dual-use foundation models</span><span class="source verified"><svg class="i" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg> Exec. Order</span></div>
+                <div class="cite-row"><span class="ref">NIST AI RMF § 3.4</span><span class="title">Adversarial robustness measurement</span><span class="source verified"><svg class="i" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg> NIST</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sync highlight token -->
+        <div class="ds-block">
+          <h3>Sync highlight</h3>
+          <div class="comp-card wide">
+            <div class="head">In-line span across Text ↔ Decomp</div>
+            <div class="body" style="background:var(--panel-2)">
+              <p class="serif" style="font-family:var(--font-serif);font-size:15px;line-height:1.7;max-width:680px;margin:0;color:var(--ink)">
+                (3) <em style="font-weight:600;font-style:italic">Foundation model</em>.—The term &ldquo;foundation model&rdquo; means an artificial-intelligence model that is trained on broad data, generally using self-supervision at scale; contains <span class="hl-target" style="animation:none">not fewer than 10,000,000,000 parameters</span>; and was trained using a quantity of computing power greater than 10²⁵ integer or floating-point operations.
+              </p>
+              <p class="mono" style="font-family:var(--font-mono);font-size:11px;color:var(--ink-4);margin:14px 0 0">
+                The yellow span pulses for 700 ms on selection and remains tinted while focus is held.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============== Empty / loading ============== -->
+    <section class="ds-section">
+      <div class="sec-head">
+        <div>05</div>
+        <h2>States</h2>
+        <p>
+          Empty and loading states are first-class. The system never invents
+          content to fill space — it shows its work or stays blank.
+        </p>
+      </div>
+      <div>
+        <div class="ds-block">
+          <h3>Loading banner</h3>
+          <div class="comp-card wide">
+            <div class="head">Pipeline · 4 stages</div>
+            <div class="body" style="padding:0">
+              <div class="loading-banner">
+                <span class="spinner"></span>
+                <span class="step">✓ Retrieving 14 of 191 bills</span>
+                <span style="color:var(--accent-line)">›</span>
+                <span class="step now">Extracting verbatim sections</span>
+                <span style="color:var(--accent-line)">›</span>
+                <span class="step">Verifying citations against U.S. Code</span>
+                <span style="color:var(--accent-line)">›</span>
+                <span class="step">Ranking by semantic relevance</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ds-block">
+          <h3>Skeleton tokens</h3>
+          <div class="comp-card">
+            <div class="head">Animated · 1.4s shimmer</div>
+            <div class="body" style="display:grid;gap:6px">
+              <div class="skeleton" style="width:30%;height:11px"></div>
+              <div class="skeleton" style="width:60%;height:22px;margin:4px 0 6px"></div>
+              <div class="skeleton" style="width:100%;height:13px"></div>
+              <div class="skeleton" style="width:97%;height:13px"></div>
+              <div class="skeleton" style="width:94%;height:13px"></div>
+              <div class="skeleton" style="width:78%;height:13px"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="margin-top:96px;padding-top:32px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:11px;color:var(--ink-4)">
+      <span>Polilabs · design system · v0.4 · 2026-05-19</span>
+      <span><a href="Polilabs.html" style="color:var(--accent);text-decoration:none">→ Open the prototype</a></span>
+    </footer>
+
+  </div>
+</body>
+</html>
