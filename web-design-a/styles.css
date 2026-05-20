@@ -261,18 +261,8 @@ input, textarea { font: inherit; color: inherit; }
   align-items: center;
   gap: var(--s-3);
 }
-.brand-mark {
-  width: 20px; height: 20px;
-  display: grid; place-items: center;
-  background: var(--ink);
-  color: var(--panel);
-  border-radius: var(--r-xs);
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-}
 .brand-name {
+  font-family: var(--font-mono);
   font-weight: 600;
   letter-spacing: -0.01em;
   font-size: var(--t-lg);
