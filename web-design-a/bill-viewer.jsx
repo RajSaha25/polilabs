@@ -2,16 +2,10 @@
 // Polilabs — Bill viewer (Text + Decomp side by side, with shared
 // header). Also exposes loading + empty states for the same area.
 
-const { useState } = React;
+const { useState, useRef } = React;
 
 // ── Loading state ─────────────────────────────────────────────────────
 function BillViewerLoading() {
-  const steps = [
-    { id: "retrieve", label: "Retrieving 14 of 191 bills" },
-    { id: "extract", label: "Extracting verbatim sections" },
-    { id: "verify", label: "Verifying citations against U.S. Code" },
-    { id: "rank", label: "Ranking by semantic relevance" },
-  ];
   return (
     <div className="stage">
       <div className="bv-header">
@@ -35,14 +29,7 @@ function BillViewerLoading() {
 
       <div className="loading-banner">
         <span className="spinner" />
-        {steps.map((s, i) => (
-          <React.Fragment key={s.id}>
-            <span className={"step " + (i === 1 ? "now" : "")}>
-              {i < 1 ? "✓ " : ""}{s.label}
-            </span>
-            {i < steps.length - 1 ? <span style={{ color: "var(--accent-line)" }}>›</span> : null}
-          </React.Fragment>
-        ))}
+        <span className="step now">Loading verbatim text and decomposition…</span>
       </div>
 
       <div className="bv-split">
@@ -117,18 +104,6 @@ function BillViewerEmpty({ presets = [], onPreset }) {
               </button>
             ))}
           </div>
-          <div className="mono" style={{
-            display: "flex", gap: 18, marginTop: 8,
-            fontSize: 11, color: "var(--ink-4)",
-            paddingTop: 16, borderTop: "1px solid var(--rule-faint)",
-            width: "100%", justifyContent: "center"
-          }}>
-            <span>191 bills indexed</span>
-            <span style={{ color: "var(--rule-strong)" }}>·</span>
-            <span>118th–119th Congress</span>
-            <span style={{ color: "var(--rule-strong)" }}>·</span>
-            <span>updated 4h ago</span>
-          </div>
         </div>
       </div>
     </div>
@@ -184,20 +159,49 @@ function BillViewerHeader({ bill, position, onPrev, onNext, total }) {
 function BillViewer({
   bill, position, total, onPrev, onNext,
   mode, setMode, activeAnchor, setActiveAnchor,
+  textFrac, setTextFrac,
 }) {
-  // When user clicks a Decomp card → highlight the matching anchor in the Text panel.
-  // When user clicks an anchored term in the Text panel → highlight the matching Decomp card.
-  // Both flows funnel through setActiveAnchor.
+  // Sync highlighting: clicking a Decomp card highlights the matching
+  // anchor in the Text panel and vice versa; both funnel through
+  // setActiveAnchor. The Text|Decomp divider is drag-resizable.
+  const splitRef = useRef(null);
+
+  const onResize = (e) => {
+    e.preventDefault();
+    const move = (ev) => {
+      const el = splitRef.current;
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      let f = (ev.clientX - r.left) / r.width;
+      f = Math.max(0.22, Math.min(0.78, f));
+      setTextFrac(f);
+    };
+    const up = () => {
+      window.removeEventListener("pointermove", move);
+      window.removeEventListener("pointerup", up);
+      document.body.style.cursor = "";
+      document.body.style.userSelect = "";
+    };
+    document.body.style.cursor = "col-resize";
+    document.body.style.userSelect = "none";
+    window.addEventListener("pointermove", move);
+    window.addEventListener("pointerup", up);
+  };
 
   return (
     <section className="stage">
       <BillViewerHeader bill={bill} position={position} total={total} onPrev={onPrev} onNext={onNext} />
-      <div className="bv-split">
+      <div
+        className="bv-split"
+        ref={splitRef}
+        style={{ gridTemplateColumns: `${textFrac}fr 8px ${1 - textFrac}fr` }}
+      >
         <TextPanel
           bill={bill}
           activeAnchor={activeAnchor}
           onAnchorClick={setActiveAnchor}
         />
+        <div className="col-resizer" onPointerDown={onResize} title="Drag to resize panels" />
         <DecompPanel
           bill={bill}
           mode={mode}

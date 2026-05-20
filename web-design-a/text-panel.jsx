@@ -89,20 +89,29 @@ function TextPanel({ bill, activeAnchor, onAnchorClick, onScrollEnd }) {
             <section key={sec.id} data-anchor={sec.id} id={"text-" + sec.id}>
               <div className="section-num">{sec.num}</div>
               <h2>{sec.title}</h2>
-              {sec.intro ? <p style={{ marginBottom: 12 }}>{sec.intro}</p> : null}
-              {sec.paras.map((p) => (
-                <div key={p.id} className="subsec" data-anchor={p.id}>
-                  <span className="marker">{p.marker}</span>
+              {sec.leafHtml ? (
+                <div className="subsec">
+                  <span className="marker" />
                   <div className="body">
-                    <p dangerouslySetInnerHTML={renderHtml(p.html)} />
-                    {p.children?.map((c, ci) => (
-                      <div className="subsec" key={ci} style={{ marginTop: 4 }}>
-                        <span className="marker">{c.marker}</span>
-                        <div className="body">
-                          <p dangerouslySetInnerHTML={renderHtml(c.html)} />
-                        </div>
-                      </div>
-                    ))}
+                    <p dangerouslySetInnerHTML={renderHtml(sec.leafHtml)} />
+                  </div>
+                </div>
+              ) : null}
+              {sec.blocks.map((b) => (
+                <div
+                  key={b.id}
+                  className="subsec"
+                  data-anchor={b.id}
+                  style={{ marginLeft: b.depth * 22 }}
+                >
+                  <span className="marker">{b.marker}</span>
+                  <div className="body">
+                    {b.heading ? (
+                      <p style={{ fontWeight: 600, color: "var(--ink)", marginBottom: b.html ? 4 : 0 }}>
+                        {b.heading}
+                      </p>
+                    ) : null}
+                    {b.html ? <p dangerouslySetInnerHTML={renderHtml(b.html)} /> : null}
                   </div>
                 </div>
               ))}

@@ -210,10 +210,6 @@ function LeftRail({
           </span>
         </header>
         <div className="answer-wrap scroll" ref={answerRef}>
-          <div className="answer-meta">
-            <span className="pill"><span className="dot" /> verbatim · no paraphrase</span>
-            <span style={{ marginLeft: "auto" }}>{question.sources_matched} of {question.sources_total} sources</span>
-          </div>
           {error ? (
             <div style={{
               fontFamily: "var(--font-mono)", fontSize: 12, lineHeight: 1.5,

@@ -108,6 +108,16 @@ window.POLILABS_BACKEND =
     return m ? "Sec. " + m[1] : "";
   }
 
+  // Last parenthetical group of a citation — the subsection's own marker.
+  // "Sec. 3(a)(1)" → "(1)";  "Sec. 3(a)" → "(a)";  "Sec. 3" → "§ 3".
+  function lastMarker(citation) {
+    if (!citation) return "";
+    const groups = String(citation).match(/\([0-9A-Za-z]+\)/g);
+    if (groups && groups.length) return groups[groups.length - 1];
+    const m = String(citation).match(/Sec\.\s*([0-9A-Za-z]+)/);
+    return m ? "§ " + m[1] : "";
+  }
+
   function escapeHtml(s) {
     return String(s || "")
       .replace(/&/g, "&amp;")
@@ -190,21 +200,42 @@ window.POLILABS_BACKEND =
   }
 
   // ── Section tree → center Text panel shape ──────────────────────────
+  // Escape verbatim text, keep XML line breaks — never reflow the law.
+  function verbatimHtml(text) {
+    return escapeHtml(text).replace(/\n/g, "<br/>");
+  }
+
+  // The backend `text` field is recursive (text_full): a parent's text
+  // already contains every descendant's text. To render readably without
+  // duplication we walk the tree and emit verbatim text ONLY at leaves;
+  // internal nodes contribute their heading/marker as structure.
   function sectionsTreeToText(tree) {
     const secs = (tree && tree.sections) || [];
-    return secs.map((s) => ({
-      id: s.section_id,
-      num: deriveSecNum(s.canonical_citation),
-      title: s.heading || "(untitled section)",
-      // Verbatim section text. Escape, then keep line breaks the XML
-      // extraction produced — never reflow or paraphrase the law.
-      paras: [{
+    return secs.map((s) => {
+      const blocks = [];
+      function walk(node, depth) {
+        const kids = node.children || [];
+        const isLeaf = kids.length === 0;
+        blocks.push({
+          id: node.section_id,
+          depth: depth,
+          marker: lastMarker(node.canonical_citation),
+          heading: node.heading || "",
+          html: isLeaf ? verbatimHtml(node.text) : "",
+        });
+        for (const c of kids) walk(c, depth + 1);
+      }
+      for (const c of s.children || []) walk(c, 0);
+      const topIsLeaf = !(s.children && s.children.length);
+      return {
         id: s.section_id,
-        marker: "",
-        html: escapeHtml(s.text).replace(/\n/g, "<br/>") ||
-          "<span style=\"color:var(--ink-4)\">(no verbatim text extracted for this section)</span>",
-      }],
-    }));
+        num: deriveSecNum(s.canonical_citation),
+        title: s.heading || "(untitled section)",
+        blocks: blocks,
+        // a section with no children carries its own verbatim text
+        leafHtml: topIsLeaf ? verbatimHtml(s.text) : "",
+      };
+    });
   }
 
   // ── Section tree → Structure-mode outline ───────────────────────────

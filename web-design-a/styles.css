@@ -200,6 +200,7 @@ input, textarea { font: inherit; color: inherit; }
    App shell layout
    ===================================================================== */
 .app {
+  position: relative;
   display: grid;
   grid-template-columns: var(--rail-w) 1fr;
   grid-template-rows: var(--header-h) 1fr var(--footer-h);
@@ -212,6 +213,35 @@ input, textarea { font: inherit; color: inherit; }
   overflow: hidden;
   background: var(--canvas);
 }
+
+/* Drag-resizable separators */
+.rail-resizer {
+  position: absolute;
+  top: var(--header-h);
+  bottom: var(--footer-h);
+  width: 9px;
+  margin-left: -4px;
+  cursor: col-resize;
+  z-index: 6;
+}
+.rail-resizer::after {
+  content: "";
+  position: absolute;
+  left: 4px; top: 0; bottom: 0;
+  width: 1px;
+  background: transparent;
+  transition: background 100ms, width 100ms;
+}
+.rail-resizer:hover::after,
+.rail-resizer:active::after { background: var(--accent); width: 2px; }
+
+.col-resizer {
+  cursor: col-resize;
+  background: var(--rule);
+  transition: background 100ms;
+}
+.col-resizer:hover,
+.col-resizer:active { background: var(--accent); }
 
 /* =====================================================================
    Header

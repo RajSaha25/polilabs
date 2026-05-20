@@ -16,7 +16,7 @@ const B = window.PolilabsBackend;
 // ── answer text → the design's paragraph/run model ────────────────────
 function textToParagraphs(text) {
   return String(text || "")
-    .split(/\n{2,}/)
+    .split(/\n+/)
     .map((p) => p.trim())
     .filter(Boolean)
     .map((p) => ({ kind: "p", runs: [{ t: p }] }));
@@ -93,6 +93,24 @@ function App() {
 
   // prompt input
   const [prompt, setPrompt] = useState("");
+
+  // resizable layout — rail width (px) + Text/Decomp split fraction
+  const [railW, setRailW] = useState(360);
+  const [textFrac, setTextFrac] = useState(0.5);
+  const onRailResize = (e) => {
+    e.preventDefault();
+    const move = (ev) => setRailW(Math.max(300, Math.min(640, ev.clientX)));
+    const up = () => {
+      window.removeEventListener("pointermove", move);
+      window.removeEventListener("pointerup", up);
+      document.body.style.cursor = "";
+      document.body.style.userSelect = "";
+    };
+    document.body.style.cursor = "col-resize";
+    document.body.style.userSelect = "none";
+    window.addEventListener("pointermove", move);
+    window.addEventListener("pointerup", up);
+  };
 
   const selectedBill = bills[billIdx] || null;
   const detail = selectedBill ? billDetail[selectedBill.id] : null;
@@ -207,6 +225,8 @@ function App() {
         mode={mode} setMode={setMode}
         activeAnchor={activeAnchor}
         setActiveAnchor={setActiveAnchor}
+        textFrac={textFrac}
+        setTextFrac={setTextFrac}
       />
     );
   }
@@ -218,21 +238,20 @@ function App() {
   };
 
   return (
-    <div className="app">
+    <div className="app" style={{ "--rail-w": railW + "px" }}>
       <header className="app-header">
         <div className="brand">
           <div className="brand-mark">P</div>
           <div className="brand-name">polilabs</div>
-          <span className="brand-sep mono">/</span>
-          <span className="brand-context mono">workspace · federal AI · design-a</span>
         </div>
         <div className="header-tools">
-          <div className="stat mono"><b>191</b> bills · 118th–119th</div>
-          <div className="stat mono">{streaming ? "agent working…" : "live backend"}</div>
-          <div className="stat mono"><Icon name="filter" size={11} /> Filters</div>
-          <span className="key">⌘K</span>
+          <div className="stat mono"><b>191</b> bills · 118th–119th Congress</div>
+          <div className="stat mono">{streaming ? "agent working…" : "ready"}</div>
         </div>
       </header>
+
+      <div className="rail-resizer" style={{ left: railW }} onPointerDown={onRailResize}
+           title="Drag to resize the rail" />
 
       <LeftRail
         bills={bills}
@@ -261,15 +280,8 @@ function App() {
       {stage}
 
       <footer className="app-footer">
-        <div className="group">
-          <span><span className="dot" /> {B.BACKEND}</span>
-          <span>{bills.length} sources this turn</span>
-        </div>
-        <div className="group">
-          <span>verbatim text · no paraphrase</span>
-          <span><a href="Polilabs Design System.html" style={{ color: "var(--accent)", textDecoration: "none" }}>↗ design system</a></span>
-          <span>design-a</span>
-        </div>
+        <span><span className="dot" /> backend connected</span>
+        <span><a href="Polilabs Design System.html" style={{ color: "var(--accent)", textDecoration: "none" }}>↗ design system</a></span>
       </footer>
 
       <TweaksPanel title="Tweaks">
