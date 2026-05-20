@@ -15,13 +15,14 @@ PY      := $(VENV)/bin/python
 PIP     := $(VENV)/bin/pip
 UVICORN := $(VENV)/bin/uvicorn
 
-.PHONY: dev backend frontend install build index graph eval clean help
+.PHONY: dev backend frontend design-a install build index graph eval clean help
 
 help:
 	@echo "polilabs targets:"
 	@echo "  make install   create .venv + install Python and web deps"
 	@echo "  make build     build the SQLite + Kuzu indexes from data/corpus/"
 	@echo "  make dev       run backend (:8000) + web frontend (:5173)"
+	@echo "  make design-a  serve the web-design-a frontend (:5174); needs the backend"
 	@echo "  make eval      run the agent eval harness (~\$$5-10 in Opus API spend)"
 	@echo "  make clean     delete the regenerable indexes"
 
@@ -52,6 +53,16 @@ backend:
 
 frontend:
 	cd web && npm run dev
+
+# Serves the parallel web-design-a frontend — a no-build static
+# prototype (React via Babel-in-browser), so there is nothing to
+# compile. The backend must already be running (`make dev` or
+# `make backend`); both frontends share it. Runs alongside `make dev`,
+# so the two designs can be compared side by side.
+design-a:
+	@echo "→ web-design-a: open http://localhost:5174/Polilabs.html"
+	@echo "  (the backend must be running — e.g. via 'make dev')"
+	$(PYTHON) -m http.server 5174 --directory web-design-a
 
 eval:
 	$(PY) scripts/run_eval.py
