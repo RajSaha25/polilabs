@@ -78,3 +78,104 @@ export type BillData =
   | { status: "loading" }
   | { status: "error"; message: string }
   | { status: "ready"; tree: BillSectionTree };
+
+/** A REST-fetched resource cached per bill — definitions, amendments.
+ *  Like BillData, entries are immutable in v1. */
+export type AsyncResource<T> =
+  | { status: "loading" }
+  | { status: "error"; message: string }
+  | { status: "ready"; result: T };
+
+// ---- Decomp panel modes ----
+//
+// The Decomp panel adapts to the kind of question asked. The mode is
+// auto-selected from the tools the agent ran (decomp/selectMode.ts) and
+// can be overridden per bill via the mode tabs.
+
+export type DecompMode = "structure" | "definition" | "amendment" | "citation";
+
+// ---- definitions — GET /api/bill/{id}/defined_terms ----
+//
+// Mirrors api/types.py DefinedTerm / DefinedTermsResult. Only the fields
+// the UI renders are mirrored.
+
+export type DefinitionType = "direct" | "by_reference";
+export type DefinitionScope =
+  | "section_local"
+  | "title_local"
+  | "bill_local"
+  | "statute_global"
+  | "jurisdiction_global";
+
+export interface DefinedTerm {
+  defined_term_id: string;
+  surface_form: string;
+  bill_id: string;
+  defining_section_id: string;
+  defining_section_citation: string;
+  scope: DefinitionScope;
+  definition_type: DefinitionType;
+  /** Verbatim definition text — the synced-highlight anchor string. */
+  definition_text: string;
+  by_reference_target_id: string | null;
+  by_reference_target_citation: string | null;
+}
+
+export interface DefinedTermsResult {
+  bill_id: string;
+  terms: DefinedTerm[];
+  coverage_note: string;
+}
+
+// ---- amendments — GET /api/bill/{id}/amendments ----
+//
+// Mirrors api/types.py Amendment / AmendmentsResult. `before_text` is
+// often null (insert-only operations); `after_text` is the verbatim
+// quoted new-law block.
+
+export type AmendmentOperationType =
+  | "strike"
+  | "insert"
+  | "strike_and_insert"
+  | "replace"
+  | "add_at_end"
+  | "repeal"
+  | "redesignate"
+  | "other";
+
+export interface Amendment {
+  amendment_id: string;
+  source_section_id: string;
+  source_section_citation: string;
+  operation_type: AmendmentOperationType;
+  operation_text: string;
+  target_statute_section_id: string | null;
+  target_canonical_citation: string | null;
+  before_text: string | null;
+  after_text: string;
+  /** True for every operation in v1 — USC text is not yet ingested. */
+  target_text_unverified: boolean;
+}
+
+export interface AmendmentsResult {
+  bill_id: string;
+  amendments: Amendment[];
+  coverage_note: string;
+}
+
+// ---- the synced highlight ----
+//
+// A Decomp item carries a section id and a verbatim string; clicking it
+// highlights that exact span in the Text panel. `seq` is bumped on every
+// set so a repeat click of the same item still re-fires the scroll.
+
+export interface ActiveHighlight {
+  billId: string;
+  /** defined_term_id or amendment_id — the anchored Decomp item. */
+  itemId: string;
+  /** The anchoring section; may be a nested subsection. */
+  sectionId: string;
+  /** The verbatim string to locate in the Text panel. */
+  text: string;
+  seq: number;
+}

@@ -1,10 +1,15 @@
 import { create } from "zustand";
 import { streamChat } from "../api/sse";
-import { getBillSections } from "../api/rest";
+import { getAmendments, getBillSections, getDefinedTerms } from "../api/rest";
 import { extractRankedBills } from "../lib/rankedBills";
 import type {
+  ActiveHighlight,
+  AmendmentsResult,
+  AsyncResource,
   BillData,
   ChatHistoryItem,
+  DecompMode,
+  DefinedTermsResult,
   RankedBill,
   ToolCall,
   ToolResult,
@@ -32,12 +37,25 @@ interface AppState {
   /** A request to scroll the Text panel to a section. `seq` makes a
    *  repeat click of the same outline entry still fire the scroll. */
   scrollRequest: { billId: string; sectionId: string; seq: number } | null;
+  /** Per-bill manual Decomp-mode override; a missing key means auto. */
+  decompMode: Record<string, DecompMode>;
+  /** Per-bill defined terms, REST-fetched on demand and cached. */
+  definedTerms: Record<string, AsyncResource<DefinedTermsResult>>;
+  /** Per-bill amendment operations, REST-fetched on demand and cached. */
+  amendments: Record<string, AsyncResource<AmendmentsResult>>;
+  /** The one span the synced highlight is focused on, or null. */
+  activeHighlight: ActiveHighlight | null;
 
   sendPrompt: (message: string) => Promise<void>;
   selectBill: (index: number) => void;
   loadBill: (billId: string) => Promise<void>;
+  loadDefinedTerms: (billId: string) => Promise<void>;
+  loadAmendments: (billId: string) => Promise<void>;
   setSplitRatio: (ratio: number) => void;
   requestScroll: (billId: string, sectionId: string) => void;
+  setDecompMode: (billId: string, mode: DecompMode) => void;
+  setHighlight: (highlight: Omit<ActiveHighlight, "seq">) => void;
+  clearHighlight: () => void;
   reset: () => void;
 }
 
@@ -53,6 +71,10 @@ export const useAppStore = create<AppState>((set, get) => ({
   billData: {},
   splitRatio: 0.5,
   scrollRequest: null,
+  decompMode: {},
+  definedTerms: {},
+  amendments: {},
+  activeHighlight: null,
 
   sendPrompt: async (message: string) => {
     const trimmed = message.trim();
@@ -67,6 +89,10 @@ export const useAppStore = create<AppState>((set, get) => ({
       toolResults: [],
       rankedBills: [],
       selectedBillIndex: -1,
+      // A new turn brings a fresh auto mode — drop manual overrides and
+      // any stale highlight. Cached bill data (immutable) is kept.
+      decompMode: {},
+      activeHighlight: null,
     });
 
     // Text streamed before and after a tool call belongs to separate
@@ -163,6 +189,75 @@ export const useAppStore = create<AppState>((set, get) => ({
     }
   },
 
+  loadDefinedTerms: async (billId: string) => {
+    const existing = get().definedTerms[billId];
+    if (existing && existing.status !== "error") return;
+
+    set((s) => ({
+      definedTerms: { ...s.definedTerms, [billId]: { status: "loading" } },
+    }));
+    try {
+      const result = await getDefinedTerms(billId);
+      if (!Array.isArray(result.terms)) {
+        throw new Error("malformed definitions response");
+      }
+      set((s) => ({
+        definedTerms: {
+          ...s.definedTerms,
+          [billId]: { status: "ready", result },
+        },
+      }));
+    } catch (err) {
+      set((s) => ({
+        definedTerms: {
+          ...s.definedTerms,
+          [billId]: { status: "error", message: String(err) },
+        },
+      }));
+    }
+  },
+
+  loadAmendments: async (billId: string) => {
+    const existing = get().amendments[billId];
+    if (existing && existing.status !== "error") return;
+
+    set((s) => ({
+      amendments: { ...s.amendments, [billId]: { status: "loading" } },
+    }));
+    try {
+      const result = await getAmendments(billId);
+      if (!Array.isArray(result.amendments)) {
+        throw new Error("malformed amendments response");
+      }
+      set((s) => ({
+        amendments: {
+          ...s.amendments,
+          [billId]: { status: "ready", result },
+        },
+      }));
+    } catch (err) {
+      set((s) => ({
+        amendments: {
+          ...s.amendments,
+          [billId]: { status: "error", message: String(err) },
+        },
+      }));
+    }
+  },
+
+  setDecompMode: (billId: string, mode: DecompMode) =>
+    set((s) => ({ decompMode: { ...s.decompMode, [billId]: mode } })),
+
+  setHighlight: (highlight) =>
+    set((s) => ({
+      activeHighlight: {
+        ...highlight,
+        seq: (s.activeHighlight?.seq ?? 0) + 1,
+      },
+    })),
+
+  clearHighlight: () => set({ activeHighlight: null }),
+
   reset: () =>
     set({
       history: [],
@@ -176,5 +271,9 @@ export const useAppStore = create<AppState>((set, get) => ({
       billData: {},
       splitRatio: 0.5,
       scrollRequest: null,
+      decompMode: {},
+      definedTerms: {},
+      amendments: {},
+      activeHighlight: null,
     }),
 }));
