@@ -24,7 +24,7 @@ python scripts/chat.py
 python scripts/web.py
 
 # 3. MCP stdio server — wire into Claude Desktop, Cursor, any MCP client
-#    See "MCP setup" below.
+#    See "Drive it from any MCP client" below.
 python mcp_server.py
 ```
 
@@ -58,8 +58,6 @@ python scripts/api_smoke_test.py       # exercise the agent-facing API
 `Re-fetching the corpus` from Congress.gov / GovInfo is a separate flow (`scripts/fetch_candidates.py` → `scripts/promote_corpus.py`); only needed if you're expanding scope or refreshing data.
 
 ## Agent tool surface (12 tools)
-
-## Drive it from a browser (Gradio quick path)
 
 **Discovery + scope**
 - `search_corpus` — full-text search; returns ranked bill hits + `pagination_hint` that routes to aggregate tools when appropriate
@@ -111,8 +109,6 @@ Visit <http://localhost:8000/> to see the test page; it's deliberately minimal b
 CORS is open by default (`allow_origins=["*"]`) for dev. Lock it down to your Lovable domain before deploying anywhere public.
 
 ## Drive it from any MCP client
-
-## MCP setup
 
 `mcp_server.py` exposes the same tools over MCP stdio. Add to your client's config:
 
