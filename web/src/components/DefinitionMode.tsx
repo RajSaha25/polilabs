@@ -51,13 +51,11 @@ function DefinitionCard({
           : "border-line bg-surface hover:border-line-strong",
       )}
     >
-      <div className="flex items-baseline justify-between gap-2">
-        <span className="font-sans text-sm font-semibold text-ink">
-          &ldquo;{term.surface_form}&rdquo;
-        </span>
-        <span className="shrink-0 font-mono text-xs text-ink-faint">
-          {locator(term.defining_section_citation)}
-        </span>
+      <div className="font-sans text-sm font-semibold leading-snug text-ink">
+        &ldquo;{term.surface_form}&rdquo;
+      </div>
+      <div className="mt-0.5 font-mono text-xs leading-snug text-ink-faint">
+        {locator(term.defining_section_citation)}
       </div>
       <div className="mt-1.5 flex flex-wrap items-center gap-1">
         <Tag tone={term.definition_type === "by_reference" ? "accent" : "neutral"}>

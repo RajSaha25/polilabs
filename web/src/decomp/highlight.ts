@@ -92,35 +92,88 @@ export interface MarkSegment {
   text: string;
   itemId: string;
 }
-export type TextSegment = PlainSegment | MarkSegment;
+/** A structural line break inserted for readability — carries no text. */
+export interface BreakSegment {
+  kind: "break";
+}
+export type TextSegment = PlainSegment | MarkSegment | BreakSegment;
 
-/** Split `text` into plain and marked segments given located spans.
- *  Overlapping spans are resolved by keeping the earlier-starting one —
- *  the later span is dropped rather than rendered partially. */
-export function segmentText(
+// Heading / division markers — a structural break goes before each.
+const HEADING_MARKERS: RegExp[] = [
+  /\b(?:Sec|SEC)\.\s+\d/g,
+  /\bTITLE\s+[IVXLC]+/g,
+  /\bSubtitle\s+[A-Z]\b/g,
+  /\bPART\s+[IVXLC]+/g,
+  /\bDIVISION\s+[A-Z]\b/g,
+  /\bCHAPTER\s+\d/g,
+];
+
+// A lettered / numbered provision opening a new clause: it follows a
+// sentence end (. ; or —). The break is placed before the opening "(".
+const PROVISION_MARKER = /[.;—]\s+(\((?:\d{1,3}|[A-Za-z]{1,4})\)\s)/g;
+
+/** Offsets in `text` where a structural line break improves readability
+ *  — before section headings and new lettered/numbered provisions.
+ *  Verbatim-safe: this only places visual breaks, never alters `text`,
+ *  so a heuristic miss costs at most a slightly-off break. */
+export function formatStructure(text: string): number[] {
+  if (!text) return [];
+  const offsets = new Set<number>();
+  for (const marker of HEADING_MARKERS) {
+    for (const m of text.matchAll(marker)) {
+      if (m.index !== undefined) offsets.add(m.index);
+    }
+  }
+  for (const m of text.matchAll(PROVISION_MARKER)) {
+    // Break before the "(" — skip the leading sentence-end and spaces.
+    if (m.index !== undefined && m[1]) {
+      offsets.add(m.index + m[0].length - m[1].length);
+    }
+  }
+  return [...offsets]
+    .filter((o) => o > 0 && o < text.length)
+    .sort((a, b) => a - b);
+}
+
+/** Split `text` into rendered segments: plain runs, highlighted marks,
+ *  and structural breaks. `spans` are located highlight spans; `breaks`
+ *  are structural break offsets from `formatStructure`. Every character
+ *  of `text` lands in exactly one plain/mark segment, so offsets — and
+ *  therefore the verbatim text — are preserved exactly. */
+export function buildSegments(
   text: string,
   spans: LocatedSpan[],
+  breaks: number[] = [],
 ): TextSegment[] {
-  if (spans.length === 0) return [{ kind: "plain", text }];
-
-  const sorted = [...spans].sort((a, b) => a.start - b.start);
-  const segments: TextSegment[] = [];
-  let cursor = 0;
-
-  for (const span of sorted) {
-    if (span.start < cursor) continue; // overlaps an earlier mark — skip
-    if (span.start > cursor) {
-      segments.push({ kind: "plain", text: text.slice(cursor, span.start) });
-    }
-    segments.push({
-      kind: "mark",
-      text: text.slice(span.start, span.end),
-      itemId: span.itemId,
-    });
-    cursor = span.end;
+  // Cut at every span boundary and every break, so each slice falls
+  // wholly inside or wholly outside a mark.
+  const cuts = new Set<number>([0, text.length]);
+  for (const span of spans) {
+    if (span.start > 0 && span.start < text.length) cuts.add(span.start);
+    if (span.end > 0 && span.end < text.length) cuts.add(span.end);
   }
-  if (cursor < text.length) {
-    segments.push({ kind: "plain", text: text.slice(cursor) });
+  const breakSet = new Set<number>();
+  for (const b of breaks) {
+    if (b > 0 && b < text.length) {
+      cuts.add(b);
+      breakSet.add(b);
+    }
+  }
+  const sorted = [...cuts].sort((a, b) => a - b);
+
+  const segments: TextSegment[] = [];
+  for (let i = 0; i < sorted.length - 1; i++) {
+    const start = sorted[i];
+    const end = sorted[i + 1];
+    if (start > 0 && breakSet.has(start)) segments.push({ kind: "break" });
+    const slice = text.slice(start, end);
+    if (!slice) continue;
+    const span = spans.find((s) => s.start <= start && end <= s.end);
+    segments.push(
+      span
+        ? { kind: "mark", text: slice, itemId: span.itemId }
+        : { kind: "plain", text: slice },
+    );
   }
   return segments;
 }
