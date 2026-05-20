@@ -1,3 +1,11 @@
+## Frontend design
+
+The web UI lives in `web/` (React + Vite + TypeScript + Tailwind).
+
+Rules:
+- Before building or modifying anything in `web/`, read `web/DESIGN.md` — the design system, anti-AI-slop standards, and frontend security rules for the polilabs research UI.
+- `frontend_design.md` is the implementation plan; `web/DESIGN.md` governs visual language and security.
+
 ## graphify
 
 This project has a graphify knowledge graph at graphify-out/.
