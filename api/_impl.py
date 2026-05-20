@@ -958,18 +958,21 @@ def get_defined_terms(bill_id: str) -> DefinedTermsResult:
     urn_bill = _to_urn_bill_id(bill_id)
     legacy_bill = _from_urn_section_id(urn_bill + "::").rstrip("::") if urn_bill.startswith("bill:") else bill_id
 
-    # The Definitions container can sit at any depth in the bill, so we
-    # traverse HAS_SECTION ∪ PARENT_OF transitively.
+    # A DefinedTerm stores its defining section's id, and that id is the
+    # bill's URN section prefix + a hash — so a prefix scan finds the
+    # bill's terms directly. An unbounded HAS_SECTION|PARENT_OF* walk
+    # measured ~5 s per bill; this prefix scan is ~5 ms, same results.
     cypher = """
-    MATCH (b:Bill {bill_id: $bid})-[:HAS_VERSION]->(:BillVersion)
-          -[:HAS_SECTION|PARENT_OF*]->(s:Section)-[def:DEFINES]->(d:DefinedTerm)
+    MATCH (d:DefinedTerm)
+    WHERE starts_with(d.defining_section_id, $prefix)
+    OPTIONAL MATCH (s:Section {section_id: d.defining_section_id})
     OPTIONAL MATCH (d)-[:BY_REFERENCE]->(t:StatuteSection)
     RETURN d.defined_term_id, d.surface_form, d.scope, d.definition_type,
            d.definition_text, d.defining_section_id, s.canonical_citation,
            t.statute_section_id, t.canonical_citation
     ORDER BY d.surface_form
     """
-    r = k.execute(cypher, {"bid": urn_bill})
+    r = k.execute(cypher, {"prefix": urn_bill + "::"})
 
     out_terms: list[DefinedTerm] = []
     seen: set[str] = set()
@@ -1061,32 +1064,22 @@ def get_amendments(bill_id: str) -> AmendmentsResult:
         )
 
     urn_bill = _to_urn_bill_id(bill_id)
+    # An AmendmentOperation stores its source section's id, and that id
+    # is the bill's URN section prefix + a hash — so a prefix scan finds
+    # the bill's operations directly. An unbounded HAS_SECTION|PARENT_OF*
+    # walk measured ~5 s per bill; this prefix scan is ~5 ms, same rows.
     cypher = """
-    MATCH (b:Bill {bill_id: $bid})-[:HAS_VERSION]->(:BillVersion)
-          -[:HAS_SECTION|PARENT_OF*]->(s:Section)-[:AMENDS]->(a:AmendmentOperation)
+    MATCH (a:AmendmentOperation)
+    WHERE starts_with(a.source_section_id, $prefix)
+    OPTIONAL MATCH (s:Section {section_id: a.source_section_id})
     OPTIONAL MATCH (a)-[:TARGETS]->(t:StatuteSection)
-    RETURN a.amendment_id, s.section_id, s.canonical_citation,
-           a.operation_type, a.target_locator_json,
-           a.before_text, a.after_text, a.target_text_unverified,
-           t.statute_section_id, t.canonical_citation,
-           coalesce(a.before_text, "") + " " + coalesce(a.after_text, "") AS _pad,
-           "" AS _operation_text_placeholder
-    ORDER BY s.section_id, a.amendment_id
-    """
-    # Note: Kùzu schema stores operation_text in the prose-driving prop
-    # name we used at insert time. The full operation prose is on the
-    # AmendmentOperation node — fetch it explicitly via a separate field.
-    cypher = """
-    MATCH (b:Bill {bill_id: $bid})-[:HAS_VERSION]->(:BillVersion)
-          -[:HAS_SECTION|PARENT_OF*]->(s:Section)-[:AMENDS]->(a:AmendmentOperation)
-    OPTIONAL MATCH (a)-[:TARGETS]->(t:StatuteSection)
-    RETURN a.amendment_id, s.section_id, s.canonical_citation,
+    RETURN a.amendment_id, a.source_section_id, s.canonical_citation,
            a.operation_type, a.target_locator_json,
            a.before_text, a.after_text, a.target_text_unverified,
            t.statute_section_id, t.canonical_citation
-    ORDER BY s.section_id, a.amendment_id
+    ORDER BY a.source_section_id, a.amendment_id
     """
-    r = k.execute(cypher, {"bid": urn_bill})
+    r = k.execute(cypher, {"prefix": urn_bill + "::"})
     amends: list[Amendment] = []
     while r.has_next():
         (aid, src_sid_urn, src_cite, op, locator,
