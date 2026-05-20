@@ -264,7 +264,7 @@ window.POLILABS_BACKEND =
       for (const c of s.children || []) walk(c, 0);
       return {
         id: s.section_id,
-        num: deriveSecNum(s.canonical_citation),
+        num: deriveMarker(s.canonical_citation),
         title: s.heading || "(untitled section)",
         blocks: blocks,
         // the section's own text (chapeau if it has subsections,
@@ -281,8 +281,8 @@ window.POLILABS_BACKEND =
       out.push({
         id: node.section_id,
         marker: deriveMarker(node.canonical_citation) || "§",
-        title: node.heading || "(untitled)",
-        level: Math.min(level, 3),
+        title: node.heading || "",
+        level: level,
         anchor: node.section_id,
         pages: "",
       });

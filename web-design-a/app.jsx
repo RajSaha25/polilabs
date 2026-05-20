@@ -13,18 +13,80 @@
 const { useState, useEffect, useRef, useMemo } = React;
 const B = window.PolilabsBackend;
 
-// ── answer text → the design's paragraph/run model ────────────────────
-function textToParagraphs(text) {
-  return String(text || "")
-    .split(/\n+/)
-    .map((p) => p.trim())
-    .filter(Boolean)
-    .map((p) => ({ kind: "p", runs: [{ t: p }] }));
+// ── markdown answer → block model ─────────────────────────────────────
+// The agent streams Markdown. We parse it into a small block model
+// (headings, paragraphs, lists, rule) with inline runs (bold/italic/code)
+// so the left rail can render it as formatted text instead of raw "###".
+function parseInline(text) {
+  const runs = [];
+  const re = /(\*\*\*([^*]+?)\*\*\*|\*\*([^*]+?)\*\*|\*([^*\n]+?)\*|`([^`]+?)`)/g;
+  let last = 0, m;
+  while ((m = re.exec(text))) {
+    if (m.index > last) runs.push({ t: text.slice(last, m.index) });
+    if (m[2] != null) runs.push({ t: m[2], b: true, i: true });
+    else if (m[3] != null) runs.push({ t: m[3], b: true });
+    else if (m[4] != null) runs.push({ t: m[4], i: true });
+    else if (m[5] != null) runs.push({ t: m[5], code: true });
+    last = m.index + m[0].length;
+  }
+  if (last < text.length) runs.push({ t: text.slice(last) });
+  return runs.length ? runs : [{ t: text }];
 }
-function totalAnswerLength(paragraphs) {
-  let n = 0;
-  for (const p of paragraphs) for (const r of p.runs) n += (r.t || "").length;
-  return n;
+
+function splitTableRow(line) {
+  let s = line.trim();
+  if (s.startsWith("|")) s = s.slice(1);
+  if (s.endsWith("|")) s = s.slice(0, -1);
+  return s.split("|").map((c) => c.trim());
+}
+function isTableSeparator(line) {
+  return line.includes("|") && /^\s*\|?[\s:|-]*-[\s:|-]*\|?\s*$/.test(line);
+}
+
+function parseMarkdown(text) {
+  const lines = String(text || "").replace(/\r/g, "").split("\n");
+  const blocks = [];
+  let para = [];
+  let list = null;
+  const flushPara = () => {
+    if (para.length) { blocks.push({ type: "p", runs: parseInline(para.join(" ")) }); para = []; }
+  };
+  const flushList = () => { if (list) { blocks.push(list); list = null; } };
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i].trim();
+    let m;
+    if (!line) { flushPara(); flushList(); continue; }
+    if (line.includes("|") && i + 1 < lines.length && isTableSeparator(lines[i + 1])) {
+      flushPara(); flushList();
+      const header = splitTableRow(line).map(parseInline);
+      const rows = [];
+      i += 2;
+      while (i < lines.length && lines[i].trim() && lines[i].includes("|")) {
+        rows.push(splitTableRow(lines[i]).map(parseInline));
+        i++;
+      }
+      i--;
+      blocks.push({ type: "table", header, rows });
+    } else if (/^(-{3,}|\*{3,}|_{3,})$/.test(line)) {
+      flushPara(); flushList(); blocks.push({ type: "hr" });
+    } else if ((m = line.match(/^(#{1,6})\s+(.*)$/))) {
+      flushPara(); flushList();
+      blocks.push({ type: "h", level: m[1].length, runs: parseInline(m[2].trim()) });
+    } else if ((m = line.match(/^[-*+]\s+(.*)$/))) {
+      flushPara();
+      if (!list || list.type !== "ul") { flushList(); list = { type: "ul", items: [] }; }
+      list.items.push(parseInline(m[1].trim()));
+    } else if ((m = line.match(/^\d+[.)]\s+(.*)$/))) {
+      flushPara();
+      if (!list || list.type !== "ol") { flushList(); list = { type: "ol", items: [] }; }
+      list.items.push(parseInline(m[1].trim()));
+    } else {
+      flushList();
+      para.push(line);
+    }
+  }
+  flushPara(); flushList();
+  return blocks;
 }
 
 // ── accent / theme / density sync (from the original prototype) ───────
@@ -91,6 +153,16 @@ function App() {
   const [mode, setMode] = useState("structure");
   const [activeAnchor, setActiveAnchor] = useState(null);
 
+  // Sync-highlight is a transient pulse, not a sticky selection: a click
+  // scrolls + flashes the matching span/card, then clears so nothing
+  // stays highlighted afterwards.
+  const anchorTimer = useRef(null);
+  const flashAnchor = (anchor) => {
+    if (anchorTimer.current) clearTimeout(anchorTimer.current);
+    setActiveAnchor(anchor);
+    if (anchor) anchorTimer.current = setTimeout(() => setActiveAnchor(null), 1500);
+  };
+
   // prompt input
   const [prompt, setPrompt] = useState("");
 
@@ -115,13 +187,12 @@ function App() {
   const selectedBill = bills[billIdx] || null;
   const detail = selectedBill ? billDetail[selectedBill.id] : null;
 
-  // ── streaming answer paragraphs ────────────────────────────────────
-  const paragraphs = useMemo(() => {
-    if (answerText) return textToParagraphs(answerText);
-    if (streaming) return [{ kind: "p", runs: [{ t: "Searching the corpus…" }] }];
+  // ── streaming answer blocks ────────────────────────────────────────
+  const answerBlocks = useMemo(() => {
+    if (answerText) return parseMarkdown(answerText);
+    if (streaming) return [{ type: "p", runs: [{ t: "Searching the corpus…" }] }];
     return [];
   }, [answerText, streaming]);
-  const charsRevealed = useMemo(() => totalAnswerLength(paragraphs), [paragraphs]);
 
   // ── submit a question → POST /chat (SSE) ───────────────────────────
   const onSubmit = () => {
@@ -224,7 +295,7 @@ function App() {
         onNext={() => setBillIdx((i) => Math.min(bills.length - 1, i + 1))}
         mode={mode} setMode={setMode}
         activeAnchor={activeAnchor}
-        setActiveAnchor={setActiveAnchor}
+        setActiveAnchor={flashAnchor}
         textFrac={textFrac}
         setTextFrac={setTextFrac}
       />
@@ -257,16 +328,13 @@ function App() {
         bills={bills}
         question={questionObj}
         sourcesMatched={bills.length}
-        answerParagraphs={paragraphs}
+        answerBlocks={answerBlocks}
         selectedId={selectedBill ? selectedBill.id : null}
         onSelect={(id) => {
           const i = bills.findIndex((b) => b.id === id);
           if (i >= 0) setBillIdx(i);
         }}
         streaming={streaming}
-        charsRevealed={charsRevealed}
-        activeCite={null}
-        onCiteClick={() => {}}
         promptValue={prompt}
         setPromptValue={setPrompt}
         onSubmit={onSubmit}

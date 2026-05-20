@@ -203,14 +203,14 @@ function StructureMode({ bill, activeAnchor, onSelect }) {
         {sections.map((s) => (
           <div
             key={s.id}
-            className={"struct-node level-" + s.level}
+            className="struct-node"
+            style={{ paddingLeft: 10 + (s.level - 1) * 18 }}
             data-active={activeAnchor === s.anchor ? "true" : "false"}
             data-anchor={s.anchor}
             onClick={() => onSelect(s.anchor)}
           >
             <span className="marker">{s.marker}</span>
-            <span className="title">{s.title}</span>
-            <span className="pages">{s.pages}</span>
+            {s.title ? <span className="title">{s.title}</span> : null}
           </div>
         ))}
       </div>

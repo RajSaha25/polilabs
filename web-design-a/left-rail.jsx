@@ -53,56 +53,61 @@ function BillItem({ bill, rank, selected, onClick, showRelevance, showMatches })
   );
 }
 
-// ── Streaming text renderer ───────────────────────────────────────────
-function AnswerStream({ paragraphs, streaming, charsRevealed, activeCite, onCiteClick }) {
-  // We just render what's revealed, char by char. For simplicity, render
-  // each run as a whole if we've passed its cumulative offset.
-  let consumed = 0;
+// ── Markdown answer renderer ──────────────────────────────────────────
+function InlineRuns({ runs }) {
+  return (runs || []).map((r, i) => {
+    if (r.code) return <code key={i} className="md-code">{r.t}</code>;
+    if (r.b && r.i) return <strong key={i}><em>{r.t}</em></strong>;
+    if (r.b) return <strong key={i}>{r.t}</strong>;
+    if (r.i) return <em key={i}>{r.t}</em>;
+    return <React.Fragment key={i}>{r.t}</React.Fragment>;
+  });
+}
+
+function AnswerStream({ blocks, streaming }) {
   return (
-    <div className="answer-body serif" style={{ fontFamily: "var(--font-serif)", fontSize: 14.5, lineHeight: 1.7 }}>
-      {paragraphs.map((p, pi) => {
-        const elements = [];
-        let pConsumed = 0;
-        let pLength = 0;
-        for (const r of p.runs) {
-          const t = r.t || (r.cite ? `[${r.label}]` : "");
-          pLength += t.length;
+    <div className="answer-body md">
+      {(blocks || []).map((b, bi) => {
+        const last = bi === blocks.length - 1;
+        const caret = streaming && last ? <span className="stream-caret" /> : null;
+        if (b.type === "hr") return <hr key={bi} className="md-hr" />;
+        if (b.type === "table") {
+          return (
+            <div key={bi} className="md-table-wrap">
+              <table className="md-table">
+                <thead>
+                  <tr>{b.header.map((c, ci) => <th key={ci}><InlineRuns runs={c} /></th>)}</tr>
+                </thead>
+                <tbody>
+                  {b.rows.map((r, ri) => (
+                    <tr key={ri}>{r.map((c, ci) => <td key={ci}><InlineRuns runs={c} /></td>)}</tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          );
         }
-        for (let ri = 0; ri < p.runs.length; ri++) {
-          const r = p.runs[ri];
-          const t = r.t || (r.cite ? `[${r.label}]` : "");
-          const start = consumed;
-          const end = consumed + t.length;
-          if (streaming && start >= charsRevealed) break;
-          let display = t;
-          if (streaming && end > charsRevealed) display = t.slice(0, charsRevealed - start);
-          if (r.cite) {
-            elements.push(
-              <button
-                key={ri}
-                type="button"
-                className={"cite mono" + (activeCite === r.cite ? " active" : "")}
-                onClick={() => onCiteClick?.(r)}
-                title={"Open citation " + r.label}
-              >
-                {display}
-              </button>
-            );
-          } else if (r.term) {
-            elements.push(<em key={ri} style={{ fontWeight: 600, fontStyle: "italic", color: "var(--ink)" }}>{display}</em>);
-          } else {
-            elements.push(<span key={ri}>{display}</span>);
-          }
-          consumed = end;
+        if (b.type === "h") {
+          return (
+            <div key={bi} className={"md-h md-h" + b.level}>
+              <InlineRuns runs={b.runs} />{caret}
+            </div>
+          );
         }
-        const showCaret = streaming && (consumed >= charsRevealed) && (pi === paragraphs.length - 1 || consumed === charsRevealed);
-        const lastP = pi === paragraphs.length - 1;
-        return (
-          <p key={pi}>
-            {elements}
-            {streaming && lastP && consumed >= charsRevealed && <span className="stream-caret" />}
-          </p>
-        );
+        if (b.type === "ul" || b.type === "ol") {
+          const Tag = b.type === "ul" ? "ul" : "ol";
+          return (
+            <Tag key={bi} className="md-list">
+              {b.items.map((it, ii) => (
+                <li key={ii}>
+                  <InlineRuns runs={it} />
+                  {streaming && last && ii === b.items.length - 1 ? <span className="stream-caret" /> : null}
+                </li>
+              ))}
+            </Tag>
+          );
+        }
+        return <p key={bi}><InlineRuns runs={b.runs} />{caret}</p>;
       })}
     </div>
   );
@@ -159,24 +164,37 @@ function PromptInput({ value, onChange, onSubmit, onPreset, presets, disabled })
 
 // ── Left rail container ───────────────────────────────────────────────
 function LeftRail({
-  bills, question, answerParagraphs, selectedId, onSelect,
-  streaming, charsRevealed, activeCite, onCiteClick,
-  promptValue, setPromptValue, onSubmit, onPreset, presets,
+  bills, question, answerBlocks, selectedId, onSelect,
+  streaming, promptValue, setPromptValue, onSubmit, onPreset, presets,
   showRelevance, showMatches, sourcesMatched, error,
 }) {
   const listRef = useRef(null);
   const answerRef = useRef(null);
+  const railRef = useRef(null);
 
-  // When activeCite changes (user clicked a card in Decomp), scroll answer
-  // so the matching pill comes into view.
-  useEffect(() => {
-    if (!activeCite || !answerRef.current) return;
-    const el = answerRef.current.querySelector(".cite.active");
-    if (el) el.scrollIntoView({ block: "nearest", behavior: "smooth" });
-  }, [activeCite]);
+  // Drag-resizable Sources / Answer split (vertical, within the rail).
+  const [sourcesH, setSourcesH] = useState(320);
+  const onSourcesResize = (e) => {
+    e.preventDefault();
+    const move = (ev) => {
+      const r = railRef.current && railRef.current.getBoundingClientRect();
+      if (!r) return;
+      setSourcesH(Math.max(140, Math.min(r.height - 300, ev.clientY - r.top)));
+    };
+    const up = () => {
+      window.removeEventListener("pointermove", move);
+      window.removeEventListener("pointerup", up);
+      document.body.style.cursor = "";
+      document.body.style.userSelect = "";
+    };
+    document.body.style.cursor = "row-resize";
+    document.body.style.userSelect = "none";
+    window.addEventListener("pointermove", move);
+    window.addEventListener("pointerup", up);
+  };
 
   return (
-    <aside className="rail">
+    <aside className="rail" ref={railRef} style={{ "--sources-h": sourcesH + "px" }}>
       {/* — Sources — */}
       <section className="rail-section" style={{ minHeight: 0 }}>
         <header className="rail-head">
@@ -199,6 +217,9 @@ function LeftRail({
           ))}
         </div>
       </section>
+
+      <div className="rail-vresizer" onPointerDown={onSourcesResize}
+           title="Drag to resize" />
 
       {/* — Agent answer — */}
       <section className="rail-section" style={{ minHeight: 0 }}>
@@ -231,13 +252,7 @@ function LeftRail({
               {question.text}
             </div>
           ) : null}
-          <AnswerStream
-            paragraphs={answerParagraphs}
-            streaming={streaming}
-            charsRevealed={charsRevealed}
-            activeCite={activeCite}
-            onCiteClick={onCiteClick}
-          />
+          <AnswerStream blocks={answerBlocks} streaming={streaming} />
         </div>
       </section>
 

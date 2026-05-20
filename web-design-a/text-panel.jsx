@@ -87,8 +87,7 @@ function TextPanel({ bill, activeAnchor, onAnchorClick, onScrollEnd }) {
 
           {bill.text.map((sec) => (
             <section key={sec.id} data-anchor={sec.id} id={"text-" + sec.id}>
-              <div className="section-num">{sec.num}</div>
-              <h2>{sec.title}</h2>
+              <h2>{sec.num ? sec.num + ": " : ""}{sec.title}</h2>
               {sec.leafHtml ? (
                 <div className="subsec">
                   <span className="marker" />
