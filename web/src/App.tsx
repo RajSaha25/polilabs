@@ -1,19 +1,18 @@
 import { LeftRail } from "./components/LeftRail";
-import { ViewerStub } from "./components/ViewerStub";
+import { BillViewer } from "./components/BillViewer";
 
-/** Three-pane research shell: left rail / Text panel / Decomp panel.
- *  The shell itself never scrolls — each pane scrolls independently.
- *  Phase 1 ships the left rail (the agent path); the Text and Decomp
- *  panes are placeholders until Phases 2-4. */
+/** Research shell: the left rail (agent path) beside the bill viewer.
+ *  The viewer is a carousel of bill panes — each pane is the verbatim
+ *  Text panel next to the structured Decomp panel. The shell never
+ *  scrolls; panes scroll independently. */
 export default function App() {
   return (
     <div
       className="grid h-full overflow-hidden"
-      style={{ gridTemplateColumns: "320px minmax(0, 1fr) 380px" }}
+      style={{ gridTemplateColumns: "320px minmax(0, 1fr)" }}
     >
       <LeftRail />
-      <ViewerStub kind="text" />
-      <ViewerStub kind="decomp" />
+      <BillViewer />
     </div>
   );
 }
