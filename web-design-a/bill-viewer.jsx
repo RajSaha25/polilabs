@@ -112,6 +112,23 @@ function BillViewerEmpty({ presets = [], onPreset }) {
 
 // ── Loaded state header — bill identity + pager ───────────────────────
 function BillViewerHeader({ bill, position, onPrev, onNext, total }) {
+  // Sponsor / cosponsors / relevance are only known for some bills,
+  // depending on which tool surfaced them. Show only what's present —
+  // an empty "Sponsored by —" line is noise, so it's dropped entirely.
+  const subParts = [];
+  if (bill.sponsor) {
+    subParts.push(
+      <span key="sp">Sponsored by <strong style={{ color: "var(--ink-2)", fontWeight: 500 }}>{bill.sponsor}</strong></span>
+    );
+  }
+  if (bill.cosponsors) {
+    subParts.push(<span key="co">{bill.cosponsors} cosponsor{bill.cosponsors === 1 ? "" : "s"}</span>);
+  }
+  if (bill.relevance != null) {
+    subParts.push(
+      <span key="rel">relevance <span className="mono" style={{ color: "var(--ink-2)" }}>{(bill.relevance * 100).toFixed(0)}</span></span>
+    );
+  }
   return (
     <div className="bv-header">
       <div>
@@ -130,15 +147,13 @@ function BillViewerHeader({ bill, position, onPrev, onNext, total }) {
           ) : null}
         </div>
         <h1 className="bv-title">{bill.short}</h1>
-        <div className="bv-sub">
-          Sponsored by <strong style={{ color: "var(--ink-2)", fontWeight: 500 }}>{bill.sponsor || "—"}</strong>
-          {bill.cosponsors ? (
-            <React.Fragment>{" · "}{bill.cosponsors} cosponsor{bill.cosponsors === 1 ? "" : "s"}</React.Fragment>
-          ) : null}
-          {bill.relevance != null ? (
-            <React.Fragment>{" · "}relevance <span className="mono" style={{ color: "var(--ink-2)" }}>{(bill.relevance * 100).toFixed(0)}</span></React.Fragment>
-          ) : null}
-        </div>
+        {subParts.length ? (
+          <div className="bv-sub">
+            {subParts.map((p, i) => (
+              <React.Fragment key={i}>{i > 0 ? " · " : ""}{p}</React.Fragment>
+            ))}
+          </div>
+        ) : null}
       </div>
       <div className="bv-pager">
         <button className="pg-btn" onClick={onPrev} disabled={position <= 0} aria-label="Previous bill">

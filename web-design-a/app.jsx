@@ -168,7 +168,7 @@ function App() {
   const [prompt, setPrompt] = useState("");
 
   // resizable layout — rail width (px) + Text/Decomp split fraction
-  const [railW, setRailW] = useState(360);
+  const [railW, setRailW] = useState(440);
   const [textFrac, setTextFrac] = useState(0.5);
   const onRailResize = (e) => {
     e.preventDefault();
