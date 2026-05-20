@@ -1,19 +1,15 @@
 import { useAppStore } from "../store/useAppStore";
+import { RecentQueries } from "./RecentQueries";
 import { AgentAnswer } from "./AgentAnswer";
 import { BillList } from "./BillList";
 import { ToolTrace } from "./ToolTrace";
 import { PromptBox } from "./PromptBox";
 
-/** The left rail: wordmark, the streaming agent answer, the ranked
- *  bill list, a subdued tool trace, and the pinned prompt box. */
+/** The left rail: wordmark, the recent-queries list, the agent answer
+ *  for the turn in view, its ranked bill list, a subdued tool trace,
+ *  and the pinned prompt box. */
 export function LeftRail() {
-  const streaming = useAppStore((s) => s.streaming);
-  const answerText = useAppStore((s) => s.answerText);
-  const billCount = useAppStore((s) => s.rankedBills.length);
-  const errorMessage = useAppStore((s) => s.errorMessage);
-
-  const idle =
-    !streaming && !answerText && billCount === 0 && !errorMessage;
+  const hasTurns = useAppStore((s) => s.turns.length > 0);
 
   return (
     <div className="flex h-full min-h-0 flex-col border-r border-line bg-surface">
@@ -26,18 +22,20 @@ export function LeftRail() {
         </div>
       </header>
 
+      <RecentQueries />
+
       <div className="flex-1 min-h-0 overflow-y-auto">
-        {idle ? (
-          <p className="px-5 py-7 text-sm leading-relaxed text-ink-faint">
-            Ask a question about US federal AI-governance legislation.
-            Every answer is grounded in the corpus and cites its source.
-          </p>
-        ) : (
+        {hasTurns ? (
           <>
             <AgentAnswer />
             <BillList />
             <ToolTrace />
           </>
+        ) : (
+          <p className="px-5 py-7 text-sm leading-relaxed text-ink-faint">
+            Ask a question about US federal AI-governance legislation.
+            Every answer is grounded in the corpus and cites its source.
+          </p>
         )}
       </div>
 

@@ -52,6 +52,26 @@ export interface RankedBill {
   tier: string | null;
 }
 
+// ---- a conversation turn ----
+//
+// Each query the user sends produces one Turn — its prompt plus
+// everything the answer drew on. Turns are archived so the user can
+// return to an earlier query's answer and bills via the recent-queries
+// list. `streaming` lives on the store (only one turn streams at once).
+
+export interface Turn {
+  id: string;
+  prompt: string;
+  answerText: string;
+  toolCalls: ToolCall[];
+  toolResults: ToolResult[];
+  /** Derived from toolResults when the turn completes. */
+  rankedBills: RankedBill[];
+  errorMessage: string | null;
+  /** Index into rankedBills; -1 when the list is empty. */
+  selectedBillIndex: number;
+}
+
 // ---- REST: GET /api/bill/{id}/sections ----
 //
 // The full nested section tree. A section's `text` is text_full — it
