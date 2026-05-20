@@ -206,34 +206,70 @@ window.POLILABS_BACKEND =
   }
 
   // The backend `text` field is recursive (text_full): a parent's text
-  // already contains every descendant's text. To render readably without
-  // duplication we walk the tree and emit verbatim text ONLY at leaves;
-  // internal nodes contribute their heading/marker as structure.
+  // already contains every descendant's text. Rendering it at every level
+  // would duplicate; rendering only at leaves would DROP each internal
+  // node's "chapeau" — the intro text before its subsections (e.g.
+  // "In this Act:" preceding the (1), (2) definitions).
+  //
+  // So we render every node's OWN text: its text_full minus the text_full
+  // of each direct child. For a leaf that is the whole text; for an
+  // internal node that is just the chapeau. The union is the complete
+  // bill text with nothing dropped and nothing duplicated.
+  // A node's own text = its text_full minus each direct child's *rendered
+  // segment*. The backend stores a child's marker ("(1)") and heading in
+  // the PARENT's text, not the child's text_full — so we swallow those too,
+  // otherwise the chapeau keeps a redundant trail of "(1) (2) (3)" markers
+  // and child headings that are already shown on the blocks below.
+  function ownText(node) {
+    let t = String(node.text || "");
+    for (const c of node.children || []) {
+      const ct = String(c.text || "");
+      if (!ct) continue;
+      const i = t.indexOf(ct);
+      if (i < 0) continue;
+      const end = i + ct.length;
+      let start = i;
+      const heading = String(c.heading || "").trim();
+      if (heading) {
+        const before = t.slice(0, start);
+        const hi = before.lastIndexOf(heading);
+        if (hi >= 0 && before.slice(hi + heading.length).trim() === "") start = hi;
+      }
+      const marker = lastMarker(c.canonical_citation);
+      if (marker && marker[0] === "(") {
+        const before = t.slice(0, start);
+        const mi = before.lastIndexOf(marker);
+        if (mi >= 0 && before.slice(mi + marker.length).trim() === "") start = mi;
+      }
+      t = t.slice(0, start) + t.slice(end);
+    }
+    return t.trim();
+  }
+
   function sectionsTreeToText(tree) {
     const secs = (tree && tree.sections) || [];
     return secs.map((s) => {
       const blocks = [];
       function walk(node, depth) {
         const kids = node.children || [];
-        const isLeaf = kids.length === 0;
         blocks.push({
           id: node.section_id,
           depth: depth,
           marker: lastMarker(node.canonical_citation),
           heading: node.heading || "",
-          html: isLeaf ? verbatimHtml(node.text) : "",
+          html: verbatimHtml(ownText(node)),
         });
         for (const c of kids) walk(c, depth + 1);
       }
       for (const c of s.children || []) walk(c, 0);
-      const topIsLeaf = !(s.children && s.children.length);
       return {
         id: s.section_id,
         num: deriveSecNum(s.canonical_citation),
         title: s.heading || "(untitled section)",
         blocks: blocks,
-        // a section with no children carries its own verbatim text
-        leafHtml: topIsLeaf ? verbatimHtml(s.text) : "",
+        // the section's own text (chapeau if it has subsections,
+        // or the full verbatim text if it has none)
+        leafHtml: verbatimHtml(ownText(s)),
       };
     });
   }
