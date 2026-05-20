@@ -6,7 +6,7 @@ v1 corpus: **191 AI-governance bills** from the 118th and 119th US Congresses (2
 
 ## Product framing
 
-The product is the **agent-facing API surface**, not the data files. Anyone can mirror Congress.gov XML. The value is:
+The product is the **agent-facing backend** — the tool surface and the HTTP API — not the data files. Anyone can mirror Congress.gov XML. The value is:
 
 1. **Reconciliation across sources** — bill metadata from Congress.gov, full text from GovInfo, U.S. Code from OLRC, all stitched together into one queryable graph.
 2. **Agent-native primitives** — `find_bills_defining`, `get_amendments`, `resolve_citation`, etc. Aggregate queries are one tool call, not 50 sequential ones. Designed against documented LLM tool-use failure modes (N+1, context degradation, pagination truncation).
@@ -14,103 +14,132 @@ The product is the **agent-facing API surface**, not the data files. Anyone can 
 
 The agent doing the research is **NOT** polilabs' own agent. polilabs is the backend; the agent is yours.
 
-## Three ways to drive it
+## What the backend is made of
 
-```bash
-# 1. Terminal REPL (Claude Opus 4.7 + the 12 polilabs tools)
-python scripts/chat.py
+Two queryable stores, one tool layer, and four ways to reach it.
 
-# 2. Browser UI (same agent behind a Gradio chat)
-python scripts/web.py
-
-# 3. MCP stdio server — wire into Claude Desktop, Cursor, any MCP client
-#    See "Drive it from any MCP client" below.
-python mcp_server.py
+```
+data/corpus/        authoritative USLM XML (191 bills, committed)
+   │
+   ├─ index/        SQLite + FTS5     full-text search
+   └─ graph/        Kùzu property graph   bills · sections · defined terms ·
+                                          amendments · citations, all typed
+   │
+api/  +  agent/     12 typed, agent-native tools over both stores
+   │
+   ├─ scripts/chat.py     terminal REPL        (Claude Opus 4.7 + the tools)
+   ├─ scripts/web.py      Gradio chat UI
+   ├─ mcp_server.py       MCP stdio server     (Claude Desktop, Cursor, …)
+   └─ server.py           FastAPI HTTP API     (SSE agent + REST — see below)
 ```
 
-All three share the same agent tools and system prompt (defined in `agent/tools.py`).
+Every store is derived from `data/corpus/`; the corpus itself is committed, so a normal checkout only has to build the two indexes.
+
+## Driving polilabs
+
+```bash
+# 1. Terminal REPL — Claude Opus 4.7 wired to the 12 polilabs tools
+python scripts/chat.py
+
+# 2. Gradio chat — the same agent behind a browser chat UI
+python scripts/web.py
+
+# 3. MCP stdio server — wire the tools into Claude Desktop, Cursor, any MCP client
+python mcp_server.py
+
+# 4. FastAPI HTTP API — SSE agent endpoint + a read-only REST surface
+make backend          # uvicorn server:app on :8000
+```
+
+All four share the same tools and system prompt (`agent/tools.py`). The HTTP API is what the reference web frontends (`web/`, `web-design-a/`) are built on.
 
 ## Setup
 
 ```bash
-# Tier 1 data sources — sign up at console URLs, keys arrive instantly
+# Tier 1 data sources — sign up at the console URLs, keys arrive instantly
 #   Congress.gov:  https://api.congress.gov/sign-up/
-#   GovInfo:       https://api.govinfo.gov/docs (api.data.gov)
+#   GovInfo:       https://api.govinfo.gov/docs  (api.data.gov)
 #   Anthropic:     https://console.anthropic.com/
 cp .env.example .env
 # edit .env: paste in CONGRESS_GOV_API_KEY, GOVINFO_API_KEY, ANTHROPIC_API_KEY
 
-# Install + smoke-test
-python -m venv .venv && source .venv/bin/activate
-pip install -e .
-python scripts/smoke_test.py       # Tier 1 reachability
+make install          # create .venv, install Python + web deps
+make build            # build the SQLite + Kùzu indexes from data/corpus/ (~100s, one time)
 ```
 
-The v1 corpus (191 bills) is already committed under `data/corpus/legislation/`, so the only build step needed for normal use is the indexes:
+The v1 corpus (191 bills) is committed under `data/corpus/legislation/`, so `make build` is the only build step. It runs `scripts/build_index.py` (SQLite FTS, ~30s) and `scripts/build_kuzu_index.py` (Kùzu graph, ~70s); `scripts/kuzu_smoke_test.py` and `scripts/api_smoke_test.py` verify the result.
 
-```bash
-python scripts/build_index.py          # ~30s — SQLite FTS index
-python scripts/build_kuzu_index.py     # ~70s — Kùzu property graph
-python scripts/kuzu_smoke_test.py      # verify graph structure
-python scripts/api_smoke_test.py       # exercise the agent-facing API
-```
+Re-fetching the corpus from Congress.gov / GovInfo is a separate flow (`scripts/fetch_candidates.py` → `scripts/promote_corpus.py`), only needed to expand scope or refresh data.
 
-`Re-fetching the corpus` from Congress.gov / GovInfo is a separate flow (`scripts/fetch_candidates.py` → `scripts/promote_corpus.py`); only needed if you're expanding scope or refreshing data.
+## The 12-tool agent surface
 
-## Agent tool surface (12 tools)
+The tools every driver shares. Each returns JSON with verbatim `provenance`.
 
 **Discovery + scope**
-- `search_corpus` — full-text search; returns ranked bill hits + `pagination_hint` that routes to aggregate tools when appropriate
+- `search_corpus` — full-text search; ranked bill hits + a `pagination_hint` that routes to aggregate tools when appropriate
 - `corpus_coverage` — what's in / out of scope (use when answering scope questions or when a search returns nothing)
 
 **Single-bill drill-in**
 - `get_bill` — metadata + section table of contents (no body text)
 - `get_section` — verbatim section text + canonical citation (cite this string *verbatim*)
-- `get_defined_terms` — all terms one bill formally defines
-- `get_amendments` — all amendments one bill makes
+- `get_defined_terms` — every term a bill formally defines
+- `get_amendments` — every amendment a bill makes
 
 **Cross-reference + targeting**
 - `get_citation_graph` — typed citation graph around a section (CITES_EXTERNAL → USC)
 - `get_amendments_targeting` — operation-level detail of every amendment to a USC section
 - `resolve_citation` — "Sec. 3(a)(1) of H.R. 1736, 119th Cong." → canonical section_id
 
-**Aggregate / "list every bill that..." (added post-eval to fix N+1)**
-- `find_bills_defining(term, ...)` — every bill defining a term, one call
+**Aggregate / "list every bill that…"** (added post-eval to kill N+1 loops)
+- `find_bills_defining(term, …)` — every bill defining a term, one call
 - `find_bills_amending(statute_section_id)` — per-bill rollup of bills amending a USC section
 - `find_definitions_of(term)` — every bill's verbatim definition of a term, side by side
 
-## Drive it from any frontend (HTTP/SSE API)
+## HTTP API — `server.py`
 
-For full design control (Lovable, custom React, plain HTML), start the FastAPI backend:
+`make backend` starts a FastAPI server on `:8000` with **two access paths**: an SSE agent endpoint, and a read-only REST surface that hits the tools directly with no model turn (instant, no token cost).
 
-```bash
-python server.py
-```
+### Agent path — `POST /chat` (Server-Sent Events)
 
-This exposes:
+Body: `{ "message": str, "history": [{role, content}, …] }`. Streams the agent's run as SSE frames, each `data: {json}`:
 
-| Endpoint | What it does |
+| Event | Payload | Meaning |
+|---|---|---|
+| `text` | `delta` | a chunk of answer text |
+| `tool_call` | `name`, `args` | the agent invoked a tool |
+| `tool_result` | `name`, `args`, `result` | that tool's parsed JSON output |
+| `done` | — | turn complete |
+| `error` | `message` | a friendly error string (raw exceptions are logged server-side, never streamed) |
+
+The `tool_result` events expose the structured data behind the answer — a frontend can render ranked bills, definition cards, or amendment diffs straight from them.
+
+### REST path — `GET /api/*` (read-only, no model turn)
+
+Click or navigate to a bill and load its data deterministically, instantly, for free. Each endpoint wraps a tool and returns its JSON.
+
+| Endpoint | Returns |
 |---|---|
-| `POST /chat` | Streams the chat response as Server-Sent Events. Body: `{message, history}`. Yields events of type `text`, `tool_call`, `done`, `error`. |
-| `GET /coverage` | Returns the `corpus_coverage()` snapshot as JSON. |
-| `GET /health` | Liveness check. |
-| `GET /` | Serves `static/index.html` — a bare-bones test page that hits `/chat`. |
+| `GET /api/search?query=&tier=&congress=&limit=` | ranked bill hits |
+| `GET /api/bill/{bill_id}` | bill metadata + section table of contents |
+| `GET /api/bill/{bill_id}/sections` | full nested section tree with verbatim text |
+| `GET /api/bill/{bill_id}/defined_terms` | every term the bill defines |
+| `GET /api/bill/{bill_id}/amendments` | every amendment the bill makes |
+| `GET /api/section?section_id=&as_of=` | one section's verbatim text + citation |
+| `GET /api/citation_graph?section_id=&direction=&max_nodes=` | typed citation graph around a section |
+| `GET /api/resolve?citation_string=` | parse a free-text citation → canonical IDs |
+| `GET /api/coverage` | corpus coverage snapshot |
+| `GET /health` | liveness + whether the DB and API key are configured |
+| `GET /` | `static/index.html` — a minimal test page that exercises `/chat` |
 
-Visit <http://localhost:8000/> to see the test page; it's deliberately minimal but proves the backend works end-to-end without any framework.
+Section IDs contain `::`, so they travel as **query params**, never path segments. CORS is open (`allow_origins=["*"]`) for dev — lock it to your origin before deploying anywhere public.
 
-### Wiring up a Lovable frontend
+### Building a frontend on it
 
-1. Build the chat UI in Lovable (whatever design you want — message bubbles, tool-call accordions, sidebar, etc.).
-2. Point Lovable's chat code at `POST /chat` (this server) with the body shape `{message, history}`. Parse the SSE stream the same way `static/index.html` does (look at the `<script>` block — about 30 lines of EventSource-style reading).
-3. **Lovable's cloud preview can't reach `localhost`.** Two options:
-   - **Tunnel during dev:** run `cloudflared tunnel --url http://localhost:8000` (or `ngrok http 8000`), point Lovable at the public URL it gives you.
-   - **Export and run frontend locally:** push the Lovable project to GitHub, clone, run `npm run dev`, point it at `http://localhost:8000`.
-
-CORS is open by default (`allow_origins=["*"]`) for dev. Lock it down to your Lovable domain before deploying anywhere public.
+The API is frontend-agnostic — parse the SSE stream for the agent path, `fetch` the REST endpoints for navigation. Two reference frontends ship in-repo against this same backend: `web/` (React + Vite + TypeScript) and `web-design-a/` (a parallel design experiment). `make dev` runs the backend plus the `web/` Vite dev server together on `:5173`.
 
 ## Drive it from any MCP client
 
-`mcp_server.py` exposes the same tools over MCP stdio. Add to your client's config:
+`mcp_server.py` exposes the same 12 tools over MCP stdio. Add to your client's config:
 
 ```json
 {
@@ -133,36 +162,40 @@ The MCP server needs no Anthropic key — it just serves the tools. The client p
 
 `eval/` ships a 13-query hand-curated test set across 6 categories (definition lookup, cross-bill consensus / divergence / targeting, amendment lookup, citation grounding, out-of-scope abstention). Each query has structured pass criteria scoring two failure modes:
 
-- **Under-coverage** (low recall on set-valued queries; missing required substrings; abstaining when answer exists)
-- **Over-confidence** (extra bills not in ground truth; forbidden substrings present; hallucinated citations)
+- **Under-coverage** — low recall on set-valued queries; missing required substrings; abstaining when an answer exists
+- **Over-confidence** — extra bills not in ground truth; forbidden substrings; hallucinated citations
 
-Latest baseline: **12/13 passed** (92%), with 100% citation grounding (0 hallucinated). Single remaining failure is LLM variance on a stylistic precision check, not a code bug. See `eval/README.md` for the full eval contract.
+Latest baseline: **12/13 passed** (92%), with 100% citation grounding (0 hallucinated). The single failure is LLM variance on a stylistic precision check, not a code bug. See `eval/README.md` for the full eval contract.
 
 ```bash
+make eval                              # full run (~$5–10 in Opus spend)
 python scripts/run_eval.py --dry-run   # verify wiring, no API call
-python scripts/run_eval.py             # full run (~$5–10 in Opus spend)
 python scripts/run_eval.py --query def_1736_ai
 ```
 
-## Layout
+## Repo layout
 
 Each folder has its own README explaining purpose, key files, and where it fits.
 
 ```
-sources/      # Raw API clients (Congress.gov, GovInfo, OLRC) — see sources/README.md
+sources/      # Raw API clients (Congress.gov, GovInfo, OLRC) — intentionally thin
 ingest/       # Corpus build pipeline: search → score → reconcile → promote
 index/        # SQLite FTS index — what most agent reads hit first
 graph/        # Kùzu property graph — the agent-facing graph spine
 api/          # Typed agent-facing API (the design contract is api/SPEC.md)
-agent/        # Tool wrappers + system prompt shared by chat / web / MCP
+agent/        # Tool wrappers + system prompt shared by every driver
+server.py     # FastAPI HTTP API — SSE /chat + the /api/* REST surface
+mcp_server.py # MCP stdio server — the 12 tools for any MCP client
 eval/         # Eval harness: hand-curated queries + scorer + report
 scripts/      # CLI entry points (build, smoke-test, chat, eval)
+web/          # Reference frontend (React + Vite + TypeScript)
+web-design-a/ # Parallel frontend design experiment
 corpus/       # Locked inclusion criteria — what counts as "AI-governance"
 research/     # Background research (landscape, design principles)
 data/         # Committed corpus + gitignored indexes — see .gitignore
 
-schema_design.md     # The property-graph ontology (~7,500 words) — read this first
-                     # if you're touching graph/, api/, or eval/
+schema_design.md   # The property-graph ontology (~7,500 words) — read this first
+                   # if you're touching graph/, api/, or eval/
 ```
 
 ## Design philosophy
@@ -175,6 +208,6 @@ schema_design.md     # The property-graph ontology (~7,500 words) — read this 
 
 ## For agents
 
-If you're an LLM agent working in this repo, the canonical knowledge graph is `graphify-out/graph.json` (generated by [graphify](https://github.com/safishamsi/graphify)). The Claude Code PreToolUse hook will query it before exploration. Start there for code navigation, then read the relevant folder's README.
+If you're an LLM agent working in this repo, the canonical knowledge graph is `graphify-out/graph.json`. Start there for code navigation, then read the relevant folder's README.
 
 For the data model, read `schema_design.md` end-to-end before changing anything in `graph/`, `api/`, or `eval/`.
