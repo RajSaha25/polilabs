@@ -23,6 +23,8 @@ interface AppState {
   answerText: string;
   streaming: boolean;
   errorMessage: string | null;
+  /** The most recent prompt sent — lets the error notice offer a retry. */
+  lastPrompt: string;
   toolCalls: ToolCall[];
   toolResults: ToolResult[];
   /** Derived from toolResults when the turn completes. */
@@ -64,6 +66,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   answerText: "",
   streaming: false,
   errorMessage: null,
+  lastPrompt: "",
   toolCalls: [],
   toolResults: [],
   rankedBills: [],
@@ -84,6 +87,7 @@ export const useAppStore = create<AppState>((set, get) => ({
     set({
       streaming: true,
       errorMessage: null,
+      lastPrompt: trimmed,
       answerText: "",
       toolCalls: [],
       toolResults: [],
@@ -137,10 +141,15 @@ export const useAppStore = create<AppState>((set, get) => ({
       }
     });
 
+    const errored = get().errorMessage !== null;
     const bills = extractRankedBills(get().toolResults);
     set((s) => ({
       streaming: false,
-      history: [...s.history, { role: "user", content: trimmed }],
+      // A turn that errored out never produced an answer — keep it out
+      // of history so it doesn't count as conversational context.
+      history: errored
+        ? s.history
+        : [...s.history, { role: "user", content: trimmed }],
       rankedBills: bills,
       selectedBillIndex: bills.length > 0 ? 0 : -1,
     }));
@@ -264,6 +273,7 @@ export const useAppStore = create<AppState>((set, get) => ({
       answerText: "",
       streaming: false,
       errorMessage: null,
+      lastPrompt: "",
       toolCalls: [],
       toolResults: [],
       rankedBills: [],

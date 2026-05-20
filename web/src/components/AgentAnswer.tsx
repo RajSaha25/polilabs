@@ -60,14 +60,26 @@ export function AgentAnswer() {
   const answerText = useAppStore((s) => s.answerText);
   const streaming = useAppStore((s) => s.streaming);
   const errorMessage = useAppStore((s) => s.errorMessage);
+  const lastPrompt = useAppStore((s) => s.lastPrompt);
+  const sendPrompt = useAppStore((s) => s.sendPrompt);
 
   if (errorMessage) {
     return (
       <div className="border-b border-line px-5 py-4">
-        <p className="text-sm text-ink">
-          <span className="text-ink-faint">Couldn't complete that. </span>
-          {errorMessage}
-        </p>
+        <div className="mb-2 text-xs font-medium tracking-wide text-ink-faint">
+          COULDN'T COMPLETE
+        </div>
+        <p className="text-sm leading-relaxed text-ink">{errorMessage}</p>
+        {lastPrompt && (
+          <button
+            type="button"
+            onClick={() => void sendPrompt(lastPrompt)}
+            disabled={streaming}
+            className="mt-2.5 rounded-[3px] border border-line-strong px-2.5 py-1 text-xs text-ink-soft transition-colors hover:bg-paper disabled:opacity-50"
+          >
+            Retry
+          </button>
+        )}
       </div>
     );
   }
