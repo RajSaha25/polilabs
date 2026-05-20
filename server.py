@@ -111,6 +111,27 @@ def _sse(event: dict[str, Any]) -> str:
     return f"data: {json.dumps(event, default=str)}\n\n"
 
 
+def _friendly_error(exc: Exception) -> str:
+    """Map an exception to a short, human-readable message for the UI.
+
+    The raw exception is logged server-side; the client never sees a
+    stack-trace fragment or a raw API error dict — a research tool
+    should fail legibly."""
+    status = getattr(exc, "status_code", None)
+    if status == 529:
+        return ("The model service is temporarily overloaded. "
+                "Please retry in a moment.")
+    if status == 429:
+        return "Rate limit reached. Please wait a few seconds and retry."
+    if status in (401, 403):
+        return "The server's API key was rejected — check ANTHROPIC_API_KEY."
+    if isinstance(exc, (anthropic.APIConnectionError, anthropic.APITimeoutError)):
+        return "Couldn't reach the model service. Check the connection and retry."
+    if isinstance(status, int) and status >= 500:
+        return "The model service hit an error. Please retry."
+    return "Something went wrong handling that request. Please retry."
+
+
 # ---- agent path: POST /chat ----
 
 
@@ -291,9 +312,11 @@ def _stream_chat(req: ChatRequest):
             emitted += 1
         yield _sse({"type": "done"})
     except anthropic.APIError as e:
-        yield _sse({"type": "error", "message": f"{type(e).__name__}: {e}"})
+        print(f"[/chat] API error: {type(e).__name__}: {e}", file=sys.stderr)
+        yield _sse({"type": "error", "message": _friendly_error(e)})
     except Exception as e:
-        yield _sse({"type": "error", "message": f"{type(e).__name__}: {e}"})
+        print(f"[/chat] unexpected error: {type(e).__name__}: {e}", file=sys.stderr)
+        yield _sse({"type": "error", "message": _friendly_error(e)})
 
 
 @app.post("/chat")

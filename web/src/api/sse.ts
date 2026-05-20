@@ -20,13 +20,26 @@ export async function streamChat(
       body: JSON.stringify({ message, history }),
       signal,
     });
-  } catch (err) {
-    onEvent({ type: "error", message: `request failed: ${String(err)}` });
+  } catch {
+    onEvent({
+      type: "error",
+      message: "Couldn't reach the polilabs server. Check that it's running and retry.",
+    });
     return;
   }
 
-  if (!res.ok || !res.body) {
-    onEvent({ type: "error", message: `backend returned HTTP ${res.status}` });
+  if (!res.ok) {
+    onEvent({
+      type: "error",
+      message: `The polilabs server returned an error (HTTP ${res.status}). Please retry.`,
+    });
+    return;
+  }
+  if (!res.body) {
+    onEvent({
+      type: "error",
+      message: "The polilabs server sent an empty response. Please retry.",
+    });
     return;
   }
 
