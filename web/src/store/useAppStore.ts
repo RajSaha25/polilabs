@@ -29,11 +29,15 @@ interface AppState {
   billData: Record<string, BillData>;
   /** Text-vs-Decomp column ratio in the bill pane, 0.3–0.7. */
   splitRatio: number;
+  /** A request to scroll the Text panel to a section. `seq` makes a
+   *  repeat click of the same outline entry still fire the scroll. */
+  scrollRequest: { billId: string; sectionId: string; seq: number } | null;
 
   sendPrompt: (message: string) => Promise<void>;
   selectBill: (index: number) => void;
   loadBill: (billId: string) => Promise<void>;
   setSplitRatio: (ratio: number) => void;
+  requestScroll: (billId: string, sectionId: string) => void;
   reset: () => void;
 }
 
@@ -48,6 +52,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   selectedBillIndex: -1,
   billData: {},
   splitRatio: 0.5,
+  scrollRequest: null,
 
   sendPrompt: async (message: string) => {
     const trimmed = message.trim();
@@ -123,6 +128,15 @@ export const useAppStore = create<AppState>((set, get) => ({
   setSplitRatio: (ratio: number) =>
     set({ splitRatio: Math.min(0.7, Math.max(0.3, ratio)) }),
 
+  requestScroll: (billId: string, sectionId: string) =>
+    set((s) => ({
+      scrollRequest: {
+        billId,
+        sectionId,
+        seq: (s.scrollRequest?.seq ?? 0) + 1,
+      },
+    })),
+
   loadBill: async (billId: string) => {
     const existing = get().billData[billId];
     // Skip if already loading or loaded; retry only after an error.
@@ -161,5 +175,6 @@ export const useAppStore = create<AppState>((set, get) => ({
       selectedBillIndex: -1,
       billData: {},
       splitRatio: 0.5,
+      scrollRequest: null,
     }),
 }));

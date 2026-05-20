@@ -50,7 +50,7 @@ export function BillPane({ bill }: { bill: RankedBill }) {
         style={{ touchAction: "none" }}
         className="cursor-col-resize bg-line transition-colors hover:bg-accent"
       />
-      <DecompPanel />
+      <DecompPanel bill={bill} />
     </div>
   );
 }
