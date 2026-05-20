@@ -948,7 +948,7 @@ input, textarea { font: inherit; color: inherit; }
 }
 .subsec {
   display: grid;
-  grid-template-columns: 36px 1fr;
+  grid-template-columns: minmax(40px, max-content) 1fr;
   gap: var(--s-3);
   margin-bottom: var(--s-3);
 }

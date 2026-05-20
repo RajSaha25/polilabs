@@ -181,7 +181,7 @@ window.POLILABS_BACKEND =
       }
       if (r.bill_id) add(r.bill_id, {});                 // any other single-bill tool
     }
-    return order.map((id) => {
+    const bills = order.map((id) => {
       const f = fields.get(id);
       return {
         id,
@@ -197,6 +197,16 @@ window.POLILABS_BACKEND =
         summary: f.summary || "",
       };
     });
+    // search_corpus returns a raw FTS rank score (unbounded, e.g. ~18),
+    // not a 0–1 fraction. Normalise against the strongest hit so the
+    // relevance meter reads as a relative 0–100, not a raw "577".
+    const maxRel = bills.reduce((m, b) => (b.relevance > m ? b.relevance : m), 0);
+    if (maxRel > 0) {
+      for (const b of bills) {
+        if (b.relevance != null) b.relevance = b.relevance / maxRel;
+      }
+    }
+    return bills;
   }
 
   // ── Section tree → center Text panel shape ──────────────────────────
@@ -252,17 +262,27 @@ window.POLILABS_BACKEND =
   // panel and the Definition cards so both render statute text the same.
   function formatNode(node) {
     const blocks = [];
-    function walk(n, depth) {
+    function walk(n, depth, prefix) {
+      const own = ownText(n);
+      const kids = n.children || [];
+      const marker = (prefix || "") + lastMarker(n.canonical_citation);
+      // A node with no own text and no heading is a pure grouping marker
+      // (e.g. "(3)" that just wraps "(A)/(B)"). Don't render an empty
+      // line for it — fold its marker into the first child: "(3)(A)".
+      if (!own && !n.heading && kids.length) {
+        kids.forEach((c, i) => walk(c, depth, i === 0 ? marker : ""));
+        return;
+      }
       blocks.push({
         id: n.section_id,
         depth: depth,
-        marker: lastMarker(n.canonical_citation),
+        marker: marker,
         heading: n.heading || "",
-        html: verbatimHtml(ownText(n)),
+        html: verbatimHtml(own),
       });
-      for (const c of n.children || []) walk(c, depth + 1);
+      for (const c of kids) walk(c, depth + 1, "");
     }
-    for (const c of node.children || []) walk(c, 0);
+    for (const c of node.children || []) walk(c, 0, "");
     return { leafHtml: verbatimHtml(ownText(node)), blocks: blocks };
   }
 
