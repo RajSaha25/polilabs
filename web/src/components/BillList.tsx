@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { useAppStore } from "../store/useAppStore";
+import { activeTurn, useAppStore } from "../store/useAppStore";
 import type { RankedBill } from "../api/types";
 import { cn } from "../lib/cn";
 
@@ -52,8 +52,8 @@ function BillListItem({
 
 /** The ranked "agent view" — every bill the answer drew on. */
 export function BillList() {
-  const bills = useAppStore((s) => s.rankedBills);
-  const selectedIndex = useAppStore((s) => s.selectedBillIndex);
+  const bills = useAppStore((s) => activeTurn(s).rankedBills);
+  const selectedIndex = useAppStore((s) => activeTurn(s).selectedBillIndex);
   const selectBill = useAppStore((s) => s.selectBill);
 
   if (bills.length === 0) return null;

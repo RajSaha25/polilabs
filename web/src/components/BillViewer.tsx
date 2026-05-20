@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import useEmblaCarousel from "embla-carousel-react";
-import { useAppStore } from "../store/useAppStore";
+import { activeTurn, useAppStore } from "../store/useAppStore";
 import { useEffectiveMode } from "../decomp/selectMode";
 import { BillPane } from "./BillPane";
 
@@ -9,8 +9,8 @@ import { BillPane } from "./BillPane";
  *  source of truth: clicking the left-rail bill list scrolls the
  *  carousel; swiping the carousel writes the index back. */
 export function BillViewer() {
-  const bills = useAppStore((s) => s.rankedBills);
-  const selectedIndex = useAppStore((s) => s.selectedBillIndex);
+  const bills = useAppStore((s) => activeTurn(s).rankedBills);
+  const selectedIndex = useAppStore((s) => activeTurn(s).selectedBillIndex);
   const selectBill = useAppStore((s) => s.selectBill);
   const loadBill = useAppStore((s) => s.loadBill);
   const loadDefinedTerms = useAppStore((s) => s.loadDefinedTerms);

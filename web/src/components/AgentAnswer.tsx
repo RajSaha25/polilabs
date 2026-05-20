@@ -1,5 +1,5 @@
 import ReactMarkdown, { type Components } from "react-markdown";
-import { useAppStore } from "../store/useAppStore";
+import { activeTurn, useAppStore } from "../store/useAppStore";
 
 /** Markdown element styling — the agent answers in Markdown, so we
  *  render it as real React elements (react-markdown builds a node
@@ -55,25 +55,24 @@ const mdComponents: Components = {
   ),
 };
 
-/** The streaming agent answer, rendered as Markdown. */
+/** The agent answer for the turn currently in view, rendered as
+ *  Markdown — or a tidy error notice with a retry. */
 export function AgentAnswer() {
-  const answerText = useAppStore((s) => s.answerText);
+  const turn = useAppStore(activeTurn);
   const streaming = useAppStore((s) => s.streaming);
-  const errorMessage = useAppStore((s) => s.errorMessage);
-  const lastPrompt = useAppStore((s) => s.lastPrompt);
-  const sendPrompt = useAppStore((s) => s.sendPrompt);
+  const retryTurn = useAppStore((s) => s.retryTurn);
 
-  if (errorMessage) {
+  if (turn.errorMessage) {
     return (
       <div className="border-b border-line px-5 py-4">
         <div className="mb-2 text-xs font-medium tracking-wide text-ink-faint">
           COULDN'T COMPLETE
         </div>
-        <p className="text-sm leading-relaxed text-ink">{errorMessage}</p>
-        {lastPrompt && (
+        <p className="text-sm leading-relaxed text-ink">{turn.errorMessage}</p>
+        {turn.id && (
           <button
             type="button"
-            onClick={() => void sendPrompt(lastPrompt)}
+            onClick={() => void retryTurn(turn.id)}
             disabled={streaming}
             className="mt-2.5 rounded-[3px] border border-line-strong px-2.5 py-1 text-xs text-ink-soft transition-colors hover:bg-paper disabled:opacity-50"
           >
@@ -84,16 +83,18 @@ export function AgentAnswer() {
     );
   }
 
-  if (!answerText && !streaming) return null;
+  if (!turn.answerText && !streaming) return null;
 
   return (
     <div className="border-b border-line px-5 py-4">
       <div className="mb-2 text-xs font-medium tracking-wide text-ink-faint">
         ANSWER
       </div>
-      {answerText ? (
+      {turn.answerText ? (
         <div className="text-sm leading-relaxed text-ink">
-          <ReactMarkdown components={mdComponents}>{answerText}</ReactMarkdown>
+          <ReactMarkdown components={mdComponents}>
+            {turn.answerText}
+          </ReactMarkdown>
         </div>
       ) : (
         <p className="text-sm text-ink-faint">Researching the corpus…</p>
