@@ -92,7 +92,7 @@ def _dry_run(queries: list[dict[str, Any]]) -> list[QueryRun]:
 def run_queries(
     queries: list[dict[str, Any]],
     *,
-    model: str = "claude-opus-4-7",
+    model: str = "claude-sonnet-4-6",
     max_tokens: int = 4096,
     max_tool_iterations: int = 12,
     dry_run: bool = False,

@@ -42,7 +42,7 @@ def main() -> int:
                     help="Run only the listed query IDs (repeatable)")
     ap.add_argument("--category", type=str, action="append", default=None,
                     help="Run only the listed categories (repeatable)")
-    ap.add_argument("--model", type=str, default="claude-opus-4-7")
+    ap.add_argument("--model", type=str, default="claude-sonnet-4-6")
     ap.add_argument("--dry-run", action="store_true",
                     help="Skip API calls; verify harness wiring only")
     args = ap.parse_args()
