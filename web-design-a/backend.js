@@ -433,13 +433,21 @@ window.POLILABS_BACKEND =
   }
 
   // ── Load a bill's full detail (Text + Structure + Definition + Amend) ─
+  // /sections is load-bearing: if it fails or comes back error-shaped
+  // (a transient backend failure), throw so the caller can retry rather
+  // than cache a permanently-blank bill. defined_terms / amendments are
+  // non-critical and degrade to empty on their own.
   async function loadBillDetail(billId) {
     const [treeR, defsR, amsR] = await Promise.allSettled([
       apiGet("/api/bill/" + encodeURIComponent(billId) + "/sections"),
       apiGet("/api/bill/" + encodeURIComponent(billId) + "/defined_terms"),
       apiGet("/api/bill/" + encodeURIComponent(billId) + "/amendments"),
     ]);
-    const tree = treeR.status === "fulfilled" ? treeR.value : { sections: [] };
+    if (treeR.status !== "fulfilled" || !treeR.value ||
+        treeR.value.error || treeR.value.not_found) {
+      throw new Error("section tree unavailable for " + billId);
+    }
+    const tree = treeR.value;
     const defs = defsR.status === "fulfilled" ? mapDefinitions(defsR.value, tree) : [];
     const ams = amsR.status === "fulfilled" ? mapAmendments(amsR.value) : [];
     const text = sectionsTreeToText(tree);
