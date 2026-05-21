@@ -20,8 +20,8 @@ const B = window.PolilabsBackend;
 function parseInline(text) {
   const runs = [];
   const re = /(\*\*\*([^*]+?)\*\*\*|\*\*([^*]+?)\*\*|\*([^*\n]+?)\*|`([^`]+?)`)/g;
-  let last = 0, m;
-  while ((m = re.exec(text))) {
+  let last = 0;
+  for (const m of String(text).matchAll(re)) {
     if (m.index > last) runs.push({ t: text.slice(last, m.index) });
     if (m[2] != null) runs.push({ t: m[2], b: true, i: true });
     else if (m[3] != null) runs.push({ t: m[3], b: true });
@@ -141,20 +141,22 @@ function App() {
   const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
   useTweakSync(tweaks);
 
-  // conversation — each question is answered standalone (see onSubmit).
-  const [question, setQuestion] = useState("");        // last submitted prompt
-  const [answerText, setAnswerText] = useState("");
-  const [planText, setPlanText] = useState("");   // agent narration before the answer
+  // Conversation — an archive of turns. A new prompt appends one; the
+  // recent-queries list brings an earlier turn's answer + bills back.
+  // Each turn: { id, question, answerText, planText, bills, billIdx, error }.
+  const [turns, setTurns] = useState([]);
+  const [activeId, setActiveId] = useState(null);
   const [streaming, setStreaming] = useState(false);
-  const [error, setError] = useState(null);
-  const [asked, setAsked] = useState(false);           // has a query ever run?
 
-  // sources + viewer
-  const [bills, setBills] = useState([]);
-  const [billIdx, setBillIdx] = useState(0);
+  // Viewer state + caches — shared across turns.
   const [billDetail, setBillDetail] = useState({});    // keyed by bill id
   const [mode, setMode] = useState("structure");
   const [activeAnchor, setActiveAnchor] = useState(null);
+  const [prompt, setPrompt] = useState("");
+
+  const turn = turns.find((t) => t.id === activeId) || null;
+  const patchTurn = (id, partial) =>
+    setTurns((ts) => ts.map((t) => (t.id === id ? { ...t, ...partial } : t)));
 
   // Sync-highlight is a transient pulse, not a sticky selection: a click
   // scrolls + flashes the matching span/card, then clears so nothing
@@ -165,9 +167,6 @@ function App() {
     setActiveAnchor(anchor);
     if (anchor) anchorTimer.current = setTimeout(() => setActiveAnchor(null), 1500);
   };
-
-  // prompt input
-  const [prompt, setPrompt] = useState("");
 
   // resizable layout — rail width (px) + Text/Decomp split fraction
   const [railW, setRailW] = useState(440);
@@ -187,10 +186,23 @@ function App() {
     window.addEventListener("pointerup", up);
   };
 
+  const bills = turn ? turn.bills : [];
+  const billIdx = turn ? turn.billIdx : 0;
   const selectedBill = bills[billIdx] || null;
+  const selectedId = selectedBill ? selectedBill.id : null;
   const detail = selectedBill ? billDetail[selectedBill.id] : null;
 
+  // Select a bill within the active turn.
+  const setBillIdx = (next) => {
+    if (!turn) return;
+    const wanted = typeof next === "function" ? next(turn.billIdx) : next;
+    patchTurn(turn.id, {
+      billIdx: Math.max(0, Math.min(turn.bills.length - 1, wanted)),
+    });
+  };
+
   // ── streaming answer blocks ────────────────────────────────────────
+  const answerText = turn ? turn.answerText : "";
   const answerBlocks = useMemo(() => {
     if (answerText) return parseMarkdown(answerText);
     if (streaming) return [{ type: "p", runs: [{ t: "Searching the corpus…" }] }];
@@ -201,16 +213,18 @@ function App() {
   const onSubmit = () => {
     const q = prompt.trim();
     if (!q || streaming) return;
-    setQuestion(q);
     setPrompt("");
-    setAnswerText("");
-    setPlanText("");
-    setError(null);
-    setStreaming(true);
-    setAsked(true);
-    setBills([]);
-    setBillIdx(0);
     setActiveAnchor(null);
+
+    // A fresh turn — it becomes the active one; earlier turns stay in
+    // the archive and are reachable from the recent-queries list.
+    const id = "t-" + Date.now() + "-" + Math.random().toString(36).slice(2, 7);
+    setTurns((ts) => [...ts, {
+      id, question: q, answerText: "", planText: "",
+      bills: [], billIdx: 0, error: null,
+    }]);
+    setActiveId(id);
+    setStreaming(true);
 
     const collected = [];
 
@@ -225,23 +239,23 @@ function App() {
       if (ev.type === "text") {
         if (sawTool) { segments.push(""); sawTool = false; }
         segments[segments.length - 1] += ev.delta || "";
-        setAnswerText(segments[segments.length - 1]);
-        setPlanText(segments.slice(0, -1).join("\n\n").trim());
+        patchTurn(id, {
+          answerText: segments[segments.length - 1],
+          planText: segments.slice(0, -1).join("\n\n").trim(),
+        });
       } else if (ev.type === "tool_call") {
         sawTool = true;
       } else if (ev.type === "tool_result") {
         collected.push(ev);
         sawTool = true;
       } else if (ev.type === "error") {
-        setError(ev.message || "unknown backend error");
+        patchTurn(id, { error: ev.message || "unknown backend error" });
       } else if (ev.type === "done") {
         setStreaming(false);
-        const ranked = B.billsFromToolResults(collected);
-        setBills(ranked);
-        setBillIdx(0);
+        patchTurn(id, { bills: B.billsFromToolResults(collected), billIdx: 0 });
       }
     }).catch((e) => {
-      setError(String(e));
+      patchTurn(id, { error: String(e) });
       setStreaming(false);
     });
   };
@@ -250,43 +264,44 @@ function App() {
 
   // ── load a bill's full detail on selection ─────────────────────────
   useEffect(() => {
-    const bill = bills[billIdx];
-    if (!bill || billDetail[bill.id]) return;
+    if (!selectedId || billDetail[selectedId]) return;
     let cancelled = false;
-    B.loadBillDetail(bill.id).then((d) => {
-      if (!cancelled) setBillDetail((prev) => ({ ...prev, [bill.id]: d }));
+    B.loadBillDetail(selectedId).then((d) => {
+      if (!cancelled) setBillDetail((prev) => ({ ...prev, [selectedId]: d }));
     }).catch(() => {
-      if (!cancelled) setBillDetail((prev) => ({ ...prev, [bill.id]: { text: [], structure: { sections: [], stats: { sections: 0, definitions: 0, amendments: 0, citations: 0 } }, definitions: [], amendments: [], citations: [], _tree: { sections: [] } } }));
+      if (!cancelled) setBillDetail((prev) => ({ ...prev, [selectedId]: { text: [], structure: { sections: [], stats: { sections: 0, definitions: 0, amendments: 0, citations: 0 } }, definitions: [], amendments: [], citations: [], _tree: { sections: [] } } }));
     });
     return () => { cancelled = true; };
-  }, [bills, billIdx]);
+  }, [selectedId]);
 
   // ── lazy-load Citation mode (per-section graphs) ───────────────────
   useEffect(() => {
-    if (mode !== "citation" || !selectedBill || !detail || detail.citations !== null) return;
+    if (mode !== "citation" || !selectedId || !detail || detail.citations !== null) return;
     let cancelled = false;
     B.fetchCitationGroups(detail._tree).then((groups) => {
       if (cancelled) return;
       setBillDetail((prev) => ({
         ...prev,
-        [selectedBill.id]: { ...prev[selectedBill.id], citations: groups },
+        [selectedId]: { ...prev[selectedId], citations: groups },
       }));
     }).catch(() => {
       if (!cancelled) setBillDetail((prev) => ({
         ...prev,
-        [selectedBill.id]: { ...prev[selectedBill.id], citations: [] },
+        [selectedId]: { ...prev[selectedId], citations: [] },
       }));
     });
     return () => { cancelled = true; };
-  }, [mode, billIdx, detail]);
+  }, [mode, selectedId, detail]);
 
-  // reset highlight when switching bills
-  useEffect(() => { setActiveAnchor(null); }, [billIdx]);
+  // reset highlight when the selected bill changes
+  useEffect(() => { setActiveAnchor(null); }, [selectedId]);
 
   // ── the merged bill object the viewer renders ──────────────────────
   const viewerBill = selectedBill && detail
     ? { ...selectedBill, ...detail, citations: detail.citations || [] }
     : null;
+
+  const asked = turns.length > 0;
 
   // ── viewer stage ───────────────────────────────────────────────────
   let stage;
@@ -316,7 +331,7 @@ function App() {
   }
 
   const questionObj = {
-    text: question,
+    text: turn ? turn.question : "",
     sources_total: 191,
     sources_matched: bills.length,
   };
@@ -325,12 +340,11 @@ function App() {
     <div className="app" style={{ "--rail-w": railW + "px" }}>
       <header className="app-header">
         <div className="brand">
-          <div className="brand-mark">P</div>
           <div className="brand-name">polilabs</div>
         </div>
         <div className="header-tools">
           <div className="stat mono"><b>191</b> bills · 118th–119th Congress</div>
-          <div className="stat mono">{streaming ? "agent working…" : "ready"}</div>
+          {streaming && <div className="stat mono">agent working…</div>}
         </div>
       </header>
 
@@ -339,11 +353,14 @@ function App() {
 
       <LeftRail
         bills={bills}
+        turns={turns}
+        activeTurnId={activeId}
+        onSelectTurn={setActiveId}
         question={questionObj}
         sourcesMatched={bills.length}
         answerBlocks={answerBlocks}
-        planText={planText}
-        selectedId={selectedBill ? selectedBill.id : null}
+        planText={turn ? turn.planText : ""}
+        selectedId={selectedId}
         onSelect={(id) => {
           const i = bills.findIndex((b) => b.id === id);
           if (i >= 0) setBillIdx(i);
@@ -356,7 +373,7 @@ function App() {
         presets={PRESETS.slice(0, 2)}
         showRelevance={tweaks.showRelevance}
         showMatches={tweaks.showMatches}
-        error={error}
+        error={turn ? turn.error : null}
       />
 
       {stage}

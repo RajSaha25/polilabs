@@ -189,8 +189,40 @@ function CitationMode({ bill, activeAnchor, onSelect }) {
 }
 
 // ── Structure mode (default) ─────────────────────────────────────────
+// The outline is a collapsible tree: a section with nested children
+// starts collapsed, so a deep bill is not dumped flat. Click the
+// chevron to expand a branch; click the row to scroll the Text panel.
 function StructureMode({ bill, activeAnchor, onSelect }) {
   const { sections, stats } = bill.structure;
+
+  // A section has children when the next section sits one level deeper.
+  const hasChildren = (i) =>
+    i + 1 < sections.length && sections[i + 1].level > sections[i].level;
+
+  // Every parent section starts collapsed.
+  const [collapsed, setCollapsed] = useState(() => {
+    const init = new Set();
+    sections.forEach((s, i) => { if (hasChildren(i)) init.add(s.id); });
+    return init;
+  });
+  const toggle = (id) => setCollapsed((prev) => {
+    const next = new Set(prev);
+    if (next.has(id)) next.delete(id); else next.add(id);
+    return next;
+  });
+
+  // Walk the flat, level-indexed list; skip nodes inside a collapsed
+  // branch (any deeper node after a collapsed one, until the level
+  // returns to that node's depth or shallower).
+  const visible = [];
+  let hideBelow = Infinity;
+  sections.forEach((s, i) => {
+    if (s.level > hideBelow) return;
+    hideBelow = Infinity;
+    visible.push({ s, parent: hasChildren(i) });
+    if (collapsed.has(s.id)) hideBelow = s.level;
+  });
+
   return (
     <div className="decomp-body">
       <div className="dc-section-head" style={{ marginBottom: 12 }}>
@@ -200,19 +232,35 @@ function StructureMode({ bill, activeAnchor, onSelect }) {
       </div>
 
       <div className="struct-tree">
-        {sections.map((s) => (
-          <div
-            key={s.id}
-            className="struct-node"
-            style={{ paddingLeft: 10 + (s.level - 1) * 18 }}
-            data-active={activeAnchor === s.anchor ? "true" : "false"}
-            data-anchor={s.anchor}
-            onClick={() => onSelect(s.anchor)}
-          >
-            <span className="marker">{s.marker}</span>
-            {s.title ? <span className="title">{s.title}</span> : null}
-          </div>
-        ))}
+        {visible.map(({ s, parent }) => {
+          const isCollapsed = collapsed.has(s.id);
+          return (
+            <div
+              key={s.id}
+              className="struct-node"
+              style={{ paddingLeft: 10 + (s.level - 1) * 18 }}
+              data-active={activeAnchor === s.anchor ? "true" : "false"}
+              data-anchor={s.anchor}
+              onClick={() => onSelect(s.anchor)}
+            >
+              {parent ? (
+                <button
+                  type="button"
+                  className="struct-toggle"
+                  aria-expanded={!isCollapsed}
+                  aria-label={isCollapsed ? "Expand section" : "Collapse section"}
+                  onClick={(e) => { e.stopPropagation(); toggle(s.id); }}
+                >
+                  {isCollapsed ? "▸" : "▾"}
+                </button>
+              ) : (
+                <span className="struct-toggle struct-toggle-empty" aria-hidden="true" />
+              )}
+              <span className="marker">{s.marker}</span>
+              {s.title ? <span className="title">{s.title}</span> : null}
+            </div>
+          );
+        })}
       </div>
 
       <div className="struct-summary">
@@ -271,7 +319,7 @@ function DecompPanel({ bill, mode, setMode, activeAnchor, onSelect }) {
       </div>
 
       <div className="scroll" ref={scrollRef} style={{ minHeight: 0, flex: 1 }}>
-        {mode === "structure"  && <StructureMode  bill={bill} activeAnchor={activeAnchor} onSelect={onSelect} />}
+        {mode === "structure"  && <StructureMode  key={bill.id} bill={bill} activeAnchor={activeAnchor} onSelect={onSelect} />}
         {mode === "definition" && <DefinitionMode bill={bill} activeAnchor={activeAnchor} onSelect={onSelect} />}
         {mode === "amendment" && <AmendmentMode bill={bill} activeAnchor={activeAnchor} onSelect={onSelect} />}
         {mode === "citation"   && <CitationMode   bill={bill} activeAnchor={activeAnchor} onSelect={onSelect} />}

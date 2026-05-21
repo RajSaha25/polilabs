@@ -55,15 +55,70 @@ function BillItem({ bill, rank, selected, onClick, showRelevance, showMatches })
   );
 }
 
+// ── Clickable bill citations ──────────────────────────────────────────
+// The agent names bills by number in its answer ("S. 3312", "H.R. 8516").
+// Each ranked bill's number form is matched and turned into a clickable
+// citation that opens the bill in the viewer. Matching only ever targets
+// a bill already in the list, so a wrong link is near-impossible; a
+// missed mention just stays plain text.
+function buildBillMatchers(bills) {
+  const out = [];
+  (bills || []).forEach((bill) => {
+    // bill.bill_id is the human form, e.g. "H.R. 6881" / "S. 5436".
+    const raw = String(bill.bill_id || "").trim();
+    const numM = raw.match(/(\d+)\s*$/);
+    if (!numM) return;
+    const letters = raw.slice(0, numM.index).replace(/[^A-Za-z]/g, "");
+    if (!letters) return;
+    // Letters interleaved with an optional dot + optional space, so
+    // "H.R. 6881" also matches "HR 6881" / "H.R.6881" in the prose.
+    const letterPat = letters.split("").map((c) => c + "\\.?\\s?").join("");
+    out.push({
+      regex: new RegExp("\\b" + letterPat + numM[1] + "\\b", "g"),
+      billId: bill.id,
+    });
+  });
+  return out;
+}
+function linkifyText(text, matchers, onSelectBill) {
+  if (!text || !matchers || !matchers.length) return text;
+  const hits = [];
+  matchers.forEach((mt) => {
+    for (const found of String(text).matchAll(mt.regex)) {
+      if (found.index != null) {
+        hits.push({ start: found.index, end: found.index + found[0].length, billId: mt.billId });
+      }
+    }
+  });
+  if (!hits.length) return text;
+  hits.sort((a, b) => a.start - b.start);
+  const out = [];
+  let cursor = 0, k = 0;
+  hits.forEach((h) => {
+    if (h.start < cursor) return;
+    if (h.start > cursor) out.push(text.slice(cursor, h.start));
+    out.push(
+      <button key={"bl" + (k++)} type="button" className="bill-ref"
+        onClick={() => onSelectBill && onSelectBill(h.billId)} title="Open this bill">
+        {text.slice(h.start, h.end)}
+      </button>
+    );
+    cursor = h.end;
+  });
+  if (cursor < text.length) out.push(text.slice(cursor));
+  return out;
+}
+
 // ── Markdown answer renderer ──────────────────────────────────────────
 // Inline emphasis is rendered as italic — including Markdown bold. Bold
 // is reserved for section headings so they stand out as the structure;
 // liberal inline **bold** would compete with that.
-function InlineRuns({ runs }) {
+function InlineRuns({ runs, matchers, onSelectBill }) {
   return (runs || []).map((r, i) => {
     if (r.code) return <code key={i} className="md-code">{r.t}</code>;
-    if (r.b || r.i) return <em key={i}>{r.t}</em>;
-    return <React.Fragment key={i}>{r.t}</React.Fragment>;
+    const content = linkifyText(r.t, matchers, onSelectBill);
+    if (r.b || r.i) return <em key={i}>{content}</em>;
+    return <React.Fragment key={i}>{content}</React.Fragment>;
   });
 }
 
@@ -89,9 +144,14 @@ function AnswerPlan({ text }) {
   );
 }
 
-function AnswerStream({ blocks, streaming }) {
+function AnswerStream({ blocks, streaming, bills, onSelectBill }) {
   let leadUsed = false;
   const headNums = {};   // sequential number per heading level
+  const matchers = buildBillMatchers(bills);
+  // Thin wrapper so every run gets the bill-citation matchers.
+  const Runs = ({ runs }) => (
+    <InlineRuns runs={runs} matchers={matchers} onSelectBill={onSelectBill} />
+  );
   return (
     <div className="answer-body md">
       {(blocks || []).map((b, bi) => {
@@ -105,11 +165,11 @@ function AnswerStream({ blocks, streaming }) {
             <div key={bi} className="md-table-wrap">
               <table className="md-table">
                 <thead>
-                  <tr>{b.header.map((c, ci) => <th key={ci}><InlineRuns runs={c} /></th>)}</tr>
+                  <tr>{b.header.map((c, ci) => <th key={ci}><Runs runs={c} /></th>)}</tr>
                 </thead>
                 <tbody>
                   {b.rows.map((r, ri) => (
-                    <tr key={ri}>{r.map((c, ci) => <td key={ci}><InlineRuns runs={c} /></td>)}</tr>
+                    <tr key={ri}>{r.map((c, ci) => <td key={ci}><Runs runs={c} /></td>)}</tr>
                   ))}
                 </tbody>
               </table>
@@ -121,7 +181,7 @@ function AnswerStream({ blocks, streaming }) {
           return (
             <div key={bi} className={"md-h md-h" + b.level}>
               <span className="md-h-num">{headNums[b.level]}.</span>{" "}
-              <InlineRuns runs={b.runs} />{caret}
+              <Runs runs={b.runs} />{caret}
             </div>
           );
         }
@@ -131,7 +191,7 @@ function AnswerStream({ blocks, streaming }) {
             <Tag key={bi} className="md-list">
               {b.items.map((it, ii) => (
                 <li key={ii}>
-                  <InlineRuns runs={it} />
+                  <Runs runs={it} />
                   {streaming && last && ii === b.items.length - 1 ? <span className="stream-caret" /> : null}
                 </li>
               ))}
@@ -140,7 +200,7 @@ function AnswerStream({ blocks, streaming }) {
         }
         return (
           <p key={bi} className={isLead ? "answer-lead" : undefined}>
-            <InlineRuns runs={b.runs} />{caret}
+            <Runs runs={b.runs} />{caret}
           </p>
         );
       })}
@@ -212,7 +272,8 @@ function PromptInput({ value, onChange, onSubmit, onPreset, presets, disabled })
 
 // ── Left rail container ───────────────────────────────────────────────
 function LeftRail({
-  bills, question, answerBlocks, planText, selectedId, onSelect,
+  bills, turns, activeTurnId, onSelectTurn,
+  question, answerBlocks, planText, selectedId, onSelect,
   streaming, promptValue, setPromptValue, onSubmit, onPreset, presets,
   showRelevance, showMatches, sourcesMatched, error,
 }) {
@@ -278,6 +339,23 @@ function LeftRail({
             {streaming ? " streaming" : " from backend"}
           </span>
         </header>
+        {/* Recent queries — every past question stays reachable; a new
+            prompt no longer discards the previous answer and bills. */}
+        {turns && turns.length > 1 ? (
+          <div className="recent-queries">
+            {turns.slice().reverse().map((t) => (
+              <button
+                key={t.id}
+                type="button"
+                className={"recent-q" + (t.id === activeTurnId ? " active" : "")}
+                onClick={() => onSelectTurn(t.id)}
+                title={t.question}
+              >
+                {t.question}
+              </button>
+            ))}
+          </div>
+        ) : null}
         <div className="answer-wrap scroll" ref={answerRef}>
           {error ? (
             <div style={{
@@ -301,7 +379,8 @@ function LeftRail({
             </div>
           ) : null}
           <AnswerPlan text={planText} />
-          <AnswerStream blocks={answerBlocks} streaming={streaming} />
+          <AnswerStream blocks={answerBlocks} streaming={streaming}
+            bills={bills} onSelectBill={onSelect} />
         </div>
       </section>
 
