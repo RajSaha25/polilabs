@@ -32,7 +32,6 @@ Run:
 """
 from __future__ import annotations
 
-import functools
 import json
 import os
 import sys
@@ -360,18 +359,27 @@ def api_bill(bill_id: str) -> Any:
     return _parsed(tool_get_bill(bill_id))
 
 
-@functools.lru_cache(maxsize=256)
+# Successful section trees only — bill text is immutable in v1, so a
+# built tree is safe to keep. Error / not_found results are deliberately
+# NOT cached: a transient backend hiccup (e.g. the embedded graph DB
+# under load) must never get frozen in and leave a bill permanently blank.
+_section_tree_cache: dict[str, str] = {}
+
+
 def _full_section_tree(bill_id: str) -> str:
     """Recursively assemble a bill's full nested section tree.
 
     get_bill returns only top-level sections; the Decomp structure
-    outline and the Text panel need the whole tree. Cached because bill
-    text is immutable in v1. Returns a JSON string so lru_cache stores a
-    hashable value.
+    outline and the Text panel need the whole tree. Returns a JSON
+    string; only successful trees are cached.
     """
+    cached = _section_tree_cache.get(bill_id)
+    if cached is not None:
+        return cached
+
     bill = json.loads(tool_get_bill(bill_id))
     if bill.get("error") or bill.get("not_found"):
-        return json.dumps(bill)
+        return json.dumps(bill)  # not cached — keep transient errors retryable
 
     def _node(section_id: str, top_level: bool) -> dict:
         sec = json.loads(tool_get_section(section_id))
@@ -392,7 +400,9 @@ def _full_section_tree(bill_id: str) -> str:
         "bill_id": bill_id,
         "sections": [_node(s["section_id"], True) for s in bill.get("sections", [])],
     }
-    return json.dumps(tree)
+    result = json.dumps(tree)
+    _section_tree_cache[bill_id] = result
+    return result
 
 
 @app.get("/api/bill/{bill_id}/sections")

@@ -263,15 +263,26 @@ function App() {
   const onPreset = (text) => setPrompt(text);
 
   // ── load a bill's full detail on selection ─────────────────────────
+  // A failed load is never cached — a transient backend error must not
+  // leave the bill blank for the whole session. Retry a few times, then
+  // fall back to an empty detail so the viewer stops spinning.
   useEffect(() => {
     if (!selectedId || billDetail[selectedId]) return;
     let cancelled = false;
-    B.loadBillDetail(selectedId).then((d) => {
-      if (!cancelled) setBillDetail((prev) => ({ ...prev, [selectedId]: d }));
-    }).catch(() => {
-      if (!cancelled) setBillDetail((prev) => ({ ...prev, [selectedId]: { text: [], structure: { sections: [], stats: { sections: 0, definitions: 0, amendments: 0, citations: 0 } }, definitions: [], amendments: [], citations: [], _tree: { sections: [] } } }));
-    });
-    return () => { cancelled = true; };
+    let tries = 0;
+    let timer = null;
+    const attempt = () => {
+      B.loadBillDetail(selectedId).then((d) => {
+        if (!cancelled) setBillDetail((prev) => ({ ...prev, [selectedId]: d }));
+      }).catch(() => {
+        if (cancelled) return;
+        tries += 1;
+        if (tries < 3) { timer = setTimeout(attempt, 600 * tries); return; }
+        setBillDetail((prev) => ({ ...prev, [selectedId]: { text: [], structure: { sections: [], stats: { sections: 0, definitions: 0, amendments: 0, citations: 0 } }, definitions: [], amendments: [], citations: [], _tree: { sections: [] } } }));
+      });
+    };
+    attempt();
+    return () => { cancelled = true; if (timer) clearTimeout(timer); };
   }, [selectedId]);
 
   // ── lazy-load Citation mode (per-section graphs) ───────────────────
