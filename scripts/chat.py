@@ -323,7 +323,7 @@ def main() -> None:
 
         try:
             runner = client.beta.messages.tool_runner(
-                model="claude-opus-4-7",
+                model="claude-sonnet-4-6",
                 max_tokens=8192,
                 tools=TOOLS,
                 system=[
