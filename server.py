@@ -11,7 +11,12 @@ Two access paths for a frontend:
 
 POST /chat SSE event types: text, tool_call, tool_result, done, error.
 
-REST endpoints (all read-only, JSON):
+Auth: per-user accounts (see auth/). POST /auth/signup and /auth/login
+are public and return a JWT; /chat and every /api/* route below require
+an `Authorization: Bearer <token>` header. /health, /coverage and the
+test page at / stay open.
+
+REST endpoints (all read-only, JSON; all login-only):
   GET /api/search?query=...                  search_corpus
   GET /api/bill/{bill_id}                     get_bill (top-level ToC)
   GET /api/bill/{bill_id}/sections            full nested section tree
@@ -47,11 +52,13 @@ load_dotenv(Path(__file__).resolve().parent / ".env")
 import anthropic
 import uvicorn
 from anthropic import beta_tool
-from fastapi import FastAPI, HTTPException
+from fastapi import Depends, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, StreamingResponse
 from pydantic import BaseModel, Field
 
+from auth import init_db, require_user
+from auth import router as auth_router
 from agent.tools import (
     SYSTEM_PROMPT,
     tool_corpus_coverage,
@@ -85,6 +92,15 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# ---- auth ----
+#
+# Per-user accounts (SQLite + bcrypt + JWT). The /auth/* routes are
+# public; the agent path (/chat) and the /api/* REST surface are gated
+# behind `require_user` further down. init_db() creates the users table
+# on first boot — idempotent.
+init_db()
+app.include_router(auth_router)
 
 
 class ChatMessageIn(BaseModel):
@@ -320,8 +336,9 @@ def _stream_chat(req: ChatRequest):
 
 
 @app.post("/chat")
-def chat(req: ChatRequest):
-    """Stream a chat response as SSE."""
+def chat(req: ChatRequest, _user: dict = Depends(require_user)):
+    """Stream a chat response as SSE. Login-only — each turn spends
+    Anthropic tokens, so an anonymous caller must not reach it."""
     return StreamingResponse(
         _stream_chat(req),
         media_type="text/event-stream",
@@ -337,6 +354,9 @@ def chat(req: ChatRequest):
 # Each route wraps a tool_* function and returns json.loads() of its
 # output — the same trick /coverage uses. Frontend navigation (clicking
 # between bills) hits these instead of /chat: instant, free, no tokens.
+#
+# Every /api/* route is login-only (`Depends(require_user)`): the web
+# app requires an account, so the data surface it reads requires one too.
 
 
 def _parsed(out: str) -> Any:
@@ -349,13 +369,14 @@ def _parsed(out: str) -> Any:
 
 @app.get("/api/search")
 def api_search(query: str, tier: str | None = None,
-               congress: int | None = None, limit: int = 5) -> Any:
+               congress: int | None = None, limit: int = 5,
+               _user: dict = Depends(require_user)) -> Any:
     """Free-text corpus search — ranked lightweight bill hits."""
     return _parsed(tool_search_corpus(query, tier=tier, congress=congress, limit=limit))
 
 
 @app.get("/api/bill/{bill_id}")
-def api_bill(bill_id: str) -> Any:
+def api_bill(bill_id: str, _user: dict = Depends(require_user)) -> Any:
     """Bill metadata + top-level section table of contents."""
     return _parsed(tool_get_bill(bill_id))
 
@@ -396,25 +417,26 @@ def _full_section_tree(bill_id: str) -> str:
 
 
 @app.get("/api/bill/{bill_id}/sections")
-def api_bill_sections(bill_id: str) -> Any:
+def api_bill_sections(bill_id: str, _user: dict = Depends(require_user)) -> Any:
     """Full nested section tree for a bill (heading, citation, verbatim text)."""
     return json.loads(_full_section_tree(bill_id))
 
 
 @app.get("/api/bill/{bill_id}/defined_terms")
-def api_bill_defined_terms(bill_id: str) -> Any:
+def api_bill_defined_terms(bill_id: str, _user: dict = Depends(require_user)) -> Any:
     """Every term a bill formally defines."""
     return _parsed(tool_get_defined_terms(bill_id))
 
 
 @app.get("/api/bill/{bill_id}/amendments")
-def api_bill_amendments(bill_id: str) -> Any:
+def api_bill_amendments(bill_id: str, _user: dict = Depends(require_user)) -> Any:
     """Every amendment a bill makes to existing U.S. Code."""
     return _parsed(tool_get_amendments(bill_id))
 
 
 @app.get("/api/section")
-def api_section(section_id: str, as_of: str | None = None) -> Any:
+def api_section(section_id: str, as_of: str | None = None,
+                _user: dict = Depends(require_user)) -> Any:
     """A section's verbatim text + canonical citation. section_id is a query
     param because section IDs contain '::'."""
     return _parsed(tool_get_section(section_id, as_of=as_of))
@@ -422,19 +444,20 @@ def api_section(section_id: str, as_of: str | None = None) -> Any:
 
 @app.get("/api/citation_graph")
 def api_citation_graph(section_id: str, direction: str = "both",
-                       max_nodes: int = 25) -> Any:
+                       max_nodes: int = 25,
+                       _user: dict = Depends(require_user)) -> Any:
     """Typed citation graph around a section (depth=1)."""
     return _parsed(tool_get_citation_graph(section_id, direction=direction, max_nodes=max_nodes))
 
 
 @app.get("/api/resolve")
-def api_resolve(citation_string: str) -> Any:
+def api_resolve(citation_string: str, _user: dict = Depends(require_user)) -> Any:
     """Parse a free-text legislative citation into canonical section IDs."""
     return _parsed(tool_resolve_citation(citation_string))
 
 
 @app.get("/api/coverage")
-def api_coverage() -> Any:
+def api_coverage(_user: dict = Depends(require_user)) -> Any:
     """Corpus coverage snapshot — what's in scope, what's not, totals."""
     return _parsed(tool_corpus_coverage())
 

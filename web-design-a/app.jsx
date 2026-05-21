@@ -1,4 +1,4 @@
-/* global React, ReactDOM, PolilabsBackend, Icon,
+/* global React, ReactDOM, PolilabsBackend, PolilabsAuth, AuthScreen, Icon,
    LeftRail, BillViewer, BillViewerLoading, BillViewerEmpty,
    TweaksPanel, useTweaks, TweakSection, TweakRadio, TweakToggle, TweakColor */
 
@@ -137,7 +137,7 @@ const PRESETS = [
 ];
 
 // ── App ───────────────────────────────────────────────────────────────
-function App() {
+function App({ onSignOut }) {
   const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
   useTweakSync(tweaks);
 
@@ -345,6 +345,14 @@ function App() {
         <div className="header-tools">
           <div className="stat mono"><b>191</b> bills · 118th–119th Congress</div>
           {streaming && <div className="stat mono">agent working…</div>}
+          <div className="signout">
+            <span className="signout-user">
+              {(PolilabsAuth.getUser() || {}).email}
+            </span>
+            <button className="signout-btn" type="button" onClick={onSignOut}>
+              Sign out
+            </button>
+          </div>
         </div>
       </header>
 
@@ -408,4 +416,26 @@ function App() {
   );
 }
 
-ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+// ── Root — auth gate ──────────────────────────────────────────────────
+// The workspace is login-only. PolilabsAuth keeps the session token in
+// localStorage, so a returning user with a live token lands straight in
+// the app; everyone else gets the sign-in screen first.
+function Root() {
+  const [user, setUser] = useState(() =>
+    PolilabsAuth.isAuthenticated() ? PolilabsAuth.getUser() : null,
+  );
+
+  if (!user) {
+    return <AuthScreen onAuthed={(u) => setUser(u)} />;
+  }
+  return (
+    <App
+      onSignOut={() => {
+        PolilabsAuth.logout();
+        setUser(null);
+      }}
+    />
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<Root />);

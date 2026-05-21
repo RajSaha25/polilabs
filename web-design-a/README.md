@@ -22,6 +22,15 @@ talks to the real FastAPI backend:
 
 Every panel is filled from a backend response. No invented text.
 
+## Sign in
+
+The workspace is login-only. On first load you get a sign-in / create-account
+screen (`auth-screen.jsx`); creating an account or signing in stores a session
+token in `localStorage` and `backend.js` attaches it to every `/chat` and
+`/api/*` call. A returning user with a live token lands straight in the app.
+Accounts are handled by the backend's `/auth/*` routes — see the repo `auth/`
+package. Sign out from the control in the app header.
+
 ## Run it
 
 Two processes — the shared backend and this static frontend.
@@ -46,7 +55,10 @@ point at a non-default backend, set it in the browser console:
 |---|---|
 | `Polilabs.html` | Entry point — loads React, Babel, and the components |
 | `backend.js` | SSE + REST client and the mappers (backend JSON → design shapes) |
-| `app.jsx` | App shell + state; orchestrates the backend calls |
+| `auth.js` | Auth client — `/auth/*` calls, session token in `localStorage` |
+| `auth-screen.jsx` | The sign-in / create-account gate |
+| `auth.css` | Styles for the auth screen + the header sign-out control |
+| `app.jsx` | App shell + state; orchestrates the backend calls (gated by `Root`) |
 | `left-rail.jsx` `bill-viewer.jsx` `text-panel.jsx` `decomp-panel.jsx` | The three-zone UI |
 | `icons.jsx` `tweaks-panel.jsx` | Shared icon set + the dev tweaks panel |
 | `styles.css` `design-system.css` | The Claude Design visual system |
