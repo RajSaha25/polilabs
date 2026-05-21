@@ -1186,7 +1186,7 @@ input, textarea { font: inherit; color: inherit; }
 .struct-tree { font-size: var(--t-md); }
 .struct-node {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto auto 1fr;
   align-items: baseline;
   gap: var(--s-3);
   padding: var(--s-2) var(--s-3);
@@ -1211,6 +1211,25 @@ input, textarea { font: inherit; color: inherit; }
   line-height: 1.4;
 }
 .struct-node[data-active="true"] .title { color: var(--accent-ink); font-weight: 500; }
+
+/* Disclosure chevron for a section that has nested children. */
+.struct-toggle {
+  align-self: center;
+  width: 14px;
+  height: 14px;
+  display: inline-grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font-size: 9px;
+  line-height: 1;
+  color: var(--ink-4);
+  border-radius: var(--r-xs);
+}
+.struct-toggle:hover { background: var(--rule); color: var(--ink-3); }
+.struct-toggle-empty { cursor: default; }
 
 .struct-tree .struct-section-title {
   font-family: var(--font-mono);
