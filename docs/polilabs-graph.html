@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>polilabs — knowledge graph, by example</title>
+<style>
+  :root{
+    --bg:#f6f5f2; --panel:#ffffff; --ink:#1c1b19; --ink2:#55514a; --ink3:#8a857c;
+    --rule:#e4e1d9; --rule2:#d3cfc4;
+    --c-jur:#475569; --c-bill:#1e40af; --c-ver:#3b82f6; --c-sec:#0d9488;
+    --c-term:#16a34a; --c-stat:#d97706; --c-amend:#dc2626; --c-spon:#7c3aed;
+    --mono:ui-monospace,"SF Mono",Menlo,Monaco,"Cascadia Mono",monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",ui-sans-serif,system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);}
+  .wrap{max-width:1500px;margin:0 auto;padding:32px 28px 64px;}
+  header.doc{border-bottom:1px solid var(--rule);padding-bottom:20px;margin-bottom:22px;}
+  header.doc .kick{font-family:var(--mono);font-size:11px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--ink3);margin-bottom:8px;}
+  header.doc h1{margin:0;font-size:27px;font-weight:650;letter-spacing:-.01em;}
+  header.doc p{margin:8px 0 0;color:var(--ink2);font-size:14.5px;line-height:1.55;max-width:880px;}
+  header.doc .companion{margin-top:10px;font-size:12.5px;color:var(--ink3);}
+  header.doc .companion code{font-family:var(--mono);background:#ece9e1;padding:1px 6px;border-radius:4px;font-size:11.5px;}
+
+  .layout{display:grid;grid-template-columns:1fr 322px;gap:22px;align-items:start;}
+  @media(max-width:1080px){.layout{grid-template-columns:1fr;}}
+
+  .stage{background:var(--panel);border:1px solid var(--rule);border-radius:12px;overflow:hidden;}
+  .stage .stagebar{display:flex;justify-content:space-between;align-items:center;
+    padding:10px 16px;border-bottom:1px solid var(--rule);
+    font-family:var(--mono);font-size:11px;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--ink3);}
+  .stage .hint{color:var(--ink3);text-transform:none;letter-spacing:0;font-size:11.5px;}
+  svg#graph{display:block;width:100%;height:auto;
+    background:radial-gradient(circle at 1px 1px, #e8e5dc 1px, transparent 0);
+    background-size:26px 26px;}
+
+  .edge{fill:none;stroke:var(--rule2);stroke-width:1.6;opacity:.55;transition:.13s;}
+  .edge.hot{stroke-width:2.6;opacity:1;}
+  .edge.dim{opacity:.1;}
+  .elabel{font-family:var(--mono);font-size:9px;fill:var(--ink3);transition:.13s;}
+  .elabel.hot{fill:var(--ink);font-weight:600;}
+  .elabel.dim{opacity:.1;}
+  .elabel-bg{fill:var(--bg);opacity:.92;}
+  .elabel-bg.dim{opacity:.06;}
+
+  .node{cursor:pointer;}
+  .node .box{fill:var(--panel);stroke-width:1.6;transition:.13s;}
+  .node:hover .box,.node.sel .box{filter:drop-shadow(0 3px 7px rgba(30,25,15,.16));}
+  .node.dim{opacity:.26;}
+  .node .ntype{font-family:var(--mono);font-size:8.5px;letter-spacing:.07em;
+    text-transform:uppercase;font-weight:600;}
+  .node .nlabel{font-size:12.5px;font-weight:600;fill:var(--ink);}
+  .node .nsub{font-family:var(--mono);font-size:9px;fill:var(--ink3);}
+
+  .side{display:flex;flex-direction:column;gap:16px;}
+  .card{background:var(--panel);border:1px solid var(--rule);border-radius:12px;padding:15px 16px;}
+  .card h2{margin:0 0 10px;font-size:12px;font-family:var(--mono);letter-spacing:.09em;
+    text-transform:uppercase;color:var(--ink3);font-weight:600;}
+  .dt-type{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;}
+  .dt-title{font-size:15.5px;font-weight:650;margin:5px 0 3px;line-height:1.3;}
+  .dt-id{font-family:var(--mono);font-size:10.5px;color:var(--ink3);word-break:break-all;margin-bottom:9px;}
+  .dt-body{font-size:13px;line-height:1.57;color:var(--ink2);}
+  .dt-empty{font-size:13px;color:var(--ink3);line-height:1.55;}
+  .dt-rel{margin-top:11px;padding-top:10px;border-top:1px solid var(--rule);
+    font-size:12px;line-height:1.75;color:var(--ink2);}
+  .dt-rel .rhead{font-weight:600;color:var(--ink);display:block;margin-bottom:3px;}
+  .ek{font-family:var(--mono);font-size:9.5px;background:#ece9e1;padding:1px 5px;border-radius:3px;color:var(--ink2);}
+
+  .lg-row{display:flex;align-items:flex-start;gap:9px;margin-bottom:9px;font-size:12px;line-height:1.4;}
+  .lg-row:last-child{margin-bottom:0;}
+  .lg-row .sw{width:13px;height:13px;border-radius:4px;flex:0 0 auto;margin-top:1px;border:1.5px solid;}
+  .lg-row .nm{font-weight:600;}
+  .lg-row .ds{color:var(--ink3);}
+  .ekrow{font-size:11.5px;line-height:1.5;color:var(--ink2);margin-bottom:6px;}
+  .ekrow:last-child{margin-bottom:0;}
+
+  .explain{margin-top:24px;background:var(--panel);border:1px solid var(--rule);
+    border-radius:12px;padding:20px 22px;}
+  .explain h2{margin:0 0 10px;font-size:15px;font-weight:650;}
+  .explain p{margin:0 0 11px;font-size:13.5px;line-height:1.62;color:var(--ink2);max-width:920px;}
+  .explain p:last-child{margin-bottom:0;}
+  .explain b{color:var(--ink);font-weight:600;}
+  .explain code{font-family:var(--mono);font-size:12px;background:#ece9e1;padding:1px 5px;border-radius:4px;}
+  .foot{margin-top:22px;font-size:11.5px;color:var(--ink3);font-family:var(--mono);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="doc">
+    <div class="kick">polilabs · architecture companion</div>
+    <h1>The knowledge graph, by example</h1>
+    <p>polilabs turns a corpus of US federal AI-governance bills into a typed <b>property
+      graph</b> — nodes for bills, sections, defined terms and statutes; edges for the
+      relationships between them. This page renders two real bills from the corpus so you
+      can see the exact node and edge types the agent traverses. Hover a node to trace its
+      connections; click it for detail.</p>
+    <div class="companion">Read alongside <code>polilabs-architecture.pdf</code> — this is the live version of Figure&nbsp;2.</div>
+  </header>
+
+  <div class="layout">
+    <div class="stage">
+      <div class="stagebar">
+        <span>Example subgraph — H.R. 6881 &amp; H.R. 8516</span>
+        <span class="hint">hover to trace · click for detail</span>
+      </div>
+      <svg id="graph" viewBox="0 0 1440 800" role="img" aria-label="polilabs knowledge graph example"></svg>
+    </div>
+    <div class="side">
+      <div class="card" id="detail"><h2>Inspector</h2></div>
+      <div class="card"><h2>Node types</h2><div id="legend"></div></div>
+      <div class="card"><h2>Edge types</h2><div id="edgekey"></div></div>
+    </div>
+  </div>
+
+  <div class="explain">
+    <h2>How to read this</h2>
+    <p>Every bill in the corpus is shredded into this shape. A <b>Bill</b> is the
+      bibliographic record; it <code>HAS_VERSION</code> a <b>BillVersion</b> (a dated
+      text snapshot); the version <code>HAS_SECTION</code> a tree of <b>Section</b> nodes
+      (<code>PARENT_OF</code> links the nesting). Mechanical extractors then read the
+      section text and add the substantive layer: a section <code>DEFINES</code> a
+      <b>DefinedTerm</b>, <code>CITES_EXTERNAL</code> a <b>StatuteSection</b> of existing
+      US Code, or <code>AMENDS</code> an <b>AmendmentOperation</b> that
+      <code>TARGETS</code> a StatuteSection.</p>
+    <p>The point of the graph is the <b>cross-bill</b> links. Here, <b>H.R. 6881</b>'s
+      definition of &ldquo;artificial intelligence&rdquo; does not restate the term — it
+      points <code>BY_REFERENCE</code> to <b>15 U.S.C. 9401</b>, the definition Congress
+      enacted in 2020. Meanwhile <b>H.R. 8516</b> <code>AMENDS</code> that very same
+      statute section, inserting new defined terms into it. Two unrelated-looking bills
+      are in fact bound to the same piece of law — a connection a keyword search would
+      never surface, but a graph traversal finds in one hop.</p>
+    <p>Not every node type is drawn here. The graph also carries cosponsorship and a
+      provenance spine (<b>Extractor</b> &rarr; <b>ProvenanceRecord</b>) recording which
+      parser produced each derived edge. See the PDF for the full schema.</p>
+  </div>
+
+  <div class="foot">polilabs v1 · 191 bills · 29,616 sections · 1,241 defined terms · 190 amendments · generated from data/polilabs.kuzu</div>
+</div>
+
+<script>
+const NT = {
+  Jurisdiction:{c:"#475569",desc:"The sovereign whose process produced the bill."},
+  Bill:{c:"#1e40af",desc:"The bibliographic record of a bill — its identity, apart from text."},
+  BillVersion:{c:"#3b82f6",desc:"A dated text snapshot at one procedural stage."},
+  Section:{c:"#0d9488",desc:"A node in the bill's body tree — section, subsection, clause."},
+  DefinedTerm:{c:"#16a34a",desc:"A term a section formally defines — directly or by reference."},
+  StatuteSection:{c:"#d97706",desc:"A section of existing US Code that bills cite or amend."},
+  AmendmentOperation:{c:"#dc2626",desc:"A reified edit — strike / insert / replace — to existing law."},
+  Sponsor:{c:"#7c3aed",desc:"A legislator who sponsors or cosponsors the bill."}
+};
+const ET = {
+  OF_JURISDICTION:"Bill → Jurisdiction",
+  SPONSORED_BY:"Bill → Sponsor",
+  HAS_VERSION:"Bill → BillVersion",
+  HAS_SECTION:"BillVersion → Section",
+  PARENT_OF:"Section → Section",
+  DEFINES:"Section → DefinedTerm",
+  BY_REFERENCE:"DefinedTerm → StatuteSection",
+  CITES_EXTERNAL:"Section → StatuteSection",
+  AMENDS:"Section → AmendmentOperation",
+  TARGETS:"AmendmentOperation → StatuteSection"
+};
+// ---- the example subgraph: real data from data/polilabs.kuzu ----
+const N = [
+  {id:"jur",t:"Jurisdiction",x:100,y:410,label:"United States",sub:"us",
+   detail:"The federal jurisdiction. Every bill in the v1 corpus points here. It exists so that “section 552 of title 5” can be disambiguated from a state code of the same number."},
+  {id:"spon1",t:"Sponsor",x:100,y:150,label:"Rep. Beyer",sub:"D-VA-8",
+   detail:"Donald S. Beyer, Jr. — primary sponsor of H.R. 6881."},
+  {id:"spon2",t:"Sponsor",x:100,y:680,label:"Rep. Lieu",sub:"D-CA-36",
+   detail:"Ted Lieu — primary sponsor of H.R. 8516."},
+  {id:"bill1",t:"Bill",x:330,y:215,w:182,h:62,label:"H.R. 6881",sub:"118th Congress",
+   detail:"AI Foundation Model Transparency Act of 2023. Tier A — AI is the headline subject. Directs the FTC to set transparency standards for foundation models.",
+   props:[["bill_id","bill:us/118/hr/6881"],["tier","A"],["stream","legislation"]]},
+  {id:"bill2",t:"Bill",x:330,y:625,w:182,h:62,label:"H.R. 8516",sub:"119th Congress",
+   detail:"American Leadership in AI Act. Tier A. A large omnibus AI bill — 626 sections, 44 defined terms, 32 amendments to existing law.",
+   props:[["bill_id","bill:us/119/hr/8516"],["tier","A"],["stream","legislation"]]},
+  {id:"bv1",t:"BillVersion",x:545,y:215,label:"Introduced",sub:"2023-12-22 · ih",
+   detail:"The introduced-in-House text of H.R. 6881, dated 2023-12-22. Format: pre-USLM XML. v1 stores one canonical version per bill."},
+  {id:"bv2",t:"BillVersion",x:545,y:625,label:"Introduced",sub:"2026-04-27 · ih",
+   detail:"The introduced-in-House text of H.R. 8516, dated 2026-04-27."},
+  {id:"sec1",t:"Section",x:765,y:72,label:"Sec. 1",sub:"Short title",
+   detail:"Sec. 1 — Short title. The bill's own name clause."},
+  {id:"sec2",t:"Section",x:765,y:158,label:"Sec. 2",sub:"Findings",
+   detail:"Sec. 2 — Findings. Congressional findings motivating the bill."},
+  {id:"sec3",t:"Section",x:765,y:268,w:178,label:"Sec. 3",sub:"Foundation model…",
+   detail:"Sec. 3 — Foundation model data source and training transparency. The operative section: it carries the bill's definitions and its substantive requirements.",
+   props:[["canonical_citation","Sec. 3 of H.R. 6881, 118th Cong."]]},
+  {id:"secI",t:"Section",x:765,y:545,w:178,label:"Title I",sub:"Standards & testing",
+   detail:"Title I — Strengthening Standards, Testing, and Evaluations. A top-level title of H.R. 8516."},
+  {id:"secI101",t:"Section",x:765,y:650,w:178,label:"Sec. I(A)(101)",sub:"Definitions amend.",
+   detail:"Sec. I(A)(101). A subsection that amends the National AI Initiative Act's definitions section.",
+   props:[["canonical_citation","Sec. I(A)(101)(a)(2) of H.R. 8516"]]},
+  {id:"dtFM",t:"DefinedTerm",x:1010,y:118,w:172,label:"“foundation model”",sub:"direct",
+   detail:"Defined directly by H.R. 6881 §3: “an artificial intelligence model that (i) is trained on broad data; (ii) generally uses self-supervision; (iii) generally contains at least 1,000,000,000 parameters; (iv) is applicable across a wide range of contexts…” The 1B-parameter threshold is this bill's own choice — other bills draw the line elsewhere."},
+  {id:"dtAI",t:"DefinedTerm",x:1010,y:250,w:172,label:"“artificial intelligence”",sub:"by_reference",
+   detail:"Defined by reference. H.R. 6881 §3 does not restate the term — it says it “has the meaning given such term in section 5002 of the National Artificial Intelligence Initiative Act of 2020 (15 U.S.C. 9401).” The graph records this as a BY_REFERENCE edge to the statute, so an agent resolves the real definition instead of guessing."},
+  {id:"dtTD",t:"DefinedTerm",x:1010,y:368,w:172,label:"“training data”",sub:"direct",
+   detail:"Defined directly by H.R. 6881 §3: “the data on which such foundation model was trained.”"},
+  {id:"amop",t:"AmendmentOperation",x:1010,y:630,w:188,label:"insert",sub:"new defined terms",
+   detail:"An insert operation. H.R. 8516 §I(A)(101) inserts new paragraphs into 15 U.S.C. 9401 — e.g. a definition of “artificial intelligence red teaming.” Amendments are stored as their own nodes so “what would the statute read like if this passes?” is computable, not narrative.",
+   props:[["operation_type","insert"],["target_text_unverified","true"]]},
+  {id:"ss45",t:"StatuteSection",x:1290,y:72,w:170,label:"15 U.S.C. 45",sub:"FTC Act §5",
+   detail:"Section 5 of the FTC Act — “unfair or deceptive acts or practices.” H.R. 6881 cites it to hook its new requirements into the FTC's existing enforcement authority."},
+  {id:"ss57a",t:"StatuteSection",x:1290,y:182,w:170,label:"15 U.S.C. 57a",sub:"FTC rulemaking",
+   detail:"15 U.S.C. 57a — the FTC's rulemaking authority. Cited by H.R. 6881 §3."},
+  {id:"ss9401",t:"StatuteSection",x:1290,y:430,w:196,h:64,label:"15 U.S.C. 9401",sub:"Nat'l AI Initiative Act",
+   detail:"15 U.S.C. 9401 — the definitions section of the National Artificial Intelligence Initiative Act of 2020. THIS IS THE SHARED NODE. H.R. 6881 borrows its definition of “artificial intelligence” from here; H.R. 8516 amends it. The graph makes that shared dependency a single, queryable hub.",
+   props:[["statute_section_id","statute:us/usc/15/9401"]]}
+];
+const E = [
+  {f:"bill1",t:"jur",type:"OF_JURISDICTION"},
+  {f:"bill2",t:"jur",type:"OF_JURISDICTION"},
+  {f:"spon1",t:"bill1",type:"SPONSORED_BY"},
+  {f:"spon2",t:"bill2",type:"SPONSORED_BY"},
+  {f:"bill1",t:"bv1",type:"HAS_VERSION"},
+  {f:"bill2",t:"bv2",type:"HAS_VERSION"},
+  {f:"bv1",t:"sec1",type:"HAS_SECTION"},
+  {f:"bv1",t:"sec2",type:"HAS_SECTION"},
+  {f:"bv1",t:"sec3",type:"HAS_SECTION"},
+  {f:"bv2",t:"secI",type:"HAS_SECTION"},
+  {f:"secI",t:"secI101",type:"PARENT_OF"},
+  {f:"sec3",t:"dtFM",type:"DEFINES"},
+  {f:"sec3",t:"dtAI",type:"DEFINES"},
+  {f:"sec3",t:"dtTD",type:"DEFINES"},
+  {f:"dtAI",t:"ss9401",type:"BY_REFERENCE"},
+  {f:"sec3",t:"ss45",type:"CITES_EXTERNAL"},
+  {f:"sec3",t:"ss57a",type:"CITES_EXTERNAL"},
+  {f:"secI101",t:"amop",type:"AMENDS"},
+  {f:"amop",t:"ss9401",type:"TARGETS"}
+];
+
+const SVGNS="http://www.w3.org/2000/svg";
+const svg=document.getElementById("graph");
+const nmap={}; N.forEach(n=>{n.w=n.w||162;n.h=n.h||56;nmap[n.id]=n;});
+const sel2=(t,a)=>{const e=document.createElementNS(SVGNS,t);for(const k in a)e.setAttribute(k,a[k]);return e;};
+
+const defs=sel2("defs",{});
+[["arr","#d3cfc4"],["arrhot","#1c1b19"]].forEach(([id,col])=>{
+  const m=sel2("marker",{id,viewBox:"0 0 10 10",refX:9,refY:5,markerWidth:7,markerHeight:7,orient:"auto-start-reverse"});
+  m.appendChild(sel2("path",{d:"M0,0 L10,5 L0,10 z",fill:col}));
+  defs.appendChild(m);
+});
+svg.appendChild(defs);
+const edgeLayer=sel2("g",{}); svg.appendChild(edgeLayer);
+const nodeLayer=sel2("g",{}); svg.appendChild(nodeLayer);
+
+function anchors(a,b){
+  let x1=a.x,y1=a.y,x2=b.x,y2=b.y;
+  if(b.x>a.x){x1=a.x+a.w/2;x2=b.x-b.w/2;}
+  else if(b.x<a.x){x1=a.x-a.w/2;x2=b.x+b.w/2;}
+  else{y1=a.y+a.h/2;y2=b.y-b.h/2;}
+  return [x1,y1,x2,y2];
+}
+const edgeEls=[];
+E.forEach(e=>{
+  const a=nmap[e.f],b=nmap[e.t];
+  const [x1,y1,x2,y2]=anchors(a,b);
+  const cx=Math.max(40,Math.abs(x2-x1)*0.45);
+  const c1=(x2>=x1)?x1+cx:x1-cx, c2=(x2>=x1)?x2-cx:x2+cx;
+  const path=sel2("path",{class:"edge",d:`M${x1},${y1} C${c1},${y1} ${c2},${y2} ${x2},${y2}`,"marker-end":"url(#arr)"});
+  edgeLayer.appendChild(path);
+  const mx=(x1+x2)/2, my=(y1+y2)/2-4;
+  const bg=sel2("rect",{class:"elabel-bg",rx:3});
+  const lab=sel2("text",{class:"elabel",x:mx,y:my,"text-anchor":"middle"});
+  lab.textContent=e.type;
+  edgeLayer.appendChild(bg); edgeLayer.appendChild(lab);
+  const fit=()=>{const r=lab.getBBox();bg.setAttribute("x",r.x-3);bg.setAttribute("y",r.y-1);
+    bg.setAttribute("width",r.width+6);bg.setAttribute("height",r.height+2);};
+  edgeEls.push({e,path,lab,bg,fit});
+});
+requestAnimationFrame(()=>edgeEls.forEach(o=>o.fit()));
+
+const nodeEls={};
+N.forEach(n=>{
+  const col=NT[n.t].c;
+  const g=sel2("g",{class:"node"});
+  const x=n.x-n.w/2, y=n.y-n.h/2;
+  g.appendChild(sel2("rect",{class:"box",x,y,width:n.w,height:n.h,rx:9,stroke:col}));
+  g.appendChild(sel2("rect",{class:"accent",x,y,width:5,height:n.h,rx:2.5,fill:col}));
+  const tp=sel2("text",{class:"ntype",x:x+15,y:y+17,fill:col}); tp.textContent=n.t;
+  const lb=sel2("text",{class:"nlabel",x:x+15,y:y+n.h/2+6}); lb.textContent=n.label;
+  const sb=sel2("text",{class:"nsub",x:x+15,y:y+n.h-9}); sb.textContent=n.sub;
+  g.appendChild(tp); g.appendChild(lb); g.appendChild(sb);
+  nodeLayer.appendChild(g);
+  nodeEls[n.id]=g;
+  g.addEventListener("mouseenter",()=>focus(n.id));
+  g.addEventListener("mouseleave",()=>{if(!sel)clearFocus();});
+  g.addEventListener("click",()=>{sel=(sel===n.id)?null:n.id;sel?focus(n.id):clearFocus();});
+});
+
+let sel=null;
+function focus(id){
+  const inc=new Set(), nb=new Set([id]);
+  E.forEach(e=>{if(e.f===id||e.t===id){inc.add(e);nb.add(e.f);nb.add(e.t);}});
+  edgeEls.forEach(o=>{
+    const hot=inc.has(o.e);
+    o.path.classList.toggle("hot",hot); o.path.classList.toggle("dim",!hot);
+    o.path.setAttribute("marker-end",hot?"url(#arrhot)":"url(#arr)");
+    o.lab.classList.toggle("hot",hot); o.lab.classList.toggle("dim",!hot);
+    o.bg.classList.toggle("dim",!hot);
+  });
+  N.forEach(n=>nodeEls[n.id].classList.toggle("dim",!nb.has(n.id)));
+  Object.values(nodeEls).forEach(g=>g.classList.remove("sel"));
+  nodeEls[id].classList.add("sel");
+  showDetail(id);
+}
+function clearFocus(){
+  sel=null;
+  edgeEls.forEach(o=>{
+    o.path.classList.remove("hot","dim"); o.path.setAttribute("marker-end","url(#arr)");
+    o.lab.classList.remove("hot","dim"); o.bg.classList.remove("dim");
+  });
+  Object.values(nodeEls).forEach(g=>g.classList.remove("dim","sel"));
+  detailEmpty();
+}
+
+// ---- side panels, built with safe DOM (no innerHTML) ----
+const mk=(tag,cls,txt)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e;};
+const detail=document.getElementById("detail");
+function reset(host,title){host.replaceChildren();host.appendChild(mk("h2",null,title));}
+
+function detailEmpty(){
+  reset(detail,"Inspector");
+  detail.appendChild(mk("div","dt-empty",
+    "Hover or click any node in the graph to inspect it. The two bills meet at one "+
+    "shared node — 15 U.S.C. 9401 — the statute one bill borrows a definition "+
+    "from and the other rewrites."));
+}
+function showDetail(id){
+  const n=nmap[id], col=NT[n.t].c;
+  reset(detail,"Inspector");
+  const tp=mk("div","dt-type",n.t); tp.style.color=col; detail.appendChild(tp);
+  detail.appendChild(mk("div","dt-title",n.label));
+  detail.appendChild(mk("div","dt-id",n.sub));
+  detail.appendChild(mk("div","dt-body",n.detail));
+  if(n.props){
+    const pb=mk("div","dt-rel");
+    n.props.forEach(p=>{
+      const row=mk("div");
+      row.appendChild(mk("span","ek",p[0]));
+      row.appendChild(document.createTextNode("  "+p[1]));
+      pb.appendChild(row);
+    });
+    detail.appendChild(pb);
+  }
+  const rels=[];
+  E.forEach(e=>{
+    if(e.f===id) rels.push([e.type,"→ "+nmap[e.t].label]);
+    if(e.t===id) rels.push([e.type,"← "+nmap[e.f].label]);
+  });
+  if(rels.length){
+    const rb=mk("div","dt-rel");
+    rb.appendChild(mk("span","rhead","Edges"));
+    rels.forEach(r=>{
+      const row=mk("div");
+      row.appendChild(mk("span","ek",r[0]));
+      row.appendChild(document.createTextNode("  "+r[1]));
+      rb.appendChild(row);
+    });
+    detail.appendChild(rb);
+  }
+}
+
+const lg=document.getElementById("legend");
+Object.entries(NT).forEach(([k,v])=>{
+  const row=mk("div","lg-row");
+  const sw=mk("span","sw"); sw.style.background=v.c+"22"; sw.style.borderColor=v.c;
+  row.appendChild(sw);
+  const txt=mk("span");
+  const nm=mk("span","nm",k); nm.style.color=v.c;
+  txt.appendChild(nm); txt.appendChild(mk("br"));
+  txt.appendChild(mk("span","ds",v.desc));
+  row.appendChild(txt);
+  lg.appendChild(row);
+});
+const ek=document.getElementById("edgekey");
+Object.entries(ET).forEach(([k,v])=>{
+  const row=mk("div","ekrow");
+  row.appendChild(mk("span","ek",k));
+  row.appendChild(document.createTextNode("  "+v));
+  ek.appendChild(row);
+});
+
+detailEmpty();
+</script>
+</body>
+</html>
