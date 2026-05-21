@@ -13,8 +13,10 @@ dependencies = [
     "uvicorn[standard]>=0.30",
     "kuzu>=0.11",
     "pyyaml>=6.0",
+    "bcrypt>=4.1",
+    "pyjwt>=2.8",
 ]
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["sources*", "api*", "ingest*", "index*", "agent*", "graph*", "eval*"]
+include = ["sources*", "api*", "ingest*", "index*", "agent*", "graph*", "eval*", "auth*"]

@@ -1,0 +1,209 @@
+/* =====================================================================
+   POLILABS — Auth screen
+   The login / create-account gate. Uses the design tokens from
+   styles.css; loaded after it so the variables resolve.
+   ===================================================================== */
+
+.auth-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--canvas);
+  padding: var(--s-8) var(--s-5);
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 380px;
+  background: var(--panel);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: var(--s-9) var(--s-8) var(--s-8);
+  box-shadow: 0 1px 2px rgba(26, 26, 23, 0.04),
+              0 8px 28px rgba(26, 26, 23, 0.06);
+}
+
+.auth-eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--t-2xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+}
+
+.auth-brand {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: var(--t-3xl);
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-top: 6px;
+}
+
+.auth-tagline {
+  font-family: var(--font-serif);
+  font-size: var(--t-lg);
+  line-height: 1.5;
+  color: var(--ink-3);
+  margin-top: var(--s-3);
+  text-wrap: pretty;
+}
+
+/* ── Sign in / Create account tabs ───────────────────────────────── */
+.auth-tabs {
+  display: flex;
+  gap: 2px;
+  margin-top: var(--s-7);
+  background: var(--subtle);
+  border-radius: 7px;
+  padding: 3px;
+}
+.auth-tab {
+  flex: 1;
+  appearance: none;
+  border: 0;
+  cursor: pointer;
+  padding: 7px 10px;
+  border-radius: 5px;
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  letter-spacing: 0.02em;
+  color: var(--ink-3);
+}
+.auth-tab.is-active {
+  background: var(--panel);
+  color: var(--ink);
+  box-shadow: 0 1px 2px rgba(26, 26, 23, 0.08);
+}
+
+/* ── Form ────────────────────────────────────────────────────────── */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  margin-top: var(--s-6);
+}
+
+.auth-label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.auth-label > span {
+  font-family: var(--font-mono);
+  font-size: var(--t-2xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+}
+
+.auth-input {
+  font-family: var(--font-ui);
+  font-size: var(--t-md);
+  color: var(--ink);
+  background: var(--panel-2);
+  border: 1px solid var(--rule-strong);
+  border-radius: 6px;
+  padding: 9px 11px;
+  outline: none;
+  transition: border-color 0.12s ease, box-shadow 0.12s ease;
+}
+.auth-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+  background: var(--panel);
+}
+
+.auth-hint {
+  font-family: var(--font-mono);
+  font-size: var(--t-2xs);
+  color: var(--ink-4);
+  margin-top: -4px;
+}
+
+.auth-error {
+  font-family: var(--font-ui);
+  font-size: var(--t-sm);
+  line-height: 1.45;
+  color: var(--del);
+  background: var(--del-soft);
+  border: 1px solid color-mix(in oklab, var(--del), transparent 70%);
+  border-radius: 6px;
+  padding: 8px 10px;
+}
+
+.auth-submit {
+  appearance: none;
+  cursor: pointer;
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: var(--t-md);
+  letter-spacing: 0.01em;
+  padding: 10px 12px;
+  margin-top: 2px;
+  transition: background 0.12s ease;
+}
+.auth-submit:hover:not(:disabled) {
+  background: var(--accent-2);
+}
+.auth-submit:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+/* ── Mode switch line ────────────────────────────────────────────── */
+.auth-switch {
+  margin-top: var(--s-6);
+  text-align: center;
+  font-family: var(--font-ui);
+  font-size: var(--t-sm);
+  color: var(--ink-4);
+}
+.auth-switch button {
+  appearance: none;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+  font: inherit;
+  color: var(--accent);
+}
+.auth-switch button:hover {
+  text-decoration: underline;
+}
+
+/* ── Sign-out control in the app header ──────────────────────────── */
+.signout {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.signout .signout-user {
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  color: var(--ink-4);
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.signout-btn {
+  appearance: none;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  color: var(--ink-3);
+  background: var(--panel-2);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--r-xs, 4px);
+  padding: 3px 8px;
+}
+.signout-btn:hover {
+  color: var(--ink);
+  background: var(--subtle);
+}

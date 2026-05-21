@@ -11,6 +11,10 @@ data/polilabs.db-*
 data/polilabs.kuzu
 data/polilabs.kuzu.*
 data/polilabs.kuzu-*
+# Auth — user-accounts DB and the JWT signing secret. Never commit these.
+data/auth.db
+data/auth.db-*
+data/auth_secret.key
 eval/last_report.md
 # Local Claude Code state (worktrees + per-machine settings/hooks)
 .claude/

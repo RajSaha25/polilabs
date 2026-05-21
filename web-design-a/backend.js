@@ -25,18 +25,35 @@ window.POLILABS_BACKEND =
 (function () {
   const BACKEND = window.POLILABS_BACKEND;
 
+  // ── auth: every /chat and /api/* call carries the Bearer token ──────
+  function authHeaders() {
+    const token = window.PolilabsAuth && window.PolilabsAuth.getToken();
+    return token ? { Authorization: "Bearer " + token } : {};
+  }
+
+  // A 401 means the session token is missing/expired. Drop it and reload
+  // — Root (app.jsx) then falls back to the sign-in screen.
+  function handleUnauthorized() {
+    if (window.PolilabsAuth) window.PolilabsAuth.logout();
+    window.location.reload();
+  }
+
   // ── SSE: stream a chat turn from POST /chat ─────────────────────────
   async function streamChat(message, history, onEvent, signal) {
     let res;
     try {
       res = await fetch(BACKEND + "/chat", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", ...authHeaders() },
         body: JSON.stringify({ message, history: history || [] }),
         signal,
       });
     } catch (e) {
       onEvent({ type: "error", message: "request failed: " + e });
+      return;
+    }
+    if (res.status === 401) {
+      handleUnauthorized();
       return;
     }
     if (!res.ok || !res.body) {
@@ -72,7 +89,11 @@ window.POLILABS_BACKEND =
 
   // ── REST: GET /api/* helper ─────────────────────────────────────────
   async function apiGet(path) {
-    const res = await fetch(BACKEND + path);
+    const res = await fetch(BACKEND + path, { headers: authHeaders() });
+    if (res.status === 401) {
+      handleUnauthorized();
+      throw new Error("unauthorized");
+    }
     if (!res.ok) throw new Error("HTTP " + res.status + " for " + path);
     return res.json();
   }

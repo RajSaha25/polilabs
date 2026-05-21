@@ -99,6 +99,18 @@ The tools every driver shares. Each returns JSON with verbatim `provenance`.
 
 `make backend` starts a FastAPI server on `:8000` with **two access paths**: an SSE agent endpoint, and a read-only REST surface that hits the tools directly with no model turn (instant, no token cost).
 
+### Auth — per-user accounts
+
+The agent path and the REST surface are **login-only** — `/chat` spends Anthropic tokens on every call, so an anonymous caller must not reach it. Auth is self-hosted (`auth/`): accounts live in a standalone SQLite DB (`data/auth.db`), passwords are bcrypt-hashed, and sessions are stateless JWTs.
+
+| Endpoint | Body / auth | Returns |
+|---|---|---|
+| `POST /auth/signup` | `{email, password}` | `{token, user}` — creates an account |
+| `POST /auth/login` | `{email, password}` | `{token, user}` — exchanges credentials for a token |
+| `GET /auth/me` | `Authorization: Bearer <token>` | `{id, email}` — token probe |
+
+Send the token as `Authorization: Bearer <token>` on `/chat` and every `/api/*` request; a missing or expired token returns `401`. `/auth/*`, `/health`, `/coverage` and the test page at `/` stay public. Set `POLILABS_JWT_SECRET` in `.env` (see `.env.example`); if unset, a secret is generated and persisted to `data/auth_secret.key` on first run. Verify the auth surface with `python scripts/auth_smoke_test.py`.
+
 ### Agent path — `POST /chat` (Server-Sent Events)
 
 Body: `{ "message": str, "history": [{role, content}, …] }`. Streams the agent's run as SSE frames, each `data: {json}`:
@@ -131,7 +143,7 @@ Click or navigate to a bill and load its data deterministically, instantly, for 
 | `GET /health` | liveness + whether the DB and API key are configured |
 | `GET /` | `static/index.html` — a minimal test page that exercises `/chat` |
 
-Section IDs contain `::`, so they travel as **query params**, never path segments. CORS is open (`allow_origins=["*"]`) for dev — lock it to your origin before deploying anywhere public.
+Every `/api/*` route requires a Bearer token (see **Auth** above); `/health` and `/` do not. Section IDs contain `::`, so they travel as **query params**, never path segments. CORS is open (`allow_origins=["*"]`) for dev — lock it to your origin before deploying anywhere public.
 
 ### Building a frontend on it
 
