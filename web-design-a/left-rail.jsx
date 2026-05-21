@@ -1,59 +1,10 @@
 /* global React, Icon */
 // Polilabs — Left Rail
-// Top: ranked bill list. Middle: agent answer. Bottom: prompt input.
+// A conversation rail: a History list of past questions, the agent's
+// answer for the active question with its ranked source bills folded in,
+// and the prompt input pinned at the bottom.
 
-const { useState, useRef, useEffect } = React;
-
-// ── Relevance bar (8 segments) ─────────────────────────────────────────
-function Relevance({ value }) {
-  const filled = Math.round(value * 8);
-  return (
-    <span className="relevance" title={`relevance ${(value * 100).toFixed(0)}%`}>
-      <span className="bar">
-        {Array.from({ length: 8 }).map((_, i) => (
-          <span key={i} className={"seg" + (i < filled ? " on" : "")} />
-        ))}
-      </span>
-      <span>{(value * 100).toFixed(0)}</span>
-    </span>
-  );
-}
-
-// ── A single bill in the ranked list ───────────────────────────────────
-function BillItem({ bill, rank, selected, onClick, showRelevance, showMatches }) {
-  const tierClass = "chip tier-" + bill.tier;
-  return (
-    <button
-      type="button"
-      className="bill-item"
-      aria-selected={selected}
-      onClick={onClick}
-    >
-      <div className="b-head">
-        <span className="b-rank mono">#{String(rank).padStart(2, "0")}</span>
-        <span className="b-id mono">{bill.bill_id}</span>
-        <span style={{ flex: 1 }} />
-        {bill.tier ? <span className={tierClass}>Tier {bill.tier}</span> : null}
-      </div>
-      <div className="b-title">{bill.short}</div>
-      <div className="b-sponsor">
-        {bill.sponsor ? bill.sponsor + " · " : ""}{bill.congress}th Congress
-      </div>
-      {(showMatches && bill.matches?.length) ? (
-        <div className="b-meta">
-          {bill.matches.slice(0, 3).map((m) => (
-            <span className="chip match" key={m}>{m}</span>
-          ))}
-        </div>
-      ) : null}
-      {showRelevance && bill.relevance != null ? (
-        <div className="b-meta" style={{ marginTop: 8, justifyContent: "space-between" }}>
-          <Relevance value={bill.relevance} />
-        </div>
-      ) : null}
-    </button>
-  );
-}
+const { useState, useRef } = React;
 
 // ── Clickable bill citations ──────────────────────────────────────────
 // The agent names bills by number in its answer ("S. 3312", "H.R. 8516").
@@ -208,7 +159,48 @@ function AnswerStream({ blocks, streaming, bills, onSelectBill }) {
   );
 }
 
+// ── Ranked source bills — folded into the answer ──────────────────────
+// The bills the agent drew on, listed right under its answer. Clicking a
+// row opens that bill in the viewer; the row matching the open bill is
+// marked. This replaces the old standalone "Sources" panel.
+function SourceRow({ bill, rank, selected, onClick }) {
+  // bill.short is often just the bill number again when the tool result
+  // carried no short_title — don't print the identifier twice.
+  const title = bill.short && bill.short !== bill.bill_id ? bill.short : "";
+  return (
+    <button type="button" className="source-row" aria-selected={selected} onClick={onClick}>
+      <span className="sr-rank mono">#{String(rank).padStart(2, "0")}</span>
+      <span className="sr-id mono">{bill.bill_id}</span>
+      <span className="sr-title">{title}</span>
+      <span className="sr-cong mono">{bill.congress ? bill.congress + "th" : ""}</span>
+    </button>
+  );
+}
+
+function SourceList({ bills, selectedId, onSelect }) {
+  if (!bills || !bills.length) return null;
+  return (
+    <div className="source-list">
+      <div className="source-list-head">
+        <span>Sources</span>
+        <span className="count mono">{bills.length} ranked</span>
+      </div>
+      {bills.map((b, i) => (
+        <SourceRow
+          key={b.id}
+          bill={b}
+          rank={i + 1}
+          selected={b.id === selectedId}
+          onClick={() => onSelect(b.id)}
+        />
+      ))}
+    </div>
+  );
+}
+
 // ── Prompt input ──────────────────────────────────────────────────────
+// Enter submits; Shift+Enter inserts a newline. No send button — the
+// keystroke is the only affordance, so the input stays uncluttered.
 function PromptInput({ value, onChange, onSubmit, onPreset, presets, disabled }) {
   const ref = useRef(null);
   const [showPresets, setShowPresets] = useState(false);
@@ -221,9 +213,9 @@ function PromptInput({ value, onChange, onSubmit, onPreset, presets, disabled })
           placeholder="Ask anything across 191 federal AI-governance bills…"
           onChange={(e) => onChange(e.target.value)}
           onKeyDown={(e) => {
-            if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) {
+            if (e.key === "Enter" && !e.shiftKey) {
               e.preventDefault();
-              onSubmit();
+              if (!disabled && value.trim()) onSubmit();
             }
           }}
           disabled={disabled}
@@ -233,15 +225,9 @@ function PromptInput({ value, onChange, onSubmit, onPreset, presets, disabled })
           <span className="scope mono">
             <Icon name="scope" size={11} /> 118th–119th · all chambers
           </span>
-          <button
-            type="button"
-            className="prompt-send accent"
-            onClick={onSubmit}
-            disabled={disabled || !value.trim()}
-            style={{ opacity: !value.trim() ? 0.4 : 1 }}
-          >
-            Ask <span className="k">⌘↵</span>
-          </button>
+          <span className="prompt-hint mono">
+            {disabled ? "working…" : "↵ to send · ⇧↵ newline"}
+          </span>
         </div>
       </div>
       {!value.trim() && presets?.length ? (
@@ -275,79 +261,27 @@ function LeftRail({
   bills, turns, activeTurnId, onSelectTurn,
   question, answerBlocks, planText, selectedId, onSelect,
   streaming, promptValue, setPromptValue, onSubmit, onPreset, presets,
-  showRelevance, showMatches, sourcesMatched, error,
+  error,
 }) {
-  const listRef = useRef(null);
   const answerRef = useRef(null);
-  const railRef = useRef(null);
-
-  // Drag-resizable Sources / Answer split (vertical, within the rail).
-  const [sourcesH, setSourcesH] = useState(208);
-  const onSourcesResize = (e) => {
-    e.preventDefault();
-    const move = (ev) => {
-      const r = railRef.current && railRef.current.getBoundingClientRect();
-      if (!r) return;
-      setSourcesH(Math.max(140, Math.min(r.height - 300, ev.clientY - r.top)));
-    };
-    const up = () => {
-      window.removeEventListener("pointermove", move);
-      window.removeEventListener("pointerup", up);
-      document.body.style.cursor = "";
-      document.body.style.userSelect = "";
-    };
-    document.body.style.cursor = "row-resize";
-    document.body.style.userSelect = "none";
-    window.addEventListener("pointermove", move);
-    window.addEventListener("pointerup", up);
-  };
+  const hasHistory = (turns || []).length > 1;
 
   return (
-    <aside className="rail" ref={railRef} style={{ "--sources-h": sourcesH + "px" }}>
-      {/* — Sources — */}
-      <section className="rail-section" style={{ minHeight: 0 }}>
-        <header className="rail-head">
-          <span>Sources <span style={{ color: "var(--ink-3)", marginLeft: 6 }}>· ranked</span></span>
-          <span className="count mono">
-            {sourcesMatched} <span style={{ color: "var(--ink-4)" }}>/ 191</span>
-          </span>
-        </header>
-        <div className="bill-list scroll" ref={listRef}>
-          {bills.map((b, i) => (
-            <BillItem
-              key={b.id}
-              bill={b}
-              rank={i + 1}
-              selected={b.id === selectedId}
-              onClick={() => onSelect(b.id)}
-              showRelevance={showRelevance}
-              showMatches={showMatches}
-            />
-          ))}
-        </div>
-      </section>
-
-      <div className="rail-vresizer" onPointerDown={onSourcesResize}
-           title="Drag to resize" />
-
-      {/* — Agent answer — */}
-      <section className="rail-section" style={{ minHeight: 0 }}>
-        <header className="rail-head">
-          <span>Answer</span>
-          <span className="count mono">
-            <span style={{ color: streaming ? "var(--ink-4)" : "var(--verified)" }}>●</span>
-            {streaming ? " streaming" : " from backend"}
-          </span>
-        </header>
-        {/* Recent queries — every past question stays reachable; a new
-            prompt no longer discards the previous answer and bills. */}
-        {turns && turns.length > 1 ? (
-          <div className="recent-queries">
+    <aside className="rail">
+      {/* — History — every past question stays reachable; asking a new
+          one no longer discards the previous answer. — */}
+      {hasHistory ? (
+        <section className="rail-history">
+          <header className="rail-head">
+            <span>History</span>
+            <span className="count mono">{turns.length}</span>
+          </header>
+          <div className="history-list scroll">
             {turns.slice().reverse().map((t) => (
               <button
                 key={t.id}
                 type="button"
-                className={"recent-q" + (t.id === activeTurnId ? " active" : "")}
+                className={"history-q" + (t.id === activeTurnId ? " active" : "")}
                 onClick={() => onSelectTurn(t.id)}
                 title={t.question}
               >
@@ -355,7 +289,18 @@ function LeftRail({
               </button>
             ))}
           </div>
-        ) : null}
+        </section>
+      ) : null}
+
+      {/* — Agent answer + the ranked sources it used — */}
+      <section className="rail-answer">
+        <header className="rail-head">
+          <span>Answer</span>
+          <span className="count mono">
+            <span style={{ color: streaming ? "var(--ink-4)" : "var(--verified)" }}>●</span>
+            {streaming ? " streaming" : " from backend"}
+          </span>
+        </header>
         <div className="answer-wrap scroll" ref={answerRef}>
           {error ? (
             <div style={{
@@ -381,6 +326,7 @@ function LeftRail({
           <AnswerPlan text={planText} />
           <AnswerStream blocks={answerBlocks} streaming={streaming}
             bills={bills} onSelectBill={onSelect} />
+          <SourceList bills={bills} selectedId={selectedId} onSelect={onSelect} />
         </div>
       </section>
 
