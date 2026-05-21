@@ -86,7 +86,7 @@
   --header-ink-dim: #a7b1cf;   /* secondary text on the navy bar */
   --header-rule:    #0e1838;   /* hairline under the header */
   --rail-bg:        #ebe8e0;   /* left rail — recessed warm gray */
-  --decomp-bg:      #e6e9f1;   /* Decomp panel — cool blue-gray, reads as data */
+  --decomp-bg:      #edeae3;   /* Decomp panel — warm neutral gray, no blue cast */
 
   /* ── Layout ──────────────────────────────────────────────────────── */
   --rail-w:        360px;
@@ -145,7 +145,7 @@
   --header-ink-dim: #828ba6;
   --header-rule:    #05070f;
   --rail-bg:        #121511;
-  --decomp-bg:      #14171c;
+  --decomp-bg:      #161410;
 }
 
 /* =====================================================================

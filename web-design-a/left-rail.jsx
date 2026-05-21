@@ -4,7 +4,7 @@
 // answer for the active question with its ranked source bills folded in,
 // and the prompt input pinned at the bottom.
 
-const { useState, useRef } = React;
+const { useState, useRef, useEffect } = React;
 
 // ── Clickable bill citations ──────────────────────────────────────────
 // The agent names bills by number in its answer ("S. 3312", "H.R. 8516").
@@ -264,7 +264,15 @@ function LeftRail({
   error,
 }) {
   const answerRef = useRef(null);
+  const historyRef = useRef(null);
   const hasHistory = (turns || []).length > 1;
+
+  // History runs oldest → newest, so a new question lands at the bottom
+  // (standard chat order). Keep that newest entry in view.
+  useEffect(() => {
+    const el = historyRef.current;
+    if (el) el.scrollTop = el.scrollHeight;
+  }, [(turns || []).length]);
 
   return (
     <aside className="rail">
@@ -276,8 +284,8 @@ function LeftRail({
             <span>History</span>
             <span className="count mono">{turns.length}</span>
           </header>
-          <div className="history-list scroll">
-            {turns.slice().reverse().map((t) => (
+          <div className="history-list scroll" ref={historyRef}>
+            {turns.map((t) => (
               <button
                 key={t.id}
                 type="button"
