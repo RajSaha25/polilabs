@@ -1,0 +1,13 @@
+# Railway deploy config for the polilabs backend.
+# Railway auto-detects the Dockerfile; this pins the build to it and sets a
+# runtime healthcheck on the FastAPI /health route.
+
+[build]
+builder = "dockerfile"
+dockerfilePath = "Dockerfile"
+
+[deploy]
+healthcheckPath = "/health"
+healthcheckTimeout = 120
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 3

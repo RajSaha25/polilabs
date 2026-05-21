@@ -1,0 +1,40 @@
+# Build context trim for the backend image (see Dockerfile).
+# Keep: server.py, mcp_server.py, the Python packages, scripts/, static/,
+#       and data/corpus/ (the source of truth the indexes are built from).
+
+# VCS + local virtualenv
+.git
+.gitignore
+.venv
+
+# Python caches / build artifacts
+**/__pycache__
+*.pyc
+*.egg-info
+polilabs.egg-info
+
+# Frontends — not part of the backend image (deployed separately to Vercel)
+web
+web-design-a
+
+# Prebuilt indexes — rebuilt inside the image from data/corpus/
+data/polilabs.db
+data/polilabs.db-shm
+data/polilabs.db-wal
+data/polilabs.kuzu
+data/polilabs.kuzu*
+
+# Corpus fetch staging — only data/corpus/ is needed at build time
+data/candidates
+
+# Secrets — supplied as host env vars at runtime, never baked in
+.env
+
+# Non-runtime material
+eval
+research
+docs
+graphify-out
+.DS_Store
+**/.DS_Store
+.claude
