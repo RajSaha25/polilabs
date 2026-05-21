@@ -1217,14 +1217,18 @@ def find_bills_defining(
         primary_where.append("d.definition_type = $deftype")
         params["deftype"] = definition_type
 
+    # Scan DefinedTerm directly and match the bill by id prefix — every
+    # defining_section_id is the bill's URN id + "::" + a hash, so the
+    # bill is found without an unbounded HAS_SECTION|PARENT_OF* tree walk
+    # (measured ~4.5 s -> ~10 ms per call, byte-identical rows).
     if by_reference_to:
         # Inner-join on StatuteSection when the caller asked for a
         # specific target — turns OPTIONAL into required.
         cypher = f"""
-        MATCH (b:Bill)-[:HAS_VERSION]->(:BillVersion)
-              -[:HAS_SECTION|PARENT_OF*]->(s:Section)-[:DEFINES]->(d:DefinedTerm)
-              -[:BY_REFERENCE]->(t:StatuteSection {{statute_section_id: $statute_sid}})
+        MATCH (d:DefinedTerm)-[:BY_REFERENCE]->(t:StatuteSection {{statute_section_id: $statute_sid}})
         WHERE {' AND '.join(primary_where)}
+        MATCH (b:Bill) WHERE starts_with(d.defining_section_id, concat(b.bill_id, '::'))
+        OPTIONAL MATCH (s:Section {{section_id: d.defining_section_id}})
         RETURN DISTINCT b.bill_id, b.short_title, b.official_title, b.congress,
                d.surface_form, d.defining_section_id, s.canonical_citation,
                d.definition_type, t.statute_section_id, t.canonical_citation
@@ -1232,9 +1236,10 @@ def find_bills_defining(
         """
     else:
         cypher = f"""
-        MATCH (b:Bill)-[:HAS_VERSION]->(:BillVersion)
-              -[:HAS_SECTION|PARENT_OF*]->(s:Section)-[:DEFINES]->(d:DefinedTerm)
+        MATCH (d:DefinedTerm)
         WHERE {' AND '.join(primary_where)}
+        MATCH (b:Bill) WHERE starts_with(d.defining_section_id, concat(b.bill_id, '::'))
+        OPTIONAL MATCH (s:Section {{section_id: d.defining_section_id}})
         OPTIONAL MATCH (d)-[:BY_REFERENCE]->(t:StatuteSection)
         RETURN DISTINCT b.bill_id, b.short_title, b.official_title, b.congress,
                d.surface_form, d.defining_section_id, s.canonical_citation,
@@ -1289,10 +1294,12 @@ def find_bills_amending(statute_section_id: str) -> BillsAmendingResult:
             bills=[], total=0, coverage_note="graph store unavailable",
         )
     sid = _normalize_statute_id(statute_section_id)
+    # a.source_section_id already identifies the issuing bill section, so
+    # matching the bill by id prefix replaces an unbounded
+    # HAS_SECTION|PARENT_OF* tree walk (measured ~4 s -> ~4 ms).
     cypher = """
-    MATCH (b:Bill)-[:HAS_VERSION]->(:BillVersion)
-          -[:HAS_SECTION|PARENT_OF*]->(:Section)-[:AMENDS]->(a:AmendmentOperation)
-          -[:TARGETS]->(t:StatuteSection {statute_section_id: $sid})
+    MATCH (a:AmendmentOperation)-[:TARGETS]->(t:StatuteSection {statute_section_id: $sid})
+    MATCH (b:Bill) WHERE starts_with(a.source_section_id, concat(b.bill_id, '::'))
     RETURN b.bill_id, b.short_title, b.official_title, b.congress,
            COUNT(DISTINCT a) AS n_ops,
            COLLECT(DISTINCT a.operation_type) AS op_types,
@@ -1341,11 +1348,14 @@ def find_definitions_of(term: str) -> DefinitionsAcrossCorpusResult:
             direct_count=0, by_reference_count=0,
             coverage_note="graph store unavailable",
         )
+    # Scan DefinedTerm directly and match the bill by id prefix — avoids
+    # an unbounded HAS_SECTION|PARENT_OF* tree walk (~4 s -> ~5 ms).
     # WHERE before OPTIONAL MATCH so the filter actually applies.
     cypher = """
-    MATCH (b:Bill)-[:HAS_VERSION]->(:BillVersion)
-          -[:HAS_SECTION|PARENT_OF*]->(s:Section)-[:DEFINES]->(d:DefinedTerm)
+    MATCH (d:DefinedTerm)
     WHERE toLower(d.surface_form) = toLower($term)
+    MATCH (b:Bill) WHERE starts_with(d.defining_section_id, concat(b.bill_id, '::'))
+    OPTIONAL MATCH (s:Section {section_id: d.defining_section_id})
     OPTIONAL MATCH (d)-[:BY_REFERENCE]->(t:StatuteSection)
     RETURN DISTINCT b.bill_id, b.short_title, b.congress,
            s.canonical_citation, d.definition_type, d.definition_text,
