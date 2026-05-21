@@ -262,14 +262,47 @@ function App() {
 
   const onPreset = (text) => setPrompt(text);
 
-  // ── load a bill's full detail on selection ─────────────────────────
+  // ── load a bill's detail on selection (two stages) ─────────────────
+  // Stage 1: /sections (~15ms) → the verbatim Text panel renders at once.
+  // Stage 2: defined_terms + amendments (~10s graph queries) load in the
+  // background and patch in; the Decomp tabs show a loading state until.
   useEffect(() => {
     if (!selectedId || billDetail[selectedId]) return;
     let cancelled = false;
-    B.loadBillDetail(selectedId).then((d) => {
-      if (!cancelled) setBillDetail((prev) => ({ ...prev, [selectedId]: d }));
+    B.loadBillText(selectedId).then((base) => {
+      if (cancelled) return;
+      setBillDetail((prev) => ({ ...prev, [selectedId]: base }));
+      return B.loadBillExtras(selectedId, base._tree);
+    }).then((extras) => {
+      if (cancelled || !extras) return;
+      setBillDetail((prev) => {
+        const cur = prev[selectedId];
+        if (!cur) return prev;
+        return {
+          ...prev,
+          [selectedId]: {
+            ...cur,
+            definitions: extras.definitions,
+            amendments: extras.amendments,
+            structure: {
+              ...cur.structure,
+              stats: {
+                ...cur.structure.stats,
+                definitions: extras.definitions.length,
+                amendments: extras.amendments.length,
+              },
+            },
+          },
+        };
+      });
     }).catch(() => {
-      if (!cancelled) setBillDetail((prev) => ({ ...prev, [selectedId]: { text: [], structure: { sections: [], stats: { sections: 0, definitions: 0, amendments: 0, citations: 0 } }, definitions: [], amendments: [], citations: [], _tree: { sections: [] } } }));
+      if (cancelled) return;
+      setBillDetail((prev) => {
+        const cur = prev[selectedId];
+        // text loaded but extras failed → show empty, not perpetual spinner
+        if (cur) return { ...prev, [selectedId]: { ...cur, definitions: [], amendments: [] } };
+        return { ...prev, [selectedId]: { text: [], structure: { sections: [], stats: { sections: 0, definitions: 0, amendments: 0, citations: 0 } }, definitions: [], amendments: [], citations: [], _tree: { sections: [] } } };
+      });
     });
     return () => { cancelled = true; };
   }, [selectedId]);

@@ -411,30 +411,44 @@ window.POLILABS_BACKEND =
     return groups;
   }
 
-  // ── Load a bill's full detail (Text + Structure + Definition + Amend) ─
-  async function loadBillDetail(billId) {
-    const [treeR, defsR, amsR] = await Promise.allSettled([
-      apiGet("/api/bill/" + encodeURIComponent(billId) + "/sections"),
-      apiGet("/api/bill/" + encodeURIComponent(billId) + "/defined_terms"),
-      apiGet("/api/bill/" + encodeURIComponent(billId) + "/amendments"),
-    ]);
-    const tree = treeR.status === "fulfilled" ? treeR.value : { sections: [] };
-    const defs = defsR.status === "fulfilled" ? mapDefinitions(defsR.value, tree) : [];
-    const ams = amsR.status === "fulfilled" ? mapAmendments(amsR.value) : [];
+  // ── Load a bill's detail in two stages ───────────────────────────────
+  // The Text panel only needs /sections (~15ms). defined_terms and
+  // amendments are slow graph queries (~10s each on a large bill), so
+  // they are fetched SEPARATELY and must not block the verbatim text.
+  async function loadBillText(billId) {
+    let tree;
+    try {
+      tree = await apiGet("/api/bill/" + encodeURIComponent(billId) + "/sections");
+    } catch (e) {
+      tree = { sections: [] };
+    }
     const text = sectionsTreeToText(tree);
     const structure = sectionsTreeToStructure(tree, {
       sections: text.length,
-      definitions: defs.length,
-      amendments: ams.length,
+      definitions: null,      // null = not loaded yet (vs 0 = none)
+      amendments: null,
       citations: 0,
     });
     return {
       _tree: tree,            // kept for lazy citation fetch
       text: text,
       structure: structure,
-      definitions: defs,
-      amendments: ams,
+      definitions: null,      // null = still loading; [] = loaded, none
+      amendments: null,
       citations: null,        // lazily filled when Citation mode opens
+    };
+  }
+
+  // The slow half — defined terms + amendments. Loaded in the background
+  // once the text is already on screen.
+  async function loadBillExtras(billId, tree) {
+    const [defsR, amsR] = await Promise.allSettled([
+      apiGet("/api/bill/" + encodeURIComponent(billId) + "/defined_terms"),
+      apiGet("/api/bill/" + encodeURIComponent(billId) + "/amendments"),
+    ]);
+    return {
+      definitions: defsR.status === "fulfilled" ? mapDefinitions(defsR.value, tree) : [],
+      amendments: amsR.status === "fulfilled" ? mapAmendments(amsR.value) : [],
     };
   }
 
@@ -445,7 +459,8 @@ window.POLILABS_BACKEND =
     apiGet: apiGet,
     prettyBillId: prettyBillId,
     billsFromToolResults: billsFromToolResults,
-    loadBillDetail: loadBillDetail,
+    loadBillText: loadBillText,
+    loadBillExtras: loadBillExtras,
     fetchCitationGroups: fetchCitationGroups,
   };
 })();

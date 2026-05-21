@@ -31,8 +31,22 @@ function ModeTabs({ mode, onChange, counts }) {
   );
 }
 
+// Shown while the slow defined_terms / amendments queries are in flight.
+function DecompLoading({ num, label }) {
+  return (
+    <div className="decomp-body">
+      <div className="dc-section-head">
+        <span className="num">{num}</span>
+        <span className="title">{label}</span>
+      </div>
+      <div className="dc-loading"><span className="spinner" /> Loading {label.toLowerCase()}…</div>
+    </div>
+  );
+}
+
 // ── Definition mode ──────────────────────────────────────────────────
 function DefinitionMode({ bill, activeAnchor, onSelect }) {
+  if (bill.definitions == null) return <DecompLoading num="DEFINED" label="Defined terms" />;
   return (
     <div className="decomp-body">
       <div className="dc-section-head">
@@ -82,6 +96,7 @@ function DefinitionMode({ bill, activeAnchor, onSelect }) {
 
 // ── Amendment mode ───────────────────────────────────────────────────
 function AmendmentMode({ bill, activeAnchor, onSelect }) {
+  if (bill.amendments == null) return <DecompLoading num="EDITS" label="Statutory amendments" />;
   return (
     <div className="decomp-body">
       <div className="dc-section-head">
@@ -269,11 +284,11 @@ function StructureMode({ bill, activeAnchor, onSelect }) {
           <span className="l">sections</span>
         </div>
         <div className="s-stat">
-          <span className="v">{stats.definitions}</span>
+          <span className="v">{stats.definitions ?? "·"}</span>
           <span className="l">definitions</span>
         </div>
         <div className="s-stat">
-          <span className="v">{stats.amendments}</span>
+          <span className="v">{stats.amendments ?? "·"}</span>
           <span className="l">amendments</span>
         </div>
         <div className="s-stat">
@@ -291,8 +306,8 @@ function DecompPanel({ bill, mode, setMode, activeAnchor, onSelect }) {
 
   const counts = {
     structure:  bill.structure?.sections?.length ?? 0,
-    definition: bill.definitions?.length ?? 0,
-    amendment: bill.amendments?.length ?? 0,
+    definition: bill.definitions == null ? "·" : bill.definitions.length,
+    amendment:  bill.amendments == null ? "·" : bill.amendments.length,
     citation:   bill.citations?.reduce((n, g) => n + g.items.length, 0) ?? 0,
   };
 

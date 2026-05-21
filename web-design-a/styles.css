@@ -1336,6 +1336,24 @@ input, textarea { font: inherit; color: inherit; }
 .loading-banner .step { color: var(--accent-ink); opacity: 0.6; }
 .loading-banner .step.now { opacity: 1; font-weight: 500; }
 
+/* Decomp tab loading row — defined terms / amendments still in flight */
+.dc-loading {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-5);
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  color: var(--ink-4);
+}
+.dc-loading .spinner {
+  width: 12px; height: 12px;
+  border: 1.5px solid var(--rule-strong);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 700ms linear infinite;
+}
+
 /* =====================================================================
    Empty state
    ===================================================================== */
