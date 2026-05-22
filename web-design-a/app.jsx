@@ -136,6 +136,65 @@ const PRESETS = [
   "What’s NOT in this corpus?",
 ];
 
+// ── Landing ───────────────────────────────────────────────────────────
+// Reached by clicking the polilabs wordmark: a quiet mission page plus
+// this session's research history.
+function Landing({ turns, onOpenTurn, onStart }) {
+  return (
+    <div className="landing">
+      <div className="landing-inner">
+        <section className="landing-hero">
+          <div className="landing-eyebrow mono">
+            U.S. federal AI-governance legislation · 118th–119th Congress
+          </div>
+          <h1>Read the law, not a summary of it.</h1>
+          <p className="landing-lede">
+            polilabs is a citation-accurate research instrument for U.S.
+            federal AI-governance legislation. Every answer is grounded in
+            verbatim bill text and mechanically-extracted structure —
+            definitions, amendments, citations — with no paraphrase and no
+            added interpretation. If it is not in the bill, polilabs does
+            not say it.
+          </p>
+          <div className="landing-actions">
+            <button type="button" className="landing-cta" onClick={onStart}>
+              Open the workspace →
+            </button>
+          </div>
+          <div className="landing-facts mono">
+            <span><b>191</b> bills</span>
+            <span className="landing-dot">·</span>
+            <span><b>118th–119th</b> Congress</span>
+            <span className="landing-dot">·</span>
+            <span>citation-accurate, no hallucination</span>
+          </div>
+        </section>
+
+        {turns && turns.length ? (
+          <section className="landing-history">
+            <div className="landing-section-head mono">
+              Recent research · this session
+            </div>
+            <div className="landing-history-list">
+              {turns.slice().reverse().map((t) => (
+                <button
+                  key={t.id}
+                  type="button"
+                  className="landing-history-item"
+                  onClick={() => onOpenTurn(t.id)}
+                  title={t.question}
+                >
+                  {t.question}
+                </button>
+              ))}
+            </div>
+          </section>
+        ) : null}
+      </div>
+    </div>
+  );
+}
+
 // ── App ───────────────────────────────────────────────────────────────
 function App({ onSignOut }) {
   const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
@@ -349,6 +408,10 @@ function App({ onSignOut }) {
     );
   }
 
+  // 'workspace' (the three-pane tool) or 'landing' (the mission page,
+  // reached by clicking the wordmark).
+  const [view, setView] = useState("workspace");
+
   const questionObj = {
     text: turn ? turn.question : "",
     sources_total: 191,
@@ -359,10 +422,10 @@ function App({ onSignOut }) {
     <div className="app" style={{ "--rail-w": railW + "px" }}>
       <header className="app-header">
         <div className="brand">
-          <div className="brand-name">polilabs</div>
+          <button type="button" className="brand-name" title="polilabs home"
+                  onClick={() => setView("landing")}>polilabs</button>
         </div>
         <div className="header-tools">
-          <div className="stat mono"><b>191</b> bills · 118th–119th Congress</div>
           {streaming && <div className="stat mono">agent working…</div>}
           <div className="signout">
             <span className="signout-user">
@@ -375,35 +438,45 @@ function App({ onSignOut }) {
         </div>
       </header>
 
-      <div className="rail-resizer" style={{ left: railW }} onPointerDown={onRailResize}
-           title="Drag to resize the rail" />
+      {view === "landing" ? (
+        <Landing
+          turns={turns}
+          onOpenTurn={(id) => { setActiveId(id); setView("workspace"); }}
+          onStart={() => setView("workspace")}
+        />
+      ) : (
+        <React.Fragment>
+          <div className="rail-resizer" style={{ left: railW }} onPointerDown={onRailResize}
+               title="Drag to resize the rail" />
 
-      <LeftRail
-        bills={bills}
-        turns={turns}
-        activeTurnId={activeId}
-        onSelectTurn={setActiveId}
-        question={questionObj}
-        sourcesMatched={bills.length}
-        answerBlocks={answerBlocks}
-        planText={turn ? turn.planText : ""}
-        selectedId={selectedId}
-        onSelect={(id) => {
-          const i = bills.findIndex((b) => b.id === id);
-          if (i >= 0) setBillIdx(i);
-        }}
-        streaming={streaming}
-        promptValue={prompt}
-        setPromptValue={setPrompt}
-        onSubmit={onSubmit}
-        onPreset={onPreset}
-        presets={PRESETS.slice(0, 2)}
-        showRelevance={tweaks.showRelevance}
-        showMatches={tweaks.showMatches}
-        error={turn ? turn.error : null}
-      />
+          <LeftRail
+            bills={bills}
+            turns={turns}
+            activeTurnId={activeId}
+            onSelectTurn={setActiveId}
+            question={questionObj}
+            sourcesMatched={bills.length}
+            answerBlocks={answerBlocks}
+            planText={turn ? turn.planText : ""}
+            selectedId={selectedId}
+            onSelect={(id) => {
+              const i = bills.findIndex((b) => b.id === id);
+              if (i >= 0) setBillIdx(i);
+            }}
+            streaming={streaming}
+            promptValue={prompt}
+            setPromptValue={setPrompt}
+            onSubmit={onSubmit}
+            onPreset={onPreset}
+            presets={PRESETS.slice(0, 2)}
+            showRelevance={tweaks.showRelevance}
+            showMatches={tweaks.showMatches}
+            error={turn ? turn.error : null}
+          />
 
-      {stage}
+          {stage}
+        </React.Fragment>
+      )}
 
       <footer className="app-footer">
         <span><span className="dot" /> backend connected</span>
