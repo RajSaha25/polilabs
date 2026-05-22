@@ -362,7 +362,6 @@ function App({ onSignOut }) {
           <div className="brand-name">polilabs</div>
         </div>
         <div className="header-tools">
-          <div className="stat mono"><b>191</b> bills · 118th–119th Congress</div>
           {streaming && <div className="stat mono">agent working…</div>}
           <div className="signout">
             <span className="signout-user">
