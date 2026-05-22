@@ -114,12 +114,13 @@ class ChatRequest(BaseModel):
 
 
 def _to_anthropic_history(history: list[ChatMessageIn]) -> list[dict]:
-    """Drop assistant text from the history — re-sending raw assistant turns
-    without their matching tool_use/tool_result block pairs would 400 the API.
-    Keeping user turns preserves conversational context; Claude re-calls
-    tools as needed each turn.
+    """Replay the conversation so far. The frontend sends each prior turn
+    as a user question + a plain-text assistant answer (no tool_use
+    blocks), so both roles replay to the API cleanly — and a follow-up
+    question keeps the context of earlier turns.
     """
-    return [{"role": m.role, "content": m.content} for m in history if m.role == "user"]
+    return [{"role": m.role, "content": m.content} for m in history
+            if m.role in ("user", "assistant") and (m.content or "").strip()]
 
 
 def _sse(event: dict[str, Any]) -> str:

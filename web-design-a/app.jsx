@@ -173,7 +173,7 @@ function App({ onSignOut }) {
   const [textFrac, setTextFrac] = useState(0.5);
   const onRailResize = (e) => {
     e.preventDefault();
-    const move = (ev) => setRailW(Math.max(300, Math.min(640, ev.clientX)));
+    const move = (ev) => setRailW(Math.max(360, Math.min(640, ev.clientX)));
     const up = () => {
       window.removeEventListener("pointermove", move);
       window.removeEventListener("pointerup", up);
@@ -228,14 +228,22 @@ function App({ onSignOut }) {
 
     const collected = [];
 
-    // Send an EMPTY history: the backend's _to_anthropic_history keeps
-    // only user turns and drops every assistant turn, so passing prior
-    // turns would hand Claude a run of unanswered user questions and it
-    // would answer all of them. Each question is answered on its own.
+    // Carry the conversation so far — every prior question with its
+    // answer — so a follow-up ("how does that bill relate to…") keeps
+    // context. Assistant turns are plain answer text (no tool_use
+    // blocks), so they replay to the API cleanly.
+    const history = [];
+    for (const t of turns) {
+      if (t.question && t.answerText) {
+        history.push({ role: "user", content: t.question });
+        history.push({ role: "assistant", content: t.answerText });
+      }
+    }
+
     const segments = [""];
     let sawTool = false;
 
-    B.streamChat(q, [], (ev) => {
+    B.streamChat(q, history, (ev) => {
       if (ev.type === "text") {
         if (sawTool) { segments.push(""); sawTool = false; }
         segments[segments.length - 1] += ev.delta || "";
