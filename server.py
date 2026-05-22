@@ -41,6 +41,8 @@ import json
 import os
 import re
 import sys
+import time
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -128,6 +130,76 @@ def _sse(event: dict[str, Any]) -> str:
     return f"data: {json.dumps(event, default=str)}\n\n"
 
 
+# ---- latency instrumentation ----
+#
+# A /chat turn is an agentic loop: the model is called, it may call
+# tools, then it is called again, until it produces a final answer.
+# Wall-clock latency therefore splits into (a) LLM round-trips and
+# (b) tool execution (SQLite FTS5 + Kùzu graph). This block measures
+# that split per turn so we can see which one dominates, rather than
+# guessing. One JSONL row per turn lands in data/traces/<date>.jsonl;
+# a one-line summary also goes to stderr. Read-only — it changes no
+# tool result and no SSE payload shape.
+
+_TRACE_DIR = Path(__file__).resolve().parent / "data" / "traces"
+
+
+def _usage_of(msg: Any) -> dict[str, Any]:
+    """Extract token usage from one runner message (defensively)."""
+    u = getattr(msg, "usage", None)
+    if u is None:
+        return {}
+    return {
+        "input": getattr(u, "input_tokens", None),
+        "output": getattr(u, "output_tokens", None),
+        "cache_read": getattr(u, "cache_read_input_tokens", None),
+        "cache_creation": getattr(u, "cache_creation_input_tokens", None),
+    }
+
+
+def _write_trace(
+    req: "ChatRequest",
+    t_start: float,
+    iterations: list[dict],
+    tool_timings: list[dict],
+    error: str | None = None,
+) -> None:
+    """Append one turn's latency trace to data/traces/<date>.jsonl and
+    log a one-line summary to stderr. Never raises — instrumentation
+    must not break a turn."""
+    total_ms = (time.perf_counter() - t_start) * 1000.0
+    llm_ms = sum(it["llm_ms"] for it in iterations)
+    tool_ms = sum(t["ms"] for t in tool_timings)
+    trace = {
+        "ts": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "message_chars": len(req.message or ""),
+        "history_turns": len(req.history),
+        "total_ms": round(total_ms, 1),
+        "n_iterations": len(iterations),
+        "n_tool_calls": len(tool_timings),
+        "llm_ms_total": round(llm_ms, 1),
+        "tool_ms_total": round(tool_ms, 1),
+        "iterations": iterations,
+        "tool_calls": tool_timings,
+    }
+    if error:
+        trace["error"] = error
+    print(
+        f"[/chat trace] total={total_ms:.0f}ms llm={llm_ms:.0f}ms "
+        f"tools={tool_ms:.0f}ms iterations={len(iterations)} "
+        f"tool_calls={len(tool_timings)}"
+        + (f" error={error}" if error else ""),
+        file=sys.stderr,
+    )
+    try:
+        _TRACE_DIR.mkdir(parents=True, exist_ok=True)
+        day = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+        with open(_TRACE_DIR / f"{day}.jsonl", "a") as f:
+            f.write(json.dumps(trace, default=str) + "\n")
+    except OSError as e:
+        print(f"[/chat trace] could not write trace file: {e}", file=sys.stderr)
+
+
 def _friendly_error(exc: Exception) -> str:
     """Map an exception to a short, human-readable message for the UI.
 
@@ -171,83 +243,92 @@ def _stream_chat(req: ChatRequest):
 
     # Per-request capture of every tool call's structured result.
     recorded: list[dict] = []
+    # Parallel per-tool wall-clock timings, kept separate from `recorded`
+    # so the tool_result SSE payload shape stays byte-identical.
+    tool_timings: list[dict] = []
 
-    def _capture(name: str, args: dict, out: str) -> str:
-        """Parse a tool's JSON-string output and record (name, args, result)."""
+    def _run_tool(name: str, args: dict, fn: Any) -> str:
+        """Execute a tool callable, time it, and record its result plus
+        its wall-clock duration. `fn` is a zero-arg callable so the timer
+        brackets only the real tool work."""
+        t = time.perf_counter()
+        out = fn()
+        elapsed_ms = (time.perf_counter() - t) * 1000.0
         try:
             parsed = json.loads(out)
         except (json.JSONDecodeError, TypeError):
             parsed = {"raw": str(out)}
         recorded.append({"name": name, "args": args, "result": parsed})
+        tool_timings.append({"name": name, "ms": round(elapsed_ms, 1)})
         return out
 
     @beta_tool
     def search_corpus(query: str, tier: str | None = None,
                       congress: int | None = None, limit: int = 5) -> str:
         """Search the corpus by free-text query; returns ranked lightweight hits."""
-        return _capture(
+        return _run_tool(
             "search_corpus",
             {"query": query, "tier": tier, "congress": congress, "limit": limit},
-            tool_search_corpus(query, tier=tier, congress=congress, limit=limit),
+            lambda: tool_search_corpus(query, tier=tier, congress=congress, limit=limit),
         )
 
     @beta_tool
     def get_bill(bill_id: str) -> str:
         """Get a bill's metadata and top-level section table of contents."""
-        return _capture("get_bill", {"bill_id": bill_id}, tool_get_bill(bill_id))
+        return _run_tool("get_bill", {"bill_id": bill_id}, lambda: tool_get_bill(bill_id))
 
     @beta_tool
     def get_section(section_id: str, as_of: str | None = None) -> str:
         """Get a section's verbatim text plus its canonical_citation."""
-        return _capture(
+        return _run_tool(
             "get_section", {"section_id": section_id, "as_of": as_of},
-            tool_get_section(section_id, as_of=as_of),
+            lambda: tool_get_section(section_id, as_of=as_of),
         )
 
     @beta_tool
     def resolve_citation(citation_string: str) -> str:
         """Parse a free-text legislative citation into canonical section IDs."""
-        return _capture(
+        return _run_tool(
             "resolve_citation", {"citation_string": citation_string},
-            tool_resolve_citation(citation_string),
+            lambda: tool_resolve_citation(citation_string),
         )
 
     @beta_tool
     def corpus_coverage() -> str:
         """Report what is and isn't in the corpus — call when asked about scope."""
-        return _capture("corpus_coverage", {}, tool_corpus_coverage())
+        return _run_tool("corpus_coverage", {}, lambda: tool_corpus_coverage())
 
     @beta_tool
     def get_citation_graph(section_id: str, direction: str = "both",
                            max_nodes: int = 25) -> str:
         """Typed citation graph around a section (depth=1)."""
-        return _capture(
+        return _run_tool(
             "get_citation_graph",
             {"section_id": section_id, "direction": direction, "max_nodes": max_nodes},
-            tool_get_citation_graph(section_id, direction=direction, max_nodes=max_nodes),
+            lambda: tool_get_citation_graph(section_id, direction=direction, max_nodes=max_nodes),
         )
 
     @beta_tool
     def get_defined_terms(bill_id: str) -> str:
         """Get every term a bill formally defines."""
-        return _capture(
+        return _run_tool(
             "get_defined_terms", {"bill_id": bill_id},
-            tool_get_defined_terms(bill_id),
+            lambda: tool_get_defined_terms(bill_id),
         )
 
     @beta_tool
     def get_amendments(bill_id: str) -> str:
         """Get every amendment a bill makes to existing U.S. Code."""
-        return _capture(
-            "get_amendments", {"bill_id": bill_id}, tool_get_amendments(bill_id),
+        return _run_tool(
+            "get_amendments", {"bill_id": bill_id}, lambda: tool_get_amendments(bill_id),
         )
 
     @beta_tool
     def get_amendments_targeting(statute_section_id: str) -> str:
         """Get every amendment in the corpus targeting a U.S. Code section."""
-        return _capture(
+        return _run_tool(
             "get_amendments_targeting", {"statute_section_id": statute_section_id},
-            tool_get_amendments_targeting(statute_section_id),
+            lambda: tool_get_amendments_targeting(statute_section_id),
         )
 
     @beta_tool
@@ -255,27 +336,28 @@ def _stream_chat(req: ChatRequest):
                             by_reference_to: str | None = None,
                             also_match: list[str] | None = None) -> str:
         """AGGREGATE: every bill defining a term, in one call. Prefer over search+loop."""
-        return _capture(
+        return _run_tool(
             "find_bills_defining",
             {"term": term, "definition_type": definition_type,
              "by_reference_to": by_reference_to, "also_match": also_match},
-            tool_find_bills_defining(term, definition_type=definition_type,
-                                     by_reference_to=by_reference_to, also_match=also_match),
+            lambda: tool_find_bills_defining(term, definition_type=definition_type,
+                                             by_reference_to=by_reference_to,
+                                             also_match=also_match),
         )
 
     @beta_tool
     def find_bills_amending(statute_section_id: str) -> str:
         """AGGREGATE: per-bill rollup of bills amending a U.S. Code section."""
-        return _capture(
+        return _run_tool(
             "find_bills_amending", {"statute_section_id": statute_section_id},
-            tool_find_bills_amending(statute_section_id),
+            lambda: tool_find_bills_amending(statute_section_id),
         )
 
     @beta_tool
     def find_definitions_of(term: str) -> str:
         """AGGREGATE: every bill's verbatim definition of a term, side by side."""
-        return _capture(
-            "find_definitions_of", {"term": term}, tool_find_definitions_of(term),
+        return _run_tool(
+            "find_definitions_of", {"term": term}, lambda: tool_find_definitions_of(term),
         )
 
     tools = [
@@ -289,6 +371,11 @@ def _stream_chat(req: ChatRequest):
     request_messages = _to_anthropic_history(req.history) + [
         {"role": "user", "content": req.message}
     ]
+
+    # Latency instrumentation: t_start brackets the whole turn;
+    # `iterations` accumulates one record per runner message.
+    t_start = time.perf_counter()
+    iterations: list[dict] = []
 
     try:
         runner = client.beta.messages.tool_runner(
@@ -306,7 +393,10 @@ def _stream_chat(req: ChatRequest):
         )
 
         emitted = 0
+        last_t = t_start
+        tools_seen = 0
         for msg in runner:
+            now = time.perf_counter()
             for block in msg.content:
                 if block.type == "text" and block.text:
                     yield _sse({"type": "text", "delta": block.text})
@@ -323,16 +413,35 @@ def _stream_chat(req: ChatRequest):
             while emitted < len(recorded):
                 yield _sse({"type": "tool_result", **recorded[emitted]})
                 emitted += 1
+            # Attribute this runner step's wall time: the gap is one LLM
+            # round-trip plus any tools that ran in the window before this
+            # message arrived. llm_ms is the remainder.
+            gap_ms = (now - last_t) * 1000.0
+            window_tools = tool_timings[tools_seen:]
+            tool_ms = sum(t["ms"] for t in window_tools)
+            iterations.append({
+                "i": len(iterations) + 1,
+                "gap_ms": round(gap_ms, 1),
+                "tool_ms": round(tool_ms, 1),
+                "llm_ms": round(max(gap_ms - tool_ms, 0.0), 1),
+                "tools": [t["name"] for t in window_tools],
+                "usage": _usage_of(msg),
+            })
+            last_t = now
+            tools_seen = len(tool_timings)
         # Final drain in case the last message's tools recorded late.
         while emitted < len(recorded):
             yield _sse({"type": "tool_result", **recorded[emitted]})
             emitted += 1
+        _write_trace(req, t_start, iterations, tool_timings)
         yield _sse({"type": "done"})
     except anthropic.APIError as e:
         print(f"[/chat] API error: {type(e).__name__}: {e}", file=sys.stderr)
+        _write_trace(req, t_start, iterations, tool_timings, error=type(e).__name__)
         yield _sse({"type": "error", "message": _friendly_error(e)})
     except Exception as e:
         print(f"[/chat] unexpected error: {type(e).__name__}: {e}", file=sys.stderr)
+        _write_trace(req, t_start, iterations, tool_timings, error=type(e).__name__)
         yield _sse({"type": "error", "message": _friendly_error(e)})
 
 
