@@ -124,11 +124,8 @@ function BillViewerHeader({ bill, position, onPrev, onNext, total }) {
   if (bill.cosponsors) {
     subParts.push(<span key="co">{bill.cosponsors} cosponsor{bill.cosponsors === 1 ? "" : "s"}</span>);
   }
-  if (bill.relevance != null) {
-    subParts.push(
-      <span key="rel">relevance <span className="mono" style={{ color: "var(--ink-2)" }}>{(bill.relevance * 100).toFixed(0)}</span></span>
-    );
-  }
+  // Relevance score dropped — it was a per-query relative number (the
+  // top hit always normalised to 100), not a real cross-corpus metric.
   return (
     <div className="bv-header">
       <div>
@@ -188,7 +185,7 @@ function BillViewer({
       if (!el) return;
       const r = el.getBoundingClientRect();
       let f = (ev.clientX - r.left) / r.width;
-      f = Math.max(0.22, Math.min(0.78, f));
+      f = Math.max(0.32, Math.min(0.68, f));
       setTextFrac(f);
     };
     const up = () => {
