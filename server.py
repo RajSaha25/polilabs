@@ -163,10 +163,15 @@ def _write_trace(
     iterations: list[dict],
     tool_timings: list[dict],
     error: str | None = None,
+    first_token_ms: float | None = None,
 ) -> None:
     """Append one turn's latency trace to data/traces/<date>.jsonl and
     log a one-line summary to stderr. Never raises — instrumentation
-    must not break a turn."""
+    must not break a turn.
+
+    `first_token_ms` is time-to-first-token: wall time from request
+    start to the first text delta the user sees. With streaming this
+    is the latency that actually matters for perceived speed."""
     total_ms = (time.perf_counter() - t_start) * 1000.0
     llm_ms = sum(it["llm_ms"] for it in iterations)
     tool_ms = sum(t["ms"] for t in tool_timings)
@@ -175,6 +180,7 @@ def _write_trace(
         "message_chars": len(req.message or ""),
         "history_turns": len(req.history),
         "total_ms": round(total_ms, 1),
+        "first_token_ms": round(first_token_ms, 1) if first_token_ms is not None else None,
         "n_iterations": len(iterations),
         "n_tool_calls": len(tool_timings),
         "llm_ms_total": round(llm_ms, 1),
@@ -184,10 +190,11 @@ def _write_trace(
     }
     if error:
         trace["error"] = error
+    ttft = f"{first_token_ms:.0f}ms" if first_token_ms is not None else "n/a"
     print(
-        f"[/chat trace] total={total_ms:.0f}ms llm={llm_ms:.0f}ms "
-        f"tools={tool_ms:.0f}ms iterations={len(iterations)} "
-        f"tool_calls={len(tool_timings)}"
+        f"[/chat trace] total={total_ms:.0f}ms ttft={ttft} "
+        f"llm={llm_ms:.0f}ms tools={tool_ms:.0f}ms "
+        f"iterations={len(iterations)} tool_calls={len(tool_timings)}"
         + (f" error={error}" if error else ""),
         file=sys.stderr,
     )
@@ -235,7 +242,7 @@ def _stream_chat(req: ChatRequest):
     derives each tool's JSON schema from the function signature. A
     `**kwargs` wrapper erases that signature and the model then guesses
     argument names. Each tool below therefore keeps its real typed
-    signature and calls `_capture` in its own body.
+    signature and calls `_run_tool` in its own body.
     """
     if not os.environ.get("ANTHROPIC_API_KEY"):
         yield _sse({"type": "error", "message": "ANTHROPIC_API_KEY not configured on the server"})
@@ -373,11 +380,18 @@ def _stream_chat(req: ChatRequest):
     ]
 
     # Latency instrumentation: t_start brackets the whole turn;
-    # `iterations` accumulates one record per runner message.
+    # `iterations` accumulates one record per runner step; first_token_ms
+    # is set when the first text delta reaches the user.
     t_start = time.perf_counter()
     iterations: list[dict] = []
+    first_token_ms: float | None = None
 
     try:
+        # stream=True returns a BetaStreamingToolRunner: iterating it
+        # yields one message stream per LLM call, and each stream yields
+        # token-level events. Tools still execute automatically between
+        # streams. This drops time-to-first-token from a whole-answer
+        # wait to roughly first-token latency.
         runner = client.beta.messages.tool_runner(
             model="claude-sonnet-4-6",
             max_tokens=8192,
@@ -390,32 +404,43 @@ def _stream_chat(req: ChatRequest):
                 }
             ],
             messages=request_messages,
+            stream=True,
         )
 
         emitted = 0
         last_t = t_start
         tools_seen = 0
-        for msg in runner:
+        for stream in runner:
+            # Consume token-level events: text_delta events stream
+            # straight to the user (this is the fine-grained path the
+            # SDK's own text_stream uses); a tool_use block is announced
+            # once its content block closes and its input is assembled.
+            for event in stream:
+                if (event.type == "content_block_delta"
+                        and event.delta.type == "text_delta"
+                        and event.delta.text):
+                    if first_token_ms is None:
+                        first_token_ms = (time.perf_counter() - t_start) * 1000.0
+                    yield _sse({"type": "text", "delta": event.delta.text})
+                elif event.type == "content_block_stop":
+                    block = getattr(event, "content_block", None)
+                    if block is not None and getattr(block, "type", None) == "tool_use":
+                        yield _sse({
+                            "type": "tool_call",
+                            "name": block.name,
+                            "args": block.input or {},
+                        })
             now = time.perf_counter()
-            for block in msg.content:
-                if block.type == "text" and block.text:
-                    yield _sse({"type": "text", "delta": block.text})
-                elif block.type == "tool_use":
-                    yield _sse({
-                        "type": "tool_call",
-                        "name": block.name,
-                        "args": block.input or {},
-                    })
-            # The SDK executes tools between yielded messages, so by the
-            # time the next message arrives the prior message's tool
-            # calls have run and appended to `recorded`. Drain whatever
-            # is new and emit one tool_result event per entry.
+            final_msg = stream.get_final_message()
+            # The SDK executes tools between streams, so by the time the
+            # next stream starts the prior step's tool calls have run and
+            # appended to `recorded`. Drain whatever is new.
             while emitted < len(recorded):
                 yield _sse({"type": "tool_result", **recorded[emitted]})
                 emitted += 1
-            # Attribute this runner step's wall time: the gap is one LLM
-            # round-trip plus any tools that ran in the window before this
-            # message arrived. llm_ms is the remainder.
+            # Attribute this step's wall time: the gap is one LLM call
+            # plus any tools that ran in the window before it. llm_ms is
+            # the remainder.
             gap_ms = (now - last_t) * 1000.0
             window_tools = tool_timings[tools_seen:]
             tool_ms = sum(t["ms"] for t in window_tools)
@@ -425,23 +450,26 @@ def _stream_chat(req: ChatRequest):
                 "tool_ms": round(tool_ms, 1),
                 "llm_ms": round(max(gap_ms - tool_ms, 0.0), 1),
                 "tools": [t["name"] for t in window_tools],
-                "usage": _usage_of(msg),
+                "usage": _usage_of(final_msg),
             })
             last_t = now
             tools_seen = len(tool_timings)
-        # Final drain in case the last message's tools recorded late.
+        # Final drain in case the last step's tools recorded late.
         while emitted < len(recorded):
             yield _sse({"type": "tool_result", **recorded[emitted]})
             emitted += 1
-        _write_trace(req, t_start, iterations, tool_timings)
+        _write_trace(req, t_start, iterations, tool_timings,
+                     first_token_ms=first_token_ms)
         yield _sse({"type": "done"})
     except anthropic.APIError as e:
         print(f"[/chat] API error: {type(e).__name__}: {e}", file=sys.stderr)
-        _write_trace(req, t_start, iterations, tool_timings, error=type(e).__name__)
+        _write_trace(req, t_start, iterations, tool_timings,
+                     error=type(e).__name__, first_token_ms=first_token_ms)
         yield _sse({"type": "error", "message": _friendly_error(e)})
     except Exception as e:
         print(f"[/chat] unexpected error: {type(e).__name__}: {e}", file=sys.stderr)
-        _write_trace(req, t_start, iterations, tool_timings, error=type(e).__name__)
+        _write_trace(req, t_start, iterations, tool_timings,
+                     error=type(e).__name__, first_token_ms=first_token_ms)
         yield _sse({"type": "error", "message": _friendly_error(e)})
 
 
