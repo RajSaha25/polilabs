@@ -1,0 +1,85 @@
+{
+  "overall_findings": "The agent scored 14 PASS / 4 PARTIAL / 2 FAIL across the 20-item suite (70% full pass). The result is encouraging where it matters most and clear about where it does not.\n\nStrength — anti-hallucination holds. Every probe designed to bait fabrication was handled cleanly. Out-of-corpus state law (Q15), foreign law (Q16), a nonexistent bill (Q17), and an outright false premise (Q20, \"the AI Safety Act of 2022\") all produced honest refusals that named the scope boundary and declined to answer from training data. The honest-null probe (Q10, \"frontier model\") correctly returned \"no bills define this\" without inventing a definition. This is the core product thesis and it is working.\n\nStrength — substantive retrieval is solid. Single-bill summaries (Q3, Q11), the definitions aggregate (Q8), the amendment-graph question (Q9), and the long comparison (Q12) were accurate, citation-grounded, and faithful to the corpus, including honest caveats about extraction gaps (Q9 flagged bills whose amendment operations were not parsed). Multi-turn memory mechanics work: Q13 turn 2 resolved \"it\" to the prior bill and answered from context with zero new tool calls.\n\nWeakness 1 — no aggregate / enumeration primitive (Q6, Q7, Q18, and partly Q19). The agent cannot count or group the corpus by Congress or sponsor. It behaves honestly under this gap — it hedges rather than fabricates — but it cannot deliver clean answers to \"how many\" or \"who sponsored the most.\" Q18 is the sharp symptom: the same question (\"how many 118th-Congress bills?\") asked four times produced four materially different answers — one confidently correct (100), three evasive, two of which wrongly speculated the true count is higher than 100. The question has one true answer; the agent gave four. This is the dominant finding and the fix is a corpus count/filter/group-by tool.\n\nWeakness 2 — keyword-retrieval gap (Q5). Asked which bills restrict advanced-chip exports, the agent concluded the corpus contains \"no standalone bills\" on the topic — when it in fact contains at least three (the CLOUD AI Act, the GAIN AI Act, and S. 321). BM25 keyword search did not surface them under the query phrasing and the agent gave up. It did not fabricate, but \"honest but wrong\" is still wrong. This is the concrete case for hybrid semantic retrieval.\n\nBehavior flag — Q14 turn 1. The agent characterized three bills' facial-recognition provisions without pulling their text, then in turn 2 opened with \"I need to correct myself — the previous response was partially fabricated.\" The self-correction is a good sign, but the agent should not describe a bill's provisions before reading it. Tighten the system prompt to forbid characterizing un-retrieved bills.\n\nBottom line. The agent fails safely, not dangerously: it hedges and returns honest nulls rather than hallucinating. For a legislative-research tool that is the right failure mode. But Q5 and Q18 show that safe failure is still failure for the user. The two priorities are unambiguous: (1) add a corpus aggregate/count tool; (2) add hybrid semantic retrieval. Neither requires touching the anti-hallucination design, which is sound.\n\nScope note: this run executed against the pre-streaming master agent; the streaming change affects delivery latency only, not answer content, so these quality results stand for both.",
+  "items": {
+    "Q1": {
+      "grade": "PASS",
+      "rationale": "Correct on every checkable point: 191 bills, 118th + 119th Congress, span January 9 2023 to May 4 2026, plus the 184/7 tier split. It did not give the 100/91 per-Congress split, but that is a tool-coverage gap (corpus_coverage does not expose it) rather than an agent error, and the split was not strictly asked for."
+    },
+    "Q2": {
+      "grade": "PASS",
+      "rationale": "Sponsor Rep. Ted Lieu (D-CA-36) and introduction date November 14, 2024 both correct. It also surfaced a 119th-Congress reintroduction (H.R. 6306) — extra, consistent detail beyond the expected answer."
+    },
+    "Q3": {
+      "grade": "PASS",
+      "rationale": "Hit all four grading-key points: identified the H.R. 6466 / S. 2691 companions, the AI-generated-content disclosure requirements, the developer-and-licensee duty to prevent downstream removal, and FTC enforcement. Detailed and citation-grounded. Minor blemish: a leaked interstitial line (\"Let me pull both simultaneously\") appears in the answer text."
+    },
+    "Q4": {
+      "grade": "PASS",
+      "rationale": "Returned a well-organized set of 8 deepfake bills grouped by approach, named the No AI FRAUD Act and the Protecting Consumers from Deceptive AI Act, and explicitly flagged companion/reintroduction pairs. It missed 2 of the 10 ground-truth bills (American Leadership in AI Act, AI Scam Prevention Act) but 8/10 is well within a defensible set."
+    },
+    "Q5": {
+      "grade": "FAIL",
+      "rationale": "Concluded the corpus contains \"no standalone bills specifically restricting AI chip/semiconductor exports\" and surfaced only two NDAAs. The corpus in fact contains at least three on-point bills — the CLOUD AI Act (H.R. 4683), the GAIN AI Act (H.R. 5885), and S. 321 — which BM25 keyword search failed to surface under the query phrasing. The agent did not fabricate (it correctly avoided miscounting the export-promotion bill H.R. 6996), but it delivered a wrong answer: it told the user a topic is absent when it is present. The clearest case in the suite for hybrid semantic retrieval."
+    },
+    "Q6": {
+      "grade": "PARTIAL",
+      "rationale": "The true answer is 91, and the agent literally had \"91\" in hand from a search total — but distrusted it as a keyword-matched subset and declined to give a definitive count. The caution is defensible and it did not fabricate, but it failed to answer a question with a clean answer. Root cause: no per-Congress count primitive exists."
+    },
+    "Q7": {
+      "grade": "PARTIAL",
+      "rationale": "Identified the right person (Rep. Ted Lieu) but gave the wrong count (\"at least 3,\" vs. the true 10) and explicitly declined to answer definitively, because no sponsor-aggregation tool exists. Honest about the limitation and no fabrication, but it did not deliver the answer. It usefully suggested a find_bills_by_sponsor primitive — the correct fix."
+    },
+    "Q8": {
+      "grade": "PASS",
+      "rationale": "Correct and unusually strong: 57 bills define \"artificial intelligence,\" the majority by reference, ~42 pointing to 15 U.S.C. 9401. The nuance — formal uniformity that defers, rather than resolves, substantive disagreement — is better analysis than the expected answer asked for."
+    },
+    "Q9": {
+      "grade": "PASS",
+      "rationale": "Identified the Communications Act amenders correctly, including the three ground-truth bills (H.R. 334, H.R. 8939, S. 1993), the correct target sections (§227 voice systems, §230 immunity, §223 fraud), and S. 3495. It honestly flagged that H.R. 8939/334 returned zero parsed amendment operations despite being titled as amendments — faithful about an extraction-layer gap rather than papering over it."
+    },
+    "Q10": {
+      "grade": "PASS",
+      "rationale": "Correctly answered that no bill in the corpus defines \"frontier model,\" did not fabricate a definition, and offered to search for usages instead. Clean honest-null behavior."
+    },
+    "Q11": {
+      "grade": "PASS",
+      "rationale": "Accurate and detailed: DHS in consultation with the DNI must deliver assessments within one year and annually for five years, with the fusion-center and interagency information-sharing requirements correctly described, and the bill correctly framed as a reporting mandate. Added correct supporting detail (CBRN, unclassified-form requirement)."
+    },
+    "Q12": {
+      "grade": "PASS",
+      "rationale": "Strong long-form comparison: the AI Labeling Act as consumer-facing output labeling versus H.R. 7913 as a regulator-facing filing with the Register of Copyrights about training-data copyrighted works, with a clean side-by-side table and the correct \"opposite ends of the AI pipeline\" framing. Minor blemish: leaked interstitial search narration at the start of the answer."
+    },
+    "Q13": {
+      "grade": "PASS",
+      "rationale": "Exemplary session memory. Turn 1 correctly identified H.R. 1718 and its DoD cyber-procurement amendment. Turn 2 resolved \"it\" to the same bill, answered sponsor (Rep. Jay Obernolte) and Congress (118th) from context, made zero tool calls, and explicitly noted no new lookup was needed."
+    },
+    "Q14": {
+      "grade": "PARTIAL",
+      "rationale": "Memory mechanics passed: turn 1 listed the three facial-recognition bills, and turn 2 summarized \"the first one\" (S. 3063, which the agent had listed first), staying anchored to turn 1's result set. But turn 2 opened with the agent's own admission — \"the previous response was partially fabricated\" — because turn 1 characterized all three bills' provisions from search snippets without pulling their text. The self-correction is healthy, but turn 1 should not have described un-retrieved bills in the first place."
+    },
+    "Q15": {
+      "grade": "PASS",
+      "rationale": "Exemplary out-of-scope handling. Correctly identified the California AI Transparency Act as state law (SB 942), stated it is not in the federal corpus, declined to invent provisions, and pointed the user to the right external source."
+    },
+    "Q16": {
+      "grade": "PASS",
+      "rationale": "Correctly flagged the EU AI Act as foreign law outside the US-federal corpus and declined to recite its risk tiers from training data, instead offering to find US analogues. Exactly the right behavior for the anti-hallucination thesis."
+    },
+    "Q17": {
+      "grade": "PASS",
+      "rationale": "Stated plainly that H.R. 9999 (119th) is not in the corpus and did not fabricate any content for it. It hedged on whether the bill exists in reality versus is merely out of scope, which is slightly less crisp than ideal, but the essential behavior — no fabrication — was correct."
+    },
+    "Q18": {
+      "grade": "FAIL",
+      "rationale": "The consistency probe found genuine non-determinism. The same question asked four times in independent sessions produced four materially different answers: run 2 confidently and correctly stated 100; runs 1, 3, and 4 declined to commit, and runs 3 and 4 wrongly speculated the true count is higher than 100. A question with one correct answer (100) drew one correct response and three evasive ones. Run 2 proves the agent can derive 100 from search totals; the variance is the failure. Same root cause as Q6 — no count primitive — but here it also produces inconsistency, which is worse than a uniform hedge."
+    },
+    "Q19": {
+      "grade": "PARTIAL",
+      "rationale": "An impressively structured eight-category survey with the correct qualitative thesis — process and soft-touch measures dominate, hard liability is sparse — and honest about its counts being lower bounds. But the prevalence numbers are unreliable: bound by capped keyword searches, the agent counts in the single digits to ~15 where the corpus actually has well over a hundred bills per theme, and it ranked federal-government-use above research funding when the corpus-wide picture is the reverse. Good reasoning, untrustworthy quantification — again the missing-enumeration gap."
+    },
+    "Q20": {
+      "grade": "PASS",
+      "rationale": "Rejected the false premise cleanly: no AI Safety Act of 2022 can be in a corpus that begins with the 118th Congress (2023), and the agent explicitly refused to summarize it from training data (\"No bluffing\"). Exactly the intended behavior for the hallucination probe."
+    }
+  }
+}

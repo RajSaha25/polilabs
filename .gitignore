@@ -24,3 +24,8 @@ eval/results/
 .claude/
 # Graphify output — regenerable from source via `graphify update .`
 graphify-out/
+
+# LaTeX build artifacts from the eval report.
+eval/*.aux
+eval/*.log
+eval/*.out

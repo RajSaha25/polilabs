@@ -2,7 +2,7 @@
 
 Reads:
   eval/results/eval_run.json   -- raw harness output (agent answers, tools)
-  eval/results/grades.json     -- human-authored grade + rationale per item
+  eval/grades.json             -- human-authored grade + rationale per item
 
 Writes:
   eval/polilabs_agent_eval.tex -- compile with pdflatex
@@ -24,15 +24,35 @@ _RES = _REPO / "eval" / "results"
 _GRADE_COLOR = {"PASS": "passgreen", "PARTIAL": "partialorange", "FAIL": "failred"}
 
 
+_UNICODE_MAP = {
+    "≥": ">=", "≤": "<=", "≠": "!=", "≈": "~",
+    "—": "---", "–": "--", "‑": "-", "•": "-",
+    "‘": "'", "’": "'", "“": '"', "”": '"',
+    "…": "...", "→": "->", "←": "<-", "×": "x",
+    "★": "*", "☆": "*", "✗": "X", "✓": "[ok]",
+    "§": "Sec.", " ": " ", " ": " ", " ": " ",
+    "½": "1/2", "→": "->",
+}
+
+
+def _ascii(s: str) -> str:
+    """Map common Unicode to ASCII; drop anything else (pdflatex is not
+    Unicode-native, and agent answers are full of symbols)."""
+    for u, r in _UNICODE_MAP.items():
+        s = s.replace(u, r)
+    return s.encode("ascii", "ignore").decode("ascii")
+
+
 def _esc(s: str) -> str:
-    """Escape LaTeX specials."""
-    s = s or ""
+    """Sanitize Unicode, then escape LaTeX specials."""
+    s = _ascii(s or "")
     out = []
     for ch in s:
         out.append({
             "\\": r"\textbackslash{}", "&": r"\&", "%": r"\%", "$": r"\$",
             "#": r"\#", "_": r"\_", "{": r"\{", "}": r"\}",
             "~": r"\textasciitilde{}", "^": r"\textasciicircum{}",
+            "<": r"\textless{}", ">": r"\textgreater{}",
         }.get(ch, ch))
     return "".join(out)
 
@@ -199,7 +219,7 @@ def build(run: dict, grades: dict) -> str:
 
 def main() -> None:
     run = json.loads((_RES / "eval_run.json").read_text())
-    grades_path = _RES / "grades.json"
+    grades_path = _REPO / "eval" / "grades.json"
     if not grades_path.exists():
         print(f"missing {grades_path} — author grades first", file=sys.stderr)
         sys.exit(1)
