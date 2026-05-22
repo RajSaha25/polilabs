@@ -215,45 +215,12 @@ window.POLILABS_BACKEND =
     return escapeHtml(text).replace(/\n/g, "<br/>");
   }
 
-  // The backend `text` field is recursive (text_full): a parent's text
-  // already contains every descendant's text. Rendering it at every level
-  // would duplicate; rendering only at leaves would DROP each internal
-  // node's "chapeau" — the intro text before its subsections (e.g.
-  // "In this Act:" preceding the (1), (2) definitions).
-  //
-  // So we render every node's OWN text: its text_full minus the text_full
-  // of each direct child. For a leaf that is the whole text; for an
-  // internal node that is just the chapeau. The union is the complete
-  // bill text with nothing dropped and nothing duplicated.
-  // A node's own text = its text_full minus each direct child's *rendered
-  // segment*. The backend stores a child's marker ("(1)") and heading in
-  // the PARENT's text, not the child's text_full — so we swallow those too,
-  // otherwise the chapeau keeps a redundant trail of "(1) (2) (3)" markers
-  // and child headings that are already shown on the blocks below.
+  // A node's OWN text — its chapeau (for an internal node) or its whole
+  // body (for a leaf). The backend `/sections` aggregator now computes
+  // this server-side (text_full minus each child's rendered segment), so
+  // a node's own text is simply its `text` field.
   function ownText(node) {
-    let t = String(node.text || "");
-    for (const c of node.children || []) {
-      const ct = String(c.text || "");
-      if (!ct) continue;
-      const i = t.indexOf(ct);
-      if (i < 0) continue;
-      const end = i + ct.length;
-      let start = i;
-      const heading = String(c.heading || "").trim();
-      if (heading) {
-        const before = t.slice(0, start);
-        const hi = before.lastIndexOf(heading);
-        if (hi >= 0 && before.slice(hi + heading.length).trim() === "") start = hi;
-      }
-      const marker = lastMarker(c.canonical_citation);
-      if (marker && marker[0] === "(") {
-        const before = t.slice(0, start);
-        const mi = before.lastIndexOf(marker);
-        if (mi >= 0 && before.slice(mi + marker.length).trim() === "") start = mi;
-      }
-      t = t.slice(0, start) + t.slice(end);
-    }
-    return t.trim();
+    return String((node && node.text) || "").trim();
   }
 
   // Format any tree node into renderable verbatim blocks: the node's own
@@ -340,9 +307,17 @@ window.POLILABS_BACKEND =
         term: t.surface_form || "(term)",
         kind: t.definition_type === "by_reference" ? "byref" : "direct",
         anchor: t.defining_section_id,
-        body: node
-          ? formatNode(node)
-          : { leafHtml: verbatimHtml(t.definition_text || ""), blocks: [] },
+        // Prefer the structured tree formatting; fall back to the
+        // verbatim definition_text the API already provides if the node
+        // is missing or carries no text.
+        body: (() => {
+          const fmt = node ? formatNode(node) : null;
+          const hasText = fmt && (fmt.leafHtml ||
+            (fmt.blocks || []).some((b) => b.html));
+          return hasText
+            ? fmt
+            : { leafHtml: verbatimHtml(t.definition_text || ""), blocks: [] };
+        })(),
         refs_to: t.by_reference_target_citation || null,
         cite: t.defining_section_citation || "",
         verified: true, // definitions are mechanically extracted from the bill XML
