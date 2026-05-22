@@ -1209,6 +1209,11 @@ input, textarea { font: inherit; color: inherit; }
   line-height: 1.6;
   color: var(--ink);
   margin: var(--s-3) 0;
+  /* Compact: the Definitions tab is a scannable list of terms — show a
+     ~two-line peek; click the card to read the full text in the Text
+     panel via the synced highlight. */
+  max-height: 3.4em;
+  overflow: hidden;
 }
 .def-card .def-body .subsec:last-child { margin-bottom: 0; }
 .def-card .def-footer {
