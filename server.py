@@ -39,6 +39,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import sys
 from pathlib import Path
 from typing import Any
@@ -390,9 +391,13 @@ _section_tree_cache: dict[str, str] = {}
 def _full_section_tree(bill_id: str) -> str:
     """Recursively assemble a bill's full nested section tree.
 
-    get_bill returns only top-level sections; the Decomp structure
-    outline and the Text panel need the whole tree. Returns a JSON
-    string; only successful trees are cached.
+    get_bill returns only top-level sections; the Decomp outline and the
+    Text panel need the whole tree, and each node needs its OWN verbatim
+    text — the chapeau for an internal node, the full body for a leaf.
+    The stored `text` is text_full (a node's text plus every
+    descendant's), so own-text = text_full minus each child's rendered
+    segment (its marker + heading + text_full). Returns a JSON string;
+    only successful trees are cached.
     """
     cached = _section_tree_cache.get(bill_id)
     if cached is not None:
@@ -402,24 +407,67 @@ def _full_section_tree(bill_id: str) -> str:
     if bill.get("error") or bill.get("not_found"):
         return json.dumps(bill)  # not cached — keep transient errors retryable
 
-    def _node(section_id: str, top_level: bool) -> dict:
+    def _marker_tokens(citation: str) -> list:
+        """In-text marker forms a subsection may appear as, derived from
+        its canonical citation — 'Sec. I(101)' -> ['(101)', '101.', '101)']."""
+        groups = re.findall(r"\(([0-9A-Za-z]+)\)", citation or "")
+        if not groups:
+            m = re.search(r"(?:Sec\.|§)\s*([0-9A-Za-z]+)", citation or "")
+            groups = [m.group(1)] if m else []
+        if not groups:
+            return []
+        tok = groups[-1]
+        return ["(" + tok + ")", tok + ".", tok + ")"]
+
+    def _own_text(full: str, children: list) -> str:
+        """A node's own text: its text_full with each child's rendered
+        segment (marker + heading + body) removed."""
+        t = full or ""
+        for c in children:
+            cf = c.get("_full") or ""
+            if not cf:
+                continue
+            i = t.find(cf)
+            if i < 0:
+                continue
+            start, end = i, i + len(cf)
+            before = t[:start]
+            heading = (c.get("heading") or "").strip()
+            if heading:
+                hi = before.rfind(heading)
+                if hi >= 0 and before[hi + len(heading):].strip() == "":
+                    start = hi
+                    before = t[:start]
+            for tok in _marker_tokens(c.get("canonical_citation") or ""):
+                bs = before.rstrip()
+                if bs.endswith(tok):
+                    start = len(bs) - len(tok)
+                    break
+            t = t[:start] + t[end:]
+        return t.strip()
+
+    def _build(section_id: str) -> dict:
         sec = json.loads(tool_get_section(section_id))
-        children = sec.get("child_section_ids") or []
+        children = [_build(c) for c in (sec.get("child_section_ids") or [])]
+        full = sec.get("text") or ""
         return {
             "section_id": sec.get("section_id"),
             "heading": sec.get("heading"),
             "canonical_citation": sec.get("canonical_citation"),
-            # `text` is text_full — it already contains every descendant's
-            # text. Including it on nested nodes would repeat the whole
-            # subtree at each level (megabytes for deep bills); only the
-            # Text panel needs it, and only for top-level sections.
-            "text": sec.get("text") if top_level else None,
-            "children": [_node(c, False) for c in children],
+            "text": _own_text(full, children),
+            "children": children,
+            "_full": full,          # internal — stripped before the tree is sent
         }
+
+    def _strip(node: dict) -> dict:
+        node.pop("_full", None)
+        for c in node["children"]:
+            _strip(c)
+        return node
 
     tree = {
         "bill_id": bill_id,
-        "sections": [_node(s["section_id"], True) for s in bill.get("sections", [])],
+        "sections": [_strip(_build(s["section_id"])) for s in bill.get("sections", [])],
     }
     result = json.dumps(tree)
     _section_tree_cache[bill_id] = result
