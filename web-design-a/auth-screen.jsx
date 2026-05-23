@@ -4,7 +4,7 @@
 // the research workspace. Talks to window.PolilabsAuth; on success it
 // calls onAuthed(user) and the app shell (Root, in app.jsx) swaps in.
 
-function AuthScreen({ onAuthed }) {
+function AuthScreen({ onAuthed, onBack }) {
   const { useState } = React;
   const [mode, setMode] = useState("login"); // "login" | "signup"
   const [email, setEmail] = useState("");
@@ -37,6 +37,11 @@ function AuthScreen({ onAuthed }) {
   return (
     <div className="auth-screen">
       <div className="auth-card">
+        {onBack && (
+          <button type="button" className="auth-back" onClick={onBack}>
+            ← Back to home
+          </button>
+        )}
         <div className="auth-eyebrow">Research workspace</div>
         <div className="auth-brand">polilabs</div>
         <div className="auth-tagline">
