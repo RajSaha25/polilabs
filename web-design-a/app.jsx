@@ -1,5 +1,5 @@
-/* global React, ReactDOM, PolilabsBackend, PolilabsAuth, AuthScreen, Icon,
-   LeftRail, BillViewer, BillViewerLoading, BillViewerEmpty,
+/* global React, ReactDOM, PolilabsBackend, PolilabsAuth, AuthScreen, Landing,
+   Icon, LeftRail, BillViewer, BillViewerLoading, BillViewerEmpty,
    TweaksPanel, useTweaks, TweakSection, TweakRadio, TweakToggle, TweakColor */
 
 // Polilabs — App. Wires the Claude-Design three-zone prototype to the
@@ -136,67 +136,11 @@ const PRESETS = [
   "What’s NOT in this corpus?",
 ];
 
-// ── Landing ───────────────────────────────────────────────────────────
-// Reached by clicking the polilabs wordmark: a quiet mission page plus
-// this session's research history.
-function Landing({ turns, onOpenTurn, onStart }) {
-  return (
-    <div className="landing">
-      <div className="landing-inner">
-        <section className="landing-hero">
-          <div className="landing-eyebrow mono">
-            U.S. federal AI-governance legislation · 118th–119th Congress
-          </div>
-          <h1>Read the law, not a summary of it.</h1>
-          <p className="landing-lede">
-            polilabs is a citation-accurate research instrument for U.S.
-            federal AI-governance legislation. Every answer is grounded in
-            verbatim bill text and mechanically-extracted structure —
-            definitions, amendments, citations — with no paraphrase and no
-            added interpretation. If it is not in the bill, polilabs does
-            not say it.
-          </p>
-          <div className="landing-actions">
-            <button type="button" className="landing-cta" onClick={onStart}>
-              Open the workspace →
-            </button>
-          </div>
-          <div className="landing-facts mono">
-            <span><b>191</b> bills</span>
-            <span className="landing-dot">·</span>
-            <span><b>118th–119th</b> Congress</span>
-            <span className="landing-dot">·</span>
-            <span>citation-accurate, no hallucination</span>
-          </div>
-        </section>
-
-        {turns && turns.length ? (
-          <section className="landing-history">
-            <div className="landing-section-head mono">
-              Recent research · this session
-            </div>
-            <div className="landing-history-list">
-              {turns.slice().reverse().map((t) => (
-                <button
-                  key={t.id}
-                  type="button"
-                  className="landing-history-item"
-                  onClick={() => onOpenTurn(t.id)}
-                  title={t.question}
-                >
-                  {t.question}
-                </button>
-              ))}
-            </div>
-          </section>
-        ) : null}
-      </div>
-    </div>
-  );
-}
-
 // ── App ───────────────────────────────────────────────────────────────
-function App({ onSignOut }) {
+// The workspace shell. Routing between the workspace and the public
+// landing page is handled by Root() — App always renders the workspace
+// and exposes onShowLanding for the wordmark.
+function App({ onSignOut, onShowLanding }) {
   const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
   useTweakSync(tweaks);
 
@@ -408,10 +352,6 @@ function App({ onSignOut }) {
     );
   }
 
-  // 'workspace' (the three-pane tool) or 'landing' (the mission page,
-  // reached by clicking the wordmark).
-  const [view, setView] = useState("workspace");
-
   const questionObj = {
     text: turn ? turn.question : "",
     sources_total: 191,
@@ -422,8 +362,8 @@ function App({ onSignOut }) {
     <div className="app" style={{ "--rail-w": railW + "px" }}>
       <header className="app-header">
         <div className="brand">
-          <button type="button" className="brand-name" title="polilabs home"
-                  onClick={() => setView("landing")}>polilabs</button>
+          <button type="button" className="brand-name" title="back to home"
+                  onClick={onShowLanding}>polilabs</button>
         </div>
         <div className="header-tools">
           {streaming && <div className="stat mono">agent working…</div>}
@@ -438,45 +378,35 @@ function App({ onSignOut }) {
         </div>
       </header>
 
-      {view === "landing" ? (
-        <Landing
-          turns={turns}
-          onOpenTurn={(id) => { setActiveId(id); setView("workspace"); }}
-          onStart={() => setView("workspace")}
-        />
-      ) : (
-        <React.Fragment>
-          <div className="rail-resizer" style={{ left: railW }} onPointerDown={onRailResize}
-               title="Drag to resize the rail" />
+      <div className="rail-resizer" style={{ left: railW }} onPointerDown={onRailResize}
+           title="Drag to resize the rail" />
 
-          <LeftRail
-            bills={bills}
-            turns={turns}
-            activeTurnId={activeId}
-            onSelectTurn={setActiveId}
-            question={questionObj}
-            sourcesMatched={bills.length}
-            answerBlocks={answerBlocks}
-            planText={turn ? turn.planText : ""}
-            selectedId={selectedId}
-            onSelect={(id) => {
-              const i = bills.findIndex((b) => b.id === id);
-              if (i >= 0) setBillIdx(i);
-            }}
-            streaming={streaming}
-            promptValue={prompt}
-            setPromptValue={setPrompt}
-            onSubmit={onSubmit}
-            onPreset={onPreset}
-            presets={PRESETS.slice(0, 2)}
-            showRelevance={tweaks.showRelevance}
-            showMatches={tweaks.showMatches}
-            error={turn ? turn.error : null}
-          />
+      <LeftRail
+        bills={bills}
+        turns={turns}
+        activeTurnId={activeId}
+        onSelectTurn={setActiveId}
+        question={questionObj}
+        sourcesMatched={bills.length}
+        answerBlocks={answerBlocks}
+        planText={turn ? turn.planText : ""}
+        selectedId={selectedId}
+        onSelect={(id) => {
+          const i = bills.findIndex((b) => b.id === id);
+          if (i >= 0) setBillIdx(i);
+        }}
+        streaming={streaming}
+        promptValue={prompt}
+        setPromptValue={setPrompt}
+        onSubmit={onSubmit}
+        onPreset={onPreset}
+        presets={PRESETS.slice(0, 2)}
+        showRelevance={tweaks.showRelevance}
+        showMatches={tweaks.showMatches}
+        error={turn ? turn.error : null}
+      />
 
-          {stage}
-        </React.Fragment>
-      )}
+      {stage}
 
       <footer className="app-footer">
         <span><span className="dot" /> backend connected</span>
@@ -508,20 +438,52 @@ function App({ onSignOut }) {
   );
 }
 
-// ── Root — auth gate ──────────────────────────────────────────────────
-// The workspace is login-only. PolilabsAuth keeps the session token in
-// localStorage, so a returning user with a live token lands straight in
-// the app; everyone else gets the sign-in screen first.
+// ── Root — public landing + auth gate ─────────────────────────────────
+// Three views: 'landing' (public; the marketing page), 'auth' (sign in
+// or create account), 'workspace' (the gated research tool).
+//
+// First visit lands on the public page. "Open the workspace" routes to
+// the auth screen for unauthenticated visitors and directly to the app
+// for signed-in users. Signing out returns to the landing page, not the
+// auth screen — so a returning visitor can read about the product
+// without being challenged for credentials first.
 function Root() {
   const [user, setUser] = useState(() =>
     PolilabsAuth.isAuthenticated() ? PolilabsAuth.getUser() : null,
   );
+  const [view, setView] = useState(() =>
+    // A signed-in returning user still gets to see the landing first —
+    // this is the screen Andrew wants to see when he opens the app.
+    "landing",
+  );
 
-  if (!user) {
-    return <AuthScreen onAuthed={(u) => setUser(u)} />;
+  if (view === "auth") {
+    return (
+      <AuthScreen
+        onAuthed={(u) => { setUser(u); setView("workspace"); }}
+        onBack={() => setView("landing")}
+      />
+    );
   }
+  if (view === "workspace" && user) {
+    return (
+      <App
+        onSignOut={() => {
+          PolilabsAuth.logout();
+          setUser(null);
+          setView("landing");
+        }}
+        onShowLanding={() => setView("landing")}
+      />
+    );
+  }
+  // landing (default; also the fallback when 'workspace' is requested
+  // without a signed-in user).
   return (
-    <App
+    <Landing
+      user={user}
+      onOpenWorkspace={() => setView(user ? "workspace" : "auth")}
+      onSignIn={() => setView("auth")}
       onSignOut={() => {
         PolilabsAuth.logout();
         setUser(null);
