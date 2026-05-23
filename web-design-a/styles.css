@@ -1640,9 +1640,9 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
   padding: 0 var(--s-8);
 }
 
-/* ── HERO — typed headline → graph ────────────────────────────────── */
+/* ── HERO — sliding headline → SVG anatomy diagram ────────────────── */
 .land-hero {
-  /* Reserve a full viewport-height stage so the headline-to-graph
+  /* Reserve a full viewport-height stage so the headline-to-diagram
      transition doesn't pop other content into view mid-animation. */
   min-height: calc(100vh - 48px);
   display: flex;
@@ -1653,28 +1653,32 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
   position: relative;
 }
 
-/* typed-headline phase */
-.land-typed-wrap {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  transition: opacity 350ms ease;
-}
-.land-typed-wrap.is-fading { opacity: 0; }
+/* Typed headline — single line, no wrap. Font size is clamped so
+   "Accelerating policy research." always fits within the viewport
+   on one line (calibrated so the longest line stays under ~85% of
+   the viewport even at the upper bound). */
+.land-hero-stage-headline { overflow-x: hidden; }
 .land-typed-h {
   font-family: var(--font-serif);
-  font-size: 80px;
+  /* upper bound holds the phrase on one line at 1440px (~1280px wide) */
+  font-size: clamp(34px, 5.2vw, 80px);
   font-weight: 500;
   letter-spacing: -0.025em;
   line-height: 1.05;
   color: var(--ink);
   margin: 0;
+  white-space: nowrap;
   text-align: center;
-  text-wrap: balance;
-  max-width: 16ch;
+  display: inline-flex;
+  align-items: baseline;
+  max-width: 100%;
 }
-.typed-caret {
+.land-typed-text {
+  display: inline-block;
+  /* Reserve the final width as text fills in so the page layout
+     doesn't shift mid-typing. */
+}
+.land-typed-caret {
   display: inline-block;
   width: 0.06em;
   height: 0.95em;
@@ -1683,9 +1687,14 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
   vertical-align: -0.08em;
   animation: typed-blink 0.8s steps(2) infinite;
 }
+.land-typed-caret.is-done {
+  /* keep blinking briefly after completion, then fade out with the
+     stage transition driven by the parent */
+  opacity: 0.7;
+}
 @keyframes typed-blink { 50% { opacity: 0; } }
 
-/* graph phase (the stage after the headline disappears) */
+/* diagram phase (the stage after the headline exits) */
 .land-stage {
   display: flex;
   flex-direction: column;
@@ -1695,12 +1704,12 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
   animation: land-stage-in 700ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 @keyframes land-stage-in {
-  from { opacity: 0; transform: scale(0.985) translateY(8px); }
+  from { opacity: 0; transform: translateY(8px); }
   to   { opacity: 1; transform: none; }
 }
-.land-stage-graph {
+.land-diagram-container {
   width: 100%;
-  max-width: 980px;
+  max-width: 1060px;
 }
 .land-stage .land-lede {
   font-family: var(--font-serif);
@@ -1720,6 +1729,137 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
   flex-wrap: wrap;
   justify-content: center;
 }
+
+/* ── HeroDiagram (SVG) — free-flowing on the cream canvas ─────────── */
+.land-diagram-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-3);
+  width: 100%;
+}
+.land-diagram {
+  width: 100%;
+  height: auto;
+  /* No border, no background panel — the diagram sits on the cream. */
+  overflow: visible;
+}
+.land-diagram-empty {
+  width: 100%;
+  height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-4);
+  font-size: var(--t-xs);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Each node group fades + lifts in (state driven by React: .is-on). */
+.land-node {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 480ms ease, transform 480ms cubic-bezier(0.2,0.7,0.2,1);
+}
+.land-node.is-on { opacity: 1; transform: none; }
+
+/* Color is by NODE TYPE — distinct hues, distinct fill weights. */
+.land-node-bill .land-node-rect {
+  fill: var(--accent);        /* federal navy */
+  stroke: var(--accent-2);
+  stroke-width: 1;
+  filter: drop-shadow(0 2px 8px rgba(20, 26, 60, 0.18));
+}
+.land-node-bill .land-node-label {
+  fill: #fff;
+  font-family: var(--font-serif);
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+.land-node-bill .land-node-sub {
+  fill: rgba(255, 255, 255, 0.72);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+}
+
+.land-node-def .land-node-rect {
+  fill: #fdf3d8;              /* warm amber wash */
+  stroke: #b45309;
+  stroke-width: 1.2;
+}
+.land-node-def .land-node-label {
+  fill: #6b3410;
+  font-family: var(--font-serif);
+  font-size: 15px;
+  font-style: italic;
+}
+.land-node-def .land-node-sub {
+  fill: rgba(107, 52, 16, 0.65);
+  font-size: 9.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.land-node-cite .land-node-rect {
+  fill: #e3f0e0;              /* sage wash */
+  stroke: #2f6b2c;
+  stroke-width: 1.2;
+}
+.land-node-cite .land-node-label {
+  fill: #1d4b1c;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: -0.005em;
+}
+.land-node-cite .land-node-sub {
+  fill: rgba(29, 75, 28, 0.65);
+  font-size: 9.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.land-edge {
+  opacity: 0;
+  transition: opacity 600ms ease;
+}
+.land-edge.is-on { opacity: 1; }
+.land-edge-line {
+  stroke: rgba(80, 70, 55, 0.45);
+  stroke-width: 1.2;
+  stroke-dasharray: 4 4;
+}
+.land-edge-label {
+  fill: var(--ink-3);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+
+.land-diagram-legend {
+  display: flex;
+  align-items: center;
+  gap: var(--s-5);
+  font-size: var(--t-2xs);
+  letter-spacing: 0.04em;
+  color: var(--ink-4);
+  padding-top: 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.leg-item { display: inline-flex; align-items: center; }
+.leg-swatch {
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  border-radius: 2px;
+  margin-right: 6px;
+  vertical-align: -1px;
+}
+.leg-bill { background: var(--accent); }
+.leg-def  { background: #fdf3d8; border: 1px solid #b45309; }
+.leg-cite { background: #e3f0e0; border: 1px solid #2f6b2c; }
+.leg-hint { color: var(--ink-5); margin-left: 4px; }
 
 /* ── shared CTA pill ──────────────────────────────────────────────── */
 .land-cta {
@@ -1742,93 +1882,6 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
 .land-corpus { font-size: var(--t-xs); color: var(--ink-3); }
 .land-corpus b { color: var(--ink); font-weight: 600; }
 .land-corpus .land-dot { color: var(--ink-5); margin: 0 8px; }
-
-/* ── LandingGraph canvas frame ────────────────────────────────────── */
-.land-graph {
-  position: relative;
-  border: 1px solid var(--rule);
-  border-radius: var(--r-lg);
-  background:
-    radial-gradient(ellipse 80% 60% at 50% 50%, rgba(255,255,255,0.5), transparent 70%),
-    var(--panel-2);
-  overflow: hidden;
-  width: 100%;
-  height: 520px;
-  touch-action: none;
-}
-.land-graph canvas { display: block; cursor: default; }
-.land-graph-placeholder {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  color: var(--ink-4);
-  font-family: var(--font-mono);
-  font-size: var(--t-xs);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-.land-graph-legend {
-  position: absolute;
-  left: 12px;
-  bottom: 10px;
-  display: flex;
-  align-items: center;
-  gap: var(--s-5);
-  font-size: var(--t-2xs);
-  letter-spacing: 0.04em;
-  color: var(--ink-3);
-  pointer-events: none;
-}
-.land-graph-legend .dot {
-  display: inline-block;
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  margin-right: 6px;
-  vertical-align: -1px;
-}
-.land-graph-legend .dot-house  { background: rgba(176, 78, 67, 0.95); }
-.land-graph-legend .dot-senate { background: rgba(63,  99, 175, 0.95); }
-.land-graph-legend .hint { color: var(--ink-4); margin-left: 4px; }
-
-.land-graph-tip {
-  position: absolute;
-  background: var(--panel);
-  border: 1px solid var(--rule-strong);
-  border-radius: var(--r-sm);
-  padding: 8px 10px;
-  max-width: 260px;
-  box-shadow: 0 4px 16px rgba(20, 18, 12, 0.10);
-  pointer-events: none;
-  z-index: 2;
-}
-.land-graph-tip .tip-ref {
-  font-size: var(--t-2xs);
-  letter-spacing: 0.04em;
-  color: var(--accent);
-  margin-bottom: 2px;
-}
-.land-graph-tip .tip-title {
-  font-family: var(--font-serif);
-  font-size: 13px;
-  line-height: 1.35;
-  color: var(--ink);
-  margin-bottom: 4px;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-.land-graph-tip .tip-sponsor {
-  font-size: var(--t-2xs);
-  color: var(--ink-4);
-  letter-spacing: 0.02em;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
 
 /* ── Section frame (used by all below-the-fold sections) ──────────── */
 .land-section {
@@ -2034,7 +2087,7 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
   .land-header { padding: 0 var(--s-5); }
   .land-main { padding: 0 var(--s-5); }
   .land-typed-h { font-size: 44px; }
-  .land-graph { height: 380px; }
+  .land-diagram { min-height: 320px; }
   .land-stats-grid { grid-template-columns: 1fr; }
   .land-corpus-grid { grid-template-columns: 1fr; }
   .land-cta-band { padding: 24px; }

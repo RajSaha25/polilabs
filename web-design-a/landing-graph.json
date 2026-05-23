@@ -1,10 +1,46 @@
 {
-  "generated_at": "2026-05-23T14:53:21.855283Z",
+  "generated_at": "2026-05-23T15:16:43.150804Z",
   "corpus": {
     "bills": 191,
     "sections": 29616,
     "defined_terms": 1241,
     "external_citations": 646
+  },
+  "hero": {
+    "bill": {
+      "id": "bill:us/118/s/4664",
+      "ref": "S. 4664",
+      "label": "Department of Energy AI Act",
+      "sponsor": "Sen. Manchin, Joe, III [I-WV] (I-WV)",
+      "congress": 118
+    },
+    "definitions": [
+      {
+        "term": "foundation model",
+        "text": "(4) Foundation model The term foundation model means an AI model that\u2014 (A) is trained on broad data; (B) generally uses self-supervision; (C) contains at least tens of billions of parameters; and (D) is applicable across a wide range of contexts; and (E) exhibits, or could be easily modified to exhibit, high levels of performance at tasks that pose a serious risk to the security, national economic security, or national public health or safety of the United States.",
+        "type": "direct",
+        "ref": null
+      },
+      {
+        "term": "frontier AI",
+        "text": "(5) Frontier AI (A) In general The term frontier AI means the leading edge of AI research that remains unexplored and is considered to be the most challenging, including models\u2014 (i) that exceed the capabilities currently present in the most advanced existing models; and (ii) many of which perform a wide variety of tasks. (B) Inclusion The term frontier AI includes AI models with more than 1,000,000,000,000 parameters.",
+        "type": "direct",
+        "ref": null
+      }
+    ],
+    "citations": [
+      {
+        "id": "statute:us/usc/42/4370m-1",
+        "label": "42 U.S.C. \u00a7 4370m-1",
+        "statute_id": "statute:us/usc/42"
+      },
+      {
+        "id": "statute:us/usc/15/9401",
+        "label": "15 U.S.C. \u00a7 9401",
+        "statute_id": "statute:us/usc/15"
+      }
+    ],
+    "note": "Real connections from the polilabs corpus \u2014 definitions extracted directly from the bill XML, external citations resolved to U.S. Code targets."
   },
   "graph": {
     "nodes": [

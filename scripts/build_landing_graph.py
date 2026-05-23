@@ -206,6 +206,107 @@ def main() -> int:
     res = conn.execute("MATCH (s:Section) RETURN count(s)")
     total_sections = res.get_next()[0]
 
+    # ── hero anatomy: the focused diagram on the landing page ─────────
+    # A single bill plus a handful of its real connected entities so the
+    # diagram can show "a bill, its definitions, and the statutes it
+    # references" using actual corpus data. The bill is hardcoded; if
+    # it ever falls out of the corpus the script will surface that
+    # clearly rather than substituting a different one.
+    HERO_BILL = "bill:us/118/s/4664"  # Manchin, Department of Energy AI Act
+    hero_payload = None
+    res = conn.execute(
+        "MATCH (b:Bill {bill_id: $b}) "
+        "RETURN b.bill_id, b.official_title, b.short_title, "
+        "       b.sponsor_display_name, b.congress, b.bill_type, b.bill_number",
+        {"b": HERO_BILL},
+    )
+    if res.has_next():
+        bid, official, short, sponsor, bcong, btype, bnum = res.get_next()
+        bill_label = short or short_title_from(official, bid)
+        bill_ref = f"{btype.upper().replace('HR','H.R.').replace('S','S.')} {bnum}"
+        # Pull definitions, prefer ones the user is likely to recognize
+        # (foundation model, frontier AI) over generic ones (Secretary).
+        PREFERRED_DEFS = [
+            "foundation model", "frontier ai", "ai", "alignment",
+            "national laboratory", "testbed",
+        ]
+        defs_all = []
+        res = conn.execute(
+            "MATCH (t:DefinedTerm) "
+            "WHERE starts_with(t.defined_term_id, $b) "
+            "RETURN t.surface_form, t.definition_text, t.definition_type, "
+            "       t.by_reference_target_id",
+            {"b": HERO_BILL},
+        )
+        while res.has_next():
+            sf, dtext, dtype, bref = res.get_next()
+            defs_all.append({"term": sf, "text": dtext, "type": dtype, "ref": bref})
+        defs_picked = []
+        seen = set()
+        for want in PREFERRED_DEFS:
+            for d in defs_all:
+                if d["term"] and d["term"].lower() == want and d["term"] not in seen:
+                    defs_picked.append(d)
+                    seen.add(d["term"])
+                    break
+            if len(defs_picked) >= 2:
+                break
+        # External citation targets are StatuteSection nodes; the
+        # `canonical_citation` field already carries the user-readable
+        # form ("15 U.S.C. 9401"). Collapse to unique statute sections;
+        # take the first two that look meaningful.
+        cites = []
+        seen_parents = set()
+        seen_targets = set()
+        res = conn.execute(
+            "MATCH (s:Section)-[:CITES_EXTERNAL]->(ss:StatuteSection) "
+            "WHERE starts_with(s.section_id, $b) "
+            "RETURN DISTINCT ss.statute_section_id, ss.canonical_citation, "
+            "       ss.statute_id, ss.enum_path",
+            {"b": HERO_BILL},
+        )
+        # Prefer one citation per parent statute_id so the diagram shows
+        # the bill reaching into different titles of the U.S. Code,
+        # not the same title twice.
+        rows = []
+        while res.has_next():
+            rows.append(res.get_next())
+        for ss_id, canon, stat_id, enum_path in rows:
+            if not canon or ss_id in seen_targets:
+                continue
+            if stat_id in seen_parents:
+                continue
+            seen_parents.add(stat_id)
+            seen_targets.add(ss_id)
+            cites.append({
+                "id": ss_id,
+                "label": canon.replace("U.S.C.", "U.S.C. §"),
+                "statute_id": stat_id,
+            })
+            if len(cites) >= 2:
+                break
+
+        hero_payload = {
+            "bill": {
+                "id": bid,
+                "ref": bill_ref,
+                "label": bill_label,
+                "sponsor": sponsor or "",
+                "congress": bcong,
+            },
+            "definitions": defs_picked,
+            "citations": cites,
+            "note": (
+                "Real connections from the polilabs corpus — definitions "
+                "extracted directly from the bill XML, external citations "
+                "resolved to U.S. Code targets."
+            ),
+        }
+        print(f"hero: {bill_ref} + {len(defs_picked)} defs + {len(cites)} cites",
+              file=sys.stderr)
+    else:
+        print(f"WARNING: hero bill {HERO_BILL} not in corpus", file=sys.stderr)
+
     payload = {
         "generated_at": __import__("datetime").datetime.utcnow().isoformat() + "Z",
         "corpus": {
@@ -214,6 +315,7 @@ def main() -> int:
             "defined_terms": int(total_terms),
             "external_citations": int(total_cites),
         },
+        "hero": hero_payload,
         "graph": {
             "nodes": nodes_out,
             "edges": edges_out,
