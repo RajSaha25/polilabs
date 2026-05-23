@@ -206,18 +206,22 @@ def main() -> int:
     res = conn.execute("MATCH (s:Section) RETURN count(s)")
     total_sections = res.get_next()[0]
 
-    # ── hero subgraph: small four-node neighborhood for the landing ──
-    # A center bill + one related bill (linked by shared definitions)
-    # + one featured definition + one featured section. The two
-    # featured items get floating description cards with their actual
-    # corpus content so the visitor reads real bill text, not a
-    # paraphrase. Hardcoded picks so the diagram is stable across
-    # rebuilds; if any disappears from the corpus we log a warning
-    # rather than silently substitute.
+    # ── hero subgraph: 9-node neighborhood of S. 4664 ────────────────
+    # All real corpus entities — two related bills (chosen for actual
+    # shared-definition overlap), three of S. 4664's defined terms,
+    # two of its sections, and one external statute it cites. Emitted
+    # as a generic nodes + edges graph so the diagram code can iterate
+    # uniformly. Any missing entity becomes a logged warning rather
+    # than a silent substitution.
     HERO_CENTER = "bill:us/118/s/4664"   # Manchin, Department of Energy AI Act
-    HERO_RELATED = "bill:us/118/s/4178"  # Cantwell, Future of AI Innovation Act 2024
-    FEATURED_DEF = "foundation model"
-    FEATURED_SECTION_HEADING = "Ensuring energy security for datacenters and computing resources"
+    HERO_REL_A = "bill:us/118/s/4178"    # Cantwell, Future of AI Innovation Act 2024
+    HERO_REL_B = "bill:us/119/hr/5332"   # Obernolte, Liquid Cooling for AI Act 2025
+    DEF_TERMS = ["foundation model", "frontier ai", "national laboratory"]
+    SECTION_HEADINGS = [
+        "Federal permitting",
+        "Ensuring energy security for datacenters and computing resources",
+    ]
+    EXTERNAL_CITE_SSID = "statute:us/usc/15/9401"
 
     def get_bill(bid):
         r = conn.execute(
@@ -237,93 +241,146 @@ def main() -> int:
             "congress": bcong,
         }
 
-    center = get_bill(HERO_CENTER)
-    related = get_bill(HERO_RELATED)
-    hero_payload = None
+    def shared_terms_between(a, b, limit=2):
+        out = []
+        for t, bs in term_to_bills.items():
+            if 2 <= len(bs) <= 12 and a in bs and b in bs:
+                out.append(t)
+        return sorted(out, key=lambda s: -len(term_to_bills[s]))[:limit]
 
-    if center and related:
-        # Featured definition — pull the full definition_text from the
-        # corpus and clean up the leading enum prefix like "(4) ".
-        def_text = None
-        r = conn.execute(
-            "MATCH (t:DefinedTerm) "
-            "WHERE starts_with(t.defined_term_id, $b) "
-            "  AND lower(trim(t.surface_form)) = $term "
-            "RETURN t.definition_text",
-            {"b": HERO_CENTER, "term": FEATURED_DEF},
-        )
-        if r.has_next():
-            def_text = r.get_next()[0] or ""
-            # strip leading "(N) Term" preface — leaves just the gloss
-            def_text = re.sub(
-                r"^\s*\(\d+\)\s*[A-Za-z][A-Za-z ]*?\s+(?=The term|means|—)",
-                "", def_text,
-            ).strip()
-
-        # Featured section — heading + the lead-in sentence from text_self.
-        sec_excerpt = None
+    def get_section_enum(bill_id, heading):
         r = conn.execute(
             "MATCH (:Bill {bill_id: $b})-[:HAS_VERSION]->(:BillVersion)"
             "-[:HAS_SECTION]->(s:Section) "
             "WHERE s.heading = $h "
-            "RETURN s.heading, s.text_self",
-            {"b": HERO_CENTER, "h": FEATURED_SECTION_HEADING},
+            "RETURN s.enum",
+            {"b": bill_id, "h": heading},
+        )
+        return r.get_next()[0] if r.has_next() else None
+
+    def get_def_meta(bill_id, term):
+        r = conn.execute(
+            "MATCH (t:DefinedTerm) "
+            "WHERE starts_with(t.defined_term_id, $b) "
+            "  AND lower(trim(t.surface_form)) = $term "
+            "RETURN t.surface_form, t.by_reference_target_id",
+            {"b": bill_id, "term": term},
         )
         if r.has_next():
-            heading, text_self = r.get_next()
-            sec_excerpt = {
-                "heading": heading,
-                "text": (text_self or "").strip(),
-            }
+            sf, ref = r.get_next()
+            return {"surface": sf, "ref": ref}
+        return None
 
-        # Detect which terms the two bills actually share — this is what
-        # the unlabeled bill-to-bill edge "stands for". Stash the top
-        # one or two so the diagram's hover/legend can explain the link.
-        shared_terms = []
+    def get_cite_label(ssid):
         r = conn.execute(
-            "MATCH (t1:DefinedTerm) WHERE starts_with(t1.defined_term_id, $a) "
-            "RETURN lower(trim(t1.surface_form))",
-            {"a": HERO_CENTER},
+            "MATCH (ss:StatuteSection {statute_section_id: $s}) "
+            "RETURN ss.canonical_citation",
+            {"s": ssid},
         )
-        cset = {row[0] for row in iter(lambda: r.get_next() if r.has_next() else None, None) if row and row[0]}
-        r = conn.execute(
-            "MATCH (t2:DefinedTerm) WHERE starts_with(t2.defined_term_id, $a) "
-            "RETURN lower(trim(t2.surface_form))",
-            {"a": HERO_RELATED},
-        )
-        rset = {row[0] for row in iter(lambda: r.get_next() if r.has_next() else None, None) if row and row[0]}
-        # drop boilerplate (terms that appear in >12 bills overall)
-        for t in sorted(cset & rset, key=lambda s: -len(term_to_bills.get(s, set()))):
-            if 2 <= len(term_to_bills.get(t, set())) <= 12:
-                shared_terms.append(t)
-            if len(shared_terms) >= 3:
-                break
+        if r.has_next():
+            canon = r.get_next()[0]
+            return canon.replace("U.S.C.", "U.S.C. §") if canon else None
+        return None
+
+    center = get_bill(HERO_CENTER)
+    rel_a = get_bill(HERO_REL_A)
+    rel_b = get_bill(HERO_REL_B)
+    hero_payload = None
+
+    if center and rel_a and rel_b:
+        nodes = []
+        nodes.append({
+            "id": "center", "kind": "bill",
+            "label": center["ref"], "sub": short_title_from(center["label"], "")[:34],
+            "size": "large",
+            "bill_id": center["id"], "sponsor": center["sponsor"],
+        })
+        nodes.append({
+            "id": "rel_a", "kind": "bill",
+            "label": rel_a["ref"], "sub": "related bill",
+            "shared_terms": shared_terms_between(HERO_CENTER, HERO_REL_A, 2),
+            "bill_id": rel_a["id"],
+        })
+        nodes.append({
+            "id": "rel_b", "kind": "bill",
+            "label": rel_b["ref"], "sub": "related bill",
+            "shared_terms": shared_terms_between(HERO_CENTER, HERO_REL_B, 2),
+            "bill_id": rel_b["id"],
+        })
+
+        # definitions
+        for i, term in enumerate(DEF_TERMS):
+            meta = get_def_meta(HERO_CENTER, term)
+            if not meta:
+                print(f"WARNING: definition not found: {term}", file=sys.stderr)
+                continue
+            nodes.append({
+                "id": f"def_{i}", "kind": "def",
+                "label": f'"{meta["surface"]}"', "sub": "definition",
+                "by_reference_target": meta["ref"],
+            })
+
+        # sections — label them by their enum ("5", "7") since the
+        # bill numbers its own sections that way
+        for i, h in enumerate(SECTION_HEADINGS):
+            enum = get_section_enum(HERO_CENTER, h)
+            if enum is None:
+                print(f"WARNING: section not found: {h}", file=sys.stderr)
+                continue
+            nodes.append({
+                "id": f"sec_{i}", "kind": "sec",
+                "label": f"Sec. {enum}",
+                # keep the sub short enough that it doesn't overflow
+                # the label column at moderate widths
+                "sub": (h[:26] + "…") if len(h) > 28 else h,
+            })
+
+        # external statute (the one National Laboratory references)
+        cite_label = get_cite_label(EXTERNAL_CITE_SSID)
+        if cite_label:
+            nodes.append({
+                "id": "cite_0", "kind": "cite",
+                "label": cite_label, "sub": "external statute",
+                "ssid": EXTERNAL_CITE_SSID,
+            })
+
+        # Edges connect by id; labels are short and Obsidian-style
+        # (some edges are unlabeled, like the bill-to-bill ones).
+        edges = [
+            { "from": "rel_a",  "to": "center" },                     # related bills connect
+            { "from": "rel_b",  "to": "center" },                     # to the center bill
+            { "from": "center", "to": "def_0", "label": "defines" },
+            { "from": "center", "to": "def_1", "label": "defines" },
+            { "from": "center", "to": "def_2", "label": "defines" },
+            { "from": "center", "to": "sec_0", "label": "section" },
+            { "from": "center", "to": "sec_1", "label": "section" },
+            { "from": "center", "to": "cite_0", "label": "cites" },
+            # "National Laboratory" definition refers to its statute
+            { "from": "def_2",  "to": "cite_0", "label": "refers to" },
+        ]
+        # Drop edges whose endpoint nodes weren't built
+        node_ids = {n["id"] for n in nodes}
+        edges = [e for e in edges if e["from"] in node_ids and e["to"] in node_ids]
 
         hero_payload = {
-            "center": center,
-            "related": related,
-            "shared_terms": shared_terms,
-            "featured_definition": {
-                "term": FEATURED_DEF,
-                "text": def_text,
-            },
-            "featured_section": sec_excerpt,
+            "nodes": nodes,
+            "edges": edges,
             "note": (
-                "Real connections from the polilabs corpus — definitions "
-                "and section text drawn verbatim from the bill XML."
+                "A 9-node neighborhood of S. 4664 (Manchin, Department of "
+                "Energy AI Act): two related bills (linked by shared "
+                "defined terms), three of its definitions, two of its "
+                "sections, and one external U.S. Code provision it "
+                "cites. All entities and relationships are real corpus "
+                "data — no synthesized nodes or edges."
             ),
         }
         print(
-            f"hero: {center['ref']} ↔ {related['ref']} "
-            f"(shared: {shared_terms[:3]}); "
-            f"def='{FEATURED_DEF}' "
-            f"section='{FEATURED_SECTION_HEADING[:30]}…'",
+            f"hero: {len(nodes)} nodes, {len(edges)} edges around "
+            f"{center['ref']}",
             file=sys.stderr,
         )
     else:
-        missing = []
-        if not center: missing.append(HERO_CENTER)
-        if not related: missing.append(HERO_RELATED)
+        missing = [b for b, x in [(HERO_CENTER, center), (HERO_REL_A, rel_a), (HERO_REL_B, rel_b)] if not x]
         print(f"WARNING: hero bill(s) missing: {missing}", file=sys.stderr)
 
     payload = {

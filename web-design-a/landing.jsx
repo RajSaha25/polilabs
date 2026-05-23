@@ -58,32 +58,80 @@ function TypedHeadline({ text, onDone, charMs = 85, holdMs = 750 }) {
   );
 }
 
-// ── HeroDiagram ────────────────────────────────────────────────────────
-// Stripe-inspired soft scene: glowing dots and a drifting particle
-// field on a warm-cool gradient backdrop. Cursor-reactive — particles
-// within a small radius of the pointer gently displace.
-//
-// Same corpus subgraph as before (S. 4178 ↔ S. 4664 ↔ "foundation
-// model" / Sec. 7) but rendered as luminous nodes with minimal text
-// labels (no long content cards). The connection structure is the
-// point; the per-node text lives in the workspace, not the hero.
+// ── HeroDiagram — Obsidian-style 9-node graph with edge-growing reveal
+// Reads hero.nodes + hero.edges (a real 9-node neighborhood of
+// S. 4664) and reveals it as a time series: a seed node appears,
+// edges grow visibly from one endpoint to the other, the destination
+// node materializes the moment the edge arrives, and the pattern
+// continues outward. Nodes are color-coded by type (bill / def /
+// section / external statute) and drag-able Obsidian-style — released
+// nodes stay where you drop them, no spring-back.
+
+// Per-node target positions on the canvas, expressed as fractions of
+// (W, H) so the layout scales with the section. Hand-tuned for
+// organic asymmetry — no two nodes share the same angle from center.
+const NODE_LAYOUT = {
+  rel_a:  { fx: 0.16, fy: 0.34 },
+  center: { fx: 0.42, fy: 0.55 },
+  rel_b:  { fx: 0.30, fy: 0.84 },
+  def_0:  { fx: 0.66, fy: 0.22 },  // foundation model — upper
+  def_1:  { fx: 0.85, fy: 0.40 },  // frontier AI — right
+  def_2:  { fx: 0.62, fy: 0.78 },  // National Laboratory — lower
+  sec_0:  { fx: 0.74, fy: 0.62 },  // Sec. 5 — middle-right
+  sec_1:  { fx: 0.88, fy: 0.66 },  // Sec. 7 — far right, pulled in so label fits
+  cite_0: { fx: 0.78, fy: 0.90 },  // 15 U.S.C. § 9401 — bottom
+};
+
+// Color + radius per node kind.
+const KIND_STYLE = {
+  bill: { color: "#1e3fa8", r: 7.5, rBig: 11 },  // center bill gets rBig
+  def:  { color: "#b45309", r: 6.5 },
+  sec:  { color: "#2f6b2c", r: 6.5 },
+  cite: { color: "#5c4a8a", r: 6 },              // purple for U.S. Code
+};
+
+// Reveal schedule. Each edge `start`s at a wall-clock moment after
+// the diagram mounts, and grows from source to destination over `dur`
+// ms. The destination node appears when the edge "arrives"
+// (start + dur). Total play length ~5.4 s.
+const REVEAL = {
+  edges: [
+    // Phase 1 — left bill introduces itself, then reaches over
+    { id: "rel_a-center",  start:  700, dur: 800 },
+    // Phase 2 — center fans out to its six immediate neighbors
+    { id: "rel_b-center",  start: 1900, dur: 800 },
+    { id: "center-def_0",  start: 2100, dur: 800 },
+    { id: "center-def_1",  start: 2300, dur: 800 },
+    { id: "center-def_2",  start: 2500, dur: 800 },
+    { id: "center-sec_0",  start: 2700, dur: 800 },
+    { id: "center-sec_1",  start: 2900, dur: 800 },
+    { id: "center-cite_0", start: 3100, dur: 800 },
+    // Phase 3 — secondary cross-edge: National Laboratory definition
+    // references the same U.S. Code provision the bill itself cites
+    { id: "def_2-cite_0",  start: 4400, dur: 700 },
+  ],
+  nodes: {
+    rel_a:  0,            // root — visible from the start
+    center: 1500,         // arrives via rel_a → center
+    rel_b:  2700,
+    def_0:  2900,
+    def_1:  3100,
+    def_2:  3300,
+    sec_0:  3500,
+    sec_1:  3700,
+    cite_0: 3900,
+  },
+};
+
 function HeroDiagram({ hero }) {
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
-  // Reveal stage drives both node visibility and the staggered label
-  // fade-in. Total reveal arc: ~5 seconds, like the user asked.
-  //   0: empty
-  //   1: related node    (0.4s)
-  //   2: related↔center edge   (1.0s)
-  //   3: center node     (1.6s)
-  //   4: center↔def edge       (2.4s)
-  //   5: def node        (3.0s)
-  //   6: center↔sec edge       (3.8s)
-  //   7: sec node        (4.4s)
-  const [step, setStep] = useState(0);
-  const [size, setSize] = useState({ w: 1200, h: 560 });
+  // React-visible "now" ticks every ~150 ms so HTML labels can flip
+  // on at the right moment. The canvas itself uses its own RAF clock.
+  const [now, setNow] = useState(0);
+  const [size, setSize] = useState({ w: 1440, h: 560 });
 
-  // size-track the container so the canvas always fills the section
+  // size-track the container
   useEffect(() => {
     if (!containerRef.current) return;
     const ro = new ResizeObserver((entries) => {
@@ -98,18 +146,16 @@ function HeroDiagram({ hero }) {
     return () => ro.disconnect();
   }, []);
 
-  // Sequenced reveal — every cue is ~600–800 ms apart so the diagram
-  // builds itself in front of the reader, one note then one edge at
-  // a time, instead of popping in all at once.
+  // label-clock tick
   useEffect(() => {
     if (!hero) return;
-    const cues = [400, 1000, 1600, 2400, 3000, 3800, 4400];
-    const timers = cues.map((t, i) => setTimeout(() => setStep(i + 1), t));
-    return () => timers.forEach(clearTimeout);
+    const t0 = performance.now();
+    const id = setInterval(() => setNow(performance.now() - t0), 150);
+    return () => clearInterval(id);
   }, [hero]);
 
-  // node/edge data + drag state lives in a ref so the RAF loop sees
-  // current values without re-binding the effect every render.
+  // node positions + drag state live in a ref so the RAF loop can
+  // mutate them without re-binding the effect every render
   const sceneRef = useRef(null);
 
   useEffect(() => {
@@ -124,30 +170,39 @@ function HeroDiagram({ hero }) {
     const ctx = cvs.getContext("2d");
     ctx.scale(dpr, dpr);
 
-    // hand-placed positions, tuned for breathing room at ≥1024 wide
-    const cx = W / 2, cy = H / 2;
-    const span = Math.min(380, W * 0.30);
-    const mains = [
-      { id: "related", x: cx - span * 1.0,  y: cy + 8,             r: 7,   color: "#1e3fa8" },
-      { id: "center",  x: cx,                y: cy,                 r: 11,  color: "#1e3fa8" },
-      { id: "def",     x: cx + span * 0.75,  y: cy - span * 0.45,   r: 6.5, color: "#b45309" },
-      { id: "sec",     x: cx + span * 0.75,  y: cy + span * 0.45,   r: 6.5, color: "#2f6b2c" },
-    ];
-    const links = [
-      { a: "related", b: "center", step: 2, label: null },
-      { a: "center",  b: "def",    step: 4, label: "defines" },
-      { a: "center",  b: "sec",    step: 6, label: "section" },
-    ];
+    // Build per-node display state from the fixture.
+    const nodes = {};
+    for (const n of hero.nodes) {
+      const layout = NODE_LAYOUT[n.id];
+      if (!layout) continue;
+      const style = KIND_STYLE[n.kind] || KIND_STYLE.bill;
+      const isCenter = n.id === "center";
+      nodes[n.id] = {
+        ...n,
+        x: layout.fx * W,
+        y: layout.fy * H,
+        r: isCenter && style.rBig ? style.rBig : style.r,
+        color: style.color,
+      };
+    }
 
-    sceneRef.current = { mains, links, drag: null };
+    // Merge fixture edges with reveal timing.
+    const edges = hero.edges.map((e) => {
+      const key = `${e.from}-${e.to}`;
+      const r = REVEAL.edges.find((x) => x.id === key);
+      return { ...e, start: r ? r.start : 0, dur: r ? r.dur : 800 };
+    });
 
-    // ── drag interaction (Obsidian-style — released nodes stay put) ─
+    sceneRef.current = { nodes, edges, drag: null, t0: performance.now() };
+
+    // drag interaction (Obsidian-style — drop and it stays put)
     const nearest = (mx, my) => {
-      let best = null, bestD = 22 * 22;
-      for (const m of mains) {
-        const dx = mx - m.x, dy = my - m.y;
+      let best = null, bestD = 24 * 24;
+      for (const id in nodes) {
+        const n = nodes[id];
+        const dx = mx - n.x, dy = my - n.y;
         const d2 = dx * dx + dy * dy;
-        if (d2 < bestD) { bestD = d2; best = m; }
+        if (d2 < bestD) { bestD = d2; best = n; }
       }
       return best;
     };
@@ -155,9 +210,9 @@ function HeroDiagram({ hero }) {
       const rect = cvs.getBoundingClientRect();
       const mx = ev.clientX - rect.left;
       const my = ev.clientY - rect.top;
-      const m = nearest(mx, my);
-      if (m) {
-        sceneRef.current.drag = { node: m, ox: mx - m.x, oy: my - m.y };
+      const n = nearest(mx, my);
+      if (n) {
+        sceneRef.current.drag = { node: n, ox: mx - n.x, oy: my - n.y };
         cvs.setPointerCapture?.(ev.pointerId);
         cvs.style.cursor = "grabbing";
         ev.preventDefault();
@@ -188,55 +243,58 @@ function HeroDiagram({ hero }) {
 
     // ── render loop ──────────────────────────────────────────────────
     let raf = 0;
-    const draw = () => {
+    const draw = (t) => {
+      const sc = sceneRef.current;
+      const elapsed = t - sc.t0;
       ctx.clearRect(0, 0, W, H);
-      const { mains: M, links: L } = sceneRef.current;
-      const cur = step;
 
-      // edges first — thin straight strokes; appear at their cue step
-      for (const l of L) {
-        if (cur < l.step) continue;
-        const A = M.find((m) => m.id === l.a);
-        const B = M.find((m) => m.id === l.b);
-        // alpha fades in over ~400ms after the cue (handled by CSS
-        // class transitions on labels; for canvas we just draw at full)
-        ctx.strokeStyle = "rgba(30, 35, 50, 0.30)";
-        ctx.lineWidth = 1;
+      // 1. Edges grow visibly from source to destination.
+      ctx.lineWidth = 1.1;
+      for (const e of sc.edges) {
+        if (elapsed < e.start) continue;
+        const A = sc.nodes[e.from];
+        const B = sc.nodes[e.to];
+        if (!A || !B) continue;
+        const raw = Math.min(1, (elapsed - e.start) / e.dur);
+        // ease-out so the head pulls quickly, then settles
+        const u = 1 - Math.pow(1 - raw, 2);
+        const endX = A.x + (B.x - A.x) * u;
+        const endY = A.y + (B.y - A.y) * u;
+        ctx.strokeStyle = "rgba(20, 22, 32, 0.72)";  // near-black for contrast
         ctx.beginPath();
         ctx.moveTo(A.x, A.y);
-        ctx.lineTo(B.x, B.y);
+        ctx.lineTo(endX, endY);
         ctx.stroke();
 
-        if (l.label) {
+        // Edge label fades in once the edge has nearly arrived
+        if (raw > 0.85 && e.label) {
+          const labelAlpha = Math.min(1, (raw - 0.85) / 0.15);
           ctx.font = '11px "JetBrains Mono", ui-monospace, monospace';
-          ctx.fillStyle = "rgba(80, 75, 70, 0.6)";
+          ctx.fillStyle = `rgba(50, 50, 60, ${0.7 * labelAlpha})`;
           ctx.textAlign = "left";
           ctx.textBaseline = "middle";
           const lx = (A.x + B.x) / 2 + 8;
           const ly = (A.y + B.y) / 2 - 8;
-          ctx.fillText(l.label, lx, ly);
+          ctx.fillText(e.label, lx, ly);
         }
       }
 
-      // nodes — solid filled circles, no halo
-      const nodeAppearsAt = { related: 1, center: 3, def: 5, sec: 7 };
-      for (const m of M) {
-        if (cur < nodeAppearsAt[m.id]) continue;
-        ctx.fillStyle = m.color;
+      // 2. Nodes — pop in at REVEAL.nodes[id]; solid filled circles
+      //    with a thin dark border for crispness on the cream wash.
+      for (const id in sc.nodes) {
+        const appearAt = REVEAL.nodes[id] ?? 0;
+        if (elapsed < appearAt) continue;
+        const n = sc.nodes[id];
+        const popU = Math.min(1, (elapsed - appearAt) / 280);
+        const eased = popU < 1 ? 1 - Math.pow(1 - popU, 3) : 1;
+        ctx.fillStyle = n.color;
         ctx.beginPath();
-        ctx.arc(m.x, m.y, m.r, 0, Math.PI * 2);
+        ctx.arc(n.x, n.y, n.r * eased, 0, Math.PI * 2);
         ctx.fill();
-        // thin darker border for crispness on the cream background
-        ctx.strokeStyle = "rgba(0, 0, 0, 0.18)";
+        ctx.strokeStyle = "rgba(0, 0, 0, 0.22)";
         ctx.lineWidth = 1;
         ctx.stroke();
       }
-
-      // expose node positions for HTML label tracking
-      window.__landNodePos = M.reduce((acc, m) => {
-        acc[m.id] = { x: m.x, y: m.y, r: m.r };
-        return acc;
-      }, {});
 
       raf = requestAnimationFrame(draw);
     };
@@ -249,49 +307,45 @@ function HeroDiagram({ hero }) {
       cvs.removeEventListener("pointerup", onUp);
       cvs.removeEventListener("pointercancel", onUp);
     };
-  }, [hero, size.w, size.h, step]);
+  }, [hero, size.w, size.h]);
 
-  if (!hero || !hero.center) {
+  if (!hero || !hero.nodes) {
     return <div className="land-diagram-empty mono">corpus unavailable</div>;
   }
 
-  // Static label coords match the baseline node positions. Labels
-  // fade in alongside their dots using the step state.
-  const cx = size.w / 2, cy = size.h / 2;
-  const span = Math.min(380, size.w * 0.30);
-  const labels = [
-    { id: "related", appear: 1, x: cx - span * 1.0,  y: cy + 8 + 24,
-      text: hero.related.ref, sub: "related bill" },
-    { id: "center",  appear: 3, x: cx,                y: cy + 28,
-      text: hero.center.ref,  sub: hero.center.label.slice(0, 36) },
-    { id: "def",     appear: 5, x: cx + span * 0.75,  y: cy - span * 0.45 + 24,
-      text: `"${hero.featured_definition.term}"`, sub: "definition", italic: true },
-    { id: "sec",     appear: 7, x: cx + span * 0.75,  y: cy + span * 0.45 + 24,
-      text: "Sec. 7", sub: "section" },
-  ];
-
+  // HTML labels are anchored to the static layout positions and fade
+  // in roughly 200 ms after their dot appears.
+  const W = size.w, H = size.h;
   return (
     <div ref={containerRef} className="land-scene">
       <canvas ref={canvasRef} className="land-scene-canvas" />
       <div className="land-scene-labels">
-        {labels.map((l) => (
-          <div
-            key={l.id}
-            className={"lbl " + (step >= l.appear ? "is-on" : "")}
-            style={{ left: l.x, top: l.y }}
-          >
-            <div className={"lbl-text " + (l.italic ? "lbl-italic" : "")}>
-              {l.text}
+        {hero.nodes.map((n) => {
+          const layout = NODE_LAYOUT[n.id];
+          if (!layout) return null;
+          const appearAt = REVEAL.nodes[n.id] ?? 0;
+          const visible = now >= appearAt + 200;
+          const style = KIND_STYLE[n.kind] || KIND_STYLE.bill;
+          const radius = n.id === "center" && style.rBig ? style.rBig : style.r;
+          const x = layout.fx * W;
+          const y = layout.fy * H + radius + 14;
+          return (
+            <div
+              key={n.id}
+              className={"lbl " + (visible ? "is-on" : "")}
+              style={{ left: x, top: y }}
+            >
+              <div className={"lbl-text " + (n.kind === "def" ? "lbl-italic" : "")}>
+                {n.label}
+              </div>
+              {n.sub && <div className="lbl-sub mono">{n.sub}</div>}
             </div>
-            <div className="lbl-sub mono">{l.sub}</div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
 }
-
-// ── Stat tile (unchanged from v2) ────────────────────────────────────
 function Stat({ n, body, source, href, caveat }) {
   return (
     <div className="land-stat">

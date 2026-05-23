@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-23T20:06:48.510258Z",
+  "generated_at": "2026-05-23T20:42:31.317143Z",
   "corpus": {
     "bills": 191,
     "sections": 29616,
@@ -7,34 +7,125 @@
     "external_citations": 646
   },
   "hero": {
-    "center": {
-      "id": "bill:us/118/s/4664",
-      "ref": "S. 4664",
-      "label": "Department of Energy AI Act",
-      "sponsor": "Sen. Manchin, Joe, III [I-WV] (I-WV)",
-      "congress": 118
-    },
-    "related": {
-      "id": "bill:us/118/s/4178",
-      "ref": "S. 4178",
-      "label": "Future of Artificial Intelligence Innovation Act of 2024",
-      "sponsor": "Sen. Cantwell, Maria [D-WA] (D-WA)",
-      "congress": 118
-    },
-    "shared_terms": [
-      "national laboratory",
-      "foundation model",
-      "testbed"
+    "nodes": [
+      {
+        "id": "center",
+        "kind": "bill",
+        "label": "S. 4664",
+        "sub": "Department of Energy AI Act",
+        "size": "large",
+        "bill_id": "bill:us/118/s/4664",
+        "sponsor": "Sen. Manchin, Joe, III [I-WV] (I-WV)"
+      },
+      {
+        "id": "rel_a",
+        "kind": "bill",
+        "label": "S. 4178",
+        "sub": "related bill",
+        "shared_terms": [
+          "national laboratory",
+          "foundation model"
+        ],
+        "bill_id": "bill:us/118/s/4178"
+      },
+      {
+        "id": "rel_b",
+        "kind": "bill",
+        "label": "H.R. 5332",
+        "sub": "related bill",
+        "shared_terms": [
+          "ai",
+          "national laboratory"
+        ],
+        "bill_id": "bill:us/119/hr/5332"
+      },
+      {
+        "id": "def_0",
+        "kind": "def",
+        "label": "\"foundation model\"",
+        "sub": "definition",
+        "by_reference_target": null
+      },
+      {
+        "id": "def_1",
+        "kind": "def",
+        "label": "\"frontier AI\"",
+        "sub": "definition",
+        "by_reference_target": null
+      },
+      {
+        "id": "def_2",
+        "kind": "def",
+        "label": "\"National Laboratory\"",
+        "sub": "definition",
+        "by_reference_target": "statute:us/usc/42/15801"
+      },
+      {
+        "id": "sec_0",
+        "kind": "sec",
+        "label": "Sec. 5",
+        "sub": "Federal permitting"
+      },
+      {
+        "id": "sec_1",
+        "kind": "sec",
+        "label": "Sec. 7",
+        "sub": "Ensuring energy security f\u2026"
+      },
+      {
+        "id": "cite_0",
+        "kind": "cite",
+        "label": "15 U.S.C. \u00a7 9401",
+        "sub": "external statute",
+        "ssid": "statute:us/usc/15/9401"
+      }
     ],
-    "featured_definition": {
-      "term": "foundation model",
-      "text": "The term foundation model means an AI model that\u2014 (A) is trained on broad data; (B) generally uses self-supervision; (C) contains at least tens of billions of parameters; and (D) is applicable across a wide range of contexts; and (E) exhibits, or could be easily modified to exhibit, high levels of performance at tasks that pose a serious risk to the security, national economic security, or national public health or safety of the United States."
-    },
-    "featured_section": {
-      "heading": "Ensuring energy security for datacenters and computing resources",
-      "text": "Not later than 1 year after the date of enactment of this Act, the Secretary shall submit to Congress a report that\u2014"
-    },
-    "note": "Real connections from the polilabs corpus \u2014 definitions and section text drawn verbatim from the bill XML."
+    "edges": [
+      {
+        "from": "rel_a",
+        "to": "center"
+      },
+      {
+        "from": "rel_b",
+        "to": "center"
+      },
+      {
+        "from": "center",
+        "to": "def_0",
+        "label": "defines"
+      },
+      {
+        "from": "center",
+        "to": "def_1",
+        "label": "defines"
+      },
+      {
+        "from": "center",
+        "to": "def_2",
+        "label": "defines"
+      },
+      {
+        "from": "center",
+        "to": "sec_0",
+        "label": "section"
+      },
+      {
+        "from": "center",
+        "to": "sec_1",
+        "label": "section"
+      },
+      {
+        "from": "center",
+        "to": "cite_0",
+        "label": "cites"
+      },
+      {
+        "from": "def_2",
+        "to": "cite_0",
+        "label": "refers to"
+      }
+    ],
+    "note": "A 9-node neighborhood of S. 4664 (Manchin, Department of Energy AI Act): two related bills (linked by shared defined terms), three of its definitions, two of its sections, and one external U.S. Code provision it cites. All entities and relationships are real corpus data \u2014 no synthesized nodes or edges."
   },
   "graph": {
     "nodes": [
