@@ -59,239 +59,266 @@ function TypedHeadline({ text, onDone, charMs = 85, holdMs = 750 }) {
 }
 
 // ── HeroDiagram ────────────────────────────────────────────────────────
-// Small four-node subgraph of the corpus:
+// Stripe-inspired soft scene: glowing dots and a drifting particle
+// field on a warm-cool gradient backdrop. Cursor-reactive — particles
+// within a small radius of the pointer gently displace.
 //
-//                                  ○  "foundation model"   ┌───────────┐
-//                                       (definition) ──────│ def text  │
-//                                  ╲                       └───────────┘
-//                                   ╲ defines
-//                                    ╲
-//   ●─────────────────────────────────●  S. 4664
-//   S. 4178                            (Dept of Energy AI Act)
-//   (related bill,                    ╱
-//    shares definitions)             ╱  section
-//                                   ╱                      ┌───────────┐
-//                                  ●  Sec. 7 ──────────────│ excerpt   │
-//                                                          └───────────┘
-//
-// Nodes are small circular blobs; bills are filled navy, definitions
-// amber, sections sage. Two of the right-side nodes carry floating
-// description cards holding real corpus content (definition text /
-// section excerpt). Edge labels: "defines", "section". The bill-to-
-// bill edge is unlabeled; the shared term legend below the diagram
-// names what they have in common.
-function HeroDiagram({ hero, width = 1080, height = 560 }) {
-  const [step, setStep] = useState(0); // 0 = nothing; 1..5 = nodes; 6 = cards
+// Same corpus subgraph as before (S. 4178 ↔ S. 4664 ↔ "foundation
+// model" / Sec. 7) but rendered as luminous nodes with minimal text
+// labels (no long content cards). The connection structure is the
+// point; the per-node text lives in the workspace, not the hero.
+function HeroDiagram({ hero }) {
+  const containerRef = useRef(null);
+  const canvasRef = useRef(null);
+  const mouseRef = useRef({ x: -1e6, y: -1e6, active: false });
+  const [size, setSize] = useState({ w: 1200, h: 600 });
+
+  // size-track the container so the canvas always fills it crisply
   useEffect(() => {
-    if (!hero) return;
-    const cues = [120, 320, 540, 760, 980, 1180];
-    const timers = cues.map((t, i) => setTimeout(() => setStep(i + 1), t));
-    return () => timers.forEach(clearTimeout);
-  }, [hero]);
+    if (!containerRef.current) return;
+    const ro = new ResizeObserver((entries) => {
+      for (const e of entries) {
+        setSize({
+          w: Math.max(360, Math.round(e.contentRect.width)),
+          h: Math.max(360, Math.round(e.contentRect.height)),
+        });
+      }
+    });
+    ro.observe(containerRef.current);
+    return () => ro.disconnect();
+  }, []);
+
+  // particle + node simulation
+  useEffect(() => {
+    if (!hero || !canvasRef.current) return;
+    const W = size.w, H = size.h;
+    const cvs = canvasRef.current;
+    const dpr = window.devicePixelRatio || 1;
+    cvs.width = W * dpr;
+    cvs.height = H * dpr;
+    cvs.style.width = W + "px";
+    cvs.style.height = H + "px";
+    const ctx = cvs.getContext("2d");
+    ctx.scale(dpr, dpr);
+
+    // ── main nodes — small, hand-positioned around the center ────────
+    const cx = W / 2, cy = H / 2;
+    // Spread tightens on narrower viewports so labels don't collide.
+    const span = Math.min(360, W * 0.32);
+    const mains = [
+      { id: "related", baseX: cx - span * 0.95, baseY: cy + 4,            r: 6.5, color: [30, 63, 168] },
+      { id: "center",  baseX: cx,                baseY: cy,                r: 10,  color: [30, 63, 168] },
+      { id: "def",     baseX: cx + span * 0.80,  baseY: cy - span * 0.42,  r: 6,   color: [180, 83, 9] },
+      { id: "sec",     baseX: cx + span * 0.80,  baseY: cy + span * 0.42,  r: 6,   color: [47, 107, 44] },
+    ];
+    for (const m of mains) { m.x = m.baseX; m.y = m.baseY; m.vx = 0; m.vy = 0; }
+
+    // ── ambient particle field ───────────────────────────────────────
+    // Two color families (cool blue + warm amber) so the dots feel
+    // like the same palette as the gradient backdrop.
+    const N = 70;
+    const particles = [];
+    const rng = (() => { let s = 9001; return () => { s = (s * 16807) % 2147483647; return s / 2147483647; }; })();
+    for (let i = 0; i < N; i++) {
+      const angle = rng() * Math.PI * 2;
+      const dist = 70 + rng() * Math.min(W, H) * 0.42;
+      const bx = cx + Math.cos(angle) * dist;
+      const by = cy + Math.sin(angle) * dist * 0.7;
+      const warm = rng() > 0.55;
+      particles.push({
+        baseX: bx, baseY: by,
+        x: bx, y: by, vx: 0, vy: 0,
+        r: 0.7 + rng() * 1.4,
+        phase: rng() * Math.PI * 2,
+        freq: 0.00035 + rng() * 0.0009,
+        amp: 6 + rng() * 18,
+        // Cool blue tone or warm amber tone, with low base opacity.
+        color: warm
+          ? `rgba(196, 130, 70, ${0.30 + rng() * 0.35})`
+          : `rgba(60, 100, 190, ${0.30 + rng() * 0.40})`,
+      });
+    }
+
+    // ── mouse tracking ───────────────────────────────────────────────
+    const onMove = (ev) => {
+      const rect = cvs.getBoundingClientRect();
+      mouseRef.current.x = ev.clientX - rect.left;
+      mouseRef.current.y = ev.clientY - rect.top;
+      mouseRef.current.active = true;
+    };
+    const onLeave = () => { mouseRef.current.active = false; };
+    cvs.addEventListener("mousemove", onMove);
+    cvs.addEventListener("mouseleave", onLeave);
+
+    // ── connector geometry ───────────────────────────────────────────
+    const links = [
+      { a: "related", b: "center" },
+      { a: "center",  b: "def" },
+      { a: "center",  b: "sec" },
+    ];
+    const labelFor = { def: "defines", sec: "section" };
+
+    // ── render loop ──────────────────────────────────────────────────
+    let raf = 0;
+    let t0 = performance.now();
+
+    const draw = (t) => {
+      const elapsed = t - t0;
+      ctx.clearRect(0, 0, W, H);
+      const mouse = mouseRef.current;
+
+      // particles — drift toward their oscillating target; cursor
+      // pushes them gently outward.
+      for (const p of particles) {
+        const tx = p.baseX + Math.cos(elapsed * p.freq + p.phase) * p.amp;
+        const ty = p.baseY + Math.sin(elapsed * p.freq * 1.3 + p.phase * 0.7) * p.amp;
+        if (mouse.active) {
+          const dx = p.x - mouse.x, dy = p.y - mouse.y;
+          const d2 = dx * dx + dy * dy;
+          if (d2 > 1 && d2 < 130 * 130) {
+            const inv = 1 / Math.sqrt(d2);
+            const f = 18000 / d2;
+            p.vx += dx * inv * f * 0.0018;
+            p.vy += dy * inv * f * 0.0018;
+          }
+        }
+        p.vx += (tx - p.x) * 0.06;
+        p.vy += (ty - p.y) * 0.06;
+        p.vx *= 0.83;
+        p.vy *= 0.83;
+        p.x += p.vx;
+        p.y += p.vy;
+
+        ctx.fillStyle = p.color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // main nodes also drift gently
+      for (const m of mains) {
+        m.x = m.baseX + Math.cos(elapsed * 0.0004 + m.r) * 4;
+        m.y = m.baseY + Math.sin(elapsed * 0.0005 + m.r) * 4;
+      }
+
+      // connector lines — soft curved bezier with a low-alpha stroke
+      ctx.lineWidth = 1;
+      for (const l of links) {
+        const A = mains.find((m) => m.id === l.a);
+        const B = mains.find((m) => m.id === l.b);
+        const mx = (A.x + B.x) / 2;
+        const my = (A.y + B.y) / 2 - 10;
+        const grad = ctx.createLinearGradient(A.x, A.y, B.x, B.y);
+        grad.addColorStop(0, `rgba(${A.color.join(",")}, 0.38)`);
+        grad.addColorStop(1, `rgba(${B.color.join(",")}, 0.38)`);
+        ctx.strokeStyle = grad;
+        ctx.beginPath();
+        ctx.moveTo(A.x, A.y);
+        ctx.quadraticCurveTo(mx, my, B.x, B.y);
+        ctx.stroke();
+      }
+
+      // main nodes — glowing dots (halo + solid core + highlight)
+      for (const m of mains) {
+        const [r, g, b] = m.color;
+        const haloR = m.r * 5.5;
+        const g1 = ctx.createRadialGradient(m.x, m.y, 0, m.x, m.y, haloR);
+        g1.addColorStop(0,   `rgba(${r}, ${g}, ${b}, 0.55)`);
+        g1.addColorStop(0.4, `rgba(${r}, ${g}, ${b}, 0.22)`);
+        g1.addColorStop(1,   `rgba(${r}, ${g}, ${b}, 0)`);
+        ctx.fillStyle = g1;
+        ctx.beginPath();
+        ctx.arc(m.x, m.y, haloR, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
+        ctx.beginPath();
+        ctx.arc(m.x, m.y, m.r, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = "rgba(255, 255, 255, 0.55)";
+        ctx.beginPath();
+        ctx.arc(m.x - m.r * 0.32, m.y - m.r * 0.32, m.r * 0.28, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // edge labels — only "defines" / "section" (sketch-style)
+      ctx.font = '11px "JetBrains Mono", ui-monospace, monospace';
+      ctx.fillStyle = "rgba(80, 75, 70, 0.55)";
+      ctx.textAlign = "left";
+      ctx.textBaseline = "middle";
+      for (const l of links) {
+        const lbl = labelFor[l.b];
+        if (!lbl) continue;
+        const A = mains.find((m) => m.id === l.a);
+        const B = mains.find((m) => m.id === l.b);
+        const lx = (A.x + B.x) / 2 + 6;
+        const ly = (A.y + B.y) / 2 - 8;
+        ctx.fillText(lbl, lx, ly);
+      }
+
+      // expose node positions back to React so labels can position
+      // themselves over the canvas.
+      window.__landNodePos = mains.reduce((acc, m) => {
+        acc[m.id] = { x: m.x, y: m.y, r: m.r };
+        return acc;
+      }, {});
+
+      raf = requestAnimationFrame(draw);
+    };
+    raf = requestAnimationFrame(draw);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      cvs.removeEventListener("mousemove", onMove);
+      cvs.removeEventListener("mouseleave", onLeave);
+    };
+  }, [hero, size.w, size.h]);
 
   if (!hero || !hero.center) {
     return <div className="land-diagram-empty mono">corpus unavailable</div>;
   }
 
-  const W = width, H = height;
-
-  // ── hand-placed node positions (slightly asymmetric for natural feel)
-  const nCenter = { x: 470, y: 305, r: 26, kind: "bill" };
-  const nRelated = { x: 175, y: 280, r: 20, kind: "bill" };
-  const nDef = { x: 720, y: 165, r: 18, kind: "def" };
-  const nSec = { x: 710, y: 430, r: 18, kind: "sec" };
-
-  // floating description cards (anchored to the right-side nodes)
-  const cardDef = { x: 800, y: 70,  w: 270, h: 165 };
-  const cardSec = { x: 790, y: 380, w: 270, h: 140 };
-
-  // labels per node
-  const lblCenter = hero.center.ref;
-  const lblRelated = hero.related.ref;
-  const lblDef = `"${hero.featured_definition.term}"`;
-  const lblSec = "Sec. " + (hero.featured_section ? "7" : "?");
-
-  // The script trims the "(N) Term" preface; here we additionally
-  // strip the "The term <X> means " prefix and capitalize what
-  // remains so the card reads as a fluent gloss instead of repeating
-  // the term's own name.
-  const defText = (() => {
-    const raw = (hero.featured_definition.text || "").trim();
-    const trimmed = raw.replace(/^The term [a-zA-Z ]+? means\s+/i, "");
-    return trimmed.charAt(0).toUpperCase() + trimmed.slice(1);
-  })();
-  const secText = (hero.featured_section?.text || "").trim();
-
-  const sponsorClean = (s) => (s || "").replace(/\s*\[[^\]]+\]\s*/, " ").trim();
-
-  // edge geometry: stop at the circle perimeter, not the center
-  const edge = (a, b) => {
-    const dx = b.x - a.x, dy = b.y - a.y;
-    const L = Math.hypot(dx, dy) || 1;
-    const ux = dx / L, uy = dy / L;
-    return {
-      x1: a.x + ux * a.r,
-      y1: a.y + uy * a.r,
-      x2: b.x - ux * b.r,
-      y2: b.y - uy * b.r,
-      mx: (a.x + b.x) / 2,
-      my: (a.y + b.y) / 2,
-    };
+  // Label positions are anchored to the same baseline coords used
+  // inside the canvas effect (we don't track per-frame drift here —
+  // the drift is small enough that the static label remains visually
+  // glued to its node).
+  const cx = size.w / 2, cy = size.h / 2;
+  const span = Math.min(360, size.w * 0.32);
+  const labelPos = {
+    related: { x: cx - span * 0.95, y: cy + 4 + 22 },
+    center:  { x: cx,                y: cy + 28 },
+    def:     { x: cx + span * 0.80,  y: cy - span * 0.42 + 22 },
+    sec:     { x: cx + span * 0.80,  y: cy + span * 0.42 + 22 },
   };
-  const eRelated = edge(nRelated, nCenter);
-  const eDef     = edge(nCenter, nDef);
-  const eSec     = edge(nCenter, nSec);
-  // leader lines from definition/section nodes to their cards
-  const leaderDef = { x1: nDef.x + nDef.r * 0.7, y1: nDef.y - 4, x2: cardDef.x, y2: cardDef.y + 20 };
-  const leaderSec = { x1: nSec.x + nSec.r * 0.7, y1: nSec.y + 4, x2: cardSec.x, y2: cardSec.y + 20 };
-
-  // Wrap a string into multi-line tspans (≤ width characters per line).
-  const tspans = (text, x, startY, lineH, maxChars, maxLines) => {
-    const lines = wrapText(text, maxChars);
-    const shown = lines.slice(0, maxLines);
-    if (lines.length > maxLines && shown.length) {
-      const last = shown[shown.length - 1];
-      shown[shown.length - 1] = last.slice(0, maxChars - 1).replace(/\s+\S*$/, "") + "…";
-    }
-    return shown.map((line, i) => (
-      <tspan key={i} x={x} y={startY + i * lineH}>{line}</tspan>
-    ));
-  };
-
-  // ── render ────────────────────────────────────────────────────────
-  const nodeOn = (i) => step >= i;
-  const edgesOn = step >= 5;
-  const cardsOn = step >= 6;
 
   return (
-    <div className="land-diagram-wrap">
-      <svg
-        className="land-diagram"
-        viewBox={`0 0 ${W} ${H}`}
-        preserveAspectRatio="xMidYMid meet"
-        role="img"
-        aria-label={`Knowledge graph excerpt: ${hero.center.ref} and one related bill, ${hero.related.ref}.`}
-      >
-        {/* edges */}
-        <g className={"land-edges " + (edgesOn ? "is-on" : "")}>
-          <line className="land-edge-line" {...eRelated} />
-          <line className="land-edge-line" {...eDef} />
-          <line className="land-edge-line" {...eSec} />
-          {/* edge labels — only the typed ones, sketch-style */}
-          <text className="land-edge-label mono"
-                x={eDef.mx + 14} y={eDef.my - 4} textAnchor="start">defines</text>
-          <text className="land-edge-label mono"
-                x={eSec.mx + 14} y={eSec.my + 12} textAnchor="start">section</text>
-        </g>
-
-        {/* leader lines from right-side nodes to their cards */}
-        <g className={"land-leaders " + (cardsOn ? "is-on" : "")}>
-          <line className="land-leader-line" {...leaderDef} />
-          <line className="land-leader-line" {...leaderSec} />
-        </g>
-
-        {/* nodes — small circular blobs */}
-        <g className={"land-node land-node-bill " + (nodeOn(1) ? "is-on" : "")}>
-          <circle cx={nCenter.x} cy={nCenter.y} r={nCenter.r} className="land-blob" />
-          <text x={nCenter.x} y={nCenter.y + nCenter.r + 18}
-                textAnchor="middle" className="land-blob-label">
-            {lblCenter}
-          </text>
-          <text x={nCenter.x} y={nCenter.y + nCenter.r + 34}
-                textAnchor="middle" className="land-blob-sub mono">
-            {hero.center.label.slice(0, 36)}
-          </text>
-        </g>
-
-        <g className={"land-node land-node-bill " + (nodeOn(2) ? "is-on" : "")}>
-          <circle cx={nRelated.x} cy={nRelated.y} r={nRelated.r} className="land-blob" />
-          <text x={nRelated.x} y={nRelated.y + nRelated.r + 18}
-                textAnchor="middle" className="land-blob-label">
-            {lblRelated}
-          </text>
-          <text x={nRelated.x} y={nRelated.y + nRelated.r + 34}
-                textAnchor="middle" className="land-blob-sub mono">
-            related bill
-          </text>
-        </g>
-
-        <g className={"land-node land-node-def " + (nodeOn(3) ? "is-on" : "")}>
-          <circle cx={nDef.x} cy={nDef.y} r={nDef.r} className="land-blob" />
-          <text x={nDef.x} y={nDef.y + nDef.r + 16}
-                textAnchor="middle" className="land-blob-label-italic">
-            {lblDef}
-          </text>
-        </g>
-
-        <g className={"land-node land-node-sec " + (nodeOn(4) ? "is-on" : "")}>
-          <circle cx={nSec.x} cy={nSec.y} r={nSec.r} className="land-blob" />
-          <text x={nSec.x} y={nSec.y + nSec.r + 16}
-                textAnchor="middle" className="land-blob-label">
-            {lblSec}
-          </text>
-        </g>
-
-        {/* floating description cards */}
-        <g className={"land-card " + (cardsOn ? "is-on" : "")}>
-          <rect
-            x={cardDef.x} y={cardDef.y}
-            width={cardDef.w} height={cardDef.h}
-            rx={6} className="land-card-rect"
-          />
-          <text x={cardDef.x + 12} y={cardDef.y + 18}
-                className="land-card-head mono">DEFINITION · {hero.center.ref}</text>
-          <text x={cardDef.x + 12} y={cardDef.y + 36}
-                className="land-card-title">{lblDef}</text>
-          <text className="land-card-body">
-            {tspans(defText, cardDef.x + 12, cardDef.y + 60, 14, 36, 7)}
-          </text>
-        </g>
-
-        <g className={"land-card " + (cardsOn ? "is-on" : "")}>
-          <rect
-            x={cardSec.x} y={cardSec.y}
-            width={cardSec.w} height={cardSec.h}
-            rx={6} className="land-card-rect"
-          />
-          <text x={cardSec.x + 12} y={cardSec.y + 18}
-                className="land-card-head mono">SECTION · {hero.center.ref}</text>
-          <text x={cardSec.x + 12} y={cardSec.y + 36}
-                className="land-card-title">{hero.featured_section?.heading || ""}</text>
-          <text className="land-card-body">
-            {tspans(secText, cardSec.x + 12, cardSec.y + 60, 14, 36, 5)}
-          </text>
-        </g>
-      </svg>
-
-      <div className="land-diagram-legend mono">
-        <span><b>{hero.center.ref}</b> · {sponsorClean(hero.center.sponsor)}</span>
-        <span className="leg-sep">·</span>
-        <span>related to <b>{hero.related.ref}</b> via shared term{hero.shared_terms.length > 1 ? "s" : ""} <em>{hero.shared_terms.slice(0, 2).join(", ")}</em></span>
+    <div ref={containerRef} className="land-scene">
+      <canvas ref={canvasRef} className="land-scene-canvas" />
+      <div className="land-scene-labels">
+        <div className="lbl lbl-bill"
+             style={{ left: labelPos.related.x, top: labelPos.related.y }}>
+          <div className="lbl-text">{hero.related.ref}</div>
+          <div className="lbl-sub mono">related bill</div>
+        </div>
+        <div className="lbl lbl-bill"
+             style={{ left: labelPos.center.x, top: labelPos.center.y }}>
+          <div className="lbl-text">{hero.center.ref}</div>
+          <div className="lbl-sub mono">{hero.center.label.slice(0, 32)}</div>
+        </div>
+        <div className="lbl lbl-def"
+             style={{ left: labelPos.def.x, top: labelPos.def.y }}>
+          <div className="lbl-text lbl-italic">"{hero.featured_definition.term}"</div>
+          <div className="lbl-sub mono">definition</div>
+        </div>
+        <div className="lbl lbl-sec"
+             style={{ left: labelPos.sec.x, top: labelPos.sec.y }}>
+          <div className="lbl-text">Sec. 7</div>
+          <div className="lbl-sub mono">section</div>
+        </div>
       </div>
     </div>
   );
-}
-
-// Wrap a string into ≤ width characters per line, breaking at word
-// boundaries. Tiny helper so the SVG node text fits inside its box.
-function wrapText(s, width) {
-  const words = String(s || "").split(/\s+/);
-  const lines = [];
-  let cur = "";
-  for (const w of words) {
-    if (!cur) { cur = w; continue; }
-    if ((cur + " " + w).length <= width) cur += " " + w;
-    else { lines.push(cur); cur = w; }
-  }
-  if (cur) lines.push(cur);
-  // limit to 3 lines max with ellipsis on the last one
-  if (lines.length > 3) {
-    const head = lines.slice(0, 2);
-    let tail = lines.slice(2).join(" ");
-    if (tail.length > width - 1) tail = tail.slice(0, width - 1) + "…";
-    return [...head, tail];
-  }
-  return lines;
 }
 
 // ── Stat tile (unchanged from v2) ────────────────────────────────────

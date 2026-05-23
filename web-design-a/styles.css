@@ -1589,6 +1589,7 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
   min-height: 100vh;
   background: var(--canvas);
   color: var(--ink);
+  overflow-x: hidden;  /* let .land-diagram-container escape via 100vw */
 }
 
 /* ── Navy top bar (matches the workspace header chrome) ───────────── */
@@ -1713,9 +1714,27 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
   from { opacity: 0; transform: translateY(8px); }
   to   { opacity: 1; transform: none; }
 }
+/* The diagram zone breaks out of the 1180px container so the gradient
+   backdrop and hairline borders span the full viewport width — Stripe
+   uses the same pattern: a "fading-horizon" section visually bracketed
+   by thin top/bottom rules that separate it from the surrounding page.
+   Negative-margin trick keeps the markup nested cleanly. */
 .land-diagram-container {
-  width: 100%;
-  max-width: 1060px;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  position: relative;
+  border-top: 1px solid rgba(255, 255, 255, 0.85);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.85);
+  background:
+    /* warm peach pool centered slightly low — the "sunset" core */
+    radial-gradient(ellipse 50% 36% at 50% 62%, rgba(252, 198, 138, 0.55) 0%, rgba(252, 198, 138, 0) 70%),
+    /* cool blue wash filling the rest */
+    radial-gradient(ellipse 90% 70% at 50% 50%, rgba(195, 215, 245, 0.55) 0%, rgba(195, 215, 245, 0) 75%),
+    /* base — very pale blue, almost cream */
+    linear-gradient(180deg, #eef3fb 0%, #e6edf8 50%, #eef3fb 100%);
+  /* faint inner top-edge highlight so the border feels lit, not drawn */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65),
+              inset 0 -1px 0 rgba(255, 255, 255, 0.40);
 }
 .land-stage .land-lede {
   font-family: var(--font-serif);
@@ -1736,20 +1755,54 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
   justify-content: center;
 }
 
-/* ── HeroDiagram (SVG) — free-flowing on the cream canvas ─────────── */
-.land-diagram-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--s-3);
+/* ── HeroDiagram (canvas scene — Stripe-inspired) ───────────────────
+   The .land-diagram-container above wraps this in a full-bleed
+   gradient zone with hairline borders. Inside, a canvas paints the
+   glowing dots + drifting particle field, and small HTML labels
+   sit absolutely-positioned over the canvas at each main node. */
+.land-scene {
+  position: relative;
   width: 100%;
+  height: 560px;
+  cursor: default;
+  margin: 0 auto;
+  max-width: 1480px;
 }
-.land-diagram {
-  width: 100%;
-  height: auto;
-  /* No border, no background panel — the diagram sits on the cream. */
-  overflow: visible;
+.land-scene-canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
 }
+.land-scene-labels {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.lbl {
+  position: absolute;
+  transform: translate(-50%, 0);
+  text-align: center;
+  white-space: nowrap;
+}
+.lbl .lbl-text {
+  font-family: var(--font-serif);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: -0.005em;
+}
+.lbl .lbl-italic {
+  font-style: italic;
+  font-weight: 400;
+}
+.lbl .lbl-sub {
+  font-size: 9.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+  margin-top: 2px;
+}
+
 .land-diagram-empty {
   width: 100%;
   height: 320px;
@@ -1761,129 +1814,6 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
-
-/* Each node group fades + lifts in (state driven by React: .is-on). */
-.land-node {
-  opacity: 0;
-  transform: translateY(4px);
-  transform-origin: center;
-  transition: opacity 380ms ease, transform 380ms cubic-bezier(0.2,0.7,0.2,1);
-}
-.land-node.is-on { opacity: 1; transform: none; }
-
-/* Small circular blobs, color-coded by node TYPE. The center bill
-   blob is the only filled one — definitions/sections sit as
-   outlined wash circles so the diagram doesn't feel "boxed in". */
-.land-node-bill .land-blob {
-  fill: var(--accent);
-  stroke: var(--accent-2);
-  stroke-width: 1.2;
-  filter: drop-shadow(0 2px 8px rgba(20, 26, 60, 0.18));
-}
-.land-node-def .land-blob {
-  fill: #fdf3d8;
-  stroke: #b45309;
-  stroke-width: 1.4;
-}
-.land-node-sec .land-blob {
-  fill: #e3f0e0;
-  stroke: #2f6b2c;
-  stroke-width: 1.4;
-}
-
-/* Blob labels sit BELOW the blob (not inside it) — gives the diagram
-   the freeform "node + caption" feel of an Obsidian-style graph. */
-.land-blob-label {
-  fill: var(--ink);
-  font-family: var(--font-serif);
-  font-size: 15px;
-  font-weight: 500;
-  letter-spacing: -0.005em;
-}
-.land-blob-label-italic {
-  fill: var(--ink);
-  font-family: var(--font-serif);
-  font-size: 14px;
-  font-style: italic;
-  letter-spacing: -0.005em;
-}
-.land-blob-sub {
-  fill: var(--ink-4);
-  font-size: 10px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-/* Edges — thin solid hairlines so they read as wireframe, not arrows. */
-.land-edges, .land-leaders {
-  opacity: 0;
-  transition: opacity 500ms ease;
-}
-.land-edges.is-on, .land-leaders.is-on { opacity: 1; }
-.land-edge-line {
-  stroke: rgba(60, 50, 35, 0.42);
-  stroke-width: 1.1;
-}
-.land-leader-line {
-  stroke: rgba(60, 50, 35, 0.30);
-  stroke-width: 1;
-  stroke-dasharray: 3 3;
-}
-.land-edge-label {
-  fill: var(--ink-3);
-  font-size: 11px;
-  letter-spacing: 0.04em;
-}
-
-/* Floating description cards — pure SVG, white card on cream with
-   a soft border + shadow. Heading is mono, body is serif. */
-.land-card {
-  opacity: 0;
-  transform: translateY(6px);
-  transition: opacity 420ms ease, transform 420ms cubic-bezier(0.2,0.7,0.2,1);
-}
-.land-card.is-on { opacity: 1; transform: none; }
-.land-card-rect {
-  fill: #ffffff;
-  stroke: var(--rule-strong);
-  stroke-width: 1;
-  filter: drop-shadow(0 4px 10px rgba(20, 18, 12, 0.08));
-}
-.land-card-head {
-  fill: var(--accent);
-  font-size: 9.5px;
-  letter-spacing: 0.08em;
-}
-.land-card-title {
-  fill: var(--ink);
-  font-family: var(--font-serif);
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: -0.005em;
-}
-.land-card-body tspan {
-  fill: var(--ink-2);
-  font-family: var(--font-serif);
-  font-size: 11.5px;
-}
-
-/* Legend below diagram — pure metadata line, not a swatch legend.
-   Names the two bills and explains the unlabeled bill-bill edge. */
-.land-diagram-legend {
-  display: flex;
-  align-items: center;
-  gap: var(--s-3);
-  font-size: var(--t-xs);
-  letter-spacing: 0.02em;
-  color: var(--ink-3);
-  padding-top: 12px;
-  flex-wrap: wrap;
-  justify-content: center;
-  text-align: center;
-}
-.land-diagram-legend b { color: var(--ink); font-weight: 600; }
-.land-diagram-legend em { color: var(--ink-2); font-style: italic; }
-.land-diagram-legend .leg-sep { color: var(--ink-5); }
 
 /* ── shared CTA pill ──────────────────────────────────────────────── */
 .land-cta {
