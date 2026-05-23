@@ -75,6 +75,17 @@ def main() -> int:
     conn = kuzu.Connection(db)
 
     # ── pull every bill with the fields we want to display ─────────────
+    # Chamber bucket per bill_type — drives node coloring on the landing.
+    # House-side and Senate-side stay distinct; joint resolutions share the
+    # originating chamber's bucket.
+    def chamber_of(btype: str) -> str:
+        bt = (btype or "").lower()
+        if bt in ("hr", "hres", "hjres", "hconres"):
+            return "house"
+        if bt in ("s", "sres", "sjres", "sconres"):
+            return "senate"
+        return "other"
+
     bills: dict[str, dict] = {}
     res = conn.execute(
         "MATCH (b:Bill) "
@@ -90,6 +101,7 @@ def main() -> int:
             "id": bill_id,
             "label": short_title_from(label, bill_id) if not short else label[:80],
             "congress": congress,
+            "chamber": chamber_of(btype),
             "ref": f"{btype.upper().replace('HR','H.R.').replace('S','S.')} {bnum}".replace("HRES","H.Res.").replace("SRES","S.Res."),
             "sponsor": sponsor or "",
             "centrality": float(score or 0.0),
@@ -161,6 +173,7 @@ def main() -> int:
             "label": b["label"],
             "ref": b["ref"],
             "congress": b["congress"],
+            "chamber": b["chamber"],
             "sponsor": b["sponsor"],
             "degree": degree[b["id"]],
         })

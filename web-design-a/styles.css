@@ -278,11 +278,42 @@ input, textarea { font: inherit; color: inherit; }
   gap: var(--s-3);
 }
 .brand-name {
+  /* Doubles as the back-to-home affordance: a left arrow slides in on
+     hover so it's obvious the wordmark is a link, not just a logo. */
+  position: relative;
   font-family: var(--font-mono);
   font-weight: 600;
   letter-spacing: -0.01em;
   font-size: var(--t-lg);
   color: var(--header-ink);
+  background: transparent;
+  border: 0;
+  padding: 4px 6px 4px 6px;
+  margin-left: -6px;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: background 100ms, padding 100ms;
+}
+.brand-name::before {
+  content: "←";
+  display: inline-block;
+  width: 0;
+  overflow: hidden;
+  opacity: 0;
+  color: var(--header-ink-dim);
+  transition: width 140ms, opacity 140ms;
+  white-space: nowrap;
+}
+.brand-name:hover {
+  background: rgba(243, 245, 250, 0.08);
+}
+.brand-name:hover::before {
+  width: 1ch;
+  opacity: 1;
+  margin-right: 2px;
 }
 .brand-sep { color: var(--ink-5); }
 .brand-context {
@@ -1549,52 +1580,59 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
    Public landing page (Root.view === "landing")
    ---------------------------------------------------------------------
    Standalone shell — not nested in the workspace grid. Renders for
-   anyone who hits the site (signed in or not). The scrolling thesis
-   page: hero + drift graph, by-the-numbers band, how-it-works pillars,
-   corpus aggregates, source footnotes.
+   anyone who hits the site (signed in or not). Hero plays a typed
+   headline → graph reveal; below it: by-the-numbers (with each
+   number linking to its primary source), how-it-works, corpus
+   aggregates, CTA reprise.
    ===================================================================== */
 .land {
   min-height: 100vh;
   background: var(--canvas);
   color: var(--ink);
 }
+
+/* ── Navy top bar (matches the workspace header chrome) ───────────── */
 .land-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--s-5) var(--s-8);
-  border-bottom: 1px solid var(--rule);
-  background: var(--canvas);
+  padding: 0 var(--s-7);
+  height: 48px;
+  background: var(--header-bg);
+  color: var(--header-ink);
+  border-bottom: 1px solid var(--header-rule);
   position: sticky;
   top: 0;
   z-index: 10;
-  backdrop-filter: saturate(120%) blur(6px);
 }
 .land-brand {
   font-family: var(--font-mono);
-  font-size: var(--t-md);
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  color: var(--ink);
+  font-size: var(--t-lg);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--header-ink);
 }
 .land-nav { display: flex; align-items: center; gap: var(--s-5); }
 .land-nav .land-user {
   font-size: var(--t-xs);
-  color: var(--ink-4);
+  color: var(--header-ink-dim);
   white-space: nowrap;
 }
 .land-link {
   font-family: var(--font-mono);
   font-size: var(--t-xs);
-  color: var(--ink-2);
+  color: var(--header-ink);
   background: transparent;
-  border: 1px solid var(--rule-strong);
-  padding: 6px 10px;
+  border: 1px solid rgba(243, 245, 250, 0.32);
+  padding: 5px 12px;
   border-radius: var(--r-sm);
   cursor: pointer;
-  transition: background 100ms, color 100ms;
+  transition: background 100ms, border-color 100ms;
 }
-.land-link:hover { background: var(--subtle); color: var(--ink); }
+.land-link:hover {
+  background: rgba(243, 245, 250, 0.10);
+  border-color: rgba(243, 245, 250, 0.55);
+}
 
 .land-main {
   max-width: 1180px;
@@ -1602,47 +1640,88 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
   padding: 0 var(--s-8);
 }
 
-/* ── HERO ─────────────────────────────────────────────────────────── */
+/* ── HERO — typed headline → graph ────────────────────────────────── */
 .land-hero {
-  display: grid;
-  grid-template-columns: minmax(420px, 1fr) minmax(420px, 1.05fr);
-  gap: var(--s-9);
-  padding: 72px 0 64px;
+  /* Reserve a full viewport-height stage so the headline-to-graph
+     transition doesn't pop other content into view mid-animation. */
+  min-height: calc(100vh - 48px);
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  padding: 56px 0 64px;
+  position: relative;
 }
-.land-hero-copy { min-width: 0; }
-.land-eyebrow {
-  font-size: var(--t-xs);
-  text-transform: uppercase;
-  letter-spacing: 0.10em;
-  color: var(--ink-4);
-  margin-bottom: var(--s-5);
+
+/* typed-headline phase */
+.land-typed-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  transition: opacity 350ms ease;
 }
-.land-h1 {
+.land-typed-wrap.is-fading { opacity: 0; }
+.land-typed-h {
   font-family: var(--font-serif);
-  font-size: 56px;
+  font-size: 80px;
   font-weight: 500;
-  letter-spacing: -0.022em;
-  line-height: 1.04;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
   color: var(--ink);
-  margin: 0 0 var(--s-6);
+  margin: 0;
+  text-align: center;
   text-wrap: balance;
+  max-width: 16ch;
 }
-.land-lede {
+.typed-caret {
+  display: inline-block;
+  width: 0.06em;
+  height: 0.95em;
+  margin-left: 0.06em;
+  background: var(--accent);
+  vertical-align: -0.08em;
+  animation: typed-blink 0.8s steps(2) infinite;
+}
+@keyframes typed-blink { 50% { opacity: 0; } }
+
+/* graph phase (the stage after the headline disappears) */
+.land-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-7);
+  width: 100%;
+  animation: land-stage-in 700ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@keyframes land-stage-in {
+  from { opacity: 0; transform: scale(0.985) translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+.land-stage-graph {
+  width: 100%;
+  max-width: 980px;
+}
+.land-stage .land-lede {
   font-family: var(--font-serif);
-  font-size: 19px;
-  line-height: 1.58;
+  font-style: italic;
+  font-size: 17px;
+  line-height: 1.55;
   color: var(--ink-2);
-  margin: 0 0 var(--s-7);
-  max-width: 50ch;
+  margin: 0;
+  max-width: 60ch;
+  text-align: center;
   text-wrap: pretty;
 }
-.land-cta-row {
+.land-stage .land-cta-row {
   display: flex;
   align-items: center;
   gap: var(--s-6);
   flex-wrap: wrap;
+  justify-content: center;
 }
+
+/* ── shared CTA pill ──────────────────────────────────────────────── */
 .land-cta {
   display: inline-flex;
   align-items: center;
@@ -1660,20 +1739,11 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
 }
 .land-cta:hover { background: var(--accent-2); transform: translateY(-1px); }
 .land-cta:active { transform: translateY(0); }
-.land-corpus {
-  font-size: var(--t-xs);
-  color: var(--ink-3);
-}
+.land-corpus { font-size: var(--t-xs); color: var(--ink-3); }
 .land-corpus b { color: var(--ink); font-weight: 600; }
 .land-corpus .land-dot { color: var(--ink-5); margin: 0 8px; }
 
-/* ── HERO graph ───────────────────────────────────────────────────── */
-.land-hero-graph {
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--s-3);
-}
+/* ── LandingGraph canvas frame ────────────────────────────────────── */
 .land-graph {
   position: relative;
   border: 1px solid var(--rule);
@@ -1683,12 +1753,10 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
     var(--panel-2);
   overflow: hidden;
   width: 100%;
-  height: 480px;
+  height: 520px;
+  touch-action: none;
 }
-.land-graph canvas {
-  display: block;
-  cursor: crosshair;
-}
+.land-graph canvas { display: block; cursor: default; }
 .land-graph-placeholder {
   display: flex;
   align-items: center;
@@ -1701,6 +1769,30 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
+.land-graph-legend {
+  position: absolute;
+  left: 12px;
+  bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: var(--s-5);
+  font-size: var(--t-2xs);
+  letter-spacing: 0.04em;
+  color: var(--ink-3);
+  pointer-events: none;
+}
+.land-graph-legend .dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: -1px;
+}
+.land-graph-legend .dot-house  { background: rgba(176, 78, 67, 0.95); }
+.land-graph-legend .dot-senate { background: rgba(63,  99, 175, 0.95); }
+.land-graph-legend .hint { color: var(--ink-4); margin-left: 4px; }
+
 .land-graph-tip {
   position: absolute;
   background: var(--panel);
@@ -1724,7 +1816,6 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
   line-height: 1.35;
   color: var(--ink);
   margin-bottom: 4px;
-  /* clamp very long bill titles */
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
@@ -1738,15 +1829,8 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.land-graph-caption {
-  font-size: var(--t-2xs);
-  color: var(--ink-4);
-  letter-spacing: 0.02em;
-  line-height: 1.55;
-  padding: 0 4px;
-}
 
-/* ── Generic section frame ────────────────────────────────────────── */
+/* ── Section frame (used by all below-the-fold sections) ──────────── */
 .land-section {
   padding: 48px 0;
   border-top: 1px solid var(--rule);
@@ -1764,13 +1848,12 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
 }
 .land-section-tag {
   color: var(--ink-5);
-  text-transform: none;
   letter-spacing: 0.02em;
-  font-size: var(--t-xs);
   text-transform: uppercase;
+  font-size: var(--t-xs);
 }
 
-/* ── By the numbers ───────────────────────────────────────────────── */
+/* ── By the numbers (each number is its own source link) ──────────── */
 .land-stats-section { padding: 56px 0; }
 .land-stats-grid {
   display: grid;
@@ -1787,24 +1870,47 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
   display: flex;
   flex-direction: column;
   gap: 10px;
-  min-height: 168px;
+  min-height: 180px;
 }
 .land-stat-n {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
   font-family: var(--font-serif);
   font-size: 44px;
   font-weight: 500;
   line-height: 1;
   letter-spacing: -0.025em;
   color: var(--ink);
-  display: flex;
-  align-items: baseline;
-  gap: 4px;
+  text-decoration: none;
+  align-self: flex-start;
+  transition: color 120ms;
 }
-.land-stat-unit {
-  font-size: 18px;
-  color: var(--ink-3);
-  font-weight: 400;
-  letter-spacing: 0;
+.land-stat-n .land-stat-n-text {
+  border-bottom: 2px solid transparent;
+  transition: border-color 120ms;
+}
+.land-stat-arrow {
+  font-size: 14px;
+  color: var(--ink-5);
+  font-family: var(--font-mono);
+  opacity: 0;
+  transform: translate(-4px, -2px);
+  transition: opacity 120ms, transform 120ms, color 120ms;
+}
+.land-stat-n:hover { color: var(--accent); }
+.land-stat-n:hover .land-stat-n-text {
+  border-bottom-color: var(--accent-line);
+}
+.land-stat-n:hover .land-stat-arrow {
+  opacity: 1;
+  transform: translate(0, -2px);
+  color: var(--accent);
+}
+.land-stat-n:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 2px;
 }
 .land-stat-body {
   font-family: var(--font-serif);
@@ -1813,18 +1919,14 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
   color: var(--ink-2);
   text-wrap: pretty;
 }
-.land-stat-body sup { font-size: 0.65em; }
-.land-fn-link {
-  color: var(--accent);
-  text-decoration: none;
-  font-family: var(--font-mono);
-  margin-left: 2px;
-  padding: 0 2px;
-  border-radius: 2px;
+.land-stat-caveat {
+  font-size: var(--t-2xs);
+  color: var(--ink-4);
+  letter-spacing: 0.02em;
+  margin-top: auto;
 }
-.land-fn-link:hover { background: var(--accent-soft); }
 
-/* ── How it works ─────────────────────────────────────────────────── */
+/* ── How it works pillars ─────────────────────────────────────────── */
 .land-pillars {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1833,7 +1935,6 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
 .land-pillar {
   padding: var(--s-6) var(--s-6) var(--s-7);
   border-left: 2px solid var(--accent-line);
-  background: transparent;
 }
 .land-pillar-title {
   font-family: var(--font-ui);
@@ -1884,7 +1985,7 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
   text-transform: uppercase;
 }
 
-/* ── CTA band ─────────────────────────────────────────────────────── */
+/* ── CTA reprise band ─────────────────────────────────────────────── */
 .land-cta-band {
   margin: 56px 0 0;
   padding: 36px 40px;
@@ -1913,41 +2014,10 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
   margin-top: 4px;
 }
 
-/* ── Footnotes ────────────────────────────────────────────────────── */
-.land-notes-section { padding-bottom: 80px; }
-.land-notes {
-  list-style: decimal;
-  margin: 0;
-  padding: 0 0 0 24px;
-  display: flex;
-  flex-direction: column;
-  gap: var(--s-4);
-  max-width: 880px;
-}
-.land-notes li {
-  font-family: var(--font-serif);
-  font-size: 13px;
-  line-height: 1.55;
-  color: var(--ink-2);
-  scroll-margin-top: 80px;
-}
-.land-notes li a {
-  color: var(--accent);
-  text-decoration: none;
-  word-break: break-word;
-}
-.land-notes li a:hover { text-decoration: underline; }
-.land-notes li em { color: var(--ink); font-style: italic; }
-.land-notes li:target {
-  background: var(--accent-soft);
-  padding: 6px 10px;
-  border-radius: var(--r-sm);
-  margin-left: -10px;
-}
-.land-meta {
-  margin-top: var(--s-8);
-  padding-top: var(--s-5);
-  border-top: 1px solid var(--rule);
+/* ── Foot meta ─────────────────────────────────────────────────────── */
+.land-foot {
+  padding: 56px 0 80px;
+  text-align: center;
   font-size: var(--t-xs);
   color: var(--ink-5);
   letter-spacing: 0.04em;
@@ -1955,26 +2025,21 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
 
 /* ── Responsive ───────────────────────────────────────────────────── */
 @media (max-width: 1080px) {
-  .land-hero {
-    grid-template-columns: 1fr;
-    gap: var(--s-8);
-    padding: 56px 0 48px;
-  }
-  .land-h1 { font-size: 44px; }
+  .land-typed-h { font-size: 64px; }
   .land-stats-grid { grid-template-columns: repeat(2, 1fr); }
   .land-pillars { grid-template-columns: 1fr; gap: var(--s-5); }
   .land-corpus-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 640px) {
-  .land-header { padding: var(--s-4) var(--s-5); }
+  .land-header { padding: 0 var(--s-5); }
   .land-main { padding: 0 var(--s-5); }
-  .land-h1 { font-size: 36px; }
+  .land-typed-h { font-size: 44px; }
+  .land-graph { height: 380px; }
   .land-stats-grid { grid-template-columns: 1fr; }
   .land-corpus-grid { grid-template-columns: 1fr; }
   .land-cta-band { padding: 24px; }
   .land-cta-band-h { font-size: 22px; }
 }
-
 /* ── Auth back button (added when AuthScreen is reached from landing) */
 .auth-back {
   display: inline-block;
