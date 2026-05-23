@@ -70,10 +70,20 @@ function TypedHeadline({ text, onDone, charMs = 85, holdMs = 750 }) {
 function HeroDiagram({ hero }) {
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
-  const mouseRef = useRef({ x: -1e6, y: -1e6, active: false });
-  const [size, setSize] = useState({ w: 1200, h: 600 });
+  // Reveal stage drives both node visibility and the staggered label
+  // fade-in. Total reveal arc: ~5 seconds, like the user asked.
+  //   0: empty
+  //   1: related node    (0.4s)
+  //   2: related↔center edge   (1.0s)
+  //   3: center node     (1.6s)
+  //   4: center↔def edge       (2.4s)
+  //   5: def node        (3.0s)
+  //   6: center↔sec edge       (3.8s)
+  //   7: sec node        (4.4s)
+  const [step, setStep] = useState(0);
+  const [size, setSize] = useState({ w: 1200, h: 560 });
 
-  // size-track the container so the canvas always fills it crisply
+  // size-track the container so the canvas always fills the section
   useEffect(() => {
     if (!containerRef.current) return;
     const ro = new ResizeObserver((entries) => {
@@ -88,7 +98,20 @@ function HeroDiagram({ hero }) {
     return () => ro.disconnect();
   }, []);
 
-  // particle + node simulation
+  // Sequenced reveal — every cue is ~600–800 ms apart so the diagram
+  // builds itself in front of the reader, one note then one edge at
+  // a time, instead of popping in all at once.
+  useEffect(() => {
+    if (!hero) return;
+    const cues = [400, 1000, 1600, 2400, 3000, 3800, 4400];
+    const timers = cues.map((t, i) => setTimeout(() => setStep(i + 1), t));
+    return () => timers.forEach(clearTimeout);
+  }, [hero]);
+
+  // node/edge data + drag state lives in a ref so the RAF loop sees
+  // current values without re-binding the effect every render.
+  const sceneRef = useRef(null);
+
   useEffect(() => {
     if (!hero || !canvasRef.current) return;
     const W = size.w, H = size.h;
@@ -101,165 +124,116 @@ function HeroDiagram({ hero }) {
     const ctx = cvs.getContext("2d");
     ctx.scale(dpr, dpr);
 
-    // ── main nodes — small, hand-positioned around the center ────────
+    // hand-placed positions, tuned for breathing room at ≥1024 wide
     const cx = W / 2, cy = H / 2;
-    // Spread tightens on narrower viewports so labels don't collide.
-    const span = Math.min(360, W * 0.32);
+    const span = Math.min(380, W * 0.30);
     const mains = [
-      { id: "related", baseX: cx - span * 0.95, baseY: cy + 4,            r: 6.5, color: [30, 63, 168] },
-      { id: "center",  baseX: cx,                baseY: cy,                r: 10,  color: [30, 63, 168] },
-      { id: "def",     baseX: cx + span * 0.80,  baseY: cy - span * 0.42,  r: 6,   color: [180, 83, 9] },
-      { id: "sec",     baseX: cx + span * 0.80,  baseY: cy + span * 0.42,  r: 6,   color: [47, 107, 44] },
+      { id: "related", x: cx - span * 1.0,  y: cy + 8,             r: 7,   color: "#1e3fa8" },
+      { id: "center",  x: cx,                y: cy,                 r: 11,  color: "#1e3fa8" },
+      { id: "def",     x: cx + span * 0.75,  y: cy - span * 0.45,   r: 6.5, color: "#b45309" },
+      { id: "sec",     x: cx + span * 0.75,  y: cy + span * 0.45,   r: 6.5, color: "#2f6b2c" },
     ];
-    for (const m of mains) { m.x = m.baseX; m.y = m.baseY; m.vx = 0; m.vy = 0; }
+    const links = [
+      { a: "related", b: "center", step: 2, label: null },
+      { a: "center",  b: "def",    step: 4, label: "defines" },
+      { a: "center",  b: "sec",    step: 6, label: "section" },
+    ];
 
-    // ── ambient particle field ───────────────────────────────────────
-    // Two color families (cool blue + warm amber) so the dots feel
-    // like the same palette as the gradient backdrop.
-    const N = 70;
-    const particles = [];
-    const rng = (() => { let s = 9001; return () => { s = (s * 16807) % 2147483647; return s / 2147483647; }; })();
-    for (let i = 0; i < N; i++) {
-      const angle = rng() * Math.PI * 2;
-      const dist = 70 + rng() * Math.min(W, H) * 0.42;
-      const bx = cx + Math.cos(angle) * dist;
-      const by = cy + Math.sin(angle) * dist * 0.7;
-      const warm = rng() > 0.55;
-      particles.push({
-        baseX: bx, baseY: by,
-        x: bx, y: by, vx: 0, vy: 0,
-        r: 0.7 + rng() * 1.4,
-        phase: rng() * Math.PI * 2,
-        freq: 0.00035 + rng() * 0.0009,
-        amp: 6 + rng() * 18,
-        // Cool blue tone or warm amber tone, with low base opacity.
-        color: warm
-          ? `rgba(196, 130, 70, ${0.30 + rng() * 0.35})`
-          : `rgba(60, 100, 190, ${0.30 + rng() * 0.40})`,
-      });
-    }
+    sceneRef.current = { mains, links, drag: null };
 
-    // ── mouse tracking ───────────────────────────────────────────────
+    // ── drag interaction (Obsidian-style — released nodes stay put) ─
+    const nearest = (mx, my) => {
+      let best = null, bestD = 22 * 22;
+      for (const m of mains) {
+        const dx = mx - m.x, dy = my - m.y;
+        const d2 = dx * dx + dy * dy;
+        if (d2 < bestD) { bestD = d2; best = m; }
+      }
+      return best;
+    };
+    const onDown = (ev) => {
+      const rect = cvs.getBoundingClientRect();
+      const mx = ev.clientX - rect.left;
+      const my = ev.clientY - rect.top;
+      const m = nearest(mx, my);
+      if (m) {
+        sceneRef.current.drag = { node: m, ox: mx - m.x, oy: my - m.y };
+        cvs.setPointerCapture?.(ev.pointerId);
+        cvs.style.cursor = "grabbing";
+        ev.preventDefault();
+      }
+    };
     const onMove = (ev) => {
       const rect = cvs.getBoundingClientRect();
-      mouseRef.current.x = ev.clientX - rect.left;
-      mouseRef.current.y = ev.clientY - rect.top;
-      mouseRef.current.active = true;
+      const mx = ev.clientX - rect.left;
+      const my = ev.clientY - rect.top;
+      const sc = sceneRef.current;
+      if (sc.drag) {
+        sc.drag.node.x = mx - sc.drag.ox;
+        sc.drag.node.y = my - sc.drag.oy;
+      } else {
+        cvs.style.cursor = nearest(mx, my) ? "grab" : "default";
+      }
     };
-    const onLeave = () => { mouseRef.current.active = false; };
-    cvs.addEventListener("mousemove", onMove);
-    cvs.addEventListener("mouseleave", onLeave);
-
-    // ── connector geometry ───────────────────────────────────────────
-    const links = [
-      { a: "related", b: "center" },
-      { a: "center",  b: "def" },
-      { a: "center",  b: "sec" },
-    ];
-    const labelFor = { def: "defines", sec: "section" };
+    const onUp = () => {
+      if (sceneRef.current.drag) {
+        sceneRef.current.drag = null;
+        cvs.style.cursor = "default";
+      }
+    };
+    cvs.addEventListener("pointerdown", onDown);
+    cvs.addEventListener("pointermove", onMove);
+    cvs.addEventListener("pointerup", onUp);
+    cvs.addEventListener("pointercancel", onUp);
 
     // ── render loop ──────────────────────────────────────────────────
     let raf = 0;
-    let t0 = performance.now();
-
-    const draw = (t) => {
-      const elapsed = t - t0;
+    const draw = () => {
       ctx.clearRect(0, 0, W, H);
-      const mouse = mouseRef.current;
+      const { mains: M, links: L } = sceneRef.current;
+      const cur = step;
 
-      // particles — drift toward their oscillating target; cursor
-      // pushes them gently outward.
-      for (const p of particles) {
-        const tx = p.baseX + Math.cos(elapsed * p.freq + p.phase) * p.amp;
-        const ty = p.baseY + Math.sin(elapsed * p.freq * 1.3 + p.phase * 0.7) * p.amp;
-        if (mouse.active) {
-          const dx = p.x - mouse.x, dy = p.y - mouse.y;
-          const d2 = dx * dx + dy * dy;
-          if (d2 > 1 && d2 < 130 * 130) {
-            const inv = 1 / Math.sqrt(d2);
-            const f = 18000 / d2;
-            p.vx += dx * inv * f * 0.0018;
-            p.vy += dy * inv * f * 0.0018;
-          }
-        }
-        p.vx += (tx - p.x) * 0.06;
-        p.vy += (ty - p.y) * 0.06;
-        p.vx *= 0.83;
-        p.vy *= 0.83;
-        p.x += p.vx;
-        p.y += p.vy;
-
-        ctx.fillStyle = p.color;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fill();
-      }
-
-      // main nodes also drift gently
-      for (const m of mains) {
-        m.x = m.baseX + Math.cos(elapsed * 0.0004 + m.r) * 4;
-        m.y = m.baseY + Math.sin(elapsed * 0.0005 + m.r) * 4;
-      }
-
-      // connector lines — soft curved bezier with a low-alpha stroke
-      ctx.lineWidth = 1;
-      for (const l of links) {
-        const A = mains.find((m) => m.id === l.a);
-        const B = mains.find((m) => m.id === l.b);
-        const mx = (A.x + B.x) / 2;
-        const my = (A.y + B.y) / 2 - 10;
-        const grad = ctx.createLinearGradient(A.x, A.y, B.x, B.y);
-        grad.addColorStop(0, `rgba(${A.color.join(",")}, 0.38)`);
-        grad.addColorStop(1, `rgba(${B.color.join(",")}, 0.38)`);
-        ctx.strokeStyle = grad;
+      // edges first — thin straight strokes; appear at their cue step
+      for (const l of L) {
+        if (cur < l.step) continue;
+        const A = M.find((m) => m.id === l.a);
+        const B = M.find((m) => m.id === l.b);
+        // alpha fades in over ~400ms after the cue (handled by CSS
+        // class transitions on labels; for canvas we just draw at full)
+        ctx.strokeStyle = "rgba(30, 35, 50, 0.30)";
+        ctx.lineWidth = 1;
         ctx.beginPath();
         ctx.moveTo(A.x, A.y);
-        ctx.quadraticCurveTo(mx, my, B.x, B.y);
+        ctx.lineTo(B.x, B.y);
         ctx.stroke();
+
+        if (l.label) {
+          ctx.font = '11px "JetBrains Mono", ui-monospace, monospace';
+          ctx.fillStyle = "rgba(80, 75, 70, 0.6)";
+          ctx.textAlign = "left";
+          ctx.textBaseline = "middle";
+          const lx = (A.x + B.x) / 2 + 8;
+          const ly = (A.y + B.y) / 2 - 8;
+          ctx.fillText(l.label, lx, ly);
+        }
       }
 
-      // main nodes — glowing dots (halo + solid core + highlight)
-      for (const m of mains) {
-        const [r, g, b] = m.color;
-        const haloR = m.r * 5.5;
-        const g1 = ctx.createRadialGradient(m.x, m.y, 0, m.x, m.y, haloR);
-        g1.addColorStop(0,   `rgba(${r}, ${g}, ${b}, 0.55)`);
-        g1.addColorStop(0.4, `rgba(${r}, ${g}, ${b}, 0.22)`);
-        g1.addColorStop(1,   `rgba(${r}, ${g}, ${b}, 0)`);
-        ctx.fillStyle = g1;
-        ctx.beginPath();
-        ctx.arc(m.x, m.y, haloR, 0, Math.PI * 2);
-        ctx.fill();
-
-        ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
+      // nodes — solid filled circles, no halo
+      const nodeAppearsAt = { related: 1, center: 3, def: 5, sec: 7 };
+      for (const m of M) {
+        if (cur < nodeAppearsAt[m.id]) continue;
+        ctx.fillStyle = m.color;
         ctx.beginPath();
         ctx.arc(m.x, m.y, m.r, 0, Math.PI * 2);
         ctx.fill();
-
-        ctx.fillStyle = "rgba(255, 255, 255, 0.55)";
-        ctx.beginPath();
-        ctx.arc(m.x - m.r * 0.32, m.y - m.r * 0.32, m.r * 0.28, 0, Math.PI * 2);
-        ctx.fill();
+        // thin darker border for crispness on the cream background
+        ctx.strokeStyle = "rgba(0, 0, 0, 0.18)";
+        ctx.lineWidth = 1;
+        ctx.stroke();
       }
 
-      // edge labels — only "defines" / "section" (sketch-style)
-      ctx.font = '11px "JetBrains Mono", ui-monospace, monospace';
-      ctx.fillStyle = "rgba(80, 75, 70, 0.55)";
-      ctx.textAlign = "left";
-      ctx.textBaseline = "middle";
-      for (const l of links) {
-        const lbl = labelFor[l.b];
-        if (!lbl) continue;
-        const A = mains.find((m) => m.id === l.a);
-        const B = mains.find((m) => m.id === l.b);
-        const lx = (A.x + B.x) / 2 + 6;
-        const ly = (A.y + B.y) / 2 - 8;
-        ctx.fillText(lbl, lx, ly);
-      }
-
-      // expose node positions back to React so labels can position
-      // themselves over the canvas.
-      window.__landNodePos = mains.reduce((acc, m) => {
+      // expose node positions for HTML label tracking
+      window.__landNodePos = M.reduce((acc, m) => {
         acc[m.id] = { x: m.x, y: m.y, r: m.r };
         return acc;
       }, {});
@@ -270,52 +244,48 @@ function HeroDiagram({ hero }) {
 
     return () => {
       cancelAnimationFrame(raf);
-      cvs.removeEventListener("mousemove", onMove);
-      cvs.removeEventListener("mouseleave", onLeave);
+      cvs.removeEventListener("pointerdown", onDown);
+      cvs.removeEventListener("pointermove", onMove);
+      cvs.removeEventListener("pointerup", onUp);
+      cvs.removeEventListener("pointercancel", onUp);
     };
-  }, [hero, size.w, size.h]);
+  }, [hero, size.w, size.h, step]);
 
   if (!hero || !hero.center) {
     return <div className="land-diagram-empty mono">corpus unavailable</div>;
   }
 
-  // Label positions are anchored to the same baseline coords used
-  // inside the canvas effect (we don't track per-frame drift here —
-  // the drift is small enough that the static label remains visually
-  // glued to its node).
+  // Static label coords match the baseline node positions. Labels
+  // fade in alongside their dots using the step state.
   const cx = size.w / 2, cy = size.h / 2;
-  const span = Math.min(360, size.w * 0.32);
-  const labelPos = {
-    related: { x: cx - span * 0.95, y: cy + 4 + 22 },
-    center:  { x: cx,                y: cy + 28 },
-    def:     { x: cx + span * 0.80,  y: cy - span * 0.42 + 22 },
-    sec:     { x: cx + span * 0.80,  y: cy + span * 0.42 + 22 },
-  };
+  const span = Math.min(380, size.w * 0.30);
+  const labels = [
+    { id: "related", appear: 1, x: cx - span * 1.0,  y: cy + 8 + 24,
+      text: hero.related.ref, sub: "related bill" },
+    { id: "center",  appear: 3, x: cx,                y: cy + 28,
+      text: hero.center.ref,  sub: hero.center.label.slice(0, 36) },
+    { id: "def",     appear: 5, x: cx + span * 0.75,  y: cy - span * 0.45 + 24,
+      text: `"${hero.featured_definition.term}"`, sub: "definition", italic: true },
+    { id: "sec",     appear: 7, x: cx + span * 0.75,  y: cy + span * 0.45 + 24,
+      text: "Sec. 7", sub: "section" },
+  ];
 
   return (
     <div ref={containerRef} className="land-scene">
       <canvas ref={canvasRef} className="land-scene-canvas" />
       <div className="land-scene-labels">
-        <div className="lbl lbl-bill"
-             style={{ left: labelPos.related.x, top: labelPos.related.y }}>
-          <div className="lbl-text">{hero.related.ref}</div>
-          <div className="lbl-sub mono">related bill</div>
-        </div>
-        <div className="lbl lbl-bill"
-             style={{ left: labelPos.center.x, top: labelPos.center.y }}>
-          <div className="lbl-text">{hero.center.ref}</div>
-          <div className="lbl-sub mono">{hero.center.label.slice(0, 32)}</div>
-        </div>
-        <div className="lbl lbl-def"
-             style={{ left: labelPos.def.x, top: labelPos.def.y }}>
-          <div className="lbl-text lbl-italic">"{hero.featured_definition.term}"</div>
-          <div className="lbl-sub mono">definition</div>
-        </div>
-        <div className="lbl lbl-sec"
-             style={{ left: labelPos.sec.x, top: labelPos.sec.y }}>
-          <div className="lbl-text">Sec. 7</div>
-          <div className="lbl-sub mono">section</div>
-        </div>
+        {labels.map((l) => (
+          <div
+            key={l.id}
+            className={"lbl " + (step >= l.appear ? "is-on" : "")}
+            style={{ left: l.x, top: l.y }}
+          >
+            <div className={"lbl-text " + (l.italic ? "lbl-italic" : "")}>
+              {l.text}
+            </div>
+            <div className="lbl-sub mono">{l.sub}</div>
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -402,52 +372,61 @@ function Landing({ user, onOpenWorkspace, onSignIn, onSignOut }) {
         </nav>
       </header>
 
-      <main className="land-main">
-        {/* HERO — sliding headline → SVG anatomy diagram */}
-        <section className={"land-hero land-hero-stage-" + stage}>
-          {(stage === "headline" || stage === "fading") && (
-            <div className={"land-typed-wrap " + (stage === "fading" ? "is-fading" : "")}>
-              <TypedHeadline
-                text="Accelerating policy research."
-                onDone={() => {
-                  setStage("fading");
-                  setTimeout(() => setStage("diagram"), 380);
-                }}
-              />
-            </div>
-          )}
+      {/* HERO — headline stage. Lives outside .land-main so the
+          headline can sit in the cream canvas and the diagram zone
+          below (also outside .land-main) is naturally full-width. */}
+      <section className={"land-hero land-hero-stage-" + stage}>
+        {(stage === "headline" || stage === "fading") && (
+          <div className={"land-typed-wrap " + (stage === "fading" ? "is-fading" : "")}>
+            <TypedHeadline
+              text="Accelerating policy research."
+              onDone={() => {
+                setStage("fading");
+                setTimeout(() => setStage("diagram"), 380);
+              }}
+            />
+          </div>
+        )}
+      </section>
 
-          {stage === "diagram" && (
-            <div className="land-stage">
-              <div className="land-diagram-container">
-                {hero ? (
-                  <HeroDiagram hero={hero} />
-                ) : (
-                  <div className="land-diagram-empty mono">
-                    {loadError ? "graph data unavailable" : "loading corpus…"}
-                  </div>
-                )}
-              </div>
-              <p className="land-lede">
-                Citation-accurate research instrument for U.S. federal
-                AI-governance legislation. Every answer grounded in
-                verbatim bill text. If it is not in the bill, polilabs
-                does not say it.
-              </p>
-              <div className="land-cta-row">
-                <button type="button" className="land-cta" onClick={onOpenWorkspace}>
-                  Open the workspace <span aria-hidden="true">→</span>
-                </button>
-                <div className="land-corpus mono">
-                  <b>{c.bills}</b>&nbsp;bills
-                  <span className="land-dot">·</span>
-                  <b>118th–119th</b>&nbsp;Congress
-                </div>
-              </div>
+      {/* DIAGRAM ZONE — full-bleed direct child of .land. No max-width,
+          no calc tricks. Mounts only after the headline has exited. */}
+      {stage === "diagram" && (
+        <section className="land-diagram-zone">
+          {hero ? (
+            <HeroDiagram hero={hero} />
+          ) : (
+            <div className="land-diagram-empty mono">
+              {loadError ? "graph data unavailable" : "loading corpus…"}
             </div>
           )}
         </section>
+      )}
 
+      {/* Lede + CTA — sits below the diagram zone, still wrapped in
+          the constrained container so it doesn't run viewport-wide. */}
+      {stage === "diagram" && (
+        <section className="land-below">
+          <p className="land-lede">
+            Citation-accurate research instrument for U.S. federal
+            AI-governance legislation. Every answer grounded in
+            verbatim bill text. If it is not in the bill, polilabs
+            does not say it.
+          </p>
+          <div className="land-cta-row">
+            <button type="button" className="land-cta" onClick={onOpenWorkspace}>
+              Open the workspace <span aria-hidden="true">→</span>
+            </button>
+            <div className="land-corpus mono">
+              <b>{c.bills}</b>&nbsp;bills
+              <span className="land-dot">·</span>
+              <b>118th–119th</b>&nbsp;Congress
+            </div>
+          </div>
+        </section>
+      )}
+
+      <main className="land-main">
         {/* BY THE NUMBERS — each number is itself the source link */}
         <section className="land-section land-stats-section">
           <div className="land-section-label mono">
