@@ -59,112 +59,109 @@ function TypedHeadline({ text, onDone, charMs = 85, holdMs = 750 }) {
 }
 
 // ── HeroDiagram ────────────────────────────────────────────────────────
-// SVG with five hand-positioned nodes around a central bill. Nodes
-// fade and scale in one at a time with a small stagger; edges draw
-// after their endpoint nodes appear. No border, no background panel
-// — sits on the cream canvas.
-function HeroDiagram({ hero, width = 1000, height = 560 }) {
-  const [step, setStep] = useState(0); // 0 = nothing yet; 1..5 = nodes; 6+ = edges
-  const timersRef = useRef([]);
-
+// Small four-node subgraph of the corpus:
+//
+//                                  ○  "foundation model"   ┌───────────┐
+//                                       (definition) ──────│ def text  │
+//                                  ╲                       └───────────┘
+//                                   ╲ defines
+//                                    ╲
+//   ●─────────────────────────────────●  S. 4664
+//   S. 4178                            (Dept of Energy AI Act)
+//   (related bill,                    ╱
+//    shares definitions)             ╱  section
+//                                   ╱                      ┌───────────┐
+//                                  ●  Sec. 7 ──────────────│ excerpt   │
+//                                                          └───────────┘
+//
+// Nodes are small circular blobs; bills are filled navy, definitions
+// amber, sections sage. Two of the right-side nodes carry floating
+// description cards holding real corpus content (definition text /
+// section excerpt). Edge labels: "defines", "section". The bill-to-
+// bill edge is unlabeled; the shared term legend below the diagram
+// names what they have in common.
+function HeroDiagram({ hero, width = 1080, height = 560 }) {
+  const [step, setStep] = useState(0); // 0 = nothing; 1..5 = nodes; 6 = cards
   useEffect(() => {
     if (!hero) return;
-    // Sequenced reveal: bill, then top, right, left, bottom, then edges.
-    const cues = [120, 380, 640, 900, 1160, 1420];
-    cues.forEach((t, i) => {
-      const id = setTimeout(() => setStep(i + 1), t);
-      timersRef.current.push(id);
-    });
-    return () => {
-      timersRef.current.forEach(clearTimeout);
-      timersRef.current = [];
-    };
+    const cues = [120, 320, 540, 760, 980, 1180];
+    const timers = cues.map((t, i) => setTimeout(() => setStep(i + 1), t));
+    return () => timers.forEach(clearTimeout);
   }, [hero]);
 
-  if (!hero || !hero.bill) {
+  if (!hero || !hero.center) {
     return <div className="land-diagram-empty mono">corpus unavailable</div>;
   }
 
-  // ── layout: bill in the center, four satellites in a + ──────────
-  // Coordinates are within the SVG viewBox; the viewBox scales to
-  // whatever real CSS width the parent gives us.
   const W = width, H = height;
-  const cx = W / 2, cy = H / 2;
-  const bill = { x: cx, y: cy, w: 260, h: 116 };
-  // satellite positions: (top, right, bottom, left)
-  const top    = { x: cx,        y: 70,    w: 220, h: 60 };
-  const right  = { x: W - 130,   y: cy,    w: 220, h: 60 };
-  const bottom = { x: cx,        y: H - 70,w: 220, h: 60 };
-  const left   = { x: 130,       y: cy,    w: 220, h: 60 };
 
-  const defs = hero.definitions || [];
-  const cites = hero.citations || [];
-  // We render at most 2 defs + 2 cites in the four satellite slots,
-  // arranging defs at top and left (the "extracted-from" side), cites
-  // at right and bottom (the "reaches-into" side).
-  const slots = [
-    { pos: top,    node: defs[0],  type: "def",  edge: "defines" },
-    { pos: right,  node: cites[0], type: "cite", edge: "cites" },
-    { pos: bottom, node: cites[1], type: "cite", edge: "cites" },
-    { pos: left,   node: defs[1],  type: "def",  edge: "defines" },
-  ];
+  // ── hand-placed node positions (slightly asymmetric for natural feel)
+  const nCenter = { x: 470, y: 305, r: 26, kind: "bill" };
+  const nRelated = { x: 175, y: 280, r: 20, kind: "bill" };
+  const nDef = { x: 720, y: 165, r: 18, kind: "def" };
+  const nSec = { x: 710, y: 430, r: 18, kind: "sec" };
 
-  // Label per node
-  const labelFor = (slot) => {
-    if (!slot.node) return null;
-    if (slot.type === "def") return `"${slot.node.term}"`;
-    return slot.node.label;
-  };
-  const subFor = (slot) => slot.type === "def" ? "definition" : "U.S. Code";
+  // floating description cards (anchored to the right-side nodes)
+  const cardDef = { x: 800, y: 70,  w: 270, h: 165 };
+  const cardSec = { x: 790, y: 380, w: 270, h: 140 };
 
-  // Draw a connector line between two rect-shaped nodes; the line
-  // stops at the node edges, not the centers, so the heads don't
-  // poke into the boxes.
-  const connector = (a, b) => {
+  // labels per node
+  const lblCenter = hero.center.ref;
+  const lblRelated = hero.related.ref;
+  const lblDef = `"${hero.featured_definition.term}"`;
+  const lblSec = "Sec. " + (hero.featured_section ? "7" : "?");
+
+  // The script trims the "(N) Term" preface; here we additionally
+  // strip the "The term <X> means " prefix and capitalize what
+  // remains so the card reads as a fluent gloss instead of repeating
+  // the term's own name.
+  const defText = (() => {
+    const raw = (hero.featured_definition.text || "").trim();
+    const trimmed = raw.replace(/^The term [a-zA-Z ]+? means\s+/i, "");
+    return trimmed.charAt(0).toUpperCase() + trimmed.slice(1);
+  })();
+  const secText = (hero.featured_section?.text || "").trim();
+
+  const sponsorClean = (s) => (s || "").replace(/\s*\[[^\]]+\]\s*/, " ").trim();
+
+  // edge geometry: stop at the circle perimeter, not the center
+  const edge = (a, b) => {
     const dx = b.x - a.x, dy = b.y - a.y;
-    const ang = Math.atan2(dy, dx);
-    const ax = a.x + Math.cos(ang) * (Math.abs(Math.cos(ang)) * a.w/2 + Math.abs(Math.sin(ang)) * a.h/2) * 0.92;
-    const ay = a.y + Math.sin(ang) * (Math.abs(Math.cos(ang)) * a.w/2 + Math.abs(Math.sin(ang)) * a.h/2) * 0.92;
-    const bx = b.x - Math.cos(ang) * (Math.abs(Math.cos(ang)) * b.w/2 + Math.abs(Math.sin(ang)) * b.h/2) * 0.92;
-    const by = b.y - Math.sin(ang) * (Math.abs(Math.cos(ang)) * b.w/2 + Math.abs(Math.sin(ang)) * b.h/2) * 0.92;
-    return { ax, ay, bx, by, mx: (ax + bx) / 2, my: (ay + by) / 2 };
+    const L = Math.hypot(dx, dy) || 1;
+    const ux = dx / L, uy = dy / L;
+    return {
+      x1: a.x + ux * a.r,
+      y1: a.y + uy * a.r,
+      x2: b.x - ux * b.r,
+      y2: b.y - uy * b.r,
+      mx: (a.x + b.x) / 2,
+      my: (a.y + b.y) / 2,
+    };
+  };
+  const eRelated = edge(nRelated, nCenter);
+  const eDef     = edge(nCenter, nDef);
+  const eSec     = edge(nCenter, nSec);
+  // leader lines from definition/section nodes to their cards
+  const leaderDef = { x1: nDef.x + nDef.r * 0.7, y1: nDef.y - 4, x2: cardDef.x, y2: cardDef.y + 20 };
+  const leaderSec = { x1: nSec.x + nSec.r * 0.7, y1: nSec.y + 4, x2: cardSec.x, y2: cardSec.y + 20 };
+
+  // Wrap a string into multi-line tspans (≤ width characters per line).
+  const tspans = (text, x, startY, lineH, maxChars, maxLines) => {
+    const lines = wrapText(text, maxChars);
+    const shown = lines.slice(0, maxLines);
+    if (lines.length > maxLines && shown.length) {
+      const last = shown[shown.length - 1];
+      shown[shown.length - 1] = last.slice(0, maxChars - 1).replace(/\s+\S*$/, "") + "…";
+    }
+    return shown.map((line, i) => (
+      <tspan key={i} x={x} y={startY + i * lineH}>{line}</tspan>
+    ));
   };
 
-  const renderNode = (g, label, sub, kind, isOn) => {
-    const cls = "land-node land-node-" + kind + (isOn ? " is-on" : "");
-    const lines = wrapText(label, kind === "bill" ? 22 : 24);
-    const lineH = kind === "bill" ? 19 : 16;
-    const subY = g.y + g.h / 2 - 12;
-    return (
-      <g className={cls} key={kind + "-" + g.x + "-" + g.y}>
-        <rect
-          x={g.x - g.w / 2}
-          y={g.y - g.h / 2}
-          width={g.w}
-          height={g.h}
-          rx={kind === "bill" ? 10 : 8}
-          className="land-node-rect"
-        />
-        {lines.map((line, i) => (
-          <text
-            key={i}
-            x={g.x}
-            y={g.y - (lines.length - 1) * lineH / 2 + i * lineH - (sub ? 8 : 2)}
-            textAnchor="middle"
-            className="land-node-label"
-          >{line}</text>
-        ))}
-        {sub && (
-          <text
-            x={g.x}
-            y={subY}
-            textAnchor="middle"
-            className="land-node-sub mono"
-          >{sub}</text>
-        )}
-      </g>
-    );
-  };
+  // ── render ────────────────────────────────────────────────────────
+  const nodeOn = (i) => step >= i;
+  const edgesOn = step >= 5;
+  const cardsOn = step >= 6;
 
   return (
     <div className="land-diagram-wrap">
@@ -173,63 +170,103 @@ function HeroDiagram({ hero, width = 1000, height = 560 }) {
         viewBox={`0 0 ${W} ${H}`}
         preserveAspectRatio="xMidYMid meet"
         role="img"
-        aria-label={`Anatomy of ${hero.bill.ref}: a bill with its definitions and cited statutes.`}
+        aria-label={`Knowledge graph excerpt: ${hero.center.ref} and one related bill, ${hero.related.ref}.`}
       >
-        {/* edges first so the boxes overlap them cleanly */}
-        {slots.map((slot, i) => {
-          if (!slot.node) return null;
-          const c = connector(bill, slot.pos);
-          const edgeOn = step >= 6;
-          return (
-            <g key={"e-" + i} className={"land-edge " + (edgeOn ? "is-on" : "")}>
-              <line
-                x1={c.ax} y1={c.ay} x2={c.bx} y2={c.by}
-                className="land-edge-line"
-              />
-              <text
-                x={c.mx}
-                y={c.my - 6}
-                textAnchor="middle"
-                className="land-edge-label mono"
-              >{slot.edge}</text>
-            </g>
-          );
-        })}
+        {/* edges */}
+        <g className={"land-edges " + (edgesOn ? "is-on" : "")}>
+          <line className="land-edge-line" {...eRelated} />
+          <line className="land-edge-line" {...eDef} />
+          <line className="land-edge-line" {...eSec} />
+          {/* edge labels — only the typed ones, sketch-style */}
+          <text className="land-edge-label mono"
+                x={eDef.mx + 14} y={eDef.my - 4} textAnchor="start">defines</text>
+          <text className="land-edge-label mono"
+                x={eSec.mx + 14} y={eSec.my + 12} textAnchor="start">section</text>
+        </g>
 
-        {/* bill node */}
-        {renderNode(
-          bill,
-          hero.bill.ref + " — " + hero.bill.label,
-          // The Kùzu sponsor field repeats the (party-state) tag
-          // ("Sen. Manchin, Joe, III [I-WV] (I-WV)") — drop the
-          // duplicate bracketed form before showing it.
-          (hero.bill.sponsor || "").replace(/\s*\[[^\]]+\]\s*/, " ").trim(),
-          "bill",
-          step >= 1,
-        )}
+        {/* leader lines from right-side nodes to their cards */}
+        <g className={"land-leaders " + (cardsOn ? "is-on" : "")}>
+          <line className="land-leader-line" {...leaderDef} />
+          <line className="land-leader-line" {...leaderSec} />
+        </g>
 
-        {/* satellites */}
-        {slots.map((slot, i) => {
-          if (!slot.node) return null;
-          return (
-            <React.Fragment key={"n-" + i}>
-              {renderNode(
-                slot.pos,
-                labelFor(slot),
-                subFor(slot),
-                slot.type,
-                step >= i + 2,
-              )}
-            </React.Fragment>
-          );
-        })}
+        {/* nodes — small circular blobs */}
+        <g className={"land-node land-node-bill " + (nodeOn(1) ? "is-on" : "")}>
+          <circle cx={nCenter.x} cy={nCenter.y} r={nCenter.r} className="land-blob" />
+          <text x={nCenter.x} y={nCenter.y + nCenter.r + 18}
+                textAnchor="middle" className="land-blob-label">
+            {lblCenter}
+          </text>
+          <text x={nCenter.x} y={nCenter.y + nCenter.r + 34}
+                textAnchor="middle" className="land-blob-sub mono">
+            {hero.center.label.slice(0, 36)}
+          </text>
+        </g>
+
+        <g className={"land-node land-node-bill " + (nodeOn(2) ? "is-on" : "")}>
+          <circle cx={nRelated.x} cy={nRelated.y} r={nRelated.r} className="land-blob" />
+          <text x={nRelated.x} y={nRelated.y + nRelated.r + 18}
+                textAnchor="middle" className="land-blob-label">
+            {lblRelated}
+          </text>
+          <text x={nRelated.x} y={nRelated.y + nRelated.r + 34}
+                textAnchor="middle" className="land-blob-sub mono">
+            related bill
+          </text>
+        </g>
+
+        <g className={"land-node land-node-def " + (nodeOn(3) ? "is-on" : "")}>
+          <circle cx={nDef.x} cy={nDef.y} r={nDef.r} className="land-blob" />
+          <text x={nDef.x} y={nDef.y + nDef.r + 16}
+                textAnchor="middle" className="land-blob-label-italic">
+            {lblDef}
+          </text>
+        </g>
+
+        <g className={"land-node land-node-sec " + (nodeOn(4) ? "is-on" : "")}>
+          <circle cx={nSec.x} cy={nSec.y} r={nSec.r} className="land-blob" />
+          <text x={nSec.x} y={nSec.y + nSec.r + 16}
+                textAnchor="middle" className="land-blob-label">
+            {lblSec}
+          </text>
+        </g>
+
+        {/* floating description cards */}
+        <g className={"land-card " + (cardsOn ? "is-on" : "")}>
+          <rect
+            x={cardDef.x} y={cardDef.y}
+            width={cardDef.w} height={cardDef.h}
+            rx={6} className="land-card-rect"
+          />
+          <text x={cardDef.x + 12} y={cardDef.y + 18}
+                className="land-card-head mono">DEFINITION · {hero.center.ref}</text>
+          <text x={cardDef.x + 12} y={cardDef.y + 36}
+                className="land-card-title">{lblDef}</text>
+          <text className="land-card-body">
+            {tspans(defText, cardDef.x + 12, cardDef.y + 60, 14, 36, 7)}
+          </text>
+        </g>
+
+        <g className={"land-card " + (cardsOn ? "is-on" : "")}>
+          <rect
+            x={cardSec.x} y={cardSec.y}
+            width={cardSec.w} height={cardSec.h}
+            rx={6} className="land-card-rect"
+          />
+          <text x={cardSec.x + 12} y={cardSec.y + 18}
+                className="land-card-head mono">SECTION · {hero.center.ref}</text>
+          <text x={cardSec.x + 12} y={cardSec.y + 36}
+                className="land-card-title">{hero.featured_section?.heading || ""}</text>
+          <text className="land-card-body">
+            {tspans(secText, cardSec.x + 12, cardSec.y + 60, 14, 36, 5)}
+          </text>
+        </g>
       </svg>
 
       <div className="land-diagram-legend mono">
-        <span className="leg-item"><span className="leg-swatch leg-bill" /> bill</span>
-        <span className="leg-item"><span className="leg-swatch leg-def" /> definition</span>
-        <span className="leg-item"><span className="leg-swatch leg-cite" /> U.S. Code</span>
-        <span className="leg-hint">real connections drawn from {hero.bill.ref}</span>
+        <span><b>{hero.center.ref}</b> · {sponsorClean(hero.center.sponsor)}</span>
+        <span className="leg-sep">·</span>
+        <span>related to <b>{hero.related.ref}</b> via shared term{hero.shared_terms.length > 1 ? "s" : ""} <em>{hero.shared_terms.slice(0, 2).join(", ")}</em></span>
       </div>
     </div>
   );
@@ -294,8 +331,9 @@ function Landing({ user, onOpenWorkspace, onSignIn, onSignOut }) {
   const [corpus, setCorpus] = useState(null);
   const [loadError, setLoadError] = useState(false);
 
-  // Hero stage machine: 'headline' → 'diagram'. The reveal of each
-  // diagram node is its own internal stagger inside HeroDiagram.
+  // Hero stage machine: 'headline' → 'fading' (300ms) → 'diagram'.
+  // The headline disappears completely; the diagram's own internal
+  // stagger then reveals each node in turn.
   const [stage, setStage] = useState("headline");
 
   useEffect(() => {
@@ -340,11 +378,16 @@ function Landing({ user, onOpenWorkspace, onSignIn, onSignOut }) {
       <main className="land-main">
         {/* HERO — sliding headline → SVG anatomy diagram */}
         <section className={"land-hero land-hero-stage-" + stage}>
-          {stage === "headline" && (
-            <TypedHeadline
-              text="Accelerating policy research."
-              onDone={() => setStage("diagram")}
-            />
+          {(stage === "headline" || stage === "fading") && (
+            <div className={"land-typed-wrap " + (stage === "fading" ? "is-fading" : "")}>
+              <TypedHeadline
+                text="Accelerating policy research."
+                onDone={() => {
+                  setStage("fading");
+                  setTimeout(() => setStage("diagram"), 380);
+                }}
+              />
+            </div>
           )}
 
           {stage === "diagram" && (

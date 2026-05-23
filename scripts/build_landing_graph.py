@@ -206,106 +206,125 @@ def main() -> int:
     res = conn.execute("MATCH (s:Section) RETURN count(s)")
     total_sections = res.get_next()[0]
 
-    # ── hero anatomy: the focused diagram on the landing page ─────────
-    # A single bill plus a handful of its real connected entities so the
-    # diagram can show "a bill, its definitions, and the statutes it
-    # references" using actual corpus data. The bill is hardcoded; if
-    # it ever falls out of the corpus the script will surface that
-    # clearly rather than substituting a different one.
-    HERO_BILL = "bill:us/118/s/4664"  # Manchin, Department of Energy AI Act
+    # ── hero subgraph: small four-node neighborhood for the landing ──
+    # A center bill + one related bill (linked by shared definitions)
+    # + one featured definition + one featured section. The two
+    # featured items get floating description cards with their actual
+    # corpus content so the visitor reads real bill text, not a
+    # paraphrase. Hardcoded picks so the diagram is stable across
+    # rebuilds; if any disappears from the corpus we log a warning
+    # rather than silently substitute.
+    HERO_CENTER = "bill:us/118/s/4664"   # Manchin, Department of Energy AI Act
+    HERO_RELATED = "bill:us/118/s/4178"  # Cantwell, Future of AI Innovation Act 2024
+    FEATURED_DEF = "foundation model"
+    FEATURED_SECTION_HEADING = "Ensuring energy security for datacenters and computing resources"
+
+    def get_bill(bid):
+        r = conn.execute(
+            "MATCH (b:Bill {bill_id: $b}) "
+            "RETURN b.bill_id, b.official_title, b.short_title, "
+            "       b.sponsor_display_name, b.congress, b.bill_type, b.bill_number",
+            {"b": bid},
+        )
+        if not r.has_next():
+            return None
+        bid_, official, short, sponsor, bcong, btype, bnum = r.get_next()
+        return {
+            "id": bid_,
+            "ref": f"{btype.upper().replace('HR','H.R.').replace('S','S.')} {bnum}",
+            "label": short or short_title_from(official, bid_),
+            "sponsor": sponsor or "",
+            "congress": bcong,
+        }
+
+    center = get_bill(HERO_CENTER)
+    related = get_bill(HERO_RELATED)
     hero_payload = None
-    res = conn.execute(
-        "MATCH (b:Bill {bill_id: $b}) "
-        "RETURN b.bill_id, b.official_title, b.short_title, "
-        "       b.sponsor_display_name, b.congress, b.bill_type, b.bill_number",
-        {"b": HERO_BILL},
-    )
-    if res.has_next():
-        bid, official, short, sponsor, bcong, btype, bnum = res.get_next()
-        bill_label = short or short_title_from(official, bid)
-        bill_ref = f"{btype.upper().replace('HR','H.R.').replace('S','S.')} {bnum}"
-        # Pull definitions, prefer ones the user is likely to recognize
-        # (foundation model, frontier AI) over generic ones (Secretary).
-        PREFERRED_DEFS = [
-            "foundation model", "frontier ai", "ai", "alignment",
-            "national laboratory", "testbed",
-        ]
-        defs_all = []
-        res = conn.execute(
+
+    if center and related:
+        # Featured definition — pull the full definition_text from the
+        # corpus and clean up the leading enum prefix like "(4) ".
+        def_text = None
+        r = conn.execute(
             "MATCH (t:DefinedTerm) "
             "WHERE starts_with(t.defined_term_id, $b) "
-            "RETURN t.surface_form, t.definition_text, t.definition_type, "
-            "       t.by_reference_target_id",
-            {"b": HERO_BILL},
+            "  AND lower(trim(t.surface_form)) = $term "
+            "RETURN t.definition_text",
+            {"b": HERO_CENTER, "term": FEATURED_DEF},
         )
-        while res.has_next():
-            sf, dtext, dtype, bref = res.get_next()
-            defs_all.append({"term": sf, "text": dtext, "type": dtype, "ref": bref})
-        defs_picked = []
-        seen = set()
-        for want in PREFERRED_DEFS:
-            for d in defs_all:
-                if d["term"] and d["term"].lower() == want and d["term"] not in seen:
-                    defs_picked.append(d)
-                    seen.add(d["term"])
-                    break
-            if len(defs_picked) >= 2:
-                break
-        # External citation targets are StatuteSection nodes; the
-        # `canonical_citation` field already carries the user-readable
-        # form ("15 U.S.C. 9401"). Collapse to unique statute sections;
-        # take the first two that look meaningful.
-        cites = []
-        seen_parents = set()
-        seen_targets = set()
-        res = conn.execute(
-            "MATCH (s:Section)-[:CITES_EXTERNAL]->(ss:StatuteSection) "
-            "WHERE starts_with(s.section_id, $b) "
-            "RETURN DISTINCT ss.statute_section_id, ss.canonical_citation, "
-            "       ss.statute_id, ss.enum_path",
-            {"b": HERO_BILL},
+        if r.has_next():
+            def_text = r.get_next()[0] or ""
+            # strip leading "(N) Term" preface — leaves just the gloss
+            def_text = re.sub(
+                r"^\s*\(\d+\)\s*[A-Za-z][A-Za-z ]*?\s+(?=The term|means|—)",
+                "", def_text,
+            ).strip()
+
+        # Featured section — heading + the lead-in sentence from text_self.
+        sec_excerpt = None
+        r = conn.execute(
+            "MATCH (:Bill {bill_id: $b})-[:HAS_VERSION]->(:BillVersion)"
+            "-[:HAS_SECTION]->(s:Section) "
+            "WHERE s.heading = $h "
+            "RETURN s.heading, s.text_self",
+            {"b": HERO_CENTER, "h": FEATURED_SECTION_HEADING},
         )
-        # Prefer one citation per parent statute_id so the diagram shows
-        # the bill reaching into different titles of the U.S. Code,
-        # not the same title twice.
-        rows = []
-        while res.has_next():
-            rows.append(res.get_next())
-        for ss_id, canon, stat_id, enum_path in rows:
-            if not canon or ss_id in seen_targets:
-                continue
-            if stat_id in seen_parents:
-                continue
-            seen_parents.add(stat_id)
-            seen_targets.add(ss_id)
-            cites.append({
-                "id": ss_id,
-                "label": canon.replace("U.S.C.", "U.S.C. §"),
-                "statute_id": stat_id,
-            })
-            if len(cites) >= 2:
+        if r.has_next():
+            heading, text_self = r.get_next()
+            sec_excerpt = {
+                "heading": heading,
+                "text": (text_self or "").strip(),
+            }
+
+        # Detect which terms the two bills actually share — this is what
+        # the unlabeled bill-to-bill edge "stands for". Stash the top
+        # one or two so the diagram's hover/legend can explain the link.
+        shared_terms = []
+        r = conn.execute(
+            "MATCH (t1:DefinedTerm) WHERE starts_with(t1.defined_term_id, $a) "
+            "RETURN lower(trim(t1.surface_form))",
+            {"a": HERO_CENTER},
+        )
+        cset = {row[0] for row in iter(lambda: r.get_next() if r.has_next() else None, None) if row and row[0]}
+        r = conn.execute(
+            "MATCH (t2:DefinedTerm) WHERE starts_with(t2.defined_term_id, $a) "
+            "RETURN lower(trim(t2.surface_form))",
+            {"a": HERO_RELATED},
+        )
+        rset = {row[0] for row in iter(lambda: r.get_next() if r.has_next() else None, None) if row and row[0]}
+        # drop boilerplate (terms that appear in >12 bills overall)
+        for t in sorted(cset & rset, key=lambda s: -len(term_to_bills.get(s, set()))):
+            if 2 <= len(term_to_bills.get(t, set())) <= 12:
+                shared_terms.append(t)
+            if len(shared_terms) >= 3:
                 break
 
         hero_payload = {
-            "bill": {
-                "id": bid,
-                "ref": bill_ref,
-                "label": bill_label,
-                "sponsor": sponsor or "",
-                "congress": bcong,
+            "center": center,
+            "related": related,
+            "shared_terms": shared_terms,
+            "featured_definition": {
+                "term": FEATURED_DEF,
+                "text": def_text,
             },
-            "definitions": defs_picked,
-            "citations": cites,
+            "featured_section": sec_excerpt,
             "note": (
                 "Real connections from the polilabs corpus — definitions "
-                "extracted directly from the bill XML, external citations "
-                "resolved to U.S. Code targets."
+                "and section text drawn verbatim from the bill XML."
             ),
         }
-        print(f"hero: {bill_ref} + {len(defs_picked)} defs + {len(cites)} cites",
-              file=sys.stderr)
+        print(
+            f"hero: {center['ref']} ↔ {related['ref']} "
+            f"(shared: {shared_terms[:3]}); "
+            f"def='{FEATURED_DEF}' "
+            f"section='{FEATURED_SECTION_HEADING[:30]}…'",
+            file=sys.stderr,
+        )
     else:
-        print(f"WARNING: hero bill {HERO_BILL} not in corpus", file=sys.stderr)
+        missing = []
+        if not center: missing.append(HERO_CENTER)
+        if not related: missing.append(HERO_RELATED)
+        print(f"WARNING: hero bill(s) missing: {missing}", file=sys.stderr)
 
     payload = {
         "generated_at": __import__("datetime").datetime.utcnow().isoformat() + "Z",
