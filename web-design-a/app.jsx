@@ -409,7 +409,6 @@ function App({ onSignOut, onShowLanding }) {
       {stage}
 
       <footer className="app-footer">
-        <span><span className="dot" /> backend connected</span>
         <span><a href="Polilabs Design System.html" style={{ color: "var(--accent)", textDecoration: "none" }}>↗ design system</a></span>
       </footer>
 
