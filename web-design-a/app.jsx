@@ -172,11 +172,11 @@ function App({ onSignOut, onShowLanding }) {
   };
 
   // resizable layout — rail width (px) + Text/Decomp split fraction
-  const [railW, setRailW] = useState(440);
-  const [textFrac, setTextFrac] = useState(0.5);
+  const [railW, setRailW] = useState(380);
+  const [textFrac, setTextFrac] = useState(0.58);
   const onRailResize = (e) => {
     e.preventDefault();
-    const move = (ev) => setRailW(Math.max(360, Math.min(640, ev.clientX)));
+    const move = (ev) => setRailW(Math.max(320, Math.min(640, ev.clientX)));
     const up = () => {
       window.removeEventListener("pointermove", move);
       window.removeEventListener("pointerup", up);
@@ -408,9 +408,7 @@ function App({ onSignOut, onShowLanding }) {
 
       {stage}
 
-      <footer className="app-footer">
-        <span><a href="Polilabs Design System.html" style={{ color: "var(--accent)", textDecoration: "none" }}>↗ design system</a></span>
-      </footer>
+
 
       <TweaksPanel title="Tweaks">
         <TweakSection label="Theme">

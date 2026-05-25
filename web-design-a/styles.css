@@ -1485,7 +1485,7 @@ input, textarea { font: inherit; color: inherit; }
   display: flex;
   align-items: center;
   gap: var(--s-3);
-  padding: var(--s-3) var(--s-5);
+  padding: 6px var(--s-5);  /* much shorter; was var(--s-3) which made the streaming banner dominate */
   border-bottom: 1px solid var(--rule);
   background: var(--accent-soft);
   font-family: var(--font-mono);
