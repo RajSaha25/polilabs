@@ -76,16 +76,27 @@
     return data;
   }
 
-  async function signup(email, password) {
-    const data = await _post("/auth/signup", { email: email, password: password });
+  // Backend /auth/* isn't wired yet — stub locally so the gate passes.
+  // Any email + any non-empty password is accepted; the "token" is just a
+  // marker so isAuthenticated() returns true. Replace with real backend
+  // auth once the /auth/signup + /auth/login endpoints exist.
+  function _stubAuth(email) {
+    const data = {
+      token: "stub-" + Math.random().toString(36).slice(2),
+      user: { id: email, email: email },
+    };
     _store(data);
     return data.user;
   }
 
+  async function signup(email, password) {
+    if (!email || !password) throw new Error("Email and password are required.");
+    return _stubAuth(email);
+  }
+
   async function login(email, password) {
-    const data = await _post("/auth/login", { email: email, password: password });
-    _store(data);
-    return data.user;
+    if (!email || !password) throw new Error("Email and password are required.");
+    return _stubAuth(email);
   }
 
   window.PolilabsAuth = {

@@ -20,7 +20,7 @@
 // even when this prototype is served from a different port.
 window.POLILABS_BACKEND =
   (window.localStorage && localStorage.getItem("polilabs_backend")) ||
-  "http://localhost:8000";
+  "https://consulting-theaters-barnes-compare.trycloudflare.com";
 
 (function () {
   const BACKEND = window.POLILABS_BACKEND;
