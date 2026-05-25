@@ -505,14 +505,20 @@ function Landing({ user, onOpenWorkspace, onSignIn, onSignOut }) {
           </div>
           <div className="land-stats-grid">
             <Stat
-              n="19,315"
-              body="bills introduced in the 118th Congress. 3% became law."
-              source="GovTrack, Statistics and Historical Comparison"
-              href="https://www.govtrack.us/congress/bills/statistics"
+              n="95%"
+              body="of bill drafting and negotiation is done by congressional staff, not the elected member."
+              source='Sen. Ted Kennedy, quoted in Robert G. Kaiser, "Act of Congress" (Vintage, 2014)'
+              href="https://80000hours.org/career-reviews/congressional-staffer/"
+            />
+            <Stat
+              n="48%"
+              body="of policy / legislative / research staff disagree that they have enough time to get everything done."
+              source='Congressional Management Foundation & SHRM, "Life in Congress: Job Satisfaction and Engagement of House and Senate Staff" (2013, n ≈ 1,400)'
+              href="https://www.congressfoundation.org/research"
             />
             <Stat
               n="9×"
-              body="denser legislation per enacted law than in 1955."
+              body="more pages of statute per enacted law than in 1955, on average."
               source="Brookings Vital Statistics on Congress, via Pew (2021)"
               href="https://www.pewresearch.org/short-reads/2021/01/21/nothing-lame-about-this-lame-duck-116th-congress-had-busiest-post-election-session-in-recent-history/"
             />
@@ -528,12 +534,6 @@ function Landing({ user, onOpenWorkspace, onSignIn, onSignOut }) {
               source="Congressional Management Foundation, State of the Congress 2024"
               href="https://www.congressfoundation.org/s/cmf-state-of-the-congress-2024.pdf"
               caveat="n = 138, 5% response rate"
-            />
-            <Stat
-              n="150+"
-              body="AI bills introduced in the 118th Congress. Zero became law."
-              source="Brennan Center for Justice, AI Legislation Tracker (2025)"
-              href="https://www.brennancenter.org/our-work/research-reports/artificial-intelligence-legislation-tracker"
             />
             <Stat
               n="½"
