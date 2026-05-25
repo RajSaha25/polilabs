@@ -33,6 +33,10 @@ CREATE TABLE IF NOT EXISTS bills (
     summary_text            TEXT,
     tier                    TEXT,
     stream                  TEXT NOT NULL DEFAULT 'legislation',
+    -- Policy domain. Orthogonal to `stream`: stream is the source-class
+    -- (legislation vs. rule vs. guidance); topic is the subject-matter
+    -- corpus (ai_governance vs. redistricting vs. ...).
+    topic                   TEXT NOT NULL DEFAULT 'ai_governance',
     centrality_score        REAL,
     canonical_package_id    TEXT,
     canonical_version_code  TEXT,
@@ -40,6 +44,7 @@ CREATE TABLE IF NOT EXISTS bills (
     xml_format              TEXT,        -- 'uslm' | 'pre-uslm'
     UNIQUE (congress, bill_type, bill_number)
 );
+CREATE INDEX IF NOT EXISTS idx_bills_topic ON bills(topic);
 
 CREATE TABLE IF NOT EXISTS bill_versions (
     package_id    TEXT PRIMARY KEY,
@@ -110,9 +115,12 @@ CREATE TABLE IF NOT EXISTS source_freshness (
     last_fetched  TEXT NOT NULL
 );
 
--- FTS5 over bill-level metadata
+-- FTS5 over bill-level metadata. `topic` carried as UNINDEXED so callers
+-- can `... MATCH ? AND topic = ?` cheaply at query time without polluting
+-- the BM25 score.
 CREATE VIRTUAL TABLE IF NOT EXISTS bills_fts USING fts5(
     bill_id      UNINDEXED,
+    topic        UNINDEXED,
     title,
     short_title,
     summary_text,
@@ -121,10 +129,12 @@ CREATE VIRTUAL TABLE IF NOT EXISTS bills_fts USING fts5(
     tokenize='porter unicode61'
 );
 
--- FTS5 over section text — enables body-text search
+-- FTS5 over section text — enables body-text search. `topic` propagated
+-- from the parent bill for the same query-time filter pattern.
 CREATE VIRTUAL TABLE IF NOT EXISTS sections_fts USING fts5(
     section_id  UNINDEXED,
     bill_id     UNINDEXED,
+    topic       UNINDEXED,
     heading,
     text_full,
     tokenize='porter unicode61'

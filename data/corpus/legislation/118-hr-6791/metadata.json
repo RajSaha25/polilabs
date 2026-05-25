@@ -22,6 +22,7 @@
   },
   "tier": "A",
   "stream": "legislation",
+  "topic": "ai_governance",
   "versions_available": [
     {
       "package_id": "BILLS-118hr6791ih",

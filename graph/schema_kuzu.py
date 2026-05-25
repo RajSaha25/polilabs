@@ -29,6 +29,8 @@ NODE_TABLES = [
         PRIMARY KEY(urn)
     )""",
 
+    # `topic` is the policy-domain corpus tag (ai_governance, redistricting,
+    # ...). Orthogonal to `stream` (legislation vs. rule vs. guidance).
     """CREATE NODE TABLE Bill(
         bill_id STRING,
         congress INT64,
@@ -44,6 +46,7 @@ NODE_TABLES = [
         latest_action_text STRING,
         tier STRING,
         stream STRING,
+        topic STRING,
         centrality_score DOUBLE,
         sponsor_display_name STRING,
         PRIMARY KEY(bill_id)

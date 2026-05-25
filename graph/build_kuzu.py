@@ -190,6 +190,7 @@ def _accumulate_bill(meta: dict, fmt: str, section_rows: list, acc: Accum) -> No
         "la_text": la_text.strip() or None,
         "tier": meta.get("tier"),
         "stream": meta.get("stream", "legislation"),
+        "topic": meta.get("topic", "ai_governance"),
         "cs": float(meta.get("centrality_score") or 0.0),
         "sponsor_name": primary_sponsor_display,
     })
@@ -488,6 +489,7 @@ def _bulk_create_bills(conn: kuzu.Connection, rows: list) -> None:
             primary_subject: r.primary_subject, summary_text: r.summary,
             current_status: r.status, latest_action_date: r.la_date,
             latest_action_text: r.la_text, tier: r.tier, stream: r.stream,
+            topic: r.topic,
             centrality_score: r.cs, sponsor_display_name: r.sponsor_name
         })""")
 
