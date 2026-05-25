@@ -206,6 +206,10 @@ def promote_one(
         "match_locations": candidate.match_locations,
         "tier": candidate.proposed_tier,
         "stream": "legislation",
+        # `topic` = policy-domain corpus tag. P1 ingest emits the v1
+        # corpus default; the P2 redistricting pipeline overrides via a
+        # candidate-level topic field added in that PR.
+        "topic": getattr(candidate, "topic", None) or "ai_governance",
         "versions_available": [
             {"package_id": v.package_id, "version_code": v.version_code, "date_issued": v.date_issued}
             for v in candidate.versions

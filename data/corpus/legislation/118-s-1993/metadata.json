@@ -24,6 +24,7 @@
   },
   "tier": "A",
   "stream": "legislation",
+  "topic": "ai_governance",
   "versions_available": [
     {
       "package_id": "BILLS-118s1993is",

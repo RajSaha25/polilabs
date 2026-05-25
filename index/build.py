@@ -38,10 +38,10 @@ def _insert_bill(conn: sqlite3.Connection, meta: dict, xml_format: str) -> None:
         INSERT INTO bills (
             bill_id, congress, bill_type, bill_number, title, short_title,
             sponsor, introduced_date, latest_action_date, latest_action_text,
-            policy_area, summary_text, tier, stream, centrality_score,
+            policy_area, summary_text, tier, stream, topic, centrality_score,
             canonical_package_id, canonical_version_code, canonical_version_date,
             xml_format
-        ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+        ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
         """,
         (
             meta["bill_id"],
@@ -58,6 +58,7 @@ def _insert_bill(conn: sqlite3.Connection, meta: dict, xml_format: str) -> None:
             meta.get("summary_text"),
             meta.get("tier"),
             meta.get("stream", "legislation"),
+            meta.get("topic", "ai_governance"),
             meta.get("centrality_score"),
             (meta.get("canonical_version") or {}).get("package_id"),
             (meta.get("canonical_version") or {}).get("version_code"),
@@ -151,13 +152,17 @@ def _insert_sections(conn: sqlite3.Connection, rows: list) -> None:
 def _populate_fts(conn: sqlite3.Connection) -> None:
     conn.execute("DELETE FROM bills_fts")
     conn.execute("""
-        INSERT INTO bills_fts (bill_id, title, short_title, summary_text, policy_area, sponsor)
-        SELECT bill_id, title, short_title, summary_text, policy_area, sponsor FROM bills
+        INSERT INTO bills_fts (bill_id, topic, title, short_title, summary_text, policy_area, sponsor)
+        SELECT bill_id, topic, title, short_title, summary_text, policy_area, sponsor FROM bills
     """)
     conn.execute("DELETE FROM sections_fts")
+    # Carry topic onto each section row by joining on bill_id. Enables
+    # `... MATCH ? AND topic = ?` against sections_fts without a follow-up
+    # join (cheap because UNINDEXED in the FTS5 declaration).
     conn.execute("""
-        INSERT INTO sections_fts (section_id, bill_id, heading, text_full)
-        SELECT section_id, bill_id, heading, text_full FROM sections
+        INSERT INTO sections_fts (section_id, bill_id, topic, heading, text_full)
+        SELECT s.section_id, s.bill_id, b.topic, s.heading, s.text_full
+        FROM sections s JOIN bills b ON b.bill_id = s.bill_id
     """)
 
 
