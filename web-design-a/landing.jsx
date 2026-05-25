@@ -76,15 +76,15 @@ const NODE_LAYOUT = {
   // Hand-tuned so EVERY label sits in clear space — verified with a
   // 1920×1080 Chrome screenshot of the fully-revealed graph. If you
   // tweak any fx/fy, re-screenshot to confirm nothing collides.
-  rel_a:  { fx: 0.13, fy: 0.30, labelPos: "right"  },  // S. 4178 — pulled in from left edge so label fits
-  center: { fx: 0.40, fy: 0.50, labelPos: "left"   },  // S. 4664 — center; label LEFT (most open direction)
-  rel_b:  { fx: 0.22, fy: 0.86, labelPos: "right"  },  // H.R. 5332 — label right of dot, clear of rel_b→center line
-  def_0:  { fx: 0.56, fy: 0.10, labelPos: "top"    },  // "foundation model" — high & above the dot
-  def_1:  { fx: 0.78, fy: 0.22, labelPos: "top"    },  // "frontier AI"     — above the dot, more inboard
-  def_2:  { fx: 0.50, fy: 0.88, labelPos: "left"   },  // "National Laboratory" — label LEFT so def_2↔cite_0 edge stays clear
-  sec_0:  { fx: 0.66, fy: 0.46, labelPos: "right"  },  // Sec. 5 — pulled in
-  sec_1:  { fx: 0.74, fy: 0.66, labelPos: "right"  },  // Sec. 7 — pulled in, label to the right
-  cite_0: { fx: 0.86, fy: 0.92, labelPos: "left"   },  // 15 U.S.C. § 9401 — label LEFT so cite_0 sub doesn't run off right edge
+  rel_a:  { fx: 0.13, fy: 0.34, labelPos: "right"  },  // S. 4178
+  center: { fx: 0.40, fy: 0.50, labelPos: "left"   },  // S. 4664 (center)
+  rel_b:  { fx: 0.22, fy: 0.78, labelPos: "right"  },  // H.R. 5332
+  def_0:  { fx: 0.56, fy: 0.20, labelPos: "top"    },  // "foundation model"   — moved DOWN so its top-side label clears the top margin
+  def_1:  { fx: 0.78, fy: 0.28, labelPos: "top"    },  // "frontier AI"
+  def_2:  { fx: 0.50, fy: 0.78, labelPos: "left"   },  // "National Laboratory" — moved UP so its bottom-side label clears the bottom margin
+  sec_0:  { fx: 0.66, fy: 0.46, labelPos: "right"  },  // Sec. 5
+  sec_1:  { fx: 0.74, fy: 0.62, labelPos: "right"  },  // Sec. 7
+  cite_0: { fx: 0.86, fy: 0.80, labelPos: "left"   },  // 15 U.S.C. § 9401   — pulled UP from the bottom edge
 };
 
 // Color + radius per node kind.
@@ -227,33 +227,8 @@ function HeroDiagram({ hero }) {
         ctx.lineTo(endX, endY);
         ctx.stroke();
 
-        // Edge label fades in once the edge has nearly arrived. Place
-        // it perpendicular to the edge (offset toward the visually
-        // less-crowded side) so the text never sits on top of the
-        // line itself or its endpoint dots.
-        if (raw > 0.85 && e.label) {
-          const labelAlpha = Math.min(1, (raw - 0.85) / 0.15);
-          ctx.font = '11px "JetBrains Mono", ui-monospace, monospace';
-          ctx.fillStyle = `rgba(50, 50, 60, ${0.78 * labelAlpha})`;
-          ctx.textAlign = "center";
-          ctx.textBaseline = "middle";
-          const dx = B.x - A.x;
-          const dy = B.y - A.y;
-          const len = Math.hypot(dx, dy) || 1;
-          // unit perpendicular — pick the side that points "up" so
-          // labels sit consistently above the line whenever possible.
-          let px = -dy / len, py = dx / len;
-          if (py > 0) { px = -px; py = -py; }
-          const off = 11;
-          const lx = (A.x + B.x) / 2 + px * off;
-          const ly = (A.y + B.y) / 2 + py * off;
-          // a faint cream halo so the label reads cleanly when it
-          // happens to cross another faint line
-          ctx.strokeStyle = `rgba(252, 250, 244, ${0.85 * labelAlpha})`;
-          ctx.lineWidth = 3;
-          ctx.strokeText(e.label, lx, ly);
-          ctx.fillText(e.label, lx, ly);
-        }
+        // Edge labels are rendered as HTML pills below (see JSX);
+        // they get crisp browser text instead of canvas pixels.
       }
 
       // 2. Nodes — pop in at REVEAL.nodes[id]; solid filled circles
@@ -328,6 +303,40 @@ function HeroDiagram({ hero }) {
                 {n.label}
               </div>
               {n.sub && <div className="lbl-sub mono">{n.sub}</div>}
+            </div>
+          );
+        })}
+        {/* Edge labels — rounded dark pills, rendered as HTML so the
+            text stays crisp at any DPR and we get clean rounded
+            corners + occlusion of the canvas line behind. */}
+        {hero.edges.map((e) => {
+          if (!e.label) return null;
+          const layoutA = NODE_LAYOUT[e.from];
+          const layoutB = NODE_LAYOUT[e.to];
+          if (!layoutA || !layoutB) return null;
+          const reveal = REVEAL.edges.find((r) => r.id === `${e.from}-${e.to}`);
+          const start = reveal ? reveal.start : 0;
+          const dur = reveal ? reveal.dur : 800;
+          const showAt = start + dur * 0.85;
+          const visible = now >= showAt;
+          const Ax = layoutA.fx * W, Ay = layoutA.fy * H;
+          const Bx = layoutB.fx * W, By = layoutB.fy * H;
+          const dx = Bx - Ax, dy = By - Ay;
+          const len = Math.hypot(dx, dy) || 1;
+          // unit perpendicular pointing "up" — same side every time so
+          // labels read consistently above their lines.
+          let pxn = -dy / len, pyn = dx / len;
+          if (pyn > 0) { pxn = -pxn; pyn = -pyn; }
+          const off = 14;
+          const lx = (Ax + Bx) / 2 + pxn * off;
+          const ly = (Ay + By) / 2 + pyn * off;
+          return (
+            <div
+              key={`e-${e.from}-${e.to}`}
+              className={"edge-lbl " + (visible ? "is-on" : "")}
+              style={{ left: lx, top: ly }}
+            >
+              {e.label}
             </div>
           );
         })}
