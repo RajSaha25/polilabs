@@ -19,8 +19,32 @@ from pathlib import Path
 from .parse_uslm import parse_bill_xml
 from .schema import SCHEMA
 
-CORPUS_DIR = Path("data/corpus/legislation")
+CORPUS_DIR = Path("data/corpus/legislation")  # legacy AI corpus (back-compat)
+CORPUS_BASE = Path("data/corpus")             # parent of all topic subdirs
 INDEX_PATH = Path("data/polilabs.db")
+
+
+def _iter_bill_dirs(base: Path):
+    """Yield every bill directory under `base`.
+
+    Auto-detects whether `base` is a topic directory (its immediate
+    children are bill dirs with metadata.json) or the corpus root
+    containing several topic subdirs. Adding a new topic is a no-op for
+    the build — drop a sibling dir under data/corpus/ and re-run.
+    """
+    if not base.is_dir():
+        return
+    looks_like_topic_dir = any(
+        p.is_dir() and (p / "metadata.json").exists()
+        for p in base.iterdir()
+    )
+    if looks_like_topic_dir:
+        for bill_dir in sorted(p for p in base.iterdir() if p.is_dir()):
+            yield bill_dir
+        return
+    for topic_dir in sorted(p for p in base.iterdir() if p.is_dir()):
+        for bill_dir in sorted(p for p in topic_dir.iterdir() if p.is_dir()):
+            yield bill_dir
 
 
 def _open_db(db_path: Path) -> sqlite3.Connection:
@@ -186,12 +210,12 @@ def _write_meta(conn: sqlite3.Connection, freshness: dict[str, str]) -> None:
 
 def build_index(
     *,
-    corpus_dir: Path = CORPUS_DIR,
+    corpus_dir: Path = CORPUS_BASE,
     db_path: Path = INDEX_PATH,
     verbose: bool = True,
 ) -> dict:
     conn = _open_db(db_path)
-    bill_dirs = sorted([p for p in corpus_dir.iterdir() if p.is_dir()])
+    bill_dirs = list(_iter_bill_dirs(corpus_dir))
     stats = {"bills": 0, "sections": 0, "parse_errors": 0, "format": {}}
     latest_fetched: dict[str, str] = {}
 

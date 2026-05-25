@@ -1,0 +1,10 @@
+{
+  "bill_id": "117-hr-4",
+  "criteria_version": "redistricting-seed-v1.0",
+  "canonical_package_id": "BILLS-117hr4eh",
+  "sources": {
+    "bill_xml": "https://www.govinfo.gov/content/pkg/BILLS-117hr4eh/xml/BILLS-117hr4eh.xml",
+    "congress_gov_enrichment": null
+  },
+  "fetched_at": "2026-05-25T21:37:58.062476+00:00"
+}

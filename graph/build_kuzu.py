@@ -66,8 +66,30 @@ from .extract_definitions import (  # noqa: E402
 )
 from .schema_kuzu import apply_schema  # noqa: E402
 
-CORPUS_DIR = Path("data/corpus/legislation")
+CORPUS_DIR = Path("data/corpus/legislation")  # legacy AI corpus (back-compat)
+CORPUS_BASE = Path("data/corpus")             # parent of all topic subdirs
 GRAPH_PATH = Path("data/polilabs.kuzu")
+
+
+def _iter_bill_dirs(base: Path):
+    """Yield every bill directory under `base`.
+
+    Mirrors index.build._iter_bill_dirs — auto-detects whether `base`
+    is itself a topic directory or the corpus root.
+    """
+    if not base.is_dir():
+        return
+    looks_like_topic_dir = any(
+        p.is_dir() and (p / "metadata.json").exists()
+        for p in base.iterdir()
+    )
+    if looks_like_topic_dir:
+        for bill_dir in sorted(p for p in base.iterdir() if p.is_dir()):
+            yield bill_dir
+        return
+    for topic_dir in sorted(p for p in base.iterdir() if p.is_dir()):
+        for bill_dir in sorted(p for p in topic_dir.iterdir() if p.is_dir()):
+            yield bill_dir
 
 JURISDICTION_URN = "us"
 BIBLIOGRAPHIC_EXTRACTOR_ID = "polilabs/bibliographic_builder@v1"
@@ -710,7 +732,7 @@ def _seed_static_nodes(conn: kuzu.Connection) -> dict[str, str]:
 
 def build_graph(
     *,
-    corpus_dir: Path = CORPUS_DIR,
+    corpus_dir: Path = CORPUS_BASE,
     db_path: Path = GRAPH_PATH,
     verbose: bool = True,
 ) -> dict:
@@ -720,7 +742,7 @@ def build_graph(
 
     # ----- Phase 1: collect -----
     acc = Accum()
-    bill_dirs = sorted([p for p in corpus_dir.iterdir() if p.is_dir()])
+    bill_dirs = list(_iter_bill_dirs(corpus_dir))
     for i, d in enumerate(bill_dirs):
         meta_path = d / "metadata.json"
         xml_path = d / "bill.xml"

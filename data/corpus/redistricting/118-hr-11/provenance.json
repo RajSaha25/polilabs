@@ -1,0 +1,10 @@
+{
+  "bill_id": "118-hr-11",
+  "criteria_version": "redistricting-seed-v1.0",
+  "canonical_package_id": "BILLS-118hr11ih",
+  "sources": {
+    "bill_xml": "https://www.govinfo.gov/content/pkg/BILLS-118hr11ih/xml/BILLS-118hr11ih.xml",
+    "congress_gov_enrichment": null
+  },
+  "fetched_at": "2026-05-25T21:38:16.783256+00:00"
+}

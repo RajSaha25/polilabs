@@ -17,13 +17,13 @@ from pathlib import Path
 # Allow `python scripts/build_kuzu_index.py` from repo root without install.
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from graph.build_kuzu import CORPUS_DIR, GRAPH_PATH, build_graph  # noqa: E402
+from graph.build_kuzu import CORPUS_BASE, GRAPH_PATH, build_graph  # noqa: E402
 
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--corpus", type=Path, default=CORPUS_DIR,
-                    help=f"Corpus root (default: {CORPUS_DIR})")
+    ap.add_argument("--corpus", type=Path, default=CORPUS_BASE,
+                    help=f"Corpus root (default: {CORPUS_BASE})")
     ap.add_argument("--db", type=Path, default=GRAPH_PATH,
                     help=f"Kùzu DB path (default: {GRAPH_PATH})")
     ap.add_argument("--quiet", action="store_true", help="Suppress progress output")
