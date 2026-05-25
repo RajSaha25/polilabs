@@ -506,7 +506,7 @@ function Landing({ user, onOpenWorkspace, onSignIn, onSignOut }) {
           <div className="land-stats-grid">
             <Stat
               n="19,315"
-              body="bills introduced in the 118th Congress; 3% became law."
+              body="bills introduced in the 118th Congress. 3% became law."
               source="GovTrack, Statistics and Historical Comparison"
               href="https://www.govtrack.us/congress/bills/statistics"
             />
@@ -523,12 +523,6 @@ function Landing({ user, onOpenWorkspace, onSignIn, onSignOut }) {
               href="https://dho.stanford.edu/wp-content/uploads/Legal_RAG_Hallucinations.pdf"
             />
             <Stat
-              n="3.1 yrs"
-              body="median Hill-staff tenure — roughly a third haven't served a full Congress."
-              source="New America / Congressional Capacity Survey, 2021 (2019 data)"
-              href="https://www.newamerica.org/insights/congressional-brain-drain/congressional-staffers-job-satisfaction-career-trajectories-and-compensation/"
-            />
-            <Stat
               n="84%"
               body="of senior Hill staff: 'we can't accomplish as much as we'd like.'"
               source="Congressional Management Foundation, State of the Congress 2024"
@@ -536,15 +530,8 @@ function Landing({ user, onOpenWorkspace, onSignIn, onSignOut }) {
               caveat="n = 138, 5% response rate"
             />
             <Stat
-              n="$34 : $1"
-              body="corporate vs. labor + public-interest lobbying ratio."
-              source="Drutman, The Business of America is Lobbying (Oxford, 2015); summary at New America"
-              href="https://www.newamerica.org/insights/there-wasnt-always-much-corporate-lobbying/"
-              caveat="2015 figures"
-            />
-            <Stat
               n="150+"
-              body="AI bills introduced in the 118th Congress; zero became law."
+              body="AI bills introduced in the 118th Congress. Zero became law."
               source="Brennan Center for Justice, AI Legislation Tracker (2025)"
               href="https://www.brennancenter.org/our-work/research-reports/artificial-intelligence-legislation-tracker"
             />
@@ -569,7 +556,7 @@ function Landing({ user, onOpenWorkspace, onSignIn, onSignOut }) {
             />
             <Pillar
               title="Verbatim text, synced"
-              body="Click a citation; the matching span lights up in the bill text. If the substring can't be located, the highlight degrades to scroll — it never invents one."
+              body="Click a citation and the matching span lights up in the bill text. If the substring cannot be located, the highlight falls back to scroll. It never invents one."
             />
             <Pillar
               title="Honest unknowns"
@@ -582,7 +569,7 @@ function Landing({ user, onOpenWorkspace, onSignIn, onSignOut }) {
         <section className="land-section">
           <div className="land-section-label mono">
             <span>What's in the corpus</span>
-            <span className="land-section-tag mono">v1 · 118th–119th Congress</span>
+            
           </div>
           <div className="land-corpus-grid">
             <div className="land-corpus-cell">
@@ -609,7 +596,7 @@ function Landing({ user, onOpenWorkspace, onSignIn, onSignOut }) {
           <div className="land-cta-band-copy">
             <div className="land-cta-band-h">Open the corpus.</div>
             <div className="land-cta-band-sub">
-              Ask a question. Read what the bill actually says.
+              Accelerate your research.
             </div>
           </div>
           <button type="button" className="land-cta" onClick={onOpenWorkspace}>
@@ -619,7 +606,7 @@ function Landing({ user, onOpenWorkspace, onSignIn, onSignOut }) {
 
         <footer className="land-foot">
           <span className="mono">
-            polilabs · {c.bills} bills · 118th–119th Congress · citation-accurate, no hallucination
+            polilabs · {c.bills} bills · citation-accurate
           </span>
         </footer>
       </main>
