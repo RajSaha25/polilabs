@@ -447,7 +447,7 @@ function Landing({ user, onOpenWorkspace, onSignIn, onSignOut }) {
         {(stage === "welcome" || stage === "welcome-fading") && (
           <div className={"land-typed-wrap " + (stage === "welcome-fading" ? "is-fading" : "")}>
             <TypedHeadline
-              text="Welcome to Polilabs"
+              text="Welcome to Polilabs."
               onDone={() => {
                 setStage("welcome-fading");
                 setTimeout(() => setStage("diagram"), 380);

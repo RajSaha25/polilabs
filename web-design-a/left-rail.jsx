@@ -222,9 +222,6 @@ function PromptInput({ value, onChange, onSubmit, onPreset, presets, disabled })
           rows={2}
         />
         <div className="row">
-          <span className="scope mono">
-            <Icon name="scope" size={11} /> 118th–119th · all chambers
-          </span>
           <span className="prompt-hint mono">
             {disabled ? "working…" : "↵ to send · ⇧↵ newline"}
           </span>
@@ -304,10 +301,6 @@ function LeftRail({
       <section className="rail-answer">
         <header className="rail-head">
           <span>Answer</span>
-          <span className="count mono">
-            <span style={{ color: streaming ? "var(--ink-4)" : "var(--verified)" }}>●</span>
-            {streaming ? " streaming" : " from backend"}
-          </span>
         </header>
         <div className="answer-wrap scroll" ref={answerRef}>
           {error ? (
