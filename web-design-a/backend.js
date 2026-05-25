@@ -20,7 +20,7 @@
 // even when this prototype is served from a different port.
 window.POLILABS_BACKEND =
   (window.localStorage && localStorage.getItem("polilabs_backend")) ||
-  "https://consulting-theaters-barnes-compare.trycloudflare.com";
+  "https://polilabs-backend.fly.dev";
 
 (function () {
   const BACKEND = window.POLILABS_BACKEND;
