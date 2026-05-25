@@ -75,6 +75,12 @@ class Candidate:
     bill_type: str
     bill_number: int
 
+    # Policy-domain corpus tag (orthogonal to the source `stream`).
+    # Defaults to ai_governance so the legacy AI pipeline is unchanged;
+    # the redistricting seed pipeline (and any future topic) sets this
+    # explicitly when constructing Candidates.
+    topic: str = "ai_governance"
+
     # GovInfo data
     versions: list[PackageRef] = field(default_factory=list)
     govinfo_titles: list[str] = field(default_factory=list)

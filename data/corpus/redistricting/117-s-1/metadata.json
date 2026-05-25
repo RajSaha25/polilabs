@@ -1,0 +1,37 @@
+{
+  "bill_id": "117-s-1",
+  "congress": 117,
+  "bill_type": "s",
+  "bill_number": 1,
+  "title": "To expand Americans\u2019 access to the ballot box, reduce the influence of big money in politics, strengthen ethics rules for public servants, and implement other anti-corruption measures for the purpose of fortifying our democracy, and for other purposes.",
+  "short_title": "For the People Act of 2021",
+  "sponsor": "Mr. Merkley",
+  "introduced_date": "2021-03-17",
+  "latest_action": null,
+  "policy_area": null,
+  "subjects": [],
+  "summary_text": null,
+  "centrality_score": null,
+  "match_locations": {},
+  "tier": "A",
+  "stream": "legislation",
+  "topic": "redistricting",
+  "versions_available": [
+    {
+      "package_id": "BILLS-117s1pcs",
+      "version_code": "pcs",
+      "date_issued": "2021-03-17"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-117s1pcs",
+    "version_code": "pcs",
+    "date_issued": "2021-03-17"
+  },
+  "actions": [],
+  "cosponsors": [],
+  "_metadata_sources": {
+    "xml": "govinfo bulk-data (unauthenticated)",
+    "congress_gov_enriched": false
+  }
+}

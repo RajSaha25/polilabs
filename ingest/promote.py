@@ -30,10 +30,30 @@ from sources.congress_gov import CongressGov
 
 from .candidate import Candidate, PackageRef
 
-CORPUS_DIR = Path("data/corpus/legislation")
+CORPUS_BASE = Path("data/corpus")
+
+# Legacy AI corpus committed before the topic field existed lives at
+# data/corpus/legislation/. New topics use their own subdirectory under
+# data/corpus/<topic>/. The build walks every subdirectory, so the name
+# mismatch for the legacy dir is purely cosmetic.
+_LEGACY_AI_DIR = "legislation"
+
+CORPUS_DIR = CORPUS_BASE / _LEGACY_AI_DIR  # kept for backward compat
 CACHE_DIR = Path("data/cache/govinfo")
 DEFAULT_HEURISTIC_THRESHOLD = 3.0
 CRITERIA_VERSION = "v1.0"
+
+
+def corpus_dir_for(topic: str) -> Path:
+    """Map a topic name to its on-disk corpus directory.
+
+    The AI corpus stays at data/corpus/legislation/ for now (renaming
+    would churn 191 files; deferred to a follow-up). All other topics
+    use data/corpus/<topic>/.
+    """
+    if topic == "ai_governance":
+        return CORPUS_BASE / _LEGACY_AI_DIR
+    return CORPUS_BASE / topic
 
 
 def _govinfo_get(url: str, *, api_key: str, timeout: float = 60.0) -> bytes:
@@ -163,7 +183,7 @@ def promote_one(
 ) -> dict:
     """Promote a single candidate. Returns a status dict for logging."""
     bill_id = candidate.bill_id
-    target = CORPUS_DIR / bill_id
+    target = corpus_dir_for(candidate.topic) / bill_id
 
     if target.exists() and not force:
         return {"bill_id": bill_id, "status": "skipped-exists"}
