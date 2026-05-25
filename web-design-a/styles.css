@@ -1801,7 +1801,7 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
 .land-scene {
   position: relative;
   width: 100%;
-  height: 560px;
+  height: 640px;  /* taller so labels at top/bottom rows have headroom */
   cursor: default;
 }
 .land-scene-canvas {
@@ -1879,6 +1879,32 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
   padding: 1px 5px;
   border-radius: 3px;
 }
+
+
+/* Edge labels — small rounded dark pill sitting perpendicular to its
+   edge. Looks intentional and avoids the "canvas text crossed by a
+   line" mess that a transparent label would have. */
+.edge-lbl {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  color: rgba(252, 250, 244, 0.96);
+  background: rgba(20, 22, 32, 0.92);
+  padding: 4px 9px;
+  border-radius: 999px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 380ms ease 60ms;
+  pointer-events: none;
+  /* Pin above the .land-scene-canvas */
+  z-index: 1;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+}
+.edge-lbl.is-on { opacity: 1; }
 
 .land-diagram-empty {
   width: 100%;
