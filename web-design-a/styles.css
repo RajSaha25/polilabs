@@ -218,11 +218,10 @@ input, textarea { font: inherit; color: inherit; }
   position: relative;
   display: grid;
   grid-template-columns: var(--rail-w) 1fr;
-  grid-template-rows: var(--header-h) 1fr var(--footer-h);
+  grid-template-rows: var(--header-h) 1fr;
   grid-template-areas:
     "header header"
-    "rail   stage"
-    "footer footer";
+    "rail   stage";
   height: 100vh;
   width: 100vw;
   overflow: hidden;
@@ -1971,7 +1970,7 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
 .land-stats-section { padding: 56px 0; }
 .land-stats-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 1px;
   background: var(--rule);
   border: 1px solid var(--rule);
