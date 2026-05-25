@@ -64,8 +64,7 @@ function TypedHeadline({ text, onDone, charMs = 85, holdMs = 750 }) {
 // edges grow visibly from one endpoint to the other, the destination
 // node materializes the moment the edge arrives, and the pattern
 // continues outward. Nodes are color-coded by type (bill / def /
-// section / external statute) and drag-able Obsidian-style — released
-// nodes stay where you drop them, no spring-back.
+// section / external statute). The diagram is a static reveal.
 
 // Per-node target positions on the canvas, expressed as fractions of
 // (W, H) so the layout scales with the section. Hand-tuned for
@@ -74,15 +73,18 @@ function TypedHeadline({ text, onDone, charMs = 85, holdMs = 750 }) {
 // ("top" | "bottom" | "left" | "right"). Pick the side that points
 // AWAY from incoming edges so the label never collides with a line.
 const NODE_LAYOUT = {
-  rel_a:  { fx: 0.14, fy: 0.32, labelPos: "left"   },
-  center: { fx: 0.42, fy: 0.55, labelPos: "bottom" },
-  rel_b:  { fx: 0.26, fy: 0.86, labelPos: "left"   },
-  def_0:  { fx: 0.64, fy: 0.16, labelPos: "top"    },  // foundation model — above its dot
-  def_1:  { fx: 0.90, fy: 0.34, labelPos: "right"  },  // frontier AI — to the right
-  def_2:  { fx: 0.54, fy: 0.86, labelPos: "bottom" },  // National Laboratory — pushed lower & left of cite_0 edge
-  sec_0:  { fx: 0.74, fy: 0.58, labelPos: "right"  },  // Sec. 5
-  sec_1:  { fx: 0.92, fy: 0.62, labelPos: "right"  },  // Sec. 7 — far right
-  cite_0: { fx: 0.82, fy: 0.92, labelPos: "right"  },  // 15 U.S.C. § 9401
+  // Hand-tuned so EVERY label sits in clear space — verified with a
+  // 1920×1080 Chrome screenshot of the fully-revealed graph. If you
+  // tweak any fx/fy, re-screenshot to confirm nothing collides.
+  rel_a:  { fx: 0.13, fy: 0.30, labelPos: "right"  },  // S. 4178 — pulled in from left edge so label fits
+  center: { fx: 0.40, fy: 0.50, labelPos: "left"   },  // S. 4664 — center; label LEFT (most open direction)
+  rel_b:  { fx: 0.22, fy: 0.86, labelPos: "right"  },  // H.R. 5332 — label right of dot, clear of rel_b→center line
+  def_0:  { fx: 0.56, fy: 0.10, labelPos: "top"    },  // "foundation model" — high & above the dot
+  def_1:  { fx: 0.78, fy: 0.22, labelPos: "top"    },  // "frontier AI"     — above the dot, more inboard
+  def_2:  { fx: 0.50, fy: 0.88, labelPos: "left"   },  // "National Laboratory" — label LEFT so def_2↔cite_0 edge stays clear
+  sec_0:  { fx: 0.66, fy: 0.46, labelPos: "right"  },  // Sec. 5 — pulled in
+  sec_1:  { fx: 0.74, fy: 0.66, labelPos: "right"  },  // Sec. 7 — pulled in, label to the right
+  cite_0: { fx: 0.86, fy: 0.92, labelPos: "left"   },  // 15 U.S.C. § 9401 — label LEFT so cite_0 sub doesn't run off right edge
 };
 
 // Color + radius per node kind.
@@ -157,8 +159,9 @@ function HeroDiagram({ hero }) {
     return () => clearInterval(id);
   }, [hero]);
 
-  // node positions + drag state live in a ref so the RAF loop can
-  // mutate them without re-binding the effect every render
+  // node positions live in a ref so the RAF loop can read them without
+  // re-binding the effect every render. The diagram is a static
+  // reveal — nothing is draggable.
   const sceneRef = useRef(null);
 
   useEffect(() => {
@@ -196,53 +199,8 @@ function HeroDiagram({ hero }) {
       return { ...e, start: r ? r.start : 0, dur: r ? r.dur : 800 };
     });
 
-    sceneRef.current = { nodes, edges, drag: null, t0: performance.now() };
+    sceneRef.current = { nodes, edges, t0: performance.now() };
 
-    // drag interaction (Obsidian-style — drop and it stays put)
-    const nearest = (mx, my) => {
-      let best = null, bestD = 24 * 24;
-      for (const id in nodes) {
-        const n = nodes[id];
-        const dx = mx - n.x, dy = my - n.y;
-        const d2 = dx * dx + dy * dy;
-        if (d2 < bestD) { bestD = d2; best = n; }
-      }
-      return best;
-    };
-    const onDown = (ev) => {
-      const rect = cvs.getBoundingClientRect();
-      const mx = ev.clientX - rect.left;
-      const my = ev.clientY - rect.top;
-      const n = nearest(mx, my);
-      if (n) {
-        sceneRef.current.drag = { node: n, ox: mx - n.x, oy: my - n.y };
-        cvs.setPointerCapture?.(ev.pointerId);
-        cvs.style.cursor = "grabbing";
-        ev.preventDefault();
-      }
-    };
-    const onMove = (ev) => {
-      const rect = cvs.getBoundingClientRect();
-      const mx = ev.clientX - rect.left;
-      const my = ev.clientY - rect.top;
-      const sc = sceneRef.current;
-      if (sc.drag) {
-        sc.drag.node.x = mx - sc.drag.ox;
-        sc.drag.node.y = my - sc.drag.oy;
-      } else {
-        cvs.style.cursor = nearest(mx, my) ? "grab" : "default";
-      }
-    };
-    const onUp = () => {
-      if (sceneRef.current.drag) {
-        sceneRef.current.drag = null;
-        cvs.style.cursor = "default";
-      }
-    };
-    cvs.addEventListener("pointerdown", onDown);
-    cvs.addEventListener("pointermove", onMove);
-    cvs.addEventListener("pointerup", onUp);
-    cvs.addEventListener("pointercancel", onUp);
 
     // ── render loop ──────────────────────────────────────────────────
     let raf = 0;
@@ -321,10 +279,6 @@ function HeroDiagram({ hero }) {
 
     return () => {
       cancelAnimationFrame(raf);
-      cvs.removeEventListener("pointerdown", onDown);
-      cvs.removeEventListener("pointermove", onMove);
-      cvs.removeEventListener("pointerup", onUp);
-      cvs.removeEventListener("pointercancel", onUp);
     };
   }, [hero, size.w, size.h]);
 
@@ -418,7 +372,7 @@ function Landing({ user, onOpenWorkspace, onSignIn, onSignOut }) {
   const [loadError, setLoadError] = useState(false);
 
   // Hero stage machine:
-  //   'headline'        – "Accelerating Polilabs research." types out
+  //   'headline'        – "Accelerating policy research." types out
   //   'fading'          – first phrase fades out completely
   //   'welcome'         – "Welcome to Polilabs" types out, letter by letter
   //   'welcome-fading'  – second phrase fades out
@@ -473,7 +427,7 @@ function Landing({ user, onOpenWorkspace, onSignIn, onSignOut }) {
         {(stage === "headline" || stage === "fading") && (
           <div className={"land-typed-wrap " + (stage === "fading" ? "is-fading" : "")}>
             <TypedHeadline
-              text="Accelerating Polilabs research."
+              text="Accelerating policy research."
               onDone={() => {
                 setStage("fading");
                 setTimeout(() => setStage("welcome"), 380);
