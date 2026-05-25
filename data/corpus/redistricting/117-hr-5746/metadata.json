@@ -1,0 +1,37 @@
+{
+  "bill_id": "117-hr-5746",
+  "congress": 117,
+  "bill_type": "hr",
+  "bill_number": 5746,
+  "title": null,
+  "short_title": "Freedom to Vote: John R. Lewis Act",
+  "sponsor": null,
+  "introduced_date": "2022-01-13",
+  "latest_action": null,
+  "policy_area": null,
+  "subjects": [],
+  "summary_text": null,
+  "centrality_score": null,
+  "match_locations": {},
+  "tier": "A",
+  "stream": "legislation",
+  "topic": "redistricting",
+  "versions_available": [
+    {
+      "package_id": "BILLS-117hr5746eah",
+      "version_code": "eah",
+      "date_issued": "2022-01-13"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-117hr5746eah",
+    "version_code": "eah",
+    "date_issued": "2022-01-13"
+  },
+  "actions": [],
+  "cosponsors": [],
+  "_metadata_sources": {
+    "xml": "govinfo bulk-data (unauthenticated)",
+    "congress_gov_enriched": false
+  }
+}
