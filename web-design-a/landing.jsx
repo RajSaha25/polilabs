@@ -505,18 +505,6 @@ function Landing({ user, onOpenWorkspace, onSignIn, onSignOut }) {
           </div>
           <div className="land-stats-grid">
             <Stat
-              n="95%"
-              body="of bill drafting and negotiation is done by congressional staff, not the elected member."
-              source='Sen. Ted Kennedy, quoted in Robert G. Kaiser, "Act of Congress" (Vintage, 2014)'
-              href="https://80000hours.org/career-reviews/congressional-staffer/"
-            />
-            <Stat
-              n="48%"
-              body="of policy / legislative / research staff disagree that they have enough time to get everything done."
-              source='Congressional Management Foundation & SHRM, "Life in Congress: Job Satisfaction and Engagement of House and Senate Staff" (2013, n ≈ 1,400)'
-              href="https://www.congressfoundation.org/research"
-            />
-            <Stat
               n="9×"
               body="more pages of statute per enacted law than in 1955, on average."
               source="Brookings Vital Statistics on Congress, via Pew (2021)"
