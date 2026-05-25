@@ -70,16 +70,19 @@ function TypedHeadline({ text, onDone, charMs = 85, holdMs = 750 }) {
 // Per-node target positions on the canvas, expressed as fractions of
 // (W, H) so the layout scales with the section. Hand-tuned for
 // organic asymmetry — no two nodes share the same angle from center.
+// `labelPos` controls which side of the dot the HTML label sits on
+// ("top" | "bottom" | "left" | "right"). Pick the side that points
+// AWAY from incoming edges so the label never collides with a line.
 const NODE_LAYOUT = {
-  rel_a:  { fx: 0.16, fy: 0.34 },
-  center: { fx: 0.42, fy: 0.55 },
-  rel_b:  { fx: 0.30, fy: 0.84 },
-  def_0:  { fx: 0.66, fy: 0.22 },  // foundation model — upper
-  def_1:  { fx: 0.85, fy: 0.40 },  // frontier AI — right
-  def_2:  { fx: 0.62, fy: 0.78 },  // National Laboratory — lower
-  sec_0:  { fx: 0.74, fy: 0.62 },  // Sec. 5 — middle-right
-  sec_1:  { fx: 0.88, fy: 0.66 },  // Sec. 7 — far right, pulled in so label fits
-  cite_0: { fx: 0.78, fy: 0.90 },  // 15 U.S.C. § 9401 — bottom
+  rel_a:  { fx: 0.14, fy: 0.32, labelPos: "left"   },
+  center: { fx: 0.42, fy: 0.55, labelPos: "bottom" },
+  rel_b:  { fx: 0.26, fy: 0.86, labelPos: "left"   },
+  def_0:  { fx: 0.64, fy: 0.16, labelPos: "top"    },  // foundation model — above its dot
+  def_1:  { fx: 0.90, fy: 0.34, labelPos: "right"  },  // frontier AI — to the right
+  def_2:  { fx: 0.54, fy: 0.86, labelPos: "bottom" },  // National Laboratory — pushed lower & left of cite_0 edge
+  sec_0:  { fx: 0.74, fy: 0.58, labelPos: "right"  },  // Sec. 5
+  sec_1:  { fx: 0.92, fy: 0.62, labelPos: "right"  },  // Sec. 7 — far right
+  cite_0: { fx: 0.82, fy: 0.92, labelPos: "right"  },  // 15 U.S.C. § 9401
 };
 
 // Color + radius per node kind.
@@ -266,15 +269,31 @@ function HeroDiagram({ hero }) {
         ctx.lineTo(endX, endY);
         ctx.stroke();
 
-        // Edge label fades in once the edge has nearly arrived
+        // Edge label fades in once the edge has nearly arrived. Place
+        // it perpendicular to the edge (offset toward the visually
+        // less-crowded side) so the text never sits on top of the
+        // line itself or its endpoint dots.
         if (raw > 0.85 && e.label) {
           const labelAlpha = Math.min(1, (raw - 0.85) / 0.15);
           ctx.font = '11px "JetBrains Mono", ui-monospace, monospace';
-          ctx.fillStyle = `rgba(50, 50, 60, ${0.7 * labelAlpha})`;
-          ctx.textAlign = "left";
+          ctx.fillStyle = `rgba(50, 50, 60, ${0.78 * labelAlpha})`;
+          ctx.textAlign = "center";
           ctx.textBaseline = "middle";
-          const lx = (A.x + B.x) / 2 + 8;
-          const ly = (A.y + B.y) / 2 - 8;
+          const dx = B.x - A.x;
+          const dy = B.y - A.y;
+          const len = Math.hypot(dx, dy) || 1;
+          // unit perpendicular — pick the side that points "up" so
+          // labels sit consistently above the line whenever possible.
+          let px = -dy / len, py = dx / len;
+          if (py > 0) { px = -px; py = -py; }
+          const off = 11;
+          const lx = (A.x + B.x) / 2 + px * off;
+          const ly = (A.y + B.y) / 2 + py * off;
+          // a faint cream halo so the label reads cleanly when it
+          // happens to cross another faint line
+          ctx.strokeStyle = `rgba(252, 250, 244, ${0.85 * labelAlpha})`;
+          ctx.lineWidth = 3;
+          ctx.strokeText(e.label, lx, ly);
           ctx.fillText(e.label, lx, ly);
         }
       }
@@ -314,8 +333,12 @@ function HeroDiagram({ hero }) {
   }
 
   // HTML labels are anchored to the static layout positions and fade
-  // in roughly 200 ms after their dot appears.
+  // in roughly 200 ms after their dot appears. Each layout entry
+  // specifies which side of the dot the label sits on so labels never
+  // collide with the edges that approach the node.
   const W = size.w, H = size.h;
+  // Gap between the dot's edge and the label's nearest edge.
+  const GAP = 12;
   return (
     <div ref={containerRef} className="land-scene">
       <canvas ref={canvasRef} className="land-scene-canvas" />
@@ -327,13 +350,25 @@ function HeroDiagram({ hero }) {
           const visible = now >= appearAt + 200;
           const style = KIND_STYLE[n.kind] || KIND_STYLE.bill;
           const radius = n.id === "center" && style.rBig ? style.rBig : style.r;
-          const x = layout.fx * W;
-          const y = layout.fy * H + radius + 14;
+          const cx = layout.fx * W;
+          const cy = layout.fy * H;
+          const pos = layout.labelPos || "bottom";
+
+          // Resolve label anchor + offset based on which side it sits.
+          // `data-pos` is consumed by .lbl[data-pos="…"] CSS to set the
+          // correct translate() origin so the label hangs off the dot.
+          let left = cx, top = cy;
+          if (pos === "bottom")      { top  = cy + radius + GAP; }
+          else if (pos === "top")    { top  = cy - radius - GAP; }
+          else if (pos === "right")  { left = cx + radius + GAP; }
+          else if (pos === "left")   { left = cx - radius - GAP; }
+
           return (
             <div
               key={n.id}
               className={"lbl " + (visible ? "is-on" : "")}
-              style={{ left: x, top: y }}
+              data-pos={pos}
+              style={{ left, top }}
             >
               <div className={"lbl-text " + (n.kind === "def" ? "lbl-italic" : "")}>
                 {n.label}
@@ -382,7 +417,12 @@ function Landing({ user, onOpenWorkspace, onSignIn, onSignOut }) {
   const [corpus, setCorpus] = useState(null);
   const [loadError, setLoadError] = useState(false);
 
-  // Hero stage machine: 'headline' → 'fading' (300ms) → 'diagram'.
+  // Hero stage machine:
+  //   'headline'        – "Accelerating Polilabs research." types out
+  //   'fading'          – first phrase fades out completely
+  //   'welcome'         – "Welcome to Polilabs" types out, letter by letter
+  //   'welcome-fading'  – second phrase fades out
+  //   'diagram'         – SVG/canvas diagram reveals itself
   // The headline disappears completely; the diagram's own internal
   // stagger then reveals each node in turn.
   const [stage, setStage] = useState("headline");
@@ -433,9 +473,20 @@ function Landing({ user, onOpenWorkspace, onSignIn, onSignOut }) {
         {(stage === "headline" || stage === "fading") && (
           <div className={"land-typed-wrap " + (stage === "fading" ? "is-fading" : "")}>
             <TypedHeadline
-              text="Accelerating policy research."
+              text="Accelerating Polilabs research."
               onDone={() => {
                 setStage("fading");
+                setTimeout(() => setStage("welcome"), 380);
+              }}
+            />
+          </div>
+        )}
+        {(stage === "welcome" || stage === "welcome-fading") && (
+          <div className={"land-typed-wrap " + (stage === "welcome-fading" ? "is-fading" : "")}>
+            <TypedHeadline
+              text="Welcome to Polilabs"
+              onDone={() => {
+                setStage("welcome-fading");
                 setTimeout(() => setStage("diagram"), 380);
               }}
             />
