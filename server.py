@@ -84,7 +84,8 @@ from agent.tools import (
 
 app = FastAPI(
     title="polilabs",
-    description="Agent backend for the polilabs AI-governance corpus.",
+    description="Agent backend for the polilabs legislative corpus. "
+                "Topic subsets — call /api/coverage for the current scope.",
     version="0.2.0",
 )
 

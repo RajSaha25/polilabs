@@ -302,7 +302,7 @@ def main() -> None:
     _check_anthropic_key()
     client = anthropic.Anthropic()
 
-    print("\033[1mpolilabs chat\033[0m — AI-governance legislation corpus, 191 bills, 118th-119th Congress")
+    print("\033[1mpolilabs chat\033[0m — US federal legislation corpus (ask \"what's in the corpus?\" for current scope)")
     print("Type a question. Use \033[2m/reset\033[0m to clear, \033[2m/exit\033[0m to quit.\n")
 
     messages: list = []

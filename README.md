@@ -2,7 +2,7 @@
 
 Agent-native queryable knowledge graph of US federal legislation. Built so any LLM agent — Claude, Cursor, ChatGPT, your own — can dig into the structured corpus and report back to legislative researchers without hallucinating.
 
-v1 corpus: **191 AI-governance bills** from the 118th and 119th US Congresses (2023–present). v1 scope: legislation only — regulatory actions (FTC, NIST, Commerce) and executive orders are explicitly out.
+Corpus: US federal legislation organized into topic subsets — each subset is a curated set of bills on one policy domain, scoped per query via a `topic` filter. The set grows over time; ask the agent ("what's in the corpus?" → calls `corpus_coverage`) for the current snapshot. Scope is legislation only — regulatory actions (FTC, NIST, Commerce) and executive orders are out.
 
 ## Product framing
 
@@ -19,7 +19,7 @@ The agent doing the research is **NOT** polilabs' own agent. polilabs is the bac
 Two queryable stores, one tool layer, and four ways to reach it.
 
 ```
-data/corpus/        authoritative USLM XML (191 bills, committed)
+data/corpus/        authoritative USLM XML, organized by topic (committed)
    │
    ├─ index/        SQLite + FTS5     full-text search
    └─ graph/        Kùzu property graph   bills · sections · defined terms ·
@@ -67,9 +67,9 @@ make install          # create .venv, install Python + web deps
 make build            # build the SQLite + Kùzu indexes from data/corpus/ (~100s, one time)
 ```
 
-The v1 corpus (191 bills) is committed under `data/corpus/legislation/`, so `make build` is the only build step. It runs `scripts/build_index.py` (SQLite FTS, ~30s) and `scripts/build_kuzu_index.py` (Kùzu graph, ~70s); `scripts/kuzu_smoke_test.py` and `scripts/api_smoke_test.py` verify the result.
+The corpus is committed under `data/corpus/<topic>/` (one subdirectory per topic subset), so `make build` is the only build step needed locally. It runs `scripts/build_index.py` (SQLite FTS + dense embeddings via `BAAI/bge-small-en-v1.5`) and `scripts/build_kuzu_index.py` (Kùzu graph); `scripts/kuzu_smoke_test.py` and `scripts/api_smoke_test.py` verify the result. Total ~5-10 min for the full build; pass `--skip-embeddings` to `build_index.py` for fast FTS-only iteration.
 
-Re-fetching the corpus from Congress.gov / GovInfo is a separate flow (`scripts/fetch_candidates.py` → `scripts/promote_corpus.py`), only needed to expand scope or refresh data.
+Re-fetching corpus content from Congress.gov / GovInfo is a separate flow (`scripts/fetch_candidates.py` → `scripts/promote_corpus.py`, or `scripts/fetch_redistricting_seed.py` for the redistricting seed), only needed to expand scope or refresh data.
 
 ## The 12-tool agent surface
 
@@ -202,7 +202,7 @@ eval/         # Eval harness: hand-curated queries + scorer + report
 scripts/      # CLI entry points (build, smoke-test, chat, eval)
 web/          # Reference frontend (React + Vite + TypeScript)
 web-design-a/ # Parallel frontend design experiment
-corpus/       # Locked inclusion criteria — what counts as "AI-governance"
+corpus/       # Locked inclusion criteria per topic subset
 research/     # Background research (landscape, design principles)
 data/         # Committed corpus + gitignored indexes — see .gitignore
 

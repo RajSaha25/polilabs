@@ -477,9 +477,8 @@ function Landing({ user, onOpenWorkspace, onSignIn, onSignOut }) {
         <section className="land-below">
           <p className="land-lede">
             Citation-accurate research instrument for U.S. federal
-            AI-governance legislation. Every answer grounded in
-            verbatim bill text. If it is not in the bill, polilabs
-            does not say it.
+            legislation. Every answer grounded in verbatim bill text.
+            If it is not in the bill, polilabs does not say it.
           </p>
           <div className="land-cta-row">
             <button type="button" className="land-cta" onClick={onOpenWorkspace}>
@@ -488,7 +487,9 @@ function Landing({ user, onOpenWorkspace, onSignIn, onSignOut }) {
             <div className="land-corpus mono">
               <b>{c.bills}</b>&nbsp;bills
               <span className="land-dot">·</span>
-              <b>118th–119th</b>&nbsp;Congress
+              <a href="#whats-in-corpus" className="land-corpus-link">
+                see what&rsquo;s in the corpus
+              </a>
             </div>
           </div>
         </section>
@@ -529,6 +530,54 @@ function Landing({ user, onOpenWorkspace, onSignIn, onSignOut }) {
               source="R Street / Drutman coalition letter (2015)"
               href="https://www.rstreet.org/commentary/congress-must-invest-in-its-own-capacity-again/"
             />
+          </div>
+        </section>
+
+        {/* WHAT'S IN THE CORPUS RIGHT NOW — the only place that names
+            specific topics + congressional spans. Everything else
+            stays corpus-generic so we don't have to chase strings as
+            the corpus grows. Update this block when a new topic
+            subset or Congress range gets added. */}
+        <section className="land-section" id="whats-in-corpus">
+          <div className="land-section-label mono">
+            <span>What&rsquo;s in the corpus right now</span>
+            <span className="land-section-tag mono">
+              snapshot — grows over time
+            </span>
+          </div>
+          <div className="land-topics-grid">
+            <div className="land-topic-card">
+              <div className="land-topic-h">AI governance</div>
+              <div className="land-topic-meta mono">
+                118th–119th Congress · 191 bills
+              </div>
+              <p className="land-topic-body">
+                Bills primarily or substantially concerning AI, machine
+                learning, generative AI, frontier models, automated
+                decision systems, or facial recognition. Tier A is
+                primarily on the topic; Tier B has substantial
+                provisions. Excludes regulatory actions and executive
+                orders.
+              </p>
+            </div>
+            <div className="land-topic-card">
+              <div className="land-topic-h">Redistricting &amp; voting rights</div>
+              <div className="land-topic-meta mono">
+                117th–119th Congress · 12 bills (seed)
+              </div>
+              <p className="land-topic-body">
+                Landmark federal redistricting and voting-rights bills
+                — For the People Act, John R. Lewis VRAA, Freedom to
+                Vote Act, ranked choice voting. Seed corpus; full
+                GovInfo sweep on the roadmap.
+              </p>
+            </div>
+          </div>
+          <div className="land-topics-foot mono">
+            Searches and tools take a <code>topic</code> filter so
+            polysemous terms (&ldquo;agency review&rdquo;,
+            &ldquo;compliance&rdquo;) don&rsquo;t bleed across
+            domains. Cross-corpus queries are explicit.
           </div>
         </section>
 

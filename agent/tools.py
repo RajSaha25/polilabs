@@ -209,10 +209,13 @@ def tool_find_definitions_of(term: str) -> str:
 
 TOOL_DESCRIPTIONS = {
     "search_corpus": (
-        "Search the polilabs AI-governance corpus by free-text query. "
-        "Returns ranked lightweight bill hits (title, sponsor, summary preview, "
-        "score) — never full bill text. Use this to discover relevant bills, "
-        "then call get_bill / get_section for details."
+        "Search a topic-scoped polilabs corpus by free-text query (hybrid "
+        "BM25 + dense embeddings via RRF). Returns ranked lightweight bill "
+        "hits (title, sponsor, summary preview, score) — never full bill "
+        "text. Use this to discover relevant bills, then call get_bill / "
+        "get_section for details. The `topic` parameter selects which "
+        "topic corpus to search — call corpus_coverage if unsure which "
+        "topics exist."
     ),
     "get_bill": (
         "Get a bill's metadata, sponsor, cosponsors, latest action, and a "
@@ -324,8 +327,9 @@ TOOL_SCHEMAS = {
         "type": "object",
         "properties": {
             "query": {"type": "string", "description": "Free-text query. Multi-word queries are AND'd as separate phrase tokens."},
-            "tier": {"type": "string", "enum": ["A", "B"], "description": "Filter to Tier A (primary AI-governance) or B (substantial AI provisions). Optional."},
-            "congress": {"type": "integer", "description": "Filter to a specific Congress (118 or 119). Optional."},
+            "topic": {"type": "string", "description": "Topic corpus to search (e.g. 'ai_governance', 'redistricting'). Defaults to 'ai_governance'. Call corpus_coverage if unsure which topics exist."},
+            "tier": {"type": "string", "enum": ["A", "B"], "description": "Filter to Tier A (primarily on the topic) or B (substantial provisions on the topic). Optional."},
+            "congress": {"type": "integer", "description": "Filter to a specific Congress number. Optional."},
             "limit": {"type": "integer", "default": 5, "description": "Max hits to return (1-25)."},
         },
         "required": ["query"],
@@ -429,9 +433,11 @@ TOOL_FUNCTIONS = {
 }
 
 
-SYSTEM_PROMPT = """You are polilabs-agent, a citation-accurate research assistant for a queryable database of US federal AI-governance legislation.
+SYSTEM_PROMPT = """You are polilabs-agent, a citation-accurate research assistant for a queryable database of US federal legislation.
 
-The corpus is small and deliberate: 191 bills from the 118th and 119th US Congress (2023–present) that primarily or substantially concern AI, ML, generative AI, frontier models, automated decision systems, or facial recognition. v1 covers legislation only — regulatory actions (FTC, NIST, Commerce) and executive orders are explicitly out of scope.
+The corpus is organized into topic subsets — each subset is a curated set of bills on one policy domain (for example, AI governance, redistricting and voting rights, and others as they are added). Topics are scoped per query via the `topic` parameter on `search_corpus`. The corpus currently covers legislation only — regulatory actions (FTC, NIST, Commerce) and executive orders are out of scope.
+
+**Do not assert the corpus size, congressional span, or topic list from prior knowledge.** Call `corpus_coverage` once at the start of an unfamiliar question, or whenever the user asks about scope, and quote what it returns. Numbers change as the corpus grows.
 
 Every claim about legislation MUST come from the tools. Never reconstruct a citation from prose or training data — quote the `canonical_citation` field that get_section returns. If a fact is not in the tool output, do not assert it.
 
@@ -471,7 +477,7 @@ These primitives return the COMPLETE list with no pagination — when one return
 
 When you cite a section, format like: "Sec. 3(a)(1) of H.R. 1736, 119th Cong." (the exact `canonical_citation` string).
 
-If something is outside the corpus (regulatory, executive, pre-2023, or a bill that's genuinely missing), say so explicitly. Do not bluff.
+If something is outside the corpus (a regulatory or executive document, a bill from a Congress not yet ingested, or a bill on a topic not yet covered), say so explicitly. Call `corpus_coverage` to confirm the actual scope before claiming a bill is missing — the corpus grows. Do not bluff.
 
 ## Response style
 

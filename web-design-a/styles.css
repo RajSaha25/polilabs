@@ -2167,3 +2167,67 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
   border-radius: var(--r-sm);
 }
 .auth-back:hover { background: var(--subtle); color: var(--ink); }
+
+/* ── "What's in the corpus right now" topic cards ──────────────────
+   Distinct from the 4-cell .land-corpus-grid numeric band — these
+   are paragraph-bearing topic descriptions. Two-up on desktop, stack
+   on mobile (handled by the workspace mobile reflow block already). */
+.land-corpus-link {
+  color: var(--ink-3);
+  text-decoration: underline;
+  text-decoration-color: var(--rule);
+  text-underline-offset: 3px;
+}
+.land-corpus-link:hover { color: var(--ink); text-decoration-color: var(--ink-3); }
+
+.land-topics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+.land-topic-card {
+  background: var(--panel);
+  padding: 24px 24px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.land-topic-h {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+.land-topic-meta {
+  font-size: var(--t-xs);
+  color: var(--ink-4);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.land-topic-body {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--ink-2);
+}
+.land-topics-foot {
+  margin-top: var(--s-4);
+  font-size: var(--t-xs);
+  color: var(--ink-3);
+  line-height: 1.55;
+}
+.land-topics-foot code {
+  font-family: var(--font-mono);
+  background: var(--subtle);
+  padding: 1px 6px;
+  border-radius: var(--r-xs);
+}
+@media (max-width: 768px) {
+  .land-topics-grid { grid-template-columns: 1fr; }
+}
