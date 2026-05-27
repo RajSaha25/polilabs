@@ -270,13 +270,19 @@ def _stream_chat(req: ChatRequest):
         return out
 
     @beta_tool
-    def search_corpus(query: str, tier: str | None = None,
+    def search_corpus(query: str, topic: str = "ai_governance",
+                      tier: str | None = None,
                       congress: int | None = None, limit: int = 5) -> str:
-        """Search the corpus by free-text query; returns ranked lightweight hits."""
+        """Search a topic-scoped corpus by free-text query (BM25 + dense
+        embeddings via RRF). `topic` must be either "ai_governance" (the
+        191-bill AI corpus, default) or "redistricting" (the federal
+        voting-rights / redistricting seed corpus). Returns ranked
+        lightweight hits with provenance.
+        """
         return _run_tool(
             "search_corpus",
-            {"query": query, "tier": tier, "congress": congress, "limit": limit},
-            lambda: tool_search_corpus(query, tier=tier, congress=congress, limit=limit),
+            {"query": query, "topic": topic, "tier": tier, "congress": congress, "limit": limit},
+            lambda: tool_search_corpus(query, topic=topic, tier=tier, congress=congress, limit=limit),
         )
 
     @beta_tool
@@ -506,11 +512,14 @@ def _parsed(out: str) -> Any:
 
 
 @app.get("/api/search")
-def api_search(query: str, tier: str | None = None,
+def api_search(query: str, topic: str = "ai_governance",
+               tier: str | None = None,
                congress: int | None = None, limit: int = 5,
                _user: dict = Depends(require_user)) -> Any:
-    """Free-text corpus search — ranked lightweight bill hits."""
-    return _parsed(tool_search_corpus(query, tier=tier, congress=congress, limit=limit))
+    """Free-text corpus search — ranked lightweight bill hits. `topic`
+    selects the corpus (default `ai_governance`); frontends that don't
+    pass it get the legacy AI behavior."""
+    return _parsed(tool_search_corpus(query, topic=topic, tier=tier, congress=congress, limit=limit))
 
 
 @app.get("/api/bill/{bill_id}")

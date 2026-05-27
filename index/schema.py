@@ -139,4 +139,21 @@ CREATE VIRTUAL TABLE IF NOT EXISTS sections_fts USING fts5(
     text_full,
     tokenize='porter unicode61'
 );
+
+-- Dense embeddings over section text — the dense leg of hybrid search.
+-- The embedding column stores raw float32 bytes (numpy .tobytes()), which
+-- is the cheapest format that round-trips fast through Python. At
+-- bge-small dim=384 that's 1,536 bytes per row; ~43k sections → ~66 MB.
+-- A vector-search SQLite extension is overkill at this scale — query
+-- time does an in-Python cosine sweep, gated by topic + bill filters.
+CREATE TABLE IF NOT EXISTS section_embeddings (
+    section_id     TEXT PRIMARY KEY REFERENCES sections(section_id) ON DELETE CASCADE,
+    bill_id        TEXT NOT NULL REFERENCES bills(bill_id) ON DELETE CASCADE,
+    topic          TEXT NOT NULL,
+    embedding      BLOB NOT NULL,
+    model_version  TEXT NOT NULL,
+    dim            INTEGER NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_section_embeddings_topic ON section_embeddings(topic);
+CREATE INDEX IF NOT EXISTS idx_section_embeddings_bill  ON section_embeddings(bill_id);
 """

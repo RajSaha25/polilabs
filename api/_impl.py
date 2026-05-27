@@ -275,6 +275,7 @@ def _matched_keywords(query: str, hit_row: sqlite3.Row) -> list[str]:
 def search_corpus(
     query: str,
     *,
+    topic: str = "ai_governance",
     date_range: tuple[date, date] | None = None,
     congresses: list[int] | None = None,
     tier: Tier | None = None,
@@ -282,6 +283,14 @@ def search_corpus(
     limit: int = 10,
     offset: int = 0,
 ) -> SearchResults:
+    """Search the corpus. P3: hybrid retrieval (BM25 + dense via RRF),
+    per-topic scoped.
+
+    `topic` defaults to "ai_governance" for backwards compatibility with
+    pre-P3 callers. To search the redistricting corpus, pass
+    `topic="redistricting"`. Cross-topic queries are not first-class
+    here — call twice and merge if needed.
+    """
     conn = _db()
     streams = streams or ["legislation"]
 
@@ -297,39 +306,37 @@ def search_corpus(
             in_scope=False,
         )
 
+    # Out-of-scope: unknown topic
+    in_corpus_topics = {r[0] for r in conn.execute("SELECT DISTINCT topic FROM bills")}
+    if topic not in in_corpus_topics:
+        return SearchResults(
+            hits=[], total=0, query=query,
+            coverage_note=f"Unknown topic {topic!r}; corpus has {sorted(in_corpus_topics)}.",
+            in_scope=False,
+        )
+
     # Out-of-scope: requested congresses outside our range
-    in_corpus_congresses = {r[0] for r in conn.execute("SELECT DISTINCT congress FROM bills")}
+    in_corpus_congresses = {r[0] for r in conn.execute("SELECT DISTINCT congress FROM bills WHERE topic = ?", (topic,))}
     if congresses and not any(c in in_corpus_congresses for c in congresses):
         return SearchResults(
             hits=[],
             total=0,
             query=query,
-            coverage_note=f"Requested congresses {congresses} are outside v1 corpus (have {sorted(in_corpus_congresses)}).",
+            coverage_note=f"Requested congresses {congresses} are outside the {topic!r} corpus "
+                          f"(have {sorted(in_corpus_congresses)}).",
             in_scope=False,
         )
 
     fts_q = _normalize_fts_query(query)
-    matched: dict[str, float] = {}
 
+    # ----- Hybrid: BM25 (lexical) + bge-small-en-v1.5 (dense) → RRF -----
+    # `index.hybrid` is imported lazily so non-search code paths don't
+    # pay the fastembed model-load cost (~1.5s + ~130MB resident).
     try:
-        for r in conn.execute(
-            "SELECT bill_id, bm25(bills_fts) AS rank FROM bills_fts WHERE bills_fts MATCH ?",
-            (fts_q,),
-        ):
-            matched[r["bill_id"]] = r["rank"]
-        # FTS5 disallows bm25() inside aggregations — pull raw rows and reduce in Python.
-        section_ranks: dict[str, float] = {}
-        for r in conn.execute(
-            "SELECT bill_id, bm25(sections_fts) AS rank FROM sections_fts WHERE sections_fts MATCH ?",
-            (fts_q,),
-        ):
-            bid = r["bill_id"]
-            cur = section_ranks.get(bid)
-            if cur is None or r["rank"] < cur:
-                section_ranks[bid] = r["rank"]
-        for bid, srank in section_ranks.items():
-            if bid not in matched or srank < matched[bid]:
-                matched[bid] = srank
+        from index.hybrid import hybrid_search
+        hybrid_hits = hybrid_search(
+            conn, query=query, fts_query=fts_q, topic=topic, limit=limit * 4 + 25,
+        )
     except sqlite3.OperationalError as e:
         return SearchResults(
             hits=[], total=0, query=query,
@@ -337,6 +344,8 @@ def search_corpus(
                           "Use phrase-quotes for multi-word terms (e.g. \"frontier model\").",
             in_scope=True,
         )
+
+    matched: dict[str, float] = {h.bill_id: h.score for h in hybrid_hits}
 
     if not matched:
         return SearchResults(
@@ -346,8 +355,8 @@ def search_corpus(
         )
 
     placeholders = ",".join("?" * len(matched))
-    sql = f"SELECT * FROM bills WHERE bill_id IN ({placeholders})"
-    params: list = list(matched.keys())
+    sql = f"SELECT * FROM bills WHERE bill_id IN ({placeholders}) AND topic = ?"
+    params: list = list(matched.keys()) + [topic]
     if date_range:
         sql += " AND introduced_date BETWEEN ? AND ?"
         params += [date_range[0].isoformat(), date_range[1].isoformat()]
@@ -376,7 +385,7 @@ def search_corpus(
             tier=r["tier"] or "B",
             stream=r["stream"] or "legislation",
             matched_keywords=_matched_keywords(query, r),
-            relevance_score=-matched[bid],  # bm25 is negative-better; flip
+            relevance_score=matched[bid],  # RRF score: higher = better
             provenance=_make_provenance(_bill_sources(r)),
         ))
     hits.sort(key=lambda h: h.relevance_score, reverse=True)
@@ -413,10 +422,11 @@ def search_corpus(
 def _coverage_note_static(conn: sqlite3.Connection) -> str:
     n_bills = conn.execute("SELECT COUNT(*) FROM bills").fetchone()[0]
     congresses = sorted({r[0] for r in conn.execute("SELECT DISTINCT congress FROM bills")})
+    topics = dict(conn.execute("SELECT topic, COUNT(*) FROM bills GROUP BY topic"))
+    topic_str = ", ".join(f"{t}={n}" for t, n in sorted(topics.items()))
     return (
-        f"{n_bills} bills, "
-        f"Congress {min(congresses)}-{max(congresses)}, "
-        f"AI-governance corpus v1.0 (legislation stream only)"
+        f"{n_bills} bills, Congress {min(congresses)}-{max(congresses)}, "
+        f"topics: {topic_str} (legislation stream only)"
     )
 
 

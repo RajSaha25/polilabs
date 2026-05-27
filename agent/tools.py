@@ -47,14 +47,22 @@ def _dump(obj: Any) -> str:
 def tool_search_corpus(
     query: str,
     *,
+    topic: str = "ai_governance",
     tier: str | None = None,
     congress: int | None = None,
     limit: int = 5,
 ) -> str:
-    """Search the AI-governance corpus by free-text query."""
+    """Search a topic-scoped corpus by free-text query.
+
+    Hybrid retrieval under the hood: BM25 over title+section text,
+    bge-small-en-v1.5 dense embeddings over section text, fused via RRF.
+    Pass `topic="redistricting"` for the redistricting corpus; default
+    `"ai_governance"` preserves pre-P3 behavior.
+    """
     try:
         result = api.search_corpus(
             query,
+            topic=topic,
             tier=tier if tier in ("A", "B") else None,
             congresses=[congress] if congress else None,
             limit=min(max(limit, 1), 25),
