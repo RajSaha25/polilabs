@@ -61,6 +61,7 @@ from pydantic import BaseModel, Field
 
 from auth import init_db, require_user
 from auth import router as auth_router
+from auth import usage
 from agent.tools import (
     SYSTEM_PROMPT,
     tool_corpus_coverage,
@@ -231,7 +232,7 @@ def _friendly_error(exc: Exception) -> str:
 # ---- agent path: POST /chat ----
 
 
-def _stream_chat(req: ChatRequest):
+def _stream_chat(req: ChatRequest, user: dict):
     """Generator yielding SSE events from the Anthropic tool runner.
 
     The 12 @beta_tool functions are built *inside* this request scope so
@@ -243,9 +244,23 @@ def _stream_chat(req: ChatRequest):
     `**kwargs` wrapper erases that signature and the model then guesses
     argument names. Each tool below therefore keeps its real typed
     signature and calls `_run_tool` in its own body.
+
+    `user` is the authenticated user dict from require_user. Used by
+    auth.usage for per-account token accounting; pre-call refusal and
+    mid-stream abort happen below.
     """
     if not os.environ.get("ANTHROPIC_API_KEY"):
         yield _sse({"type": "error", "message": "ANTHROPIC_API_KEY not configured on the server"})
+        return
+
+    # Pre-call rate-limit gate. Cheap (one indexed SQLite read); failure
+    # mode is a single SSE error event + done, no Anthropic call made.
+    # The exact wording — "Error: usage limit reached for {email}" —
+    # is fixed by auth.usage.limit_error_message so the wording can't
+    # drift between pre-call and mid-stream paths.
+    if usage.is_over_limit(user["id"], user.get("email")):
+        yield _sse({"type": "error", "message": usage.limit_error_message(user["email"])})
+        yield _sse({"type": "done"})
         return
 
     # Per-request capture of every tool call's structured result.
@@ -450,16 +465,35 @@ def _stream_chat(req: ChatRequest):
             gap_ms = (now - last_t) * 1000.0
             window_tools = tool_timings[tools_seen:]
             tool_ms = sum(t["ms"] for t in window_tools)
+            iter_usage = _usage_of(final_msg)
             iterations.append({
                 "i": len(iterations) + 1,
                 "gap_ms": round(gap_ms, 1),
                 "tool_ms": round(tool_ms, 1),
                 "llm_ms": round(max(gap_ms - tool_ms, 0.0), 1),
                 "tools": [t["name"] for t in window_tools],
-                "usage": _usage_of(final_msg),
+                "usage": iter_usage,
             })
             last_t = now
             tools_seen = len(tool_timings)
+            # Per-iteration usage accumulation + mid-stream abort. Exempt
+            # accounts skip both the DB write and the check. The current
+            # iteration's tokens are already spent at the Anthropic API
+            # by the time we see them — we charge them, then refuse the
+            # NEXT iteration if it would exceed the cap. The user sees
+            # whatever this iteration produced followed by the cap error.
+            if not usage.is_exempt(user.get("email")):
+                usage.add_usage(
+                    user["id"],
+                    iter_usage.get("input") or 0,
+                    iter_usage.get("output") or 0,
+                )
+                if usage.is_over_limit(user["id"], user.get("email")):
+                    yield _sse({
+                        "type": "error",
+                        "message": usage.limit_error_message(user["email"]),
+                    })
+                    break
         # Final drain in case the last step's tools recorded late.
         while emitted < len(recorded):
             yield _sse({"type": "tool_result", **recorded[emitted]})
@@ -482,9 +516,11 @@ def _stream_chat(req: ChatRequest):
 @app.post("/chat")
 def chat(req: ChatRequest, _user: dict = Depends(require_user)):
     """Stream a chat response as SSE. Login-only — each turn spends
-    Anthropic tokens, so an anonymous caller must not reach it."""
+    Anthropic tokens, so an anonymous caller must not reach it. The
+    user dict is threaded through so auth.usage can charge tokens to
+    the right account and refuse calls past the per-account cap."""
     return StreamingResponse(
-        _stream_chat(req),
+        _stream_chat(req, _user),
         media_type="text/event-stream",
         headers={
             "Cache-Control": "no-cache",
