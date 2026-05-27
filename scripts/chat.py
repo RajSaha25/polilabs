@@ -46,24 +46,28 @@ from agent.tools import (
 @beta_tool
 def search_corpus(
     query: str,
+    topic: str = "ai_governance",
     tier: str | None = None,
     congress: int | None = None,
     limit: int = 5,
 ) -> str:
-    """Search the polilabs AI-governance corpus by free-text query.
+    """Search a polilabs topic-scoped corpus by free-text query.
 
-    Returns ranked lightweight bill hits (title, sponsor, summary preview,
-    relevance score) — NEVER full bill text. Use this to discover relevant
-    bills, then call get_bill / get_section for details. Multi-word queries
-    are AND'd; for phrase search use double-quoted FTS5 syntax.
+    Hybrid retrieval: BM25 + bge-small-en-v1.5 dense embeddings fused via
+    RRF. Returns ranked lightweight bill hits (title, sponsor, summary
+    preview, relevance score) — NEVER full bill text. Use this to
+    discover bills, then call get_bill / get_section for details.
 
     Args:
-        query: Free-text query, e.g. "frontier model" or "Section 230".
-        tier: Optional 'A' (primary AI-gov) or 'B' (substantial AI provisions).
-        congress: Optional Congress number filter, 118 or 119.
+        query: Free-text query, e.g. "frontier model" or "preclearance".
+        topic: Corpus to search — "ai_governance" (default) or
+            "redistricting". Cross-topic queries are not first-class;
+            call twice with different topics if needed.
+        tier: Optional 'A' or 'B' filter.
+        congress: Optional Congress number filter, 117-119.
         limit: Max hits to return (1-25, default 5).
     """
-    return tool_search_corpus(query, tier=tier, congress=congress, limit=limit)
+    return tool_search_corpus(query, topic=topic, tier=tier, congress=congress, limit=limit)
 
 
 @beta_tool

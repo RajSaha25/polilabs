@@ -46,20 +46,24 @@ from agent.tools import (
 @beta_tool
 def search_corpus(
     query: str,
+    topic: str = "ai_governance",
     tier: str | None = None,
     congress: int | None = None,
     limit: int = 5,
 ) -> str:
-    """Search the polilabs AI-governance corpus by free-text query. Returns
+    """Search a polilabs topic-scoped corpus by free-text query.
+
+    Hybrid retrieval (BM25 + bge-small-en-v1.5 dense via RRF). Returns
     ranked lightweight hits — never full bill text.
 
     Args:
         query: Free-text query.
+        topic: "ai_governance" (default) or "redistricting".
         tier: Optional 'A' or 'B' filter.
-        congress: Optional 118 or 119 filter.
+        congress: Optional Congress filter (117-119).
         limit: Max hits (1-25, default 5).
     """
-    return tool_search_corpus(query, tier=tier, congress=congress, limit=limit)
+    return tool_search_corpus(query, topic=topic, tier=tier, congress=congress, limit=limit)
 
 
 @beta_tool

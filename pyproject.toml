@@ -15,6 +15,12 @@ dependencies = [
     "pyyaml>=6.0",
     "bcrypt>=4.1",
     "pyjwt>=2.8",
+    # Hybrid retrieval: ONNX-runtime embedding via fastembed (BAAI/bge-small-en-v1.5).
+    # Picked over sentence-transformers because the latter pulls torch (~3 GB),
+    # which would torpedo the small-host deploy story. fastembed is ~150 MB total
+    # including ONNX runtime, CPU-only, downloads its own model on first use.
+    "fastembed>=0.4",
+    "numpy>=1.26",
 ]
 
 [tool.setuptools.packages.find]
