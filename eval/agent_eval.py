@@ -13,12 +13,17 @@ memory (multi-turn), out-of-corpus prompts, a repeated question
 
 Usage (from the repo root):
     POLILABS_DB=$PWD/data/polilabs.db POLILABS_KUZU=$PWD/data/polilabs.kuzu \
-        python eval/agent_eval.py
+        POLILABS_MODEL=claude-opus-4-7 python eval/agent_eval.py
+
+Model selection: server._stream_chat reads POLILABS_MODEL (default
+claude-sonnet-4-6). The eval records the value into the result JSON
+so downstream comparisons know which model produced which numbers.
 """
 from __future__ import annotations
 
 import concurrent.futures
 import json
+import os
 import sys
 import time
 from pathlib import Path
@@ -29,6 +34,13 @@ TURN_TIMEOUT_S = 240
 
 _REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(_REPO))
+
+# Load .env BEFORE importing server — server.py reads ANTHROPIC_API_KEY
+# from os.environ at request time, so a key sitting only in the file
+# isn't found. Other entry points (scripts/fetch_candidates.py, etc.)
+# do the same load_dotenv hop; eval was missing it.
+from dotenv import load_dotenv  # noqa: E402
+load_dotenv(_REPO / ".env")
 
 import server  # noqa: E402
 
@@ -308,13 +320,19 @@ def _run_turn(message: str, history: list[dict]) -> dict:
         message=message,
         history=[server.ChatMessageIn(**h) for h in history],
     )
+    # The rate-limit PR (#58) changed _stream_chat to take a user dict
+    # for per-account token accounting. The eval is an offline harness;
+    # we use one of the exempt research accounts so token tallies don't
+    # accumulate against a real user — auth.usage.EXEMPT_EMAILS skips
+    # both the DB write and the cap check for these addresses.
+    eval_user = {"id": 0, "email": "andrewdou@college.harvard.edu"}
     t0 = time.perf_counter()
     answer_parts: list[str] = []
     tools: list[dict] = []
     n_tool_results = 0
     ttft = None
     error = None
-    for raw in server._stream_chat(req):
+    for raw in server._stream_chat(req, eval_user):
         payload = json.loads(raw[len("data: "):])
         et = payload.get("type")
         if et == "text":
@@ -394,7 +412,10 @@ def main() -> None:
         })
     payload = {
         "started": started,
-        "model": "claude-sonnet-4-6",
+        # Mirror what server._stream_chat will actually send. Default
+        # tracks the prod default; eval runners override via
+        # POLILABS_MODEL.
+        "model": os.environ.get("POLILABS_MODEL", "claude-sonnet-4-6"),
         "n_items": len(ITEMS),
         "elapsed_s": round(time.perf_counter() - t0, 1),
         "records": records,

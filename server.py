@@ -415,7 +415,10 @@ def _stream_chat(req: ChatRequest, user: dict):
         # streams. This drops time-to-first-token from a whole-answer
         # wait to roughly first-token latency.
         runner = client.beta.messages.tool_runner(
-            model="claude-sonnet-4-6",
+            # Env override lets the eval harness swap to opus-4-7 without
+            # touching the prod default. Set POLILABS_MODEL to any
+            # Anthropic model ID.
+            model=os.environ.get("POLILABS_MODEL", "claude-sonnet-4-6"),
             max_tokens=8192,
             tools=tools,
             system=[
