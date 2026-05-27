@@ -1,0 +1,37 @@
+{
+  "bill_id": "118-hr-11",
+  "congress": 118,
+  "bill_type": "hr",
+  "bill_number": 11,
+  "title": "To expand Americans\u2019 access to the ballot box and reduce the influence of big money in politics, and for other purposes.",
+  "short_title": "Freedom to Vote Act",
+  "sponsor": "Mr. Sarbanes",
+  "introduced_date": "2023-07-18",
+  "latest_action": null,
+  "policy_area": null,
+  "subjects": [],
+  "summary_text": null,
+  "centrality_score": null,
+  "match_locations": {},
+  "tier": "A",
+  "stream": "legislation",
+  "topic": "redistricting",
+  "versions_available": [
+    {
+      "package_id": "BILLS-118hr11ih",
+      "version_code": "ih",
+      "date_issued": "2023-07-18"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-118hr11ih",
+    "version_code": "ih",
+    "date_issued": "2023-07-18"
+  },
+  "actions": [],
+  "cosponsors": [],
+  "_metadata_sources": {
+    "xml": "govinfo bulk-data (unauthenticated)",
+    "congress_gov_enriched": false
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "bill_id": "117-hr-3863",
+  "congress": 117,
+  "bill_type": "hr",
+  "bill_number": 3863,
+  "title": "To establish the use of ranked choice voting in elections for Senators and Representatives in Congress, to require each State with more than one Representative to establish multi-member congressional districts, to require States to conduct congressional redistricting through independent commissions, and for other purposes.",
+  "short_title": "Fair Representation Act",
+  "sponsor": "Mr. Beyer",
+  "introduced_date": "2021-06-14",
+  "latest_action": null,
+  "policy_area": null,
+  "subjects": [],
+  "summary_text": null,
+  "centrality_score": null,
+  "match_locations": {},
+  "tier": "A",
+  "stream": "legislation",
+  "topic": "redistricting",
+  "versions_available": [
+    {
+      "package_id": "BILLS-117hr3863ih",
+      "version_code": "ih",
+      "date_issued": "2021-06-14"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-117hr3863ih",
+    "version_code": "ih",
+    "date_issued": "2021-06-14"
+  },
+  "actions": [],
+  "cosponsors": [],
+  "_metadata_sources": {
+    "xml": "govinfo bulk-data (unauthenticated)",
+    "congress_gov_enriched": false
+  }
+}

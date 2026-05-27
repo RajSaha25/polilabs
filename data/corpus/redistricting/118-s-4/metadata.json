@@ -1,0 +1,37 @@
+{
+  "bill_id": "118-s-4",
+  "congress": 118,
+  "bill_type": "s",
+  "bill_number": 4,
+  "title": "To amend the Voting Rights Act of 1965 to revise the criteria for determining which States and political subdivisions are subject to section 4 of the Act, and for other purposes.",
+  "short_title": "John R. Lewis Voting Rights Advancement Act of 2024",
+  "sponsor": "Mr. Durbin",
+  "introduced_date": "2024-02-29",
+  "latest_action": null,
+  "policy_area": null,
+  "subjects": [],
+  "summary_text": null,
+  "centrality_score": null,
+  "match_locations": {},
+  "tier": "A",
+  "stream": "legislation",
+  "topic": "redistricting",
+  "versions_available": [
+    {
+      "package_id": "BILLS-118s4is",
+      "version_code": "is",
+      "date_issued": "2024-02-29"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-118s4is",
+    "version_code": "is",
+    "date_issued": "2024-02-29"
+  },
+  "actions": [],
+  "cosponsors": [],
+  "_metadata_sources": {
+    "xml": "govinfo bulk-data (unauthenticated)",
+    "congress_gov_enriched": false
+  }
+}
