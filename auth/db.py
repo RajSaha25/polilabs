@@ -28,7 +28,8 @@ def _connect() -> sqlite3.Connection:
 
 
 def init_db() -> None:
-    """Create the ``users`` table if missing. Idempotent — safe at boot."""
+    """Create the ``users`` and ``user_token_usage`` tables if missing.
+    Idempotent — safe at boot."""
     with _connect() as conn:
         conn.execute(
             """
@@ -37,6 +38,22 @@ def init_db() -> None:
                 email         TEXT    NOT NULL UNIQUE COLLATE NOCASE,
                 password_hash TEXT    NOT NULL,
                 created_at    TEXT    NOT NULL DEFAULT (datetime('now'))
+            )
+            """
+        )
+        # Lifetime per-user token accounting, used by auth.usage to enforce
+        # the per-account cap on /chat. One row per user_id; updated_at
+        # is for ops visibility only. The cap policy itself (limit value,
+        # exemption list) lives in auth.usage so the DB layer stays
+        # mechanical.
+        conn.execute(
+            """
+            CREATE TABLE IF NOT EXISTS user_token_usage (
+                user_id      INTEGER PRIMARY KEY
+                             REFERENCES users(id) ON DELETE CASCADE,
+                total_input  INTEGER NOT NULL DEFAULT 0,
+                total_output INTEGER NOT NULL DEFAULT 0,
+                updated_at   TEXT    NOT NULL DEFAULT (datetime('now'))
             )
             """
         )
