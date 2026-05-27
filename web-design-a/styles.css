@@ -2167,3 +2167,60 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
   border-radius: var(--r-sm);
 }
 .auth-back:hover { background: var(--subtle); color: var(--ink); }
+
+/* ── Workspace mobile reflow ────────────────────────────────────────
+   The desktop workspace is a fixed-height grid (header / rail / stage)
+   with a 1fr+1fr bill-viewer split. None of that works at phone widths:
+   the rail eats most of the screen, the two panels can't both fit
+   horizontally, and the 100vh container hides natural page scroll.
+
+   This block keeps the visual identity but rearranges the boxes:
+     - .app loses its column grid and stacks header → rail → stage.
+     - height: 100vh becomes min-height: 100vh so content can grow and
+       the page can scroll (otherwise content past the viewport gets
+       clipped on iOS, which doesn't honor inner overflow well).
+     - .bv-split collapses to single column; Text panel comes first
+       so the verbatim bill text is what users see when they tap into
+       a bill — anti-hallucination thesis stays anchored.
+     - Resize handles become no-ops; drag isn't a phone affordance.
+
+   Two breakpoints: ≤1024 narrows the rail, ≤768 stacks vertically. */
+@media (max-width: 1024px) {
+  :root { --rail-w: 280px; }
+}
+@media (max-width: 768px) {
+  .app {
+    grid-template-columns: 1fr;
+    grid-template-rows: var(--header-h) auto 1fr;
+    grid-template-areas:
+      "header"
+      "rail"
+      "stage";
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
+  }
+  /* Cap rail height so it doesn't dominate when stacked; the rail's
+     internal scroll picks up the rest. */
+  .rail { max-height: 50vh; border-right: 0; border-bottom: 1px solid var(--rule); }
+  /* Splitters / resize handles are mouse-only affordances. */
+  .rail-resizer, .bv-resizer, .split-resizer { display: none; }
+  /* Two-pane workspace becomes a vertical stack — Text above Decomp. */
+  .bv-split {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(280px, auto) minmax(280px, auto);
+  }
+  .panel-col.text-col {
+    border-right: 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  /* Header tightening — the desktop header is too tall on a phone. */
+  :root { --header-h: 48px; }
+}
+@media (max-width: 480px) {
+  /* Tightest phone column: rail spans full width, panel-bar gets
+     smaller so the chrome doesn't dominate the content. */
+  :root { --rail-w: 100%; }
+  .rail { max-height: 45vh; }
+  .panel-bar { padding: 8px 12px; font-size: var(--t-xs); }
+}
