@@ -56,7 +56,13 @@ function TextPanel({ bill, activeAnchor, onAnchorClick, onScrollEnd }) {
     if (!el) return;
     // pulse-highlight
     el.classList.add("hl-target");
-    el.scrollIntoView({ block: "center", behavior: "smooth" });
+    // block: "start" lands the section's first line just below the
+    // panel header, where reading naturally begins. block: "center"
+    // (the previous value) parked the section mid-viewport, which
+    // made clicks from the structure tree feel like they were
+    // dropping the user "into the middle" of a section rather than
+    // at its start.
+    el.scrollIntoView({ block: "start", behavior: "smooth" });
     const t = setTimeout(() => el.classList.remove("hl-target"), 1200);
     return () => clearTimeout(t);
   }, [activeAnchor]);
