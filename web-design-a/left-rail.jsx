@@ -227,7 +227,14 @@ function PromptInput({ value, onChange, onSubmit, onPreset, presets, disabled })
           </span>
         </div>
       </div>
-      {!value.trim() && presets?.length ? (
+      {/* Suggested-questions toggle stays visible regardless of whether
+          the prompt input has text. The previous `!value.trim() &&`
+          gate caused the whole block to disappear the moment the user
+          started typing, which read as a jumpy UI bug: an affordance
+          shouldn't vanish when you engage with a sibling element. The
+          collapsible itself is the on/off control — collapsed by
+          default so it doesn't dominate the rail. */}
+      {presets?.length ? (
         <div className="preset-block">
           <button
             type="button"
