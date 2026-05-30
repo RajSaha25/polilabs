@@ -81,7 +81,18 @@ function BillViewerLoading() {
 }
 
 // ── Empty state ───────────────────────────────────────────────────────
-function BillViewerEmpty({ presets = [], onPreset }) {
+//
+// Two modes:
+//   - first visit (default): full pitch + preset prompts. The user
+//     hasn't asked anything yet, so we onboard them with examples.
+//   - `answered` mode: the user already asked, but the agent's answer
+//     didn't surface a specific bill (scope question, false-premise
+//     probe, aggregate-only answer, etc.). Showing the same "ask a
+//     research question to start" pitch + the same three preset
+//     buttons looks awkward — the user obviously already did that.
+//     We drop the presets and rewrite the copy to point at where the
+//     answer actually landed (the left rail).
+function BillViewerEmpty({ presets = [], onPreset, answered = false }) {
   return (
     <div className="stage" style={{ gridTemplateRows: "1fr" }}>
       <div className="empty">
@@ -90,20 +101,27 @@ function BillViewerEmpty({ presets = [], onPreset }) {
             <Icon name="scales" size={26} strokeWidth={1.25} />
           </div>
           <div>
-            <h3>The bill viewer is empty.</h3>
+            <h3>
+              {answered
+                ? "No specific bill to display."
+                : "The bill viewer is empty."}
+            </h3>
             <p>
-              Polilabs only displays text it can verify against an authoritative source.
-              Ask a research question to start, or pick a recent thread.
+              {answered
+                ? "The agent answered in the left panel — this question didn't surface a single bill. Try a more specific query, or pick a bill from a previous answer."
+                : "Polilabs only displays text it can verify against an authoritative source. Ask a research question to start, or pick a recent thread."}
             </p>
           </div>
-          <div className="empty-suggests">
-            {presets.map((p, i) => (
-              <button key={i} type="button" onClick={() => onPreset?.(p)}>
-                <span>&ldquo;{p}&rdquo;</span>
-                <span className="k">↵</span>
-              </button>
-            ))}
-          </div>
+          {!answered && presets.length > 0 && (
+            <div className="empty-suggests">
+              {presets.map((p, i) => (
+                <button key={i} type="button" onClick={() => onPreset?.(p)}>
+                  <span>&ldquo;{p}&rdquo;</span>
+                  <span className="k">↵</span>
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>

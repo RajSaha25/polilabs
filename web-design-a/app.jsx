@@ -332,7 +332,11 @@ function App({ onSignOut, onShowLanding }) {
   } else if (streaming && bills.length === 0) {
     stage = <BillViewerLoading />;
   } else if (bills.length === 0) {
-    stage = <BillViewerEmpty presets={PRESETS} onPreset={onPreset} />;
+    // Asked, but the agent answered without surfacing a bill (scope
+    // question, false-premise probe, aggregate answer). `answered`
+    // mode hides the preset buttons and rewrites the copy so the
+    // empty viewer stops looking like a first-visit pitch.
+    stage = <BillViewerEmpty answered={true} />;
   } else if (!viewerBill) {
     stage = <BillViewerLoading />;
   } else {
