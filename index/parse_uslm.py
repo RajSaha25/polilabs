@@ -65,6 +65,24 @@ def _localname(tag: str) -> str:
 
 
 def _text_clean(s: str | None) -> str:
+    """Collapse runs of spaces/tabs but preserve newlines.
+
+    Newlines carry meaning in our text fields: the frontend's verbatimHtml
+    turns them into <br/>. The table renderer (_table_to_text) emits one
+    newline per row, and _full_text_of joins child segments with newlines.
+    Both rely on us not collapsing them here.
+    """
+    if not s:
+        return ""
+    # Collapse spaces/tabs but keep \n. Also collapse multiple blank lines.
+    s = re.sub(r"[ \t]+", " ", s)
+    s = re.sub(r" *\n *", "\n", s)
+    s = re.sub(r"\n{3,}", "\n\n", s)
+    return s.strip()
+
+
+def _text_clean_inline(s: str | None) -> str:
+    """Full whitespace collapse for one-line fields (enum, heading)."""
     if not s:
         return ""
     return re.sub(r"\s+", " ", s).strip()
@@ -165,14 +183,41 @@ def _direct_text_of(elem: ET.Element, format: str) -> str:
 
 def _stringify_leaf(elem: ET.Element) -> str:
     """Render a non-container element as plain text, recursing into its kids."""
+    local = _localname(elem.tag)
+    if local == "table":
+        return _table_to_text(elem)
     out: list[str] = []
     if elem.text:
         out.append(elem.text)
     for c in elem:
+        if _localname(c.tag) in ("br", "p"):
+            out.append("\n")
         out.append(_stringify_leaf(c))
         if c.tail:
             out.append(c.tail)
     return " ".join(s for s in out if s)
+
+
+def _table_to_text(table_elem: ET.Element) -> str:
+    """Render an xhtml:table as line-per-row plain text with ' | ' between cells.
+
+    Appropriations bills (NDAA et al.) carry their funding line-items as huge
+    embedded HTML tables. Without this, the entire table gets stringified into
+    one undifferentiated stream of dollar amounts — the wall-of-text bug.
+    """
+    rows: list[str] = []
+    for tr in table_elem.iter():
+        if _localname(tr.tag) != "tr":
+            continue
+        cells: list[str] = []
+        for child in tr:
+            if _localname(child.tag) in ("td", "th"):
+                txt = " ".join(child.itertext()).strip()
+                txt = re.sub(r"\s+", " ", txt)
+                cells.append(txt)
+        if any(cells):
+            rows.append(" | ".join(cells))
+    return "\n".join(rows)
 
 
 def _full_text_of(elem: ET.Element, format: str) -> str:
@@ -238,8 +283,8 @@ def _walk(
         return
 
     enum_raw = _child_text(elem, ("enum", "num")) or ""
-    enum = _normalize_enum(_text_clean(enum_raw))
-    heading = _text_clean(_child_text(elem, ("header", "heading")) or "")
+    enum = _normalize_enum(_text_clean_inline(enum_raw))
+    heading = _text_clean_inline(_child_text(elem, ("header", "heading")) or "")
 
     xml_id = elem.get("id")
     if xml_id:
