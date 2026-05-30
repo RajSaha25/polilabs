@@ -214,12 +214,12 @@ EXAMPLES = [
 
 
 DESCRIPTION = """\
-A queryable, citation-accurate database of US federal AI-governance legislation —
-**191 bills** from the **118th and 119th Congress** (2023–present).
+A queryable, citation-accurate database of US federal legislation across multiple
+policy domains. Ask the agent _"what's in the corpus?"_ for the current scope.
 
 Every citation is quoted verbatim from the corpus; nothing is reconstructed from memory.
 
-_Out of v1 scope: regulatory actions (FTC, NIST, Commerce) and executive orders._"""
+_Out of scope: regulatory actions (FTC, NIST, Commerce) and executive orders._"""
 
 
 THEME = gr.themes.Soft(
@@ -337,7 +337,7 @@ def main() -> None:
                 avatar_images=(None, None),
             ),
             textbox=gr.Textbox(
-                placeholder="Ask about an AI-governance bill...",
+                placeholder="Ask about a bill in the polilabs corpus...",
                 autofocus=True,
                 container=False,
             ),

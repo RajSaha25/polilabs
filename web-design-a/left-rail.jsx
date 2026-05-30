@@ -210,7 +210,7 @@ function PromptInput({ value, onChange, onSubmit, onPreset, presets, disabled })
         <textarea
           ref={ref}
           value={value}
-          placeholder="Ask anything across 191 federal AI-governance bills…"
+          placeholder="Ask anything across the polilabs legislative corpus…"
           onChange={(e) => onChange(e.target.value)}
           onKeyDown={(e) => {
             if (e.key === "Enter" && !e.shiftKey) {
