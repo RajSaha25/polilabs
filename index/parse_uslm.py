@@ -31,6 +31,13 @@ CONTAINER_LEVELS = (
     "item", "subitem",
 )
 
+# Transparent wrappers — not section rows themselves, but bills wrap structured
+# inserted text (e.g. "is amended by inserting after section X the following:")
+# in these. The wrapper's container descendants should be hoisted into the
+# surrounding tree so they parse as their own structured rows instead of being
+# stringified into a flat blob on the parent.
+STRUCTURAL_WRAPPERS = ("quoted-block", "quoted-content")
+
 
 @dataclass
 class SectionRow:
@@ -93,20 +100,56 @@ def _bill_short_citation(congress: int, bill_type: str, bill_number: int) -> str
 _META_TAGS = {"enum", "num", "header", "heading"}
 
 
+def _has_container_descendant(elem: ET.Element) -> bool:
+    """True if elem has any descendant tagged as a section-level container."""
+    container_tags = set(CONTAINER_LEVELS)
+    for d in elem.iter():
+        if _localname(d.tag) in container_tags:
+            return True
+    return False
+
+
+def _iter_container_children(elem: ET.Element):
+    """Yield direct container children, descending through structural wrappers.
+
+    Treats <quoted-block> and friends as transparent: a <section> inside a
+    <quoted-block> is reported as if it were a direct child of elem.
+    """
+    container_tags = set(CONTAINER_LEVELS)
+    wrapper_tags = set(STRUCTURAL_WRAPPERS)
+    for child in elem:
+        local = _localname(child.tag)
+        if local in container_tags:
+            yield child
+        elif local in wrapper_tags:
+            yield from _iter_container_children(child)
+
+
 def _direct_text_of(elem: ET.Element, format: str) -> str:
     """Verbatim direct text of an element — its body content only.
 
     Excludes nested container-level children (those become their own section
     rows) and also excludes the element's own enum/header/num/heading
     children (those are stored in separate columns).
+
+    Wrappers (<quoted-block>, <quoted-content>) that contain container
+    descendants are skipped here too: their containers will be hoisted out
+    as separate section rows, so including their text would duplicate it.
+    Wrappers with no containers inside (rare — plain text amendments) keep
+    their old leaf-stringification behavior.
     """
     pieces: list[str] = []
     container_tags = set(CONTAINER_LEVELS)
+    wrapper_tags = set(STRUCTURAL_WRAPPERS)
     if elem.text:
         pieces.append(elem.text)
     for child in elem:
         local = _localname(child.tag)
         if local in container_tags:
+            if child.tail:
+                pieces.append(child.tail)
+            continue
+        if local in wrapper_tags and _has_container_descendant(child):
             if child.tail:
                 pieces.append(child.tail)
             continue
@@ -134,24 +177,22 @@ def _stringify_leaf(elem: ET.Element) -> str:
 
 def _full_text_of(elem: ET.Element, format: str) -> str:
     """Recursive accumulation: include all descendant container text too."""
-    container_tags = set(CONTAINER_LEVELS)
     pieces: list[str] = []
     self_text = _direct_text_of(elem, format)
     if self_text:
         pieces.append(self_text)
-    for child in elem:
-        if _localname(child.tag) in container_tags:
-            enum = _child_text(child, ("enum", "num"))
-            head = _child_text(child, ("header", "heading"))
-            descendant = _full_text_of(child, format)
-            chunk_parts: list[str] = []
-            if enum:
-                chunk_parts.append(enum.strip())
-            if head:
-                chunk_parts.append(head.strip())
-            if descendant:
-                chunk_parts.append(descendant)
-            pieces.append(" ".join(chunk_parts))
+    for child in _iter_container_children(elem):
+        enum = _child_text(child, ("enum", "num"))
+        head = _child_text(child, ("header", "heading"))
+        descendant = _full_text_of(child, format)
+        chunk_parts: list[str] = []
+        if enum:
+            chunk_parts.append(enum.strip())
+        if head:
+            chunk_parts.append(head.strip())
+        if descendant:
+            chunk_parts.append(descendant)
+        pieces.append(" ".join(chunk_parts))
     return _text_clean("\n".join(p for p in pieces if p))
 
 
@@ -228,15 +269,14 @@ def _walk(
     ))
 
     child_ordinal = 0
-    for child in elem:
-        if _localname(child.tag) in CONTAINER_LEVELS:
-            _walk(
-                child,
-                bill_id=bill_id, bill_citation=bill_citation,
-                enum_stack=new_stack, parent_id=section_id, rows=rows,
-                ordinal_in_parent=child_ordinal, format=format, counter=counter,
-            )
-            child_ordinal += 1
+    for child in _iter_container_children(elem):
+        _walk(
+            child,
+            bill_id=bill_id, bill_citation=bill_citation,
+            enum_stack=new_stack, parent_id=section_id, rows=rows,
+            ordinal_in_parent=child_ordinal, format=format, counter=counter,
+        )
+        child_ordinal += 1
 
 
 def _build_citation(bill_citation: str, level: str, enum_stack: list[str]) -> str:
