@@ -407,7 +407,7 @@ function Landing({ user, onOpenWorkspace, onSignIn, onSignOut }) {
     return () => { cancelled = true; };
   }, []);
 
-  const c = corpus || { bills: 191, sections: 29616, defined_terms: 1241, external_citations: 646 };
+  const c = corpus || { bills: 203, sections: 40164, defined_terms: 1527, amendments: 1249, external_citations: 2061 };
 
   return (
     <div className="land">
@@ -533,53 +533,6 @@ function Landing({ user, onOpenWorkspace, onSignIn, onSignOut }) {
           </div>
         </section>
 
-        {/* WHAT'S IN THE CORPUS RIGHT NOW — the only place that names
-            specific topics + congressional spans. Everything else
-            stays corpus-generic so we don't have to chase strings as
-            the corpus grows. Update this block when a new topic
-            subset or Congress range gets added. */}
-        <section className="land-section" id="whats-in-corpus">
-          <div className="land-section-label mono">
-            <span>What&rsquo;s in the corpus right now</span>
-            <span className="land-section-tag mono">
-              snapshot — grows over time
-            </span>
-          </div>
-          <div className="land-topics-grid">
-            <div className="land-topic-card">
-              <div className="land-topic-h">AI governance</div>
-              <div className="land-topic-meta mono">
-                118th–119th Congress · 191 bills
-              </div>
-              <p className="land-topic-body">
-                Bills primarily or substantially concerning AI, machine
-                learning, generative AI, frontier models, automated
-                decision systems, or facial recognition. Tier A is
-                primarily on the topic; Tier B has substantial
-                provisions. Excludes regulatory actions and executive
-                orders.
-              </p>
-            </div>
-            <div className="land-topic-card">
-              <div className="land-topic-h">Redistricting &amp; voting rights</div>
-              <div className="land-topic-meta mono">
-                117th–119th Congress · 12 bills (seed)
-              </div>
-              <p className="land-topic-body">
-                Landmark federal redistricting and voting-rights bills
-                — For the People Act, John R. Lewis VRAA, Freedom to
-                Vote Act, ranked choice voting. Seed corpus; full
-                GovInfo sweep on the roadmap.
-              </p>
-            </div>
-          </div>
-          <div className="land-topics-foot mono">
-            Searches and tools take a <code>topic</code> filter so
-            polysemous terms (&ldquo;agency review&rdquo;,
-            &ldquo;compliance&rdquo;) don&rsquo;t bleed across
-            domains. Cross-corpus queries are explicit.
-          </div>
-        </section>
 
         {/* HOW IT WORKS */}
         <section className="land-section">
@@ -602,13 +555,47 @@ function Landing({ user, onOpenWorkspace, onSignIn, onSignOut }) {
           </div>
         </section>
 
-        {/* WHAT'S IN THE CORPUS */}
+        {/* EVIDENCE — eval results. Numbers come from eval/grades_opus47.json. */}
         <section className="land-section">
           <div className="land-section-label mono">
-            <span>What's in the corpus</span>
-            
+            <span>Evidence</span>
+            <span className="land-section-tag mono">
+              20-item agent eval &middot; Opus 4.7
+            </span>
           </div>
-          <div className="land-corpus-grid">
+          <div className="land-evidence-grid">
+            <a className="land-evidence-cell"
+               href="https://github.com/RajSaha25/polilabs/blob/master/eval/polilabs_agent_eval_opus47.pdf"
+               target="_blank" rel="noopener noreferrer">
+              <b>85%</b>
+              <span>pass rate on the suite (17 pass, 2 partial, 1 fail)</span>
+              <span className="land-evidence-arrow" aria-hidden="true">read the eval &#8599;</span>
+            </a>
+            <a className="land-evidence-cell"
+               href="https://github.com/RajSaha25/polilabs/blob/master/eval/polilabs_agent_eval_opus47.pdf"
+               target="_blank" rel="noopener noreferrer">
+              <b>0 / 4</b>
+              <span>hallucinations on adversarial probes (out-of-corpus, foreign law, false premise, nonexistent bill)</span>
+              <span className="land-evidence-arrow" aria-hidden="true">read the eval &#8599;</span>
+            </a>
+          </div>
+        </section>
+
+        {/* WHAT'S IN THE CORPUS — numbers-forward; the verbose topic
+            prose lived here previously and read as filler. */}
+        <section className="land-section" id="whats-in-corpus">
+          <div className="land-section-label mono">
+            <span>What&rsquo;s in the corpus</span>
+            <span className="land-section-tag mono">
+              live counts &middot; grows over time
+            </span>
+          </div>
+          <div className="land-corpus-topics mono">
+            <span className="land-corpus-topic">AI governance</span>
+            <span className="land-corpus-topic">Redistricting &amp; voting rights</span>
+            <span className="land-corpus-topic-more">more topics soon</span>
+          </div>
+          <div className="land-corpus-grid land-corpus-grid-5">
             <div className="land-corpus-cell">
               <b>{c.bills.toLocaleString()}</b>
               <span>bills</span>
@@ -616,6 +603,10 @@ function Landing({ user, onOpenWorkspace, onSignIn, onSignOut }) {
             <div className="land-corpus-cell">
               <b>{c.sections.toLocaleString()}</b>
               <span>sections</span>
+            </div>
+            <div className="land-corpus-cell">
+              <b>{(c.amendments || 0).toLocaleString()}</b>
+              <span>amendments</span>
             </div>
             <div className="land-corpus-cell">
               <b>{c.defined_terms.toLocaleString()}</b>

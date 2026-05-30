@@ -205,6 +205,8 @@ def main() -> int:
     total_cites = res.get_next()[0]
     res = conn.execute("MATCH (s:Section) RETURN count(s)")
     total_sections = res.get_next()[0]
+    res = conn.execute("MATCH (a:AmendmentOperation) RETURN count(a)")
+    total_amendments = res.get_next()[0]
 
     # ── hero subgraph: 9-node neighborhood of S. 4664 ────────────────
     # All real corpus entities — two related bills (chosen for actual
@@ -389,6 +391,7 @@ def main() -> int:
             "bills": len(bills),
             "sections": int(total_sections),
             "defined_terms": int(total_terms),
+            "amendments": int(total_amendments),
             "external_citations": int(total_cites),
         },
         "hero": hero_payload,

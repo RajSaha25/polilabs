@@ -1,10 +1,11 @@
 {
-  "generated_at": "2026-05-23T20:42:31.317143Z",
+  "generated_at": "2026-05-30T22:04:17.693949Z",
   "corpus": {
-    "bills": 191,
-    "sections": 29616,
-    "defined_terms": 1241,
-    "external_citations": 646
+    "bills": 203,
+    "sections": 40164,
+    "defined_terms": 1527,
+    "amendments": 1249,
+    "external_citations": 2061
   },
   "hero": {
     "nodes": [
@@ -130,13 +131,40 @@
   "graph": {
     "nodes": [
       {
+        "id": "bill:us/117/hr/1",
+        "label": "For the People Act of 2021",
+        "ref": "H.R. 1",
+        "congress": 117,
+        "chamber": "house",
+        "sponsor": "",
+        "degree": 116
+      },
+      {
         "id": "bill:us/118/hr/5009",
         "label": "Servicemember Quality of Life Improvement and National Defense Authorization\u2026",
         "ref": "H.R. 5009",
         "congress": 118,
         "chamber": "house",
         "sponsor": "Rep. Joyce, David P. [R-OH-14] (R-OH)",
-        "degree": 115
+        "degree": 113
+      },
+      {
+        "id": "bill:us/117/s/1",
+        "label": "For the People Act of 2021",
+        "ref": "S. 1",
+        "congress": 117,
+        "chamber": "senate",
+        "sponsor": "Mr. Merkley",
+        "degree": 102
+      },
+      {
+        "id": "bill:us/117/s/2747",
+        "label": "Freedom to Vote Act",
+        "ref": "S. 2747",
+        "congress": 117,
+        "chamber": "senate",
+        "sponsor": "Ms. Klobuchar",
+        "degree": 101
       },
       {
         "id": "bill:us/118/hr/2670",
@@ -145,7 +173,25 @@
         "congress": 118,
         "chamber": "house",
         "sponsor": "Rep. Rogers, Mike D. [R-AL-3] (R-AL)",
-        "degree": 98
+        "degree": 97
+      },
+      {
+        "id": "bill:us/118/hr/11",
+        "label": "Freedom to Vote Act",
+        "ref": "H.R. 11",
+        "congress": 118,
+        "chamber": "house",
+        "sponsor": "Mr. Sarbanes",
+        "degree": 99
+      },
+      {
+        "id": "bill:us/118/s/1",
+        "label": "Freedom to Vote Act",
+        "ref": "S. 1",
+        "congress": 118,
+        "chamber": "senate",
+        "sponsor": "Ms. Klobuchar",
+        "degree": 99
       },
       {
         "id": "bill:us/119/hr/8516",
@@ -154,7 +200,7 @@
         "congress": 119,
         "chamber": "house",
         "sponsor": "Rep. Lieu, Ted [D-CA-36] (D-CA)",
-        "degree": 78
+        "degree": 82
       },
       {
         "id": "bill:us/119/s/3957",
@@ -190,7 +236,7 @@
         "congress": 118,
         "chamber": "senate",
         "sponsor": "Sen. Markey, Edward J. [D-MA] (D-MA)",
-        "degree": 45
+        "degree": 38
       },
       {
         "id": "bill:us/119/hr/6356",
@@ -199,7 +245,7 @@
         "congress": 119,
         "chamber": "house",
         "sponsor": "Rep. Clarke, Yvette D. [D-NY-9] (D-NY)",
-        "degree": 45
+        "degree": 38
       },
       {
         "id": "bill:us/119/s/3952",
@@ -211,22 +257,13 @@
         "degree": 37
       },
       {
-        "id": "bill:us/118/s/3312",
-        "label": "Artificial Intelligence Research",
-        "ref": "S. 3312",
-        "congress": 118,
-        "chamber": "senate",
-        "sponsor": "Sen. Thune, John [R-SD] (R-SD)",
-        "degree": 31
-      },
-      {
         "id": "bill:us/118/s/262",
         "label": "Stop Spying Bosses Act",
         "ref": "S. 262",
         "congress": 118,
         "chamber": "senate",
         "sponsor": "Sen. Casey, Robert P., Jr. [D-PA] (D-PA)",
-        "degree": 27
+        "degree": 29
       },
       {
         "id": "bill:us/118/s/4664",
@@ -235,15 +272,42 @@
         "congress": 118,
         "chamber": "senate",
         "sponsor": "Sen. Manchin, Joe, III [I-WV] (I-WV)",
-        "degree": 24
+        "degree": 26
       },
       {
-        "id": "bill:us/119/hr/5332",
-        "label": "Liquid Cooling for AI Act of 2025",
-        "ref": "H.R. 5332",
+        "id": "bill:us/118/s/4487",
+        "label": "Small Business Artificial Intelligence Training Act of 2024",
+        "ref": "S. 4487",
+        "congress": 118,
+        "chamber": "senate",
+        "sponsor": "Sen. Cantwell, Maria [D-WA] (D-WA)",
+        "degree": 25
+      },
+      {
+        "id": "bill:us/118/s/5616",
+        "label": "Preserving American Dominance in Artificial Intelligence Act of 2024",
+        "ref": "S. 5616",
+        "congress": 118,
+        "chamber": "senate",
+        "sponsor": "Sen. Romney, Mitt [R-UT] (R-UT)",
+        "degree": 25
+      },
+      {
+        "id": "bill:us/119/s/3888",
+        "label": "Small Business Artificial Intelligence Training Act of 2026",
+        "ref": "S. 3888",
         "congress": 119,
-        "chamber": "house",
-        "sponsor": "Rep. Obernolte, Jay [R-CA-23] (R-CA)",
+        "chamber": "senate",
+        "sponsor": "Sen. Moran, Jerry [R-KS] (R-KS)",
+        "degree": 25
+      },
+      {
+        "id": "bill:us/118/s/3312",
+        "label": "Artificial Intelligence Research",
+        "ref": "S. 3312",
+        "congress": 118,
+        "chamber": "senate",
+        "sponsor": "Sen. Thune, John [R-SD] (R-SD)",
         "degree": 23
       },
       {
@@ -256,49 +320,13 @@
         "degree": 22
       },
       {
-        "id": "bill:us/118/s/4487",
-        "label": "Small Business Artificial Intelligence Training Act of 2024",
-        "ref": "S. 4487",
+        "id": "bill:us/118/s/1564",
+        "label": "AI Leadership Training Act",
+        "ref": "S. 1564",
         "congress": 118,
         "chamber": "senate",
-        "sponsor": "Sen. Cantwell, Maria [D-WA] (D-WA)",
-        "degree": 21
-      },
-      {
-        "id": "bill:us/119/s/3888",
-        "label": "Small Business Artificial Intelligence Training Act of 2026",
-        "ref": "S. 3888",
-        "congress": 119,
-        "chamber": "senate",
-        "sponsor": "Sen. Moran, Jerry [R-KS] (R-KS)",
-        "degree": 21
-      },
-      {
-        "id": "bill:us/118/s/5616",
-        "label": "Preserving American Dominance in Artificial Intelligence Act of 2024",
-        "ref": "S. 5616",
-        "congress": 118,
-        "chamber": "senate",
-        "sponsor": "Sen. Romney, Mitt [R-UT] (R-UT)",
-        "degree": 20
-      },
-      {
-        "id": "bill:us/119/hr/1736",
-        "label": "Generative AI Terrorism Risk Assessment Act",
-        "ref": "H.R. 1736",
-        "congress": 119,
-        "chamber": "house",
-        "sponsor": "Rep. Pfluger, August [R-TX-11] (R-TX)",
-        "degree": 16
-      },
-      {
-        "id": "bill:us/119/hr/8488",
-        "label": "AI Data Center Site Selection Transparency Act of 2026",
-        "ref": "H.R. 8488",
-        "congress": 119,
-        "chamber": "house",
-        "sponsor": "Rep. McIver, LaMonica [D-NJ-10] (D-NJ)",
-        "degree": 20
+        "sponsor": "Sen. Peters, Gary C. [D-MI] (D-MI)",
+        "degree": 19
       },
       {
         "id": "bill:us/119/s/2937",
@@ -334,6 +362,15 @@
         "congress": 119,
         "chamber": "house",
         "sponsor": "Rep. Hill, J. French [R-AR-2] (R-AR)",
+        "degree": 19
+      },
+      {
+        "id": "bill:us/119/hr/8488",
+        "label": "AI Data Center Site Selection Transparency Act of 2026",
+        "ref": "H.R. 8488",
+        "congress": 119,
+        "chamber": "house",
+        "sponsor": "Rep. McIver, LaMonica [D-NJ-10] (D-NJ)",
         "degree": 19
       },
       {
@@ -373,21 +410,21 @@
         "degree": 17
       },
       {
+        "id": "bill:us/119/hr/4142",
+        "label": "No Adversarial AI Act",
+        "ref": "H.R. 4142",
+        "congress": 119,
+        "chamber": "house",
+        "sponsor": "Rep. Moolenaar, John R. [R-MI-2] (R-MI)",
+        "degree": 17
+      },
+      {
         "id": "bill:us/118/hr/7766",
         "label": "Protecting Consumers from Deceptive AI Act",
         "ref": "H.R. 7766",
         "congress": 118,
         "chamber": "house",
         "sponsor": "Rep. Eshoo, Anna G. [D-CA-16] (D-CA)",
-        "degree": 16
-      },
-      {
-        "id": "bill:us/119/hr/8283",
-        "label": "Deterring American AI Model Theft Act of 2026",
-        "ref": "H.R. 8283",
-        "congress": 119,
-        "chamber": "house",
-        "sponsor": "Rep. Huizenga, Bill [R-MI-4] (R-MI)",
         "degree": 16
       },
       {
@@ -400,13 +437,22 @@
         "degree": 16
       },
       {
-        "id": "bill:us/118/s/1564",
-        "label": "AI Leadership Training Act",
-        "ref": "S. 1564",
+        "id": "bill:us/118/s/4596",
+        "label": "Artificial Intelligence Public Awareness and Education Campaign Act",
+        "ref": "S. 4596",
         "congress": 118,
         "chamber": "senate",
-        "sponsor": "Sen. Peters, Gary C. [D-MI] (D-MI)",
-        "degree": 14
+        "sponsor": "Sen. Young, Todd [R-IN] (R-IN)",
+        "degree": 15
+      },
+      {
+        "id": "bill:us/118/s/4976",
+        "label": "Artificial Intelligence Acquisitions Act of 2024",
+        "ref": "S. 4976",
+        "congress": 118,
+        "chamber": "senate",
+        "sponsor": "Sen. Rubio, Marco [R-FL] (R-FL)",
+        "degree": 15
       },
       {
         "id": "bill:us/118/s/5436",
@@ -427,12 +473,12 @@
         "degree": 15
       },
       {
-        "id": "bill:us/119/hr/4142",
-        "label": "No Adversarial AI Act",
-        "ref": "H.R. 4142",
+        "id": "bill:us/119/hr/5332",
+        "label": "Liquid Cooling for AI Act of 2025",
+        "ref": "H.R. 5332",
         "congress": 119,
         "chamber": "house",
-        "sponsor": "Rep. Moolenaar, John R. [R-MI-2] (R-MI)",
+        "sponsor": "Rep. Obernolte, Jay [R-CA-23] (R-CA)",
         "degree": 15
       },
       {
@@ -445,30 +491,21 @@
         "degree": 14
       },
       {
+        "id": "bill:us/119/s/1792",
+        "label": "AI Whistleblower Protection Act",
+        "ref": "S. 1792",
+        "congress": 119,
+        "chamber": "senate",
+        "sponsor": "Sen. Grassley, Chuck [R-IA] (R-IA)",
+        "degree": 14
+      },
+      {
         "id": "bill:us/118/hr/7381",
         "label": "HEALTH AI",
         "ref": "H.R. 7381",
         "congress": 118,
         "chamber": "house",
         "sponsor": "Rep. Lieu, Ted [D-CA-36] (D-CA)",
-        "degree": 13
-      },
-      {
-        "id": "bill:us/118/s/4596",
-        "label": "Artificial Intelligence Public Awareness and Education Campaign Act",
-        "ref": "S. 4596",
-        "congress": 118,
-        "chamber": "senate",
-        "sponsor": "Sen. Young, Todd [R-IN] (R-IN)",
-        "degree": 13
-      },
-      {
-        "id": "bill:us/118/s/4976",
-        "label": "Artificial Intelligence Acquisitions Act of 2024",
-        "ref": "S. 4976",
-        "congress": 118,
-        "chamber": "senate",
-        "sponsor": "Sen. Rubio, Marco [R-FL] (R-FL)",
         "degree": 13
       },
       {
@@ -490,13 +527,49 @@
         "degree": 13
       },
       {
-        "id": "bill:us/119/s/1792",
-        "label": "AI Whistleblower Protection Act",
-        "ref": "S. 1792",
+        "id": "bill:us/117/s/4",
+        "label": "John R. Lewis Voting Rights Advancement Act of 2021",
+        "ref": "S. 4",
+        "congress": 117,
+        "chamber": "senate",
+        "sponsor": "Mr. Leahy",
+        "degree": 15
+      },
+      {
+        "id": "bill:us/119/hr/7151",
+        "label": "Artificial Intelligence Public Awareness and Education Campaign Act",
+        "ref": "H.R. 7151",
+        "congress": 119,
+        "chamber": "house",
+        "sponsor": "Rep. Barrag\u00e1n, Nanette Diaz [D-CA-44] (D-CA)",
+        "degree": 12
+      },
+      {
+        "id": "bill:us/119/hr/8283",
+        "label": "Deterring American AI Model Theft Act of 2026",
+        "ref": "H.R. 8283",
+        "congress": 119,
+        "chamber": "house",
+        "sponsor": "Rep. Huizenga, Bill [R-MI-4] (R-MI)",
+        "degree": 12
+      },
+      {
+        "id": "bill:us/119/s/1699",
+        "label": "Artificial Intelligence Public Awareness and Education Campaign Act",
+        "ref": "S. 1699",
         "congress": 119,
         "chamber": "senate",
-        "sponsor": "Sen. Grassley, Chuck [R-IA] (R-IA)",
+        "sponsor": "Sen. Young, Todd [R-IN] (R-IN)",
         "degree": 12
+      },
+      {
+        "id": "bill:us/118/s/3975",
+        "label": "AI CONSENT Act",
+        "ref": "S. 3975",
+        "congress": 118,
+        "chamber": "senate",
+        "sponsor": "Sen. Welch, Peter [D-VT] (D-VT)",
+        "degree": 11
       },
       {
         "id": "bill:us/119/hr/7786",
@@ -515,42 +588,6 @@
         "chamber": "senate",
         "sponsor": "Sen. Sheehy, Tim [R-MT] (R-MT)",
         "degree": 11
-      },
-      {
-        "id": "bill:us/118/hr/6425",
-        "label": "To direct the Secretary of Defense to establish a working group to develop an\u2026",
-        "ref": "H.R. 6425",
-        "congress": 118,
-        "chamber": "house",
-        "sponsor": "Rep. Gallagher, Mike [R-WI-8] (R-WI)",
-        "degree": 10
-      },
-      {
-        "id": "bill:us/119/hr/7058",
-        "label": "Foreign Adversary AI Risk Assessment and Diplomacy Act",
-        "ref": "H.R. 7058",
-        "congress": 119,
-        "chamber": "house",
-        "sponsor": "Rep. Baumgartner, Michael [R-WA-5] (R-WA)",
-        "degree": 10
-      },
-      {
-        "id": "bill:us/119/hr/7151",
-        "label": "Artificial Intelligence Public Awareness and Education Campaign Act",
-        "ref": "H.R. 7151",
-        "congress": 119,
-        "chamber": "house",
-        "sponsor": "Rep. Barrag\u00e1n, Nanette Diaz [D-CA-44] (D-CA)",
-        "degree": 10
-      },
-      {
-        "id": "bill:us/119/s/1699",
-        "label": "Artificial Intelligence Public Awareness and Education Campaign Act",
-        "ref": "S. 1699",
-        "congress": 119,
-        "chamber": "senate",
-        "sponsor": "Sen. Young, Todd [R-IN] (R-IN)",
-        "degree": 10
       },
       {
         "id": "bill:us/119/s/4414",
@@ -596,46 +633,67 @@
         "chamber": "senate",
         "sponsor": "Sen. Schatz, Brian [D-HI] (D-HI)",
         "degree": 9
-      },
-      {
-        "id": "bill:us/118/s/3975",
-        "label": "AI CONSENT Act",
-        "ref": "S. 3975",
-        "congress": 118,
-        "chamber": "senate",
-        "sponsor": "Sen. Welch, Peter [D-VT] (D-VT)",
-        "degree": 9
-      },
-      {
-        "id": "bill:us/118/s/3205",
-        "label": "Federal Artificial Intelligence Risk Management Act of 2023",
-        "ref": "S. 3205",
-        "congress": 118,
-        "chamber": "senate",
-        "sponsor": "Sen. Moran, Jerry [R-KS] (R-KS)",
-        "degree": 7
-      },
-      {
-        "id": "bill:us/118/hr/6936",
-        "label": "Federal Artificial Intelligence Risk Management Act of 2024",
-        "ref": "H.R. 6936",
-        "congress": 118,
-        "chamber": "house",
-        "sponsor": "Rep. Lieu, Ted [D-CA-36] (D-CA)",
-        "degree": 7
       }
     ],
     "edges": [
       {
+        "a": "bill:us/117/hr/1",
+        "b": "bill:us/117/s/1",
+        "w": 41,
+        "terms": [
+          "covered individual",
+          "department",
+          "indian tribe",
+          "executive agency",
+          "federal agency"
+        ]
+      },
+      {
         "a": "bill:us/118/hr/2670",
         "b": "bill:us/118/hr/5009",
-        "w": 36,
+        "w": 34,
         "terms": [
           "covered period",
           "institution of higher education",
           "nontraditional defense contractor",
           "secretary concerned",
           "military installation"
+        ]
+      },
+      {
+        "a": "bill:us/118/hr/11",
+        "b": "bill:us/118/s/1",
+        "w": 34,
+        "terms": [
+          "program",
+          "office",
+          "covered entity",
+          "owner",
+          "chief state election official"
+        ]
+      },
+      {
+        "a": "bill:us/117/s/2747",
+        "b": "bill:us/118/hr/11",
+        "w": 28,
+        "terms": [
+          "program",
+          "office",
+          "owner",
+          "chief state election official",
+          "public housing"
+        ]
+      },
+      {
+        "a": "bill:us/117/s/2747",
+        "b": "bill:us/118/s/1",
+        "w": 28,
+        "terms": [
+          "program",
+          "office",
+          "owner",
+          "chief state election official",
+          "public housing"
         ]
       },
       {
@@ -653,13 +711,85 @@
       {
         "a": "bill:us/118/s/5152",
         "b": "bill:us/119/hr/6356",
-        "w": 20,
+        "w": 19,
         "terms": [
-          "state",
           "individual",
           "covered algorithm",
           "deployer",
-          "developer"
+          "developer",
+          "transfer"
+        ]
+      },
+      {
+        "a": "bill:us/117/hr/1",
+        "b": "bill:us/117/s/2747",
+        "w": 17,
+        "terms": [
+          "indian tribe",
+          "tribal government",
+          "owner",
+          "chief state election official",
+          "public housing"
+        ]
+      },
+      {
+        "a": "bill:us/117/hr/1",
+        "b": "bill:us/118/hr/11",
+        "w": 14,
+        "terms": [
+          "owner",
+          "chief state election official",
+          "public housing",
+          "residential mortgage loan",
+          "correctional institution or facility"
+        ]
+      },
+      {
+        "a": "bill:us/117/hr/1",
+        "b": "bill:us/118/s/1",
+        "w": 14,
+        "terms": [
+          "owner",
+          "chief state election official",
+          "public housing",
+          "residential mortgage loan",
+          "correctional institution or facility"
+        ]
+      },
+      {
+        "a": "bill:us/117/s/1",
+        "b": "bill:us/117/s/2747",
+        "w": 13,
+        "terms": [
+          "indian tribe",
+          "tribal government",
+          "chief state election official",
+          "correctional institution or facility",
+          "election"
+        ]
+      },
+      {
+        "a": "bill:us/117/s/1",
+        "b": "bill:us/118/hr/11",
+        "w": 10,
+        "terms": [
+          "chief state election official",
+          "correctional institution or facility",
+          "election",
+          "federal office",
+          "probation"
+        ]
+      },
+      {
+        "a": "bill:us/117/s/1",
+        "b": "bill:us/118/s/1",
+        "w": 10,
+        "terms": [
+          "chief state election official",
+          "correctional institution or facility",
+          "election",
+          "federal office",
+          "probation"
         ]
       },
       {
@@ -878,25 +1008,25 @@
         ]
       },
       {
-        "a": "bill:us/118/hr/2670",
-        "b": "bill:us/118/s/262",
+        "a": "bill:us/117/hr/1",
+        "b": "bill:us/118/hr/5009",
         "w": 4,
         "terms": [
           "covered individual",
-          "state",
-          "administrator",
-          "indian tribe"
+          "department",
+          "executive agency",
+          "federal agency"
         ]
       },
       {
-        "a": "bill:us/118/hr/6936",
-        "b": "bill:us/118/s/3205",
+        "a": "bill:us/117/s/1",
+        "b": "bill:us/118/hr/5009",
         "w": 4,
         "terms": [
-          "administrator",
-          "framework",
-          "playbook",
-          "profile"
+          "covered individual",
+          "department",
+          "executive agency",
+          "federal agency"
         ]
       },
       {
@@ -941,33 +1071,53 @@
         ]
       },
       {
-        "a": "bill:us/118/hr/5009",
+        "a": "bill:us/117/hr/1",
+        "b": "bill:us/118/hr/2670",
+        "w": 3,
+        "terms": [
+          "covered individual",
+          "department",
+          "indian tribe"
+        ]
+      },
+      {
+        "a": "bill:us/117/hr/1",
         "b": "bill:us/118/s/262",
         "w": 3,
         "terms": [
           "covered individual",
-          "state",
-          "administrator"
+          "indian tribe",
+          "tribal government"
+        ]
+      },
+      {
+        "a": "bill:us/117/s/1",
+        "b": "bill:us/118/hr/2670",
+        "w": 3,
+        "terms": [
+          "covered individual",
+          "department",
+          "indian tribe"
+        ]
+      },
+      {
+        "a": "bill:us/117/s/1",
+        "b": "bill:us/118/s/262",
+        "w": 3,
+        "terms": [
+          "covered individual",
+          "indian tribe",
+          "tribal government"
         ]
       },
       {
         "a": "bill:us/118/hr/2670",
-        "b": "bill:us/119/hr/8283",
+        "b": "bill:us/118/s/262",
         "w": 3,
         "terms": [
-          "appropriate congressional committees",
-          "foreign person",
-          "country of concern"
-        ]
-      },
-      {
-        "a": "bill:us/118/hr/5009",
-        "b": "bill:us/118/hr/6425",
-        "w": 3,
-        "terms": [
-          "appropriate congressional committees",
-          "battlespace awareness",
-          "covered operational use"
+          "covered individual",
+          "administrator",
+          "indian tribe"
         ]
       },
       {
@@ -991,6 +1141,16 @@
         ]
       },
       {
+        "a": "bill:us/117/s/2747",
+        "b": "bill:us/118/hr/2670",
+        "w": 3,
+        "terms": [
+          "program",
+          "indian tribe",
+          "office"
+        ]
+      },
+      {
         "a": "bill:us/118/hr/2670",
         "b": "bill:us/118/s/4178",
         "w": 3,
@@ -1008,6 +1168,36 @@
           "under secretary",
           "appropriate committees of congress",
           "critical infrastructure"
+        ]
+      },
+      {
+        "a": "bill:us/117/hr/1",
+        "b": "bill:us/117/s/4",
+        "w": 3,
+        "terms": [
+          "indian tribe",
+          "indian",
+          "indian lands"
+        ]
+      },
+      {
+        "a": "bill:us/117/s/1",
+        "b": "bill:us/117/s/4",
+        "w": 3,
+        "terms": [
+          "indian tribe",
+          "indian",
+          "indian lands"
+        ]
+      },
+      {
+        "a": "bill:us/117/s/2747",
+        "b": "bill:us/117/s/4",
+        "w": 3,
+        "terms": [
+          "indian tribe",
+          "indian",
+          "indian lands"
         ]
       },
       {
@@ -1257,6 +1447,33 @@
         ]
       },
       {
+        "a": "bill:us/117/hr/1",
+        "b": "bill:us/119/hr/8516",
+        "w": 2,
+        "terms": [
+          "covered individual",
+          "executive agency"
+        ]
+      },
+      {
+        "a": "bill:us/117/s/1",
+        "b": "bill:us/119/hr/8516",
+        "w": 2,
+        "terms": [
+          "covered individual",
+          "executive agency"
+        ]
+      },
+      {
+        "a": "bill:us/118/hr/5009",
+        "b": "bill:us/118/s/262",
+        "w": 2,
+        "terms": [
+          "covered individual",
+          "administrator"
+        ]
+      },
+      {
         "a": "bill:us/118/s/262",
         "b": "bill:us/119/hr/8516",
         "w": 2,
@@ -1272,105 +1489,6 @@
         "terms": [
           "covered individual",
           "employer"
-        ]
-      },
-      {
-        "a": "bill:us/118/hr/5009",
-        "b": "bill:us/119/hr/8488",
-        "w": 2,
-        "terms": [
-          "state",
-          "covered entity"
-        ]
-      },
-      {
-        "a": "bill:us/118/s/262",
-        "b": "bill:us/118/s/5152",
-        "w": 2,
-        "terms": [
-          "state",
-          "transfer"
-        ]
-      },
-      {
-        "a": "bill:us/118/s/262",
-        "b": "bill:us/119/hr/6356",
-        "w": 2,
-        "terms": [
-          "state",
-          "transfer"
-        ]
-      },
-      {
-        "a": "bill:us/118/s/5152",
-        "b": "bill:us/119/hr/8488",
-        "w": 2,
-        "terms": [
-          "state",
-          "developer"
-        ]
-      },
-      {
-        "a": "bill:us/119/hr/6356",
-        "b": "bill:us/119/hr/8488",
-        "w": 2,
-        "terms": [
-          "state",
-          "developer"
-        ]
-      },
-      {
-        "a": "bill:us/118/hr/2670",
-        "b": "bill:us/118/s/3312",
-        "w": 2,
-        "terms": [
-          "appropriate congressional committees",
-          "under secretary"
-        ]
-      },
-      {
-        "a": "bill:us/118/hr/2670",
-        "b": "bill:us/119/hr/1736",
-        "w": 2,
-        "terms": [
-          "appropriate congressional committees",
-          "intelligence community"
-        ]
-      },
-      {
-        "a": "bill:us/118/hr/2670",
-        "b": "bill:us/119/hr/7058",
-        "w": 2,
-        "terms": [
-          "appropriate congressional committees",
-          "foreign adversary"
-        ]
-      },
-      {
-        "a": "bill:us/118/hr/5009",
-        "b": "bill:us/119/hr/1736",
-        "w": 2,
-        "terms": [
-          "appropriate congressional committees",
-          "intelligence community"
-        ]
-      },
-      {
-        "a": "bill:us/118/hr/5009",
-        "b": "bill:us/119/hr/5332",
-        "w": 2,
-        "terms": [
-          "appropriate congressional committees",
-          "national laboratory"
-        ]
-      },
-      {
-        "a": "bill:us/118/hr/5009",
-        "b": "bill:us/119/hr/8283",
-        "w": 2,
-        "terms": [
-          "appropriate congressional committees",
-          "foreign person"
         ]
       },
       {
@@ -1392,6 +1510,42 @@
         ]
       },
       {
+        "a": "bill:us/118/hr/11",
+        "b": "bill:us/118/hr/2670",
+        "w": 2,
+        "terms": [
+          "program",
+          "office"
+        ]
+      },
+      {
+        "a": "bill:us/118/hr/11",
+        "b": "bill:us/118/hr/5009",
+        "w": 2,
+        "terms": [
+          "program",
+          "covered entity"
+        ]
+      },
+      {
+        "a": "bill:us/118/hr/2670",
+        "b": "bill:us/118/s/1",
+        "w": 2,
+        "terms": [
+          "program",
+          "office"
+        ]
+      },
+      {
+        "a": "bill:us/118/hr/5009",
+        "b": "bill:us/118/s/1",
+        "w": 2,
+        "terms": [
+          "program",
+          "covered entity"
+        ]
+      },
+      {
         "a": "bill:us/118/hr/5009",
         "b": "bill:us/118/s/1564",
         "w": 2,
@@ -1407,6 +1561,15 @@
         "terms": [
           "under secretary",
           "tevv"
+        ]
+      },
+      {
+        "a": "bill:us/117/s/2747",
+        "b": "bill:us/118/s/262",
+        "w": 2,
+        "terms": [
+          "indian tribe",
+          "tribal government"
         ]
       },
       {
@@ -1452,6 +1615,33 @@
         "terms": [
           "appropriate committees of congress",
           "federal laboratory"
+        ]
+      },
+      {
+        "a": "bill:us/118/hr/2670",
+        "b": "bill:us/119/hr/8283",
+        "w": 2,
+        "terms": [
+          "foreign person",
+          "country of concern"
+        ]
+      },
+      {
+        "a": "bill:us/118/hr/11",
+        "b": "bill:us/119/hr/8488",
+        "w": 2,
+        "terms": [
+          "covered entity",
+          "owner"
+        ]
+      },
+      {
+        "a": "bill:us/118/s/1",
+        "b": "bill:us/119/hr/8488",
+        "w": 2,
+        "terms": [
+          "covered entity",
+          "owner"
         ]
       },
       {
