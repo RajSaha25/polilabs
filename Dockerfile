@@ -22,7 +22,14 @@ RUN pip install --no-cache-dir --upgrade pip \
 # Derive the SQLite FTS index (~30s) and the Kùzu graph (~70s) from
 # data/corpus/. Both scripts are destructive + re-runnable; here they build
 # the indexes fresh into the image.
-RUN python scripts/build_index.py \
+#
+# `--skip-embeddings` is critical: the fastembed/bge-small dense pass is
+# multi-hour on the depot builder (see HANDOFF_EMBED_PASS.md) and reliably
+# times out the build session. The dense leg of search_corpus gracefully
+# degrades to BM25-only when section_embeddings is empty, so the agent
+# still works — semantic re-ranking is added back by shipping a polilabs.db
+# that already has the embedding pass run against it.
+RUN python scripts/build_index.py --skip-embeddings \
     && python scripts/build_kuzu_index.py
 
 # Documents the default port; the real port is taken from $PORT at runtime.
