@@ -79,26 +79,42 @@ window.StatuteBody = StatuteBody;
 function NoteComposer({ x, y, onSave, onCancel }) {
   const [body, setBody] = useState("");
   const [color, setColor] = useState("yellow");
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
   const ref = useRef(null);
   useEffect(() => {
     const t = setTimeout(() => ref.current && ref.current.focus(), 0);
     return () => clearTimeout(t);
   }, []);
   const left = Math.max(12, Math.min(x, window.innerWidth - 320));
+
+  // Save on Enter. On success the parent unmounts this composer; on
+  // failure we surface the error and KEEP the text so nothing is lost.
+  const submit = () => {
+    if (saving) return;
+    setSaving(true);
+    setError("");
+    Promise.resolve(onSave(body, color)).catch((e) => {
+      setError((e && e.message) ? e.message : "Couldn't save the note. Please retry.");
+      setSaving(false);
+    });
+  };
+
   return (
     <div className="note-composer" style={{ top: y + 8, left }} onMouseDown={(e) => e.stopPropagation()}>
       <textarea
         ref={ref}
         className="note-input"
-        placeholder="Add a note to this passage…  (⌘↵ to save)"
+        placeholder="Add a note…  (Enter to save · ⇧Enter for a new line)"
         value={body}
         onChange={(e) => setBody(e.target.value)}
         onKeyDown={(e) => {
-          if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) { e.preventDefault(); onSave(body, color); }
-          if (e.key === "Escape") onCancel();
+          if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); submit(); }
+          else if (e.key === "Escape") onCancel();
         }}
         rows={3}
       />
+      {error ? <div className="note-error">{error}</div> : null}
       <div className="note-composer-foot">
         <div className="note-swatches">
           {NOTE_COLORS.map((c) => (
@@ -113,7 +129,9 @@ function NoteComposer({ x, y, onSave, onCancel }) {
         </div>
         <div className="note-actions">
           <button type="button" className="note-btn ghost" onClick={onCancel}>Cancel</button>
-          <button type="button" className="note-btn primary" onClick={() => onSave(body, color)}>Save note</button>
+          <button type="button" className="note-btn primary" onClick={submit} disabled={saving}>
+            {saving ? "saving…" : "Save note"}
+          </button>
         </div>
       </div>
     </div>
@@ -206,11 +224,14 @@ function TextPanel({ bill, activeAnchor, onAnchorClick, annotations = [], onAddA
     if (pendingSel) { setComposer(pendingSel); setPendingSel(null); }
   };
 
+  // Returns the save promise. Close the composer + clear the selection
+  // ONLY on success; on failure the promise rejects and NoteComposer keeps
+  // the text + shows the error (no silent disappearance).
   const saveNote = (body, color) => {
-    if (!composer) return;
-    Promise.resolve(
+    if (!composer) return Promise.resolve();
+    return Promise.resolve(
       onAddAnnotation?.({ section_id: composer.anchor, quote: composer.quote, body, color }),
-    ).finally(() => {
+    ).then(() => {
       setComposer(null);
       window.getSelection().removeAllRanges();
     });
