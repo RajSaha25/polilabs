@@ -837,6 +837,60 @@ def health() -> dict:
     }
 
 
+@app.get("/connector")
+def connector() -> dict:
+    """Bring-your-own-agent discovery document.
+
+    A public, self-describing manifest so an external agent (a ChatGPT
+    Action, an MCP client, a script) — or the human wiring it up — can
+    learn how to drive the polilabs tool surface. The tools are read-only
+    and corpus-scoped; auth is a per-user connector token (mint one at
+    POST /auth/connector-token while signed in) sent as a Bearer header.
+    """
+    return {
+        "service": "polilabs",
+        "description": "Agent-native, queryable knowledge graph of US "
+                       "federal legislation. Read-only, corpus-scoped tools.",
+        "openapi_url": "/openapi.json",
+        "auth": {
+            "type": "bearer",
+            "how": "Sign in, POST /auth/connector-token to mint a token, "
+                   "then send 'Authorization: Bearer <token>' on every "
+                   "/api/* call. Revoke at DELETE /auth/connector-token/{jti}.",
+        },
+        "tools": [
+            {"method": "GET", "path": "/api/search",
+             "params": ["query", "topic", "tier", "congress", "limit"],
+             "desc": "Search a topic-scoped corpus (BM25 + dense via RRF)."},
+            {"method": "GET", "path": "/api/bill/{bill_id}",
+             "desc": "A bill's metadata + top-level section table of contents."},
+            {"method": "GET", "path": "/api/bill/{bill_id}/sections",
+             "desc": "Full nested section tree."},
+            {"method": "GET", "path": "/api/bill/{bill_id}/defined_terms",
+             "desc": "Terms a bill defines."},
+            {"method": "GET", "path": "/api/bill/{bill_id}/amendments",
+             "desc": "Statutory amendments a bill makes."},
+            {"method": "GET", "path": "/api/section",
+             "params": ["section_id", "as_of"],
+             "desc": "A section's verbatim text + canonical citation."},
+            {"method": "GET", "path": "/api/citation_graph",
+             "params": ["section_id", "direction", "max_nodes"],
+             "desc": "Typed citation graph around a section."},
+            {"method": "GET", "path": "/api/resolve",
+             "params": ["citation_string"],
+             "desc": "Parse a free-text citation into canonical section IDs."},
+            {"method": "GET", "path": "/api/coverage",
+             "desc": "What is and isn't in the corpus."},
+        ],
+        "mcp": {
+            "stdio": "Run mcp_server.py for any MCP stdio client "
+                     "(e.g. Claude Desktop). See docs/CONNECT_YOUR_AGENT.md.",
+        },
+        "thesis": "Tools return mechanically-extracted, verbatim corpus data "
+                  "— never paraphrased. Quote it; don't trust a summary of it.",
+    }
+
+
 @app.get("/")
 def index():
     """Serve the bare-bones test page so the backend is usable without a frontend."""
@@ -844,6 +898,33 @@ def index():
     if not page.exists():
         raise HTTPException(404, "static/index.html missing")
     return FileResponse(page)
+
+
+# ---- OpenAPI: advertise the Bearer scheme so agent platforms (ChatGPT
+# Actions, etc.) import auth correctly. require_user reads the header
+# manually, so without this the generated schema wouldn't mention auth.
+def _custom_openapi() -> dict:
+    if app.openapi_schema:
+        return app.openapi_schema
+    from fastapi.openapi.utils import get_openapi
+    schema = get_openapi(
+        title=app.title, version=app.version,
+        description=app.description, routes=app.routes,
+    )
+    schema.setdefault("components", {})["securitySchemes"] = {
+        "BearerAuth": {"type": "http", "scheme": "bearer", "bearerFormat": "JWT"}
+    }
+    # Apply the scheme to every gated /api/* operation.
+    for path, item in schema.get("paths", {}).items():
+        if path.startswith("/api/"):
+            for op in item.values():
+                if isinstance(op, dict):
+                    op.setdefault("security", [{"BearerAuth": []}])
+    app.openapi_schema = schema
+    return schema
+
+
+app.openapi = _custom_openapi
 
 
 def main():

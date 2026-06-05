@@ -68,6 +68,30 @@ def create_token(user_id: int, email: str) -> str:
     return jwt.encode(payload, _secret(), algorithm=_ALGO)
 
 
+_CONNECTOR_TTL = dt.timedelta(days=90)
+
+
+def create_connector_token(user_id: int, email: str, jti: str,
+                           ttl: dt.timedelta = _CONNECTOR_TTL) -> str:
+    """Mint a long-lived connector JWT for an external agent.
+
+    Same signature/secret as a session token, so it validates through the
+    normal ``decode_token`` path and works on every ``/api/*`` route. It
+    carries ``scope="connector"`` and a ``jti`` (revocation handle) so the
+    auth gate can distinguish and revoke it.
+    """
+    now = dt.datetime.now(dt.timezone.utc)
+    payload = {
+        "sub": str(user_id),
+        "email": email,
+        "scope": "connector",
+        "jti": jti,
+        "iat": now,
+        "exp": now + ttl,
+    }
+    return jwt.encode(payload, _secret(), algorithm=_ALGO)
+
+
 def decode_token(token: str) -> dict | None:
     """Return the token's payload, or ``None`` if invalid / expired."""
     try:
