@@ -15,13 +15,25 @@ import re
 from fastapi import APIRouter, Depends, HTTPException, Request
 from pydantic import BaseModel, Field
 
-from auth import db, security
+from auth import db, ratelimit, security
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
 _EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 _MIN_PASSWORD_LEN = 8
 _UNAUTHORIZED = {"WWW-Authenticate": "Bearer"}
+
+
+def _rate_limit(request: Request) -> None:
+    """Per-IP brute-force gate for the unauthenticated auth routes.
+    Raises 429 once an IP exceeds the window's attempt budget."""
+    ip = request.client.host if request.client else "unknown"
+    if not ratelimit.allow(ip):
+        raise HTTPException(
+            429,
+            "Too many attempts. Please wait a few minutes and try again.",
+            headers={"Retry-After": str(ratelimit.retry_after())},
+        )
 
 
 class Credentials(BaseModel):
@@ -39,8 +51,9 @@ def _normalize_email(email: str) -> str:
 
 
 @router.post("/signup", response_model=AuthResponse)
-def signup(creds: Credentials) -> AuthResponse:
+def signup(creds: Credentials, request: Request) -> AuthResponse:
     """Register a new account and return a session token."""
+    _rate_limit(request)
     email = _normalize_email(creds.email)
     if not _EMAIL_RE.match(email):
         raise HTTPException(422, "Enter a valid email address.")
@@ -57,8 +70,9 @@ def signup(creds: Credentials) -> AuthResponse:
 
 
 @router.post("/login", response_model=AuthResponse)
-def login(creds: Credentials) -> AuthResponse:
+def login(creds: Credentials, request: Request) -> AuthResponse:
     """Verify credentials and return a session token."""
+    _rate_limit(request)
     email = _normalize_email(creds.email)
     user = db.get_user_by_email(email)
     # One generic message for both "no such user" and "wrong password" —

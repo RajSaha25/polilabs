@@ -95,13 +95,57 @@ app = FastAPI(
     version="0.2.0",
 )
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],          # DEV ONLY — lock to your frontend origin in prod
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# ---- CORS ----
+#
+# Auth is Bearer-token (Authorization header), never cookies, so
+# allow_credentials stays False — that also avoids the invalid
+# wildcard-origin + credentials combination browsers reject.
+#
+# Origins: set POLILABS_CORS_ORIGINS (comma-separated) in prod to pin the
+# exact frontend origin(s). With nothing set we fall back to a regex that
+# admits local dev, any Vercel deployment (the frontend host), and the
+# Fly backend's own origin — tight enough to drop the old "*" wildcard
+# without breaking the existing Vercel → Fly setup.
+_cors_env = os.environ.get("POLILABS_CORS_ORIGINS", "").strip()
+if _cors_env:
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=[o.strip() for o in _cors_env.split(",") if o.strip()],
+        allow_credentials=False,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
+else:
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origin_regex=(
+            r"^https?://(localhost|127\.0\.0\.1)(:\d+)?$"
+            r"|^https://[a-z0-9-]+\.vercel\.app$"
+            r"|^https://polilabs-backend\.fly\.dev$"
+        ),
+        allow_credentials=False,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
+
+
+# ---- security response headers ----
+#
+# Defence-in-depth headers on every response. Conservative on purpose:
+# no CSP here because the frontend is a CDN-loaded, Babel-in-browser app
+# served from a different origin (Vercel) — a strict CSP belongs with
+# that deployment, not the API. HSTS is only meaningful over HTTPS, which
+# is where the Fly deploy serves; harmless locally.
+@app.middleware("http")
+async def _security_headers(request, call_next):
+    response = await call_next(request)
+    response.headers.setdefault("X-Content-Type-Options", "nosniff")
+    response.headers.setdefault("X-Frame-Options", "DENY")
+    response.headers.setdefault("Referrer-Policy", "no-referrer")
+    response.headers.setdefault(
+        "Strict-Transport-Security", "max-age=31536000; includeSubDomains"
+    )
+    return response
 
 # ---- auth ----
 #
