@@ -162,6 +162,9 @@ function App({ onSignOut, onShowLanding }) {
   // through the handlers below (optimistic on the result row).
   const [annotations, setAnnotations] = useState({});
 
+  // "Connect your agent" modal (bring-your-own-agent connector tokens).
+  const [showConnector, setShowConnector] = useState(false);
+
   const turn = turns.find((t) => t.id === activeId) || null;
   const patchTurn = (id, partial) =>
     setTurns((ts) => ts.map((t) => (t.id === id ? { ...t, ...partial } : t)));
@@ -424,6 +427,10 @@ function App({ onSignOut, onShowLanding }) {
         </div>
         <div className="header-tools">
           {streaming && <div className="stat mono">agent working…</div>}
+          <button type="button" className="connect-agent-btn" onClick={() => setShowConnector(true)}
+                  title="Use your own approved AI agent on the corpus">
+            <Icon name="link" size={13} /> Connect agent
+          </button>
           <div className="signout">
             <span className="signout-user">
               {(PolilabsAuth.getUser() || {}).email}
@@ -466,6 +473,8 @@ function App({ onSignOut, onShowLanding }) {
       {stage}
 
 
+
+      {showConnector ? <ConnectorPanel onClose={() => setShowConnector(false)} /> : null}
 
       <TweaksPanel title="Tweaks">
         <TweakSection label="Theme">
