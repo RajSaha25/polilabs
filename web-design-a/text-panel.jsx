@@ -44,6 +44,7 @@ function StatuteBody({ leafHtml, blocks, annotated }) {
             + (agent ? " agent-flag" : "")}
           data-anchor={b.id}
           style={{ marginLeft: b.depth * 22 }}
+          title={hasNote ? "Note — " + notes.map((n) => n.body || "(empty)").join(" • ") + "  (click the marker to view/edit)" : undefined}
         >
           {agent ? (
             <span className="agent-flag-mark" title="The agent referenced this section" aria-hidden="true">
@@ -51,8 +52,8 @@ function StatuteBody({ leafHtml, blocks, annotated }) {
             </span>
           ) : null}
           {hasNote ? (
-            <span className="note-flag" title={notes.length + " note" + (notes.length === 1 ? "" : "s")} aria-hidden="true">
-              <Icon name="quote" size={11} />
+            <span className="note-flag" title={"View note" + (notes.length > 1 ? "s (" + notes.length + ")" : "")}>
+              <Icon name="quote" size={12} />
             </span>
           ) : null}
           <span className="marker">{b.marker}</span>

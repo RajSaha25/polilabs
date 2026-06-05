@@ -89,7 +89,7 @@
   --decomp-bg:      #edeae3;   /* Decomp panel — warm neutral gray, no blue cast */
 
   /* ── Layout ──────────────────────────────────────────────────────── */
-  --rail-w:        360px;
+  --rail-w:        460px;
   --header-h:      44px;
   --footer-h:      28px;
 }
@@ -1108,12 +1108,12 @@ input, textarea { font: inherit; color: inherit; }
   font-size: 16px;
   line-height: 1.9;
   color: var(--ink);
-  /* Let the bill text fill the available column. Previously capped at
-     720px, which left a deep gutter and looked cramped at sign-in
-     widths. 100ch keeps line length sane on ultrawides while honoring
-     whatever the resizable column gives us. */
-  max-width: 100ch;
-  margin: 0 auto;
+  /* Left-aligned so the column hugs the divider — no dead gutter floating
+     the text in the middle of the pane. Capped at a readable line length;
+     the remainder is an ordinary right margin, not empty space on both
+     sides. */
+  max-width: 92ch;
+  margin: 0;
   width: 100%;
 }
 :root[data-density="compact"] .text-body { font-size: 15px; line-height: 1.7; }
@@ -2347,12 +2347,21 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
 /* Margin flag sitting in the left gutter of an annotated block. */
 .subsec.has-note .note-flag {
   position: absolute;
-  left: -18px;
-  top: 2px;
-  color: var(--hl);
-  opacity: 0.9;
+  left: -26px;
+  top: 1px;
   display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  color: #fff;
+  background: var(--hl, #eab308);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.18);
+  cursor: pointer;
+  z-index: 2;
 }
+.subsec.has-note .note-flag:hover { filter: brightness(1.08); transform: scale(1.08); }
 
 /* Floating "Add note" pill raised by a text selection. */
 .note-pill {

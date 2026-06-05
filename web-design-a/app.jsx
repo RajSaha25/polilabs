@@ -208,7 +208,7 @@ function App({ onSignOut, onShowLanding }) {
   };
 
   // resizable layout — rail width (px) + Text/Decomp split fraction
-  const [railW, setRailW] = useState(380);
+  const [railW, setRailW] = useState(460);
   const [textFrac, setTextFrac] = useState(0.58);
   const onRailResize = (e) => {
     e.preventDefault();
