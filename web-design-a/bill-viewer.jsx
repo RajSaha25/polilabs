@@ -188,68 +188,29 @@ function BillViewerHeader({ bill, position, onPrev, onNext, total }) {
 // ── Loaded bill viewer ────────────────────────────────────────────────
 function BillViewer({
   bill, position, total, onPrev, onNext,
-  mode, setMode, activeAnchor, setActiveAnchor,
-  textFrac, setTextFrac,
+  activeAnchor, setActiveAnchor,
   annotations = [], onAddAnnotation, onEditAnnotation, onRemoveAnnotation,
-  agentFlags = [], findState, onFind, onClearFind,
+  agentFlags = [], findState, onAsk, onClearAsk,
 }) {
-  // Sync highlighting: clicking a Decomp card highlights the matching
-  // anchor in the Text panel and vice versa; both funnel through
-  // setActiveAnchor. The Text|Decomp divider is drag-resizable.
-  const splitRef = useRef(null);
-
-  const onResize = (e) => {
-    e.preventDefault();
-    const move = (ev) => {
-      const el = splitRef.current;
-      if (!el) return;
-      const r = el.getBoundingClientRect();
-      let f = (ev.clientX - r.left) / r.width;
-      f = Math.max(0.32, Math.min(0.68, f));
-      setTextFrac(f);
-    };
-    const up = () => {
-      window.removeEventListener("pointermove", move);
-      window.removeEventListener("pointerup", up);
-      document.body.style.cursor = "";
-      document.body.style.userSelect = "";
-    };
-    document.body.style.cursor = "col-resize";
-    document.body.style.userSelect = "none";
-    window.addEventListener("pointermove", move);
-    window.addEventListener("pointerup", up);
-  };
-
+  // Single-pane experiment: the Decomp panel is gone. The bill text fills
+  // the stage; interaction lives ON the text — highlight to note,
+  // double-click to ask the agent (an inline, scoped chat).
   return (
     <section className="stage">
       <BillViewerHeader bill={bill} position={position} total={total} onPrev={onPrev} onNext={onNext} />
-      <div
-        className="bv-split"
-        ref={splitRef}
-        style={{ gridTemplateColumns: `${textFrac}fr 8px ${1 - textFrac}fr` }}
-      >
+      <div className="bv-single">
         <TextPanel
           bill={bill}
           activeAnchor={activeAnchor}
           onAnchorClick={setActiveAnchor}
           annotations={annotations}
           onAddAnnotation={onAddAnnotation}
-          agentFlags={agentFlags}
-        />
-        <div className="col-resizer" onPointerDown={onResize} title="Drag to resize panels" />
-        <DecompPanel
-          bill={bill}
-          mode={mode}
-          setMode={setMode}
-          activeAnchor={activeAnchor}
-          onSelect={setActiveAnchor}
-          annotations={annotations}
           onEditAnnotation={onEditAnnotation}
           onRemoveAnnotation={onRemoveAnnotation}
           agentFlags={agentFlags}
           findState={findState}
-          onFind={onFind}
-          onClearFind={onClearFind}
+          onAsk={onAsk}
+          onClearAsk={onClearAsk}
         />
       </div>
     </section>

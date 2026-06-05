@@ -1101,8 +1101,12 @@ input, textarea { font: inherit; color: inherit; }
 .text-body {
   padding: var(--s-6) var(--s-8) var(--s-9);
   font-family: var(--font-serif);
-  font-size: 15px;
-  line-height: 1.7;
+  /* Default reading spacing is deliberately generous — larger type and
+     open leading so a dense statute reads like a document, not a
+     cramped block. (Andrew's preferred default.) The density tweak can
+     tighten it. */
+  font-size: 16px;
+  line-height: 1.9;
   color: var(--ink);
   /* Let the bill text fill the available column. Previously capped at
      720px, which left a deep gutter and looked cramped at sign-in
@@ -1112,8 +1116,8 @@ input, textarea { font: inherit; color: inherit; }
   margin: 0 auto;
   width: 100%;
 }
-:root[data-density="compact"] .text-body { font-size: 14px; line-height: 1.65; }
-:root[data-density="comfortable"] .text-body { font-size: 16px; line-height: 1.75; }
+:root[data-density="compact"] .text-body { font-size: 15px; line-height: 1.7; }
+:root[data-density="comfortable"] .text-body { font-size: 17px; line-height: 2; }
 
 .text-body h2 {
   font-family: var(--font-serif);
@@ -1134,14 +1138,14 @@ input, textarea { font: inherit; color: inherit; }
 .subsec {
   display: grid;
   grid-template-columns: minmax(40px, max-content) 1fr;
-  gap: var(--s-3);
-  margin-bottom: var(--s-3);
+  gap: var(--s-4);
+  margin-bottom: var(--s-4);
 }
 .subsec .marker {
   font-family: var(--font-mono);
   font-size: 13px;
   color: var(--ink-4);
-  line-height: 1.7;
+  line-height: 1.9;
   text-align: right;
   padding-right: 4px;
 }
@@ -2913,3 +2917,168 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
 /* Readable labels in the Notes-lens agent group rows. */
 .agent-flag-marker { flex: 0 0 auto; color: var(--accent); }
 .agent-flag-title { font-size: 12.5px; line-height: 1.3; overflow: hidden; text-overflow: ellipsis; }
+
+/* ════════════════════════════════════════════════════════════════════
+   Single-pane bill viewer (decomp panel removed) — text fills the stage
+   ════════════════════════════════════════════════════════════════════ */
+.bv-single {
+  min-height: 0;
+  min-width: 0;
+  display: flex;
+}
+.bv-single .text-col {
+  flex: 1 1 auto;
+  min-width: 0;
+  border-right: none;
+}
+
+/* ── note popover — reopen a saved note from its flag ───────────────── */
+.note-popover {
+  position: fixed;
+  z-index: 52;
+  width: 300px;
+  background: var(--panel, #fff);
+  border: 1px solid var(--rule-strong);
+  border-radius: 10px;
+  box-shadow: var(--shadow-lg, 0 12px 34px rgba(0,0,0,0.22));
+  padding: 10px 12px;
+}
+.note-pop-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+  margin-bottom: 8px;
+}
+.note-pop-row {
+  border-left: 3px solid var(--hl, #eab308);
+  background: var(--hl-soft, rgba(234,179,8,0.12));
+  border-radius: 6px;
+  padding: 8px 10px;
+  margin-bottom: 8px;
+}
+.note-pop-row:last-child { margin-bottom: 0; }
+.note-pop-quote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 12px;
+  color: var(--ink-3);
+  line-height: 1.45;
+  margin-bottom: 6px;
+}
+.note-pop-body {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink);
+  white-space: pre-wrap;
+  cursor: text;
+}
+.note-pop-foot { display: flex; justify-content: flex-end; margin-top: 7px; }
+.note-pop-del {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--ink-4);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.note-pop-del:hover { color: var(--danger, #c0392b); }
+
+/* ── inline agent — translucent box on double-click ────────────────── */
+.inline-ask {
+  position: fixed;
+  z-index: 60;
+  width: 380px;
+  max-width: calc(100vw - 24px);
+  background: color-mix(in srgb, var(--panel, #fff) 82%, transparent);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  backdrop-filter: blur(14px) saturate(1.4);
+  border: 1px solid var(--rule-strong);
+  border-radius: 13px;
+  box-shadow: 0 18px 48px rgba(0,0,0,0.26);
+  padding: 12px;
+}
+.inline-ask-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 9px;
+}
+.inline-ask-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent-ink, var(--accent));
+}
+.inline-ask-inputrow { display: flex; gap: 7px; }
+.inline-ask-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--ink);
+  background: var(--panel, #fff);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 8px 10px;
+  outline: none;
+}
+.inline-ask-input:focus { border-color: var(--accent-line, var(--accent)); }
+.inline-ask-go {
+  flex: 0 0 auto;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  color: #fff;
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+.inline-ask-go:hover:not(:disabled) { background: var(--accent-2, var(--accent)); }
+.inline-ask-go:disabled { opacity: 0.5; cursor: default; }
+.inline-ask-body { margin-top: 10px; max-height: 38vh; overflow-y: auto; }
+.inline-ask-answer {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--ink);
+  white-space: pre-wrap;
+}
+.ask-caret { color: var(--accent); animation: caret 1s steps(2) infinite; }
+.inline-ask-hits {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 10px;
+  padding-top: 9px;
+  border-top: 1px solid var(--rule-faint);
+}
+.inline-ask-hit {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  text-align: left;
+  padding: 6px 8px;
+  background: var(--accent-soft, rgba(30,63,168,0.06));
+  border: 1px solid var(--accent-line, var(--rule));
+  border-left: 3px solid var(--accent);
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--ink-2);
+  font-size: 12.5px;
+}
+.inline-ask-hit:hover { color: var(--ink); }
+.inline-ask-hit .i { flex: 0 0 auto; color: var(--accent); }
+.inline-ask-hit .mono { flex: 0 0 auto; font-size: 11px; color: var(--accent); }
+.inline-ask-hit-title { line-height: 1.3; }

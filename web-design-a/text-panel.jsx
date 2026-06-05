@@ -139,12 +139,137 @@ function NoteComposer({ x, y, onSave, onCancel }) {
 }
 window.NoteComposer = NoteComposer;
 
-function TextPanel({ bill, activeAnchor, onAnchorClick, annotations = [], onAddAnnotation, agentFlags = [] }) {
+// ── note popover — view / edit / delete an existing note in place ──────
+// Notes are permanent: clicking a highlighted passage's flag reopens it.
+function NotePopRow({ note, onEdit, onRemove, onClose }) {
+  const [editing, setEditing] = useState(false);
+  const [draft, setDraft] = useState(note.body || "");
+  return (
+    <div className={"note-pop-row hl-" + (note.color || "yellow")}>
+      {note.quote ? (
+        <div className="note-pop-quote">&ldquo;{note.quote.length > 160 ? note.quote.slice(0, 160) + "…" : note.quote}&rdquo;</div>
+      ) : null}
+      {editing ? (
+        <textarea
+          className="note-input"
+          value={draft}
+          autoFocus
+          rows={2}
+          onChange={(e) => setDraft(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); Promise.resolve(onEdit(note.id, { body: draft })).then(() => setEditing(false)); }
+            else if (e.key === "Escape") { setEditing(false); setDraft(note.body || ""); }
+          }}
+        />
+      ) : (
+        <div className="note-pop-body" onClick={() => setEditing(true)} title="Click to edit">
+          {note.body ? note.body : <span className="note-empty">No text yet — click to add.</span>}
+        </div>
+      )}
+      <div className="note-pop-foot">
+        <button type="button" className="note-pop-del" onClick={() => { Promise.resolve(onRemove(note.id)).then(onClose); }}>
+          <Icon name="x" size={11} /> delete
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function NotePopover({ x, y, notes, onEdit, onRemove, onClose }) {
+  const left = Math.max(12, Math.min(x, window.innerWidth - 320));
+  return (
+    <div className="note-popover" style={{ top: y + 6, left }} onMouseDown={(e) => e.stopPropagation()}>
+      <div className="note-pop-head">
+        <span>Your note{notes.length > 1 ? "s" : ""}</span>
+        <button type="button" className="modal-x" onClick={onClose} aria-label="Close"><Icon name="x" size={13} /></button>
+      </div>
+      {notes.map((n) => <NotePopRow key={n.id} note={n} onEdit={onEdit} onRemove={onRemove} onClose={onClose} />)}
+    </div>
+  );
+}
+window.NotePopover = NotePopover;
+
+// ── inline agent — double-click the bill text to ask, scoped to THIS
+// bill. A translucent box that streams the answer and lets you jump to
+// the sections the agent grounded it in. ───────────────────────────────
+function InlineAsk({ x, y, findState, onAsk, onJump, onClose, labelFor }) {
+  const [q, setQ] = useState("");
+  const ref = useRef(null);
+  useEffect(() => { const t = setTimeout(() => ref.current && ref.current.focus(), 0); return () => clearTimeout(t); }, []);
+  const loading = !!(findState && findState.loading);
+  const submit = () => { const v = q.trim(); if (v && !loading) onAsk(v); };
+  const left = Math.max(12, Math.min(x, window.innerWidth - 400));
+  const top = Math.max(70, Math.min(y, window.innerHeight - 280));
+  const flags = (findState && findState.flags) || [];
+  return (
+    <div className="inline-ask" style={{ top, left }} onMouseDown={(e) => e.stopPropagation()}>
+      <div className="inline-ask-head">
+        <span className="inline-ask-title"><Icon name="sparkle" size={12} /> Ask about this bill</span>
+        <button type="button" className="modal-x" onClick={onClose} aria-label="Close"><Icon name="x" size={13} /></button>
+      </div>
+      <div className="inline-ask-inputrow">
+        <input
+          ref={ref}
+          className="inline-ask-input"
+          placeholder="e.g. what does this bill spend on AI?"
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+          onKeyDown={(e) => { if (e.key === "Enter") submit(); else if (e.key === "Escape") onClose(); }}
+          disabled={loading}
+        />
+        <button type="button" className="inline-ask-go" onClick={submit} disabled={loading || !q.trim()}>
+          {loading ? "…" : "Ask"}
+        </button>
+      </div>
+      {findState ? (
+        <div className="inline-ask-body">
+          {findState.error ? <div className="find-error">{findState.error}</div> : null}
+          {findState.answer ? (
+            <div className="inline-ask-answer">{findState.answer}{loading ? <span className="ask-caret">▍</span> : null}</div>
+          ) : loading ? (
+            <div className="find-status"><span className="spinner-sm" /> reading the bill…</div>
+          ) : null}
+          {flags.length ? (
+            <div className="inline-ask-hits">
+              {flags.map((sid) => {
+                const l = labelFor ? labelFor(sid) : { marker: "", title: "section" };
+                return (
+                  <button key={sid} type="button" className="inline-ask-hit" onClick={() => onJump(sid)}>
+                    <Icon name="sparkle" size={10} />
+                    {l.marker ? <span className="mono">{l.marker}</span> : null}
+                    <span className="inline-ask-hit-title">{l.title}</span>
+                  </button>
+                );
+              })}
+            </div>
+          ) : null}
+        </div>
+      ) : null}
+    </div>
+  );
+}
+window.InlineAsk = InlineAsk;
+
+function TextPanel({ bill, activeAnchor, onAnchorClick, annotations = [], onAddAnnotation,
+                     onEditAnnotation, onRemoveAnnotation, agentFlags = [], findState, onAsk, onClearAsk }) {
   const scrollRef = useRef(null);
   // pendingSel = the "Add note" pill awaiting a click; composer = the
-  // open form. Each is { anchor, quote, x, y } or null.
+  // open form. noteView = an existing note reopened from its flag.
+  // askBox = the inline double-click agent chat. Each is positioned.
   const [pendingSel, setPendingSel] = useState(null);
   const [composer, setComposer] = useState(null);
+  const [noteView, setNoteView] = useState(null);
+  const [askBox, setAskBox] = useState(null);
+
+  // Resolve a section id to a readable label from the bill's own tree.
+  const labelFor = React.useMemo(() => {
+    const m = new Map();
+    (bill.text || []).forEach((sec) => {
+      m.set(sec.id, { marker: sec.num || "", title: sec.title || "(section)" });
+      (sec.blocks || []).forEach((b) => m.set(b.id, { marker: b.marker || "", title: b.heading || "(subsection)" }));
+    });
+    return (sid) => m.get(sid) || { marker: "", title: "section" };
+  }, [bill]);
 
   // Index by anchored section id so a block finds its own marks:
   //   { notes: [user annotations], agent: bool (agent pointed here) }.
@@ -198,9 +323,35 @@ function TextPanel({ bill, activeAnchor, onAnchorClick, annotations = [], onAddA
   // only when there's no active text selection (a drag-select shouldn't
   // also count as a sync-highlight click).
   const handleClick = (e) => {
+    // Click a note flag -> reopen that note (view / edit / delete).
+    const flag = e.target.closest(".note-flag");
+    if (flag) {
+      const block = flag.closest("[data-anchor]");
+      const anchor = block && block.getAttribute("data-anchor");
+      const notes = ((annotated.get(anchor) || {}).notes) || [];
+      if (notes.length) {
+        const rect = flag.getBoundingClientRect();
+        setNoteView({ anchor, notes, x: rect.right, y: rect.bottom });
+        return;
+      }
+    }
     const a = e.target.closest("[data-anchor]");
     if (!a || !window.getSelection().isCollapsed) return;
     onAnchorClick?.(a.getAttribute("data-anchor"));
+  };
+
+  // Double-click the bill text -> open the inline agent, scoped to this
+  // bill, near the cursor. Clears the word the browser auto-selected.
+  const handleDoubleClick = (e) => {
+    if (e.target.closest(".inline-ask, .note-popover, .note-composer")) return;
+    const block = e.target.closest("[data-anchor]");
+    const anchor = block ? block.getAttribute("data-anchor") : null;
+    window.getSelection().removeAllRanges();
+    setPendingSel(null);
+    setComposer(null);
+    setNoteView(null);
+    onClearAsk?.();
+    setAskBox({ anchor, x: e.clientX, y: e.clientY });
   };
 
   // On mouse-up, if statute text was selected inside this panel, raise
@@ -237,8 +388,10 @@ function TextPanel({ bill, activeAnchor, onAnchorClick, annotations = [], onAddA
     });
   };
 
-  // A bare mousedown anywhere in the panel dismisses the pill/composer.
-  const dismiss = () => { setPendingSel(null); setComposer(null); };
+  // A bare mousedown in the panel dismisses the pill/composer/note popover
+  // — but NOT the inline ask box, so you can click around the bill to find
+  // the sections it surfaced while the box stays open.
+  const dismiss = () => { setPendingSel(null); setComposer(null); setNoteView(null); };
 
   return (
     <div className="panel-col text-col">
@@ -271,6 +424,7 @@ function TextPanel({ bill, activeAnchor, onAnchorClick, annotations = [], onAddA
         onClick={handleClick}
         onMouseUp={handleMouseUp}
         onMouseDown={dismiss}
+        onDoubleClick={handleDoubleClick}
       >
         <article className="text-body">
           {/* Long title / preamble */}
@@ -349,6 +503,29 @@ function TextPanel({ bill, activeAnchor, onAnchorClick, annotations = [], onAddA
 
       {composer ? (
         <NoteComposer x={composer.x} y={composer.y} onSave={saveNote} onCancel={() => setComposer(null)} />
+      ) : null}
+
+      {noteView ? (
+        <NotePopover
+          x={noteView.x}
+          y={noteView.y}
+          notes={(annotated.get(noteView.anchor) || {}).notes || noteView.notes}
+          onEdit={onEditAnnotation}
+          onRemove={onRemoveAnnotation}
+          onClose={() => setNoteView(null)}
+        />
+      ) : null}
+
+      {askBox ? (
+        <InlineAsk
+          x={askBox.x}
+          y={askBox.y}
+          findState={findState}
+          onAsk={onAsk}
+          onJump={(sid) => onAnchorClick?.(sid)}
+          onClose={() => { setAskBox(null); onClearAsk?.(); }}
+          labelFor={labelFor}
+        />
       ) : null}
     </div>
   );

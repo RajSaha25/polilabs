@@ -391,10 +391,13 @@ function App({ onSignOut, onShowLanding }) {
     const flags = new Set();
     let answer = "";
     const prompt =
-      `Within the bill ${billId} ("${title}"), find the provisions relevant to: ${q}. ` +
-      `Call get_bill to see its section list, then get_section on each section that matches ` +
-      `so you read the actual text. Then briefly say which sections are relevant and why. ` +
-      `Stay within this one bill. Be concise.`;
+      `You are answering a question about ONE specific bill: ${billId} ("${title}").\n` +
+      `Question: ${q}\n` +
+      `Work fast and stay inside this bill. Prefer search_corpus to locate the few ` +
+      `relevant sections and get_citation_graph to follow its references; call ` +
+      `get_section to read only the sections that matter. Do NOT dump the whole ` +
+      `table of contents with get_bill on a large bill. Ground every claim in the ` +
+      `section text, name the sections you used, and be concise.`;
     B.streamChat(prompt, [], (ev) => {
       if (ev.type === "text") {
         answer += ev.delta || "";
@@ -452,19 +455,16 @@ function App({ onSignOut, onShowLanding }) {
         total={bills.length}
         onPrev={() => setBillIdx((i) => Math.max(0, i - 1))}
         onNext={() => setBillIdx((i) => Math.min(bills.length - 1, i + 1))}
-        mode={mode} setMode={setMode}
         activeAnchor={activeAnchor}
         setActiveAnchor={flashAnchor}
-        textFrac={textFrac}
-        setTextFrac={setTextFrac}
         annotations={billAnnotations}
         onAddAnnotation={addAnnotation}
         onEditAnnotation={editAnnotation}
         onRemoveAnnotation={removeAnnotation}
         agentFlags={combinedAgentFlags}
         findState={findState}
-        onFind={findInBill}
-        onClearFind={clearFind}
+        onAsk={findInBill}
+        onClearAsk={clearFind}
       />
     );
   }
