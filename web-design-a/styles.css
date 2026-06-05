@@ -3082,3 +3082,31 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
 .inline-ask-hit .i { flex: 0 0 auto; color: var(--accent); }
 .inline-ask-hit .mono { flex: 0 0 auto; font-size: 11px; color: var(--accent); }
 .inline-ask-hit-title { line-height: 1.3; }
+
+/* ── chain of thought — tool steps + reasoning in the left rail ─────── */
+.cot-steps { list-style: none; margin: 0 0 6px; padding: 0; }
+.cot-step {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--ink-2);
+  padding: 3px 0;
+}
+.cot-dot {
+  flex: 0 0 auto;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  transform: translateY(-2px);
+}
+.cot-step.cot-live { color: var(--ink-4); align-items: center; }
+.cot-step.cot-live .spinner-sm { transform: translateY(0); }
+.cot-thinking { font-size: 12.5px; color: var(--ink-4); font-style: italic; margin: 0; }
+.cot-thought {
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--ink-3);
+  margin: 6px 0 0;
+}

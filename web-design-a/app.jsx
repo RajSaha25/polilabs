@@ -136,6 +136,27 @@ const PRESETS = [
   "What’s NOT in this corpus?",
 ];
 
+// Turn a raw tool call into a plain-English chain-of-thought step so a
+// policymaker can see (and audit) exactly what the agent did.
+function toolStepLabel(name, args) {
+  const a = args || {};
+  switch (name) {
+    case "search_corpus": return `Searched the corpus for “${a.query}”`;
+    case "get_bill": return `Opened bill ${a.bill_id}`;
+    case "get_section": return `Read section ${a.section_id}`;
+    case "get_citation_graph": return `Traced citations around ${a.section_id}`;
+    case "get_defined_terms": return `Pulled defined terms in ${a.bill_id}`;
+    case "get_amendments": return `Pulled amendments in ${a.bill_id}`;
+    case "get_amendments_targeting": return `Found amendments targeting ${a.target || a.citation_string || "a statute"}`;
+    case "resolve_citation": return `Resolved the citation “${a.citation_string}”`;
+    case "find_definitions_of": return `Searched definitions of “${a.term}”`;
+    case "find_bills_defining": return `Found bills defining “${a.term}”`;
+    case "find_bills_amending": return `Found bills amending ${a.citation_string || "a statute"}`;
+    case "corpus_coverage": return "Checked what the corpus does and doesn't cover";
+    default: return name;
+  }
+}
+
 // ── App ───────────────────────────────────────────────────────────────
 // The workspace shell. Routing between the workspace and the public
 // landing page is handled by Root() — App always renders the workspace
@@ -265,6 +286,9 @@ function App({ onSignOut, onShowLanding }) {
 
     const segments = [""];
     let sawTool = false;
+    // Chain of thought: the agent's tool steps, labelled in plain English,
+    // streamed live so a policymaker can watch (and audit) how it worked.
+    const steps = [];
 
     B.streamChat(q, history, (ev) => {
       if (ev.type === "text") {
@@ -279,6 +303,8 @@ function App({ onSignOut, onShowLanding }) {
         // citations of) that exact span — flag it for the researcher.
         const sid = ev.args && ev.args.section_id;
         if (sid) flagged.add(sid);
+        steps.push({ name: ev.name, label: toolStepLabel(ev.name, ev.args || {}) });
+        patchTurn(id, { toolSteps: [...steps] });
         sawTool = true;
       } else if (ev.type === "tool_result") {
         collected.push(ev);
@@ -511,6 +537,7 @@ function App({ onSignOut, onShowLanding }) {
         sourcesMatched={bills.length}
         answerBlocks={answerBlocks}
         planText={turn ? turn.planText : ""}
+        toolSteps={turn ? (turn.toolSteps || []) : []}
         selectedId={selectedId}
         onSelect={(id) => {
           const i = bills.findIndex((b) => b.id === id);
