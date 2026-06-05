@@ -191,6 +191,7 @@ function BillViewer({
   mode, setMode, activeAnchor, setActiveAnchor,
   textFrac, setTextFrac,
   annotations = [], onAddAnnotation, onEditAnnotation, onRemoveAnnotation,
+  agentFlags = [],
 }) {
   // Sync highlighting: clicking a Decomp card highlights the matching
   // anchor in the Text panel and vice versa; both funnel through
@@ -233,6 +234,7 @@ function BillViewer({
           onAnchorClick={setActiveAnchor}
           annotations={annotations}
           onAddAnnotation={onAddAnnotation}
+          agentFlags={agentFlags}
         />
         <div className="col-resizer" onPointerDown={onResize} title="Drag to resize panels" />
         <DecompPanel
@@ -244,6 +246,7 @@ function BillViewer({
           annotations={annotations}
           onEditAnnotation={onEditAnnotation}
           onRemoveAnnotation={onRemoveAnnotation}
+          agentFlags={agentFlags}
         />
       </div>
     </section>

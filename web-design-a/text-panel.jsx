@@ -15,8 +15,10 @@ function renderHtml(html) {
 // Renders a node's verbatim statute text — the node's own text plus its
 // depth-indented subsections. Shared by the Text panel and Definition
 // cards so both format statute text identically. `annotated` (optional)
-// is a Map anchor -> array of annotations; a block carrying one gets a
-// margin flag and a left accent so the highlight is visible in place.
+// is a Map anchor -> { notes: [user annotations], agent: bool }; a block
+// carrying a user note gets a coloured wash + quote flag, and one the
+// agent pointed at gets a dashed accent + sparkle flag (transient, this
+// answer only).
 function StatuteBody({ leafHtml, blocks, annotated }) {
   return (
     <React.Fragment>
@@ -29,16 +31,25 @@ function StatuteBody({ leafHtml, blocks, annotated }) {
         </div>
       ) : null}
       {(blocks || []).map((b) => {
-        const notes = annotated && annotated.get ? annotated.get(b.id) : null;
+        const entry = annotated && annotated.get ? annotated.get(b.id) : null;
+        const notes = entry ? entry.notes : null;
         const hasNote = notes && notes.length;
+        const agent = !!(entry && entry.agent);
         const color = hasNote ? notes[notes.length - 1].color : null;
         return (
         <div
           key={b.id}
-          className={"subsec" + (hasNote ? " has-note hl-" + (color || "yellow") : "")}
+          className={"subsec"
+            + (hasNote ? " has-note hl-" + (color || "yellow") : "")
+            + (agent ? " agent-flag" : "")}
           data-anchor={b.id}
           style={{ marginLeft: b.depth * 22 }}
         >
+          {agent ? (
+            <span className="agent-flag-mark" title="The agent referenced this section" aria-hidden="true">
+              <Icon name="sparkle" size={11} />
+            </span>
+          ) : null}
           {hasNote ? (
             <span className="note-flag" title={notes.length + " note" + (notes.length === 1 ? "" : "s")} aria-hidden="true">
               <Icon name="quote" size={11} />
@@ -110,23 +121,42 @@ function NoteComposer({ x, y, onSave, onCancel }) {
 }
 window.NoteComposer = NoteComposer;
 
-function TextPanel({ bill, activeAnchor, onAnchorClick, annotations = [], onAddAnnotation }) {
+function TextPanel({ bill, activeAnchor, onAnchorClick, annotations = [], onAddAnnotation, agentFlags = [] }) {
   const scrollRef = useRef(null);
   // pendingSel = the "Add note" pill awaiting a click; composer = the
   // open form. Each is { anchor, quote, x, y } or null.
   const [pendingSel, setPendingSel] = useState(null);
   const [composer, setComposer] = useState(null);
 
-  // Index annotations by anchored section id so a block finds its own.
+  // Index by anchored section id so a block finds its own marks:
+  //   { notes: [user annotations], agent: bool (agent pointed here) }.
   const annotated = React.useMemo(() => {
     const m = new Map();
-    (annotations || []).forEach((a) => {
-      const k = a.section_id || "__bill__";
-      if (!m.has(k)) m.set(k, []);
-      m.get(k).push(a);
-    });
+    const ensure = (k) => { if (!m.has(k)) m.set(k, { notes: [], agent: false }); return m.get(k); };
+    (annotations || []).forEach((a) => ensure(a.section_id || "__bill__").notes.push(a));
+    (agentFlags || []).forEach((sid) => { if (sid) ensure(sid).agent = true; });
     return m;
-  }, [annotations]);
+  }, [annotations, agentFlags]);
+
+  // The agent-flagged anchors present in THIS bill, in document order, for
+  // the "step through" control. Only ids that actually resolve to a block.
+  const flagAnchors = React.useMemo(() => {
+    if (!agentFlags || !agentFlags.length) return [];
+    const ids = [];
+    (bill.text || []).forEach((sec) => {
+      const walk = (b) => { if (agentFlags.includes(b.id)) ids.push(b.id); };
+      if (agentFlags.includes(sec.id)) ids.push(sec.id);
+      (sec.blocks || []).forEach(walk);
+    });
+    return ids;
+  }, [bill, agentFlags]);
+  const [flagCursor, setFlagCursor] = useState(0);
+  const stepFlags = () => {
+    if (!flagAnchors.length) return;
+    const i = flagCursor % flagAnchors.length;
+    onAnchorClick?.(flagAnchors[i]);
+    setFlagCursor(i + 1);
+  };
 
   // Scroll active anchor into view when it changes
   useEffect(() => {
@@ -190,13 +220,21 @@ function TextPanel({ bill, activeAnchor, onAnchorClick, annotations = [], onAddA
           <span className="dot" />
           Text · verbatim
         </span>
-        <span className="mono" style={{
-          fontSize: 11, color: "var(--ink-4)", letterSpacing: 0.04,
-          overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
-          minWidth: 0
-        }}>
-          {bill.introduced}
-        </span>
+        {flagAnchors.length ? (
+          <button type="button" className="agent-flag-chip" onClick={stepFlags}
+                  title="Step through the sections the agent referenced">
+            <Icon name="sparkle" size={12} />
+            agent flagged {flagAnchors.length}
+          </button>
+        ) : (
+          <span className="mono" style={{
+            fontSize: 11, color: "var(--ink-4)", letterSpacing: 0.04,
+            overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
+            minWidth: 0
+          }}>
+            {bill.introduced}
+          </span>
+        )}
       </div>
 
       <div
@@ -244,9 +282,12 @@ function TextPanel({ bill, activeAnchor, onAnchorClick, annotations = [], onAddA
           </div>
 
           {bill.text.map((sec) => {
-            const secNotes = annotated.get(sec.id);
-            const cls = secNotes && secNotes.length
-              ? "has-note hl-" + secNotes[secNotes.length - 1].color : undefined;
+            const e = annotated.get(sec.id);
+            const sn = e ? e.notes : null;
+            const cls = [
+              sn && sn.length ? "has-note hl-" + sn[sn.length - 1].color : "",
+              e && e.agent ? "agent-flag" : "",
+            ].filter(Boolean).join(" ") || undefined;
             return (
               <section key={sec.id} data-anchor={sec.id} id={"text-" + sec.id} className={cls}>
                 <h2>{sec.num ? sec.num + ": " : ""}{sec.title}</h2>

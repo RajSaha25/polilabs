@@ -235,6 +235,11 @@ function App({ onSignOut, onShowLanding }) {
     setStreaming(true);
 
     const collected = [];
+    // Sections the agent actually pulled this turn (get_section /
+    // get_citation_graph). These become transient "agent flags" — the
+    // agent pointing the researcher at verbatim spans it relied on. Not
+    // persisted; they live on the turn and clear when the turn changes.
+    const flagged = new Set();
 
     // Carry the conversation so far — every prior question with its
     // answer — so a follow-up ("how does that bill relate to…") keeps
@@ -260,15 +265,21 @@ function App({ onSignOut, onShowLanding }) {
           planText: segments.slice(0, -1).join("\n\n").trim(),
         });
       } else if (ev.type === "tool_call") {
+        // A section_id argument means the agent read (or walked the
+        // citations of) that exact span — flag it for the researcher.
+        const sid = ev.args && ev.args.section_id;
+        if (sid) flagged.add(sid);
         sawTool = true;
       } else if (ev.type === "tool_result") {
         collected.push(ev);
+        const sid = ev.args && ev.args.section_id;
+        if (sid) flagged.add(sid);
         sawTool = true;
       } else if (ev.type === "error") {
         patchTurn(id, { error: ev.message || "unknown backend error" });
       } else if (ev.type === "done") {
         setStreaming(false);
-        patchTurn(id, { bills: B.billsFromToolResults(collected), billIdx: 0 });
+        patchTurn(id, { bills: B.billsFromToolResults(collected), billIdx: 0, agentFlags: [...flagged] });
       }
     }).catch((e) => {
       patchTurn(id, { error: String(e) });
@@ -393,6 +404,7 @@ function App({ onSignOut, onShowLanding }) {
         onAddAnnotation={addAnnotation}
         onEditAnnotation={editAnnotation}
         onRemoveAnnotation={removeAnnotation}
+        agentFlags={turn ? (turn.agentFlags || []) : []}
       />
     );
   }

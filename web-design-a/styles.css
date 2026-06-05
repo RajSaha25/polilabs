@@ -2494,3 +2494,73 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
   border-top: 1px solid var(--rule);
 }
 .text-body section:not(:first-of-type) > h2 { margin-top: 0; }
+
+/* ════════════════════════════════════════════════════════════════════
+   Agent-driven highlighting — transient, per-answer flags marking the
+   verbatim spans the agent actually pulled (get_section / citation walk).
+   Visually distinct from user notes: a dashed accent rail + sparkle, in
+   the accent colour rather than a highlighter wash.
+   ════════════════════════════════════════════════════════════════════ */
+.subsec.agent-flag {
+  position: relative;
+  background: var(--accent-soft, rgba(30, 63, 168, 0.06));
+  box-shadow: inset 3px 0 0 var(--accent);
+  border-radius: 3px;
+}
+.subsec.agent-flag .agent-flag-mark {
+  position: absolute;
+  left: -18px;
+  top: 2px;
+  color: var(--accent);
+  display: inline-flex;
+}
+/* A block that is both user-noted and agent-flagged: keep the user wash,
+   add the agent rail as a second inset so both read at once. */
+.subsec.has-note.agent-flag { box-shadow: inset 3px 0 0 var(--hl), inset 6px 0 0 var(--accent); }
+.text-body section.agent-flag {
+  background: var(--accent-soft, rgba(30, 63, 168, 0.06));
+  box-shadow: inset 3px 0 0 var(--accent);
+  border-radius: 4px;
+  padding: 2px 8px;
+  margin-left: -8px;
+}
+
+/* Panel-bar chip: "agent flagged N" — click to step through the spans. */
+.agent-flag-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--accent-ink, var(--accent));
+  background: var(--accent-soft, rgba(30, 63, 168, 0.08));
+  border: 1px solid var(--accent-line, var(--accent));
+  border-radius: 999px;
+  padding: 3px 9px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.agent-flag-chip:hover { background: var(--accent); color: #fff; }
+.agent-flag-chip .i { flex: 0 0 auto; }
+
+/* Agent-flag group at the top of the Notes lens. */
+.agent-flag-group { margin-bottom: var(--s-4); }
+.agent-flag-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  text-align: left;
+  padding: 7px 10px;
+  margin-bottom: 4px;
+  background: var(--accent-soft, rgba(30, 63, 168, 0.05));
+  border: 1px solid var(--accent-line, var(--rule));
+  border-left: 3px solid var(--accent);
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--ink-2);
+}
+.agent-flag-row:hover { color: var(--ink); background: var(--accent-soft, rgba(30, 63, 168, 0.1)); }
+.agent-flag-row .i { flex: 0 0 auto; color: var(--accent); }
+.agent-flag-row .mono { font-size: 11px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }

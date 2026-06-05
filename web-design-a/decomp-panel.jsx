@@ -343,9 +343,25 @@ function NoteCard({ note, onSelect, onEdit, onRemove }) {
   );
 }
 
-function NotesMode({ notes, onSelect, onEdit, onRemove }) {
+function NotesMode({ notes, agentFlags = [], onSelect, onEdit, onRemove }) {
   return (
     <div className="decomp-body">
+      {agentFlags.length ? (
+        <div className="agent-flag-group">
+          <div className="dc-section-head">
+            <span className="num">AGENT</span>
+            <span className="title">Flagged this answer</span>
+            <span className="count">{agentFlags.length}</span>
+          </div>
+          {agentFlags.map((sid) => (
+            <button key={sid} type="button" className="agent-flag-row" onClick={() => onSelect(sid)}>
+              <Icon name="sparkle" size={11} />
+              <span className="mono">{sid}</span>
+            </button>
+          ))}
+        </div>
+      ) : null}
+
       <div className="dc-section-head">
         <span className="num">NOTES</span>
         <span className="title">Highlights &amp; notes</span>
@@ -369,7 +385,8 @@ function NotesMode({ notes, onSelect, onEdit, onRemove }) {
 
 // ── Decomp panel container ───────────────────────────────────────────
 function DecompPanel({ bill, mode, setMode, activeAnchor, onSelect,
-                       annotations = [], onEditAnnotation, onRemoveAnnotation }) {
+                       annotations = [], onEditAnnotation, onRemoveAnnotation,
+                       agentFlags = [] }) {
   const scrollRef = useRef(null);
 
   const counts = {
@@ -407,7 +424,7 @@ function DecompPanel({ bill, mode, setMode, activeAnchor, onSelect,
         {mode === "definition" && <DefinitionMode bill={bill} activeAnchor={activeAnchor} onSelect={onSelect} />}
         {mode === "amendment" && <AmendmentMode bill={bill} activeAnchor={activeAnchor} onSelect={onSelect} />}
         {mode === "citation"   && <CitationMode   bill={bill} activeAnchor={activeAnchor} onSelect={onSelect} />}
-        {mode === "notes"      && <NotesMode notes={annotations} onSelect={onSelect} onEdit={onEditAnnotation} onRemove={onRemoveAnnotation} />}
+        {mode === "notes"      && <NotesMode notes={annotations} agentFlags={agentFlags} onSelect={onSelect} onEdit={onEditAnnotation} onRemove={onRemoveAnnotation} />}
       </div>
     </div>
   );
