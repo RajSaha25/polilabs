@@ -2300,3 +2300,197 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
   .rail { max-height: 45vh; }
   .panel-bar { padding: 8px 12px; font-size: var(--t-xs); }
 }
+
+/* ════════════════════════════════════════════════════════════════════
+   In-bill annotations — highlights + notes (text-panel + Notes lens)
+   ════════════════════════════════════════════════════════════════════ */
+
+/* Highlight palette. --hl is the solid accent (bar, swatch, agent ring);
+   --hl-soft is a low-alpha wash that reads on both light and dark themes. */
+.hl-yellow { --hl: #eab308; --hl-soft: rgba(234, 179, 8, 0.16); }
+.hl-green  { --hl: #16a34a; --hl-soft: rgba(22, 163, 74, 0.15); }
+.hl-blue   { --hl: #2563eb; --hl-soft: rgba(37, 99, 235, 0.14); }
+.hl-pink   { --hl: #db2777; --hl-soft: rgba(219, 39, 119, 0.14); }
+
+/* A highlighted statute block: soft wash + a solid left bar, drawn with
+   inset shadow so it costs no layout (the .subsec grid is untouched). */
+.subsec.has-note {
+  position: relative;
+  background: var(--hl-soft);
+  box-shadow: inset 3px 0 0 var(--hl);
+  border-radius: 3px;
+}
+.text-body section.has-note {
+  background: var(--hl-soft);
+  box-shadow: inset 3px 0 0 var(--hl);
+  border-radius: 4px;
+  padding: 2px 8px;
+  margin-left: -8px;
+}
+
+/* Margin flag sitting in the left gutter of an annotated block. */
+.subsec.has-note .note-flag {
+  position: absolute;
+  left: -18px;
+  top: 2px;
+  color: var(--hl);
+  opacity: 0.9;
+  display: inline-flex;
+}
+
+/* Floating "Add note" pill raised by a text selection. */
+.note-pill {
+  position: fixed;
+  z-index: 50;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  color: #fff;
+  background: var(--accent);
+  border: none;
+  border-radius: 6px;
+  box-shadow: var(--shadow-md, 0 4px 14px rgba(0,0,0,0.18));
+  cursor: pointer;
+}
+.note-pill:hover { background: var(--accent-2, var(--accent)); }
+
+/* Inline composer (selection note + edit-in-place share .note-input). */
+.note-composer {
+  position: fixed;
+  z-index: 51;
+  width: 300px;
+  background: var(--panel, #fff);
+  border: 1px solid var(--rule-strong);
+  border-radius: 10px;
+  box-shadow: var(--shadow-lg, 0 12px 34px rgba(0,0,0,0.22));
+  padding: 10px;
+}
+.note-input {
+  width: 100%;
+  resize: vertical;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--panel-2, transparent);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 7px 9px;
+  outline: none;
+}
+.note-input:focus { border-color: var(--accent-line, var(--accent)); }
+.note-composer-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+.note-swatches { display: inline-flex; gap: 6px; }
+.swatch {
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.12);
+  background: var(--hl);
+  cursor: pointer;
+  padding: 0;
+}
+.swatch.on { box-shadow: 0 0 0 2px var(--panel, #fff), 0 0 0 3.5px var(--hl); }
+.note-actions { display: inline-flex; gap: 6px; }
+.note-btn {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 11px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 1px solid var(--rule);
+}
+.note-btn.ghost { background: transparent; color: var(--ink-3); }
+.note-btn.ghost:hover { color: var(--ink); border-color: var(--rule-strong); }
+.note-btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+.note-btn.primary:hover { background: var(--accent-2, var(--accent)); }
+
+/* Notes lens cards (Decomp panel). */
+.notes-empty {
+  text-align: center;
+  color: var(--ink-4);
+  padding: 40px 16px;
+}
+.notes-empty p { margin: 10px 0 0; font-size: 13px; }
+.notes-empty .hint { font-size: 12px; color: var(--ink-4); max-width: 240px; margin: 6px auto 0; }
+
+.note-card {
+  position: relative;
+  background: var(--hl-soft);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--hl);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+}
+.note-card.agent { border-style: dashed; }
+.note-quote {
+  display: flex;
+  gap: 6px;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink-2);
+  cursor: pointer;
+  margin-bottom: 8px;
+}
+.note-quote:hover { color: var(--ink); }
+.note-quote .i { flex: 0 0 auto; margin-top: 3px; color: var(--hl); }
+.note-text {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--ink);
+  cursor: text;
+  white-space: pre-wrap;
+}
+.note-empty { color: var(--ink-4); font-style: italic; }
+.note-edit { margin-top: 2px; }
+.note-edit .note-actions { margin-top: 8px; justify-content: flex-end; }
+.note-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+.note-src {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+}
+.note-del {
+  display: inline-flex;
+  padding: 3px;
+  border: none;
+  background: transparent;
+  color: var(--ink-4);
+  border-radius: 4px;
+  cursor: pointer;
+}
+.note-del:hover { color: var(--danger, #c0392b); background: var(--rule-faint); }
+
+/* ════════════════════════════════════════════════════════════════════
+   Text panel — clearer section delineation (requested: "clear lines that
+   delineate section from section; things that flow smoother together").
+   A hairline rule + breathing room between top-level statute sections,
+   so a long bill reads as distinct sections rather than one wall of text.
+   Reversible: delete this block to restore the prior literary spacing.
+   ════════════════════════════════════════════════════════════════════ */
+.text-body section:not(:first-of-type) {
+  margin-top: var(--s-6);
+  padding-top: var(--s-6);
+  border-top: 1px solid var(--rule);
+}
+.text-body section:not(:first-of-type) > h2 { margin-top: 0; }

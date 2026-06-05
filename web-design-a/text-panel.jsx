@@ -1,9 +1,12 @@
 /* global React, Icon */
 // Polilabs — Center Text panel. Renders the bill section-by-section
 // in a literary, statutory style. Exposes anchor IDs so the Decomp
-// panel can sync-highlight matching ranges.
+// panel can sync-highlight matching ranges, and lets a researcher
+// select statute text to attach a private highlight + note.
 
-const { useEffect, useRef } = React;
+const { useEffect, useRef, useState } = React;
+
+const NOTE_COLORS = ["yellow", "green", "blue", "pink"];
 
 function renderHtml(html) {
   return { __html: html };
@@ -11,8 +14,10 @@ function renderHtml(html) {
 
 // Renders a node's verbatim statute text — the node's own text plus its
 // depth-indented subsections. Shared by the Text panel and Definition
-// cards so both format statute text identically.
-function StatuteBody({ leafHtml, blocks }) {
+// cards so both format statute text identically. `annotated` (optional)
+// is a Map anchor -> array of annotations; a block carrying one gets a
+// margin flag and a left accent so the highlight is visible in place.
+function StatuteBody({ leafHtml, blocks, annotated }) {
   return (
     <React.Fragment>
       {leafHtml ? (
@@ -23,13 +28,22 @@ function StatuteBody({ leafHtml, blocks }) {
           </div>
         </div>
       ) : null}
-      {(blocks || []).map((b) => (
+      {(blocks || []).map((b) => {
+        const notes = annotated && annotated.get ? annotated.get(b.id) : null;
+        const hasNote = notes && notes.length;
+        const color = hasNote ? notes[notes.length - 1].color : null;
+        return (
         <div
           key={b.id}
-          className="subsec"
+          className={"subsec" + (hasNote ? " has-note hl-" + (color || "yellow") : "")}
           data-anchor={b.id}
           style={{ marginLeft: b.depth * 22 }}
         >
+          {hasNote ? (
+            <span className="note-flag" title={notes.length + " note" + (notes.length === 1 ? "" : "s")} aria-hidden="true">
+              <Icon name="quote" size={11} />
+            </span>
+          ) : null}
           <span className="marker">{b.marker}</span>
           <div className="body">
             {b.heading ? (
@@ -40,14 +54,79 @@ function StatuteBody({ leafHtml, blocks }) {
             {b.html ? <p dangerouslySetInnerHTML={renderHtml(b.html)} /> : null}
           </div>
         </div>
-      ))}
+        );
+      })}
     </React.Fragment>
   );
 }
 window.StatuteBody = StatuteBody;
 
-function TextPanel({ bill, activeAnchor, onAnchorClick, onScrollEnd }) {
+// ── selection → note composer ─────────────────────────────────────────
+// A two-step affordance: selecting statute text raises a "Add note" pill;
+// clicking it opens an inline composer. Two steps so an ordinary
+// copy-selection doesn't immediately hijack the screen with a form.
+function NoteComposer({ x, y, onSave, onCancel }) {
+  const [body, setBody] = useState("");
+  const [color, setColor] = useState("yellow");
+  const ref = useRef(null);
+  useEffect(() => {
+    const t = setTimeout(() => ref.current && ref.current.focus(), 0);
+    return () => clearTimeout(t);
+  }, []);
+  const left = Math.max(12, Math.min(x, window.innerWidth - 320));
+  return (
+    <div className="note-composer" style={{ top: y + 8, left }} onMouseDown={(e) => e.stopPropagation()}>
+      <textarea
+        ref={ref}
+        className="note-input"
+        placeholder="Add a note to this passage…  (⌘↵ to save)"
+        value={body}
+        onChange={(e) => setBody(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) { e.preventDefault(); onSave(body, color); }
+          if (e.key === "Escape") onCancel();
+        }}
+        rows={3}
+      />
+      <div className="note-composer-foot">
+        <div className="note-swatches">
+          {NOTE_COLORS.map((c) => (
+            <button
+              key={c}
+              type="button"
+              className={"swatch hl-" + c + (color === c ? " on" : "")}
+              aria-label={"Highlight " + c}
+              onClick={() => setColor(c)}
+            />
+          ))}
+        </div>
+        <div className="note-actions">
+          <button type="button" className="note-btn ghost" onClick={onCancel}>Cancel</button>
+          <button type="button" className="note-btn primary" onClick={() => onSave(body, color)}>Save note</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+window.NoteComposer = NoteComposer;
+
+function TextPanel({ bill, activeAnchor, onAnchorClick, annotations = [], onAddAnnotation }) {
   const scrollRef = useRef(null);
+  // pendingSel = the "Add note" pill awaiting a click; composer = the
+  // open form. Each is { anchor, quote, x, y } or null.
+  const [pendingSel, setPendingSel] = useState(null);
+  const [composer, setComposer] = useState(null);
+
+  // Index annotations by anchored section id so a block finds its own.
+  const annotated = React.useMemo(() => {
+    const m = new Map();
+    (annotations || []).forEach((a) => {
+      const k = a.section_id || "__bill__";
+      if (!m.has(k)) m.set(k, []);
+      m.get(k).push(a);
+    });
+    return m;
+  }, [annotations]);
 
   // Scroll active anchor into view when it changes
   useEffect(() => {
@@ -61,13 +140,48 @@ function TextPanel({ bill, activeAnchor, onAnchorClick, onScrollEnd }) {
     return () => clearTimeout(t);
   }, [activeAnchor]);
 
-  // Capture clicks on .anchor spans so we can fire onAnchorClick
+  // Capture clicks on .anchor spans so we can fire onAnchorClick — but
+  // only when there's no active text selection (a drag-select shouldn't
+  // also count as a sync-highlight click).
   const handleClick = (e) => {
     const a = e.target.closest("[data-anchor]");
-    if (!a) return;
-    const anchor = a.getAttribute("data-anchor");
-    onAnchorClick?.(anchor);
+    if (!a || !window.getSelection().isCollapsed) return;
+    onAnchorClick?.(a.getAttribute("data-anchor"));
   };
+
+  // On mouse-up, if statute text was selected inside this panel, raise
+  // the "Add note" pill anchored to the nearest [data-anchor] block.
+  const handleMouseUp = () => {
+    const sel = window.getSelection();
+    if (!sel || sel.isCollapsed) { setPendingSel(null); return; }
+    const quote = sel.toString().trim();
+    if (!quote) { setPendingSel(null); return; }
+    let node = sel.anchorNode;
+    let el = node && node.nodeType === 3 ? node.parentElement : node;
+    if (!el || !scrollRef.current || !scrollRef.current.contains(el)) { setPendingSel(null); return; }
+    const anchorEl = el.closest("[data-anchor]");
+    const anchor = anchorEl ? anchorEl.getAttribute("data-anchor") : null;
+    const rect = sel.getRangeAt(0).getBoundingClientRect();
+    setComposer(null);
+    setPendingSel({ anchor, quote: quote.slice(0, 2000), x: rect.left, y: rect.bottom });
+  };
+
+  const openComposer = () => {
+    if (pendingSel) { setComposer(pendingSel); setPendingSel(null); }
+  };
+
+  const saveNote = (body, color) => {
+    if (!composer) return;
+    Promise.resolve(
+      onAddAnnotation?.({ section_id: composer.anchor, quote: composer.quote, body, color }),
+    ).finally(() => {
+      setComposer(null);
+      window.getSelection().removeAllRanges();
+    });
+  };
+
+  // A bare mousedown anywhere in the panel dismisses the pill/composer.
+  const dismiss = () => { setPendingSel(null); setComposer(null); };
 
   return (
     <div className="panel-col text-col">
@@ -85,7 +199,14 @@ function TextPanel({ bill, activeAnchor, onAnchorClick, onScrollEnd }) {
         </span>
       </div>
 
-      <div className="scroll" ref={scrollRef} style={{ minHeight: 0, flex: 1 }} onClick={handleClick}>
+      <div
+        className="scroll"
+        ref={scrollRef}
+        style={{ minHeight: 0, flex: 1 }}
+        onClick={handleClick}
+        onMouseUp={handleMouseUp}
+        onMouseDown={dismiss}
+      >
         <article className="text-body">
           {/* Long title / preamble */}
           <div style={{ marginBottom: 40, paddingBottom: 28, borderBottom: "1px solid var(--rule-faint)" }}>
@@ -122,12 +243,17 @@ function TextPanel({ bill, activeAnchor, onAnchorClick, onScrollEnd }) {
             </div>
           </div>
 
-          {bill.text.map((sec) => (
-            <section key={sec.id} data-anchor={sec.id} id={"text-" + sec.id}>
-              <h2>{sec.num ? sec.num + ": " : ""}{sec.title}</h2>
-              <StatuteBody leafHtml={sec.leafHtml} blocks={sec.blocks} />
-            </section>
-          ))}
+          {bill.text.map((sec) => {
+            const secNotes = annotated.get(sec.id);
+            const cls = secNotes && secNotes.length
+              ? "has-note hl-" + secNotes[secNotes.length - 1].color : undefined;
+            return (
+              <section key={sec.id} data-anchor={sec.id} id={"text-" + sec.id} className={cls}>
+                <h2>{sec.num ? sec.num + ": " : ""}{sec.title}</h2>
+                <StatuteBody leafHtml={sec.leafHtml} blocks={sec.blocks} annotated={annotated} />
+              </section>
+            );
+          })}
 
           <div style={{
             marginTop: 40, paddingTop: 18,
@@ -140,6 +266,22 @@ function TextPanel({ bill, activeAnchor, onAnchorClick, onScrollEnd }) {
           </div>
         </article>
       </div>
+
+      {pendingSel ? (
+        <button
+          type="button"
+          className="note-pill"
+          style={{ top: pendingSel.y + 8, left: Math.max(12, Math.min(pendingSel.x, window.innerWidth - 130)) }}
+          onMouseDown={(e) => { e.preventDefault(); e.stopPropagation(); }}
+          onClick={openComposer}
+        >
+          <Icon name="quote" size={12} /> Add note
+        </button>
+      ) : null}
+
+      {composer ? (
+        <NoteComposer x={composer.x} y={composer.y} onSave={saveNote} onCancel={() => setComposer(null)} />
+      ) : null}
     </div>
   );
 }

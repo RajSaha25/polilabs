@@ -157,6 +157,11 @@ function App({ onSignOut, onShowLanding }) {
   const [activeAnchor, setActiveAnchor] = useState(null);
   const [prompt, setPrompt] = useState("");
 
+  // Per-user in-bill annotations, keyed by bill id. Loaded from the
+  // gated /api/annotations surface when a bill is opened; mutated
+  // through the handlers below (optimistic on the result row).
+  const [annotations, setAnnotations] = useState({});
+
   const turn = turns.find((t) => t.id === activeId) || null;
   const patchTurn = (id, partial) =>
     setTurns((ts) => ts.map((t) => (t.id === id ? { ...t, ...partial } : t)));
@@ -318,6 +323,38 @@ function App({ onSignOut, onShowLanding }) {
   // reset highlight when the selected bill changes
   useEffect(() => { setActiveAnchor(null); }, [selectedId]);
 
+  // ── load this user's annotations for the open bill ─────────────────
+  useEffect(() => {
+    if (!selectedId || annotations[selectedId]) return;
+    let cancelled = false;
+    window.PolilabsAnnotations.list(selectedId)
+      .then((rows) => { if (!cancelled) setAnnotations((p) => ({ ...p, [selectedId]: rows })); })
+      .catch(() => { if (!cancelled) setAnnotations((p) => ({ ...p, [selectedId]: [] })); });
+    return () => { cancelled = true; };
+  }, [selectedId]);
+
+  const billAnnotations = selectedId ? (annotations[selectedId] || []) : [];
+
+  // Create / edit / delete an annotation on the open bill. Each resolves
+  // the server row into local state so ids and timestamps stay truthful.
+  const addAnnotation = (a) => {
+    if (!selectedId) return Promise.resolve();
+    return window.PolilabsAnnotations.create({ ...a, bill_id: selectedId })
+      .then((row) => setAnnotations((p) => ({
+        ...p, [selectedId]: [...(p[selectedId] || []), row],
+      })));
+  };
+  const editAnnotation = (id, patch) =>
+    window.PolilabsAnnotations.update(id, patch).then((row) =>
+      setAnnotations((p) => ({
+        ...p, [selectedId]: (p[selectedId] || []).map((x) => (x.id === id ? row : x)),
+      })));
+  const removeAnnotation = (id) =>
+    window.PolilabsAnnotations.remove(id).then(() =>
+      setAnnotations((p) => ({
+        ...p, [selectedId]: (p[selectedId] || []).filter((x) => x.id !== id),
+      })));
+
   // ── the merged bill object the viewer renders ──────────────────────
   const viewerBill = selectedBill && detail
     ? { ...selectedBill, ...detail, citations: detail.citations || [] }
@@ -352,6 +389,10 @@ function App({ onSignOut, onShowLanding }) {
         setActiveAnchor={flashAnchor}
         textFrac={textFrac}
         setTextFrac={setTextFrac}
+        annotations={billAnnotations}
+        onAddAnnotation={addAnnotation}
+        onEditAnnotation={editAnnotation}
+        onRemoveAnnotation={removeAnnotation}
       />
     );
   }

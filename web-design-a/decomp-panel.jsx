@@ -9,6 +9,7 @@ const MODES = [
   { id: "definition", label: "Definition", icon: "quote" },
   { id: "amendment", label: "Amendment", icon: "diff" },
   { id: "citation",   label: "Citation",   icon: "link" },
+  { id: "notes",      label: "Notes",      icon: "doc" },
 ];
 
 // ── Mode tabs ─────────────────────────────────────────────────────────
@@ -285,8 +286,90 @@ function StructureMode({ bill, activeAnchor, onSelect }) {
   );
 }
 
+// ── Notes mode ───────────────────────────────────────────────────────
+// The researcher's own highlights + notes on this bill. Mechanical, like
+// the rest of the Decomp panel: it lists what the user (or the agent)
+// flagged verbatim — it never paraphrases the law. Click a card to jump
+// to the passage; edit or delete in place.
+function NoteCard({ note, onSelect, onEdit, onRemove }) {
+  const [editing, setEditing] = useState(false);
+  const [draft, setDraft] = useState(note.body || "");
+  const isAgent = note.source === "agent";
+  return (
+    <div
+      className={"note-card hl-" + (note.color || "yellow") + (isAgent ? " agent" : "")}
+      data-anchor={note.section_id || undefined}
+    >
+      {note.quote ? (
+        <div className="note-quote" onClick={() => note.section_id && onSelect(note.section_id)}>
+          <Icon name="quote" size={11} />
+          <span>{note.quote.length > 220 ? note.quote.slice(0, 220) + "…" : note.quote}</span>
+        </div>
+      ) : null}
+
+      {editing ? (
+        <div className="note-edit">
+          <textarea
+            className="note-input"
+            value={draft}
+            autoFocus
+            onChange={(e) => setDraft(e.target.value)}
+            onKeyDown={(e) => { if (e.key === "Escape") { setEditing(false); setDraft(note.body || ""); } }}
+            rows={3}
+          />
+          <div className="note-actions">
+            <button type="button" className="note-btn ghost" onClick={() => { setEditing(false); setDraft(note.body || ""); }}>Cancel</button>
+            <button type="button" className="note-btn primary"
+              onClick={() => { Promise.resolve(onEdit(note.id, { body: draft })).finally(() => setEditing(false)); }}>
+              Save
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div className="note-text" onClick={() => !isAgent && setEditing(true)}>
+          {note.body
+            ? note.body
+            : <span className="note-empty">{isAgent ? "Flagged by the agent — review this passage." : "No note — click to add text."}</span>}
+        </div>
+      )}
+
+      <div className="note-foot">
+        <span className="note-src">{isAgent ? "agent flag" : "your note"}</span>
+        <button type="button" className="note-del" aria-label="Delete note" onClick={() => onRemove(note.id)}>
+          <Icon name="x" size={11} />
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function NotesMode({ notes, onSelect, onEdit, onRemove }) {
+  return (
+    <div className="decomp-body">
+      <div className="dc-section-head">
+        <span className="num">NOTES</span>
+        <span className="title">Highlights &amp; notes</span>
+        <span className="count">{notes.length} note{notes.length === 1 ? "" : "s"}</span>
+      </div>
+
+      {notes.length === 0 ? (
+        <div className="notes-empty">
+          <Icon name="doc" size={22} strokeWidth={1.25} />
+          <p>No notes on this bill yet.</p>
+          <p className="hint">Select any passage in the Text panel to highlight it and attach a note.</p>
+        </div>
+      ) : (
+        notes.map((n) => (
+          <NoteCard key={n.id} note={n} onSelect={onSelect} onEdit={onEdit} onRemove={onRemove} />
+        ))
+      )}
+    </div>
+  );
+}
+
 // ── Decomp panel container ───────────────────────────────────────────
-function DecompPanel({ bill, mode, setMode, activeAnchor, onSelect }) {
+function DecompPanel({ bill, mode, setMode, activeAnchor, onSelect,
+                       annotations = [], onEditAnnotation, onRemoveAnnotation }) {
   const scrollRef = useRef(null);
 
   const counts = {
@@ -294,6 +377,7 @@ function DecompPanel({ bill, mode, setMode, activeAnchor, onSelect }) {
     definition: bill.definitions?.length ?? 0,
     amendment: bill.amendments?.length ?? 0,
     citation:   bill.citations?.reduce((n, g) => n + g.items.length, 0) ?? 0,
+    notes:      annotations.length,
   };
 
   // When activeAnchor changes (a click came from the Text panel),
@@ -323,6 +407,7 @@ function DecompPanel({ bill, mode, setMode, activeAnchor, onSelect }) {
         {mode === "definition" && <DefinitionMode bill={bill} activeAnchor={activeAnchor} onSelect={onSelect} />}
         {mode === "amendment" && <AmendmentMode bill={bill} activeAnchor={activeAnchor} onSelect={onSelect} />}
         {mode === "citation"   && <CitationMode   bill={bill} activeAnchor={activeAnchor} onSelect={onSelect} />}
+        {mode === "notes"      && <NotesMode notes={annotations} onSelect={onSelect} onEdit={onEditAnnotation} onRemove={onRemoveAnnotation} />}
       </div>
     </div>
   );

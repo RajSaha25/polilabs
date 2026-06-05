@@ -62,6 +62,12 @@ from pydantic import BaseModel, Field
 from auth import init_db, require_user
 from auth import router as auth_router
 from auth import usage
+from auth.db import (
+    create_annotation,
+    delete_annotation,
+    list_annotations,
+    update_annotation,
+)
 from agent.tools import (
     SYSTEM_PROMPT,
     tool_corpus_coverage,
@@ -115,6 +121,21 @@ class ChatMessageIn(BaseModel):
 class ChatRequest(BaseModel):
     message: str = Field(description="The new user message")
     history: list[ChatMessageIn] = Field(default_factory=list, description="Prior turns (user/assistant text only)")
+
+
+class AnnotationIn(BaseModel):
+    """A new in-bill annotation (highlight + note) from the workspace."""
+    bill_id: str = Field(description="Bill the note belongs to")
+    section_id: str | None = Field(default=None, description="Anchored section/block id; null = bill-level")
+    quote: str = Field(default="", description="Verbatim text the user selected")
+    body: str = Field(default="", description="The user's note")
+    color: str = Field(default="yellow", description="Highlight colour key")
+
+
+class AnnotationPatch(BaseModel):
+    """Partial update — only the provided fields are written."""
+    body: str | None = None
+    color: str | None = None
 
 
 def _to_anthropic_history(history: list[ChatMessageIn]) -> list[dict]:
@@ -705,6 +726,52 @@ def api_resolve(citation_string: str, _user: dict = Depends(require_user)) -> An
 def api_coverage(_user: dict = Depends(require_user)) -> Any:
     """Corpus coverage snapshot — what's in scope, what's not, totals."""
     return _parsed(tool_corpus_coverage())
+
+
+# ---- annotations: per-user, in-bill highlights + notes (read/write) ----
+#
+# Private to the signed-in researcher. Stored on the auth DB, never with
+# the corpus. `source` is forced to "user" on create here so a client
+# can't forge an agent-flagged span; agent flags are written through a
+# separate internal path.
+
+
+@app.get("/api/annotations")
+def api_annotations_list(bill_id: str,
+                         _user: dict = Depends(require_user)) -> Any:
+    """Every annotation this user has on the given bill (oldest first)."""
+    return list_annotations(_user["id"], bill_id)
+
+
+@app.post("/api/annotations")
+def api_annotations_create(ann: AnnotationIn,
+                           _user: dict = Depends(require_user)) -> Any:
+    """Create a highlight + note. Returns the stored row (with id)."""
+    if not ann.bill_id.strip():
+        raise HTTPException(422, "bill_id is required.")
+    return create_annotation(
+        _user["id"], ann.bill_id, ann.section_id,
+        ann.quote, ann.body, ann.color, "user",
+    )
+
+
+@app.patch("/api/annotations/{ann_id}")
+def api_annotations_update(ann_id: int, patch: AnnotationPatch,
+                           _user: dict = Depends(require_user)) -> Any:
+    """Edit the note text or colour of one's own annotation."""
+    row = update_annotation(_user["id"], ann_id, patch.body, patch.color)
+    if row is None:
+        raise HTTPException(404, "Annotation not found.")
+    return row
+
+
+@app.delete("/api/annotations/{ann_id}")
+def api_annotations_delete(ann_id: int,
+                           _user: dict = Depends(require_user)) -> dict:
+    """Remove one's own annotation."""
+    if not delete_annotation(_user["id"], ann_id):
+        raise HTTPException(404, "Annotation not found.")
+    return {"ok": True}
 
 
 # ---- legacy aliases + test page ----
