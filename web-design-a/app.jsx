@@ -165,6 +165,13 @@ function App({ onSignOut, onShowLanding }) {
   // "Connect your agent" modal (bring-your-own-agent connector tokens).
   const [showConnector, setShowConnector] = useState(false);
 
+  // "Find in this bill" — agent-driven decomposition. Keyed by bill id:
+  //   { intent, loading, answer, flags: [section_id], error }.
+  // The agent locates the relevant VERBATIM sections (it reads them via
+  // get_section); those section ids render as agent flags in the Text
+  // panel and the Notes lens. No paraphrase of the law — it points.
+  const [billFind, setBillFind] = useState({});
+
   const turn = turns.find((t) => t.id === activeId) || null;
   const patchTurn = (id, partial) =>
     setTurns((ts) => ts.map((t) => (t.id === id ? { ...t, ...partial } : t)));
@@ -369,6 +376,53 @@ function App({ onSignOut, onShowLanding }) {
         ...p, [selectedId]: (p[selectedId] || []).filter((x) => x.id !== id),
       })));
 
+  // ── Find in this bill (agent-driven decomposition) ─────────────────
+  // Runs a bill-scoped agent query OUTSIDE the main conversation (it does
+  // not touch `turns` or the bills list). We harvest the section ids the
+  // agent reads — those are the verbatim spans it located — and surface
+  // them as flags. Sections from other bills naturally don't match the
+  // open bill's anchors, so the result stays scoped to this bill.
+  const findInBill = (intent) => {
+    const q = (intent || "").trim();
+    if (!selectedId || !q) return;
+    const billId = selectedId;
+    const title = selectedBill ? (selectedBill.short || selectedBill.bill_id || billId) : billId;
+    setBillFind((p) => ({ ...p, [billId]: { intent: q, loading: true, answer: "", flags: [] } }));
+    const flags = new Set();
+    let answer = "";
+    const prompt =
+      `Within the bill ${billId} ("${title}"), find the provisions relevant to: ${q}. ` +
+      `Call get_bill to see its section list, then get_section on each section that matches ` +
+      `so you read the actual text. Then briefly say which sections are relevant and why. ` +
+      `Stay within this one bill. Be concise.`;
+    B.streamChat(prompt, [], (ev) => {
+      if (ev.type === "text") {
+        answer += ev.delta || "";
+        setBillFind((p) => ({ ...p, [billId]: { ...(p[billId] || {}), intent: q, loading: true, answer } }));
+      } else if (ev.type === "tool_call" || ev.type === "tool_result") {
+        const sid = ev.args && ev.args.section_id;
+        if (sid) flags.add(sid);
+      } else if (ev.type === "error") {
+        setBillFind((p) => ({ ...p, [billId]: { intent: q, loading: false, answer, flags: [...flags], error: ev.message || "search failed" } }));
+      } else if (ev.type === "done") {
+        setBillFind((p) => ({ ...p, [billId]: { intent: q, loading: false, answer, flags: [...flags] } }));
+      }
+    }).catch((e) => setBillFind((p) => ({ ...p, [billId]: { intent: q, loading: false, answer, flags: [...flags], error: String(e) } })));
+  };
+  const clearFind = () => {
+    if (!selectedId) return;
+    setBillFind((p) => { const n = { ...p }; delete n[selectedId]; return n; });
+  };
+  const findState = selectedId ? (billFind[selectedId] || null) : null;
+
+  // Agent flags shown on the open bill = those the main answer touched +
+  // those a "Find in this bill" query located. De-duplicated.
+  const turnFlags = turn ? (turn.agentFlags || []) : [];
+  const combinedAgentFlags = React.useMemo(
+    () => [...new Set([...turnFlags, ...((findState && findState.flags) || [])])],
+    [turnFlags, findState],
+  );
+
   // ── the merged bill object the viewer renders ──────────────────────
   const viewerBill = selectedBill && detail
     ? { ...selectedBill, ...detail, citations: detail.citations || [] }
@@ -407,7 +461,10 @@ function App({ onSignOut, onShowLanding }) {
         onAddAnnotation={addAnnotation}
         onEditAnnotation={editAnnotation}
         onRemoveAnnotation={removeAnnotation}
-        agentFlags={turn ? (turn.agentFlags || []) : []}
+        agentFlags={combinedAgentFlags}
+        findState={findState}
+        onFind={findInBill}
+        onClearFind={clearFind}
       />
     );
   }

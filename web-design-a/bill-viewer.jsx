@@ -191,7 +191,7 @@ function BillViewer({
   mode, setMode, activeAnchor, setActiveAnchor,
   textFrac, setTextFrac,
   annotations = [], onAddAnnotation, onEditAnnotation, onRemoveAnnotation,
-  agentFlags = [],
+  agentFlags = [], findState, onFind, onClearFind,
 }) {
   // Sync highlighting: clicking a Decomp card highlights the matching
   // anchor in the Text panel and vice versa; both funnel through
@@ -247,6 +247,9 @@ function BillViewer({
           onEditAnnotation={onEditAnnotation}
           onRemoveAnnotation={onRemoveAnnotation}
           agentFlags={agentFlags}
+          findState={findState}
+          onFind={onFind}
+          onClearFind={onClearFind}
         />
       </div>
     </section>

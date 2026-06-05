@@ -2,7 +2,7 @@
 // Polilabs — Right Decomp panel. Same bill in one of four lenses:
 //   Structure (default), Definition, Amendment, Citation.
 
-const { useState, useEffect, useRef } = React;
+const { useState, useEffect, useRef, useMemo } = React;
 
 const MODES = [
   { id: "structure",  label: "Structure",  icon: "list-tree" },
@@ -343,7 +343,7 @@ function NoteCard({ note, onSelect, onEdit, onRemove }) {
   );
 }
 
-function NotesMode({ notes, agentFlags = [], onSelect, onEdit, onRemove }) {
+function NotesMode({ notes, agentFlags = [], onSelect, onEdit, onRemove, labelFor }) {
   return (
     <div className="decomp-body">
       {agentFlags.length ? (
@@ -353,12 +353,16 @@ function NotesMode({ notes, agentFlags = [], onSelect, onEdit, onRemove }) {
             <span className="title">Flagged this answer</span>
             <span className="count">{agentFlags.length}</span>
           </div>
-          {agentFlags.map((sid) => (
-            <button key={sid} type="button" className="agent-flag-row" onClick={() => onSelect(sid)}>
-              <Icon name="sparkle" size={11} />
-              <span className="mono">{sid}</span>
-            </button>
-          ))}
+          {agentFlags.map((sid) => {
+            const l = labelFor ? labelFor(sid) : { marker: "", title: sid };
+            return (
+              <button key={sid} type="button" className="agent-flag-row" onClick={() => onSelect(sid)}>
+                <Icon name="sparkle" size={11} />
+                {l.marker ? <span className="mono agent-flag-marker">{l.marker}</span> : null}
+                <span className="agent-flag-title">{l.title}</span>
+              </button>
+            );
+          })}
         </div>
       ) : null}
 
@@ -383,10 +387,70 @@ function NotesMode({ notes, agentFlags = [], onSelect, onEdit, onRemove }) {
   );
 }
 
+// ── Find in this bill (agent-driven decomposition) ───────────────────
+// The researcher states an intent; the agent locates the relevant
+// VERBATIM sections (it reads them) and they get flagged in the Text
+// panel. This is the dynamic counterpart to the fixed Structure outline:
+// "show me the enforcement provisions", "where does this touch privacy".
+function FindBar({ findState, onFind, onClearFind, onSelect, labelFor }) {
+  const [q, setQ] = useState("");
+  const loading = !!(findState && findState.loading);
+  const submit = () => { const v = q.trim(); if (v && !loading) onFind(v); };
+  const located = (findState && findState.flags) || [];
+  return (
+    <div className="find-bar">
+      <div className="find-input-row">
+        <Icon name="search" size={14} className="find-icon" />
+        <input
+          className="find-input"
+          placeholder="Find provisions in this bill…"
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+          onKeyDown={(e) => { if (e.key === "Enter") submit(); }}
+          disabled={loading}
+        />
+        <button type="button" className="find-go" onClick={submit} disabled={loading || !q.trim()}>
+          {loading ? "…" : "Find"}
+        </button>
+      </div>
+
+      {!findState ? (
+        <p className="find-hint">
+          Tell the agent what you&rsquo;re looking for — it locates the relevant
+          verbatim sections and highlights them. It never rewrites the law.
+        </p>
+      ) : loading ? (
+        <div className="find-status"><span className="spinner-sm" /> locating sections for &ldquo;{findState.intent}&rdquo;…</div>
+      ) : findState.error ? (
+        <div className="find-error">{findState.error}</div>
+      ) : (
+        <div className="find-result">
+          <div className="find-result-head">
+            <span>{located.length} section{located.length === 1 ? "" : "s"} located for &ldquo;{findState.intent}&rdquo;</span>
+            <button type="button" className="find-clear" onClick={onClearFind} aria-label="Clear search">
+              <Icon name="x" size={12} />
+            </button>
+          </div>
+          {located.map((sid) => {
+            const l = labelFor ? labelFor(sid) : { marker: "", title: sid };
+            return (
+              <button key={sid} type="button" className="find-hit" onClick={() => onSelect(sid)}>
+                {l.marker ? <span className="find-hit-marker mono">{l.marker}</span> : null}
+                <span className="find-hit-title">{l.title}</span>
+              </button>
+            );
+          })}
+          {findState.answer ? <p className="find-answer">{findState.answer}</p> : null}
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ── Decomp panel container ───────────────────────────────────────────
 function DecompPanel({ bill, mode, setMode, activeAnchor, onSelect,
                        annotations = [], onEditAnnotation, onRemoveAnnotation,
-                       agentFlags = [] }) {
+                       agentFlags = [], findState, onFind, onClearFind }) {
   const scrollRef = useRef(null);
 
   const counts = {
@@ -396,6 +460,17 @@ function DecompPanel({ bill, mode, setMode, activeAnchor, onSelect,
     citation:   bill.citations?.reduce((n, g) => n + g.items.length, 0) ?? 0,
     notes:      annotations.length,
   };
+
+  // Resolve a section id to a readable label (marker + title) from the
+  // bill's own text tree, so flag/find rows aren't opaque ids.
+  const labelFor = useMemo(() => {
+    const m = new Map();
+    (bill.text || []).forEach((sec) => {
+      m.set(sec.id, { marker: sec.num || "", title: sec.title || "(section)" });
+      (sec.blocks || []).forEach((b) => m.set(b.id, { marker: b.marker || "", title: b.heading || "(subsection)" }));
+    });
+    return (sid) => m.get(sid) || { marker: "", title: sid };
+  }, [bill]);
 
   // When activeAnchor changes (a click came from the Text panel),
   // scroll the matching card into view and pulse it.
@@ -419,12 +494,16 @@ function DecompPanel({ bill, mode, setMode, activeAnchor, onSelect,
         <ModeTabs mode={mode} onChange={setMode} counts={counts} />
       </div>
 
+      {onFind ? (
+        <FindBar findState={findState} onFind={onFind} onClearFind={onClearFind} onSelect={onSelect} labelFor={labelFor} />
+      ) : null}
+
       <div className="scroll" ref={scrollRef} style={{ minHeight: 0, flex: 1 }}>
         {mode === "structure"  && <StructureMode  key={bill.id} bill={bill} activeAnchor={activeAnchor} onSelect={onSelect} />}
         {mode === "definition" && <DefinitionMode bill={bill} activeAnchor={activeAnchor} onSelect={onSelect} />}
         {mode === "amendment" && <AmendmentMode bill={bill} activeAnchor={activeAnchor} onSelect={onSelect} />}
         {mode === "citation"   && <CitationMode   bill={bill} activeAnchor={activeAnchor} onSelect={onSelect} />}
-        {mode === "notes"      && <NotesMode notes={annotations} agentFlags={agentFlags} onSelect={onSelect} onEdit={onEditAnnotation} onRemove={onRemoveAnnotation} />}
+        {mode === "notes"      && <NotesMode notes={annotations} agentFlags={agentFlags} onSelect={onSelect} onEdit={onEditAnnotation} onRemove={onRemoveAnnotation} labelFor={labelFor} />}
       </div>
     </div>
   );
