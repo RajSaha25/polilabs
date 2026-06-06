@@ -157,6 +157,45 @@ function toolStepLabel(name, args) {
   }
 }
 
+// ── Past-chats sidebar ────────────────────────────────────────────────
+// A file-explorer-style list of this session's chats (each turn is a
+// "chat"). Click one to reopen its answer + bills. Newest on top.
+function ChatsSidebar({ turns, activeId, onSelect, onNew, onClose }) {
+  return (
+    <aside className="chats-sidebar">
+      <div className="chats-head">
+        <span className="chats-title">Chats</span>
+        <div className="chats-head-actions">
+          <button type="button" className="chats-new" onClick={onNew} title="New chat">
+            <Icon name="search" size={13} />
+          </button>
+          <button type="button" className="chats-collapse" onClick={onClose} title="Hide chats">
+            <Icon name="chevron-left" size={14} />
+          </button>
+        </div>
+      </div>
+      <div className="chats-list scroll">
+        {(turns || []).length === 0 ? (
+          <p className="chats-empty">Your questions show up here. Ask something to start a chat.</p>
+        ) : (
+          turns.slice().reverse().map((t) => (
+            <button
+              key={t.id}
+              type="button"
+              className={"chat-item" + (t.id === activeId ? " active" : "")}
+              onClick={() => onSelect(t.id)}
+              title={t.question}
+            >
+              <Icon name="doc" size={13} className="chat-item-icon" />
+              <span className="chat-item-q">{t.question || "(untitled)"}</span>
+            </button>
+          ))
+        )}
+      </div>
+    </aside>
+  );
+}
+
 // ── App ───────────────────────────────────────────────────────────────
 // The workspace shell. Routing between the workspace and the public
 // landing page is handled by Root() — App always renders the workspace
@@ -186,6 +225,10 @@ function App({ onSignOut, onShowLanding }) {
   // "Connect your agent" modal (bring-your-own-agent connector tokens).
   const [showConnector, setShowConnector] = useState(false);
 
+  // Past-chats sidebar (IDE file-explorer style). Each turn is a "chat".
+  const [chatsOpen, setChatsOpen] = useState(true);
+  const CHATS_W = 220;
+
   // Inline bill chat (double-click the text). Keyed by bill id:
   //   { messages: [{role, content, flags:[section_id]}], loading }.
   // A real multi-turn conversation scoped to one bill — it persists when
@@ -212,7 +255,7 @@ function App({ onSignOut, onShowLanding }) {
   const [textFrac, setTextFrac] = useState(0.58);
   const onRailResize = (e) => {
     e.preventDefault();
-    const move = (ev) => setRailW(Math.max(320, Math.min(640, ev.clientX)));
+    const move = (ev) => setRailW(Math.max(320, Math.min(640, ev.clientX - (chatsOpen ? CHATS_W : 0))));
     const up = () => {
       window.removeEventListener("pointermove", move);
       window.removeEventListener("pointerup", up);
@@ -513,9 +556,14 @@ function App({ onSignOut, onShowLanding }) {
   };
 
   return (
-    <div className="app" style={{ "--rail-w": railW + "px" }}>
+    <div className={"app" + (chatsOpen ? " has-chats" : "")}
+         style={{ "--rail-w": railW + "px", "--chats-w": CHATS_W + "px" }}>
       <header className="app-header">
         <div className="brand">
+          <button type="button" className="chats-toggle" title={chatsOpen ? "Hide chats" : "Show past chats"}
+                  onClick={() => setChatsOpen((o) => !o)}>
+            <Icon name="list-tree" size={16} />
+          </button>
           <button type="button" className="brand-name" title="back to home"
                   onClick={onShowLanding}>polilabs</button>
         </div>
@@ -536,7 +584,17 @@ function App({ onSignOut, onShowLanding }) {
         </div>
       </header>
 
-      <div className="rail-resizer" style={{ left: railW }} onPointerDown={onRailResize}
+      {chatsOpen ? (
+        <ChatsSidebar
+          turns={turns}
+          activeId={activeId}
+          onSelect={setActiveId}
+          onNew={() => setActiveId(null)}
+          onClose={() => setChatsOpen(false)}
+        />
+      ) : null}
+
+      <div className="rail-resizer" style={{ left: (chatsOpen ? CHATS_W : 0) + railW }} onPointerDown={onRailResize}
            title="Drag to resize the rail" />
 
       <LeftRail
