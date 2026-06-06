@@ -85,7 +85,7 @@ function BillViewerEmpty({ presets = [], onPreset, answered = false }) {
             </h3>
             <p>
               {answered
-                ? "The agent answered in the left panel — this question didn't surface a single bill. Try a more specific query, or pick a bill from a previous answer."
+                ? "The agent answered in the left panel. This question didn't surface a single bill. Try a more specific query, or pick a bill from a previous answer."
                 : "Polilabs only displays text it can verify against an authoritative source. Ask a research question to start, or pick a recent thread."}
             </p>
           </div>

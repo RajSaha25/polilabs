@@ -526,9 +526,9 @@ function App({ onSignOut, onShowLanding }) {
       .filter((m) => m.content).map((m) => ({ role: m.role, content: m.content }));
     // First turn carries the bill scope; later turns rely on replayed history.
     const scoped = prior.length ? q :
-      `[You are answering questions about ONE bill: ${billId} ("${title}"). Stay inside this bill; ` +
-      `ground answers in its section text via get_section / get_citation_graph; do NOT dump a huge ` +
-      `get_bill table of contents; cite the sections you use; be concise.]\n\n${q}`;
+      `[Answer questions about ONE bill: ${billId} ("${title}"). Stay inside this bill. ` +
+      `Ground answers in its section text via get_section or get_citation_graph. Do not dump a huge ` +
+      `get_bill table of contents. Cite the sections you use. Be concise.]\n\n${q}`;
     setBillChat((p) => {
       const cur = p[billId] || { threads: [] };
       const threads = cur.threads.map((t) => t.id === threadId

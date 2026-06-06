@@ -294,14 +294,14 @@ function BillSummary({ summary, bill }) {
           Summary{bill && bill.bill_id ? " · " + bill.bill_id : ""}
         </span>
         <span className="bill-summary-tag"
-              title="Model-generated from the bill's table of contents & metadata — not verbatim statute text.">
+              title="Model-generated from the bill's table of contents and metadata. Not verbatim statute text.">
           AI · grounded
         </span>
       </div>
       {loading ? (
         <div className="bill-summary-loading"><span className="spinner-sm" /> summarizing…</div>
       ) : error ? (
-        <div className="bill-summary-error">Couldn’t summarize — {error}</div>
+        <div className="bill-summary-error">Couldn’t summarize. {error}</div>
       ) : (
         <p className="bill-summary-text">{text}</p>
       )}
@@ -366,7 +366,7 @@ function LeftRail({
               border: "1px solid #fda29b", borderRadius: 6,
               padding: "8px 10px", marginBottom: 12,
             }}>
-              backend error — {error}
+              backend error: {error}
             </div>
           ) : null}
           {/* Quoted question */}

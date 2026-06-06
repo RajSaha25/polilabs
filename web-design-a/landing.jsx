@@ -555,34 +555,8 @@ function Landing({ user, onOpenWorkspace, onSignIn, onSignOut }) {
           </div>
         </section>
 
-        {/* EVIDENCE — eval results. Numbers come from eval/grades_opus47.json. */}
-        <section className="land-section">
-          <div className="land-section-label mono">
-            <span>Evidence</span>
-            <span className="land-section-tag mono">
-              20-item agent eval &middot; Opus 4.7
-            </span>
-          </div>
-          <div className="land-evidence-grid">
-            <a className="land-evidence-cell"
-               href="https://github.com/RajSaha25/polilabs/blob/master/eval/polilabs_agent_eval_opus47.pdf"
-               target="_blank" rel="noopener noreferrer">
-              <b>85%</b>
-              <span>pass rate on the suite (17 pass, 2 partial, 1 fail)</span>
-              <span className="land-evidence-arrow" aria-hidden="true">read the eval &#8599;</span>
-            </a>
-            <a className="land-evidence-cell"
-               href="https://github.com/RajSaha25/polilabs/blob/master/eval/polilabs_agent_eval_opus47.pdf"
-               target="_blank" rel="noopener noreferrer">
-              <b>0 / 4</b>
-              <span>hallucinations on adversarial probes (out-of-corpus, foreign law, false premise, nonexistent bill)</span>
-              <span className="land-evidence-arrow" aria-hidden="true">read the eval &#8599;</span>
-            </a>
-          </div>
-        </section>
-
-        {/* WHAT'S IN THE CORPUS — numbers-forward; the verbose topic
-            prose lived here previously and read as filler. */}
+        {/* WHAT'S IN THE CORPUS. Numbers-forward; the verbose topic prose
+            that lived here read as filler. */}
         <section className="land-section" id="whats-in-corpus">
           <div className="land-section-label mono">
             <span>What&rsquo;s in the corpus</span>

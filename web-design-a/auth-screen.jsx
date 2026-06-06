@@ -45,8 +45,8 @@ function AuthScreen({ onAuthed, onBack }) {
         <div className="auth-eyebrow">Research workspace</div>
         <div className="auth-brand">polilabs</div>
         <div className="auth-tagline">
-          Queryable, citation-accurate US federal legislation —
-          across multiple policy domains and Congresses.
+          Queryable, citation-accurate US federal legislation across
+          multiple policy domains and Congresses.
         </div>
 
         <div className="auth-tabs" role="tablist">

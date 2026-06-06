@@ -95,7 +95,7 @@ function ConnectorPanel({ onClose }) {
               {fresh ? (
                 <div className="conn-fresh">
                   <div className="conn-fresh-label">
-                    <Icon name="check" size={12} /> Token created — copy it now, it won't be shown again.
+                    <Icon name="check" size={12} /> Token created. Copy it now, it won't be shown again.
                   </div>
                   <div className="conn-copyrow">
                     <code className="conn-token">{fresh.token}</code>

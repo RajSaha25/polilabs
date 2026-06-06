@@ -329,7 +329,7 @@ function NoteCard({ note, onSelect, onEdit, onRemove }) {
         <div className="note-text" onClick={() => !isAgent && setEditing(true)}>
           {note.body
             ? note.body
-            : <span className="note-empty">{isAgent ? "Flagged by the agent — review this passage." : "No note — click to add text."}</span>}
+            : <span className="note-empty">{isAgent ? "Flagged by the agent. Review this passage." : "No note yet. Click to add text."}</span>}
         </div>
       )}
 
@@ -416,7 +416,7 @@ function FindBar({ findState, onFind, onClearFind, onSelect, labelFor }) {
 
       {!findState ? (
         <p className="find-hint">
-          Tell the agent what you&rsquo;re looking for — it locates the relevant
+          Tell the agent what you&rsquo;re looking for. It locates the relevant
           verbatim sections and highlights them. It never rewrites the law.
         </p>
       ) : loading ? (

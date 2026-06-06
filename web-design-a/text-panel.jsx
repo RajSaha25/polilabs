@@ -241,7 +241,7 @@ function NotePopRow({ note, onEdit, onRemove, onClose }) {
         />
       ) : (
         <div className="note-pop-body" onClick={() => setEditing(true)} title="Click to edit">
-          {note.body ? note.body : <span className="note-empty">No text yet — click to add.</span>}
+          {note.body ? note.body : <span className="note-empty">No text yet. Click to add.</span>}
         </div>
       )}
       <div className="note-pop-foot">
@@ -326,7 +326,7 @@ function InlineChat({ startX, startY, thread, label, onAsk, onJump, onClose, onN
             <span className="inline-chat-new-plus">+</span> New chat
           </button>
           <button type="button" className="modal-x" onMouseDown={(e) => e.stopPropagation()} onClick={onClose}
-                  aria-label="Minimize to a tab" title="Minimize to a tab — reopen it from the dock">
+                  aria-label="Minimize to a tab" title="Minimize to a tab. Reopen it from the dock.">
             <Icon name="chevron-down" size={14} />
           </button>
         </div>
@@ -335,8 +335,8 @@ function InlineChat({ startX, startY, thread, label, onAsk, onJump, onClose, onN
       <div className="inline-chat-body" ref={bodyRef}>
         {messages.length === 0 ? (
           <p className="inline-chat-hint">
-            Ask anything about this bill — the agent reads its sections and answers,
-            grounded in the text. Defined terms in the reply are clickable.
+            Ask anything about this bill. Answers are grounded in its section text.
+            Defined terms in the reply are clickable.
           </p>
         ) : messages.map((m, i) => {
           if (m.role === "user") return <div key={i} className="chat-msg-user">{m.content}</div>;
