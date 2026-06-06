@@ -136,6 +136,66 @@ const PRESETS = [
   "What’s NOT in this corpus?",
 ];
 
+// Turn a raw tool call into a plain-English chain-of-thought step so a
+// policymaker can see (and audit) exactly what the agent did.
+function toolStepLabel(name, args) {
+  const a = args || {};
+  switch (name) {
+    case "search_corpus": return `Searched the corpus for “${a.query}”`;
+    case "get_bill": return `Opened bill ${a.bill_id}`;
+    case "get_section": return `Read section ${a.section_id}`;
+    case "get_citation_graph": return `Traced citations around ${a.section_id}`;
+    case "get_defined_terms": return `Pulled defined terms in ${a.bill_id}`;
+    case "get_amendments": return `Pulled amendments in ${a.bill_id}`;
+    case "get_amendments_targeting": return `Found amendments targeting ${a.target || a.citation_string || "a statute"}`;
+    case "resolve_citation": return `Resolved the citation “${a.citation_string}”`;
+    case "find_definitions_of": return `Searched definitions of “${a.term}”`;
+    case "find_bills_defining": return `Found bills defining “${a.term}”`;
+    case "find_bills_amending": return `Found bills amending ${a.citation_string || "a statute"}`;
+    case "corpus_coverage": return "Checked what the corpus does and doesn't cover";
+    default: return name;
+  }
+}
+
+// ── Past-chats sidebar ────────────────────────────────────────────────
+// A file-explorer-style list of this session's chats (each turn is a
+// "chat"). Click one to reopen its answer + bills. Newest on top.
+function ChatsSidebar({ turns, activeId, onSelect, onNew, onClose }) {
+  return (
+    <aside className="chats-sidebar">
+      <div className="chats-head">
+        <span className="chats-title">Chats</span>
+        <div className="chats-head-actions">
+          <button type="button" className="chats-new" onClick={onNew} title="New chat">
+            <Icon name="search" size={13} />
+          </button>
+          <button type="button" className="chats-collapse" onClick={onClose} title="Hide chats">
+            <Icon name="chevron-left" size={14} />
+          </button>
+        </div>
+      </div>
+      <div className="chats-list scroll">
+        {(turns || []).length === 0 ? (
+          <p className="chats-empty">Your questions show up here. Ask something to start a chat.</p>
+        ) : (
+          turns.slice().reverse().map((t) => (
+            <button
+              key={t.id}
+              type="button"
+              className={"chat-item" + (t.id === activeId ? " active" : "")}
+              onClick={() => onSelect(t.id)}
+              title={t.question}
+            >
+              <Icon name="doc" size={13} className="chat-item-icon" />
+              <span className="chat-item-q">{t.question || "(untitled)"}</span>
+            </button>
+          ))
+        )}
+      </div>
+    </aside>
+  );
+}
+
 // ── App ───────────────────────────────────────────────────────────────
 // The workspace shell. Routing between the workspace and the public
 // landing page is handled by Root() — App always renders the workspace
@@ -157,6 +217,25 @@ function App({ onSignOut, onShowLanding }) {
   const [activeAnchor, setActiveAnchor] = useState(null);
   const [prompt, setPrompt] = useState("");
 
+  // Per-user in-bill annotations, keyed by bill id. Loaded from the
+  // gated /api/annotations surface when a bill is opened; mutated
+  // through the handlers below (optimistic on the result row).
+  const [annotations, setAnnotations] = useState({});
+
+  // "Connect your agent" modal (bring-your-own-agent connector tokens).
+  const [showConnector, setShowConnector] = useState(false);
+
+  // Past-chats sidebar (IDE file-explorer style). Each turn is a "chat".
+  const [chatsOpen, setChatsOpen] = useState(true);
+  const CHATS_W = 220;
+
+  // Inline bill chat (double-click the text). Keyed by bill id:
+  //   { messages: [{role, content, flags:[section_id]}], loading }.
+  // A real multi-turn conversation scoped to one bill — it persists when
+  // the widget closes, so reopening restores the thread. The sections the
+  // agent reads become flags highlighted in the text.
+  const [billChat, setBillChat] = useState({});
+
   const turn = turns.find((t) => t.id === activeId) || null;
   const patchTurn = (id, partial) =>
     setTurns((ts) => ts.map((t) => (t.id === id ? { ...t, ...partial } : t)));
@@ -172,11 +251,11 @@ function App({ onSignOut, onShowLanding }) {
   };
 
   // resizable layout — rail width (px) + Text/Decomp split fraction
-  const [railW, setRailW] = useState(380);
+  const [railW, setRailW] = useState(460);
   const [textFrac, setTextFrac] = useState(0.58);
   const onRailResize = (e) => {
     e.preventDefault();
-    const move = (ev) => setRailW(Math.max(320, Math.min(640, ev.clientX)));
+    const move = (ev) => setRailW(Math.max(320, Math.min(640, ev.clientX - (chatsOpen ? CHATS_W : 0))));
     const up = () => {
       window.removeEventListener("pointermove", move);
       window.removeEventListener("pointerup", up);
@@ -230,6 +309,11 @@ function App({ onSignOut, onShowLanding }) {
     setStreaming(true);
 
     const collected = [];
+    // Sections the agent actually pulled this turn (get_section /
+    // get_citation_graph). These become transient "agent flags" — the
+    // agent pointing the researcher at verbatim spans it relied on. Not
+    // persisted; they live on the turn and clear when the turn changes.
+    const flagged = new Set();
 
     // Carry the conversation so far — every prior question with its
     // answer — so a follow-up ("how does that bill relate to…") keeps
@@ -245,6 +329,9 @@ function App({ onSignOut, onShowLanding }) {
 
     const segments = [""];
     let sawTool = false;
+    // Chain of thought: the agent's tool steps, labelled in plain English,
+    // streamed live so a policymaker can watch (and audit) how it worked.
+    const steps = [];
 
     B.streamChat(q, history, (ev) => {
       if (ev.type === "text") {
@@ -255,15 +342,23 @@ function App({ onSignOut, onShowLanding }) {
           planText: segments.slice(0, -1).join("\n\n").trim(),
         });
       } else if (ev.type === "tool_call") {
+        // A section_id argument means the agent read (or walked the
+        // citations of) that exact span — flag it for the researcher.
+        const sid = ev.args && ev.args.section_id;
+        if (sid) flagged.add(sid);
+        steps.push({ name: ev.name, label: toolStepLabel(ev.name, ev.args || {}) });
+        patchTurn(id, { toolSteps: [...steps] });
         sawTool = true;
       } else if (ev.type === "tool_result") {
         collected.push(ev);
+        const sid = ev.args && ev.args.section_id;
+        if (sid) flagged.add(sid);
         sawTool = true;
       } else if (ev.type === "error") {
         patchTurn(id, { error: ev.message || "unknown backend error" });
       } else if (ev.type === "done") {
         setStreaming(false);
-        patchTurn(id, { bills: B.billsFromToolResults(collected), billIdx: 0 });
+        patchTurn(id, { bills: B.billsFromToolResults(collected), billIdx: 0, agentFlags: [...flagged] });
       }
     }).catch((e) => {
       patchTurn(id, { error: String(e) });
@@ -318,6 +413,99 @@ function App({ onSignOut, onShowLanding }) {
   // reset highlight when the selected bill changes
   useEffect(() => { setActiveAnchor(null); }, [selectedId]);
 
+  // ── load this user's annotations for the open bill ─────────────────
+  useEffect(() => {
+    if (!selectedId || annotations[selectedId]) return;
+    let cancelled = false;
+    window.PolilabsAnnotations.list(selectedId)
+      .then((rows) => { if (!cancelled) setAnnotations((p) => ({ ...p, [selectedId]: rows })); })
+      .catch(() => { if (!cancelled) setAnnotations((p) => ({ ...p, [selectedId]: [] })); });
+    return () => { cancelled = true; };
+  }, [selectedId]);
+
+  const billAnnotations = selectedId ? (annotations[selectedId] || []) : [];
+
+  // Create / edit / delete an annotation on the open bill. Each resolves
+  // the server row into local state so ids and timestamps stay truthful.
+  const addAnnotation = (a) => {
+    if (!selectedId) return Promise.resolve();
+    return window.PolilabsAnnotations.create({ ...a, bill_id: selectedId })
+      .then((row) => setAnnotations((p) => ({
+        ...p, [selectedId]: [...(p[selectedId] || []), row],
+      })));
+  };
+  const editAnnotation = (id, patch) =>
+    window.PolilabsAnnotations.update(id, patch).then((row) =>
+      setAnnotations((p) => ({
+        ...p, [selectedId]: (p[selectedId] || []).map((x) => (x.id === id ? row : x)),
+      })));
+  const removeAnnotation = (id) =>
+    window.PolilabsAnnotations.remove(id).then(() =>
+      setAnnotations((p) => ({
+        ...p, [selectedId]: (p[selectedId] || []).filter((x) => x.id !== id),
+      })));
+
+  // ── Inline bill chat (double-click the text) ───────────────────────
+  // A multi-turn conversation scoped to ONE bill, run OUTSIDE the main
+  // thread (doesn't touch `turns` or the bills list). Each assistant turn
+  // records the section ids the agent read; those become highlight flags.
+  // Persisted per bill, so closing + reopening the widget restores it.
+  const patchAssistant = (chat, billId, partial, loading) => {
+    const cur = chat[billId];
+    if (!cur) return chat;
+    const msgs = cur.messages.slice();
+    for (let i = msgs.length - 1; i >= 0; i--) {
+      if (msgs[i].role === "assistant") { msgs[i] = { ...msgs[i], ...partial }; break; }
+    }
+    return { ...chat, [billId]: { ...cur, messages: msgs, loading: loading === undefined ? cur.loading : loading } };
+  };
+
+  const askInBill = (question) => {
+    const q = (question || "").trim();
+    if (!selectedId || !q) return;
+    const billId = selectedId;
+    const title = selectedBill ? (selectedBill.short || selectedBill.bill_id || billId) : billId;
+    const prior = ((billChat[billId] && billChat[billId].messages) || [])
+      .filter((m) => m.content).map((m) => ({ role: m.role, content: m.content }));
+    // First turn carries the bill scope; later turns rely on replayed history.
+    const scoped = prior.length ? q :
+      `[You are answering questions about ONE bill: ${billId} ("${title}"). Stay inside this bill; ` +
+      `ground answers in its section text via get_section / get_citation_graph; do NOT dump a huge ` +
+      `get_bill table of contents; cite the sections you use; be concise.]\n\n${q}`;
+    setBillChat((p) => {
+      const cur = p[billId] || { messages: [] };
+      return { ...p, [billId]: { messages: [...cur.messages, { role: "user", content: q }, { role: "assistant", content: "", flags: [] }], loading: true } };
+    });
+    const flags = new Set();
+    let answer = "";
+    B.streamChat(scoped, prior, (ev) => {
+      if (ev.type === "text") {
+        answer += ev.delta || "";
+        setBillChat((p) => patchAssistant(p, billId, { content: answer }));
+      } else if (ev.type === "tool_call" || ev.type === "tool_result") {
+        const sid = ev.args && ev.args.section_id;
+        if (sid) { flags.add(sid); setBillChat((p) => patchAssistant(p, billId, { flags: [...flags] })); }
+      } else if (ev.type === "error") {
+        setBillChat((p) => patchAssistant(p, billId, { content: answer || ("⚠️ " + (ev.message || "error")), flags: [...flags] }, false));
+      } else if (ev.type === "done") {
+        setBillChat((p) => patchAssistant(p, billId, { content: answer, flags: [...flags] }, false));
+      }
+    }).catch((e) => setBillChat((p) => patchAssistant(p, billId, { content: answer || ("⚠️ " + String(e)), flags: [...flags] }, false)));
+  };
+  const clearChat = () => {
+    if (!selectedId) return;
+    setBillChat((p) => { const n = { ...p }; delete n[selectedId]; return n; });
+  };
+  const chatState = selectedId ? (billChat[selectedId] || null) : null;
+
+  // Agent flags shown on the open bill = those the main answer touched +
+  // every section the inline chat has read. De-duplicated.
+  const turnFlags = turn ? (turn.agentFlags || []) : [];
+  const combinedAgentFlags = React.useMemo(() => {
+    const chatFlags = chatState ? chatState.messages.flatMap((m) => m.flags || []) : [];
+    return [...new Set([...turnFlags, ...chatFlags])];
+  }, [turnFlags, chatState]);
+
   // ── the merged bill object the viewer renders ──────────────────────
   const viewerBill = selectedBill && detail
     ? { ...selectedBill, ...detail, citations: detail.citations || [] }
@@ -347,11 +535,16 @@ function App({ onSignOut, onShowLanding }) {
         total={bills.length}
         onPrev={() => setBillIdx((i) => Math.max(0, i - 1))}
         onNext={() => setBillIdx((i) => Math.min(bills.length - 1, i + 1))}
-        mode={mode} setMode={setMode}
         activeAnchor={activeAnchor}
         setActiveAnchor={flashAnchor}
-        textFrac={textFrac}
-        setTextFrac={setTextFrac}
+        annotations={billAnnotations}
+        onAddAnnotation={addAnnotation}
+        onEditAnnotation={editAnnotation}
+        onRemoveAnnotation={removeAnnotation}
+        agentFlags={combinedAgentFlags}
+        chatState={chatState}
+        onAsk={askInBill}
+        onClearChat={clearChat}
       />
     );
   }
@@ -363,14 +556,23 @@ function App({ onSignOut, onShowLanding }) {
   };
 
   return (
-    <div className="app" style={{ "--rail-w": railW + "px" }}>
+    <div className={"app" + (chatsOpen ? " has-chats" : "")}
+         style={{ "--rail-w": railW + "px", "--chats-w": CHATS_W + "px" }}>
       <header className="app-header">
         <div className="brand">
+          <button type="button" className="chats-toggle" title={chatsOpen ? "Hide chats" : "Show past chats"}
+                  onClick={() => setChatsOpen((o) => !o)}>
+            <Icon name="list-tree" size={16} />
+          </button>
           <button type="button" className="brand-name" title="back to home"
                   onClick={onShowLanding}>polilabs</button>
         </div>
         <div className="header-tools">
           {streaming && <div className="stat mono">agent working…</div>}
+          <button type="button" className="connect-agent-btn" onClick={() => setShowConnector(true)}
+                  title="Use your own approved AI agent on the corpus">
+            <Icon name="link" size={13} /> Connect agent
+          </button>
           <div className="signout">
             <span className="signout-user">
               {(PolilabsAuth.getUser() || {}).email}
@@ -382,7 +584,17 @@ function App({ onSignOut, onShowLanding }) {
         </div>
       </header>
 
-      <div className="rail-resizer" style={{ left: railW }} onPointerDown={onRailResize}
+      {chatsOpen ? (
+        <ChatsSidebar
+          turns={turns}
+          activeId={activeId}
+          onSelect={setActiveId}
+          onNew={() => setActiveId(null)}
+          onClose={() => setChatsOpen(false)}
+        />
+      ) : null}
+
+      <div className="rail-resizer" style={{ left: (chatsOpen ? CHATS_W : 0) + railW }} onPointerDown={onRailResize}
            title="Drag to resize the rail" />
 
       <LeftRail
@@ -394,6 +606,7 @@ function App({ onSignOut, onShowLanding }) {
         sourcesMatched={bills.length}
         answerBlocks={answerBlocks}
         planText={turn ? turn.planText : ""}
+        toolSteps={turn ? (turn.toolSteps || []) : []}
         selectedId={selectedId}
         onSelect={(id) => {
           const i = bills.findIndex((b) => b.id === id);
@@ -413,6 +626,8 @@ function App({ onSignOut, onShowLanding }) {
       {stage}
 
 
+
+      {showConnector ? <ConnectorPanel onClose={() => setShowConnector(false)} /> : null}
 
       <TweaksPanel title="Tweaks">
         <TweakSection label="Theme">

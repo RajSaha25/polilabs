@@ -2,13 +2,14 @@
 // Polilabs — Right Decomp panel. Same bill in one of four lenses:
 //   Structure (default), Definition, Amendment, Citation.
 
-const { useState, useEffect, useRef } = React;
+const { useState, useEffect, useRef, useMemo } = React;
 
 const MODES = [
   { id: "structure",  label: "Structure",  icon: "list-tree" },
   { id: "definition", label: "Definition", icon: "quote" },
   { id: "amendment", label: "Amendment", icon: "diff" },
   { id: "citation",   label: "Citation",   icon: "link" },
+  { id: "notes",      label: "Notes",      icon: "doc" },
 ];
 
 // ── Mode tabs ─────────────────────────────────────────────────────────
@@ -285,8 +286,171 @@ function StructureMode({ bill, activeAnchor, onSelect }) {
   );
 }
 
+// ── Notes mode ───────────────────────────────────────────────────────
+// The researcher's own highlights + notes on this bill. Mechanical, like
+// the rest of the Decomp panel: it lists what the user (or the agent)
+// flagged verbatim — it never paraphrases the law. Click a card to jump
+// to the passage; edit or delete in place.
+function NoteCard({ note, onSelect, onEdit, onRemove }) {
+  const [editing, setEditing] = useState(false);
+  const [draft, setDraft] = useState(note.body || "");
+  const isAgent = note.source === "agent";
+  return (
+    <div
+      className={"note-card hl-" + (note.color || "yellow") + (isAgent ? " agent" : "")}
+      data-anchor={note.section_id || undefined}
+    >
+      {note.quote ? (
+        <div className="note-quote" onClick={() => note.section_id && onSelect(note.section_id)}>
+          <Icon name="quote" size={11} />
+          <span>{note.quote.length > 220 ? note.quote.slice(0, 220) + "…" : note.quote}</span>
+        </div>
+      ) : null}
+
+      {editing ? (
+        <div className="note-edit">
+          <textarea
+            className="note-input"
+            value={draft}
+            autoFocus
+            onChange={(e) => setDraft(e.target.value)}
+            onKeyDown={(e) => { if (e.key === "Escape") { setEditing(false); setDraft(note.body || ""); } }}
+            rows={3}
+          />
+          <div className="note-actions">
+            <button type="button" className="note-btn ghost" onClick={() => { setEditing(false); setDraft(note.body || ""); }}>Cancel</button>
+            <button type="button" className="note-btn primary"
+              onClick={() => { Promise.resolve(onEdit(note.id, { body: draft })).finally(() => setEditing(false)); }}>
+              Save
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div className="note-text" onClick={() => !isAgent && setEditing(true)}>
+          {note.body
+            ? note.body
+            : <span className="note-empty">{isAgent ? "Flagged by the agent — review this passage." : "No note — click to add text."}</span>}
+        </div>
+      )}
+
+      <div className="note-foot">
+        <span className="note-src">{isAgent ? "agent flag" : "your note"}</span>
+        <button type="button" className="note-del" aria-label="Delete note" onClick={() => onRemove(note.id)}>
+          <Icon name="x" size={11} />
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function NotesMode({ notes, agentFlags = [], onSelect, onEdit, onRemove, labelFor }) {
+  return (
+    <div className="decomp-body">
+      {agentFlags.length ? (
+        <div className="agent-flag-group">
+          <div className="dc-section-head">
+            <span className="num">AGENT</span>
+            <span className="title">Flagged this answer</span>
+            <span className="count">{agentFlags.length}</span>
+          </div>
+          {agentFlags.map((sid) => {
+            const l = labelFor ? labelFor(sid) : { marker: "", title: sid };
+            return (
+              <button key={sid} type="button" className="agent-flag-row" onClick={() => onSelect(sid)}>
+                <Icon name="sparkle" size={11} />
+                {l.marker ? <span className="mono agent-flag-marker">{l.marker}</span> : null}
+                <span className="agent-flag-title">{l.title}</span>
+              </button>
+            );
+          })}
+        </div>
+      ) : null}
+
+      <div className="dc-section-head">
+        <span className="num">NOTES</span>
+        <span className="title">Highlights &amp; notes</span>
+        <span className="count">{notes.length} note{notes.length === 1 ? "" : "s"}</span>
+      </div>
+
+      {notes.length === 0 ? (
+        <div className="notes-empty">
+          <Icon name="doc" size={22} strokeWidth={1.25} />
+          <p>No notes on this bill yet.</p>
+          <p className="hint">Select any passage in the Text panel to highlight it and attach a note.</p>
+        </div>
+      ) : (
+        notes.map((n) => (
+          <NoteCard key={n.id} note={n} onSelect={onSelect} onEdit={onEdit} onRemove={onRemove} />
+        ))
+      )}
+    </div>
+  );
+}
+
+// ── Find in this bill (agent-driven decomposition) ───────────────────
+// The researcher states an intent; the agent locates the relevant
+// VERBATIM sections (it reads them) and they get flagged in the Text
+// panel. This is the dynamic counterpart to the fixed Structure outline:
+// "show me the enforcement provisions", "where does this touch privacy".
+function FindBar({ findState, onFind, onClearFind, onSelect, labelFor }) {
+  const [q, setQ] = useState("");
+  const loading = !!(findState && findState.loading);
+  const submit = () => { const v = q.trim(); if (v && !loading) onFind(v); };
+  const located = (findState && findState.flags) || [];
+  return (
+    <div className="find-bar">
+      <div className="find-input-row">
+        <Icon name="search" size={14} className="find-icon" />
+        <input
+          className="find-input"
+          placeholder="Find provisions in this bill…"
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+          onKeyDown={(e) => { if (e.key === "Enter") submit(); }}
+          disabled={loading}
+        />
+        <button type="button" className="find-go" onClick={submit} disabled={loading || !q.trim()}>
+          {loading ? "…" : "Find"}
+        </button>
+      </div>
+
+      {!findState ? (
+        <p className="find-hint">
+          Tell the agent what you&rsquo;re looking for — it locates the relevant
+          verbatim sections and highlights them. It never rewrites the law.
+        </p>
+      ) : loading ? (
+        <div className="find-status"><span className="spinner-sm" /> locating sections for &ldquo;{findState.intent}&rdquo;…</div>
+      ) : findState.error ? (
+        <div className="find-error">{findState.error}</div>
+      ) : (
+        <div className="find-result">
+          <div className="find-result-head">
+            <span>{located.length} section{located.length === 1 ? "" : "s"} located for &ldquo;{findState.intent}&rdquo;</span>
+            <button type="button" className="find-clear" onClick={onClearFind} aria-label="Clear search">
+              <Icon name="x" size={12} />
+            </button>
+          </div>
+          {located.map((sid) => {
+            const l = labelFor ? labelFor(sid) : { marker: "", title: sid };
+            return (
+              <button key={sid} type="button" className="find-hit" onClick={() => onSelect(sid)}>
+                {l.marker ? <span className="find-hit-marker mono">{l.marker}</span> : null}
+                <span className="find-hit-title">{l.title}</span>
+              </button>
+            );
+          })}
+          {findState.answer ? <p className="find-answer">{findState.answer}</p> : null}
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ── Decomp panel container ───────────────────────────────────────────
-function DecompPanel({ bill, mode, setMode, activeAnchor, onSelect }) {
+function DecompPanel({ bill, mode, setMode, activeAnchor, onSelect,
+                       annotations = [], onEditAnnotation, onRemoveAnnotation,
+                       agentFlags = [], findState, onFind, onClearFind }) {
   const scrollRef = useRef(null);
 
   const counts = {
@@ -294,7 +458,19 @@ function DecompPanel({ bill, mode, setMode, activeAnchor, onSelect }) {
     definition: bill.definitions?.length ?? 0,
     amendment: bill.amendments?.length ?? 0,
     citation:   bill.citations?.reduce((n, g) => n + g.items.length, 0) ?? 0,
+    notes:      annotations.length,
   };
+
+  // Resolve a section id to a readable label (marker + title) from the
+  // bill's own text tree, so flag/find rows aren't opaque ids.
+  const labelFor = useMemo(() => {
+    const m = new Map();
+    (bill.text || []).forEach((sec) => {
+      m.set(sec.id, { marker: sec.num || "", title: sec.title || "(section)" });
+      (sec.blocks || []).forEach((b) => m.set(b.id, { marker: b.marker || "", title: b.heading || "(subsection)" }));
+    });
+    return (sid) => m.get(sid) || { marker: "", title: sid };
+  }, [bill]);
 
   // When activeAnchor changes (a click came from the Text panel),
   // scroll the matching card into view and pulse it.
@@ -318,11 +494,16 @@ function DecompPanel({ bill, mode, setMode, activeAnchor, onSelect }) {
         <ModeTabs mode={mode} onChange={setMode} counts={counts} />
       </div>
 
+      {onFind ? (
+        <FindBar findState={findState} onFind={onFind} onClearFind={onClearFind} onSelect={onSelect} labelFor={labelFor} />
+      ) : null}
+
       <div className="scroll" ref={scrollRef} style={{ minHeight: 0, flex: 1 }}>
         {mode === "structure"  && <StructureMode  key={bill.id} bill={bill} activeAnchor={activeAnchor} onSelect={onSelect} />}
         {mode === "definition" && <DefinitionMode bill={bill} activeAnchor={activeAnchor} onSelect={onSelect} />}
         {mode === "amendment" && <AmendmentMode bill={bill} activeAnchor={activeAnchor} onSelect={onSelect} />}
         {mode === "citation"   && <CitationMode   bill={bill} activeAnchor={activeAnchor} onSelect={onSelect} />}
+        {mode === "notes"      && <NotesMode notes={annotations} agentFlags={agentFlags} onSelect={onSelect} onEdit={onEditAnnotation} onRemove={onRemoveAnnotation} labelFor={labelFor} />}
       </div>
     </div>
   );

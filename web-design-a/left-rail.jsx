@@ -73,22 +73,38 @@ function InlineRuns({ runs, matchers, onSelectBill }) {
   });
 }
 
-// Collapsible "agent approach" — the planning/reasoning the agent
-// narrated before producing the answer, kept clearly separate from it.
-function AnswerPlan({ text }) {
-  const [open, setOpen] = useState(false);
-  if (!text) return null;
-  const paras = text.split(/\n+/).map((p) => p.trim()).filter(Boolean);
+// The agent's chain of thought — its tool steps (what it searched/read,
+// in plain English) and the reasoning it narrated. Shown by default and
+// streamed live so a policymaker can watch and audit how the answer was
+// built; collapsible once they've seen it.
+function AnswerPlan({ text, steps = [], streaming }) {
+  const [manual, setManual] = useState(null);
+  const open = manual === null ? true : manual;   // present by default
+  const paras = (text || "").split(/\n+/).map((p) => p.trim()).filter(Boolean);
+  const count = steps.length || paras.length;
+  if (!count && !streaming) return null;
   return (
     <div className="answer-plan">
-      <button type="button" className="plan-toggle" onClick={() => setOpen((o) => !o)}>
+      <button type="button" className="plan-toggle" onClick={() => setManual(!open)}>
         <span className="plan-caret">{open ? "▾" : "▸"}</span>
-        <span>Agent approach</span>
-        <span className="plan-hint">{open ? "hide" : `${paras.length} step${paras.length === 1 ? "" : "s"}`}</span>
+        <span>Chain of thought</span>
+        <span className="plan-hint">{open ? "hide" : `${count} step${count === 1 ? "" : "s"}`}</span>
       </button>
       {open ? (
         <div className="plan-body">
-          {paras.map((p, i) => <p key={i}>{p}</p>)}
+          {steps.length ? (
+            <ul className="cot-steps">
+              {steps.map((s, i) => (
+                <li key={i} className="cot-step"><span className="cot-dot" />{s.label}</li>
+              ))}
+              {streaming ? (
+                <li className="cot-step cot-live"><span className="spinner-sm" /> working…</li>
+              ) : null}
+            </ul>
+          ) : streaming && !paras.length ? (
+            <p className="cot-thinking">thinking…</p>
+          ) : null}
+          {paras.map((p, i) => <p key={i} className="cot-thought">{p}</p>)}
         </div>
       ) : null}
     </div>
@@ -263,7 +279,7 @@ function PromptInput({ value, onChange, onSubmit, onPreset, presets, disabled })
 // ── Left rail container ───────────────────────────────────────────────
 function LeftRail({
   bills, turns, activeTurnId, onSelectTurn,
-  question, answerBlocks, planText, selectedId, onSelect,
+  question, answerBlocks, planText, toolSteps = [], selectedId, onSelect,
   streaming, promptValue, setPromptValue, onSubmit, onPreset, presets,
   error,
 }) {
@@ -331,7 +347,7 @@ function LeftRail({
               {question.text}
             </div>
           ) : null}
-          <AnswerPlan text={planText} />
+          <AnswerPlan text={planText} steps={toolSteps} streaming={streaming} />
           <AnswerStream blocks={answerBlocks} streaming={streaming}
             bills={bills} onSelectBill={onSelect} />
           <SourceList bills={bills} selectedId={selectedId} onSelect={onSelect} />

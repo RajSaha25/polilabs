@@ -62,6 +62,12 @@ from pydantic import BaseModel, Field
 from auth import init_db, require_user
 from auth import router as auth_router
 from auth import usage
+from auth.db import (
+    create_annotation,
+    delete_annotation,
+    list_annotations,
+    update_annotation,
+)
 from agent.tools import (
     SYSTEM_PROMPT,
     tool_corpus_coverage,
@@ -89,13 +95,57 @@ app = FastAPI(
     version="0.2.0",
 )
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],          # DEV ONLY — lock to your frontend origin in prod
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# ---- CORS ----
+#
+# Auth is Bearer-token (Authorization header), never cookies, so
+# allow_credentials stays False — that also avoids the invalid
+# wildcard-origin + credentials combination browsers reject.
+#
+# Origins: set POLILABS_CORS_ORIGINS (comma-separated) in prod to pin the
+# exact frontend origin(s). With nothing set we fall back to a regex that
+# admits local dev, any Vercel deployment (the frontend host), and the
+# Fly backend's own origin — tight enough to drop the old "*" wildcard
+# without breaking the existing Vercel → Fly setup.
+_cors_env = os.environ.get("POLILABS_CORS_ORIGINS", "").strip()
+if _cors_env:
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=[o.strip() for o in _cors_env.split(",") if o.strip()],
+        allow_credentials=False,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
+else:
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origin_regex=(
+            r"^https?://(localhost|127\.0\.0\.1)(:\d+)?$"
+            r"|^https://[a-z0-9-]+\.vercel\.app$"
+            r"|^https://polilabs-backend\.fly\.dev$"
+        ),
+        allow_credentials=False,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
+
+
+# ---- security response headers ----
+#
+# Defence-in-depth headers on every response. Conservative on purpose:
+# no CSP here because the frontend is a CDN-loaded, Babel-in-browser app
+# served from a different origin (Vercel) — a strict CSP belongs with
+# that deployment, not the API. HSTS is only meaningful over HTTPS, which
+# is where the Fly deploy serves; harmless locally.
+@app.middleware("http")
+async def _security_headers(request, call_next):
+    response = await call_next(request)
+    response.headers.setdefault("X-Content-Type-Options", "nosniff")
+    response.headers.setdefault("X-Frame-Options", "DENY")
+    response.headers.setdefault("Referrer-Policy", "no-referrer")
+    response.headers.setdefault(
+        "Strict-Transport-Security", "max-age=31536000; includeSubDomains"
+    )
+    return response
 
 # ---- auth ----
 #
@@ -115,6 +165,21 @@ class ChatMessageIn(BaseModel):
 class ChatRequest(BaseModel):
     message: str = Field(description="The new user message")
     history: list[ChatMessageIn] = Field(default_factory=list, description="Prior turns (user/assistant text only)")
+
+
+class AnnotationIn(BaseModel):
+    """A new in-bill annotation (highlight + note) from the workspace."""
+    bill_id: str = Field(description="Bill the note belongs to")
+    section_id: str | None = Field(default=None, description="Anchored section/block id; null = bill-level")
+    quote: str = Field(default="", description="Verbatim text the user selected")
+    body: str = Field(default="", description="The user's note")
+    color: str = Field(default="yellow", description="Highlight colour key")
+
+
+class AnnotationPatch(BaseModel):
+    """Partial update — only the provided fields are written."""
+    body: str | None = None
+    color: str | None = None
 
 
 def _to_anthropic_history(history: list[ChatMessageIn]) -> list[dict]:
@@ -707,6 +772,52 @@ def api_coverage(_user: dict = Depends(require_user)) -> Any:
     return _parsed(tool_corpus_coverage())
 
 
+# ---- annotations: per-user, in-bill highlights + notes (read/write) ----
+#
+# Private to the signed-in researcher. Stored on the auth DB, never with
+# the corpus. `source` is forced to "user" on create here so a client
+# can't forge an agent-flagged span; agent flags are written through a
+# separate internal path.
+
+
+@app.get("/api/annotations")
+def api_annotations_list(bill_id: str,
+                         _user: dict = Depends(require_user)) -> Any:
+    """Every annotation this user has on the given bill (oldest first)."""
+    return list_annotations(_user["id"], bill_id)
+
+
+@app.post("/api/annotations")
+def api_annotations_create(ann: AnnotationIn,
+                           _user: dict = Depends(require_user)) -> Any:
+    """Create a highlight + note. Returns the stored row (with id)."""
+    if not ann.bill_id.strip():
+        raise HTTPException(422, "bill_id is required.")
+    return create_annotation(
+        _user["id"], ann.bill_id, ann.section_id,
+        ann.quote, ann.body, ann.color, "user",
+    )
+
+
+@app.patch("/api/annotations/{ann_id}")
+def api_annotations_update(ann_id: int, patch: AnnotationPatch,
+                           _user: dict = Depends(require_user)) -> Any:
+    """Edit the note text or colour of one's own annotation."""
+    row = update_annotation(_user["id"], ann_id, patch.body, patch.color)
+    if row is None:
+        raise HTTPException(404, "Annotation not found.")
+    return row
+
+
+@app.delete("/api/annotations/{ann_id}")
+def api_annotations_delete(ann_id: int,
+                           _user: dict = Depends(require_user)) -> dict:
+    """Remove one's own annotation."""
+    if not delete_annotation(_user["id"], ann_id):
+        raise HTTPException(404, "Annotation not found.")
+    return {"ok": True}
+
+
 # ---- legacy aliases + test page ----
 
 
@@ -726,6 +837,60 @@ def health() -> dict:
     }
 
 
+@app.get("/connector")
+def connector() -> dict:
+    """Bring-your-own-agent discovery document.
+
+    A public, self-describing manifest so an external agent (a ChatGPT
+    Action, an MCP client, a script) — or the human wiring it up — can
+    learn how to drive the polilabs tool surface. The tools are read-only
+    and corpus-scoped; auth is a per-user connector token (mint one at
+    POST /auth/connector-token while signed in) sent as a Bearer header.
+    """
+    return {
+        "service": "polilabs",
+        "description": "Agent-native, queryable knowledge graph of US "
+                       "federal legislation. Read-only, corpus-scoped tools.",
+        "openapi_url": "/openapi.json",
+        "auth": {
+            "type": "bearer",
+            "how": "Sign in, POST /auth/connector-token to mint a token, "
+                   "then send 'Authorization: Bearer <token>' on every "
+                   "/api/* call. Revoke at DELETE /auth/connector-token/{jti}.",
+        },
+        "tools": [
+            {"method": "GET", "path": "/api/search",
+             "params": ["query", "topic", "tier", "congress", "limit"],
+             "desc": "Search a topic-scoped corpus (BM25 + dense via RRF)."},
+            {"method": "GET", "path": "/api/bill/{bill_id}",
+             "desc": "A bill's metadata + top-level section table of contents."},
+            {"method": "GET", "path": "/api/bill/{bill_id}/sections",
+             "desc": "Full nested section tree."},
+            {"method": "GET", "path": "/api/bill/{bill_id}/defined_terms",
+             "desc": "Terms a bill defines."},
+            {"method": "GET", "path": "/api/bill/{bill_id}/amendments",
+             "desc": "Statutory amendments a bill makes."},
+            {"method": "GET", "path": "/api/section",
+             "params": ["section_id", "as_of"],
+             "desc": "A section's verbatim text + canonical citation."},
+            {"method": "GET", "path": "/api/citation_graph",
+             "params": ["section_id", "direction", "max_nodes"],
+             "desc": "Typed citation graph around a section."},
+            {"method": "GET", "path": "/api/resolve",
+             "params": ["citation_string"],
+             "desc": "Parse a free-text citation into canonical section IDs."},
+            {"method": "GET", "path": "/api/coverage",
+             "desc": "What is and isn't in the corpus."},
+        ],
+        "mcp": {
+            "stdio": "Run mcp_server.py for any MCP stdio client "
+                     "(e.g. Claude Desktop). See docs/CONNECT_YOUR_AGENT.md.",
+        },
+        "thesis": "Tools return mechanically-extracted, verbatim corpus data "
+                  "— never paraphrased. Quote it; don't trust a summary of it.",
+    }
+
+
 @app.get("/")
 def index():
     """Serve the bare-bones test page so the backend is usable without a frontend."""
@@ -733,6 +898,33 @@ def index():
     if not page.exists():
         raise HTTPException(404, "static/index.html missing")
     return FileResponse(page)
+
+
+# ---- OpenAPI: advertise the Bearer scheme so agent platforms (ChatGPT
+# Actions, etc.) import auth correctly. require_user reads the header
+# manually, so without this the generated schema wouldn't mention auth.
+def _custom_openapi() -> dict:
+    if app.openapi_schema:
+        return app.openapi_schema
+    from fastapi.openapi.utils import get_openapi
+    schema = get_openapi(
+        title=app.title, version=app.version,
+        description=app.description, routes=app.routes,
+    )
+    schema.setdefault("components", {})["securitySchemes"] = {
+        "BearerAuth": {"type": "http", "scheme": "bearer", "bearerFormat": "JWT"}
+    }
+    # Apply the scheme to every gated /api/* operation.
+    for path, item in schema.get("paths", {}).items():
+        if path.startswith("/api/"):
+            for op in item.values():
+                if isinstance(op, dict):
+                    op.setdefault("security", [{"BearerAuth": []}])
+    app.openapi_schema = schema
+    return schema
+
+
+app.openapi = _custom_openapi
 
 
 def main():

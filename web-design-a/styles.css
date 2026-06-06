@@ -89,7 +89,7 @@
   --decomp-bg:      #edeae3;   /* Decomp panel — warm neutral gray, no blue cast */
 
   /* ── Layout ──────────────────────────────────────────────────────── */
-  --rail-w:        360px;
+  --rail-w:        460px;
   --header-h:      44px;
   --footer-h:      28px;
 }
@@ -1101,19 +1101,23 @@ input, textarea { font: inherit; color: inherit; }
 .text-body {
   padding: var(--s-6) var(--s-8) var(--s-9);
   font-family: var(--font-serif);
-  font-size: 15px;
-  line-height: 1.7;
+  /* Default reading spacing is deliberately generous — larger type and
+     open leading so a dense statute reads like a document, not a
+     cramped block. (Andrew's preferred default.) The density tweak can
+     tighten it. */
+  font-size: 16px;
+  line-height: 1.9;
   color: var(--ink);
-  /* Let the bill text fill the available column. Previously capped at
-     720px, which left a deep gutter and looked cramped at sign-in
-     widths. 100ch keeps line length sane on ultrawides while honoring
-     whatever the resizable column gives us. */
-  max-width: 100ch;
-  margin: 0 auto;
+  /* Left-aligned so the column hugs the divider — no dead gutter floating
+     the text in the middle of the pane. Capped at a readable line length;
+     the remainder is an ordinary right margin, not empty space on both
+     sides. */
+  max-width: 92ch;
+  margin: 0;
   width: 100%;
 }
-:root[data-density="compact"] .text-body { font-size: 14px; line-height: 1.65; }
-:root[data-density="comfortable"] .text-body { font-size: 16px; line-height: 1.75; }
+:root[data-density="compact"] .text-body { font-size: 15px; line-height: 1.7; }
+:root[data-density="comfortable"] .text-body { font-size: 17px; line-height: 2; }
 
 .text-body h2 {
   font-family: var(--font-serif);
@@ -1134,14 +1138,14 @@ input, textarea { font: inherit; color: inherit; }
 .subsec {
   display: grid;
   grid-template-columns: minmax(40px, max-content) 1fr;
-  gap: var(--s-3);
-  margin-bottom: var(--s-3);
+  gap: var(--s-4);
+  margin-bottom: var(--s-4);
 }
 .subsec .marker {
   font-family: var(--font-mono);
   font-size: 13px;
   color: var(--ink-4);
-  line-height: 1.7;
+  line-height: 1.9;
   text-align: right;
   padding-right: 4px;
 }
@@ -1735,6 +1739,9 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
    demarcate it from the headline area above and the lede below. */
 .land-diagram-zone {
   width: 100%;
+  /* Ease the diagram stage in instead of snapping it into place the
+     instant the "Welcome to Polilabs" headline fades out. */
+  animation: land-stage-in 620ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
   border-top: 1px solid var(--rule);
   border-bottom: 1px solid var(--rule);
   background:
@@ -1755,6 +1762,15 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
   align-items: center;
   gap: var(--s-6);
   text-align: center;
+  /* Rise in just after the diagram zone (not at the same instant), so
+     the tagline + CTA arrive as a settled second beat rather than a
+     stark pop the moment the headline disappears. */
+  animation: land-rise-in 680ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: 220ms;
+}
+@keyframes land-rise-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: none; }
 }
 .land-below .land-lede {
   font-family: var(--font-serif);
@@ -2299,4 +2315,1038 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
   :root { --rail-w: 100%; }
   .rail { max-height: 45vh; }
   .panel-bar { padding: 8px 12px; font-size: var(--t-xs); }
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   In-bill annotations — highlights + notes (text-panel + Notes lens)
+   ════════════════════════════════════════════════════════════════════ */
+
+/* Highlight palette. --hl is the solid accent (bar, swatch, agent ring);
+   --hl-soft is a low-alpha wash that reads on both light and dark themes. */
+.hl-yellow { --hl: #eab308; --hl-soft: rgba(234, 179, 8, 0.16); }
+.hl-green  { --hl: #16a34a; --hl-soft: rgba(22, 163, 74, 0.15); }
+.hl-blue   { --hl: #2563eb; --hl-soft: rgba(37, 99, 235, 0.14); }
+.hl-pink   { --hl: #db2777; --hl-soft: rgba(219, 39, 119, 0.14); }
+
+/* A highlighted statute block: soft wash + a solid left bar, drawn with
+   inset shadow so it costs no layout (the .subsec grid is untouched). */
+.subsec.has-note {
+  position: relative;
+  background: var(--hl-soft);
+  box-shadow: inset 3px 0 0 var(--hl);
+  border-radius: 3px;
+}
+.text-body section.has-note {
+  background: var(--hl-soft);
+  box-shadow: inset 3px 0 0 var(--hl);
+  border-radius: 4px;
+  padding: 2px 8px;
+  margin-left: -8px;
+}
+
+/* Margin flag sitting in the left gutter of an annotated block. */
+.subsec.has-note .note-flag {
+  position: absolute;
+  left: -26px;
+  top: 1px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  color: #fff;
+  background: var(--hl, #eab308);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.18);
+  cursor: pointer;
+  z-index: 2;
+}
+.subsec.has-note .note-flag:hover { filter: brightness(1.08); transform: scale(1.08); }
+
+/* Floating "Add note" pill raised by a text selection. */
+.note-pill {
+  position: fixed;
+  z-index: 50;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  color: #fff;
+  background: var(--accent);
+  border: none;
+  border-radius: 6px;
+  box-shadow: var(--shadow-md, 0 4px 14px rgba(0,0,0,0.18));
+  cursor: pointer;
+}
+.note-pill:hover { background: var(--accent-2, var(--accent)); }
+
+/* Inline composer (selection note + edit-in-place share .note-input). */
+.note-composer {
+  position: fixed;
+  z-index: 51;
+  width: 300px;
+  background: var(--panel, #fff);
+  border: 1px solid var(--rule-strong);
+  border-radius: 10px;
+  box-shadow: var(--shadow-lg, 0 12px 34px rgba(0,0,0,0.22));
+  padding: 10px;
+}
+.note-input {
+  width: 100%;
+  resize: vertical;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--panel-2, transparent);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 7px 9px;
+  outline: none;
+}
+.note-input:focus { border-color: var(--accent-line, var(--accent)); }
+.note-composer-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+.note-swatches { display: inline-flex; gap: 6px; }
+.swatch {
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.12);
+  background: var(--hl);
+  cursor: pointer;
+  padding: 0;
+}
+.swatch.on { box-shadow: 0 0 0 2px var(--panel, #fff), 0 0 0 3.5px var(--hl); }
+.note-actions { display: inline-flex; gap: 6px; }
+.note-btn {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 11px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 1px solid var(--rule);
+}
+.note-btn.ghost { background: transparent; color: var(--ink-3); }
+.note-btn.ghost:hover { color: var(--ink); border-color: var(--rule-strong); }
+.note-btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+.note-btn.primary:hover { background: var(--accent-2, var(--accent)); }
+
+/* Notes lens cards (Decomp panel). */
+.notes-empty {
+  text-align: center;
+  color: var(--ink-4);
+  padding: 40px 16px;
+}
+.notes-empty p { margin: 10px 0 0; font-size: 13px; }
+.notes-empty .hint { font-size: 12px; color: var(--ink-4); max-width: 240px; margin: 6px auto 0; }
+
+.note-card {
+  position: relative;
+  background: var(--hl-soft);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--hl);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+}
+.note-card.agent { border-style: dashed; }
+.note-quote {
+  display: flex;
+  gap: 6px;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink-2);
+  cursor: pointer;
+  margin-bottom: 8px;
+}
+.note-quote:hover { color: var(--ink); }
+.note-quote .i { flex: 0 0 auto; margin-top: 3px; color: var(--hl); }
+.note-text {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--ink);
+  cursor: text;
+  white-space: pre-wrap;
+}
+.note-empty { color: var(--ink-4); font-style: italic; }
+.note-edit { margin-top: 2px; }
+.note-edit .note-actions { margin-top: 8px; justify-content: flex-end; }
+.note-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+.note-src {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+}
+.note-del {
+  display: inline-flex;
+  padding: 3px;
+  border: none;
+  background: transparent;
+  color: var(--ink-4);
+  border-radius: 4px;
+  cursor: pointer;
+}
+.note-del:hover { color: var(--danger, #c0392b); background: var(--rule-faint); }
+
+/* ════════════════════════════════════════════════════════════════════
+   Text panel — clearer section delineation (requested: "clear lines that
+   delineate section from section; things that flow smoother together").
+   A hairline rule + breathing room between top-level statute sections,
+   so a long bill reads as distinct sections rather than one wall of text.
+   Reversible: delete this block to restore the prior literary spacing.
+   ════════════════════════════════════════════════════════════════════ */
+.text-body section:not(:first-of-type) {
+  margin-top: var(--s-6);
+  padding-top: var(--s-6);
+  border-top: 1px solid var(--rule);
+}
+.text-body section:not(:first-of-type) > h2 { margin-top: 0; }
+
+/* ════════════════════════════════════════════════════════════════════
+   Agent-driven highlighting — transient, per-answer flags marking the
+   verbatim spans the agent actually pulled (get_section / citation walk).
+   Visually distinct from user notes: a dashed accent rail + sparkle, in
+   the accent colour rather than a highlighter wash.
+   ════════════════════════════════════════════════════════════════════ */
+.subsec.agent-flag {
+  position: relative;
+  background: var(--accent-soft, rgba(30, 63, 168, 0.06));
+  box-shadow: inset 3px 0 0 var(--accent);
+  border-radius: 3px;
+}
+.subsec.agent-flag .agent-flag-mark {
+  position: absolute;
+  left: -18px;
+  top: 2px;
+  color: var(--accent);
+  display: inline-flex;
+}
+/* A block that is both user-noted and agent-flagged: keep the user wash,
+   add the agent rail as a second inset so both read at once. */
+.subsec.has-note.agent-flag { box-shadow: inset 3px 0 0 var(--hl), inset 6px 0 0 var(--accent); }
+.text-body section.agent-flag {
+  background: var(--accent-soft, rgba(30, 63, 168, 0.06));
+  box-shadow: inset 3px 0 0 var(--accent);
+  border-radius: 4px;
+  padding: 2px 8px;
+  margin-left: -8px;
+}
+
+/* Panel-bar chip: "agent flagged N" — click to step through the spans. */
+.agent-flag-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--accent-ink, var(--accent));
+  background: var(--accent-soft, rgba(30, 63, 168, 0.08));
+  border: 1px solid var(--accent-line, var(--accent));
+  border-radius: 999px;
+  padding: 3px 9px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.agent-flag-chip:hover { background: var(--accent); color: #fff; }
+.agent-flag-chip .i { flex: 0 0 auto; }
+
+/* Agent-flag group at the top of the Notes lens. */
+.agent-flag-group { margin-bottom: var(--s-4); }
+.agent-flag-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  text-align: left;
+  padding: 7px 10px;
+  margin-bottom: 4px;
+  background: var(--accent-soft, rgba(30, 63, 168, 0.05));
+  border: 1px solid var(--accent-line, var(--rule));
+  border-left: 3px solid var(--accent);
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--ink-2);
+}
+.agent-flag-row:hover { color: var(--ink); background: var(--accent-soft, rgba(30, 63, 168, 0.1)); }
+.agent-flag-row .i { flex: 0 0 auto; color: var(--accent); }
+.agent-flag-row .mono { font-size: 11px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ════════════════════════════════════════════════════════════════════
+   Bring-your-own-agent — "Connect agent" header button + modal
+   ════════════════════════════════════════════════════════════════════ */
+.connect-agent-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--accent-ink, var(--accent));
+  background: var(--accent-soft, rgba(30, 63, 168, 0.08));
+  border: 1px solid var(--accent-line, var(--accent));
+  border-radius: 7px;
+  padding: 5px 11px;
+  cursor: pointer;
+}
+.connect-agent-btn:hover { background: var(--accent); color: #fff; }
+.connect-agent-btn .i { flex: 0 0 auto; }
+
+.modal-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(20, 22, 20, 0.42);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 7vh 16px 16px;
+  overflow-y: auto;
+}
+.modal {
+  background: var(--panel, #fff);
+  border: 1px solid var(--rule);
+  border-radius: 14px;
+  box-shadow: var(--shadow-lg, 0 24px 60px rgba(0,0,0,0.28));
+  width: 100%;
+  max-width: 560px;
+}
+.modal-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 22px 14px;
+  border-bottom: 1px solid var(--rule-faint);
+}
+.modal-head h2 { font-family: var(--font-sans); font-size: 18px; font-weight: 600; margin: 0; color: var(--ink); }
+.modal-sub { font-size: 13px; color: var(--ink-3); margin: 5px 0 0; line-height: 1.5; max-width: 44ch; }
+.modal-x {
+  flex: 0 0 auto;
+  display: inline-flex;
+  padding: 5px;
+  border: none;
+  background: transparent;
+  color: var(--ink-4);
+  border-radius: 6px;
+  cursor: pointer;
+}
+.modal-x:hover { color: var(--ink); background: var(--rule-faint); }
+.modal-body { padding: 18px 22px 22px; }
+
+.conn-step { display: flex; gap: 12px; margin-bottom: 18px; }
+.conn-step-n {
+  flex: 0 0 auto;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 1px;
+}
+.conn-step-body { flex: 1 1 auto; min-width: 0; }
+.conn-step-title { font-family: var(--font-sans); font-size: 14px; font-weight: 600; color: var(--ink); }
+.conn-step-body p { font-size: 13px; color: var(--ink-3); margin: 3px 0 9px; line-height: 1.5; }
+
+.conn-copyrow {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+}
+.conn-copyrow code {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink-2);
+  background: var(--panel-2, var(--rule-faint));
+  border: 1px solid var(--rule);
+  border-radius: 7px;
+  padding: 8px 10px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.conn-token { color: var(--accent-ink, var(--accent)) !important; }
+.conn-copy, .conn-mint {
+  flex: 0 0 auto;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 7px 12px;
+  border-radius: 7px;
+  cursor: pointer;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: #fff;
+}
+.conn-copy { background: transparent; color: var(--accent-ink, var(--accent)); }
+.conn-copy:hover { background: var(--accent); color: #fff; }
+.conn-mint:hover { background: var(--accent-2, var(--accent)); }
+.conn-mint:disabled { opacity: 0.6; cursor: default; }
+
+.conn-mintrow { display: flex; gap: 8px; }
+.conn-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--ink);
+  background: var(--panel-2, transparent);
+  border: 1px solid var(--rule);
+  border-radius: 7px;
+  padding: 7px 10px;
+  outline: none;
+}
+.conn-input:focus { border-color: var(--accent-line, var(--accent)); }
+
+.conn-fresh {
+  margin-top: 10px;
+  padding: 10px;
+  background: var(--accent-soft, rgba(30, 63, 168, 0.06));
+  border: 1px solid var(--accent-line, var(--rule));
+  border-radius: 8px;
+}
+.conn-fresh-label {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 500;
+  color: var(--accent-ink, var(--accent));
+  margin-bottom: 8px;
+}
+.conn-error {
+  font-size: 12px;
+  color: var(--danger, #c0392b);
+  background: rgba(192, 57, 43, 0.08);
+  border-radius: 6px;
+  padding: 7px 10px;
+  margin-bottom: 12px;
+}
+
+.conn-list-head {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+  margin: 6px 0 8px;
+  padding-top: 14px;
+  border-top: 1px solid var(--rule-faint);
+}
+.conn-empty { font-size: 13px; color: var(--ink-4); }
+.conn-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 11px;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  margin-bottom: 7px;
+}
+.conn-row.revoked { opacity: 0.55; }
+.conn-row-main { min-width: 0; }
+.conn-row-label { font-family: var(--font-sans); font-size: 13px; font-weight: 500; color: var(--ink); display: block; }
+.conn-row-meta { font-size: 11px; color: var(--ink-4); }
+.conn-revoke {
+  flex: 0 0 auto;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  color: var(--danger, #c0392b);
+  background: transparent;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.conn-revoke:hover { border-color: var(--danger, #c0392b); background: rgba(192, 57, 43, 0.06); }
+.conn-revoked { font-size: 11px; color: var(--ink-4); font-style: italic; }
+
+/* Inline error inside the note composer when a save fails — the text is
+   kept so nothing the researcher wrote is lost. */
+.note-error {
+  font-size: 12px;
+  color: var(--danger, #c0392b);
+  background: rgba(192, 57, 43, 0.08);
+  border-radius: 6px;
+  padding: 6px 9px;
+  margin-top: 8px;
+  line-height: 1.4;
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   Find in this bill — agent-driven decomposition (Decomp panel top bar)
+   ════════════════════════════════════════════════════════════════════ */
+.find-bar {
+  border-bottom: 1px solid var(--rule);
+  background: var(--panel-2, transparent);
+  padding: 10px 12px;
+  flex: 0 0 auto;
+}
+.find-input-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.find-icon { color: var(--ink-4); flex: 0 0 auto; }
+.find-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--ink);
+  background: var(--panel, transparent);
+  border: 1px solid var(--rule);
+  border-radius: 7px;
+  padding: 7px 10px;
+  outline: none;
+}
+.find-input:focus { border-color: var(--accent-line, var(--accent)); }
+.find-input:disabled { opacity: 0.6; }
+.find-go {
+  flex: 0 0 auto;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  color: #fff;
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 7px;
+  padding: 7px 13px;
+  cursor: pointer;
+}
+.find-go:hover:not(:disabled) { background: var(--accent-2, var(--accent)); }
+.find-go:disabled { opacity: 0.5; cursor: default; }
+
+.find-hint {
+  font-size: 11.5px;
+  color: var(--ink-4);
+  line-height: 1.5;
+  margin: 8px 2px 0;
+}
+.find-status {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  color: var(--ink-3);
+  margin-top: 9px;
+}
+.spinner-sm {
+  width: 12px; height: 12px;
+  border: 2px solid var(--rule-strong);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  flex: 0 0 auto;
+}
+.find-error {
+  font-size: 12px;
+  color: var(--danger, #c0392b);
+  background: rgba(192, 57, 43, 0.08);
+  border-radius: 6px;
+  padding: 6px 9px;
+  margin-top: 9px;
+}
+
+/* Results: bounded + scrollable so a big hit list doesn't shove the
+   mode content (Structure/Notes/etc.) off the panel. */
+.find-result {
+  margin-top: 10px;
+  max-height: 42vh;
+  overflow-y: auto;
+}
+.find-result-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink-2);
+  margin-bottom: 8px;
+}
+.find-clear {
+  flex: 0 0 auto;
+  display: inline-flex;
+  padding: 3px;
+  border: none;
+  background: transparent;
+  color: var(--ink-4);
+  border-radius: 5px;
+  cursor: pointer;
+}
+.find-clear:hover { color: var(--ink); background: var(--rule-faint); }
+.find-hit {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  width: 100%;
+  text-align: left;
+  padding: 7px 9px;
+  margin-bottom: 5px;
+  background: var(--accent-soft, rgba(30, 63, 168, 0.05));
+  border: 1px solid var(--accent-line, var(--rule));
+  border-left: 3px solid var(--accent);
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--ink-2);
+}
+.find-hit:hover { color: var(--ink); }
+.find-hit-marker { flex: 0 0 auto; font-size: 11px; color: var(--accent); }
+.find-hit-title { font-size: 13px; line-height: 1.35; }
+.find-answer {
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--ink-3);
+  margin: 8px 2px 2px;
+  padding-top: 8px;
+  border-top: 1px solid var(--rule-faint);
+  white-space: pre-wrap;
+}
+
+/* Readable labels in the Notes-lens agent group rows. */
+.agent-flag-marker { flex: 0 0 auto; color: var(--accent); }
+.agent-flag-title { font-size: 12.5px; line-height: 1.3; overflow: hidden; text-overflow: ellipsis; }
+
+/* ════════════════════════════════════════════════════════════════════
+   Single-pane bill viewer (decomp panel removed) — text fills the stage
+   ════════════════════════════════════════════════════════════════════ */
+.bv-single {
+  min-height: 0;
+  min-width: 0;
+  display: flex;
+}
+.bv-single .text-col {
+  flex: 1 1 auto;
+  min-width: 0;
+  border-right: none;
+}
+
+/* ── note popover — reopen a saved note from its flag ───────────────── */
+.note-popover {
+  position: fixed;
+  z-index: 52;
+  width: 300px;
+  background: var(--panel, #fff);
+  border: 1px solid var(--rule-strong);
+  border-radius: 10px;
+  box-shadow: var(--shadow-lg, 0 12px 34px rgba(0,0,0,0.22));
+  padding: 10px 12px;
+}
+.note-pop-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+  margin-bottom: 8px;
+}
+.note-pop-row {
+  border-left: 3px solid var(--hl, #eab308);
+  background: var(--hl-soft, rgba(234,179,8,0.12));
+  border-radius: 6px;
+  padding: 8px 10px;
+  margin-bottom: 8px;
+}
+.note-pop-row:last-child { margin-bottom: 0; }
+.note-pop-quote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 12px;
+  color: var(--ink-3);
+  line-height: 1.45;
+  margin-bottom: 6px;
+}
+.note-pop-body {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink);
+  white-space: pre-wrap;
+  cursor: text;
+}
+.note-pop-foot { display: flex; justify-content: flex-end; margin-top: 7px; }
+.note-pop-del {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--ink-4);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.note-pop-del:hover { color: var(--danger, #c0392b); }
+
+/* ── inline agent — translucent box on double-click ────────────────── */
+.inline-ask {
+  position: fixed;
+  z-index: 60;
+  width: 380px;
+  max-width: calc(100vw - 24px);
+  background: color-mix(in srgb, var(--panel, #fff) 82%, transparent);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  backdrop-filter: blur(14px) saturate(1.4);
+  border: 1px solid var(--rule-strong);
+  border-radius: 13px;
+  box-shadow: 0 18px 48px rgba(0,0,0,0.26);
+  padding: 12px;
+}
+.inline-ask-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 9px;
+}
+.inline-ask-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent-ink, var(--accent));
+}
+.inline-ask-inputrow { display: flex; gap: 7px; }
+.inline-ask-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--ink);
+  background: var(--panel, #fff);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 8px 10px;
+  outline: none;
+}
+.inline-ask-input:focus { border-color: var(--accent-line, var(--accent)); }
+.inline-ask-go {
+  flex: 0 0 auto;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  color: #fff;
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+.inline-ask-go:hover:not(:disabled) { background: var(--accent-2, var(--accent)); }
+.inline-ask-go:disabled { opacity: 0.5; cursor: default; }
+.inline-ask-body { margin-top: 10px; max-height: 38vh; overflow-y: auto; }
+.inline-ask-answer {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--ink);
+  white-space: pre-wrap;
+}
+.ask-caret { color: var(--accent); animation: caret 1s steps(2) infinite; }
+.inline-ask-hits {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 10px;
+  padding-top: 9px;
+  border-top: 1px solid var(--rule-faint);
+}
+.inline-ask-hit {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  text-align: left;
+  padding: 6px 8px;
+  background: var(--accent-soft, rgba(30,63,168,0.06));
+  border: 1px solid var(--accent-line, var(--rule));
+  border-left: 3px solid var(--accent);
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--ink-2);
+  font-size: 12.5px;
+}
+.inline-ask-hit:hover { color: var(--ink); }
+.inline-ask-hit .i { flex: 0 0 auto; color: var(--accent); }
+.inline-ask-hit .mono { flex: 0 0 auto; font-size: 11px; color: var(--accent); }
+.inline-ask-hit-title { line-height: 1.3; }
+
+/* ── chain of thought — tool steps + reasoning in the left rail ─────── */
+.cot-steps { list-style: none; margin: 0 0 6px; padding: 0; }
+.cot-step {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--ink-2);
+  padding: 3px 0;
+}
+.cot-dot {
+  flex: 0 0 auto;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  transform: translateY(-2px);
+}
+.cot-step.cot-live { color: var(--ink-4); align-items: center; }
+.cot-step.cot-live .spinner-sm { transform: translateY(0); }
+.cot-thinking { font-size: 12.5px; color: var(--ink-4); font-style: italic; margin: 0; }
+.cot-thought {
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--ink-3);
+  margin: 6px 0 0;
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   Inline bill chat — multi-turn, draggable, translucent, markdown
+   ════════════════════════════════════════════════════════════════════ */
+.inline-chat {
+  position: fixed;
+  z-index: 60;
+  width: 410px;
+  max-width: calc(100vw - 24px);
+  display: flex;
+  flex-direction: column;
+  max-height: 70vh;
+  background: color-mix(in srgb, var(--panel, #fff) 80%, transparent);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  backdrop-filter: blur(16px) saturate(1.4);
+  border: 1px solid var(--rule-strong);
+  border-radius: 14px;
+  box-shadow: 0 20px 54px rgba(0,0,0,0.28);
+}
+.inline-chat-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--rule-faint);
+  cursor: grab;
+  user-select: none;
+}
+.inline-chat-head:active { cursor: grabbing; }
+.inline-chat-title {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-sans); font-size: 12px; font-weight: 600;
+  color: var(--accent-ink, var(--accent));
+}
+.inline-chat-body {
+  flex: 1 1 auto;
+  min-height: 60px;
+  overflow-y: auto;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.inline-chat-hint { font-size: 12px; color: var(--ink-4); line-height: 1.5; margin: 0; }
+.chat-msg-user {
+  align-self: flex-end;
+  max-width: 85%;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.45;
+  padding: 7px 11px;
+  border-radius: 12px 12px 3px 12px;
+}
+.chat-msg-assistant {
+  align-self: flex-start;
+  max-width: 100%;
+  font-size: 13px;
+  color: var(--ink);
+}
+.chat-flags { display: flex; flex-direction: column; gap: 5px; margin-top: 8px; }
+.inline-chat-inputrow {
+  display: flex; gap: 7px;
+  padding: 10px 12px;
+  border-top: 1px solid var(--rule-faint);
+}
+
+/* markdown inside the chat — compact version of the rail's .md styles */
+.mdview { font-family: var(--font-sans); font-size: 13px; line-height: 1.6; color: var(--ink); }
+.mdview p { margin: 0 0 8px; }
+.mdview p:last-child { margin-bottom: 0; }
+.mdview .md-h { font-weight: 600; color: var(--ink); margin: 10px 0 5px; }
+.mdview .md-h1, .mdview .md-h2 { font-size: 14px; }
+.mdview .md-list { margin: 0 0 8px; padding-left: 18px; }
+.mdview .md-list li { margin: 2px 0; }
+.mdview .md-quote {
+  margin: 8px 0;
+  padding: 6px 10px;
+  border-left: 3px solid var(--accent-line, var(--rule-strong));
+  background: var(--accent-soft, rgba(30,63,168,0.05));
+  border-radius: 0 6px 6px 0;
+  font-style: italic;
+  color: var(--ink-2);
+}
+.mdview .md-code {
+  font-family: var(--font-mono); font-size: 12px;
+  background: var(--rule-faint); padding: 1px 4px; border-radius: 4px;
+}
+.mdview .md-hr { border: 0; border-top: 1px solid var(--rule); margin: 10px 0; }
+.mdview .md-table-wrap { overflow-x: auto; margin: 8px 0; }
+.mdview .md-table { border-collapse: collapse; font-size: 12px; width: 100%; }
+.mdview .md-table th, .mdview .md-table td { border: 1px solid var(--rule); padding: 4px 7px; text-align: left; }
+.mdview .md-table th { background: var(--rule-faint); font-weight: 600; }
+
+/* defined-term link inside a chat reply -> jumps to its definition */
+.term-ref {
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: var(--accent);
+  font: inherit;
+  cursor: pointer;
+  border-bottom: 1px dotted var(--accent-line, var(--accent));
+}
+.term-ref:hover { background: var(--accent-soft, rgba(30,63,168,0.1)); }
+
+/* quiet pill to reopen a closed chat */
+.chat-reopen {
+  position: fixed;
+  z-index: 40;
+  right: 18px;
+  bottom: 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  color: #fff;
+  background: var(--accent);
+  border: none;
+  border-radius: 999px;
+  padding: 8px 14px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.22);
+  cursor: pointer;
+}
+.chat-reopen:hover { background: var(--accent-2, var(--accent)); }
+
+/* ════════════════════════════════════════════════════════════════════
+   Past-chats sidebar (IDE file-explorer style)
+   ════════════════════════════════════════════════════════════════════ */
+.app.has-chats {
+  grid-template-columns: var(--chats-w, 220px) var(--rail-w) 1fr;
+  grid-template-areas:
+    "header header header"
+    "chats  rail   stage";
+}
+.chats-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px; height: 28px;
+  margin-right: 6px;
+  border: none;
+  background: transparent;
+  color: var(--header-ink, #cdd3e0);
+  border-radius: 6px;
+  cursor: pointer;
+}
+.chats-toggle:hover { background: rgba(255,255,255,0.12); color: #fff; }
+
+.chats-sidebar {
+  grid-area: chats;
+  min-height: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--panel-2, #f4f2ec);
+  border-right: 1px solid var(--rule);
+}
+.chats-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--rule);
+}
+.chats-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+}
+.chats-head-actions { display: inline-flex; gap: 2px; }
+.chats-new, .chats-collapse {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 24px; height: 24px;
+  border: none; background: transparent;
+  color: var(--ink-4); border-radius: 5px; cursor: pointer;
+}
+.chats-new:hover, .chats-collapse:hover { color: var(--ink); background: var(--rule-faint); }
+.chats-list { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 8px; }
+.chats-empty { font-size: 12px; color: var(--ink-4); line-height: 1.5; padding: 8px; margin: 0; }
+.chat-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+  text-align: left;
+  padding: 8px 9px;
+  margin-bottom: 3px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  background: transparent;
+  cursor: pointer;
+  color: var(--ink-2);
+}
+.chat-item:hover { background: var(--panel, #fff); }
+.chat-item.active {
+  background: var(--panel, #fff);
+  border-color: var(--accent-line, var(--rule-strong));
+  color: var(--ink);
+}
+.chat-item.active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 3px;
+}
+.chat-item-icon { flex: 0 0 auto; color: var(--ink-4); margin-top: 2px; }
+.chat-item.active .chat-item-icon { color: var(--accent); }
+.chat-item-q {
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* On narrow screens the chats sidebar would crowd the panes — hide it. */
+@media (max-width: 1100px) {
+  .app.has-chats {
+    grid-template-columns: var(--rail-w) 1fr;
+    grid-template-areas: "header header" "rail stage";
+  }
+  .chats-sidebar { display: none; }
 }

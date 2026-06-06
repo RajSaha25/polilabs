@@ -29,47 +29,24 @@ function BillViewerLoading() {
 
       <div className="loading-banner">
         <span className="spinner" />
-        <span className="step now">Loading verbatim text and decomposition…</span>
+        <span className="step now">Loading verbatim text…</span>
       </div>
 
-      <div className="bv-split">
+      <div className="bv-single">
         <div className="panel-col text-col">
           <div className="panel-bar">
             <span className="panel-label"><span className="dot" /> Text · verbatim</span>
           </div>
           <div className="scroll" style={{ flex: 1 }}>
             <div className="text-body">
-              {Array.from({ length: 6 }).map((_, i) => (
-                <div key={i} style={{ marginBottom: 22 }}>
-                  <div className="skeleton" style={{ height: 11, width: 70, marginBottom: 8 }} />
-                  <div className="skeleton" style={{ height: 22, width: "60%", marginBottom: 14 }} />
-                  <div className="skeleton" style={{ height: 13, width: "100%", marginBottom: 6 }} />
-                  <div className="skeleton" style={{ height: 13, width: "97%", marginBottom: 6 }} />
-                  <div className="skeleton" style={{ height: 13, width: "94%", marginBottom: 6 }} />
-                  <div className="skeleton" style={{ height: 13, width: "78%" }} />
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-        <div className="panel-col decomp-col">
-          <div className="panel-bar">
-            <span className="panel-label"><span className="dot" /> Decomp · structure</span>
-            <div className="skeleton" style={{ width: 180, height: 24, borderRadius: 6 }} />
-          </div>
-          <div className="scroll" style={{ flex: 1 }}>
-            <div className="decomp-body">
               {Array.from({ length: 8 }).map((_, i) => (
-                <div key={i} style={{
-                  display: "grid",
-                  gridTemplateColumns: "60px 1fr 40px",
-                  gap: 12,
-                  padding: "10px 12px",
-                  marginLeft: i % 3 === 1 ? 24 : i % 3 === 2 ? 48 : 0,
-                }}>
-                  <div className="skeleton" style={{ height: 11 }} />
-                  <div className="skeleton" style={{ height: 13, width: `${60 + ((i * 13) % 30)}%` }} />
-                  <div className="skeleton" style={{ height: 11 }} />
+                <div key={i} style={{ marginBottom: 26 }}>
+                  <div className="skeleton" style={{ height: 11, width: 70, marginBottom: 10 }} />
+                  <div className="skeleton" style={{ height: 22, width: "52%", marginBottom: 16 }} />
+                  <div className="skeleton" style={{ height: 14, width: "94%", marginBottom: 8 }} />
+                  <div className="skeleton" style={{ height: 14, width: "90%", marginBottom: 8 }} />
+                  <div className="skeleton" style={{ height: 14, width: "92%", marginBottom: 8 }} />
+                  <div className="skeleton" style={{ height: 14, width: "68%" }} />
                 </div>
               ))}
             </div>
@@ -188,56 +165,29 @@ function BillViewerHeader({ bill, position, onPrev, onNext, total }) {
 // ── Loaded bill viewer ────────────────────────────────────────────────
 function BillViewer({
   bill, position, total, onPrev, onNext,
-  mode, setMode, activeAnchor, setActiveAnchor,
-  textFrac, setTextFrac,
+  activeAnchor, setActiveAnchor,
+  annotations = [], onAddAnnotation, onEditAnnotation, onRemoveAnnotation,
+  agentFlags = [], chatState, onAsk, onClearChat,
 }) {
-  // Sync highlighting: clicking a Decomp card highlights the matching
-  // anchor in the Text panel and vice versa; both funnel through
-  // setActiveAnchor. The Text|Decomp divider is drag-resizable.
-  const splitRef = useRef(null);
-
-  const onResize = (e) => {
-    e.preventDefault();
-    const move = (ev) => {
-      const el = splitRef.current;
-      if (!el) return;
-      const r = el.getBoundingClientRect();
-      let f = (ev.clientX - r.left) / r.width;
-      f = Math.max(0.32, Math.min(0.68, f));
-      setTextFrac(f);
-    };
-    const up = () => {
-      window.removeEventListener("pointermove", move);
-      window.removeEventListener("pointerup", up);
-      document.body.style.cursor = "";
-      document.body.style.userSelect = "";
-    };
-    document.body.style.cursor = "col-resize";
-    document.body.style.userSelect = "none";
-    window.addEventListener("pointermove", move);
-    window.addEventListener("pointerup", up);
-  };
-
+  // Single-pane experiment: the Decomp panel is gone. The bill text fills
+  // the stage; interaction lives ON the text — highlight to note,
+  // double-click to ask the agent (an inline, scoped chat).
   return (
     <section className="stage">
       <BillViewerHeader bill={bill} position={position} total={total} onPrev={onPrev} onNext={onNext} />
-      <div
-        className="bv-split"
-        ref={splitRef}
-        style={{ gridTemplateColumns: `${textFrac}fr 8px ${1 - textFrac}fr` }}
-      >
+      <div className="bv-single">
         <TextPanel
           bill={bill}
           activeAnchor={activeAnchor}
           onAnchorClick={setActiveAnchor}
-        />
-        <div className="col-resizer" onPointerDown={onResize} title="Drag to resize panels" />
-        <DecompPanel
-          bill={bill}
-          mode={mode}
-          setMode={setMode}
-          activeAnchor={activeAnchor}
-          onSelect={setActiveAnchor}
+          annotations={annotations}
+          onAddAnnotation={onAddAnnotation}
+          onEditAnnotation={onEditAnnotation}
+          onRemoveAnnotation={onRemoveAnnotation}
+          agentFlags={agentFlags}
+          chatState={chatState}
+          onAsk={onAsk}
+          onClearChat={onClearChat}
         />
       </div>
     </section>
