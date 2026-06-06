@@ -3158,31 +3158,81 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
 .inline-chat {
   position: fixed;
   z-index: 60;
+  /* Resizable: drag the bottom-right corner. width/height are the live
+     size; min/max keep it usable. React only owns top/left (the drag
+     position), so a user-set size survives re-renders. */
   width: 410px;
+  height: 460px;
+  min-width: 300px;
+  min-height: 240px;
   max-width: calc(100vw - 24px);
+  max-height: 92vh;
   display: flex;
   flex-direction: column;
-  max-height: 70vh;
   /* Near-transparent glass: the bill text reads straight through it, with
-     a heavy backdrop blur keeping the chat legible. Bumped translucency
-     per request — the panel should feel like a faint overlay, not a card. */
-  background: color-mix(in srgb, var(--panel, #fff) 50%, transparent);
-  -webkit-backdrop-filter: blur(24px) saturate(1.5);
-  backdrop-filter: blur(24px) saturate(1.5);
-  border: 1px solid color-mix(in srgb, var(--rule-strong) 60%, transparent);
+     a heavy backdrop blur keeping the chat legible. Pushed further per
+     request — a faint overlay, not a card. */
+  background: color-mix(in srgb, var(--panel, #fff) 32%, transparent);
+  -webkit-backdrop-filter: blur(28px) saturate(1.7);
+  backdrop-filter: blur(28px) saturate(1.7);
+  border: 1px solid color-mix(in srgb, var(--rule-strong) 50%, transparent);
   border-radius: 14px;
   box-shadow: 0 20px 54px rgba(0,0,0,0.22);
+  overflow: hidden;   /* required for CSS resize; also clips children to the radius */
 }
 .inline-chat-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 8px;
   padding: 10px 12px;
   border-bottom: 1px solid var(--rule-faint);
   cursor: grab;
   user-select: none;
 }
 .inline-chat-head:active { cursor: grabbing; }
+.inline-chat-head-actions { display: inline-flex; align-items: center; gap: 6px; flex: 0 0 auto; }
+.inline-chat-new {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent-ink, var(--accent));
+  background: var(--accent-soft, rgba(30, 63, 168, 0.10));
+  border: 1px solid var(--accent-line, var(--accent));
+  border-radius: 999px;
+  padding: 3px 9px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.inline-chat-new:hover { background: var(--accent); color: #fff; }
+.inline-chat-new-plus { font-size: 13px; line-height: 1; font-weight: 700; }
+
+/* Bottom-right resize grip (custom so it reads clearly over the rounded,
+   clipped corner — drag to resize the window). */
+.inline-chat-resize {
+  position: absolute;
+  right: 1px;
+  bottom: 1px;
+  width: 18px;
+  height: 18px;
+  cursor: nwse-resize;
+  z-index: 3;
+}
+.inline-chat-resize::after {
+  content: "";
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  width: 7px;
+  height: 7px;
+  border-right: 2px solid var(--ink-4, #9aa3ad);
+  border-bottom: 2px solid var(--ink-4, #9aa3ad);
+  opacity: 0.55;
+}
+.inline-chat-resize:hover::after { opacity: 0.95; }
 .inline-chat-title {
   display: inline-flex; align-items: center; gap: 6px;
   font-family: var(--font-sans); font-size: 12px; font-weight: 600;
