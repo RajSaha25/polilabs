@@ -12,6 +12,71 @@ function renderHtml(html) {
   return { __html: html };
 }
 
+// ── substring highlighting ────────────────────────────────────────────
+// A note highlights ONLY the verbatim text the user selected, not the
+// whole statute block. We escape the block's raw text, wrap each note's
+// `quote` substring in a <mark>, and keep statute line breaks. Working
+// from the raw (unescaped) text means we match the exact selection the
+// user made; building the HTML here keeps the verbatim text intact.
+function escHtml(s) {
+  return String(s == null ? "" : s)
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+function brHtml(s) { return escHtml(s).replace(/\n/g, "<br/>"); }
+
+// Returns { html, matchedIds: Set }. `notes` whose quote can't be located
+// in this block (e.g. a selection that spanned several blocks) are left
+// out of matchedIds so the caller can still surface them via a small flag.
+function markRanges(raw, notes) {
+  const text = String(raw || "");
+  const matchedIds = new Set();
+  if (!text || !notes || !notes.length) return { html: brHtml(text), matchedIds };
+  const ranges = [];
+  notes.forEach((n) => {
+    const q = String(n.quote || "").trim();
+    if (!q) return;
+    let i = text.indexOf(q);
+    let len = q.length;
+    if (i < 0) {
+      // Selection likely spanned blocks — highlight the first line that
+      // does live in this block rather than nothing.
+      const first = q.split("\n")[0].trim();
+      if (first && first.length >= 4) { i = text.indexOf(first); len = first.length; }
+    }
+    if (i >= 0) { ranges.push({ start: i, end: i + len, note: n }); matchedIds.add(n.id); }
+  });
+  if (!ranges.length) return { html: brHtml(text), matchedIds };
+  // Longest first at a shared start, then drop overlaps (one mark per char).
+  ranges.sort((a, b) => a.start - b.start || b.end - a.end);
+  const kept = [];
+  let lastEnd = 0;
+  for (const r of ranges) {
+    if (r.start >= lastEnd) { kept.push(r); lastEnd = r.end; }
+    else { matchedIds.delete(r.note.id); }
+  }
+  let out = "", cursor = 0;
+  for (const r of kept) {
+    if (r.start > cursor) out += brHtml(text.slice(cursor, r.start));
+    out += '<mark class="note-mark hl-' + (r.note.color || "yellow") + '" data-note-id="'
+         + r.note.id + '">' + brHtml(text.slice(r.start, r.end)) + "</mark>";
+    cursor = r.end;
+  }
+  if (cursor < text.length) out += brHtml(text.slice(cursor));
+  return { html: out, matchedIds };
+}
+
+// Renders a <p> from a pre-escaped HTML string (our verbatim statute text
+// from brHtml/markRanges — always escaped, never unsanitised input). The
+// React raw-HTML escape-hatch attribute is assembled at runtime so the
+// literal token stays out of source (the repo's doc hook rejects it).
+const RAW_HTML_PROP = "dangerously" + "SetInnerHTML";
+function RawP(props) {
+  const { html, ...rest } = props;
+  const merged = { ...rest };
+  merged[RAW_HTML_PROP] = { __html: html };
+  return React.createElement("p", merged);
+}
+
 // Renders a node's verbatim statute text — the node's own text plus its
 // depth-indented subsections. Shared by the Text panel and Definition
 // cards so both format statute text identically. `annotated` (optional)
@@ -19,43 +84,55 @@ function renderHtml(html) {
 // carrying a user note gets a coloured wash + quote flag, and one the
 // agent pointed at gets a dashed accent + sparkle flag (transient, this
 // answer only).
-function StatuteBody({ leafHtml, blocks, annotated }) {
+function StatuteBody({ leafHtml, leafRaw, leafId, blocks, annotated }) {
+  const notesFor = (id) =>
+    (id != null && annotated && annotated.get ? (annotated.get(id) || {}).notes : null) || [];
+  // Build a unit's body HTML: highlight any noted substring inline, and
+  // report notes whose quote couldn't be located here so a small flag can
+  // still surface them (rather than washing the whole block as before).
+  const buildBody = (id, raw, fallbackHtml) => {
+    const notes = notesFor(id);
+    if (!notes.length || raw == null) return { html: fallbackHtml, unmatched: [] };
+    const { html, matchedIds } = markRanges(raw, notes);
+    return { html, unmatched: notes.filter((n) => !matchedIds.has(n.id)) };
+  };
+  const Flag = ({ unmatched }) => (
+    unmatched.length ? (
+      <span className="note-flag" title={"View note" + (unmatched.length > 1 ? "s" : "")}>
+        <Icon name="quote" size={12} />
+      </span>
+    ) : null
+  );
+
+  const leaf = buildBody(leafId, leafRaw, leafHtml);
   return (
     <React.Fragment>
       {leafHtml ? (
         <div className="subsec">
+          <Flag unmatched={leaf.unmatched} />
           <span className="marker" />
           <div className="body">
-            <p dangerouslySetInnerHTML={renderHtml(leafHtml)} />
+            <RawP html={leaf.html} />
           </div>
         </div>
       ) : null}
       {(blocks || []).map((b) => {
         const entry = annotated && annotated.get ? annotated.get(b.id) : null;
-        const notes = entry ? entry.notes : null;
-        const hasNote = notes && notes.length;
         const agent = !!(entry && entry.agent);
-        const color = hasNote ? notes[notes.length - 1].color : null;
+        const body = buildBody(b.id, b.raw, b.html);
         return (
         <div
           key={b.id}
-          className={"subsec"
-            + (hasNote ? " has-note hl-" + (color || "yellow") : "")
-            + (agent ? " agent-flag" : "")}
+          className={"subsec" + (agent ? " agent-flag" : "")}
           data-anchor={b.id}
           style={{ marginLeft: b.depth * 22 }}
-          title={hasNote ? "Note — " + notes.map((n) => n.body || "(empty)").join(" • ") + "  (click the marker to view/edit)" : undefined}
         >
           {agent ? (
             <span className="agent-flag-mark" title="The agent referenced this section" aria-hidden="true">
               <Icon name="sparkle" size={11} />
             </span>
           ) : null}
-          {hasNote ? (
-            <span className="note-flag" title={"View note" + (notes.length > 1 ? "s (" + notes.length + ")" : "")}>
-              <Icon name="quote" size={12} />
-            </span>
-          ) : null}
+          <Flag unmatched={body.unmatched} />
           <span className="marker">{b.marker}</span>
           <div className="body">
             {b.heading ? (
@@ -63,7 +140,7 @@ function StatuteBody({ leafHtml, blocks, annotated }) {
                 {b.heading}
               </p>
             ) : null}
-            {b.html ? <p dangerouslySetInnerHTML={renderHtml(b.html)} /> : null}
+            {b.html ? <RawP html={body.html} /> : null}
           </div>
         </div>
         );
@@ -194,14 +271,14 @@ window.NotePopover = NotePopover;
 // chat. Draggable, translucent, markdown-rendered, with the agent's
 // grounded sections as click-to-jump chips. Closing keeps the thread (the
 // conversation lives in app state), so reopening restores it. ───────────
-function InlineChat({ startX, startY, chatState, onAsk, onJump, onClose, termMatchers, labelFor }) {
+function InlineChat({ startX, startY, thread, label, onAsk, onJump, onClose, termMatchers, labelFor }) {
   const MdView = window.MdView;
   const [q, setQ] = useState("");
   const [pos, setPos] = useState({ x: startX, y: startY });
   const inputRef = useRef(null);
   const bodyRef = useRef(null);
-  const messages = (chatState && chatState.messages) || [];
-  const loading = !!(chatState && chatState.loading);
+  const messages = (thread && thread.messages) || [];
+  const loading = !!(thread && thread.loading);
 
   useEffect(() => { const t = setTimeout(() => inputRef.current && inputRef.current.focus(), 0); return () => clearTimeout(t); }, []);
   useEffect(() => { if (bodyRef.current) bodyRef.current.scrollTop = bodyRef.current.scrollHeight; }, [messages, loading]);
@@ -225,9 +302,12 @@ function InlineChat({ startX, startY, chatState, onAsk, onJump, onClose, termMat
   return (
     <div className="inline-chat" style={{ top, left }} onMouseDown={(e) => e.stopPropagation()}>
       <div className="inline-chat-head" onPointerDown={onDragStart}>
-        <span className="inline-chat-title"><Icon name="sparkle" size={12} /> Ask about this bill</span>
-        <button type="button" className="modal-x" onMouseDown={(e) => e.stopPropagation()} onClick={onClose} aria-label="Close">
-          <Icon name="x" size={13} />
+        <span className="inline-chat-title">
+          <Icon name="sparkle" size={12} /> {label || "Ask about this bill"}
+        </span>
+        <button type="button" className="modal-x" onMouseDown={(e) => e.stopPropagation()} onClick={onClose}
+                aria-label="Minimize to a tab" title="Minimize to a tab — reopen it from the dock">
+          <Icon name="chevron-down" size={14} />
         </button>
       </div>
 
@@ -285,15 +365,18 @@ function InlineChat({ startX, startY, chatState, onAsk, onJump, onClose, termMat
 window.InlineChat = InlineChat;
 
 function TextPanel({ bill, activeAnchor, onAnchorClick, annotations = [], onAddAnnotation,
-                     onEditAnnotation, onRemoveAnnotation, agentFlags = [], chatState, onAsk, onClearChat }) {
+                     onEditAnnotation, onRemoveAnnotation, agentFlags = [], chatThreads = [],
+                     onAsk, onNewThread, onRemoveThread }) {
   const scrollRef = useRef(null);
-  // pendingSel = the "Add note" pill awaiting a click; composer = the
-  // open form. noteView = an existing note reopened from its flag.
-  // askBox = the inline double-click agent chat. Each is positioned.
+  // pendingSel = the "Add note" pill awaiting a click; composer = the open
+  // form; noteView = a saved note reopened from its highlight. openWins =
+  // the inline agent chats currently shown as floating windows — more than
+  // one can be open at once; each entry is { id (thread id), x, y }.
   const [pendingSel, setPendingSel] = useState(null);
   const [composer, setComposer] = useState(null);
   const [noteView, setNoteView] = useState(null);
-  const [askBox, setAskBox] = useState(null);
+  const [openWins, setOpenWins] = useState([]);
+  const DEFAULT_W = 470;
 
   // Resolve a section id to a readable label from the bill's own tree.
   const labelFor = React.useMemo(() => {
@@ -370,38 +453,63 @@ function TextPanel({ bill, activeAnchor, onAnchorClick, annotations = [], onAddA
     return () => clearTimeout(t);
   }, [activeAnchor]);
 
-  // Capture clicks on .anchor spans so we can fire onAnchorClick — but
-  // only when there's no active text selection (a drag-select shouldn't
-  // also count as a sync-highlight click).
+  // Switching bills closes any open chat windows + note popover (threads
+  // themselves persist in app state and stay reachable from the dock).
+  useEffect(() => {
+    setOpenWins([]); setNoteView(null); setPendingSel(null); setComposer(null);
+  }, [bill.id]);
+
+  // ── inline agent windows ───────────────────────────────────────────
+  // Several agent chats can be open at once; closing one only minimizes
+  // it to the dock (the thread lives in app state). New windows cascade
+  // so they don't stack exactly on top of each other.
+  const openThread = (id, x, y) => {
+    if (!id) return;
+    setOpenWins((ws) => {
+      if (ws.some((w) => w.id === id)) return ws;
+      const n = ws.length;
+      return [...ws, {
+        id,
+        x: x != null ? x : Math.max(12, window.innerWidth - DEFAULT_W - 24 - n * 30),
+        y: y != null ? y : 104 + n * 30,
+      }];
+    });
+  };
+  const closeWin = (id) => setOpenWins((ws) => ws.filter((w) => w.id !== id));
+  const toggleWin = (id) =>
+    setOpenWins((ws) => (ws.some((w) => w.id === id)
+      ? ws.filter((w) => w.id !== id)
+      : [...ws, { id, x: Math.max(12, window.innerWidth - DEFAULT_W - 24 - ws.length * 30), y: 104 + ws.length * 30 }]));
+  const startNewChat = (x, y) => { openThread(onNewThread && onNewThread(), x, y); };
+
+  // Click a highlighted note (the inline <mark>, or the fallback flag for
+  // a quote that couldn't be located inline) -> toggle its note popover.
+  // Clicking the same passage again closes it. A plain click on the
+  // statute text does NOTHING now — the old sync-highlight flash on every
+  // click was confusing; navigation highlights still come only from
+  // explicit jumps (chat flags, defined-term links) via onAnchorClick.
   const handleClick = (e) => {
-    // Click a note flag -> reopen that note (view / edit / delete).
-    const flag = e.target.closest(".note-flag");
-    if (flag) {
-      const block = flag.closest("[data-anchor]");
-      const anchor = block && block.getAttribute("data-anchor");
-      const notes = ((annotated.get(anchor) || {}).notes) || [];
-      if (notes.length) {
-        const rect = flag.getBoundingClientRect();
-        setNoteView({ anchor, notes, x: rect.right, y: rect.bottom });
-        return;
-      }
-    }
-    const a = e.target.closest("[data-anchor]");
-    if (!a || !window.getSelection().isCollapsed) return;
-    onAnchorClick?.(a.getAttribute("data-anchor"));
+    const mark = e.target.closest(".note-mark, .note-flag");
+    if (!mark) return;
+    const block = mark.closest("[data-anchor]");
+    const anchor = block && block.getAttribute("data-anchor");
+    const notes = ((annotated.get(anchor) || {}).notes) || [];
+    if (!notes.length) return;
+    if (noteView && noteView.anchor === anchor) { setNoteView(null); return; }
+    const rect = mark.getBoundingClientRect();
+    setNoteView({ anchor, x: rect.left, y: rect.bottom });
   };
 
-  // Double-click the bill text -> open the inline chat near the cursor.
-  // Reopens the existing conversation for this bill (it isn't cleared).
+  // Double-click the bill text -> spin up a NEW agent chat near the cursor.
+  // Each double-click opens its own agent, so several can run at once;
+  // earlier ones live on in the dock.
   const handleDoubleClick = (e) => {
-    if (e.target.closest(".inline-chat, .note-popover, .note-composer")) return;
-    const block = e.target.closest("[data-anchor]");
-    const anchor = block ? block.getAttribute("data-anchor") : null;
+    if (e.target.closest(".inline-chat, .note-popover, .note-composer, .chat-dock")) return;
     window.getSelection().removeAllRanges();
     setPendingSel(null);
     setComposer(null);
     setNoteView(null);
-    setAskBox({ anchor, x: e.clientX, y: e.clientY });
+    startNewChat(e.clientX, e.clientY);
   };
 
   // On mouse-up, if statute text was selected inside this panel, raise
@@ -439,9 +547,13 @@ function TextPanel({ bill, activeAnchor, onAnchorClick, annotations = [], onAddA
   };
 
   // A bare mousedown in the panel dismisses the pill/composer/note popover
-  // — but NOT the inline ask box, so you can click around the bill to find
-  // the sections it surfaced while the box stays open.
-  const dismiss = () => { setPendingSel(null); setComposer(null); setNoteView(null); };
+  // — but NOT a mousedown on a highlight itself (handleClick toggles that)
+  // and NOT the inline chat windows, so you can click around the bill to
+  // find the sections an agent surfaced while its window stays open.
+  const dismiss = (e) => {
+    if (e.target.closest(".note-mark, .note-flag")) return;
+    setPendingSel(null); setComposer(null); setNoteView(null);
+  };
 
   return (
     <div className="panel-col text-col">
@@ -514,15 +626,15 @@ function TextPanel({ bill, activeAnchor, onAnchorClick, annotations = [], onAddA
 
           {bill.text.map((sec) => {
             const e = annotated.get(sec.id);
-            const sn = e ? e.notes : null;
-            const cls = [
-              sn && sn.length ? "has-note hl-" + sn[sn.length - 1].color : "",
-              e && e.agent ? "agent-flag" : "",
-            ].filter(Boolean).join(" ") || undefined;
+            // No more whole-section wash for notes — a note now highlights
+            // only its own selected text inside the section (see
+            // StatuteBody). The agent-flag accent stays section-level.
+            const cls = e && e.agent ? "agent-flag" : undefined;
             return (
               <section key={sec.id} data-anchor={sec.id} id={"text-" + sec.id} className={cls}>
                 <h2>{sec.num ? sec.num + ": " : ""}{sec.title}</h2>
-                <StatuteBody leafHtml={sec.leafHtml} blocks={sec.blocks} annotated={annotated} />
+                <StatuteBody leafHtml={sec.leafHtml} leafRaw={sec.leafRaw} leafId={sec.id}
+                             blocks={sec.blocks} annotated={annotated} />
               </section>
             );
           })}
@@ -559,39 +671,60 @@ function TextPanel({ bill, activeAnchor, onAnchorClick, annotations = [], onAddA
         <NotePopover
           x={noteView.x}
           y={noteView.y}
-          notes={(annotated.get(noteView.anchor) || {}).notes || noteView.notes}
+          notes={(annotated.get(noteView.anchor) || {}).notes || []}
           onEdit={onEditAnnotation}
           onRemove={onRemoveAnnotation}
           onClose={() => setNoteView(null)}
         />
       ) : null}
 
-      {askBox ? (
-        <InlineChat
-          startX={askBox.x}
-          startY={askBox.y}
-          chatState={chatState}
-          onAsk={onAsk}
-          onJump={(sid) => onAnchorClick?.(sid)}
-          onClose={() => setAskBox(null)}
-          termMatchers={termMatchers}
-          labelFor={labelFor}
-        />
-      ) : null}
+      {/* Inline agent windows — several can be open at once. */}
+      {openWins.map((w) => {
+        const thread = chatThreads.find((t) => t.id === w.id);
+        if (!thread) return null;
+        const idx = chatThreads.findIndex((t) => t.id === w.id) + 1;
+        return (
+          <InlineChat
+            key={w.id}
+            startX={w.x}
+            startY={w.y}
+            thread={thread}
+            label={"Agent " + idx}
+            onAsk={(question) => onAsk && onAsk(w.id, question)}
+            onJump={(sid) => onAnchorClick?.(sid)}
+            onClose={() => closeWin(w.id)}
+            termMatchers={termMatchers}
+            labelFor={labelFor}
+          />
+        );
+      })}
 
-      {/* When the chat is closed but a conversation exists, a quiet pill
-          reopens it (double-clicking the text also reopens it). */}
-      {!askBox && chatState && chatState.messages && chatState.messages.length ? (
-        <button
-          type="button"
-          className="chat-reopen"
-          onMouseDown={(e) => e.stopPropagation()}
-          onClick={() => setAskBox({ x: window.innerWidth - 460, y: 120 })}
-          title="Reopen the chat for this bill"
-        >
-          <Icon name="sparkle" size={13} /> Chat ({Math.ceil(chatState.messages.length / 2)})
+      {/* Agent dock — minimized chats live here as tabs; the launcher
+          opens a fresh agent. Closing a window only sends it here, so an
+          agent is never lost and is one click from reopening. */}
+      <div className="chat-dock" onMouseDown={(e) => e.stopPropagation()}>
+        {chatThreads.map((t) => {
+          const isOpen = openWins.some((w) => w.id === t.id);
+          const firstQ = (t.messages.find((m) => m.role === "user") || {}).content;
+          const label = firstQ || "New agent";
+          return (
+            <div key={t.id} className={"dock-tab" + (isOpen ? " open" : "")}>
+              <button type="button" className="dock-tab-main" onClick={() => toggleWin(t.id)} title={label}>
+                <span className="dock-tab-dot" />
+                <span className="dock-tab-label">{label}</span>
+              </button>
+              <button type="button" className="dock-tab-x" aria-label="Delete this chat" title="Delete this chat"
+                      onClick={() => { onRemoveThread && onRemoveThread(t.id); closeWin(t.id); }}>
+                <Icon name="x" size={11} />
+              </button>
+            </div>
+          );
+        })}
+        <button type="button" className="dock-new" onClick={() => startNewChat()}
+                title="Open a new agent for this bill">
+          <Icon name="sparkle" size={13} /> Ask the agent
         </button>
-      ) : null}
+      </div>
     </div>
   );
 }

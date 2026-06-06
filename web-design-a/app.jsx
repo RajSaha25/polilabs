@@ -222,6 +222,12 @@ function App({ onSignOut, onShowLanding }) {
   // through the handlers below (optimistic on the result row).
   const [annotations, setAnnotations] = useState({});
 
+  // Grounded bill summaries, keyed by bill id: { loading, text, error }.
+  // The top result of a turn auto-summarizes; other bills summarize lazily
+  // the first time they're selected. Cached here (and server-side) so
+  // re-selecting a bill is instant + free.
+  const [summaries, setSummaries] = useState({});
+
   // "Connect your agent" modal (bring-your-own-agent connector tokens).
   const [showConnector, setShowConnector] = useState(false);
 
@@ -229,11 +235,13 @@ function App({ onSignOut, onShowLanding }) {
   const [chatsOpen, setChatsOpen] = useState(true);
   const CHATS_W = 220;
 
-  // Inline bill chat (double-click the text). Keyed by bill id:
-  //   { messages: [{role, content, flags:[section_id]}], loading }.
-  // A real multi-turn conversation scoped to one bill — it persists when
-  // the widget closes, so reopening restores the thread. The sections the
-  // agent reads become flags highlighted in the text.
+  // Inline bill chats (double-click the text). Keyed by bill id, each
+  // bill holds an array of independent agent threads so several agents
+  // can be worked at once:
+  //   { [billId]: { threads: [{ id, messages:[{role,content,flags}], loading }] } }
+  // Threads persist when their window is closed (minimized to the dock),
+  // so reopening restores the conversation. The sections an agent reads
+  // become flags highlighted in the bill text.
   const [billChat, setBillChat] = useState({});
 
   const turn = turns.find((t) => t.id === activeId) || null;
@@ -445,27 +453,76 @@ function App({ onSignOut, onShowLanding }) {
         ...p, [selectedId]: (p[selectedId] || []).filter((x) => x.id !== id),
       })));
 
-  // ── Inline bill chat (double-click the text) ───────────────────────
-  // A multi-turn conversation scoped to ONE bill, run OUTSIDE the main
-  // thread (doesn't touch `turns` or the bills list). Each assistant turn
-  // records the section ids the agent read; those become highlight flags.
-  // Persisted per bill, so closing + reopening the widget restores it.
-  const patchAssistant = (chat, billId, partial, loading) => {
+  // ── grounded bill summary for the selected bill (cached) ────────────
+  // The top result is auto-selected, so it auto-summarizes; selecting any
+  // other source triggers its summary on first view ("top result auto,
+  // rest on click"). A prior error is retried when the bill is revisited.
+  useEffect(() => {
+    if (!selectedId) return;
+    const cur = summaries[selectedId];
+    if (cur && (cur.loading || cur.text)) return;   // cached / in-flight
+    let cancelled = false;
+    setSummaries((p) => ({ ...p, [selectedId]: { loading: true, text: "", error: null } }));
+    B.summarizeBill(selectedId)
+      .then((r) => { if (!cancelled) setSummaries((p) => ({
+        ...p, [selectedId]: { loading: false, text: (r && r.summary) || "", error: (r && r.error) || null } })); })
+      .catch((e) => { if (!cancelled) setSummaries((p) => ({
+        ...p, [selectedId]: { loading: false, text: "", error: String(e) } })); });
+    return () => { cancelled = true; };
+  }, [selectedId]);
+
+  // ── Inline bill chats (double-click the text) ──────────────────────
+  // Each bill holds N independent agent threads, run OUTSIDE the main
+  // thread (they never touch `turns` or the bills list). Every assistant
+  // turn records the section ids that agent read; those become highlight
+  // flags. Threads persist per bill, so a minimized chat reopens intact.
+
+  // Patch the most recent assistant message of ONE thread.
+  const patchThread = (chat, billId, threadId, partial, loading) => {
     const cur = chat[billId];
     if (!cur) return chat;
-    const msgs = cur.messages.slice();
-    for (let i = msgs.length - 1; i >= 0; i--) {
-      if (msgs[i].role === "assistant") { msgs[i] = { ...msgs[i], ...partial }; break; }
-    }
-    return { ...chat, [billId]: { ...cur, messages: msgs, loading: loading === undefined ? cur.loading : loading } };
+    const threads = cur.threads.map((t) => {
+      if (t.id !== threadId) return t;
+      const msgs = t.messages.slice();
+      for (let i = msgs.length - 1; i >= 0; i--) {
+        if (msgs[i].role === "assistant") { msgs[i] = { ...msgs[i], ...partial }; break; }
+      }
+      return { ...t, messages: msgs, loading: loading === undefined ? t.loading : loading };
+    });
+    return { ...chat, [billId]: { ...cur, threads } };
   };
 
-  const askInBill = (question) => {
+  // Create an empty thread on the open bill; returns its id so the caller
+  // can open a window for it.
+  const newThread = () => {
+    if (!selectedId) return null;
+    const billId = selectedId;
+    const tid = "c-" + Date.now() + "-" + Math.random().toString(36).slice(2, 6);
+    setBillChat((p) => {
+      const cur = p[billId] || { threads: [] };
+      return { ...p, [billId]: { ...cur, threads: [...cur.threads, { id: tid, messages: [], loading: false }] } };
+    });
+    return tid;
+  };
+
+  const removeThread = (threadId) => {
+    if (!selectedId) return;
+    const billId = selectedId;
+    setBillChat((p) => {
+      const cur = p[billId];
+      if (!cur) return p;
+      return { ...p, [billId]: { ...cur, threads: cur.threads.filter((t) => t.id !== threadId) } };
+    });
+  };
+
+  // Ask a question inside ONE thread of the open bill.
+  const askInBill = (threadId, question) => {
     const q = (question || "").trim();
-    if (!selectedId || !q) return;
+    if (!selectedId || !q || !threadId) return;
     const billId = selectedId;
     const title = selectedBill ? (selectedBill.short || selectedBill.bill_id || billId) : billId;
-    const prior = ((billChat[billId] && billChat[billId].messages) || [])
+    const thread = ((billChat[billId] && billChat[billId].threads) || []).find((t) => t.id === threadId);
+    const prior = ((thread && thread.messages) || [])
       .filter((m) => m.content).map((m) => ({ role: m.role, content: m.content }));
     // First turn carries the bill scope; later turns rely on replayed history.
     const scoped = prior.length ? q :
@@ -473,38 +530,38 @@ function App({ onSignOut, onShowLanding }) {
       `ground answers in its section text via get_section / get_citation_graph; do NOT dump a huge ` +
       `get_bill table of contents; cite the sections you use; be concise.]\n\n${q}`;
     setBillChat((p) => {
-      const cur = p[billId] || { messages: [] };
-      return { ...p, [billId]: { messages: [...cur.messages, { role: "user", content: q }, { role: "assistant", content: "", flags: [] }], loading: true } };
+      const cur = p[billId] || { threads: [] };
+      const threads = cur.threads.map((t) => t.id === threadId
+        ? { ...t, messages: [...t.messages, { role: "user", content: q }, { role: "assistant", content: "", flags: [] }], loading: true }
+        : t);
+      return { ...p, [billId]: { ...cur, threads } };
     });
     const flags = new Set();
     let answer = "";
     B.streamChat(scoped, prior, (ev) => {
       if (ev.type === "text") {
         answer += ev.delta || "";
-        setBillChat((p) => patchAssistant(p, billId, { content: answer }));
+        setBillChat((p) => patchThread(p, billId, threadId, { content: answer }));
       } else if (ev.type === "tool_call" || ev.type === "tool_result") {
         const sid = ev.args && ev.args.section_id;
-        if (sid) { flags.add(sid); setBillChat((p) => patchAssistant(p, billId, { flags: [...flags] })); }
+        if (sid) { flags.add(sid); setBillChat((p) => patchThread(p, billId, threadId, { flags: [...flags] })); }
       } else if (ev.type === "error") {
-        setBillChat((p) => patchAssistant(p, billId, { content: answer || ("⚠️ " + (ev.message || "error")), flags: [...flags] }, false));
+        setBillChat((p) => patchThread(p, billId, threadId, { content: answer || ("⚠️ " + (ev.message || "error")), flags: [...flags] }, false));
       } else if (ev.type === "done") {
-        setBillChat((p) => patchAssistant(p, billId, { content: answer, flags: [...flags] }, false));
+        setBillChat((p) => patchThread(p, billId, threadId, { content: answer, flags: [...flags] }, false));
       }
-    }).catch((e) => setBillChat((p) => patchAssistant(p, billId, { content: answer || ("⚠️ " + String(e)), flags: [...flags] }, false)));
+    }).catch((e) => setBillChat((p) => patchThread(p, billId, threadId, { content: answer || ("⚠️ " + String(e)), flags: [...flags] }, false)));
   };
-  const clearChat = () => {
-    if (!selectedId) return;
-    setBillChat((p) => { const n = { ...p }; delete n[selectedId]; return n; });
-  };
-  const chatState = selectedId ? (billChat[selectedId] || null) : null;
+
+  const chatThreads = selectedId ? ((billChat[selectedId] && billChat[selectedId].threads) || []) : [];
 
   // Agent flags shown on the open bill = those the main answer touched +
-  // every section the inline chat has read. De-duplicated.
+  // every section any inline agent has read. De-duplicated.
   const turnFlags = turn ? (turn.agentFlags || []) : [];
   const combinedAgentFlags = React.useMemo(() => {
-    const chatFlags = chatState ? chatState.messages.flatMap((m) => m.flags || []) : [];
+    const chatFlags = chatThreads.flatMap((t) => t.messages.flatMap((m) => m.flags || []));
     return [...new Set([...turnFlags, ...chatFlags])];
-  }, [turnFlags, chatState]);
+  }, [turnFlags, billChat, selectedId]);
 
   // ── the merged bill object the viewer renders ──────────────────────
   const viewerBill = selectedBill && detail
@@ -542,9 +599,10 @@ function App({ onSignOut, onShowLanding }) {
         onEditAnnotation={editAnnotation}
         onRemoveAnnotation={removeAnnotation}
         agentFlags={combinedAgentFlags}
-        chatState={chatState}
+        chatThreads={chatThreads}
         onAsk={askInBill}
-        onClearChat={clearChat}
+        onNewThread={newThread}
+        onRemoveThread={removeThread}
       />
     );
   }
@@ -608,6 +666,7 @@ function App({ onSignOut, onShowLanding }) {
         planText={turn ? turn.planText : ""}
         toolSteps={turn ? (turn.toolSteps || []) : []}
         selectedId={selectedId}
+        summary={selectedId ? summaries[selectedId] : null}
         onSelect={(id) => {
           const i = bills.findIndex((b) => b.id === id);
           if (i >= 0) setBillIdx(i);
