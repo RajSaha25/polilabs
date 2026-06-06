@@ -190,29 +190,86 @@ function NotePopover({ x, y, notes, onEdit, onRemove, onClose }) {
 }
 window.NotePopover = NotePopover;
 
-// ── inline agent — double-click the bill text to ask, scoped to THIS
-// bill. A translucent box that streams the answer and lets you jump to
-// the sections the agent grounded it in. ───────────────────────────────
-function InlineAsk({ x, y, findState, onAsk, onJump, onClose, labelFor }) {
+// ── inline agent — double-click the bill text to open a scoped, multi-turn
+// chat. Draggable, translucent, markdown-rendered, with the agent's
+// grounded sections as click-to-jump chips. Closing keeps the thread (the
+// conversation lives in app state), so reopening restores it. ───────────
+function InlineChat({ startX, startY, chatState, onAsk, onJump, onClose, termMatchers, labelFor }) {
+  const MdView = window.MdView;
   const [q, setQ] = useState("");
-  const ref = useRef(null);
-  useEffect(() => { const t = setTimeout(() => ref.current && ref.current.focus(), 0); return () => clearTimeout(t); }, []);
-  const loading = !!(findState && findState.loading);
-  const submit = () => { const v = q.trim(); if (v && !loading) onAsk(v); };
-  const left = Math.max(12, Math.min(x, window.innerWidth - 400));
-  const top = Math.max(70, Math.min(y, window.innerHeight - 280));
-  const flags = (findState && findState.flags) || [];
+  const [pos, setPos] = useState({ x: startX, y: startY });
+  const inputRef = useRef(null);
+  const bodyRef = useRef(null);
+  const messages = (chatState && chatState.messages) || [];
+  const loading = !!(chatState && chatState.loading);
+
+  useEffect(() => { const t = setTimeout(() => inputRef.current && inputRef.current.focus(), 0); return () => clearTimeout(t); }, []);
+  useEffect(() => { if (bodyRef.current) bodyRef.current.scrollTop = bodyRef.current.scrollHeight; }, [messages, loading]);
+
+  const submit = () => { const v = q.trim(); if (v && !loading) { onAsk(v); setQ(""); } };
+
+  // Drag by the header.
+  const onDragStart = (e) => {
+    if (e.target.closest(".modal-x")) return;
+    e.preventDefault();
+    const s = { mx: e.clientX, my: e.clientY, x: pos.x, y: pos.y };
+    const move = (ev) => setPos({ x: s.x + (ev.clientX - s.mx), y: s.y + (ev.clientY - s.my) });
+    const up = () => { window.removeEventListener("pointermove", move); window.removeEventListener("pointerup", up); };
+    window.addEventListener("pointermove", move);
+    window.addEventListener("pointerup", up);
+  };
+
+  const left = Math.max(8, Math.min(pos.x, window.innerWidth - 420));
+  const top = Math.max(60, Math.min(pos.y, window.innerHeight - 160));
+
   return (
-    <div className="inline-ask" style={{ top, left }} onMouseDown={(e) => e.stopPropagation()}>
-      <div className="inline-ask-head">
-        <span className="inline-ask-title"><Icon name="sparkle" size={12} /> Ask about this bill</span>
-        <button type="button" className="modal-x" onClick={onClose} aria-label="Close"><Icon name="x" size={13} /></button>
+    <div className="inline-chat" style={{ top, left }} onMouseDown={(e) => e.stopPropagation()}>
+      <div className="inline-chat-head" onPointerDown={onDragStart}>
+        <span className="inline-chat-title"><Icon name="sparkle" size={12} /> Ask about this bill</span>
+        <button type="button" className="modal-x" onMouseDown={(e) => e.stopPropagation()} onClick={onClose} aria-label="Close">
+          <Icon name="x" size={13} />
+        </button>
       </div>
-      <div className="inline-ask-inputrow">
+
+      <div className="inline-chat-body" ref={bodyRef}>
+        {messages.length === 0 ? (
+          <p className="inline-chat-hint">
+            Ask anything about this bill — the agent reads its sections and answers,
+            grounded in the text. Defined terms in the reply are clickable.
+          </p>
+        ) : messages.map((m, i) => {
+          if (m.role === "user") return <div key={i} className="chat-msg-user">{m.content}</div>;
+          const isLast = i === messages.length - 1;
+          return (
+            <div key={i} className="chat-msg-assistant">
+              {m.content
+                ? (MdView ? <MdView text={m.content} matchers={termMatchers} streaming={loading && isLast} />
+                          : <div className="md">{m.content}</div>)
+                : (loading ? <span className="find-status"><span className="spinner-sm" /> reading the bill…</span> : null)}
+              {(m.flags || []).length ? (
+                <div className="chat-flags">
+                  {m.flags.map((sid) => {
+                    const l = labelFor ? labelFor(sid) : { marker: "", title: "section" };
+                    return (
+                      <button key={sid} type="button" className="inline-ask-hit" onClick={() => onJump(sid)} title="Jump to this section">
+                        <Icon name="sparkle" size={10} />
+                        {l.marker ? <span className="mono">{l.marker}</span> : null}
+                        <span className="inline-ask-hit-title">{l.title}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              ) : null}
+            </div>
+          );
+        })}
+      </div>
+
+      <div className="inline-chat-inputrow">
         <input
-          ref={ref}
+          ref={inputRef}
           className="inline-ask-input"
-          placeholder="e.g. what does this bill spend on AI?"
+          placeholder={messages.length ? "Ask a follow-up…" : "e.g. what does this bill define as foundation model?"}
           value={q}
           onChange={(e) => setQ(e.target.value)}
           onKeyDown={(e) => { if (e.key === "Enter") submit(); else if (e.key === "Escape") onClose(); }}
@@ -222,37 +279,13 @@ function InlineAsk({ x, y, findState, onAsk, onJump, onClose, labelFor }) {
           {loading ? "…" : "Ask"}
         </button>
       </div>
-      {findState ? (
-        <div className="inline-ask-body">
-          {findState.error ? <div className="find-error">{findState.error}</div> : null}
-          {findState.answer ? (
-            <div className="inline-ask-answer">{findState.answer}{loading ? <span className="ask-caret">▍</span> : null}</div>
-          ) : loading ? (
-            <div className="find-status"><span className="spinner-sm" /> reading the bill…</div>
-          ) : null}
-          {flags.length ? (
-            <div className="inline-ask-hits">
-              {flags.map((sid) => {
-                const l = labelFor ? labelFor(sid) : { marker: "", title: "section" };
-                return (
-                  <button key={sid} type="button" className="inline-ask-hit" onClick={() => onJump(sid)}>
-                    <Icon name="sparkle" size={10} />
-                    {l.marker ? <span className="mono">{l.marker}</span> : null}
-                    <span className="inline-ask-hit-title">{l.title}</span>
-                  </button>
-                );
-              })}
-            </div>
-          ) : null}
-        </div>
-      ) : null}
     </div>
   );
 }
-window.InlineAsk = InlineAsk;
+window.InlineChat = InlineChat;
 
 function TextPanel({ bill, activeAnchor, onAnchorClick, annotations = [], onAddAnnotation,
-                     onEditAnnotation, onRemoveAnnotation, agentFlags = [], findState, onAsk, onClearAsk }) {
+                     onEditAnnotation, onRemoveAnnotation, agentFlags = [], chatState, onAsk, onClearChat }) {
   const scrollRef = useRef(null);
   // pendingSel = the "Add note" pill awaiting a click; composer = the
   // open form. noteView = an existing note reopened from its flag.
@@ -271,6 +304,23 @@ function TextPanel({ bill, activeAnchor, onAnchorClick, annotations = [], onAddA
     });
     return (sid) => m.get(sid) || { marker: "", title: "section" };
   }, [bill]);
+
+  // Matchers that turn a defined term mentioned in a chat reply into a
+  // link to where the bill defines it ("foundation model" -> its
+  // definition). Longer terms first so they win over their substrings.
+  const termMatchers = React.useMemo(() => {
+    const defs = (bill.definitions || []).filter((d) => d.term && d.anchor);
+    const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    return defs
+      .slice()
+      .sort((a, b) => b.term.length - a.term.length)
+      .map((d) => ({
+        regex: new RegExp("\\b" + esc(d.term) + "\\b", "gi"),
+        className: "term-ref",
+        title: "Jump to where this bill defines it",
+        onClick: () => onAnchorClick && onAnchorClick(d.anchor),
+      }));
+  }, [bill, onAnchorClick]);
 
   // Index by anchored section id so a block finds its own marks:
   //   { notes: [user annotations], agent: bool (agent pointed here) }.
@@ -341,17 +391,16 @@ function TextPanel({ bill, activeAnchor, onAnchorClick, annotations = [], onAddA
     onAnchorClick?.(a.getAttribute("data-anchor"));
   };
 
-  // Double-click the bill text -> open the inline agent, scoped to this
-  // bill, near the cursor. Clears the word the browser auto-selected.
+  // Double-click the bill text -> open the inline chat near the cursor.
+  // Reopens the existing conversation for this bill (it isn't cleared).
   const handleDoubleClick = (e) => {
-    if (e.target.closest(".inline-ask, .note-popover, .note-composer")) return;
+    if (e.target.closest(".inline-chat, .note-popover, .note-composer")) return;
     const block = e.target.closest("[data-anchor]");
     const anchor = block ? block.getAttribute("data-anchor") : null;
     window.getSelection().removeAllRanges();
     setPendingSel(null);
     setComposer(null);
     setNoteView(null);
-    onClearAsk?.();
     setAskBox({ anchor, x: e.clientX, y: e.clientY });
   };
 
@@ -518,15 +567,30 @@ function TextPanel({ bill, activeAnchor, onAnchorClick, annotations = [], onAddA
       ) : null}
 
       {askBox ? (
-        <InlineAsk
-          x={askBox.x}
-          y={askBox.y}
-          findState={findState}
+        <InlineChat
+          startX={askBox.x}
+          startY={askBox.y}
+          chatState={chatState}
           onAsk={onAsk}
           onJump={(sid) => onAnchorClick?.(sid)}
-          onClose={() => { setAskBox(null); onClearAsk?.(); }}
+          onClose={() => setAskBox(null)}
+          termMatchers={termMatchers}
           labelFor={labelFor}
         />
+      ) : null}
+
+      {/* When the chat is closed but a conversation exists, a quiet pill
+          reopens it (double-clicking the text also reopens it). */}
+      {!askBox && chatState && chatState.messages && chatState.messages.length ? (
+        <button
+          type="button"
+          className="chat-reopen"
+          onMouseDown={(e) => e.stopPropagation()}
+          onClick={() => setAskBox({ x: window.innerWidth - 460, y: 120 })}
+          title="Reopen the chat for this bill"
+        >
+          <Icon name="sparkle" size={13} /> Chat ({Math.ceil(chatState.messages.length / 2)})
+        </button>
       ) : null}
     </div>
   );
