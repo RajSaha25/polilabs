@@ -267,11 +267,12 @@ window.POLILABS_BACKEND =
         marker: marker,
         heading: n.heading || "",
         html: verbatimHtml(own),
+        raw: own,                 // unescaped own text — used to highlight a noted substring
       });
       for (const c of kids) walk(c, depth + 1, "");
     }
     for (const c of node.children || []) walk(c, 0, "");
-    return { leafHtml: verbatimHtml(ownText(node)), blocks: blocks };
+    return { leafHtml: verbatimHtml(ownText(node)), leafRaw: ownText(node), blocks: blocks };
   }
 
   function findNode(tree, id) {
@@ -293,6 +294,7 @@ window.POLILABS_BACKEND =
         title: s.heading || "(untitled section)",
         blocks: f.blocks,
         leafHtml: f.leafHtml,
+        leafRaw: f.leafRaw,
       };
     });
   }
@@ -442,6 +444,21 @@ window.POLILABS_BACKEND =
     };
   }
 
+  // ── Grounded bill summary (cheap model, cached server-side) ─────────
+  // POST /api/summary { bill_id } -> { bill_id, summary, model, error? }.
+  // The summary is LLM-generated (grounded in the bill's ToC + metadata),
+  // so the UI labels it as such — it is NOT verbatim statute text.
+  async function summarizeBill(billId) {
+    const res = await fetch(BACKEND + "/api/summary", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", ...authHeaders() },
+      body: JSON.stringify({ bill_id: billId }),
+    });
+    if (res.status === 401) { handleUnauthorized(); throw new Error("unauthorized"); }
+    if (!res.ok) throw new Error("HTTP " + res.status + " for /api/summary");
+    return res.json();
+  }
+
   // ── Expose ──────────────────────────────────────────────────────────
   window.PolilabsBackend = {
     BACKEND: BACKEND,
@@ -451,5 +468,6 @@ window.POLILABS_BACKEND =
     billsFromToolResults: billsFromToolResults,
     loadBillDetail: loadBillDetail,
     fetchCitationGroups: fetchCitationGroups,
+    summarizeBill: summarizeBill,
   };
 })();

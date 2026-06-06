@@ -167,7 +167,7 @@ function BillViewer({
   bill, position, total, onPrev, onNext,
   activeAnchor, setActiveAnchor,
   annotations = [], onAddAnnotation, onEditAnnotation, onRemoveAnnotation,
-  agentFlags = [], chatState, onAsk, onClearChat,
+  agentFlags = [], chatThreads = [], onAsk, onNewThread, onRemoveThread,
 }) {
   // Single-pane experiment: the Decomp panel is gone. The bill text fills
   // the stage; interaction lives ON the text — highlight to note,
@@ -185,9 +185,10 @@ function BillViewer({
           onEditAnnotation={onEditAnnotation}
           onRemoveAnnotation={onRemoveAnnotation}
           agentFlags={agentFlags}
-          chatState={chatState}
+          chatThreads={chatThreads}
           onAsk={onAsk}
-          onClearChat={onClearChat}
+          onNewThread={onNewThread}
+          onRemoveThread={onRemoveThread}
         />
       </div>
     </section>

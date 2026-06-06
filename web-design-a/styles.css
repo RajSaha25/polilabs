@@ -2363,6 +2363,38 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
 }
 .subsec.has-note .note-flag:hover { filter: brightness(1.08); transform: scale(1.08); }
 
+/* Inline note highlight — wraps ONLY the verbatim text the researcher
+   selected (not the whole block). The colour comes from the hl-<color>
+   class on the same <mark>. Click it to open/close the note. */
+.note-mark {
+  background: var(--hl-soft, rgba(234, 179, 8, 0.18));
+  border-bottom: 2px solid var(--hl, #eab308);
+  border-radius: 2px;
+  padding: 0 1px;
+  color: inherit;
+  cursor: pointer;
+  transition: background 120ms ease;
+}
+.note-mark:hover { background: color-mix(in srgb, var(--hl, #eab308) 26%, transparent); }
+
+/* Fallback marker for a note whose quote couldn't be located inline
+   (e.g. a selection that spanned blocks) — a small inline quote chip so
+   the note is never lost. Common case is an inline .note-mark instead. */
+.note-flag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: text-top;
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
+  border-radius: 4px;
+  color: #fff;
+  background: var(--hl, #eab308);
+  cursor: pointer;
+}
+.note-flag:hover { filter: brightness(1.08); }
+
 /* Floating "Add note" pill raised by a text selection. */
 .note-pill {
   position: fixed;
@@ -3131,12 +3163,15 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
   display: flex;
   flex-direction: column;
   max-height: 70vh;
-  background: color-mix(in srgb, var(--panel, #fff) 80%, transparent);
-  -webkit-backdrop-filter: blur(16px) saturate(1.4);
-  backdrop-filter: blur(16px) saturate(1.4);
-  border: 1px solid var(--rule-strong);
+  /* Near-transparent glass: the bill text reads straight through it, with
+     a heavy backdrop blur keeping the chat legible. Bumped translucency
+     per request — the panel should feel like a faint overlay, not a card. */
+  background: color-mix(in srgb, var(--panel, #fff) 50%, transparent);
+  -webkit-backdrop-filter: blur(24px) saturate(1.5);
+  backdrop-filter: blur(24px) saturate(1.5);
+  border: 1px solid color-mix(in srgb, var(--rule-strong) 60%, transparent);
   border-radius: 14px;
-  box-shadow: 0 20px 54px rgba(0,0,0,0.28);
+  box-shadow: 0 20px 54px rgba(0,0,0,0.22);
 }
 .inline-chat-head {
   display: flex;
@@ -3247,6 +3282,155 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
   cursor: pointer;
 }
 .chat-reopen:hover { background: var(--accent-2, var(--accent)); }
+
+/* ════════════════════════════════════════════════════════════════════
+   Agent dock — minimized inline chats live here as tabs, plus a launcher
+   for a fresh agent. Closing a chat window only sends it here, so an
+   agent is never lost and reopens in one click. Several can be open at
+   once (each tab marked "open").
+   ════════════════════════════════════════════════════════════════════ */
+.chat-dock {
+  position: fixed;
+  z-index: 45;
+  right: 16px;
+  bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 7px;
+}
+.dock-tab {
+  display: inline-flex;
+  align-items: center;
+  max-width: 280px;
+  background: var(--panel, #fff);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  box-shadow: var(--shadow-sm, 0 2px 8px rgba(0,0,0,0.12));
+  overflow: hidden;
+}
+.dock-tab.open {
+  border-color: var(--accent-line, var(--accent));
+  box-shadow: 0 0 0 1px var(--accent-line, var(--accent)), var(--shadow-sm, 0 2px 8px rgba(0,0,0,0.12));
+}
+.dock-tab-main {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+  padding: 7px 6px 7px 12px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  color: var(--ink-2);
+}
+.dock-tab-main:hover { color: var(--ink); }
+.dock-tab.open .dock-tab-main { color: var(--ink); }
+.dock-tab-dot {
+  flex: 0 0 auto;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--ink-4);
+}
+.dock-tab.open .dock-tab-dot { background: var(--accent); }
+.dock-tab-label {
+  min-width: 0;
+  max-width: 190px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.dock-tab-x {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 9px 6px 4px;
+  border: none;
+  background: transparent;
+  color: var(--ink-4);
+  cursor: pointer;
+}
+.dock-tab-x:hover { color: var(--danger, #c0392b); }
+.dock-new {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  color: #fff;
+  background: var(--accent);
+  border: none;
+  border-radius: 999px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.22);
+  cursor: pointer;
+}
+.dock-new:hover { background: var(--accent-2, var(--accent)); }
+
+/* ════════════════════════════════════════════════════════════════════
+   Grounded bill-summary card (left rail) — a cheap-model summary of the
+   selected bill, deliberately styled UNLIKE the verbatim statute text:
+   accent-tinted card + an "AI · grounded" tag, so it reads as a triage
+   aid, not as the law itself (anti-hallucination thesis).
+   ════════════════════════════════════════════════════════════════════ */
+.bill-summary {
+  margin: 14px 0 4px;
+  padding: 11px 13px;
+  background: var(--accent-soft, rgba(30, 63, 168, 0.05));
+  border: 1px solid var(--accent-line, var(--rule));
+  border-left: 3px solid var(--accent);
+  border-radius: 8px;
+}
+.bill-summary-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--accent-ink, var(--accent));
+}
+.bill-summary-spark { flex: 0 0 auto; }
+.bill-summary-title { flex: 0 0 auto; }
+.bill-summary-tag {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+  background: var(--panel, #fff);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 2px 7px;
+  cursor: help;
+}
+.bill-summary-text {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--ink);
+}
+.bill-summary-loading {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  color: var(--ink-3);
+}
+.bill-summary-error {
+  font-size: 12px;
+  line-height: 1.5;
+  color: #b42318;
+}
 
 /* ════════════════════════════════════════════════════════════════════
    Past-chats sidebar (IDE file-explorer style)
