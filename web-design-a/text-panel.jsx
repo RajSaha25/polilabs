@@ -271,10 +271,11 @@ window.NotePopover = NotePopover;
 // chat. Draggable, translucent, markdown-rendered, with the agent's
 // grounded sections as click-to-jump chips. Closing keeps the thread (the
 // conversation lives in app state), so reopening restores it. ───────────
-function InlineChat({ startX, startY, thread, label, onAsk, onJump, onClose, termMatchers, labelFor }) {
+function InlineChat({ startX, startY, thread, label, onAsk, onJump, onClose, onNewChat, termMatchers, labelFor }) {
   const MdView = window.MdView;
   const [q, setQ] = useState("");
   const [pos, setPos] = useState({ x: startX, y: startY });
+  const [size, setSize] = useState({ w: 410, h: 460 });
   const inputRef = useRef(null);
   const bodyRef = useRef(null);
   const messages = (thread && thread.messages) || [];
@@ -287,10 +288,24 @@ function InlineChat({ startX, startY, thread, label, onAsk, onJump, onClose, ter
 
   // Drag by the header.
   const onDragStart = (e) => {
-    if (e.target.closest(".modal-x")) return;
+    if (e.target.closest(".modal-x, .inline-chat-new")) return;
     e.preventDefault();
     const s = { mx: e.clientX, my: e.clientY, x: pos.x, y: pos.y };
     const move = (ev) => setPos({ x: s.x + (ev.clientX - s.mx), y: s.y + (ev.clientY - s.my) });
+    const up = () => { window.removeEventListener("pointermove", move); window.removeEventListener("pointerup", up); };
+    window.addEventListener("pointermove", move);
+    window.addEventListener("pointerup", up);
+  };
+
+  // Resize by the bottom-right grip. Clamped to a usable range; the user's
+  // size is held in state, so it survives streaming re-renders.
+  const onResizeStart = (e) => {
+    e.preventDefault(); e.stopPropagation();
+    const s = { mx: e.clientX, my: e.clientY, w: size.w, h: size.h };
+    const move = (ev) => setSize({
+      w: Math.max(300, Math.min(s.w + (ev.clientX - s.mx), window.innerWidth - 24)),
+      h: Math.max(240, Math.min(s.h + (ev.clientY - s.my), Math.round(window.innerHeight * 0.92))),
+    });
     const up = () => { window.removeEventListener("pointermove", move); window.removeEventListener("pointerup", up); };
     window.addEventListener("pointermove", move);
     window.addEventListener("pointerup", up);
@@ -300,15 +315,21 @@ function InlineChat({ startX, startY, thread, label, onAsk, onJump, onClose, ter
   const top = Math.max(60, Math.min(pos.y, window.innerHeight - 160));
 
   return (
-    <div className="inline-chat" style={{ top, left }} onMouseDown={(e) => e.stopPropagation()}>
+    <div className="inline-chat" style={{ top, left, width: size.w, height: size.h }} onMouseDown={(e) => e.stopPropagation()}>
       <div className="inline-chat-head" onPointerDown={onDragStart}>
         <span className="inline-chat-title">
           <Icon name="sparkle" size={12} /> {label || "Ask about this bill"}
         </span>
-        <button type="button" className="modal-x" onMouseDown={(e) => e.stopPropagation()} onClick={onClose}
-                aria-label="Minimize to a tab" title="Minimize to a tab — reopen it from the dock">
-          <Icon name="chevron-down" size={14} />
-        </button>
+        <div className="inline-chat-head-actions">
+          <button type="button" className="inline-chat-new" onMouseDown={(e) => e.stopPropagation()} onClick={onNewChat}
+                  aria-label="Open a new agent chat" title="Open a new agent chat for this bill">
+            <span className="inline-chat-new-plus">+</span> New chat
+          </button>
+          <button type="button" className="modal-x" onMouseDown={(e) => e.stopPropagation()} onClick={onClose}
+                  aria-label="Minimize to a tab" title="Minimize to a tab — reopen it from the dock">
+            <Icon name="chevron-down" size={14} />
+          </button>
+        </div>
       </div>
 
       <div className="inline-chat-body" ref={bodyRef}>
@@ -359,6 +380,9 @@ function InlineChat({ startX, startY, thread, label, onAsk, onJump, onClose, ter
           {loading ? "…" : "Ask"}
         </button>
       </div>
+
+      <div className="inline-chat-resize" onPointerDown={onResizeStart}
+           title="Drag to resize" aria-label="Resize" />
     </div>
   );
 }
@@ -693,6 +717,7 @@ function TextPanel({ bill, activeAnchor, onAnchorClick, annotations = [], onAddA
             onAsk={(question) => onAsk && onAsk(w.id, question)}
             onJump={(sid) => onAnchorClick?.(sid)}
             onClose={() => closeWin(w.id)}
+            onNewChat={() => startNewChat()}
             termMatchers={termMatchers}
             labelFor={labelFor}
           />
