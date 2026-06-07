@@ -92,6 +92,20 @@ function parseMarkdown(text) {
   return blocks;
 }
 
+// A short, instant title for a chat, derived from its first message. Used
+// as the dock-tab label right away (and as a fallback if the server-side
+// summarized title is unavailable). Clean whitespace, drop trailing
+// punctuation, capitalize, truncate to a few words.
+function deriveTitle(msg) {
+  let s = String(msg || "").replace(/\s+/g, " ").trim();
+  if (!s) return "New chat";
+  s = s.replace(/[?.!,;:]+$/, "");
+  s = s.charAt(0).toUpperCase() + s.slice(1);
+  const words = s.split(" ");
+  if (words.length > 6) return words.slice(0, 6).join(" ") + "…";
+  return s.length > 46 ? s.slice(0, 44).replace(/\s+\S*$/, "") + "…" : s;
+}
+
 // ── accent / theme / density sync (from the original prototype) ───────
 function hexToRgb(hex) {
   const h = hex.replace("#", "");
@@ -500,10 +514,17 @@ function App({ onSignOut, onShowLanding }) {
     const tid = "c-" + Date.now() + "-" + Math.random().toString(36).slice(2, 6);
     setBillChat((p) => {
       const cur = p[billId] || { threads: [] };
-      return { ...p, [billId]: { ...cur, threads: [...cur.threads, { id: tid, messages: [], loading: false }] } };
+      return { ...p, [billId]: { ...cur, threads: [...cur.threads, { id: tid, messages: [], loading: false, title: null }] } };
     });
     return tid;
   };
+
+  // Set/replace a thread's display title (used for the dock tab).
+  const setThreadTitle = (billId, threadId, title) => setBillChat((p) => {
+    const cur = p[billId];
+    if (!cur) return p;
+    return { ...p, [billId]: { ...cur, threads: cur.threads.map((t) => (t.id === threadId ? { ...t, title } : t)) } };
+  });
 
   const removeThread = (threadId) => {
     if (!selectedId) return;
@@ -520,22 +541,33 @@ function App({ onSignOut, onShowLanding }) {
     const q = (question || "").trim();
     if (!selectedId || !q || !threadId) return;
     const billId = selectedId;
-    const title = selectedBill ? (selectedBill.short || selectedBill.bill_id || billId) : billId;
+    const billTitle = selectedBill ? (selectedBill.short || selectedBill.bill_id || billId) : billId;
     const thread = ((billChat[billId] && billChat[billId].threads) || []).find((t) => t.id === threadId);
     const prior = ((thread && thread.messages) || [])
       .filter((m) => m.content).map((m) => ({ role: m.role, content: m.content }));
+    const isFirst = prior.length === 0;
     // First turn carries the bill scope; later turns rely on replayed history.
-    const scoped = prior.length ? q :
-      `[Answer questions about ONE bill: ${billId} ("${title}"). Stay inside this bill. ` +
+    const scoped = isFirst ?
+      `[Answer questions about ONE bill: ${billId} ("${billTitle}"). Stay inside this bill. ` +
       `Ground answers in its section text via get_section or get_citation_graph. Do not dump a huge ` +
-      `get_bill table of contents. Cite the sections you use. Be concise.]\n\n${q}`;
+      `get_bill table of contents. Cite the sections you use. Be concise.]\n\n${q}` : q;
     setBillChat((p) => {
       const cur = p[billId] || { threads: [] };
       const threads = cur.threads.map((t) => t.id === threadId
-        ? { ...t, messages: [...t.messages, { role: "user", content: q }, { role: "assistant", content: "", flags: [] }], loading: true }
+        ? { ...t,
+            title: t.title || (isFirst ? deriveTitle(q) : t.title),
+            messages: [...t.messages, { role: "user", content: q }, { role: "assistant", content: "", flags: [] }],
+            loading: true }
         : t);
       return { ...p, [billId]: { ...cur, threads } };
     });
+    // Upgrade the instant title to a short LLM-summarized one (best effort;
+    // silently keeps the instant title if the backend lacks the route).
+    if (isFirst) {
+      B.titleForChat(q)
+        .then((r) => { const tt = r && (r.title || "").trim(); if (tt) setThreadTitle(billId, threadId, tt); })
+        .catch(() => {});
+    }
     const flags = new Set();
     let answer = "";
     B.streamChat(scoped, prior, (ev) => {

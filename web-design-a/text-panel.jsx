@@ -297,14 +297,15 @@ function InlineChat({ startX, startY, thread, label, onAsk, onJump, onClose, onN
     window.addEventListener("pointerup", up);
   };
 
-  // Resize by the bottom-right grip. Clamped to a usable range; the user's
-  // size is held in state, so it survives streaming re-renders.
-  const onResizeStart = (e) => {
+  // Resize from the right edge (width), bottom edge (height), or corner
+  // (both). Clamped to a usable range; the user's size is held in state, so
+  // it survives streaming re-renders. axis: "x" | "y" | "both".
+  const onResizeStart = (axis) => (e) => {
     e.preventDefault(); e.stopPropagation();
     const s = { mx: e.clientX, my: e.clientY, w: size.w, h: size.h };
     const move = (ev) => setSize({
-      w: Math.max(300, Math.min(s.w + (ev.clientX - s.mx), window.innerWidth - 24)),
-      h: Math.max(240, Math.min(s.h + (ev.clientY - s.my), Math.round(window.innerHeight * 0.92))),
+      w: axis === "y" ? s.w : Math.max(300, Math.min(s.w + (ev.clientX - s.mx), window.innerWidth - 24)),
+      h: axis === "x" ? s.h : Math.max(240, Math.min(s.h + (ev.clientY - s.my), Math.round(window.innerHeight * 0.92))),
     });
     const up = () => { window.removeEventListener("pointermove", move); window.removeEventListener("pointerup", up); };
     window.addEventListener("pointermove", move);
@@ -381,7 +382,11 @@ function InlineChat({ startX, startY, thread, label, onAsk, onJump, onClose, onN
         </button>
       </div>
 
-      <div className="inline-chat-resize" onPointerDown={onResizeStart}
+      <div className="inline-chat-resize-e" onPointerDown={onResizeStart("x")}
+           title="Drag to resize width" aria-label="Resize width" />
+      <div className="inline-chat-resize-s" onPointerDown={onResizeStart("y")}
+           title="Drag to resize height" aria-label="Resize height" />
+      <div className="inline-chat-resize" onPointerDown={onResizeStart("both")}
            title="Drag to resize" aria-label="Resize" />
     </div>
   );
@@ -731,7 +736,7 @@ function TextPanel({ bill, activeAnchor, onAnchorClick, annotations = [], onAddA
         {chatThreads.map((t) => {
           const isOpen = openWins.some((w) => w.id === t.id);
           const firstQ = (t.messages.find((m) => m.role === "user") || {}).content;
-          const label = firstQ || "New agent";
+          const label = t.title || firstQ || "New agent";
           return (
             <div key={t.id} className={"dock-tab" + (isOpen ? " open" : "")}>
               <button type="button" className="dock-tab-main" onClick={() => toggleWin(t.id)} title={label}>

@@ -187,6 +187,11 @@ class SummarizeRequest(BaseModel):
     bill_id: str = Field(description="The bill to summarize")
 
 
+class TitleRequest(BaseModel):
+    """Ask for a short title summarizing a chat's first message."""
+    message: str = Field(description="The user's first message in the chat")
+
+
 def _to_anthropic_history(history: list[ChatMessageIn]) -> list[dict]:
     """Replay the conversation so far. The frontend sends each prior turn
     as a user question + a plain-text assistant answer (no tool_use
@@ -916,6 +921,44 @@ def api_summary(req: SummarizeRequest, _user: dict = Depends(require_user)) -> A
     except anthropic.APIError as e:
         print(f"[/api/summary] API error: {type(e).__name__}: {e}", file=sys.stderr)
         return {"bill_id": bill_id, "summary": "", "error": _friendly_error(e)}
+
+
+_TITLE_SYSTEM = (
+    "Write a 2-5 word title summarizing what the user's message is about, so "
+    "they can find this chat again later. Title Case. No quotes, no trailing "
+    "punctuation, no preamble. Output only the title."
+)
+
+
+@app.post("/api/title")
+def api_title(req: TitleRequest, _user: dict = Depends(require_user)) -> Any:
+    """A short, LLM-summarized title for a chat (cheap model). Best-effort:
+    returns an empty title on any problem so the client keeps its own
+    instant title. Charged to the caller's budget like /chat."""
+    msg = (req.message or "").strip()
+    if not msg or not os.environ.get("ANTHROPIC_API_KEY"):
+        return {"title": ""}
+    if usage.is_over_limit(_user["id"], _user.get("email")):
+        return {"title": ""}
+    try:
+        client = anthropic.Anthropic()
+        m = client.messages.create(
+            model=_SUMMARY_MODEL,
+            max_tokens=24,
+            system=_TITLE_SYSTEM,
+            messages=[{"role": "user", "content": msg[:500]}],
+        )
+        text = "".join(getattr(b, "text", "") for b in m.content
+                       if getattr(b, "type", None) == "text").strip().strip('"').strip()
+        if not usage.is_exempt(_user.get("email")):
+            u = getattr(m, "usage", None)
+            usage.add_usage(_user["id"],
+                            getattr(u, "input_tokens", 0) or 0,
+                            getattr(u, "output_tokens", 0) or 0)
+        return {"title": text[:60]}
+    except anthropic.APIError as e:
+        print(f"[/api/title] API error: {type(e).__name__}: {e}", file=sys.stderr)
+        return {"title": ""}
 
 
 # ---- legacy aliases + test page ----

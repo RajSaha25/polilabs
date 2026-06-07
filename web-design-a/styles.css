@@ -3178,7 +3178,9 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
   border: 1px solid color-mix(in srgb, var(--rule-strong) 50%, transparent);
   border-radius: 14px;
   box-shadow: 0 20px 54px rgba(0,0,0,0.22);
-  overflow: hidden;   /* required for CSS resize; also clips children to the radius */
+  /* No overflow:hidden — it clipped the resize handles into the rounded
+     corner and made them impossible to grab. Children are transparent, so
+     the rounded border still reads clean without clipping. */
 }
 .inline-chat-head {
   display: flex;
@@ -3212,27 +3214,50 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
 
 /* Bottom-right resize grip (custom so it reads clearly over the rounded,
    clipped corner — drag to resize the window). */
+/* Resize handles. The right and bottom EDGES (full length) let you widen,
+   narrow, or grow the window without hunting for a tiny corner; the corner
+   does both axes. They straddle the border so they're easy to grab, and
+   the container no longer clips them. */
+.inline-chat-resize-e {
+  position: absolute;
+  top: 10px;
+  bottom: 14px;
+  right: -4px;
+  width: 8px;
+  cursor: ew-resize;
+  z-index: 4;
+}
+.inline-chat-resize-s {
+  position: absolute;
+  left: 10px;
+  right: 14px;
+  bottom: -4px;
+  height: 8px;
+  cursor: ns-resize;
+  z-index: 4;
+}
 .inline-chat-resize {
   position: absolute;
-  right: 1px;
-  bottom: 1px;
-  width: 18px;
-  height: 18px;
+  right: -3px;
+  bottom: -3px;
+  width: 22px;
+  height: 22px;
   cursor: nwse-resize;
-  z-index: 3;
+  z-index: 5;
 }
 .inline-chat-resize::after {
   content: "";
   position: absolute;
-  right: 6px;
-  bottom: 6px;
-  width: 7px;
-  height: 7px;
+  right: 7px;
+  bottom: 7px;
+  width: 8px;
+  height: 8px;
   border-right: 2px solid var(--ink-4, #9aa3ad);
   border-bottom: 2px solid var(--ink-4, #9aa3ad);
-  opacity: 0.55;
+  opacity: 0.6;
 }
-.inline-chat-resize:hover::after { opacity: 0.95; }
+.inline-chat-resize:hover::after,
+.inline-chat:hover .inline-chat-resize::after { opacity: 1; }
 .inline-chat-title {
   display: inline-flex; align-items: center; gap: 6px;
   font-family: var(--font-sans); font-size: 12px; font-weight: 600;
