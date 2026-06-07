@@ -459,6 +459,20 @@ window.POLILABS_BACKEND =
     return res.json();
   }
 
+  // ── Short LLM-summarized title for a chat (cheap model) ─────────────
+  // POST /api/title { message } -> { title }. Best-effort: the caller keeps
+  // its instant client-side title if this route is unavailable.
+  async function titleForChat(message) {
+    const res = await fetch(BACKEND + "/api/title", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", ...authHeaders() },
+      body: JSON.stringify({ message: message || "" }),
+    });
+    if (res.status === 401) { handleUnauthorized(); throw new Error("unauthorized"); }
+    if (!res.ok) throw new Error("HTTP " + res.status + " for /api/title");
+    return res.json();
+  }
+
   // ── Expose ──────────────────────────────────────────────────────────
   window.PolilabsBackend = {
     BACKEND: BACKEND,
@@ -469,5 +483,6 @@ window.POLILABS_BACKEND =
     loadBillDetail: loadBillDetail,
     fetchCitationGroups: fetchCitationGroups,
     summarizeBill: summarizeBill,
+    titleForChat: titleForChat,
   };
 })();

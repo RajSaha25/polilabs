@@ -1,0 +1,37 @@
+name: Deploy backend to Fly
+
+# Why this exists: the fly.dev backend was NOT redeployed after #69/#70/#72,
+# so prod 404'd on /api/annotations, /api/summary, and /api/title even though
+# the routes were merged. This redeploys the backend automatically whenever
+# backend code changes land on master, matching how Vercel auto-deploys the
+# frontend. Requires a one-time repo secret FLY_API_TOKEN
+# (`fly tokens create deploy` -> add as an Actions secret). You can also run
+# it on demand from the Actions tab (workflow_dispatch).
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - "server.py"
+      - "mcp_server.py"
+      - "agent/**"
+      - "api/**"
+      - "auth/**"
+      - "requirements*.txt"
+      - "pyproject.toml"
+      - "Dockerfile"
+      - "fly.toml"
+      - ".github/workflows/fly-deploy.yml"
+  workflow_dispatch: {}
+
+jobs:
+  deploy:
+    name: fly deploy
+    runs-on: ubuntu-latest
+    concurrency: deploy-group
+    steps:
+      - uses: actions/checkout@v4
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - run: flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
