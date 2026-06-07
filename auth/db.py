@@ -126,6 +126,18 @@ def list_annotations(user_id: int, bill_id: str) -> list[dict]:
     return [dict(r) for r in rows]
 
 
+def list_all_annotations(user_id: int) -> list[dict]:
+    """Every annotation a user has, across all bills — most recently
+    touched first, so an "all notes" view leads with recent work."""
+    with _connect() as conn:
+        rows = conn.execute(
+            f"SELECT {_ANN_COLS} FROM annotations "
+            "WHERE user_id = ? ORDER BY updated_at DESC, id DESC",
+            (user_id,),
+        ).fetchall()
+    return [dict(r) for r in rows]
+
+
 def create_annotation(
     user_id: int,
     bill_id: str,

@@ -87,5 +87,15 @@
     return _json(res);
   }
 
-  window.PolilabsAnnotations = { list, create, update, remove };
+  // Every annotation the signed-in user has, across all bills (most
+  // recent first). Powers the "all notes" view. Same endpoint as list(),
+  // just without a bill_id filter.
+  async function listAll() {
+    const res = await fetch(BACKEND + "/api/annotations", {
+      headers: authHeaders(),
+    });
+    return _json(res);
+  }
+
+  window.PolilabsAnnotations = { list, listAll, create, update, remove };
 })();

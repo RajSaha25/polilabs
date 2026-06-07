@@ -3609,3 +3609,76 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
   }
   .chats-sidebar { display: none; }
 }
+
+/* =====================================================================
+   All-notes modal — every annotation across bills, click to jump
+   ===================================================================== */
+.notes-modal { max-width: 620px; }
+.notes-body {
+  max-height: min(64vh, 620px);
+  overflow-y: auto;
+  padding-top: 6px;
+}
+.notes-summary {
+  font-size: var(--t-xs, 11px);
+  color: var(--ink-4, #95918a);
+  letter-spacing: 0.04em;
+  padding: 4px 2px 12px;
+}
+.notes-empty {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 40px 24px;
+  text-align: center;
+  color: var(--ink-3, #6b6660);
+  font-size: var(--t-md, 13px);
+  line-height: 1.55;
+}
+.notes-error { color: #c0392b; }
+
+.notes-group { margin-bottom: 18px; }
+.notes-group:last-child { margin-bottom: 4px; }
+.notes-group-head {
+  position: sticky; top: 0;
+  display: flex; align-items: center; gap: 8px;
+  padding: 6px 2px;
+  background: var(--panel, #fff);
+  border-bottom: 1px solid var(--rule-faint, #efece4);
+  margin-bottom: 6px;
+  z-index: 1;
+}
+.notes-bill {
+  font-size: var(--t-sm, 12px); font-weight: 600;
+  color: var(--ink, #1a1a17); letter-spacing: 0.02em;
+}
+.notes-count {
+  min-width: 18px; height: 18px; padding: 0 5px;
+  display: inline-grid; place-items: center;
+  border-radius: 9px;
+  background: var(--subtle, #f1efea); color: var(--ink-3, #6b6660);
+  font-family: var(--font-mono); font-size: 10px; line-height: 1;
+}
+
+.note-item {
+  display: flex; align-items: flex-start; gap: 10px; width: 100%;
+  padding: 10px 10px;
+  border: 1px solid transparent; border-radius: var(--r-sm, 6px);
+  background: transparent; text-align: left; cursor: pointer;
+}
+.note-item:hover { background: var(--subtle, #f1efea); border-color: var(--rule, #e7e3da); }
+.note-dot {
+  flex: 0 0 auto; width: 11px; height: 11px; margin-top: 4px;
+  border-radius: 3px; border: 1px solid rgba(0,0,0,0.12);
+}
+.note-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.note-quote {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: var(--t-md, 13px); line-height: 1.4; color: var(--ink-2, #3d3a33);
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.note-quote.note-muted { font-style: italic; color: var(--ink-4, #95918a); }
+.note-body {
+  font-size: var(--t-sm, 12px); line-height: 1.45; color: var(--ink, #1a1a17);
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+.note-go { flex: 0 0 auto; margin-top: 4px; color: var(--ink-5, #b8b3aa); }
+.note-item:hover .note-go { color: var(--accent, #1e3fa8); }

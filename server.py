@@ -65,6 +65,7 @@ from auth import usage
 from auth.db import (
     create_annotation,
     delete_annotation,
+    list_all_annotations,
     list_annotations,
     update_annotation,
 )
@@ -791,10 +792,14 @@ def api_coverage(_user: dict = Depends(require_user)) -> Any:
 
 
 @app.get("/api/annotations")
-def api_annotations_list(bill_id: str,
+def api_annotations_list(bill_id: str | None = None,
                          _user: dict = Depends(require_user)) -> Any:
-    """Every annotation this user has on the given bill (oldest first)."""
-    return list_annotations(_user["id"], bill_id)
+    """A user's annotations. With `bill_id`, just that bill's (oldest
+    first, for in-bill rendering). Without it, every annotation across
+    all bills (most recent first) — powers the "all notes" view."""
+    if bill_id:
+        return list_annotations(_user["id"], bill_id)
+    return list_all_annotations(_user["id"])
 
 
 @app.post("/api/annotations")

@@ -245,6 +245,13 @@ function App({ onSignOut, onShowLanding }) {
   // "Connect your agent" modal (bring-your-own-agent connector tokens).
   const [showConnector, setShowConnector] = useState(false);
 
+  // "All notes" modal — every annotation across all bills, from
+  // PolilabsAnnotations.listAll(). `pendingNav` queues a jump from that
+  // list: open the bill, then scroll to the note once its text loads.
+  const [showAllNotes, setShowAllNotes] = useState(false);
+  const [allNotes, setAllNotes] = useState({ loading: false, items: [], error: null });
+  const [pendingNav, setPendingNav] = useState(null);
+
   // Past-chats sidebar (IDE file-explorer style). Each turn is a "chat".
   const [chatsOpen, setChatsOpen] = useState(true);
   const CHATS_W = 220;
@@ -304,6 +311,46 @@ function App({ onSignOut, onShowLanding }) {
       billIdx: Math.max(0, Math.min(turn.bills.length - 1, wanted)),
     });
   };
+
+  // ── all-notes view: fetch every annotation, jump to one ────────────
+  const openAllNotes = () => {
+    setShowAllNotes(true);
+    setAllNotes({ loading: true, items: [], error: null });
+    window.PolilabsAnnotations.listAll()
+      .then((items) => setAllNotes({ loading: false, items: items || [], error: null }))
+      .catch((e) => setAllNotes({ loading: false, items: [], error: String((e && e.message) || e) }));
+  };
+
+  // Open the bill a note lives on — reuse it if it's already in the active
+  // turn, else spin up a lightweight turn for it — then queue a scroll to
+  // the note's section once the verbatim text has loaded.
+  const openNote = (note) => {
+    setShowAllNotes(false);
+    const billId = note.bill_id;
+    const idxInTurn = turn ? turn.bills.findIndex((b) => b.id === billId) : -1;
+    if (idxInTurn >= 0) {
+      setBillIdx(idxInTurn);
+    } else {
+      const pretty = B && B.prettyBillId ? B.prettyBillId(billId) : billId;
+      const id = "t-note-" + Date.now() + "-" + Math.random().toString(36).slice(2, 7);
+      setTurns((ts) => [...ts, {
+        id, question: pretty, answerText: "", planText: "",
+        bills: [{ id: billId, bill_id: pretty, short: pretty }], billIdx: 0, error: null,
+      }]);
+      setActiveId(id);
+    }
+    setPendingNav({ billId, sectionId: note.section_id || null });
+  };
+
+  // When a queued note-jump's bill has loaded its text, scroll to the
+  // note's section (a null section is a bill-level note → just open it).
+  useEffect(() => {
+    if (!pendingNav || selectedId !== pendingNav.billId) return;
+    const d = billDetail[selectedId];
+    if (!d || !(d.text && d.text.length)) return;   // wait for verbatim text
+    flashAnchor(pendingNav.sectionId);
+    setPendingNav(null);
+  }, [pendingNav, selectedId, billDetail]);
 
   // ── streaming answer blocks ────────────────────────────────────────
   const answerText = turn ? turn.answerText : "";
@@ -659,6 +706,10 @@ function App({ onSignOut, onShowLanding }) {
         </div>
         <div className="header-tools">
           {streaming && <div className="stat mono">agent working…</div>}
+          <button type="button" className="connect-agent-btn" onClick={openAllNotes}
+                  title="See every note you've made, across all bills">
+            <Icon name="quote" size={13} /> Notes
+          </button>
           <button type="button" className="connect-agent-btn" onClick={() => setShowConnector(true)}
                   title="Use your own approved AI agent on the corpus">
             <Icon name="link" size={13} /> Connect agent
@@ -719,6 +770,10 @@ function App({ onSignOut, onShowLanding }) {
 
 
       {showConnector ? <ConnectorPanel onClose={() => setShowConnector(false)} /> : null}
+
+      {showAllNotes ? (
+        <AllNotesPanel data={allNotes} onClose={() => setShowAllNotes(false)} onSelect={openNote} />
+      ) : null}
 
       <TweaksPanel title="Tweaks">
         <TweakSection label="Theme">
