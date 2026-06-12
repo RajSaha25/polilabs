@@ -1,0 +1,57 @@
+{
+  "bill_id": "119-s-4098",
+  "fetched_at": "2026-06-12T05:37:22.810616+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/s/BILLSTATUS-119s4098.xml",
+  "title": "Artificial Intelligence-Ready Data Act",
+  "policy_area": "Government Operations and Politics",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "B001305",
+    "fullName": "Sen. Budd, Ted [R-NC]",
+    "firstName": "Ted",
+    "lastName": "Budd",
+    "party": "R",
+    "state": "NC",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "K000394",
+      "fullName": "Sen. Kim, Andy [D-NJ]",
+      "firstName": "Andy",
+      "lastName": "Kim",
+      "party": "D",
+      "state": "NJ",
+      "district": null,
+      "sponsorshipDate": "2026-03-16",
+      "isOriginalCosponsor": "True"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2026-03-16",
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2026-03-16",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2026-03-16",
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

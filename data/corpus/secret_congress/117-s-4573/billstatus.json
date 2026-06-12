@@ -1,0 +1,509 @@
+{
+  "bill_id": "117-s-4573",
+  "fetched_at": "2026-06-12T05:37:43.849792+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/117/s/BILLSTATUS-117s4573.xml",
+  "title": "Electoral Count Reform and Presidential Transition Improvement Act of 2022",
+  "policy_area": "Government Operations and Politics",
+  "subjects": [
+    "Congressional officers and employees",
+    "Congressional operations and organization",
+    "Congressional oversight",
+    "Constitution and constitutional amendments",
+    "Elections, voting, political campaign regulation",
+    "Federal district courts",
+    "Federal officials",
+    "Government information and archives",
+    "Intergovernmental relations",
+    "Judges",
+    "Judicial review and appeals",
+    "Legislative rules and procedure",
+    "Presidents and presidential powers, Vice Presidents",
+    "State and local government operations",
+    "Supreme Court",
+    "Voting rights"
+  ],
+  "sponsor": {
+    "bioguideId": "C001035",
+    "fullName": "Sen. Collins, Susan M. [R-ME]",
+    "firstName": "Susan",
+    "lastName": "Collins",
+    "party": "R",
+    "state": "ME",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "M001183",
+      "fullName": "Sen. Manchin, Joe, III [D-WV]",
+      "firstName": "Joseph",
+      "lastName": "Manchin",
+      "party": "D",
+      "state": "WV",
+      "district": null,
+      "sponsorshipDate": "2022-07-20",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "P000449",
+      "fullName": "Sen. Portman, Rob [R-OH]",
+      "firstName": "Rob",
+      "lastName": "Portman",
+      "party": "R",
+      "state": "OH",
+      "district": null,
+      "sponsorshipDate": "2022-07-20",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "S001191",
+      "fullName": "Sen. Sinema, Kyrsten [D-AZ]",
+      "firstName": "Kyrsten",
+      "lastName": "Sinema",
+      "party": "D",
+      "state": "AZ",
+      "district": null,
+      "sponsorshipDate": "2022-07-20",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "R000615",
+      "fullName": "Sen. Romney, Mitt [R-UT]",
+      "firstName": "Mitt",
+      "lastName": "Romney",
+      "party": "R",
+      "state": "UT",
+      "district": null,
+      "sponsorshipDate": "2022-07-20",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "S001181",
+      "fullName": "Sen. Shaheen, Jeanne [D-NH]",
+      "firstName": "Jeanne",
+      "lastName": "Shaheen",
+      "party": "D",
+      "state": "NH",
+      "district": null,
+      "sponsorshipDate": "2022-07-20",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "M001153",
+      "fullName": "Sen. Murkowski, Lisa [R-AK]",
+      "firstName": "Lisa",
+      "lastName": "Murkowski",
+      "party": "R",
+      "state": "AK",
+      "district": null,
+      "sponsorshipDate": "2022-07-20",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "W000805",
+      "fullName": "Sen. Warner, Mark R. [D-VA]",
+      "firstName": "Mark",
+      "lastName": "Warner",
+      "party": "D",
+      "state": "VA",
+      "district": null,
+      "sponsorshipDate": "2022-07-20",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "T000476",
+      "fullName": "Sen. Tillis, Thomas [R-NC]",
+      "firstName": "Thomas",
+      "lastName": "Tillis",
+      "party": "R",
+      "state": "NC",
+      "district": null,
+      "sponsorshipDate": "2022-07-20",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "M001169",
+      "fullName": "Sen. Murphy, Christopher [D-CT]",
+      "firstName": "Christopher",
+      "lastName": "Murphy",
+      "party": "D",
+      "state": "CT",
+      "district": null,
+      "sponsorshipDate": "2022-07-20",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "C001047",
+      "fullName": "Sen. Capito, Shelley Moore [R-WV]",
+      "firstName": "Shelley",
+      "lastName": "Capito",
+      "party": "R",
+      "state": "WV",
+      "district": null,
+      "sponsorshipDate": "2022-07-20",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "C000141",
+      "fullName": "Sen. Cardin, Benjamin L. [D-MD]",
+      "firstName": "Ben",
+      "lastName": "Cardin",
+      "party": "D",
+      "state": "MD",
+      "district": null,
+      "sponsorshipDate": "2022-07-20",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "Y000064",
+      "fullName": "Sen. Young, Todd [R-IN]",
+      "firstName": "Todd",
+      "lastName": "Young",
+      "party": "R",
+      "state": "IN",
+      "district": null,
+      "sponsorshipDate": "2022-07-20",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "C001088",
+      "fullName": "Sen. Coons, Christopher A. [D-DE]",
+      "firstName": "Christopher",
+      "lastName": "Coons",
+      "party": "D",
+      "state": "DE",
+      "district": null,
+      "sponsorshipDate": "2022-07-20",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "S001197",
+      "fullName": "Sen. Sasse, Ben [R-NE]",
+      "firstName": "Ben",
+      "lastName": "Sasse",
+      "party": "R",
+      "state": "NE",
+      "district": null,
+      "sponsorshipDate": "2022-07-20",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "G000359",
+      "fullName": "Sen. Graham, Lindsey [R-SC]",
+      "firstName": "Lindsey",
+      "lastName": "Graham",
+      "party": "R",
+      "state": "SC",
+      "district": null,
+      "sponsorshipDate": "2022-07-20",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "G000386",
+      "fullName": "Sen. Grassley, Chuck [R-IA]",
+      "firstName": "Charles",
+      "lastName": "Grassley",
+      "party": "R",
+      "state": "IA",
+      "district": null,
+      "sponsorshipDate": "2022-08-06",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "H000273",
+      "fullName": "Sen. Hickenlooper, John W. [D-CO]",
+      "firstName": "John",
+      "lastName": "Hickenlooper",
+      "party": "D",
+      "state": "CO",
+      "district": null,
+      "sponsorshipDate": "2022-08-06",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "P000145",
+      "fullName": "Sen. Padilla, Alex [D-CA]",
+      "firstName": "Alex",
+      "lastName": "Padilla",
+      "party": "D",
+      "state": "CA",
+      "district": null,
+      "sponsorshipDate": "2022-09-21",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "B001267",
+      "fullName": "Sen. Bennet, Michael F. [D-CO]",
+      "firstName": "Michael",
+      "lastName": "Bennet",
+      "party": "D",
+      "state": "CO",
+      "district": null,
+      "sponsorshipDate": "2022-09-21",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "T000461",
+      "fullName": "Sen. Toomey, Patrick [R-PA]",
+      "firstName": "Patrick",
+      "lastName": "Toomey",
+      "party": "R",
+      "state": "PA",
+      "district": null,
+      "sponsorshipDate": "2022-09-21",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "H001076",
+      "fullName": "Sen. Hassan, Margaret Wood [D-NH]",
+      "firstName": "Maggie",
+      "lastName": "Hassan",
+      "party": "D",
+      "state": "NH",
+      "district": null,
+      "sponsorshipDate": "2022-09-22",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "K000367",
+      "fullName": "Sen. Klobuchar, Amy [D-MN]",
+      "firstName": "Amy",
+      "lastName": "Klobuchar",
+      "party": "D",
+      "state": "MN",
+      "district": null,
+      "sponsorshipDate": "2022-09-28",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "B000575",
+      "fullName": "Sen. Blunt, Roy [R-MO]",
+      "firstName": "Roy",
+      "lastName": "Blunt",
+      "party": "R",
+      "state": "MO",
+      "district": null,
+      "sponsorshipDate": "2022-09-28",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "K000377",
+      "fullName": "Sen. Kelly, Mark [D-AZ]",
+      "firstName": "Mark",
+      "lastName": "Kelly",
+      "party": "D",
+      "state": "AZ",
+      "district": null,
+      "sponsorshipDate": "2022-09-28",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "M000355",
+      "fullName": "Sen. McConnell, Mitch [R-KY]",
+      "firstName": "Mitch",
+      "lastName": "McConnell",
+      "party": "R",
+      "state": "KY",
+      "district": null,
+      "sponsorshipDate": "2022-09-28",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "C000174",
+      "fullName": "Sen. Carper, Thomas R. [D-DE]",
+      "firstName": "Thomas",
+      "lastName": "Carper",
+      "party": "D",
+      "state": "DE",
+      "district": null,
+      "sponsorshipDate": "2022-09-29",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "T000250",
+      "fullName": "Sen. Thune, John [R-SD]",
+      "firstName": "John",
+      "lastName": "Thune",
+      "party": "R",
+      "state": "SD",
+      "district": null,
+      "sponsorshipDate": "2022-09-29",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "C001113",
+      "fullName": "Sen. Cortez Masto, Catherine [D-NV]",
+      "firstName": "Catherine",
+      "lastName": "Cortez Masto",
+      "party": "D",
+      "state": "NV",
+      "district": null,
+      "sponsorshipDate": "2022-09-29",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "C001056",
+      "fullName": "Sen. Cornyn, John [R-TX]",
+      "firstName": "John",
+      "lastName": "Cornyn",
+      "party": "R",
+      "state": "TX",
+      "district": null,
+      "sponsorshipDate": "2022-09-29",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "F000062",
+      "fullName": "Sen. Feinstein, Dianne [D-CA]",
+      "firstName": "Dianne",
+      "lastName": "Feinstein",
+      "party": "D",
+      "state": "CA",
+      "district": null,
+      "sponsorshipDate": "2022-09-29",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "S000148",
+      "fullName": "Sen. Schumer, Charles E. [D-NY]",
+      "firstName": "Charles",
+      "lastName": "Schumer",
+      "party": "D",
+      "state": "NY",
+      "district": null,
+      "sponsorshipDate": "2022-09-29",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "B001135",
+      "fullName": "Sen. Burr, Richard [R-NC]",
+      "firstName": "Richard",
+      "lastName": "Burr",
+      "party": "R",
+      "state": "NC",
+      "district": null,
+      "sponsorshipDate": "2022-11-14",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "P000595",
+      "fullName": "Sen. Peters, Gary C. [D-MI]",
+      "firstName": "Gary",
+      "lastName": "Peters",
+      "party": "D",
+      "state": "MI",
+      "district": null,
+      "sponsorshipDate": "2022-11-14",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "B001288",
+      "fullName": "Sen. Booker, Cory A. [D-NJ]",
+      "firstName": "Cory",
+      "lastName": "Booker",
+      "party": "D",
+      "state": "NJ",
+      "district": null,
+      "sponsorshipDate": "2022-11-14",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "B000944",
+      "fullName": "Sen. Brown, Sherrod [D-OH]",
+      "firstName": "Sherrod",
+      "lastName": "Brown",
+      "party": "D",
+      "state": "OH",
+      "district": null,
+      "sponsorshipDate": "2022-11-14",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "D000563",
+      "fullName": "Sen. Durbin, Richard J. [D-IL]",
+      "firstName": "Richard",
+      "lastName": "Durbin",
+      "party": "D",
+      "state": "IL",
+      "district": null,
+      "sponsorshipDate": "2022-11-14",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "K000383",
+      "fullName": "Sen. King, Angus S., Jr. [I-ME]",
+      "firstName": "Angus",
+      "lastName": "King",
+      "party": "I",
+      "state": "ME",
+      "district": null,
+      "sponsorshipDate": "2022-11-14",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "R000608",
+      "fullName": "Sen. Rosen, Jacky [D-NV]",
+      "firstName": "Jacklyn",
+      "lastName": "Rosen",
+      "party": "D",
+      "state": "NV",
+      "district": null,
+      "sponsorshipDate": "2022-12-19",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2022-10-18",
+      "text": "Placed on Senate Legislative Calendar under General Orders. Calendar No. 529.",
+      "type": "Calendars",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-10-18",
+      "text": "Committee on Rules and Administration. Reported by Senator Klobuchar under authority of the order of the Senate of 10/14/2022 with an amendment in the nature of a substitute. Without written report.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-10-18",
+      "text": "Committee on Rules and Administration. Reported by Senator Klobuchar under authority of the order of the Senate of 10/14/2022 with an amendment in the nature of a substitute. Without written report.",
+      "type": "Committee",
+      "actionCode": "14000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-09-27",
+      "text": "Committee on Rules and Administration. Ordered to be reported with an amendment favorably.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-07-20",
+      "text": "Read twice and referred to the Committee on Rules and Administration. (Sponsor introductory remarks on measure: CR S3545-3546)",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-07-20",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "reported_no_floor_vote",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2022-10-18",
+      "text": "Placed on Senate Legislative Calendar under General Orders. Calendar No. 529."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

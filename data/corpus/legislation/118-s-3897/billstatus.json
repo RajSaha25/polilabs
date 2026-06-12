@@ -1,0 +1,104 @@
+{
+  "bill_id": "118-s-3897",
+  "fetched_at": "2026-06-12T05:36:50.317542+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/s/BILLSTATUS-118s3897.xml",
+  "title": "Preparing Election Administrators for AI Act",
+  "policy_area": "Government Operations and Politics",
+  "subjects": [
+    "Advanced technology and technological innovations",
+    "Computers and information technology",
+    "Elections, voting, political campaign regulation",
+    "Government information and archives",
+    "Government studies and investigations",
+    "Intergovernmental relations",
+    "State and local government operations"
+  ],
+  "sponsor": {
+    "bioguideId": "K000367",
+    "fullName": "Sen. Klobuchar, Amy [D-MN]",
+    "firstName": "Amy",
+    "lastName": "Klobuchar",
+    "party": "D",
+    "state": "MN",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "C001035",
+      "fullName": "Sen. Collins, Susan M. [R-ME]",
+      "firstName": "Susan",
+      "lastName": "Collins",
+      "party": "R",
+      "state": "ME",
+      "district": null,
+      "sponsorshipDate": "2024-03-11",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "K000377",
+      "fullName": "Sen. Kelly, Mark [D-AZ]",
+      "firstName": "Mark",
+      "lastName": "Kelly",
+      "party": "D",
+      "state": "AZ",
+      "district": null,
+      "sponsorshipDate": "2024-06-03",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2024-05-15",
+      "text": "Placed on Senate Legislative Calendar under General Orders. Calendar No. 390.",
+      "type": "Calendars",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-05-15",
+      "text": "Committee on Rules and Administration. Reported by Senator Klobuchar with an amendment in the nature of a substitute. Without written report.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-05-15",
+      "text": "Committee on Rules and Administration. Reported by Senator Klobuchar with an amendment in the nature of a substitute. Without written report.",
+      "type": "Committee",
+      "actionCode": "14000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2024-05-15",
+      "text": "Committee on Rules and Administration. Ordered to be reported with an amendment in the nature of a substitute favorably.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-03-11",
+      "text": "Read twice and referred to the Committee on Rules and Administration.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-03-11",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "reported_no_floor_vote",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2024-05-15",
+      "text": "Placed on Senate Legislative Calendar under General Orders. Calendar No. 390."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

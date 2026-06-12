@@ -1,0 +1,75 @@
+{
+  "bill_id": "118-hr-10262",
+  "fetched_at": "2026-06-12T05:36:21.099897+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/hr/BILLSTATUS-118hr10262.xml",
+  "title": "AI Act of 2024",
+  "policy_area": "Finance and Financial Sector",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "W000187",
+    "fullName": "Rep. Waters, Maxine [D-CA-43]",
+    "firstName": "Maxine",
+    "lastName": "Waters",
+    "party": "D",
+    "state": "CA",
+    "district": "43"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "M001156",
+      "fullName": "Rep. McHenry, Patrick T. [R-NC-10]",
+      "firstName": "Patrick",
+      "lastName": "McHenry",
+      "party": "R",
+      "state": "NC",
+      "district": "10",
+      "sponsorshipDate": "2024-11-26",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "G000553",
+      "fullName": "Rep. Green, Al [D-TX-9]",
+      "firstName": "Al",
+      "lastName": "Green",
+      "party": "D",
+      "state": "TX",
+      "district": "9",
+      "sponsorshipDate": "2024-12-18",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2024-11-26",
+      "text": "Referred to the House Committee on Financial Services.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-11-26",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2024-11-26",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "died_in_committee",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2024-11-26",
+      "text": "Referred to the House Committee on Financial Services."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

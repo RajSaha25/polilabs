@@ -1,0 +1,11 @@
+{
+  "bill_id": "117-s-3580",
+  "criteria_version": "secret-congress-seed-v1.0",
+  "canonical_package_id": "BILLS-117s3580enr",
+  "cluster": "quiet_bipartisan_law",
+  "sources": {
+    "bill_xml": "https://www.govinfo.gov/content/pkg/BILLS-117s3580enr/xml/BILLS-117s3580enr.xml",
+    "billstatus": "https://www.govinfo.gov/bulkdata/BILLSTATUS/117/s/BILLSTATUS-117s3580.xml"
+  },
+  "fetched_at": "2026-06-10T02:54:52.143107+00:00"
+}

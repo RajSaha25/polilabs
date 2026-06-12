@@ -1,0 +1,90 @@
+{
+  "bill_id": "118-s-4596",
+  "fetched_at": "2026-06-12T05:36:52.455254+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/s/BILLSTATUS-118s4596.xml",
+  "title": "Artificial Intelligence Public Awareness and Education Campaign Act",
+  "policy_area": "Science, Technology, Communications",
+  "subjects": [
+    "Advanced technology and technological innovations",
+    "Computers and information technology",
+    "Congressional oversight",
+    "Consumer affairs"
+  ],
+  "sponsor": {
+    "bioguideId": "Y000064",
+    "fullName": "Sen. Young, Todd [R-IN]",
+    "firstName": "Todd",
+    "lastName": "Young",
+    "party": "R",
+    "state": "IN",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "S001194",
+      "fullName": "Sen. Schatz, Brian [D-HI]",
+      "firstName": "Brian",
+      "lastName": "Schatz",
+      "party": "D",
+      "state": "HI",
+      "district": null,
+      "sponsorshipDate": "2024-06-20",
+      "isOriginalCosponsor": "True"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2024-12-18",
+      "text": "Placed on Senate Legislative Calendar under General Orders. Calendar No. 726.",
+      "type": "Calendars",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-12-18",
+      "text": "Committee on Commerce, Science, and Transportation. Reported by Senator Cantwell with an amendment. Without written report.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-12-18",
+      "text": "Committee on Commerce, Science, and Transportation. Reported by Senator Cantwell with an amendment. Without written report.",
+      "type": "Committee",
+      "actionCode": "14000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2024-07-31",
+      "text": "Committee on Commerce, Science, and Transportation. Ordered to be reported without amendment favorably.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-06-20",
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-06-20",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "reported_no_floor_vote",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2024-12-18",
+      "text": "Placed on Senate Legislative Calendar under General Orders. Calendar No. 726."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

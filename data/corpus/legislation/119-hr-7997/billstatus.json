@@ -1,0 +1,97 @@
+{
+  "bill_id": "119-hr-7997",
+  "fetched_at": "2026-06-12T05:37:12.131384+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr7997.xml",
+  "title": "Research and Oversight of AI in Courts Act of 2026",
+  "policy_area": "Law",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "H001096",
+    "fullName": "Rep. Hageman, Harriet M. [R-WY-At Large]",
+    "firstName": "Harriet",
+    "lastName": "Hageman",
+    "party": "R",
+    "state": "WY",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "S001212",
+      "fullName": "Rep. Stauber, Pete [R-MN-8]",
+      "firstName": "Pete",
+      "lastName": "Stauber",
+      "party": "R",
+      "state": "MN",
+      "district": "8",
+      "sponsorshipDate": "2026-03-19",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "N000147",
+      "fullName": "Del. Norton, Eleanor Holmes [D-DC-At Large]",
+      "firstName": "Eleanor",
+      "lastName": "Norton",
+      "party": "D",
+      "state": "DC",
+      "district": "0",
+      "sponsorshipDate": "2026-03-27",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "S001228",
+      "fullName": "Rep. Schmidt, Derek [R-KS-2]",
+      "firstName": "Derek",
+      "lastName": "Schmidt",
+      "party": "R",
+      "state": "KS",
+      "district": "2",
+      "sponsorshipDate": "2026-04-16",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "G000576",
+      "fullName": "Rep. Grothman, Glenn [R-WI-6]",
+      "firstName": "Glenn",
+      "lastName": "Grothman",
+      "party": "R",
+      "state": "WI",
+      "district": "6",
+      "sponsorshipDate": "2026-05-19",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2026-03-19",
+      "text": "Referred to the House Committee on the Judiciary.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2026-03-19",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2026-03-19",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2026-03-19",
+      "text": "Referred to the House Committee on the Judiciary."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

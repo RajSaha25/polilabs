@@ -1,0 +1,70 @@
+{
+  "bill_id": "119-hr-1283",
+  "fetched_at": "2026-06-12T05:36:57.646115+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr1283.xml",
+  "title": "Protecting Our Children in an AI World Act of 2025",
+  "policy_area": "Crime and Law Enforcement",
+  "subjects": [
+    "Advanced technology and technological innovations",
+    "Crimes against children",
+    "Domestic violence and child abuse",
+    "Pornography",
+    "Sex offenses"
+  ],
+  "sponsor": {
+    "bioguideId": "B001257",
+    "fullName": "Rep. Bilirakis, Gus M. [R-FL-12]",
+    "firstName": "Gus",
+    "lastName": "Bilirakis",
+    "party": "R",
+    "state": "FL",
+    "district": "12"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "R000609",
+      "fullName": "Rep. Rutherford, John H. [R-FL-5]",
+      "firstName": "John",
+      "lastName": "Rutherford",
+      "party": "R",
+      "state": "FL",
+      "district": "5",
+      "sponsorshipDate": "2025-04-29",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2025-02-13",
+      "text": "Referred to the House Committee on the Judiciary.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-02-13",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2025-02-13",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2025-02-13",
+      "text": "Referred to the House Committee on the Judiciary."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

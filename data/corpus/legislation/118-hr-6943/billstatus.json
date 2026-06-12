@@ -1,0 +1,152 @@
+{
+  "bill_id": "118-hr-6943",
+  "fetched_at": "2026-06-12T05:36:33.837463+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/hr/BILLSTATUS-118hr6943.xml",
+  "title": "No AI FRAUD Act",
+  "policy_area": "Commerce",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "S000168",
+    "fullName": "Rep. Salazar, Maria Elvira [R-FL-27]",
+    "firstName": "Maria",
+    "lastName": "Salazar",
+    "party": "R",
+    "state": "FL",
+    "district": "27"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "D000631",
+      "fullName": "Rep. Dean, Madeleine [D-PA-4]",
+      "firstName": "Madeleine",
+      "lastName": "Dean",
+      "party": "D",
+      "state": "PA",
+      "district": "4",
+      "sponsorshipDate": "2024-01-10",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "M001224",
+      "fullName": "Rep. Moran, Nathaniel [R-TX-1]",
+      "firstName": "Nathaniel",
+      "lastName": "Moran",
+      "party": "R",
+      "state": "TX",
+      "district": "1",
+      "sponsorshipDate": "2024-01-10",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "M001206",
+      "fullName": "Rep. Morelle, Joseph D. [D-NY-25]",
+      "firstName": "Joseph",
+      "lastName": "Morelle",
+      "party": "D",
+      "state": "NY",
+      "district": "25",
+      "sponsorshipDate": "2024-01-10",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "W000804",
+      "fullName": "Rep. Wittman, Robert J. [R-VA-1]",
+      "firstName": "Robert",
+      "lastName": "Wittman",
+      "party": "R",
+      "state": "VA",
+      "district": "1",
+      "sponsorshipDate": "2024-01-10",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "F000465",
+      "fullName": "Rep. Ferguson, A. Drew, IV [R-GA-3]",
+      "firstName": "A.",
+      "lastName": "Ferguson",
+      "party": "R",
+      "state": "GA",
+      "district": "3",
+      "sponsorshipDate": "2024-01-16",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "C001063",
+      "fullName": "Rep. Cuellar, Henry [D-TX-28]",
+      "firstName": "Henry",
+      "lastName": "Cuellar",
+      "party": "D",
+      "state": "TX",
+      "district": "28",
+      "sponsorshipDate": "2024-01-18",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "I000058",
+      "fullName": "Rep. Ivey, Glenn [D-MD-4]",
+      "firstName": "Glenn",
+      "lastName": "Ivey",
+      "party": "D",
+      "state": "MD",
+      "district": "4",
+      "sponsorshipDate": "2024-01-22",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "D000230",
+      "fullName": "Rep. Davis, Donald G. [D-NC-1]",
+      "firstName": "Donald",
+      "lastName": "Davis",
+      "party": "D",
+      "state": "NC",
+      "district": "1",
+      "sponsorshipDate": "2024-01-31",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "P000616",
+      "fullName": "Rep. Phillips, Dean [D-MN-3]",
+      "firstName": "Dean",
+      "lastName": "Phillips",
+      "party": "D",
+      "state": "MN",
+      "district": "3",
+      "sponsorshipDate": "2024-03-07",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2024-01-10",
+      "text": "Referred to the House Committee on the Judiciary.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-01-10",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2024-01-10",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "died_in_committee",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2024-01-10",
+      "text": "Referred to the House Committee on the Judiciary."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

@@ -1,0 +1,11 @@
+{
+  "bill_id": "117-hr-7776",
+  "criteria_version": "secret-congress-seed-v1.0",
+  "canonical_package_id": "BILLS-117hr7776enr",
+  "cluster": "omnibus_vehicle",
+  "sources": {
+    "bill_xml": "https://www.govinfo.gov/content/pkg/BILLS-117hr7776enr/xml/BILLS-117hr7776enr.xml",
+    "billstatus": "https://www.govinfo.gov/bulkdata/BILLSTATUS/117/hr/BILLSTATUS-117hr7776.xml"
+  },
+  "fetched_at": "2026-06-10T02:55:58.098876+00:00"
+}

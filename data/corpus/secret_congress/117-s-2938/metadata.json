@@ -1,0 +1,506 @@
+{
+  "bill_id": "117-s-2938",
+  "congress": 117,
+  "bill_type": "s",
+  "bill_number": 2938,
+  "title": "Bipartisan Safer Communities Act",
+  "short_title": "Bipartisan Safer Communities Act",
+  "sponsor": "Sen. Rubio, Marco [R-FL]",
+  "introduced_date": "2021-10-05",
+  "latest_action": "2022-06-25: Became Public Law No: 117-159.",
+  "policy_area": "Crime and Law Enforcement",
+  "subjects": [
+    "Administrative law and regulatory procedures",
+    "Advisory bodies",
+    "Alaska Natives and Hawaiians",
+    "Appropriations",
+    "California",
+    "Cardiovascular and respiratory health",
+    "Child health",
+    "Child safety and welfare",
+    "Civil actions and liability",
+    "Congressional oversight",
+    "Congressional tributes",
+    "Correctional facilities and imprisonment",
+    "Crime prevention",
+    "Criminal investigation, prosecution, interrogation",
+    "Criminal justice information and records",
+    "Criminal procedure and sentencing",
+    "Department of Education",
+    "Department of Health and Human Services",
+    "Department of Justice",
+    "Domestic violence and child abuse",
+    "Drug trafficking and controlled substances",
+    "Drug, alcohol, tobacco use",
+    "Due process and equal protection",
+    "Education programs funding",
+    "Educational facilities and institutions",
+    "Elementary and secondary education",
+    "Emergency medical services and trauma care",
+    "Emergency planning and evacuation",
+    "Federal Bureau of Investigation (FBI)",
+    "Firearms and explosives",
+    "Florida",
+    "Government Operations and Politics",
+    "Government buildings, facilities, and property",
+    "Government information and archives",
+    "Health care costs and insurance",
+    "Health care coverage and access",
+    "Health programs administration and funding",
+    "Health technology, devices, supplies",
+    "Higher education",
+    "Home and outpatient care",
+    "House of Representatives",
+    "Indian social and development programs",
+    "Infectious and parasitic diseases",
+    "Judges",
+    "Juvenile crime and gang violence",
+    "Law enforcement administration and funding",
+    "Medicaid",
+    "Medical tests and diagnostic methods",
+    "Medicare",
+    "Members of Congress",
+    "Mental health",
+    "Minority health",
+    "Organized crime",
+    "Postal service",
+    "Poverty and welfare assistance",
+    "Prescription drugs",
+    "Rural conditions and development",
+    "Smuggling and trafficking",
+    "State and local government operations",
+    "Terrorism"
+  ],
+  "summary_text": null,
+  "centrality_score": null,
+  "match_locations": {},
+  "tier": "A",
+  "stream": "legislation",
+  "topic": "secret_congress",
+  "cluster": "high_salience_bipartisan_law",
+  "curator_note": "Enacted PL 117-159. First significant gun legislation in ~30 years, Senate 65-33 weeks after Uvalde \u2014 high salience, bipartisan anyway.",
+  "versions_available": [
+    {
+      "package_id": "BILLS-117s2938enr",
+      "version_code": "enr",
+      "date_issued": "2021-10-05"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-117s2938enr",
+    "version_code": "enr",
+    "date_issued": "2021-10-05"
+  },
+  "actions": [
+    {
+      "actionDate": "2022-06-25",
+      "text": "Became Public Law No: 117-159.",
+      "type": "President",
+      "actionCode": "E40000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-06-25",
+      "text": "Became Public Law No: 117-159.",
+      "type": "BecameLaw",
+      "actionCode": "36000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-06-25",
+      "text": "Signed by President.",
+      "type": "President",
+      "actionCode": "E30000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-06-25",
+      "text": "Signed by President.",
+      "type": "BecameLaw",
+      "actionCode": "36000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-06-24",
+      "text": "Presented to President.",
+      "type": "Floor",
+      "actionCode": "E20000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-06-24",
+      "text": "Presented to President.",
+      "type": "President",
+      "actionCode": "28000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-06-24",
+      "text": "Motion to reconsider laid on the table Agreed to without objection.",
+      "type": "ResolvingDifferences",
+      "actionCode": "H41931",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-06-24",
+      "text": "On motion that the House agree to the Senate amendments to the House amendment Agreed to by the Yeas and Nays: 234 - 193 (Roll no. 299). (text: CR H5895-5903)",
+      "type": "ResolvingDifferences",
+      "actionCode": "H41610",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-06-24",
+      "text": "Resolving differences -- House actions: On motion that the House agree to the Senate amendments to the House amendment Agreed to by the Yeas and Nays: 234 - 193 (Roll no. 299).(text: CR H5895-5903)",
+      "type": "NotUsed",
+      "actionCode": "19500",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-06-24",
+      "text": "The previous question was ordered pursuant to the rule.",
+      "type": "ResolvingDifferences",
+      "actionCode": "H41400",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-06-24",
+      "text": "Pursuant to the provisions of H.Res. 1204, the House proceeded with one hour of debate on the Nadler motion that the House agree to the Senate amendments to the House amendment to S. 2938.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-06-24",
+      "text": "Mr. Nadler moved that the House agree to the Senate amendments to the House amendment. (consideration: CR H5895-5915)",
+      "type": "ResolvingDifferences",
+      "actionCode": "H40150",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-06-23",
+      "text": "Message on Senate action sent to the House.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-06-23",
+      "text": "Senate concurred in the House amendment to S. 2938 with an amendment SA (5099), and an amendment to the title by Yea-Nay Vote. 65 - 33. Record Vote Number: 242. (text: 06/21/2022 CR S3034-3042)",
+      "type": "ResolvingDifferences",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-06-23",
+      "text": "Resolving differences -- Senate actions: Senate concurred in the House amendment to S. 2938 with an amendment SA (5099), and an amendment to the title by Yea-Nay Vote. 65 - 33. Record Vote Number: 242.(text: 06/21/2022 CR S3034-3042)",
+      "type": "NotUsed",
+      "actionCode": "20500",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-06-23",
+      "text": "Motion to table amendment SA 5100 rejected in Senate by Yea-Nay Vote. 39 - 58. Record Vote Number: 241.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-06-23",
+      "text": "Motion by Senator Schumer to refer to Senate Committee on Environment and Public Works fell when cloture on the motion to concur in the House amendment to S. 2938 with an amendment SA 5099 was invoked in Senate.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-06-23",
+      "text": "Cloture on the motion to concur in the House amendment to S. 2938 with an amendment SA 5099 invoked in Senate by Yea-Nay Vote. 65 - 34. Record Vote Number: 240.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-06-23",
+      "text": "Considered by Senate (Message from the House considered). (consideration: CR S3104-3108, S3110-3137, S3137-3144)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-06-22",
+      "text": "Considered by Senate (Message from the House considered). (consideration: CR S3045)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-06-21",
+      "text": "Cloture motion on the motion to concur in the House amendment to S. 2938 with an amendment SA 5099 presented in Senate. (CR S3028)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-06-21",
+      "text": "Motion by Senator Schumer to refer to Senate Committee on Environment and Public Works the House message to accompany S. 2938 with instructions to report back forthwith with the following amendment (SA 5101) made in Senate. (CR S3028)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-06-21",
+      "text": "Motion by Senator Schumer to concur in the House amendment to S. 2938 with an amendment (SA 5099) made in Senate. (CR S3028)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-06-21",
+      "text": "Measure laid before Senate by motion. (consideration: CR S3028)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-06-21",
+      "text": "Motion to proceed to consideration of the House message to accompany S. 2938 agreed to in Senate by Yea-Nay Vote. 64 - 34. Record Vote Number: 235.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-05-19",
+      "text": "Message on House action received in Senate and at desk: House amendment to Senate bill.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-05-18",
+      "text": "Motion to reconsider laid on the table Agreed to without objection.",
+      "type": "Floor",
+      "actionCode": "H38310",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-05-18",
+      "text": "On passage Passed by the Yeas and Nays: 230 - 190, 1 Present (Roll no. 212). (text: 05/17/2022 CR H5089)",
+      "type": "Floor",
+      "actionCode": "H37100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-05-18",
+      "text": "Passed/agreed to in House: On passage Passed by the Yeas and Nays: 230 - 190, 1 Present (Roll no. 212).(text: 05/17/2022 CR H5089)",
+      "type": "Floor",
+      "actionCode": "8000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-05-18",
+      "text": "Considered as unfinished business. (consideration: CR H5138-5139)",
+      "type": "Floor",
+      "actionCode": "H30000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-05-17",
+      "text": "POSTPONED PROCEEDINGS - At the conclusion of debate on S. 2938, the Chair put the question on passage of the bill and by voice vote announced that the ayes had prevailed. Mr. Roy demanded the yeas and nays and the Chair postponed further proceedings until a time to be announced.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-05-17",
+      "text": "The previous question was ordered pursuant to the rule.",
+      "type": "Floor",
+      "actionCode": "H35000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-05-17",
+      "text": "DEBATE - The House proceeded with one hour of debate on S. 2938.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-05-17",
+      "text": "Rule provides for consideration of H.R. 6531, H.R. 7309 and S. 2938. Measure will be considered read. Specified amendments are in order. The rule provides that the previous question shall be considered as ordered on each measure without intervening motions except one hour of debate and one motion to recommit Upon passage of H. Res. 1119, H. Res. 1118 is adopted.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-05-17",
+      "text": "Considered under the provisions of rule H. Res. 1119. (consideration: CR H5089-5091)",
+      "type": "Floor",
+      "actionCode": "H30000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-05-17",
+      "text": "Rule H. Res. 1119 passed House.",
+      "type": "Floor",
+      "actionCode": "H1L220",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-05-16",
+      "text": "Rules Committee Resolution H. Res. 1119 Reported to House. Rule provides for consideration of H.R. 6531, H.R. 7309 and S. 2938. Measure will be considered read. Specified amendments are in order. The rule provides that the previous question shall be considered as ordered on each measure without intervening motions except one hour of debate and one motion to recommit Upon passage of H. Res. 1119, H. Res. 1118 is adopted.",
+      "type": "Floor",
+      "actionCode": "H1L210",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-03-30",
+      "text": "On motion to suspend the rules and pass the bill Failed by the Yeas and Nays: (2/3 required): 238 - 187, 1 Present (Roll no. 95). (text: CR H3992)",
+      "type": "Floor",
+      "actionCode": "H37300",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-03-30",
+      "text": "Failed of passage/not agreed to in House: On motion to suspend the rules and pass the bill Failed by the Yeas and Nays: (2/3 required): 238 - 187, 1 Present (Roll no. 95).(text: CR H3992)",
+      "type": "Floor",
+      "actionCode": "9000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-03-30",
+      "text": "Considered as unfinished business. (consideration: CR H3999-4000)",
+      "type": "Floor",
+      "actionCode": "H30000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-03-30",
+      "text": "At the conclusion of debate, the Yeas and Nays were demanded and ordered. Pursuant to the provisions of clause 8, rule XX, the Chair announced that further proceedings on the motion would be postponed.",
+      "type": "Floor",
+      "actionCode": "H37220",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-03-30",
+      "text": "DEBATE - The House proceeded with forty minutes of debate on S. 2938.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-03-30",
+      "text": "Considered under suspension of the rules. (consideration: CR H3992-3993)",
+      "type": "Floor",
+      "actionCode": "H30000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-03-30",
+      "text": "Ms. Williams (GA) moved to suspend the rules and pass the bill.",
+      "type": "Floor",
+      "actionCode": "H30300",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-12-13",
+      "text": "Held at the desk.",
+      "type": "Floor",
+      "actionCode": "H15000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-12-13",
+      "text": "Received in the House.",
+      "type": "Floor",
+      "actionCode": "H14000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-12-10",
+      "text": "Message on Senate action sent to the House.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-12-09",
+      "text": "Passed Senate without amendment by Unanimous Consent. (consideration: CR S9085; text: CR S9085)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-12-09",
+      "text": "Passed/agreed to in Senate: Passed Senate without amendment by Unanimous Consent.(consideration: CR S9085; text: CR S9085)",
+      "type": "Floor",
+      "actionCode": "17000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2021-12-01",
+      "text": "Placed on Senate Legislative Calendar under General Orders. Calendar No. 170.",
+      "type": "Calendars",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-12-01",
+      "text": "Committee on Environment and Public Works. Reported by Senator Carper without amendment. Without written report.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-12-01",
+      "text": "Committee on Environment and Public Works. Reported by Senator Carper without amendment. Without written report.",
+      "type": "Committee",
+      "actionCode": "14000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2021-12-01",
+      "text": "Committee on Environment and Public Works. Committee consideration held. Business Meeting printed. S. Hrg. 117-133.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-12-01",
+      "text": "Committee on Environment and Public Works. Ordered to be reported without amendment favorably.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-10-05",
+      "text": "Read twice and referred to the Committee on Environment and Public Works.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-10-05",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "cosponsors": [
+    {
+      "bioguideId": "S001217",
+      "fullName": "Sen. Scott, Rick [R-FL]",
+      "firstName": "Rick",
+      "lastName": "Scott",
+      "party": "R",
+      "state": "FL",
+      "district": null,
+      "sponsorshipDate": "2021-10-05",
+      "isOriginalCosponsor": "True"
+    }
+  ],
+  "_metadata_sources": {
+    "xml": "govinfo bulk-data (unauthenticated)",
+    "billstatus": "govinfo BILLSTATUS bulk-data (unauthenticated)",
+    "congress_gov_enriched": false
+  }
+}

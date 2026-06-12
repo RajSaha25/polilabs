@@ -16,6 +16,7 @@ import sqlite3
 from datetime import datetime, timezone
 from pathlib import Path
 
+from .build_universe_tables import load_universe
 from .parse_uslm import parse_bill_xml
 from .schema import SCHEMA
 
@@ -56,7 +57,27 @@ def _open_db(db_path: Path) -> sqlite3.Connection:
     return conn
 
 
-def _insert_bill(conn: sqlite3.Connection, meta: dict, xml_format: str) -> None:
+def _final_passage_bipartisan(bs: dict | None) -> float | None:
+    """bills.bipartisan_support = the metric on the LAST passage-class
+    roll call (chronologically). Vehicle bills carry early votes from a
+    prior life under another name; the final vote is the one that
+    reflects the enacted coalition."""
+    if not bs:
+        return None
+    passage = [
+        v for v in bs.get("votes", [])
+        if v.get("vote_type") == "passage" and v.get("bipartisan_support") is not None
+    ]
+    if not passage:
+        return None
+    passage.sort(key=lambda v: v.get("date") or "")
+    return passage[-1]["bipartisan_support"]
+
+
+def _insert_bill(
+    conn: sqlite3.Connection, meta: dict, xml_format: str, bs: dict | None,
+) -> None:
+    outcome = (bs or {}).get("outcome") or {}
     conn.execute(
         """
         INSERT INTO bills (
@@ -64,8 +85,9 @@ def _insert_bill(conn: sqlite3.Connection, meta: dict, xml_format: str) -> None:
             sponsor, introduced_date, latest_action_date, latest_action_text,
             policy_area, summary_text, tier, stream, topic, centrality_score,
             canonical_package_id, canonical_version_code, canonical_version_date,
-            xml_format
-        ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+            xml_format, outcome, public_law, bipartisan_support, cluster,
+            curator_note, outcome_events
+        ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
         """,
         (
             meta["bill_id"],
@@ -78,7 +100,7 @@ def _insert_bill(conn: sqlite3.Connection, meta: dict, xml_format: str) -> None:
             meta.get("introduced_date"),
             _action_date(meta.get("latest_action")),
             _action_text(meta.get("latest_action")),
-            meta.get("policy_area"),
+            meta.get("policy_area") or (bs or {}).get("policy_area"),
             meta.get("summary_text"),
             meta.get("tier"),
             meta.get("stream", "legislation"),
@@ -88,6 +110,12 @@ def _insert_bill(conn: sqlite3.Connection, meta: dict, xml_format: str) -> None:
             (meta.get("canonical_version") or {}).get("version_code"),
             (meta.get("canonical_version") or {}).get("date_issued"),
             xml_format,
+            outcome.get("outcome"),
+            outcome.get("public_law"),
+            _final_passage_bipartisan(bs),
+            meta.get("cluster"),
+            meta.get("curator_note"),
+            json.dumps(outcome["events"]) if outcome.get("events") else None,
         ),
     )
 
@@ -118,10 +146,55 @@ def _insert_versions(conn: sqlite3.Connection, meta: dict) -> None:
         )
 
 
-def _insert_cosponsors(conn: sqlite3.Connection, meta: dict) -> None:
+def _insert_votes(conn: sqlite3.Connection, bill_id: str, bs: dict | None) -> int:
+    if not bs:
+        return 0
+    n = 0
+    for v in bs.get("votes", []):
+        vote_id = (
+            f"{bill_id}::{v['chamber']}/{v['congress']}-{v['session']}/{v['roll_number']}"
+        )
+        t = v.get("totals_by_party") or {}
+        d, r, ind = t.get("D", {}), t.get("R", {}), t.get("I", {})
+        conn.execute(
+            """INSERT OR IGNORE INTO votes (
+                vote_id, bill_id, chamber, congress, session, roll_number,
+                date, question, result, vote_type, yea_total, nay_total,
+                dem_yea, dem_nay, rep_yea, rep_nay, ind_yea, ind_nay,
+                bipartisan_support, bipartisan_label, source_url
+               ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+            (
+                vote_id, bill_id, v["chamber"], v["congress"], v["session"],
+                v["roll_number"], v.get("date"), v.get("question"),
+                v.get("result"), v["vote_type"], v["yea_total"], v["nay_total"],
+                d.get("yea"), d.get("nay"), r.get("yea"), r.get("nay"),
+                ind.get("yea"), ind.get("nay"),
+                v.get("bipartisan_support"), v.get("bipartisan_label"),
+                v["source_url"],
+            ),
+        )
+        conn.executemany(
+            """INSERT OR IGNORE INTO vote_positions
+               (vote_id, member_name, member_id, party, state, position)
+               VALUES (?,?,?,?,?,?)""",
+            [
+                (vote_id, m.get("name") or "?",
+                 m.get("bioguide_id") or m.get("lis_member_id"),
+                 m.get("party"), m.get("state"), m.get("position", "other"))
+                for m in v.get("members", [])
+            ],
+        )
+        n += 1
+    return n
+
+
+def _insert_cosponsors(conn: sqlite3.Connection, meta: dict, bs: dict | None) -> None:
     bill_id = meta["bill_id"]
     seen: set[str] = set()
-    for cs in meta.get("cosponsors", []):
+    # Prefer the keyless BILLSTATUS cosponsor list when the original
+    # metadata has none (redistricting seed, thin AI bills).
+    cosponsor_rows = meta.get("cosponsors") or (bs or {}).get("cosponsors") or []
+    for cs in cosponsor_rows:
         name = cs.get("fullName") or cs.get("lastName")
         if not name or name in seen:
             continue
@@ -134,9 +207,12 @@ def _insert_cosponsors(conn: sqlite3.Connection, meta: dict) -> None:
         )
 
 
-def _insert_actions(conn: sqlite3.Connection, meta: dict) -> None:
+def _insert_actions(conn: sqlite3.Connection, meta: dict, bs: dict | None) -> None:
     bill_id = meta["bill_id"]
-    for i, a in enumerate(meta.get("actions", [])):
+    # BILLSTATUS action trails are complete (both chambers + executive);
+    # metadata.json actions exist only for Congress.gov-enriched bills.
+    action_rows = (bs or {}).get("actions") or meta.get("actions") or []
+    for i, a in enumerate(action_rows):
         conn.execute(
             """INSERT OR IGNORE INTO actions
                (bill_id, ordinal, action_date, action_text)
@@ -145,9 +221,10 @@ def _insert_actions(conn: sqlite3.Connection, meta: dict) -> None:
         )
 
 
-def _insert_subjects(conn: sqlite3.Connection, meta: dict) -> None:
+def _insert_subjects(conn: sqlite3.Connection, meta: dict, bs: dict | None) -> None:
     bill_id = meta["bill_id"]
-    for s in meta.get("subjects", []):
+    subject_rows = meta.get("subjects") or (bs or {}).get("subjects") or []
+    for s in subject_rows:
         if not s:
             continue
         conn.execute(
@@ -227,6 +304,8 @@ def build_index(
                 if not meta_path.exists() or not xml_path.exists():
                     continue
                 meta = json.loads(meta_path.read_text())
+                bs_path = d / "billstatus.json"
+                bs = json.loads(bs_path.read_text()) if bs_path.exists() else None
                 try:
                     rows, fmt = parse_bill_xml(
                         xml_path,
@@ -241,12 +320,13 @@ def build_index(
                         print(f"[parse-error] {meta['bill_id']}: {type(e).__name__}: {e}")
                     continue
 
-                _insert_bill(conn, meta, fmt)
+                _insert_bill(conn, meta, fmt, bs)
                 _insert_versions(conn, meta)
-                _insert_cosponsors(conn, meta)
-                _insert_actions(conn, meta)
-                _insert_subjects(conn, meta)
+                _insert_cosponsors(conn, meta, bs)
+                _insert_actions(conn, meta, bs)
+                _insert_subjects(conn, meta, bs)
                 _insert_sections(conn, rows)
+                stats["votes"] = stats.get("votes", 0) + _insert_votes(conn, meta["bill_id"], bs)
 
                 stats["bills"] += 1
                 stats["sections"] += len(rows)
@@ -267,6 +347,7 @@ def build_index(
                     print(f"  indexed {i + 1}/{len(bill_dirs)} bills, {stats['sections']} sections so far")
 
             _populate_fts(conn)
+            stats["universe"] = load_universe(conn, verbose=verbose)
             _write_meta(conn, latest_fetched)
 
         # Final stats query

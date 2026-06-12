@@ -392,7 +392,9 @@ function Landing({ user, onOpenWorkspace, onSignIn, onSignOut }) {
 
   useEffect(() => {
     let cancelled = false;
-    fetch("landing-graph.json")
+    // Same cache-bust version as the script tags in Polilabs.html —
+    // stale stats are worse than no stats.
+    fetch("landing-graph.json?v=20260612-2")
       .then((r) => {
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         return r.json();
@@ -407,7 +409,12 @@ function Landing({ user, onOpenWorkspace, onSignIn, onSignOut }) {
     return () => { cancelled = true; };
   }, []);
 
-  const c = corpus || { bills: 203, sections: 40164, defined_terms: 1527, amendments: 1249, external_citations: 2061 };
+  const c = corpus || {
+    bills: 232, sections: 172887, defined_terms: 3749, amendments: 6875,
+    external_citations: 9412, bills_tracked: 46168, rollcall_votes: 3329,
+    laws_enacted: 739, congress_span: "117th–119th",
+  };
+  const tracked = c.bills_tracked || 0;
 
   return (
     <div className="land">
@@ -485,7 +492,13 @@ function Landing({ user, onOpenWorkspace, onSignIn, onSignOut }) {
               Open the workspace <span aria-hidden="true">→</span>
             </button>
             <div className="land-corpus mono">
-              <b>{c.bills}</b>&nbsp;bills
+              <b>{tracked ? tracked.toLocaleString() : c.bills.toLocaleString()}</b>&nbsp;bills tracked
+              {tracked ? (
+                <>
+                  <span className="land-dot">·</span>
+                  <b>{c.bills.toLocaleString()}</b>&nbsp;with full text
+                </>
+              ) : null}
               <span className="land-dot">·</span>
               <a href="#whats-in-corpus" className="land-corpus-link">
                 see what&rsquo;s in the corpus
@@ -567,20 +580,49 @@ function Landing({ user, onOpenWorkspace, onSignIn, onSignOut }) {
           <div className="land-corpus-topics mono">
             <span className="land-corpus-topic">AI governance</span>
             <span className="land-corpus-topic">Redistricting &amp; voting rights</span>
+            <span className="land-corpus-topic">Secret congress &amp; passage dynamics</span>
             <span className="land-corpus-topic-more">more topics soon</span>
           </div>
-          <div className="land-corpus-grid land-corpus-grid-5">
-            <div className="land-corpus-cell">
-              <b>{c.bills.toLocaleString()}</b>
-              <span>bills</span>
+          {tracked ? (
+            <div className="land-corpus-grid land-corpus-grid-5">
+              <div className="land-corpus-cell">
+                <b>{tracked.toLocaleString()}</b>
+                <span>bills tracked ({c.congress_span || "117th–119th"})</span>
+              </div>
+              <div className="land-corpus-cell">
+                <b>{(c.laws_enacted || 0).toLocaleString()}</b>
+                <span>enacted into law</span>
+              </div>
+              <div className="land-corpus-cell">
+                <b>{(c.rollcall_votes || 0).toLocaleString()}</b>
+                <span>roll-call votes, party splits</span>
+              </div>
+              <div className="land-corpus-cell">
+                <b>{c.bills.toLocaleString()}</b>
+                <span>bills with full text</span>
+              </div>
+              <div className="land-corpus-cell">
+                <b>{c.sections.toLocaleString()}</b>
+                <span>sections</span>
+              </div>
             </div>
-            <div className="land-corpus-cell">
-              <b>{c.sections.toLocaleString()}</b>
-              <span>sections</span>
-            </div>
+          ) : null}
+          <div className={"land-corpus-grid " + (tracked ? "land-corpus-grid-3" : "land-corpus-grid-5")}>
+            {tracked ? null : (
+              <div className="land-corpus-cell">
+                <b>{c.bills.toLocaleString()}</b>
+                <span>bills</span>
+              </div>
+            )}
+            {tracked ? null : (
+              <div className="land-corpus-cell">
+                <b>{c.sections.toLocaleString()}</b>
+                <span>sections</span>
+              </div>
+            )}
             <div className="land-corpus-cell">
               <b>{(c.amendments || 0).toLocaleString()}</b>
-              <span>amendments</span>
+              <span>amendments extracted</span>
             </div>
             <div className="land-corpus-cell">
               <b>{c.defined_terms.toLocaleString()}</b>
@@ -590,6 +632,31 @@ function Landing({ user, onOpenWorkspace, onSignIn, onSignOut }) {
               <b>{c.external_citations.toLocaleString()}</b>
               <span>external citations</span>
             </div>
+          </div>
+        </section>
+
+        {/* WHERE THE DATA COMES FROM — every source is public and
+            primary; no aggregator sits between polilabs and the record. */}
+        <section className="land-section" id="data-sources">
+          <div className="land-section-label mono">
+            <span>Where the data comes from</span>
+            <span className="land-section-tag mono">
+              public primary sources, fetched directly
+            </span>
+          </div>
+          <div className="land-pillars">
+            <Pillar
+              title="GPO GovInfo bulk data"
+              body="Bill text XML (BILLS) and per-bill status records (BILLSTATUS) for every law-track bill of the covered Congresses: sponsor, actions, titles, outcomes, public-law numbers."
+            />
+            <Pillar
+              title="House Clerk & Senate LIS"
+              body="Roll-call vote XML from clerk.house.gov and senate.gov: per-party yea/nay splits on every recorded vote, member-level positions on passage votes for full-text bills."
+            />
+            <Pillar
+              title="OLRC Popular Name Table"
+              body="The Office of the Law Revision Counsel's official act-nickname dictionary, so 'CHIPS Act' resolves to the same bill a researcher means by H.R. 4346 (117th)."
+            />
           </div>
         </section>
 
@@ -608,7 +675,7 @@ function Landing({ user, onOpenWorkspace, onSignIn, onSignOut }) {
 
         <footer className="land-foot">
           <span className="mono">
-            polilabs · {c.bills} bills · citation-accurate
+            polilabs · {(tracked || c.bills).toLocaleString()} bills tracked · citation-accurate
           </span>
         </footer>
       </main>

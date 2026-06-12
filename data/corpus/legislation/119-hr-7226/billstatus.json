@@ -1,0 +1,82 @@
+{
+  "bill_id": "119-hr-7226",
+  "fetched_at": "2026-06-12T05:37:09.074767+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr7226.xml",
+  "title": "Leveraging Artificial Intelligence to Streamline the Code of Federal Regulations Act of 2026",
+  "policy_area": "Government Operations and Politics",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "M001213",
+    "fullName": "Rep. Moore, Blake D. [R-UT-1]",
+    "firstName": "Blake",
+    "lastName": "Moore",
+    "party": "R",
+    "state": "UT",
+    "district": "1"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "B001314",
+      "fullName": "Rep. Bean, Aaron [R-FL-4]",
+      "firstName": "Aaron",
+      "lastName": "Bean",
+      "party": "R",
+      "state": "FL",
+      "district": "4",
+      "sponsorshipDate": "2026-01-22",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "H001100",
+      "fullName": "Rep. Hurd, Jeff [R-CO-3]",
+      "firstName": "Jeff",
+      "lastName": "Hurd",
+      "party": "R",
+      "state": "CO",
+      "district": "3",
+      "sponsorshipDate": "2026-01-30",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2026-01-22",
+      "text": "Referred to the Committee on the Judiciary, and in addition to the Committee on Oversight and Government Reform, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2026-01-22",
+      "text": "Referred to the Committee on the Judiciary, and in addition to the Committee on Oversight and Government Reform, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2026-01-22",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2026-01-22",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2026-01-22",
+      "text": "Referred to the Committee on the Judiciary, and in addition to the Committee on Oversight and Government Reform, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

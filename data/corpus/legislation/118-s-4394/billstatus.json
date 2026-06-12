@@ -1,0 +1,108 @@
+{
+  "bill_id": "118-s-4394",
+  "fetched_at": "2026-06-12T05:36:51.540448+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/s/BILLSTATUS-118s4394.xml",
+  "title": "NSF AI Education Act of 2024",
+  "policy_area": "Science, Technology, Communications",
+  "subjects": [
+    "Advanced technology and technological innovations",
+    "Computer security and identity theft",
+    "Computers and information technology",
+    "Congressional oversight",
+    "Education programs funding",
+    "Elementary and secondary education",
+    "Employment and training programs",
+    "Higher education",
+    "Performance measurement",
+    "Public-private cooperation",
+    "Student aid and college costs"
+  ],
+  "sponsor": {
+    "bioguideId": "C000127",
+    "fullName": "Sen. Cantwell, Maria [D-WA]",
+    "firstName": "Maria",
+    "lastName": "Cantwell",
+    "party": "D",
+    "state": "WA",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "M000934",
+      "fullName": "Sen. Moran, Jerry [R-KS]",
+      "firstName": "Jerry",
+      "lastName": "Moran",
+      "party": "R",
+      "state": "KS",
+      "district": null,
+      "sponsorshipDate": "2024-05-22",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "S000148",
+      "fullName": "Sen. Schumer, Charles E. [D-NY]",
+      "firstName": "Charles",
+      "lastName": "Schumer",
+      "party": "D",
+      "state": "NY",
+      "district": null,
+      "sponsorshipDate": "2024-11-13",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2024-08-01",
+      "text": "Placed on Senate Legislative Calendar under General Orders. Calendar No. 486.",
+      "type": "Calendars",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-08-01",
+      "text": "Committee on Commerce, Science, and Transportation. Reported by Senator Cantwell with an amendment in the nature of a substitute. Without written report.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-08-01",
+      "text": "Committee on Commerce, Science, and Transportation. Reported by Senator Cantwell with an amendment in the nature of a substitute. Without written report.",
+      "type": "Committee",
+      "actionCode": "14000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2024-07-31",
+      "text": "Committee on Commerce, Science, and Transportation. Ordered to be reported with an amendment in the nature of a substitute favorably.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-05-22",
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-05-22",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "reported_no_floor_vote",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2024-08-01",
+      "text": "Placed on Senate Legislative Calendar under General Orders. Calendar No. 486."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

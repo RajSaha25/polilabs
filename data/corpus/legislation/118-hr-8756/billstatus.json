@@ -1,0 +1,82 @@
+{
+  "bill_id": "118-hr-8756",
+  "fetched_at": "2026-06-12T05:36:38.106938+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/hr/BILLSTATUS-118hr8756.xml",
+  "title": "AI LEAD Act",
+  "policy_area": "Government Operations and Politics",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "C001078",
+    "fullName": "Rep. Connolly, Gerald E. [D-VA-11]",
+    "firstName": "Gerald",
+    "lastName": "Connolly",
+    "party": "D",
+    "state": "VA",
+    "district": "11"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "G000597",
+      "fullName": "Rep. Garbarino, Andrew R. [R-NY-2]",
+      "firstName": "Andrew",
+      "lastName": "Garbarino",
+      "party": "R",
+      "state": "NY",
+      "district": "2",
+      "sponsorshipDate": "2024-06-14",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "N000193",
+      "fullName": "Rep. Nunn, Zachary [R-IA-3]",
+      "firstName": "Zachary",
+      "lastName": "Nunn",
+      "party": "R",
+      "state": "IA",
+      "district": "3",
+      "sponsorshipDate": "2024-12-04",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2024-06-14",
+      "text": "Referred to the Committee on Oversight and Accountability, and in addition to the Committee on Science, Space, and Technology, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-06-14",
+      "text": "Referred to the Committee on Oversight and Accountability, and in addition to the Committee on Science, Space, and Technology, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-06-14",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2024-06-14",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "died_in_committee",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2024-06-14",
+      "text": "Referred to the Committee on Oversight and Accountability, and in addition to the Committee on Science, Space, and Technology, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

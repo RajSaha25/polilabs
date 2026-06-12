@@ -1,0 +1,438 @@
+{
+  "bill_id": "119-hr-6875",
+  "fetched_at": "2026-06-12T05:37:06.941721+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr6875.xml",
+  "title": "AI OVERWATCH Act",
+  "policy_area": "International Affairs",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "M001199",
+    "fullName": "Rep. Mast, Brian J. [R-FL-21]",
+    "firstName": "Brian",
+    "lastName": "Mast",
+    "party": "R",
+    "state": "FL",
+    "district": "21"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "H001058",
+      "fullName": "Rep. Huizenga, Bill [R-MI-4]",
+      "firstName": "Bill",
+      "lastName": "Huizenga",
+      "party": "R",
+      "state": "MI",
+      "district": "4",
+      "sponsorshipDate": "2025-12-18",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "M001194",
+      "fullName": "Rep. Moolenaar, John R. [R-MI-2]",
+      "firstName": "John",
+      "lastName": "Moolenaar",
+      "party": "R",
+      "state": "MI",
+      "district": "2",
+      "sponsorshipDate": "2025-12-18",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "K000397",
+      "fullName": "Rep. Kim, Young [R-CA-40]",
+      "firstName": "Young",
+      "lastName": "Kim",
+      "party": "R",
+      "state": "CA",
+      "district": "40",
+      "sponsorshipDate": "2025-12-18",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "S001224",
+      "fullName": "Rep. Self, Keith [R-TX-3]",
+      "firstName": "Keith",
+      "lastName": "Self",
+      "party": "R",
+      "state": "TX",
+      "district": "3",
+      "sponsorshipDate": "2025-12-18",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "C001087",
+      "fullName": "Rep. Crawford, Eric A. \"Rick\" [R-AR-1]",
+      "firstName": "Eric",
+      "lastName": "Crawford",
+      "party": "R",
+      "state": "AR",
+      "district": "1",
+      "sponsorshipDate": "2025-12-18",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "L000585",
+      "fullName": "Rep. LaHood, Darin [R-IL-16]",
+      "firstName": "Darin",
+      "lastName": "LaHood",
+      "party": "R",
+      "state": "IL",
+      "district": "16",
+      "sponsorshipDate": "2025-12-18",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "M001157",
+      "fullName": "Rep. McCaul, Michael T. [R-TX-10]",
+      "firstName": "Michael",
+      "lastName": "McCaul",
+      "party": "R",
+      "state": "TX",
+      "district": "10",
+      "sponsorshipDate": "2026-01-07",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "D000626",
+      "fullName": "Rep. Davidson, Warren [R-OH-8]",
+      "firstName": "Warren",
+      "lastName": "Davidson",
+      "party": "R",
+      "state": "OH",
+      "district": "8",
+      "sponsorshipDate": "2026-01-08",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "K000398",
+      "fullName": "Rep. Kean, Thomas H. [R-NJ-7]",
+      "firstName": "Thomas",
+      "lastName": "Kean",
+      "party": "R",
+      "state": "NJ",
+      "district": "7",
+      "sponsorshipDate": "2026-01-08",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "M001219",
+      "fullName": "Del. Moylan, James C. [R-GU-At Large]",
+      "firstName": "James",
+      "lastName": "Moylan",
+      "party": "R",
+      "state": "GU",
+      "district": "0",
+      "sponsorshipDate": "2026-01-16",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "B001307",
+      "fullName": "Rep. Baird, James R. [R-IN-4]",
+      "firstName": "James",
+      "lastName": "Baird",
+      "party": "R",
+      "state": "IN",
+      "district": "4",
+      "sponsorshipDate": "2026-01-16",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "F000484",
+      "fullName": "Rep. Fine, Randy [R-FL-6]",
+      "firstName": "Randy",
+      "lastName": "Fine",
+      "party": "R",
+      "state": "FL",
+      "district": "6",
+      "sponsorshipDate": "2026-01-16",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "M001224",
+      "fullName": "Rep. Moran, Nathaniel [R-TX-1]",
+      "firstName": "Nathaniel",
+      "lastName": "Moran",
+      "party": "R",
+      "state": "TX",
+      "district": "1",
+      "sponsorshipDate": "2026-01-20",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "L000599",
+      "fullName": "Rep. Lawler, Michael [R-NY-17]",
+      "firstName": "Michael",
+      "lastName": "Lawler",
+      "party": "R",
+      "state": "NY",
+      "district": "17",
+      "sponsorshipDate": "2026-01-20",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "M001222",
+      "fullName": "Rep. Miller, Max L. [R-OH-7]",
+      "firstName": "Max",
+      "lastName": "Miller",
+      "party": "R",
+      "state": "OH",
+      "district": "7",
+      "sponsorshipDate": "2026-01-20",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "M001137",
+      "fullName": "Rep. Meeks, Gregory W. [D-NY-5]",
+      "firstName": "Gregory",
+      "lastName": "Meeks",
+      "party": "D",
+      "state": "NY",
+      "district": "5",
+      "sponsorshipDate": "2026-01-21",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "N000189",
+      "fullName": "Rep. Newhouse, Dan [R-WA-4]",
+      "firstName": "Dan",
+      "lastName": "Newhouse",
+      "party": "R",
+      "state": "WA",
+      "district": "4",
+      "sponsorshipDate": "2026-01-22",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "K000400",
+      "fullName": "Rep. Kamlager-Dove, Sydney [D-CA-37]",
+      "firstName": "Sydney",
+      "lastName": "Kamlager-Dove",
+      "party": "D",
+      "state": "CA",
+      "district": "37",
+      "sponsorshipDate": "2026-01-22",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "S000344",
+      "fullName": "Rep. Sherman, Brad [D-CA-32]",
+      "firstName": "Brad",
+      "lastName": "Sherman",
+      "party": "D",
+      "state": "CA",
+      "district": "32",
+      "sponsorshipDate": "2026-01-22",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "S000168",
+      "fullName": "Rep. Salazar, Maria Elvira [R-FL-27]",
+      "firstName": "Maria",
+      "lastName": "Salazar",
+      "party": "R",
+      "state": "FL",
+      "district": "27",
+      "sponsorshipDate": "2026-02-02",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "R000600",
+      "fullName": "Del. Radewagen, Aumua Amata Coleman [R-AS-At Large]",
+      "firstName": "Aumua Amata",
+      "lastName": "Radewagen",
+      "party": "R",
+      "state": "AS",
+      "district": "0",
+      "sponsorshipDate": "2026-02-02",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "B001325",
+      "fullName": "Rep. Biggs, Sheri [R-SC-3]",
+      "firstName": "Sheri",
+      "lastName": "Biggs",
+      "party": "R",
+      "state": "SC",
+      "district": "3",
+      "sponsorshipDate": "2026-02-02",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "N000193",
+      "fullName": "Rep. Nunn, Zachary [R-IA-3]",
+      "firstName": "Zachary",
+      "lastName": "Nunn",
+      "party": "R",
+      "state": "IA",
+      "district": "3",
+      "sponsorshipDate": "2026-02-03",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "T000490",
+      "fullName": "Rep. Taylor, David J. [R-OH-2]",
+      "firstName": "David",
+      "lastName": "Taylor",
+      "party": "R",
+      "state": "OH",
+      "district": "2",
+      "sponsorshipDate": "2026-03-04",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "F000466",
+      "fullName": "Rep. Fitzpatrick, Brian K. [R-PA-1]",
+      "firstName": "Brian",
+      "lastName": "Fitzpatrick",
+      "party": "R",
+      "state": "PA",
+      "district": "1",
+      "sponsorshipDate": "2026-03-16",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "H001099",
+      "fullName": "Rep. Haridopolos, Mike [R-FL-8]",
+      "firstName": "Mike",
+      "lastName": "Haridopolos",
+      "party": "R",
+      "state": "FL",
+      "district": "8",
+      "sponsorshipDate": "2026-03-18",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "H001101",
+      "fullName": "Rep. Harrigan, Pat [R-NC-10]",
+      "firstName": "Pat",
+      "lastName": "Harrigan",
+      "party": "R",
+      "state": "NC",
+      "district": "10",
+      "sponsorshipDate": "2026-03-18",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "O000019",
+      "fullName": "Rep. Obernolte, Jay [R-CA-23]",
+      "firstName": "Jay",
+      "lastName": "Obernolte",
+      "party": "R",
+      "state": "CA",
+      "district": "23",
+      "sponsorshipDate": "2026-03-20",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "K000399",
+      "fullName": "Rep. Kiggans, Jennifer A. [R-VA-2]",
+      "firstName": "Jennifer",
+      "lastName": "Kiggans",
+      "party": "R",
+      "state": "VA",
+      "district": "2",
+      "sponsorshipDate": "2026-03-24",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "C001118",
+      "fullName": "Rep. Cline, Ben [R-VA-6]",
+      "firstName": "Ben",
+      "lastName": "Cline",
+      "party": "R",
+      "state": "VA",
+      "district": "6",
+      "sponsorshipDate": "2026-03-26",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "M001223",
+      "fullName": "Rep. Magaziner, Seth [D-RI-2]",
+      "firstName": "Seth",
+      "lastName": "Magaziner",
+      "party": "D",
+      "state": "RI",
+      "district": "2",
+      "sponsorshipDate": "2026-04-29",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "S001212",
+      "fullName": "Rep. Stauber, Pete [R-MN-8]",
+      "firstName": "Pete",
+      "lastName": "Stauber",
+      "party": "R",
+      "state": "MN",
+      "district": "8",
+      "sponsorshipDate": "2026-05-11",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "D000628",
+      "fullName": "Rep. Dunn, Neal P. [R-FL-2]",
+      "firstName": "Neal",
+      "lastName": "Dunn",
+      "party": "R",
+      "state": "FL",
+      "district": "2",
+      "sponsorshipDate": "2026-05-13",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "B001298",
+      "fullName": "Rep. Bacon, Don [R-NE-2]",
+      "firstName": "Don",
+      "lastName": "Bacon",
+      "party": "R",
+      "state": "NE",
+      "district": "2",
+      "sponsorshipDate": "2026-05-14",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "W000814",
+      "fullName": "Rep. Weber, Randy K. Sr. [R-TX-14]",
+      "firstName": "Randy",
+      "lastName": "Weber",
+      "party": "R",
+      "state": "TX",
+      "district": "14",
+      "sponsorshipDate": "2026-05-20",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2025-12-18",
+      "text": "Referred to the House Committee on Foreign Affairs.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-12-18",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2025-12-18",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2025-12-18",
+      "text": "Referred to the House Committee on Foreign Affairs."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

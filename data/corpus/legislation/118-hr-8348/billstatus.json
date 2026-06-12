@@ -1,0 +1,71 @@
+{
+  "bill_id": "118-hr-8348",
+  "fetched_at": "2026-06-12T05:36:36.582694+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/hr/BILLSTATUS-118hr8348.xml",
+  "title": "CISA Securing AI Task Force Act",
+  "policy_area": "Armed Forces and National Security",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "C001125",
+    "fullName": "Rep. Carter, Troy A. [D-LA-2]",
+    "firstName": "Troy",
+    "lastName": "Carter",
+    "party": "D",
+    "state": "LA",
+    "district": "2"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "T000193",
+      "fullName": "Rep. Thompson, Bennie G. [D-MS-2]",
+      "firstName": "Bennie",
+      "lastName": "Thompson",
+      "party": "D",
+      "state": "MS",
+      "district": "2",
+      "sponsorshipDate": "2024-05-10",
+      "isOriginalCosponsor": "True"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2024-05-10",
+      "text": "Referred to the Subcommittee on Cybersecurity and Infrastructure Protection.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2024-05-10",
+      "text": "Referred to the House Committee on Homeland Security.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-05-10",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2024-05-10",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "died_in_committee",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2024-05-10",
+      "text": "Referred to the Subcommittee on Cybersecurity and Infrastructure Protection."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

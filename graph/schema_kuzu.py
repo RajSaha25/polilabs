@@ -49,7 +49,35 @@ NODE_TABLES = [
         topic STRING,
         centrality_score DOUBLE,
         sponsor_display_name STRING,
+        outcome STRING,
+        public_law STRING,
+        bipartisan_support DOUBLE,
+        cluster STRING,
         PRIMARY KEY(bill_id)
+    )""",
+
+    # One node per recorded roll call on a bill (both chambers). Party
+    # splits live here so "was this bipartisan?" is one hop from Bill.
+    # Populated from billstatus.json (ingest/billstatus.py); per-member
+    # positions stay in SQLite (vote_positions).
+    """CREATE NODE TABLE RollCallVote(
+        vote_id STRING,
+        chamber STRING,
+        congress INT64,
+        session INT64,
+        roll_number INT64,
+        vote_date STRING,
+        question STRING,
+        result STRING,
+        vote_type STRING,
+        yea_total INT64,
+        nay_total INT64,
+        dem_yea INT64, dem_nay INT64,
+        rep_yea INT64, rep_nay INT64,
+        bipartisan_support DOUBLE,
+        bipartisan_label STRING,
+        source_url STRING,
+        PRIMARY KEY(vote_id)
     )""",
 
     """CREATE NODE TABLE BillVersion(
@@ -187,6 +215,7 @@ REL_TABLES = [
         is_original BOOLEAN
     )""",
     "CREATE REL TABLE REFERRED_TO(FROM Bill TO Committee, referral_date DATE)",
+    "CREATE REL TABLE HAS_ROLLCALL(FROM Bill TO RollCallVote)",
 
     # ----- citation edges (declared; populated in PR2) -----
     """CREATE REL TABLE CITES_EXTERNAL(

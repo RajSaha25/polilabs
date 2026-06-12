@@ -1,0 +1,62 @@
+{
+  "bill_id": "118-s-2399",
+  "fetched_at": "2026-06-12T05:36:46.048498+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/s/BILLSTATUS-118s2399.xml",
+  "title": "Artificial Intelligence and Biosecurity Risk Assessment Act",
+  "policy_area": "Health",
+  "subjects": [
+    "Advanced technology and technological innovations",
+    "Chemical and biological weapons",
+    "Infectious and parasitic diseases",
+    "Technology assessment"
+  ],
+  "sponsor": {
+    "bioguideId": "M000133",
+    "fullName": "Sen. Markey, Edward J. [D-MA]",
+    "firstName": "Edward",
+    "lastName": "Markey",
+    "party": "D",
+    "state": "MA",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "B001305",
+      "fullName": "Sen. Budd, Ted [R-NC]",
+      "firstName": "Ted",
+      "lastName": "Budd",
+      "party": "R",
+      "state": "NC",
+      "district": null,
+      "sponsorshipDate": "2023-07-19",
+      "isOriginalCosponsor": "True"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2023-07-19",
+      "text": "Read twice and referred to the Committee on Health, Education, Labor, and Pensions.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "died_in_committee",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2023-07-19",
+      "text": "Read twice and referred to the Committee on Health, Education, Labor, and Pensions."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

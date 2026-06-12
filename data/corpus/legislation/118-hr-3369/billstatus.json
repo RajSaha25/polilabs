@@ -1,0 +1,138 @@
+{
+  "bill_id": "118-hr-3369",
+  "fetched_at": "2026-06-12T05:36:29.245969+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/hr/BILLSTATUS-118hr3369.xml",
+  "title": "Artificial Intelligence Accountability Act",
+  "policy_area": "Science, Technology, Communications",
+  "subjects": [
+    "Computer security and identity theft",
+    "Computers and information technology",
+    "Congressional oversight",
+    "Government information and archives",
+    "Government studies and investigations",
+    "Technology assessment"
+  ],
+  "sponsor": {
+    "bioguideId": "H001090",
+    "fullName": "Rep. Harder, Josh [D-CA-9]",
+    "firstName": "Josh",
+    "lastName": "Harder",
+    "party": "D",
+    "state": "CA",
+    "district": "9"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "K000385",
+      "fullName": "Rep. Kelly, Robin L. [D-IL-2]",
+      "firstName": "Robin",
+      "lastName": "Kelly",
+      "party": "D",
+      "state": "IL",
+      "district": "2",
+      "sponsorshipDate": "2023-05-16",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "O000019",
+      "fullName": "Rep. Obernolte, Jay [R-CA-23]",
+      "firstName": "Jay",
+      "lastName": "Obernolte",
+      "party": "R",
+      "state": "CA",
+      "district": "23",
+      "sponsorshipDate": "2023-07-27",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2023-10-25",
+      "text": "Placed on the Union Calendar, Calendar No. 195.",
+      "type": "Calendars",
+      "actionCode": "H12410",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-10-25",
+      "text": "Reported (Amended) by the Committee on Energy and Commerce. H. Rept. 118-244.",
+      "type": "Committee",
+      "actionCode": "H12200",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-10-25",
+      "text": "Reported (Amended) by the Committee on Energy and Commerce. H. Rept. 118-244.",
+      "type": "Committee",
+      "actionCode": "5000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2023-07-27",
+      "text": "Ordered to be Reported in the Nature of a Substitute (Amended) by the Yeas and Nays: 50 - 0.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2023-07-27",
+      "text": "Committee Consideration and Mark-up Session Held.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2023-07-12",
+      "text": "Subcommittee Consideration and Mark-up Session Held",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2023-07-12",
+      "text": "Forwarded by Subcommittee to Full Committee in the Nature of a Substitute (Amended) by Voice Vote.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2023-05-19",
+      "text": "Referred to the Subcommittee on Communications and Technology.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2023-05-16",
+      "text": "Referred to the House Committee on Energy and Commerce.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-05-16",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2023-05-16",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "reported_no_floor_vote",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2023-10-25",
+      "text": "Placed on the Union Calendar, Calendar No. 195."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

@@ -1,0 +1,90 @@
+{
+  "bill_id": "118-s-4714",
+  "fetched_at": "2026-06-12T05:36:53.068199+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/s/BILLSTATUS-118s4714.xml",
+  "title": "Fraudulent Artificial Intelligence Regulations (FAIR) Elections Act of 2024",
+  "policy_area": "Government Operations and Politics",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "M001176",
+    "fullName": "Sen. Merkley, Jeff [D-OR]",
+    "firstName": "Jeff",
+    "lastName": "Merkley",
+    "party": "D",
+    "state": "OR",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "P000145",
+      "fullName": "Sen. Padilla, Alex [D-CA]",
+      "firstName": "Alex",
+      "lastName": "Padilla",
+      "party": "D",
+      "state": "CA",
+      "district": null,
+      "sponsorshipDate": "2024-07-11",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "H001042",
+      "fullName": "Sen. Hirono, Mazie K. [D-HI]",
+      "firstName": "Mazie",
+      "lastName": "Hirono",
+      "party": "D",
+      "state": "HI",
+      "district": null,
+      "sponsorshipDate": "2024-07-11",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "W000800",
+      "fullName": "Sen. Welch, Peter [D-VT]",
+      "firstName": "Peter",
+      "lastName": "Welch",
+      "party": "D",
+      "state": "VT",
+      "district": null,
+      "sponsorshipDate": "2024-07-11",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "W000802",
+      "fullName": "Sen. Whitehouse, Sheldon [D-RI]",
+      "firstName": "Sheldon",
+      "lastName": "Whitehouse",
+      "party": "D",
+      "state": "RI",
+      "district": null,
+      "sponsorshipDate": "2024-07-11",
+      "isOriginalCosponsor": "True"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2024-07-11",
+      "text": "Read twice and referred to the Committee on Rules and Administration.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-07-11",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "died_in_committee",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2024-07-11",
+      "text": "Read twice and referred to the Committee on Rules and Administration."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

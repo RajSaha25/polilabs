@@ -1,0 +1,45 @@
+{
+  "bill_id": "119-s-4214",
+  "fetched_at": "2026-06-12T05:37:23.723030+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/s/BILLSTATUS-119s4214.xml",
+  "title": "Artificial Intelligence Data Center Moratorium Act",
+  "policy_area": "Science, Technology, Communications",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "S000033",
+    "fullName": "Sen. Sanders, Bernard [I-VT]",
+    "firstName": "Bernie",
+    "lastName": "Sanders",
+    "party": "I",
+    "state": "VT",
+    "district": null
+  },
+  "cosponsors": [],
+  "actions": [
+    {
+      "actionDate": "2026-03-25",
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2026-03-25",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2026-03-25",
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

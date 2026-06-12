@@ -1,0 +1,68 @@
+{
+  "bill_id": "118-s-5058",
+  "fetched_at": "2026-06-12T05:36:55.819338+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/s/BILLSTATUS-118s5058.xml",
+  "title": "AI ACCORD Act of 2024",
+  "policy_area": "Armed Forces and National Security",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "E000295",
+    "fullName": "Sen. Ernst, Joni [R-IA]",
+    "firstName": "Joni",
+    "lastName": "Ernst",
+    "party": "R",
+    "state": "IA",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "G000555",
+      "fullName": "Sen. Gillibrand, Kirsten E. [D-NY]",
+      "firstName": "Kirsten",
+      "lastName": "Gillibrand",
+      "party": "D",
+      "state": "NY",
+      "district": null,
+      "sponsorshipDate": "2024-09-16",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "B001305",
+      "fullName": "Sen. Budd, Ted [R-NC]",
+      "firstName": "Ted",
+      "lastName": "Budd",
+      "party": "R",
+      "state": "NC",
+      "district": null,
+      "sponsorshipDate": "2024-09-25",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2024-09-16",
+      "text": "Read twice and referred to the Committee on Armed Services.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-09-16",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "died_in_committee",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2024-09-16",
+      "text": "Read twice and referred to the Committee on Armed Services."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

@@ -201,6 +201,104 @@ def tool_find_definitions_of(term: str) -> str:
         return json.dumps({"error": f"{type(e).__name__}: {e}"})
 
 
+def tool_count_bills(
+    *,
+    group_by: str | None = None,
+    topic: str | None = None,
+    congress: int | None = None,
+    outcome: str | None = None,
+    bill_type: str | None = None,
+    tier: str | None = None,
+) -> str:
+    """Exact aggregate count over bills, with optional grouping."""
+    try:
+        result = api.count_bills(
+            group_by=group_by, topic=topic, congress=congress,
+            outcome=outcome, bill_type=bill_type, tier=tier,
+        )
+        return _dump(result)
+    except Exception as e:
+        return json.dumps({"error": f"{type(e).__name__}: {e}"})
+
+
+def tool_get_bill_votes(bill_id: str) -> str:
+    """Roll-call votes, party splits, and derived outcome for one bill."""
+    try:
+        result = api.get_bill_votes(bill_id)
+        return _dump(result)
+    except Exception as e:
+        return json.dumps({"error": f"{type(e).__name__}: {e}"})
+
+
+def tool_find_bills_by_outcome(
+    *,
+    outcome: str | None = None,
+    topic: str | None = None,
+    congress: int | None = None,
+    cluster: str | None = None,
+    min_bipartisan_support: float | None = None,
+    max_bipartisan_support: float | None = None,
+    limit: int = 100,
+) -> str:
+    """Set-valued query over outcomes / bipartisanship — one call."""
+    try:
+        result = api.find_bills_by_outcome(
+            outcome=outcome, topic=topic, congress=congress, cluster=cluster,
+            min_bipartisan_support=min_bipartisan_support,
+            max_bipartisan_support=max_bipartisan_support,
+            limit=min(max(limit, 1), 500),
+        )
+        return _dump(result)
+    except Exception as e:
+        return json.dumps({"error": f"{type(e).__name__}: {e}"})
+
+
+def tool_lookup_bill(query: str, *, congress: int | None = None, limit: int = 8) -> str:
+    """Resolve a bill name/nickname/id to canonical bill_id(s)."""
+    try:
+        result = api.lookup_bill(query, congress=congress, limit=min(max(limit, 1), 25))
+        return _dump(result)
+    except Exception as e:
+        return json.dumps({"error": f"{type(e).__name__}: {e}"})
+
+
+def tool_get_bill_card(bill_id: str) -> str:
+    """One-call context card for any bill in the universe."""
+    try:
+        result = api.get_bill_card(bill_id)
+        return _dump(result)
+    except Exception as e:
+        return json.dumps({"error": f"{type(e).__name__}: {e}"})
+
+
+def tool_find_universe_bills(
+    *,
+    query: str | None = None,
+    outcome: str | None = None,
+    congress: int | None = None,
+    policy_area: str | None = None,
+    sponsor_party: str | None = None,
+    sponsor_state: str | None = None,
+    min_bipartisan_support: float | None = None,
+    max_bipartisan_support: float | None = None,
+    enacted_only: bool = False,
+    limit: int = 100,
+) -> str:
+    """Set-valued query over ALL bills of the covered Congresses."""
+    try:
+        result = api.find_universe_bills(
+            query=query,
+            outcome=outcome, congress=congress, policy_area=policy_area,
+            sponsor_party=sponsor_party, sponsor_state=sponsor_state,
+            min_bipartisan_support=min_bipartisan_support,
+            max_bipartisan_support=max_bipartisan_support,
+            enacted_only=enacted_only, limit=limit,
+        )
+        return _dump(result)
+    except Exception as e:
+        return json.dumps({"error": f"{type(e).__name__}: {e}"})
+
+
 # -----------------------------------------------------------------------------
 # JSON-schema-compatible tool descriptors — used by the MCP server.
 # The Anthropic SDK derives schemas from @beta_tool function signatures
@@ -318,6 +416,80 @@ TOOL_DESCRIPTIONS = {
         "definition_text (verbatim) + definition_type + by_reference "
         "target for each. Case-insensitive exact match on surface form."
     ),
+    "count_bills": (
+        "AGGREGATE: Exact count of bills matching filters (topic, "
+        "congress, outcome, bill_type, tier), optionally grouped by one "
+        "of those columns. Use for ANY 'how many bills ...' question — "
+        "one call, exact answer. NEVER count by paginating search "
+        "results. Example: 'how many bills per congress?' → "
+        "count_bills(group_by='congress')."
+    ),
+    "get_bill_votes": (
+        "Roll-call record + fate of ONE bill: derived outcome (enacted / "
+        "failed_cloture / died_in_committee / ...), public-law number, "
+        "every recorded vote with per-party yea/nay splits and a "
+        "bipartisan_support score (min major-party yea-share, 0-1), and "
+        "the dated event trail (passed_house, failed_cloture, ...) with "
+        "verbatim evidence. Use for 'did X pass?', 'was X bipartisan?', "
+        "'why did X fail?'. No votes + outcome=died_in_committee means "
+        "the bill never reached a floor vote — say that, don't invent a "
+        "vote. Vehicle bills carry votes from an earlier life under "
+        "another name (e.g. CHIPS' shell passed as America COMPETES); "
+        "check vote dates and questions before attributing margins."
+    ),
+    "find_bills_by_outcome": (
+        "AGGREGATE: Every corpus bill matching an outcome and/or "
+        "bipartisanship band, in ONE call. Filters: outcome (enacted, "
+        "failed_cloture, failed_passage, died_in_committee, "
+        "reported_no_floor_vote, passed_house_only, vetoed, pending, "
+        "...), topic, congress, cluster (secret_congress topic: "
+        "quiet_bipartisan_law, high_salience_bipartisan_law, "
+        "bipartisan_but_died, absorbed_into_vehicle, omnibus_vehicle, "
+        "party_line_contrast), min/max_bipartisan_support (0-1). Use "
+        "for 'which bipartisan bills failed?', 'which laws passed on "
+        "party-line votes?'. Note: bills without a partisan-decomposable "
+        "passage roll call have NULL bipartisan_support and are excluded "
+        "by support filters — query by outcome or cluster alone to "
+        "include voice-vote and committee-death bills."
+    ),
+    "lookup_bill": (
+        "ENTRY POINT for any bill mentioned by name. Resolves colloquial "
+        "names, short titles, OLRC popular names, and id forms "
+        "('CHIPS Act', 'the border bill from 2024', 'H.R. 4346 (117th)') "
+        "to canonical bill_id(s) across ALL ~46k bills of the covered "
+        "Congresses, not just the curated corpora. Returns match_kind and "
+        "in_corpus per match. is_ambiguous=True is COMMON (companion "
+        "bills, reintroductions across Congresses) — disambiguate by "
+        "congress/chamber or ask the user; never silently pick one. "
+        "Call this BEFORE search_corpus when the user names a specific "
+        "bill."
+    ),
+    "get_bill_card": (
+        "ONE-CALL context card for any bill: title + every known name, "
+        "the latest CRS-written summary, "
+        "sponsor (party/state), cosponsor party counts, outcome with "
+        "dated evidence events, public-law number, roll-call votes with "
+        "party splits, bipartisan_support, and — when the bill is "
+        "in_corpus — topic, cluster, curator_note, and section / "
+        "defined-term / amendment counts so you know whether drill-down "
+        "tools will return anything BEFORE calling them. PREFER this "
+        "over get_bill + get_bill_votes + corpus_coverage sequences. "
+        "in_corpus=False means status-only: do NOT call get_bill / "
+        "get_section / get_defined_terms on that bill."
+    ),
+    "find_universe_bills": (
+        "AGGREGATE over ALL ~46k bills of the covered Congresses (not "
+        "just curated corpora): optional free-text `query` (searched "
+        "over titles, every known alias, and CRS-written summaries) "
+        "plus filters: outcome, congress, policy_area (Congress.gov "
+        "vocabulary, e.g. 'Health'), sponsor_party, sponsor_state, "
+        "bipartisan_support band, enacted_only. THE denominator tool: "
+        "'how many laws did the 117th enact?', 'which 118th bills about "
+        "fentanyl passed?', 'enacted laws with bipartisan_support >= "
+        "0.5'. Returns lightweight rows with in_corpus flags; use "
+        "get_bill_card to drill into one. For deep full-text passages "
+        "use search_corpus (curated topics only)."
+    ),
 }
 
 
@@ -414,6 +586,67 @@ TOOL_SCHEMAS = {
         },
         "required": ["term"],
     },
+    "count_bills": {
+        "type": "object",
+        "properties": {
+            "group_by": {"type": "string", "enum": ["topic", "congress", "outcome", "bill_type", "tier", "stream", "policy_area", "cluster"], "description": "Optional column to group counts by."},
+            "topic": {"type": "string", "description": "Filter to one topic corpus. Optional."},
+            "congress": {"type": "integer", "description": "Filter to one Congress. Optional."},
+            "outcome": {"type": "string", "description": "Filter to one outcome (e.g. 'enacted', 'died_in_committee'). Optional."},
+            "bill_type": {"type": "string", "description": "Filter: 'hr', 's', 'hjres', ... Optional."},
+            "tier": {"type": "string", "enum": ["A", "B"], "description": "Filter to a curation tier. Optional."},
+        },
+    },
+    "get_bill_votes": {
+        "type": "object",
+        "properties": {
+            "bill_id": {"type": "string", "description": "Bill identifier like '117-hr-4346'."},
+        },
+        "required": ["bill_id"],
+    },
+    "find_bills_by_outcome": {
+        "type": "object",
+        "properties": {
+            "outcome": {"type": "string", "description": "Outcome filter: enacted | vetoed | failed_passage | failed_cloture | passed_house_only | passed_senate_only | passed_both | died_after_passing_house | died_after_passing_senate | reported_no_floor_vote | died_in_committee | pending."},
+            "topic": {"type": "string", "description": "Filter to one topic corpus. Optional."},
+            "congress": {"type": "integer", "description": "Filter to one Congress. Optional."},
+            "cluster": {"type": "string", "description": "secret_congress curated cluster: quiet_bipartisan_law | high_salience_bipartisan_law | bipartisan_but_died | absorbed_into_vehicle | omnibus_vehicle | party_line_contrast."},
+            "min_bipartisan_support": {"type": "number", "description": "Keep bills whose final passage vote had bipartisan_support >= this (0-1)."},
+            "max_bipartisan_support": {"type": "number", "description": "Keep bills whose final passage vote had bipartisan_support <= this (0-1)."},
+            "limit": {"type": "integer", "default": 100, "description": "Max bills to return (1-500). `total` reports the full match count."},
+        },
+    },
+    "lookup_bill": {
+        "type": "object",
+        "properties": {
+            "query": {"type": "string", "description": "Bill name, nickname, or id form: 'CHIPS Act', 'Laken Riley Act', 'H.R. 4346 (117th)', '117-hr-4346'."},
+            "congress": {"type": "integer", "description": "Restrict matches to one Congress. Optional."},
+            "limit": {"type": "integer", "default": 8, "description": "Max matches (1-25)."},
+        },
+        "required": ["query"],
+    },
+    "get_bill_card": {
+        "type": "object",
+        "properties": {
+            "bill_id": {"type": "string", "description": "Canonical bill id like '117-hr-4346' (from lookup_bill when the user gave a name)."},
+        },
+        "required": ["bill_id"],
+    },
+    "find_universe_bills": {
+        "type": "object",
+        "properties": {
+            "query": {"type": "string", "description": "Free-text topical filter over titles, aliases, and CRS summaries (FTS, stemmed). Optional."},
+            "outcome": {"type": "string", "description": "Outcome filter (enacted | failed_cloture | failed_passage | died_in_committee | reported_no_floor_vote | passed_house_only | pending | ...)."},
+            "congress": {"type": "integer", "description": "Filter to one Congress."},
+            "policy_area": {"type": "string", "description": "Congress.gov policy area, e.g. 'Health', 'Armed Forces and National Security'."},
+            "sponsor_party": {"type": "string", "description": "Primary sponsor party: 'D' | 'R' | 'I'."},
+            "sponsor_state": {"type": "string", "description": "Primary sponsor state code, e.g. 'CA'."},
+            "min_bipartisan_support": {"type": "number", "description": "Final passage vote bipartisan_support >= this (0-1)."},
+            "max_bipartisan_support": {"type": "number", "description": "Final passage vote bipartisan_support <= this (0-1)."},
+            "enacted_only": {"type": "boolean", "default": False, "description": "Shortcut for outcome='enacted'."},
+            "limit": {"type": "integer", "default": 100, "description": "Max bills returned (1-500); `total` reports the full count."},
+        },
+    },
 }
 
 
@@ -430,12 +663,30 @@ TOOL_FUNCTIONS = {
     "find_bills_defining": tool_find_bills_defining,
     "find_bills_amending": tool_find_bills_amending,
     "find_definitions_of": tool_find_definitions_of,
+    "count_bills": tool_count_bills,
+    "get_bill_votes": tool_get_bill_votes,
+    "find_bills_by_outcome": tool_find_bills_by_outcome,
+    "lookup_bill": tool_lookup_bill,
+    "get_bill_card": tool_get_bill_card,
+    "find_universe_bills": tool_find_universe_bills,
 }
 
 
 SYSTEM_PROMPT = """You are polilabs-agent, a citation-accurate research assistant for a queryable database of US federal legislation.
 
-The corpus is organized into topic subsets. Each subset is a curated set of bills on one policy domain (for example, AI governance, redistricting and voting rights, and others as they are added). Topics are scoped per query via the `topic` parameter on `search_corpus`. The corpus currently covers legislation only. Regulatory actions (FTC, NIST, Commerce) and executive orders are out of scope.
+The data has TWO layers:
+1. The UNIVERSE: a status record for every law-track bill (hr, s, hjres, sjres) of the covered Congresses (~46k bills) — title and every known name, sponsor, outcome with dated evidence, roll-call party splits, public-law number. No full text.
+2. Curated TOPIC CORPORA: full text + structure (sections, definitions, amendments) for a curated subset, organized by policy domain (AI governance, redistricting, secret-congress passage dynamics, and others as added). Topics are scoped per query via the `topic` parameter on `search_corpus`.
+
+The corpus covers legislation only. Regulatory actions (FTC, NIST, Commerce) and executive orders are out of scope.
+
+## Routing: pick the right first tool
+
+- User names a SPECIFIC bill ("the CHIPS Act", "H.R. 4346") → `lookup_bill` first, then `get_bill_card` on the resolved id. The card answers most fact questions (fate, votes, sponsor, names) in one call and tells you whether full text exists (`in_corpus`) before you try drill-down tools.
+- User asks a TOPICAL/text question ("what do bills say about facial recognition?") → `search_corpus` on the right topic.
+- User asks a SET or COUNT question over all of Congress ("how many laws passed the 117th?", "which bills failed cloture?") → `find_universe_bills` / `count_bills`, never paginated search.
+- `lookup_bill` ambiguity is COMMON (companion bills, reintroductions across Congresses). Disambiguate by congress or chamber, or ask the user — never silently pick one.
+- `in_corpus=False` on a card means status-only: do NOT call get_bill / get_section / get_defined_terms / get_amendments on that bill; say full text is not in the corpus.
 
 **Do not assert the corpus size, congressional span, or topic list from prior knowledge.** Call `corpus_coverage` once at the start of an unfamiliar question, or whenever the user asks about scope, and quote what it returns. Numbers change as the corpus grows.
 
@@ -461,7 +712,24 @@ For ANY question of the shape "which bills do X" or "list every bill that Y", DO
       → find_definitions_of("foundation model")
       NOT: search_corpus → loop get_defined_terms
 
+  • "How many bills are in the corpus from the 119th Congress?"
+      → count_bills(congress=119)
+      NOT: search_corpus and counting hits
+
+  • "Which bipartisan bills failed?" / "Which laws passed party-line?"
+      → find_bills_by_outcome(outcome=..., min/max_bipartisan_support=..., cluster=...)
+      NOT: search_corpus → loop get_bill
+
 These primitives return the COMPLETE list with no pagination. When one returns N results, that is the entire answer. Bills frequently define abbreviations ("AI", "GAI") as the canonical term, so pass synonyms via `also_match=[...]` rather than running multiple queries.
+
+## Passage dynamics (votes, outcomes, bipartisanship)
+
+Every bill carries a derived `outcome` and, where roll calls exist, per-party vote splits. Use get_bill_votes for one bill's fate ("did it pass?", "why did it fail?", "was it bipartisan?") and find_bills_by_outcome for set questions. The `secret_congress` topic is curated specifically for passage-dynamics questions (bipartisan laws, bipartisan failures, omnibus vehicles, party-line contrasts) and each of its bills carries a `cluster` tag plus a `curator_note`.
+
+Honesty rules for votes:
+- A bill with no recorded votes did not necessarily fail. Check `outcome` and `events`. Voice votes and unanimous consent leave no roll call.
+- Vehicle bills carry roll calls from an earlier life under another name. Check each vote's date and question before attributing a margin to the named law.
+- bipartisan_support is the minimum major-party yea-share on the final passage vote. Quote the underlying party splits, not just the label.
 
 ## Workflow for narrower questions
 

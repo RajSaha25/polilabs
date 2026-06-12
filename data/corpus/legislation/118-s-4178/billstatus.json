@@ -1,0 +1,185 @@
+{
+  "bill_id": "118-s-4178",
+  "fetched_at": "2026-06-12T05:36:50.929173+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/s/BILLSTATUS-118s4178.xml",
+  "title": "Future of Artificial Intelligence Innovation Act of 2024",
+  "policy_area": "Science, Technology, Communications",
+  "subjects": [
+    "Advanced technology and technological innovations",
+    "Advisory bodies",
+    "Asia",
+    "China",
+    "Competition and antitrust",
+    "Computer security and identity theft",
+    "Computers and information technology",
+    "Congressional oversight",
+    "Digital media",
+    "Government corporations and government-sponsored enterprises",
+    "Government ethics and transparency, public corruption",
+    "Government information and archives",
+    "Government studies and investigations",
+    "Higher education",
+    "Intellectual property",
+    "Intergovernmental relations",
+    "International scientific cooperation",
+    "Performance measurement",
+    "Product development and innovation",
+    "Public-private cooperation",
+    "Research and development",
+    "Tax-exempt organizations"
+  ],
+  "sponsor": {
+    "bioguideId": "C000127",
+    "fullName": "Sen. Cantwell, Maria [D-WA]",
+    "firstName": "Maria",
+    "lastName": "Cantwell",
+    "party": "D",
+    "state": "WA",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "Y000064",
+      "fullName": "Sen. Young, Todd [R-IN]",
+      "firstName": "Todd",
+      "lastName": "Young",
+      "party": "R",
+      "state": "IN",
+      "district": null,
+      "sponsorshipDate": "2024-04-18",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "H000273",
+      "fullName": "Sen. Hickenlooper, John W. [D-CO]",
+      "firstName": "John",
+      "lastName": "Hickenlooper",
+      "party": "D",
+      "state": "CO",
+      "district": null,
+      "sponsorshipDate": "2024-04-18",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "B001243",
+      "fullName": "Sen. Blackburn, Marsha [R-TN]",
+      "firstName": "Marsha",
+      "lastName": "Blackburn",
+      "party": "R",
+      "state": "TN",
+      "district": null,
+      "sponsorshipDate": "2024-04-18",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "W000437",
+      "fullName": "Sen. Wicker, Roger F. [R-MS]",
+      "firstName": "Roger",
+      "lastName": "Wicker",
+      "party": "R",
+      "state": "MS",
+      "district": null,
+      "sponsorshipDate": "2024-07-08",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "L000570",
+      "fullName": "Sen. Lujan, Ben Ray [D-NM]",
+      "firstName": "Ben",
+      "lastName": "Lujan",
+      "party": "D",
+      "state": "NM",
+      "district": null,
+      "sponsorshipDate": "2024-07-08",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "S001191",
+      "fullName": "Sen. Sinema, Kyrsten [I-AZ]",
+      "firstName": "Kyrsten",
+      "lastName": "Sinema",
+      "party": "I",
+      "state": "AZ",
+      "district": null,
+      "sponsorshipDate": "2024-07-31",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "R000605",
+      "fullName": "Sen. Rounds, Mike [R-SD]",
+      "firstName": "Mike",
+      "lastName": "Rounds",
+      "party": "R",
+      "state": "SD",
+      "district": null,
+      "sponsorshipDate": "2024-11-13",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "S000148",
+      "fullName": "Sen. Schumer, Charles E. [D-NY]",
+      "firstName": "Charles",
+      "lastName": "Schumer",
+      "party": "D",
+      "state": "NY",
+      "district": null,
+      "sponsorshipDate": "2024-11-13",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2024-12-18",
+      "text": "Placed on Senate Legislative Calendar under General Orders. Calendar No. 725.",
+      "type": "Calendars",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-12-18",
+      "text": "Committee on Commerce, Science, and Transportation. Reported by Senator Cantwell with an amendment in the nature of a substitute. Without written report.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-12-18",
+      "text": "Committee on Commerce, Science, and Transportation. Reported by Senator Cantwell with an amendment in the nature of a substitute. Without written report.",
+      "type": "Committee",
+      "actionCode": "14000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2024-07-31",
+      "text": "Committee on Commerce, Science, and Transportation. Ordered to be reported with an amendment in the nature of a substitute favorably.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-04-18",
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-04-18",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "reported_no_floor_vote",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2024-12-18",
+      "text": "Placed on Senate Legislative Calendar under General Orders. Calendar No. 725."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

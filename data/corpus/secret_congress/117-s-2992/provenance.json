@@ -1,0 +1,11 @@
+{
+  "bill_id": "117-s-2992",
+  "criteria_version": "secret-congress-seed-v1.0",
+  "canonical_package_id": "BILLS-117s2992rs",
+  "cluster": "bipartisan_but_died",
+  "sources": {
+    "bill_xml": "https://www.govinfo.gov/content/pkg/BILLS-117s2992rs/xml/BILLS-117s2992rs.xml",
+    "billstatus": "https://www.govinfo.gov/bulkdata/BILLSTATUS/117/s/BILLSTATUS-117s2992.xml"
+  },
+  "fetched_at": "2026-06-10T02:55:37.400369+00:00"
+}

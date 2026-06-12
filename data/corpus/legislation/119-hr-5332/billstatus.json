@@ -1,0 +1,189 @@
+{
+  "bill_id": "119-hr-5332",
+  "fetched_at": "2026-06-12T05:37:03.132097+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr5332.xml",
+  "title": "Liquid Cooling for AI Act of 2025",
+  "policy_area": "Science, Technology, Communications",
+  "subjects": [
+    "Advanced technology and technological innovations",
+    "Advisory bodies",
+    "Computers and information technology",
+    "Congressional oversight",
+    "Government studies and investigations",
+    "Lighting, heating, cooling",
+    "Technology assessment"
+  ],
+  "sponsor": {
+    "bioguideId": "O000019",
+    "fullName": "Rep. Obernolte, Jay [R-CA-23]",
+    "firstName": "Jay",
+    "lastName": "Obernolte",
+    "party": "R",
+    "state": "CA",
+    "district": "23"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "G000583",
+      "fullName": "Rep. Gottheimer, Josh [D-NJ-5]",
+      "firstName": "Josh",
+      "lastName": "Gottheimer",
+      "party": "D",
+      "state": "NJ",
+      "district": "5",
+      "sponsorshipDate": "2025-09-11",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "M001238",
+      "fullName": "Rep. McBride, Sarah [D-DE-At Large]",
+      "firstName": "Sarah",
+      "lastName": "McBride",
+      "party": "D",
+      "state": "DE",
+      "district": "0",
+      "sponsorshipDate": "2025-09-15",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "L000582",
+      "fullName": "Rep. Lieu, Ted [D-CA-36]",
+      "firstName": "Ted",
+      "lastName": "Lieu",
+      "party": "D",
+      "state": "CA",
+      "district": "36",
+      "sponsorshipDate": "2025-09-15",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "H001093",
+      "fullName": "Rep. Houchin, Erin [R-IN-9]",
+      "firstName": "Erin",
+      "lastName": "Houchin",
+      "party": "R",
+      "state": "IN",
+      "district": "9",
+      "sponsorshipDate": "2025-09-18",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "V000138",
+      "fullName": "Rep. Vindman, Eugene Simon [D-VA-7]",
+      "firstName": "Eugene",
+      "lastName": "Vindman",
+      "party": "D",
+      "state": "VA",
+      "district": "7",
+      "sponsorshipDate": "2025-10-08",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "H001090",
+      "fullName": "Rep. Harder, Josh [D-CA-9]",
+      "firstName": "Josh",
+      "lastName": "Harder",
+      "party": "D",
+      "state": "CA",
+      "district": "9",
+      "sponsorshipDate": "2025-10-21",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "F000477",
+      "fullName": "Rep. Foushee, Valerie P. [D-NC-4]",
+      "firstName": "Valerie",
+      "lastName": "Foushee",
+      "party": "D",
+      "state": "NC",
+      "district": "4",
+      "sponsorshipDate": "2025-10-21",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "F000480",
+      "fullName": "Rep. Fong, Vince [R-CA-20]",
+      "firstName": "Vince",
+      "lastName": "Fong",
+      "party": "R",
+      "state": "CA",
+      "district": "20",
+      "sponsorshipDate": "2025-12-17",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "T000491",
+      "fullName": "Rep. Tran, Derek [D-CA-45]",
+      "firstName": "Derek",
+      "lastName": "Tran",
+      "party": "D",
+      "state": "CA",
+      "district": "45",
+      "sponsorshipDate": "2026-01-14",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "V000133",
+      "fullName": "Rep. Van Drew, Jefferson [R-NJ-2]",
+      "firstName": "Jefferson",
+      "lastName": "Van Drew",
+      "party": "R",
+      "state": "NJ",
+      "district": "2",
+      "sponsorshipDate": "2026-01-14",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "C001059",
+      "fullName": "Rep. Costa, Jim [D-CA-21]",
+      "firstName": "Jim",
+      "lastName": "Costa",
+      "party": "D",
+      "state": "CA",
+      "district": "21",
+      "sponsorshipDate": "2026-03-19",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2025-09-11",
+      "text": "Referred to the Committee on Energy and Commerce, and in addition to the Committee on Science, Space, and Technology, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-09-11",
+      "text": "Referred to the Committee on Energy and Commerce, and in addition to the Committee on Science, Space, and Technology, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-09-11",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2025-09-11",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2025-09-11",
+      "text": "Referred to the Committee on Energy and Commerce, and in addition to the Committee on Science, Space, and Technology, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

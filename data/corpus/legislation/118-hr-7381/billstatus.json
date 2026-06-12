@@ -1,0 +1,82 @@
+{
+  "bill_id": "118-hr-7381",
+  "fetched_at": "2026-06-12T05:36:34.447651+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/hr/BILLSTATUS-118hr7381.xml",
+  "title": "HEALTH AI",
+  "policy_area": "Health",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "L000582",
+    "fullName": "Rep. Lieu, Ted [D-CA-36]",
+    "firstName": "Ted",
+    "lastName": "Lieu",
+    "party": "D",
+    "state": "CA",
+    "district": "36"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "B001287",
+      "fullName": "Rep. Bera, Ami [D-CA-6]",
+      "firstName": "Ami",
+      "lastName": "Bera",
+      "party": "D",
+      "state": "CA",
+      "district": "6",
+      "sponsorshipDate": "2024-05-28",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "M001221",
+      "fullName": "Rep. Molinaro, Marcus J. [R-NY-19]",
+      "firstName": "Marcus",
+      "lastName": "Molinaro",
+      "party": "R",
+      "state": "NY",
+      "district": "19",
+      "sponsorshipDate": "2024-10-22",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2024-02-16",
+      "text": "Referred to the Subcommittee on Health.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2024-02-15",
+      "text": "Referred to the House Committee on Energy and Commerce.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-02-15",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2024-02-15",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "died_in_committee",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2024-02-16",
+      "text": "Referred to the Subcommittee on Health."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

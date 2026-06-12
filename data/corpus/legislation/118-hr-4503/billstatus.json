@@ -1,0 +1,94 @@
+{
+  "bill_id": "118-hr-4503",
+  "fetched_at": "2026-06-12T05:36:30.163503+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/hr/BILLSTATUS-118hr4503.xml",
+  "title": "AI Training Expansion Act of 2023",
+  "policy_area": "Government Operations and Politics",
+  "subjects": [
+    "Advanced technology and technological innovations",
+    "Computers and information technology",
+    "Employment and training programs",
+    "Government employee pay, benefits, personnel management"
+  ],
+  "sponsor": {
+    "bioguideId": "M000194",
+    "fullName": "Rep. Mace, Nancy [R-SC-1]",
+    "firstName": "Nancy",
+    "lastName": "Mace",
+    "party": "R",
+    "state": "SC",
+    "district": "1"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "C001078",
+      "fullName": "Rep. Connolly, Gerald E. [D-VA-11]",
+      "firstName": "Gerald",
+      "lastName": "Connolly",
+      "party": "D",
+      "state": "VA",
+      "district": "11",
+      "sponsorshipDate": "2023-07-10",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "P000616",
+      "fullName": "Rep. Phillips, Dean [D-MN-3]",
+      "firstName": "Dean",
+      "lastName": "Phillips",
+      "party": "D",
+      "state": "MN",
+      "district": "3",
+      "sponsorshipDate": "2024-08-23",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2023-07-12",
+      "text": "Ordered to be Reported in the Nature of a Substitute (Amended) by the Yeas and Nays: 39 - 2.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2023-07-12",
+      "text": "Committee Consideration and Mark-up Session Held",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2023-07-10",
+      "text": "Referred to the House Committee on Oversight and Accountability.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-10",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2023-07-10",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "died_in_committee",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2023-07-12",
+      "text": "Ordered to be Reported in the Nature of a Substitute (Amended) by the Yeas and Nays: 39 - 2."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

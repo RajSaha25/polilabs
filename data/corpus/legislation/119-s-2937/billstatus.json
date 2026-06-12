@@ -1,0 +1,90 @@
+{
+  "bill_id": "119-s-2937",
+  "fetched_at": "2026-06-12T05:37:17.628145+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/s/BILLSTATUS-119s2937.xml",
+  "title": "AI LEAD Act",
+  "policy_area": "Commerce",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "D000563",
+    "fullName": "Sen. Durbin, Richard J. [D-IL]",
+    "firstName": "Richard",
+    "lastName": "Durbin",
+    "party": "D",
+    "state": "IL",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "H001089",
+      "fullName": "Sen. Hawley, Josh [R-MO]",
+      "firstName": "Josh",
+      "lastName": "Hawley",
+      "party": "R",
+      "state": "MO",
+      "district": null,
+      "sponsorshipDate": "2025-09-29",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "W000800",
+      "fullName": "Sen. Welch, Peter [D-VT]",
+      "firstName": "Peter",
+      "lastName": "Welch",
+      "party": "D",
+      "state": "VT",
+      "district": null,
+      "sponsorshipDate": "2026-03-18",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "K000383",
+      "fullName": "Sen. King, Angus S., Jr. [I-ME]",
+      "firstName": "Angus",
+      "lastName": "King",
+      "party": "I",
+      "state": "ME",
+      "district": null,
+      "sponsorshipDate": "2026-03-18",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "B001243",
+      "fullName": "Sen. Blackburn, Marsha [R-TN]",
+      "firstName": "Marsha",
+      "lastName": "Blackburn",
+      "party": "R",
+      "state": "TN",
+      "district": null,
+      "sponsorshipDate": "2026-03-19",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2025-09-29",
+      "text": "Read twice and referred to the Committee on the Judiciary. (text: CR S6836-6838)",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2025-09-29",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2025-09-29",
+      "text": "Read twice and referred to the Committee on the Judiciary. (text: CR S6836-6838)"
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

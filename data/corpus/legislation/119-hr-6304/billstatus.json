@@ -1,0 +1,71 @@
+{
+  "bill_id": "119-hr-6304",
+  "fetched_at": "2026-06-12T05:37:05.415530+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr6304.xml",
+  "title": "AI for America Act",
+  "policy_area": "Science, Technology, Communications",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "K000399",
+    "fullName": "Rep. Kiggans, Jennifer A. [R-VA-2]",
+    "firstName": "Jennifer",
+    "lastName": "Kiggans",
+    "party": "R",
+    "state": "VA",
+    "district": "2"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "L000598",
+      "fullName": "Rep. LaLota, Nick [R-NY-1]",
+      "firstName": "Nick",
+      "lastName": "LaLota",
+      "party": "R",
+      "state": "NY",
+      "district": "1",
+      "sponsorshipDate": "2026-04-29",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2025-11-25",
+      "text": "Referred to the Committee on Science, Space, and Technology, and in addition to the Committee on Energy and Commerce, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-11-25",
+      "text": "Referred to the Committee on Science, Space, and Technology, and in addition to the Committee on Energy and Commerce, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-11-25",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2025-11-25",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2025-11-25",
+      "text": "Referred to the Committee on Science, Space, and Technology, and in addition to the Committee on Energy and Commerce, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

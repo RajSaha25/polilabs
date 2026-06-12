@@ -1,0 +1,7023 @@
+{
+  "bill_id": "117-hr-3076",
+  "fetched_at": "2026-06-12T05:37:32.857992+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/117/hr/BILLSTATUS-117hr3076.xml",
+  "title": "Postal Service Reform Act of 2022",
+  "policy_area": "Government Operations and Politics",
+  "subjects": [
+    "Congressional oversight",
+    "Executive agency funding and structure",
+    "Government employee pay, benefits, personnel management",
+    "Government information and archives",
+    "Government studies and investigations",
+    "Health care costs and insurance",
+    "Health care coverage and access",
+    "Intergovernmental relations",
+    "Medicare",
+    "Performance measurement",
+    "Postal Regulatory Commission",
+    "Postal service",
+    "Public participation and lobbying",
+    "Retail and wholesale trades",
+    "State and local government operations",
+    "U.S. Postal Service"
+  ],
+  "sponsor": {
+    "bioguideId": "M000087",
+    "fullName": "Rep. Maloney, Carolyn B. [D-NY-12]",
+    "firstName": "CAROLYN",
+    "lastName": "MALONEY",
+    "party": "D",
+    "state": "NY",
+    "district": "12"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "C001078",
+      "fullName": "Rep. Connolly, Gerald E. [D-VA-11]",
+      "firstName": "Gerald",
+      "lastName": "Connolly",
+      "party": "D",
+      "state": "VA",
+      "district": "11",
+      "sponsorshipDate": "2021-05-11",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "F000450",
+      "fullName": "Rep. Foxx, Virginia [R-NC-5]",
+      "firstName": "Virginia",
+      "lastName": "Foxx",
+      "party": "R",
+      "state": "NC",
+      "district": "5",
+      "sponsorshipDate": "2021-05-11",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "C001108",
+      "fullName": "Rep. Comer, James [R-KY-1]",
+      "firstName": "James",
+      "lastName": "Comer",
+      "party": "R",
+      "state": "KY",
+      "district": "1",
+      "sponsorshipDate": "2021-05-11",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "L000562",
+      "fullName": "Rep. Lynch, Stephen F. [D-MA-8]",
+      "firstName": "Stephen",
+      "lastName": "Lynch",
+      "party": "D",
+      "state": "MA",
+      "district": "8",
+      "sponsorshipDate": "2021-05-18",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "L000581",
+      "fullName": "Rep. Lawrence, Brenda L. [D-MI-14]",
+      "firstName": "Brenda",
+      "lastName": "Lawrence",
+      "party": "D",
+      "state": "MI",
+      "district": "14",
+      "sponsorshipDate": "2021-05-18",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "H001068",
+      "fullName": "Rep. Huffman, Jared [D-CA-2]",
+      "firstName": "Jared",
+      "lastName": "Huffman",
+      "party": "D",
+      "state": "CA",
+      "district": "2",
+      "sponsorshipDate": "2021-05-25",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "T000460",
+      "fullName": "Rep. Thompson, Mike [D-CA-5]",
+      "firstName": "MIKE",
+      "lastName": "THOMPSON",
+      "party": "D",
+      "state": "CA",
+      "district": "5",
+      "sponsorshipDate": "2021-05-25",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "Y000033",
+      "fullName": "Rep. Young, Don [R-AK-At Large]",
+      "firstName": "DON",
+      "lastName": "YOUNG",
+      "party": "R",
+      "state": "AK",
+      "district": "0",
+      "sponsorshipDate": "2021-05-25",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "T000478",
+      "fullName": "Rep. Tenney, Claudia [R-NY-22]",
+      "firstName": "Claudia",
+      "lastName": "Tenney",
+      "party": "R",
+      "state": "NY",
+      "district": "22",
+      "sponsorshipDate": "2021-05-25",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "N000179",
+      "fullName": "Rep. Napolitano, Grace F. [D-CA-32]",
+      "firstName": "GRACE",
+      "lastName": "NAPOLITANO",
+      "party": "D",
+      "state": "CA",
+      "district": "32",
+      "sponsorshipDate": "2021-06-04",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "M000317",
+      "fullName": "Rep. Malliotakis, Nicole [R-NY-11]",
+      "firstName": "Nicole",
+      "lastName": "Malliotakis",
+      "party": "R",
+      "state": "NY",
+      "district": "11",
+      "sponsorshipDate": "2021-06-04",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "K000396",
+      "fullName": "Rep. Kahele, Kaiali'i [D-HI-2]",
+      "firstName": "Kaiali'i",
+      "lastName": "Kahele",
+      "party": "D",
+      "state": "HI",
+      "district": "2",
+      "sponsorshipDate": "2021-06-04",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "S001196",
+      "fullName": "Rep. Stefanik, Elise M. [R-NY-21]",
+      "firstName": "Elise",
+      "lastName": "Stefanik",
+      "party": "R",
+      "state": "NY",
+      "district": "21",
+      "sponsorshipDate": "2021-06-04",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "L000560",
+      "fullName": "Rep. Larsen, Rick [D-WA-2]",
+      "firstName": "RICK",
+      "lastName": "LARSEN",
+      "party": "D",
+      "state": "WA",
+      "district": "2",
+      "sponsorshipDate": "2021-06-04",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "G000597",
+      "fullName": "Rep. Garbarino, Andrew R. [R-NY-2]",
+      "firstName": "Andrew",
+      "lastName": "Garbarino",
+      "party": "R",
+      "state": "NY",
+      "district": "2",
+      "sponsorshipDate": "2021-06-04",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "S001200",
+      "fullName": "Rep. Soto, Darren [D-FL-9]",
+      "firstName": "Darren",
+      "lastName": "Soto",
+      "party": "D",
+      "state": "FL",
+      "district": "9",
+      "sponsorshipDate": "2021-06-15",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "L000266",
+      "fullName": "Rep. LaTurner, Jake [R-KS-2]",
+      "firstName": "Jake",
+      "lastName": "LaTurner",
+      "party": "R",
+      "state": "KS",
+      "district": "2",
+      "sponsorshipDate": "2021-06-15",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "C001055",
+      "fullName": "Rep. Case, Ed [D-HI-1]",
+      "firstName": "Ed",
+      "lastName": "Case",
+      "party": "D",
+      "state": "HI",
+      "district": "1",
+      "sponsorshipDate": "2021-06-15",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "G000576",
+      "fullName": "Rep. Grothman, Glenn [R-WI-6]",
+      "firstName": "Glenn",
+      "lastName": "Grothman",
+      "party": "R",
+      "state": "WI",
+      "district": "6",
+      "sponsorshipDate": "2021-06-15",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "H001090",
+      "fullName": "Rep. Harder, Josh [D-CA-10]",
+      "firstName": "Josh",
+      "lastName": "Harder",
+      "party": "D",
+      "state": "CA",
+      "district": "10",
+      "sponsorshipDate": "2021-06-15",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "M000194",
+      "fullName": "Rep. Mace, Nancy [R-SC-1]",
+      "firstName": "Nancy",
+      "lastName": "Mace",
+      "party": "R",
+      "state": "SC",
+      "district": "1",
+      "sponsorshipDate": "2021-06-15",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "S001201",
+      "fullName": "Rep. Suozzi, Thomas R. [D-NY-3]",
+      "firstName": "Thomas",
+      "lastName": "Suozzi",
+      "party": "D",
+      "state": "NY",
+      "district": "3",
+      "sponsorshipDate": "2021-06-17",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "B001298",
+      "fullName": "Rep. Bacon, Don [R-NE-2]",
+      "firstName": "Don",
+      "lastName": "Bacon",
+      "party": "R",
+      "state": "NE",
+      "district": "2",
+      "sponsorshipDate": "2021-06-17",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "H001066",
+      "fullName": "Rep. Horsford, Steven [D-NV-4]",
+      "firstName": "Steven",
+      "lastName": "Horsford",
+      "party": "D",
+      "state": "NV",
+      "district": "4",
+      "sponsorshipDate": "2021-06-17",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "V000129",
+      "fullName": "Rep. Valadao, David G. [R-CA-21]",
+      "firstName": "David",
+      "lastName": "Valadao",
+      "party": "R",
+      "state": "CA",
+      "district": "21",
+      "sponsorshipDate": "2021-06-17",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "N000002",
+      "fullName": "Rep. Nadler, Jerrold [D-NY-10]",
+      "firstName": "JERROLD",
+      "lastName": "NADLER",
+      "party": "D",
+      "state": "NY",
+      "district": "10",
+      "sponsorshipDate": "2021-06-24",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "M001199",
+      "fullName": "Rep. Mast, Brian J. [R-FL-18]",
+      "firstName": "Brian",
+      "lastName": "Mast",
+      "party": "R",
+      "state": "FL",
+      "district": "18",
+      "sponsorshipDate": "2021-06-24",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "E000297",
+      "fullName": "Rep. Espaillat, Adriano [D-NY-13]",
+      "firstName": "Adriano",
+      "lastName": "Espaillat",
+      "party": "D",
+      "state": "NY",
+      "district": "13",
+      "sponsorshipDate": "2021-06-24",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "R000610",
+      "fullName": "Rep. Reschenthaler, Guy [R-PA-14]",
+      "firstName": "Guy",
+      "lastName": "Reschenthaler",
+      "party": "R",
+      "state": "PA",
+      "district": "14",
+      "sponsorshipDate": "2021-06-24",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "K000380",
+      "fullName": "Rep. Kildee, Daniel T. [D-MI-5]",
+      "firstName": "Daniel",
+      "lastName": "Kildee",
+      "party": "D",
+      "state": "MI",
+      "district": "5",
+      "sponsorshipDate": "2021-06-24",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "B001295",
+      "fullName": "Rep. Bost, Mike [R-IL-12]",
+      "firstName": "Mike",
+      "lastName": "Bost",
+      "party": "R",
+      "state": "IL",
+      "district": "12",
+      "sponsorshipDate": "2021-06-24",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "K000389",
+      "fullName": "Rep. Khanna, Ro [D-CA-17]",
+      "firstName": "Ro",
+      "lastName": "Khanna",
+      "party": "D",
+      "state": "CA",
+      "district": "17",
+      "sponsorshipDate": "2021-06-24",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "S000522",
+      "fullName": "Rep. Smith, Christopher H. [R-NJ-4]",
+      "firstName": "CHRISTOPHER",
+      "lastName": "SMITH",
+      "party": "R",
+      "state": "NJ",
+      "district": "4",
+      "sponsorshipDate": "2021-06-24",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "T000468",
+      "fullName": "Rep. Titus, Dina [D-NV-1]",
+      "firstName": "Dina",
+      "lastName": "Titus",
+      "party": "D",
+      "state": "NV",
+      "district": "1",
+      "sponsorshipDate": "2021-06-29",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "G000563",
+      "fullName": "Rep. Gibbs, Bob [R-OH-7]",
+      "firstName": "Bob",
+      "lastName": "Gibbs",
+      "party": "R",
+      "state": "OH",
+      "district": "7",
+      "sponsorshipDate": "2021-06-29",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "K000009",
+      "fullName": "Rep. Kaptur, Marcy [D-OH-9]",
+      "firstName": "MARCY",
+      "lastName": "KAPTUR",
+      "party": "D",
+      "state": "OH",
+      "district": "9",
+      "sponsorshipDate": "2021-06-29",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "V000133",
+      "fullName": "Rep. Van Drew, Jefferson [R-NJ-2]",
+      "firstName": "Jefferson",
+      "lastName": "Van Drew",
+      "party": "R",
+      "state": "NJ",
+      "district": "2",
+      "sponsorshipDate": "2021-06-29",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "M001135",
+      "fullName": "Rep. Manning, Kathy E. [D-NC-6]",
+      "firstName": "Kathy",
+      "lastName": "Manning",
+      "party": "D",
+      "state": "NC",
+      "district": "6",
+      "sponsorshipDate": "2021-06-29",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "D000619",
+      "fullName": "Rep. Davis, Rodney [R-IL-13]",
+      "firstName": "Rodney",
+      "lastName": "Davis",
+      "party": "R",
+      "state": "IL",
+      "district": "13",
+      "sponsorshipDate": "2021-06-29",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "H001038",
+      "fullName": "Rep. Higgins, Brian [D-NY-26]",
+      "firstName": "Brian",
+      "lastName": "Higgins",
+      "party": "D",
+      "state": "NY",
+      "district": "26",
+      "sponsorshipDate": "2021-07-09",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "S001148",
+      "fullName": "Rep. Simpson, Michael K. [R-ID-2]",
+      "firstName": "MICHAEL",
+      "lastName": "SIMPSON",
+      "party": "R",
+      "state": "ID",
+      "district": "2",
+      "sponsorshipDate": "2021-07-09",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "C001068",
+      "fullName": "Rep. Cohen, Steve [D-TN-9]",
+      "firstName": "Steve",
+      "lastName": "Cohen",
+      "party": "D",
+      "state": "TN",
+      "district": "9",
+      "sponsorshipDate": "2021-07-09",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "G000588",
+      "fullName": "Rep. Gonzalez, Anthony [R-OH-16]",
+      "firstName": "Anthony",
+      "lastName": "Gonzalez",
+      "party": "R",
+      "state": "OH",
+      "district": "16",
+      "sponsorshipDate": "2021-07-09",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "C001121",
+      "fullName": "Rep. Crow, Jason [D-CO-6]",
+      "firstName": "Jason",
+      "lastName": "Crow",
+      "party": "D",
+      "state": "CO",
+      "district": "6",
+      "sponsorshipDate": "2021-07-13",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "K000386",
+      "fullName": "Rep. Katko, John [R-NY-24]",
+      "firstName": "John",
+      "lastName": "Katko",
+      "party": "R",
+      "state": "NY",
+      "district": "24",
+      "sponsorshipDate": "2021-07-13",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "F000454",
+      "fullName": "Rep. Foster, Bill [D-IL-11]",
+      "firstName": "Bill",
+      "lastName": "Foster",
+      "party": "D",
+      "state": "IL",
+      "district": "11",
+      "sponsorshipDate": "2021-07-13",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "S001159",
+      "fullName": "Rep. Strickland, Marilyn [D-WA-10]",
+      "firstName": "Marilyn",
+      "lastName": "Strickland",
+      "party": "D",
+      "state": "WA",
+      "district": "10",
+      "sponsorshipDate": "2021-07-13",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "R000486",
+      "fullName": "Rep. Roybal-Allard, Lucille [D-CA-40]",
+      "firstName": "LUCILLE",
+      "lastName": "ROYBAL-ALLARD",
+      "party": "D",
+      "state": "CA",
+      "district": "40",
+      "sponsorshipDate": "2021-07-13",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "D000216",
+      "fullName": "Rep. DeLauro, Rosa L. [D-CT-3]",
+      "firstName": "ROSA",
+      "lastName": "DELAURO",
+      "party": "D",
+      "state": "CT",
+      "district": "3",
+      "sponsorshipDate": "2021-07-13",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "G000574",
+      "fullName": "Rep. Gallego, Ruben [D-AZ-7]",
+      "firstName": "Ruben",
+      "lastName": "Gallego",
+      "party": "D",
+      "state": "AZ",
+      "district": "7",
+      "sponsorshipDate": "2021-07-13",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "C000754",
+      "fullName": "Rep. Cooper, Jim [D-TN-5]",
+      "firstName": "JAMES",
+      "lastName": "COOPER",
+      "party": "D",
+      "state": "TN",
+      "district": "5",
+      "sponsorshipDate": "2021-07-13",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "S001145",
+      "fullName": "Rep. Schakowsky, Janice D. [D-IL-9]",
+      "firstName": "JANICE",
+      "lastName": "SCHAKOWSKY",
+      "party": "D",
+      "state": "IL",
+      "district": "9",
+      "sponsorshipDate": "2021-07-13",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "O000172",
+      "fullName": "Rep. Ocasio-Cortez, Alexandria [D-NY-14]",
+      "firstName": "Alexandria",
+      "lastName": "Ocasio-Cortez",
+      "party": "D",
+      "state": "NY",
+      "district": "14",
+      "sponsorshipDate": "2021-07-13",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "M001188",
+      "fullName": "Rep. Meng, Grace [D-NY-6]",
+      "firstName": "Grace",
+      "lastName": "Meng",
+      "party": "D",
+      "state": "NY",
+      "district": "6",
+      "sponsorshipDate": "2021-07-13",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "F000466",
+      "fullName": "Rep. Fitzpatrick, Brian K. [R-PA-1]",
+      "firstName": "Brian",
+      "lastName": "Fitzpatrick",
+      "party": "R",
+      "state": "PA",
+      "district": "1",
+      "sponsorshipDate": "2021-07-20",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "C001119",
+      "fullName": "Rep. Craig, Angie [D-MN-2]",
+      "firstName": "Angie",
+      "lastName": "Craig",
+      "party": "D",
+      "state": "MN",
+      "district": "2",
+      "sponsorshipDate": "2021-07-20",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "H001081",
+      "fullName": "Rep. Hayes, Jahana [D-CT-5]",
+      "firstName": "Jahana",
+      "lastName": "Hayes",
+      "party": "D",
+      "state": "CT",
+      "district": "5",
+      "sponsorshipDate": "2021-07-20",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "W000187",
+      "fullName": "Rep. Waters, Maxine [D-CA-43]",
+      "firstName": "MAXINE",
+      "lastName": "WATERS",
+      "party": "D",
+      "state": "CA",
+      "district": "43",
+      "sponsorshipDate": "2021-07-20",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "D000624",
+      "fullName": "Rep. Dingell, Debbie [D-MI-12]",
+      "firstName": "Debbie",
+      "lastName": "Dingell",
+      "party": "D",
+      "state": "MI",
+      "district": "12",
+      "sponsorshipDate": "2021-07-20",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "G000583",
+      "fullName": "Rep. Gottheimer, Josh [D-NJ-5]",
+      "firstName": "Josh",
+      "lastName": "Gottheimer",
+      "party": "D",
+      "state": "NJ",
+      "district": "5",
+      "sponsorshipDate": "2021-07-20",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "O000086",
+      "fullName": "Rep. Owens, Burgess [R-UT-4]",
+      "firstName": "Burgess",
+      "lastName": "Owens",
+      "party": "R",
+      "state": "UT",
+      "district": "4",
+      "sponsorshipDate": "2021-07-20",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "B001248",
+      "fullName": "Rep. Burgess, Michael C. [R-TX-26]",
+      "firstName": "Michael",
+      "lastName": "Burgess",
+      "party": "R",
+      "state": "TX",
+      "district": "26",
+      "sponsorshipDate": "2021-09-10",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "N000191",
+      "fullName": "Rep. Neguse, Joe [D-CO-2]",
+      "firstName": "Joe",
+      "lastName": "Neguse",
+      "party": "D",
+      "state": "CO",
+      "district": "2",
+      "sponsorshipDate": "2021-09-10",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "J000295",
+      "fullName": "Rep. Joyce, David P. [R-OH-14]",
+      "firstName": "David",
+      "lastName": "Joyce",
+      "party": "R",
+      "state": "OH",
+      "district": "14",
+      "sponsorshipDate": "2021-09-10",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "M001206",
+      "fullName": "Rep. Morelle, Joseph D. [D-NY-25]",
+      "firstName": "Joseph",
+      "lastName": "Morelle",
+      "party": "D",
+      "state": "NY",
+      "district": "25",
+      "sponsorshipDate": "2021-09-10",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "S001207",
+      "fullName": "Rep. Sherrill, Mikie [D-NJ-11]",
+      "firstName": "Mikie",
+      "lastName": "Sherrill",
+      "party": "D",
+      "state": "NJ",
+      "district": "11",
+      "sponsorshipDate": "2021-09-10",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "M001157",
+      "fullName": "Rep. McCaul, Michael T. [R-TX-10]",
+      "firstName": "Michael",
+      "lastName": "McCaul",
+      "party": "R",
+      "state": "TX",
+      "district": "10",
+      "sponsorshipDate": "2021-09-21",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "G000586",
+      "fullName": "Rep. Garcia, Jesus G. \"Chuy\" [D-IL-4]",
+      "firstName": "Jesus",
+      "lastName": "Garcia",
+      "party": "D",
+      "state": "IL",
+      "district": "4",
+      "sponsorshipDate": "2021-09-21",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "S001165",
+      "fullName": "Rep. Sires, Albio [D-NJ-8]",
+      "firstName": "Albio",
+      "lastName": "Sires",
+      "party": "D",
+      "state": "NJ",
+      "district": "8",
+      "sponsorshipDate": "2021-09-21",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "G000061",
+      "fullName": "Rep. Garcia, Mike [R-CA-25]",
+      "firstName": "Mike",
+      "lastName": "Garcia",
+      "party": "R",
+      "state": "CA",
+      "district": "25",
+      "sponsorshipDate": "2021-09-21",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "J000306",
+      "fullName": "Rep. Jones, Mondaire [D-NY-17]",
+      "firstName": "Mondaire",
+      "lastName": "Jones",
+      "party": "D",
+      "state": "NY",
+      "district": "17",
+      "sponsorshipDate": "2021-09-21",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "G000377",
+      "fullName": "Rep. Granger, Kay [R-TX-12]",
+      "firstName": "KAY",
+      "lastName": "GRANGER",
+      "party": "R",
+      "state": "TX",
+      "district": "12",
+      "sponsorshipDate": "2021-09-21",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "N000192",
+      "fullName": "Rep. Newman, Marie [D-IL-3]",
+      "firstName": "Marie",
+      "lastName": "Newman",
+      "party": "D",
+      "state": "IL",
+      "district": "3",
+      "sponsorshipDate": "2021-09-21",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "A000377",
+      "fullName": "Rep. Armstrong, Kelly [R-ND-At Large]",
+      "firstName": "Kelly",
+      "lastName": "Armstrong",
+      "party": "R",
+      "state": "ND",
+      "district": "0",
+      "sponsorshipDate": "2021-09-21",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "B001270",
+      "fullName": "Rep. Bass, Karen [D-CA-37]",
+      "firstName": "Karen",
+      "lastName": "Bass",
+      "party": "D",
+      "state": "CA",
+      "district": "37",
+      "sponsorshipDate": "2021-09-30",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "K000378",
+      "fullName": "Rep. Kinzinger, Adam [R-IL-16]",
+      "firstName": "Adam",
+      "lastName": "Kinzinger",
+      "party": "R",
+      "state": "IL",
+      "district": "16",
+      "sponsorshipDate": "2021-09-30",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "W000826",
+      "fullName": "Rep. Wild, Susan [D-PA-7]",
+      "firstName": "Susan",
+      "lastName": "Wild",
+      "party": "D",
+      "state": "PA",
+      "district": "7",
+      "sponsorshipDate": "2021-09-30",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "H001067",
+      "fullName": "Rep. Hudson, Richard [R-NC-8]",
+      "firstName": "Richard",
+      "lastName": "Hudson",
+      "party": "R",
+      "state": "NC",
+      "district": "8",
+      "sponsorshipDate": "2021-09-30",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "P000618",
+      "fullName": "Rep. Porter, Katie [D-CA-45]",
+      "firstName": "Katie",
+      "lastName": "Porter",
+      "party": "D",
+      "state": "CA",
+      "district": "45",
+      "sponsorshipDate": "2021-09-30",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "S000250",
+      "fullName": "Rep. Sessions, Pete [R-TX-17]",
+      "firstName": "PETE",
+      "lastName": "SESSIONS",
+      "party": "R",
+      "state": "TX",
+      "district": "17",
+      "sponsorshipDate": "2021-09-30",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "B001251",
+      "fullName": "Rep. Butterfield, G. K. [D-NC-1]",
+      "firstName": "G. K.",
+      "lastName": "Butterfield",
+      "party": "D",
+      "state": "NC",
+      "district": "1",
+      "sponsorshipDate": "2021-09-30",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "F000449",
+      "fullName": "Rep. Fortenberry, Jeff [R-NE-1]",
+      "firstName": "Jeff",
+      "lastName": "Fortenberry",
+      "party": "R",
+      "state": "NE",
+      "district": "1",
+      "sponsorshipDate": "2021-09-30",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "N000188",
+      "fullName": "Rep. Norcross, Donald [D-NJ-1]",
+      "firstName": "Donald",
+      "lastName": "Norcross",
+      "party": "D",
+      "state": "NJ",
+      "district": "1",
+      "sponsorshipDate": "2021-09-30",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "R000575",
+      "fullName": "Rep. Rogers, Mike D. [R-AL-3]",
+      "firstName": "Mike",
+      "lastName": "Rogers",
+      "party": "R",
+      "state": "AL",
+      "district": "3",
+      "sponsorshipDate": "2021-09-30",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "K000391",
+      "fullName": "Rep. Krishnamoorthi, Raja [D-IL-8]",
+      "firstName": "Raja",
+      "lastName": "Krishnamoorthi",
+      "party": "D",
+      "state": "IL",
+      "district": "8",
+      "sponsorshipDate": "2021-10-22",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "R000603",
+      "fullName": "Rep. Rouzer, David [R-NC-7]",
+      "firstName": "David",
+      "lastName": "Rouzer",
+      "party": "R",
+      "state": "NC",
+      "district": "7",
+      "sponsorshipDate": "2021-10-22",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "R000576",
+      "fullName": "Rep. Ruppersberger, C. A. Dutch [D-MD-2]",
+      "firstName": "C. A.",
+      "lastName": "Ruppersberger",
+      "party": "D",
+      "state": "MD",
+      "district": "2",
+      "sponsorshipDate": "2021-10-22",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "C001104",
+      "fullName": "Rep. Cawthorn, Madison [R-NC-11]",
+      "firstName": "Madison",
+      "lastName": "Cawthorn",
+      "party": "R",
+      "state": "NC",
+      "district": "11",
+      "sponsorshipDate": "2021-10-22",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "L000397",
+      "fullName": "Rep. Lofgren, Zoe [D-CA-19]",
+      "firstName": "ZOE",
+      "lastName": "LOFGREN",
+      "party": "D",
+      "state": "CA",
+      "district": "19",
+      "sponsorshipDate": "2021-11-01",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "G000546",
+      "fullName": "Rep. Graves, Sam [R-MO-6]",
+      "firstName": "SAM",
+      "lastName": "GRAVES",
+      "party": "R",
+      "state": "MO",
+      "district": "6",
+      "sponsorshipDate": "2021-11-01",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "L000579",
+      "fullName": "Rep. Lowenthal, Alan S. [D-CA-47]",
+      "firstName": "Alan",
+      "lastName": "Lowenthal",
+      "party": "D",
+      "state": "CA",
+      "district": "47",
+      "sponsorshipDate": "2021-11-01",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "U000031",
+      "fullName": "Rep. Upton, Fred [R-MI-6]",
+      "firstName": "FRED",
+      "lastName": "UPTON",
+      "party": "R",
+      "state": "MI",
+      "district": "6",
+      "sponsorshipDate": "2021-11-01",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "L000586",
+      "fullName": "Rep. Lawson, Al, Jr. [D-FL-5]",
+      "firstName": "Al",
+      "lastName": "Lawson",
+      "party": "D",
+      "state": "FL",
+      "district": "5",
+      "sponsorshipDate": "2021-12-01",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "B001275",
+      "fullName": "Rep. Bucshon, Larry [R-IN-8]",
+      "firstName": "Larry",
+      "lastName": "Bucshon",
+      "party": "R",
+      "state": "IN",
+      "district": "8",
+      "sponsorshipDate": "2021-12-01",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "S001190",
+      "fullName": "Rep. Schneider, Bradley Scott [D-IL-10]",
+      "firstName": "Bradley",
+      "lastName": "Schneider",
+      "party": "D",
+      "state": "IL",
+      "district": "10",
+      "sponsorshipDate": "2021-12-01",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "G000594",
+      "fullName": "Rep. Gonzales, Tony [R-TX-23]",
+      "firstName": "Tony",
+      "lastName": "Gonzales",
+      "party": "R",
+      "state": "TX",
+      "district": "23",
+      "sponsorshipDate": "2021-12-01",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "A000378",
+      "fullName": "Rep. Axne, Cynthia [D-IA-3]",
+      "firstName": "Cynthia",
+      "lastName": "Axne",
+      "party": "D",
+      "state": "IA",
+      "district": "3",
+      "sponsorshipDate": "2021-12-01",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "K000397",
+      "fullName": "Rep. Kim, Young [R-CA-39]",
+      "firstName": "Young",
+      "lastName": "Kim",
+      "party": "R",
+      "state": "CA",
+      "district": "39",
+      "sponsorshipDate": "2021-12-01",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "M001210",
+      "fullName": "Rep. Murphy, Gregory [R-NC-3]",
+      "firstName": "Gregory",
+      "lastName": "Murphy",
+      "party": "R",
+      "state": "NC",
+      "district": "3",
+      "sponsorshipDate": "2021-12-13",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "C001069",
+      "fullName": "Rep. Courtney, Joe [D-CT-2]",
+      "firstName": "Joe",
+      "lastName": "Courtney",
+      "party": "D",
+      "state": "CT",
+      "district": "2",
+      "sponsorshipDate": "2021-12-13",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "E000215",
+      "fullName": "Rep. Eshoo, Anna G. [D-CA-18]",
+      "firstName": "ANNA",
+      "lastName": "ESHOO",
+      "party": "D",
+      "state": "CA",
+      "district": "18",
+      "sponsorshipDate": "2021-12-14",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "S000929",
+      "fullName": "Rep. Spartz, Victoria [R-IN-5]",
+      "firstName": "Victoria",
+      "lastName": "Spartz",
+      "party": "R",
+      "state": "IN",
+      "district": "5",
+      "sponsorshipDate": "2021-12-14",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2022-04-06",
+      "text": "Became Public Law No: 117-108.",
+      "type": "President",
+      "actionCode": "E40000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-04-06",
+      "text": "Became Public Law No: 117-108.",
+      "type": "BecameLaw",
+      "actionCode": "36000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-04-06",
+      "text": "Signed by President.",
+      "type": "President",
+      "actionCode": "E30000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-04-06",
+      "text": "Signed by President.",
+      "type": "BecameLaw",
+      "actionCode": "36000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-03-28",
+      "text": "Presented to President.",
+      "type": "Floor",
+      "actionCode": "E20000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-03-28",
+      "text": "Presented to President.",
+      "type": "President",
+      "actionCode": "28000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-03-08",
+      "text": "Message on Senate action sent to the House.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-03-08",
+      "text": "Passed Senate without amendment by Yea-Nay Vote. 79 - 19. Record Vote Number: 71.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-03-08",
+      "text": "Passed/agreed to in Senate: Passed Senate without amendment by Yea-Nay Vote. 79 - 19. Record Vote Number: 71.",
+      "type": "Floor",
+      "actionCode": "17000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-03-08",
+      "text": "Motion to waive section 3101(b) of S. Con. Res. 11, 114th Congress, with respect to the measure agreed to in Senate by Yea-Nay Vote. 68 - 30. Record Vote Number: 70. (CR S1046)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-03-08",
+      "text": "Point of order that the measure violates section 3101(b) of S. Con. Res. 11, 114th Congress, raised in Senate.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-03-08",
+      "text": "Considered by Senate. (consideration: CR S1023-1048)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-03-07",
+      "text": "Cloture on the measure invoked in Senate by Yea-Nay Vote. 74 - 17. Record Vote Number: 69. (CR S1011)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-03-07",
+      "text": "Considered by Senate. (consideration: CR S1001-1012)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-03-03",
+      "text": "Considered by Senate. (consideration: CR S961-965)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-03-02",
+      "text": "Cloture motion on the measure presented in Senate. (CR S947)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-03-02",
+      "text": "Considered by Senate. (consideration: CR S923-924, S947)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-03-01",
+      "text": "Measure laid before Senate by motion.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-03-01",
+      "text": "Motion to proceed to consideration of measure agreed to in Senate by Voice Vote.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-03-01",
+      "text": "Motion to proceed to measure considered in Senate. (consideration: CR S845-872)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-02-28",
+      "text": "Motion to proceed to measure considered in Senate.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-02-28",
+      "text": "Cloture on the motion to proceed to the measure invoked in Senate by Yea-Nay Vote. 74 - 20. Record Vote Number: 66. (CR S826)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-02-17",
+      "text": "Cloture motion on the motion to proceed to the measure presented in Senate. (CR S797)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-02-17",
+      "text": "Motion to proceed to consideration of measure made in Senate. (CR S797)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-02-15",
+      "text": "Read the second time. Placed on Senate Legislative Calendar under General Orders. Calendar No. 273.",
+      "type": "Calendars",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-02-14",
+      "text": "Received in the Senate. Read the first time. Placed on Senate Legislative Calendar under Read the First Time.",
+      "type": "Calendars",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-02-14",
+      "text": "Message on Senate action sent to the House.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-02-14",
+      "text": "Papers returned to House pursuant to H. Res. 925 (Senate message received on Feb. 15, 2022).",
+      "type": "Floor",
+      "actionCode": "H1B000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-02-14",
+      "text": "Senate returned papers to the House by Voice Vote.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-02-14",
+      "text": "Senate vitiated previous actions by Unanimous Consent. (CR S675)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-02-14",
+      "text": "Motion to proceed to measure considered in Senate. (CR S653)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-02-10",
+      "text": "Cloture motion on the motion to proceed to the measure presented in Senate. (CR S621)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-02-10",
+      "text": "Motion to proceed to consideration of measure made in Senate. (CR S621)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-02-09",
+      "text": "Read the second time. Placed on Senate Legislative Calendar under General Orders. Calendar No. 266.",
+      "type": "Calendars",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-02-08",
+      "text": "Received in the Senate. Read the first time. Placed on Senate Legislative Calendar under Read the First Time.",
+      "type": "Calendars",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-02-08",
+      "text": "Motion to reconsider laid on the table Agreed to without objection.",
+      "type": "Floor",
+      "actionCode": "H38310",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-02-08",
+      "text": "On passage Passed by the Yeas and Nays: 342 - 92 (Roll no. 38).",
+      "type": "Floor",
+      "actionCode": "H37100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-02-08",
+      "text": "Passed/agreed to in House: On passage Passed by the Yeas and Nays: 342 - 92 (Roll no. 38).",
+      "type": "Floor",
+      "actionCode": "8000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-02-08",
+      "text": "Considered as unfinished business. (consideration: CR H1056-1057)",
+      "type": "Floor",
+      "actionCode": "H30000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-02-08",
+      "text": "POSTPONED PROCEEDINGS - At the conclusion of debate, the Chair put the question on passage and by voice vote, announced the ayes had prevailed. Mr. Comer demanded the yeas and nays and the Chair announced that further proceedings on the question of passage would be postponed.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-02-08",
+      "text": "DEBATE - Pursuant to the provisions of H. Res. 912, the House proceeded with 10 minutes of debate on the Carolyn B. Maloney amendment.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-02-08",
+      "text": "DEBATE - The House proceeded with one hour of debate on H.R. 3076.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-02-08",
+      "text": "Rule provides for consideration of H.R. 3076 and H.R. 6617. The resolution provides for one hour of general debate for both bills. H.R. 6617 is being considered under a closed rule and H.R. 3076 is being considered under a structured rule. The resolution provides that H. Con. Res. 69 is considered adopted and provides that for purposes of the joint session to receive the President of the United States on March 1, 2022, former Members, Delegates, and Resident Commissioners shall not be admitted to the Hall of the House or rooms leading thereto.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-02-08",
+      "text": "Considered under the provisions of rule H. Res. 912. (consideration: CR H1033-1051; text: CR H1033-1039)",
+      "type": "Floor",
+      "actionCode": "H30000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-02-07",
+      "text": "Rules Committee Resolution H. Res. 912 Reported to House. Rule provides for consideration of H.R. 3076 and H.R. 6617. The resolution provides for one hour of general debate for both bills. H.R. 6617 is being considered under a closed rule and H.R. 3076 is being considered under a structured rule. The resolution provides that H. Con. Res. 69 is considered adopted and provides that for purposes of the joint session to receive the President of the United States on March 1, 2022, former Members, Delegates, and Resident Commissioners shall not be admitted to the Hall of the House or rooms leading thereto.",
+      "type": "Floor",
+      "actionCode": "H1L210",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-02-01",
+      "text": "Placed on the Union Calendar, Calendar No. 171.",
+      "type": "Calendars",
+      "actionCode": "H12410",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-02-01",
+      "text": "Committee on Ways and Means discharged.",
+      "type": "Discharge",
+      "actionCode": "H12300",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-02-01",
+      "text": "Committee on Ways and Means discharged.",
+      "type": "Committee",
+      "actionCode": "5500",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-02-01",
+      "text": "Committee on Energy and Commerce discharged.",
+      "type": "Discharge",
+      "actionCode": "H12300",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-02-01",
+      "text": "Committee on Energy and Commerce discharged.",
+      "type": "Committee",
+      "actionCode": "5500",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-01-21",
+      "text": "House Committee on Ways and Means Granted an extension for further consideration ending not later than March 18, 2022.",
+      "type": "IntroReferral",
+      "actionCode": "H11210",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-01-21",
+      "text": "House Committee on Energy and Commerce Granted an extension for further consideration ending not later than March 18, 2022.",
+      "type": "IntroReferral",
+      "actionCode": "H11210",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-12-03",
+      "text": "House Committee on Ways and Means Granted an extension for further consideration ending not later than Jan. 21, 2022.",
+      "type": "IntroReferral",
+      "actionCode": "H11210",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-12-03",
+      "text": "House Committee on Energy and Commerce Granted an extension for further consideration ending not later than Jan. 21, 2022.",
+      "type": "IntroReferral",
+      "actionCode": "H11210",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-11-18",
+      "text": "House Committee on Ways and Means Granted an extension for further consideration ending not later than Dec. 3, 2021.",
+      "type": "IntroReferral",
+      "actionCode": "H11210",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-11-18",
+      "text": "House Committee on Energy and Commerce Granted an extension for further consideration ending not later than Dec. 3, 2021.",
+      "type": "IntroReferral",
+      "actionCode": "H11210",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-11-04",
+      "text": "House Committee on Ways and Means Granted an extension for further consideration ending not later than Nov. 18, 2021.",
+      "type": "IntroReferral",
+      "actionCode": "H11210",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-11-04",
+      "text": "House Committee on Energy and Commerce Granted an extension for further consideration ending not later than Nov. 18, 2021.",
+      "type": "IntroReferral",
+      "actionCode": "H11210",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-09-30",
+      "text": "House Committee on Ways and Means Granted an extension for further consideration ending not later than Nov. 8, 2021.",
+      "type": "IntroReferral",
+      "actionCode": "H11210",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-09-30",
+      "text": "House Committee on Energy and Commerce Granted an extension for further consideration ending not later than Nov. 8, 2021.",
+      "type": "IntroReferral",
+      "actionCode": "H11210",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-21",
+      "text": "Supplemental report filed by the Committee on Oversight and Reform, H. Rept. 117-89, Part II.",
+      "type": "Committee",
+      "actionCode": "H12210",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-21",
+      "text": "Supplemental report filed by the Committee on Oversight and Reform, H. Rept. 117-89, Part II.",
+      "type": "Committee",
+      "actionCode": "5000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2021-07-16",
+      "text": "House Committee on Ways and Means Granted an extension for further consideration ending not later than Sept. 30, 2021.",
+      "type": "IntroReferral",
+      "actionCode": "H11210",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-16",
+      "text": "House Committee on Energy and Commerce Granted an extension for further consideration ending not later than Sept. 30, 2021.",
+      "type": "IntroReferral",
+      "actionCode": "H11210",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-16",
+      "text": "Reported (Amended) by the Committee on Oversight and Reform. H. Rept. 117-89, Part I.",
+      "type": "Committee",
+      "actionCode": "H12200",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-16",
+      "text": "Reported (Amended) by the Committee on Oversight and Reform. H. Rept. 117-89, Part I.",
+      "type": "Committee",
+      "actionCode": "5000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2021-05-13",
+      "text": "Ordered to be Reported in the Nature of a Substitute (Amended) by Voice Vote.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2021-05-13",
+      "text": "Committee Consideration and Mark-up Session Held.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2021-05-12",
+      "text": "Referred to the Subcommittee on Health.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2021-05-11",
+      "text": "Referred to the Committee on Oversight and Reform, and in addition to the Committees on Energy and Commerce, and Ways and Means, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-05-11",
+      "text": "Referred to the Committee on Oversight and Reform, and in addition to the Committees on Energy and Commerce, and Ways and Means, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-05-11",
+      "text": "Referred to the Committee on Oversight and Reform, and in addition to the Committees on Energy and Commerce, and Ways and Means, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-05-11",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2021-05-11",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "enacted",
+    "public_law": "PL 117-108",
+    "events": [
+      {
+        "event": "passed_senate",
+        "date": "2022-03-08",
+        "evidence": "Passed Senate without amendment by Yea-Nay Vote. 79 - 19. Record Vote Number: 71."
+      },
+      {
+        "event": "passed_house",
+        "date": "2022-02-08",
+        "evidence": "On passage Passed by the Yeas and Nays: 342 - 92 (Roll no. 38)."
+      }
+    ],
+    "latest_action": {
+      "actionDate": "2022-04-06",
+      "text": "Became Public Law No: 117-108."
+    }
+  },
+  "votes": [
+    {
+      "chamber": "Senate",
+      "congress": 117,
+      "session": 2,
+      "roll_number": 71,
+      "date": "2022-03-08T23:23:13Z",
+      "question": "On Passage of the Bill H.R. 3076",
+      "result": "Bill Passed",
+      "vote_type": "passage",
+      "source_url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1172/vote_117_2_00071.xml",
+      "totals_by_party": {
+        "D": {
+          "yea": 48,
+          "nay": 0,
+          "present": 0,
+          "not_voting": 0
+        },
+        "R": {
+          "yea": 29,
+          "nay": 19,
+          "present": 0,
+          "not_voting": 2
+        },
+        "I": {
+          "yea": 2,
+          "nay": 0,
+          "present": 0,
+          "not_voting": 0
+        }
+      },
+      "yea_total": 79,
+      "nay_total": 19,
+      "bipartisan_support": 0.6042,
+      "bipartisan_label": "bipartisan",
+      "members": [
+        {
+          "name": "Baldwin (D-WI)",
+          "lis_member_id": "S354",
+          "party": "D",
+          "state": "WI",
+          "position": "yea"
+        },
+        {
+          "name": "Barrasso (R-WY)",
+          "lis_member_id": "S317",
+          "party": "R",
+          "state": "WY",
+          "position": "yea"
+        },
+        {
+          "name": "Bennet (D-CO)",
+          "lis_member_id": "S330",
+          "party": "D",
+          "state": "CO",
+          "position": "yea"
+        },
+        {
+          "name": "Blackburn (R-TN)",
+          "lis_member_id": "S396",
+          "party": "R",
+          "state": "TN",
+          "position": "nay"
+        },
+        {
+          "name": "Blumenthal (D-CT)",
+          "lis_member_id": "S341",
+          "party": "D",
+          "state": "CT",
+          "position": "yea"
+        },
+        {
+          "name": "Blunt (R-MO)",
+          "lis_member_id": "S342",
+          "party": "R",
+          "state": "MO",
+          "position": "yea"
+        },
+        {
+          "name": "Booker (D-NJ)",
+          "lis_member_id": "S370",
+          "party": "D",
+          "state": "NJ",
+          "position": "yea"
+        },
+        {
+          "name": "Boozman (R-AR)",
+          "lis_member_id": "S343",
+          "party": "R",
+          "state": "AR",
+          "position": "yea"
+        },
+        {
+          "name": "Braun (R-IN)",
+          "lis_member_id": "S397",
+          "party": "R",
+          "state": "IN",
+          "position": "nay"
+        },
+        {
+          "name": "Brown (D-OH)",
+          "lis_member_id": "S307",
+          "party": "D",
+          "state": "OH",
+          "position": "yea"
+        },
+        {
+          "name": "Burr (R-NC)",
+          "lis_member_id": "S300",
+          "party": "R",
+          "state": "NC",
+          "position": "yea"
+        },
+        {
+          "name": "Cantwell (D-WA)",
+          "lis_member_id": "S275",
+          "party": "D",
+          "state": "WA",
+          "position": "yea"
+        },
+        {
+          "name": "Capito (R-WV)",
+          "lis_member_id": "S372",
+          "party": "R",
+          "state": "WV",
+          "position": "yea"
+        },
+        {
+          "name": "Cardin (D-MD)",
+          "lis_member_id": "S308",
+          "party": "D",
+          "state": "MD",
+          "position": "yea"
+        },
+        {
+          "name": "Carper (D-DE)",
+          "lis_member_id": "S277",
+          "party": "D",
+          "state": "DE",
+          "position": "yea"
+        },
+        {
+          "name": "Casey (D-PA)",
+          "lis_member_id": "S309",
+          "party": "D",
+          "state": "PA",
+          "position": "yea"
+        },
+        {
+          "name": "Cassidy (R-LA)",
+          "lis_member_id": "S373",
+          "party": "R",
+          "state": "LA",
+          "position": "yea"
+        },
+        {
+          "name": "Collins (R-ME)",
+          "lis_member_id": "S252",
+          "party": "R",
+          "state": "ME",
+          "position": "yea"
+        },
+        {
+          "name": "Coons (D-DE)",
+          "lis_member_id": "S337",
+          "party": "D",
+          "state": "DE",
+          "position": "yea"
+        },
+        {
+          "name": "Cornyn (R-TX)",
+          "lis_member_id": "S287",
+          "party": "R",
+          "state": "TX",
+          "position": "nay"
+        },
+        {
+          "name": "Cortez Masto (D-NV)",
+          "lis_member_id": "S385",
+          "party": "D",
+          "state": "NV",
+          "position": "yea"
+        },
+        {
+          "name": "Cotton (R-AR)",
+          "lis_member_id": "S374",
+          "party": "R",
+          "state": "AR",
+          "position": "yea"
+        },
+        {
+          "name": "Cramer (R-ND)",
+          "lis_member_id": "S398",
+          "party": "R",
+          "state": "ND",
+          "position": "yea"
+        },
+        {
+          "name": "Crapo (R-ID)",
+          "lis_member_id": "S266",
+          "party": "R",
+          "state": "ID",
+          "position": "nay"
+        },
+        {
+          "name": "Cruz (R-TX)",
+          "lis_member_id": "S355",
+          "party": "R",
+          "state": "TX",
+          "position": "nay"
+        },
+        {
+          "name": "Daines (R-MT)",
+          "lis_member_id": "S375",
+          "party": "R",
+          "state": "MT",
+          "position": "yea"
+        },
+        {
+          "name": "Duckworth (D-IL)",
+          "lis_member_id": "S386",
+          "party": "D",
+          "state": "IL",
+          "position": "yea"
+        },
+        {
+          "name": "Durbin (D-IL)",
+          "lis_member_id": "S253",
+          "party": "D",
+          "state": "IL",
+          "position": "yea"
+        },
+        {
+          "name": "Ernst (R-IA)",
+          "lis_member_id": "S376",
+          "party": "R",
+          "state": "IA",
+          "position": "yea"
+        },
+        {
+          "name": "Feinstein (D-CA)",
+          "lis_member_id": "S221",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Fischer (R-NE)",
+          "lis_member_id": "S357",
+          "party": "R",
+          "state": "NE",
+          "position": "yea"
+        },
+        {
+          "name": "Gillibrand (D-NY)",
+          "lis_member_id": "S331",
+          "party": "D",
+          "state": "NY",
+          "position": "yea"
+        },
+        {
+          "name": "Graham (R-SC)",
+          "lis_member_id": "S293",
+          "party": "R",
+          "state": "SC",
+          "position": "yea"
+        },
+        {
+          "name": "Grassley (R-IA)",
+          "lis_member_id": "S153",
+          "party": "R",
+          "state": "IA",
+          "position": "yea"
+        },
+        {
+          "name": "Hagerty (R-TN)",
+          "lis_member_id": "S407",
+          "party": "R",
+          "state": "TN",
+          "position": "not_voting"
+        },
+        {
+          "name": "Hassan (D-NH)",
+          "lis_member_id": "S388",
+          "party": "D",
+          "state": "NH",
+          "position": "yea"
+        },
+        {
+          "name": "Hawley (R-MO)",
+          "lis_member_id": "S399",
+          "party": "R",
+          "state": "MO",
+          "position": "yea"
+        },
+        {
+          "name": "Heinrich (D-NM)",
+          "lis_member_id": "S359",
+          "party": "D",
+          "state": "NM",
+          "position": "yea"
+        },
+        {
+          "name": "Hickenlooper (D-CO)",
+          "lis_member_id": "S408",
+          "party": "D",
+          "state": "CO",
+          "position": "yea"
+        },
+        {
+          "name": "Hirono (D-HI)",
+          "lis_member_id": "S361",
+          "party": "D",
+          "state": "HI",
+          "position": "yea"
+        },
+        {
+          "name": "Hoeven (R-ND)",
+          "lis_member_id": "S344",
+          "party": "R",
+          "state": "ND",
+          "position": "yea"
+        },
+        {
+          "name": "Hyde-Smith (R-MS)",
+          "lis_member_id": "S395",
+          "party": "R",
+          "state": "MS",
+          "position": "nay"
+        },
+        {
+          "name": "Inhofe (R-OK)",
+          "lis_member_id": "S236",
+          "party": "R",
+          "state": "OK",
+          "position": "not_voting"
+        },
+        {
+          "name": "Johnson (R-WI)",
+          "lis_member_id": "S345",
+          "party": "R",
+          "state": "WI",
+          "position": "nay"
+        },
+        {
+          "name": "Kaine (D-VA)",
+          "lis_member_id": "S362",
+          "party": "D",
+          "state": "VA",
+          "position": "yea"
+        },
+        {
+          "name": "Kelly (D-AZ)",
+          "lis_member_id": "S406",
+          "party": "D",
+          "state": "AZ",
+          "position": "yea"
+        },
+        {
+          "name": "Kennedy (R-LA)",
+          "lis_member_id": "S389",
+          "party": "R",
+          "state": "LA",
+          "position": "yea"
+        },
+        {
+          "name": "King (I-ME)",
+          "lis_member_id": "S363",
+          "party": "I",
+          "state": "ME",
+          "position": "yea"
+        },
+        {
+          "name": "Klobuchar (D-MN)",
+          "lis_member_id": "S311",
+          "party": "D",
+          "state": "MN",
+          "position": "yea"
+        },
+        {
+          "name": "Lankford (R-OK)",
+          "lis_member_id": "S378",
+          "party": "R",
+          "state": "OK",
+          "position": "nay"
+        },
+        {
+          "name": "Leahy (D-VT)",
+          "lis_member_id": "S057",
+          "party": "D",
+          "state": "VT",
+          "position": "yea"
+        },
+        {
+          "name": "Lee (R-UT)",
+          "lis_member_id": "S346",
+          "party": "R",
+          "state": "UT",
+          "position": "nay"
+        },
+        {
+          "name": "Lujan (D-NM)",
+          "lis_member_id": "S409",
+          "party": "D",
+          "state": "NM",
+          "position": "yea"
+        },
+        {
+          "name": "Lummis (R-WY)",
+          "lis_member_id": "S410",
+          "party": "R",
+          "state": "WY",
+          "position": "yea"
+        },
+        {
+          "name": "Manchin (D-WV)",
+          "lis_member_id": "S338",
+          "party": "D",
+          "state": "WV",
+          "position": "yea"
+        },
+        {
+          "name": "Markey (D-MA)",
+          "lis_member_id": "S369",
+          "party": "D",
+          "state": "MA",
+          "position": "yea"
+        },
+        {
+          "name": "Marshall (R-KS)",
+          "lis_member_id": "S411",
+          "party": "R",
+          "state": "KS",
+          "position": "yea"
+        },
+        {
+          "name": "McConnell (R-KY)",
+          "lis_member_id": "S174",
+          "party": "R",
+          "state": "KY",
+          "position": "yea"
+        },
+        {
+          "name": "Menendez (D-NJ)",
+          "lis_member_id": "S306",
+          "party": "D",
+          "state": "NJ",
+          "position": "yea"
+        },
+        {
+          "name": "Merkley (D-OR)",
+          "lis_member_id": "S322",
+          "party": "D",
+          "state": "OR",
+          "position": "yea"
+        },
+        {
+          "name": "Moran (R-KS)",
+          "lis_member_id": "S347",
+          "party": "R",
+          "state": "KS",
+          "position": "yea"
+        },
+        {
+          "name": "Murkowski (R-AK)",
+          "lis_member_id": "S288",
+          "party": "R",
+          "state": "AK",
+          "position": "yea"
+        },
+        {
+          "name": "Murphy (D-CT)",
+          "lis_member_id": "S364",
+          "party": "D",
+          "state": "CT",
+          "position": "yea"
+        },
+        {
+          "name": "Murray (D-WA)",
+          "lis_member_id": "S229",
+          "party": "D",
+          "state": "WA",
+          "position": "yea"
+        },
+        {
+          "name": "Ossoff (D-GA)",
+          "lis_member_id": "S414",
+          "party": "D",
+          "state": "GA",
+          "position": "yea"
+        },
+        {
+          "name": "Padilla (D-CA)",
+          "lis_member_id": "S413",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Paul (R-KY)",
+          "lis_member_id": "S348",
+          "party": "R",
+          "state": "KY",
+          "position": "nay"
+        },
+        {
+          "name": "Peters (D-MI)",
+          "lis_member_id": "S380",
+          "party": "D",
+          "state": "MI",
+          "position": "yea"
+        },
+        {
+          "name": "Portman (R-OH)",
+          "lis_member_id": "S349",
+          "party": "R",
+          "state": "OH",
+          "position": "yea"
+        },
+        {
+          "name": "Reed (D-RI)",
+          "lis_member_id": "S259",
+          "party": "D",
+          "state": "RI",
+          "position": "yea"
+        },
+        {
+          "name": "Risch (R-ID)",
+          "lis_member_id": "S323",
+          "party": "R",
+          "state": "ID",
+          "position": "nay"
+        },
+        {
+          "name": "Romney (R-UT)",
+          "lis_member_id": "S401",
+          "party": "R",
+          "state": "UT",
+          "position": "nay"
+        },
+        {
+          "name": "Rosen (D-NV)",
+          "lis_member_id": "S402",
+          "party": "D",
+          "state": "NV",
+          "position": "yea"
+        },
+        {
+          "name": "Rounds (R-SD)",
+          "lis_member_id": "S381",
+          "party": "R",
+          "state": "SD",
+          "position": "yea"
+        },
+        {
+          "name": "Rubio (R-FL)",
+          "lis_member_id": "S350",
+          "party": "R",
+          "state": "FL",
+          "position": "nay"
+        },
+        {
+          "name": "Sanders (I-VT)",
+          "lis_member_id": "S313",
+          "party": "I",
+          "state": "VT",
+          "position": "yea"
+        },
+        {
+          "name": "Sasse (R-NE)",
+          "lis_member_id": "S382",
+          "party": "R",
+          "state": "NE",
+          "position": "nay"
+        },
+        {
+          "name": "Schatz (D-HI)",
+          "lis_member_id": "S353",
+          "party": "D",
+          "state": "HI",
+          "position": "yea"
+        },
+        {
+          "name": "Schumer (D-NY)",
+          "lis_member_id": "S270",
+          "party": "D",
+          "state": "NY",
+          "position": "yea"
+        },
+        {
+          "name": "Scott (R-FL)",
+          "lis_member_id": "S404",
+          "party": "R",
+          "state": "FL",
+          "position": "nay"
+        },
+        {
+          "name": "Scott (R-SC)",
+          "lis_member_id": "S365",
+          "party": "R",
+          "state": "SC",
+          "position": "nay"
+        },
+        {
+          "name": "Shaheen (D-NH)",
+          "lis_member_id": "S324",
+          "party": "D",
+          "state": "NH",
+          "position": "yea"
+        },
+        {
+          "name": "Shelby (R-AL)",
+          "lis_member_id": "S184",
+          "party": "R",
+          "state": "AL",
+          "position": "nay"
+        },
+        {
+          "name": "Sinema (D-AZ)",
+          "lis_member_id": "S403",
+          "party": "D",
+          "state": "AZ",
+          "position": "yea"
+        },
+        {
+          "name": "Smith (D-MN)",
+          "lis_member_id": "S394",
+          "party": "D",
+          "state": "MN",
+          "position": "yea"
+        },
+        {
+          "name": "Stabenow (D-MI)",
+          "lis_member_id": "S284",
+          "party": "D",
+          "state": "MI",
+          "position": "yea"
+        },
+        {
+          "name": "Sullivan (R-AK)",
+          "lis_member_id": "S383",
+          "party": "R",
+          "state": "AK",
+          "position": "yea"
+        },
+        {
+          "name": "Tester (D-MT)",
+          "lis_member_id": "S314",
+          "party": "D",
+          "state": "MT",
+          "position": "yea"
+        },
+        {
+          "name": "Thune (R-SD)",
+          "lis_member_id": "S303",
+          "party": "R",
+          "state": "SD",
+          "position": "yea"
+        },
+        {
+          "name": "Tillis (R-NC)",
+          "lis_member_id": "S384",
+          "party": "R",
+          "state": "NC",
+          "position": "yea"
+        },
+        {
+          "name": "Toomey (R-PA)",
+          "lis_member_id": "S351",
+          "party": "R",
+          "state": "PA",
+          "position": "nay"
+        },
+        {
+          "name": "Tuberville (R-AL)",
+          "lis_member_id": "S412",
+          "party": "R",
+          "state": "AL",
+          "position": "nay"
+        },
+        {
+          "name": "Van Hollen (D-MD)",
+          "lis_member_id": "S390",
+          "party": "D",
+          "state": "MD",
+          "position": "yea"
+        },
+        {
+          "name": "Warner (D-VA)",
+          "lis_member_id": "S327",
+          "party": "D",
+          "state": "VA",
+          "position": "yea"
+        },
+        {
+          "name": "Warnock (D-GA)",
+          "lis_member_id": "S415",
+          "party": "D",
+          "state": "GA",
+          "position": "yea"
+        },
+        {
+          "name": "Warren (D-MA)",
+          "lis_member_id": "S366",
+          "party": "D",
+          "state": "MA",
+          "position": "yea"
+        },
+        {
+          "name": "Whitehouse (D-RI)",
+          "lis_member_id": "S316",
+          "party": "D",
+          "state": "RI",
+          "position": "yea"
+        },
+        {
+          "name": "Wicker (R-MS)",
+          "lis_member_id": "S318",
+          "party": "R",
+          "state": "MS",
+          "position": "yea"
+        },
+        {
+          "name": "Wyden (D-OR)",
+          "lis_member_id": "S247",
+          "party": "D",
+          "state": "OR",
+          "position": "yea"
+        },
+        {
+          "name": "Young (R-IN)",
+          "lis_member_id": "S391",
+          "party": "R",
+          "state": "IN",
+          "position": "yea"
+        }
+      ]
+    },
+    {
+      "chamber": "Senate",
+      "congress": 117,
+      "session": 2,
+      "roll_number": 70,
+      "date": "2022-03-08T22:45:05Z",
+      "question": "On the Motion (Motion to Waive Sect. 3101 (b) of S. Con. Res. 11 (114th Congress))",
+      "result": "Motion Agreed to",
+      "vote_type": "procedural",
+      "source_url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1172/vote_117_2_00070.xml",
+      "totals_by_party": {
+        "D": {
+          "yea": 48,
+          "nay": 0,
+          "present": 0,
+          "not_voting": 0
+        },
+        "R": {
+          "yea": 18,
+          "nay": 30,
+          "present": 0,
+          "not_voting": 2
+        },
+        "I": {
+          "yea": 2,
+          "nay": 0,
+          "present": 0,
+          "not_voting": 0
+        }
+      },
+      "yea_total": 68,
+      "nay_total": 30,
+      "bipartisan_support": 0.375,
+      "bipartisan_label": "cross_party",
+      "members": []
+    },
+    {
+      "chamber": "Senate",
+      "congress": 117,
+      "session": 2,
+      "roll_number": 69,
+      "date": "2022-03-07T23:35:09Z",
+      "question": "On the Cloture Motion H.R. 3076",
+      "result": "Cloture Motion Agreed to",
+      "vote_type": "cloture",
+      "source_url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1172/vote_117_2_00069.xml",
+      "totals_by_party": {
+        "D": {
+          "yea": 47,
+          "nay": 0,
+          "present": 0,
+          "not_voting": 1
+        },
+        "R": {
+          "yea": 25,
+          "nay": 17,
+          "present": 0,
+          "not_voting": 8
+        },
+        "I": {
+          "yea": 2,
+          "nay": 0,
+          "present": 0,
+          "not_voting": 0
+        }
+      },
+      "yea_total": 74,
+      "nay_total": 17,
+      "bipartisan_support": 0.5952,
+      "bipartisan_label": "bipartisan",
+      "members": [
+        {
+          "name": "Baldwin (D-WI)",
+          "lis_member_id": "S354",
+          "party": "D",
+          "state": "WI",
+          "position": "yea"
+        },
+        {
+          "name": "Barrasso (R-WY)",
+          "lis_member_id": "S317",
+          "party": "R",
+          "state": "WY",
+          "position": "nay"
+        },
+        {
+          "name": "Bennet (D-CO)",
+          "lis_member_id": "S330",
+          "party": "D",
+          "state": "CO",
+          "position": "yea"
+        },
+        {
+          "name": "Blackburn (R-TN)",
+          "lis_member_id": "S396",
+          "party": "R",
+          "state": "TN",
+          "position": "nay"
+        },
+        {
+          "name": "Blumenthal (D-CT)",
+          "lis_member_id": "S341",
+          "party": "D",
+          "state": "CT",
+          "position": "yea"
+        },
+        {
+          "name": "Blunt (R-MO)",
+          "lis_member_id": "S342",
+          "party": "R",
+          "state": "MO",
+          "position": "yea"
+        },
+        {
+          "name": "Booker (D-NJ)",
+          "lis_member_id": "S370",
+          "party": "D",
+          "state": "NJ",
+          "position": "yea"
+        },
+        {
+          "name": "Boozman (R-AR)",
+          "lis_member_id": "S343",
+          "party": "R",
+          "state": "AR",
+          "position": "yea"
+        },
+        {
+          "name": "Braun (R-IN)",
+          "lis_member_id": "S397",
+          "party": "R",
+          "state": "IN",
+          "position": "nay"
+        },
+        {
+          "name": "Brown (D-OH)",
+          "lis_member_id": "S307",
+          "party": "D",
+          "state": "OH",
+          "position": "yea"
+        },
+        {
+          "name": "Burr (R-NC)",
+          "lis_member_id": "S300",
+          "party": "R",
+          "state": "NC",
+          "position": "yea"
+        },
+        {
+          "name": "Cantwell (D-WA)",
+          "lis_member_id": "S275",
+          "party": "D",
+          "state": "WA",
+          "position": "yea"
+        },
+        {
+          "name": "Capito (R-WV)",
+          "lis_member_id": "S372",
+          "party": "R",
+          "state": "WV",
+          "position": "yea"
+        },
+        {
+          "name": "Cardin (D-MD)",
+          "lis_member_id": "S308",
+          "party": "D",
+          "state": "MD",
+          "position": "yea"
+        },
+        {
+          "name": "Carper (D-DE)",
+          "lis_member_id": "S277",
+          "party": "D",
+          "state": "DE",
+          "position": "yea"
+        },
+        {
+          "name": "Casey (D-PA)",
+          "lis_member_id": "S309",
+          "party": "D",
+          "state": "PA",
+          "position": "yea"
+        },
+        {
+          "name": "Cassidy (R-LA)",
+          "lis_member_id": "S373",
+          "party": "R",
+          "state": "LA",
+          "position": "yea"
+        },
+        {
+          "name": "Collins (R-ME)",
+          "lis_member_id": "S252",
+          "party": "R",
+          "state": "ME",
+          "position": "yea"
+        },
+        {
+          "name": "Coons (D-DE)",
+          "lis_member_id": "S337",
+          "party": "D",
+          "state": "DE",
+          "position": "yea"
+        },
+        {
+          "name": "Cornyn (R-TX)",
+          "lis_member_id": "S287",
+          "party": "R",
+          "state": "TX",
+          "position": "nay"
+        },
+        {
+          "name": "Cortez Masto (D-NV)",
+          "lis_member_id": "S385",
+          "party": "D",
+          "state": "NV",
+          "position": "yea"
+        },
+        {
+          "name": "Cotton (R-AR)",
+          "lis_member_id": "S374",
+          "party": "R",
+          "state": "AR",
+          "position": "not_voting"
+        },
+        {
+          "name": "Cramer (R-ND)",
+          "lis_member_id": "S398",
+          "party": "R",
+          "state": "ND",
+          "position": "yea"
+        },
+        {
+          "name": "Crapo (R-ID)",
+          "lis_member_id": "S266",
+          "party": "R",
+          "state": "ID",
+          "position": "nay"
+        },
+        {
+          "name": "Cruz (R-TX)",
+          "lis_member_id": "S355",
+          "party": "R",
+          "state": "TX",
+          "position": "nay"
+        },
+        {
+          "name": "Daines (R-MT)",
+          "lis_member_id": "S375",
+          "party": "R",
+          "state": "MT",
+          "position": "yea"
+        },
+        {
+          "name": "Duckworth (D-IL)",
+          "lis_member_id": "S386",
+          "party": "D",
+          "state": "IL",
+          "position": "yea"
+        },
+        {
+          "name": "Durbin (D-IL)",
+          "lis_member_id": "S253",
+          "party": "D",
+          "state": "IL",
+          "position": "yea"
+        },
+        {
+          "name": "Ernst (R-IA)",
+          "lis_member_id": "S376",
+          "party": "R",
+          "state": "IA",
+          "position": "yea"
+        },
+        {
+          "name": "Feinstein (D-CA)",
+          "lis_member_id": "S221",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Fischer (R-NE)",
+          "lis_member_id": "S357",
+          "party": "R",
+          "state": "NE",
+          "position": "yea"
+        },
+        {
+          "name": "Gillibrand (D-NY)",
+          "lis_member_id": "S331",
+          "party": "D",
+          "state": "NY",
+          "position": "yea"
+        },
+        {
+          "name": "Graham (R-SC)",
+          "lis_member_id": "S293",
+          "party": "R",
+          "state": "SC",
+          "position": "yea"
+        },
+        {
+          "name": "Grassley (R-IA)",
+          "lis_member_id": "S153",
+          "party": "R",
+          "state": "IA",
+          "position": "yea"
+        },
+        {
+          "name": "Hagerty (R-TN)",
+          "lis_member_id": "S407",
+          "party": "R",
+          "state": "TN",
+          "position": "nay"
+        },
+        {
+          "name": "Hassan (D-NH)",
+          "lis_member_id": "S388",
+          "party": "D",
+          "state": "NH",
+          "position": "yea"
+        },
+        {
+          "name": "Hawley (R-MO)",
+          "lis_member_id": "S399",
+          "party": "R",
+          "state": "MO",
+          "position": "yea"
+        },
+        {
+          "name": "Heinrich (D-NM)",
+          "lis_member_id": "S359",
+          "party": "D",
+          "state": "NM",
+          "position": "yea"
+        },
+        {
+          "name": "Hickenlooper (D-CO)",
+          "lis_member_id": "S408",
+          "party": "D",
+          "state": "CO",
+          "position": "yea"
+        },
+        {
+          "name": "Hirono (D-HI)",
+          "lis_member_id": "S361",
+          "party": "D",
+          "state": "HI",
+          "position": "yea"
+        },
+        {
+          "name": "Hoeven (R-ND)",
+          "lis_member_id": "S344",
+          "party": "R",
+          "state": "ND",
+          "position": "yea"
+        },
+        {
+          "name": "Hyde-Smith (R-MS)",
+          "lis_member_id": "S395",
+          "party": "R",
+          "state": "MS",
+          "position": "yea"
+        },
+        {
+          "name": "Inhofe (R-OK)",
+          "lis_member_id": "S236",
+          "party": "R",
+          "state": "OK",
+          "position": "not_voting"
+        },
+        {
+          "name": "Johnson (R-WI)",
+          "lis_member_id": "S345",
+          "party": "R",
+          "state": "WI",
+          "position": "nay"
+        },
+        {
+          "name": "Kaine (D-VA)",
+          "lis_member_id": "S362",
+          "party": "D",
+          "state": "VA",
+          "position": "yea"
+        },
+        {
+          "name": "Kelly (D-AZ)",
+          "lis_member_id": "S406",
+          "party": "D",
+          "state": "AZ",
+          "position": "yea"
+        },
+        {
+          "name": "Kennedy (R-LA)",
+          "lis_member_id": "S389",
+          "party": "R",
+          "state": "LA",
+          "position": "not_voting"
+        },
+        {
+          "name": "King (I-ME)",
+          "lis_member_id": "S363",
+          "party": "I",
+          "state": "ME",
+          "position": "yea"
+        },
+        {
+          "name": "Klobuchar (D-MN)",
+          "lis_member_id": "S311",
+          "party": "D",
+          "state": "MN",
+          "position": "yea"
+        },
+        {
+          "name": "Lankford (R-OK)",
+          "lis_member_id": "S378",
+          "party": "R",
+          "state": "OK",
+          "position": "not_voting"
+        },
+        {
+          "name": "Leahy (D-VT)",
+          "lis_member_id": "S057",
+          "party": "D",
+          "state": "VT",
+          "position": "yea"
+        },
+        {
+          "name": "Lee (R-UT)",
+          "lis_member_id": "S346",
+          "party": "R",
+          "state": "UT",
+          "position": "nay"
+        },
+        {
+          "name": "Lujan (D-NM)",
+          "lis_member_id": "S409",
+          "party": "D",
+          "state": "NM",
+          "position": "yea"
+        },
+        {
+          "name": "Lummis (R-WY)",
+          "lis_member_id": "S410",
+          "party": "R",
+          "state": "WY",
+          "position": "nay"
+        },
+        {
+          "name": "Manchin (D-WV)",
+          "lis_member_id": "S338",
+          "party": "D",
+          "state": "WV",
+          "position": "yea"
+        },
+        {
+          "name": "Markey (D-MA)",
+          "lis_member_id": "S369",
+          "party": "D",
+          "state": "MA",
+          "position": "yea"
+        },
+        {
+          "name": "Marshall (R-KS)",
+          "lis_member_id": "S411",
+          "party": "R",
+          "state": "KS",
+          "position": "yea"
+        },
+        {
+          "name": "McConnell (R-KY)",
+          "lis_member_id": "S174",
+          "party": "R",
+          "state": "KY",
+          "position": "yea"
+        },
+        {
+          "name": "Menendez (D-NJ)",
+          "lis_member_id": "S306",
+          "party": "D",
+          "state": "NJ",
+          "position": "yea"
+        },
+        {
+          "name": "Merkley (D-OR)",
+          "lis_member_id": "S322",
+          "party": "D",
+          "state": "OR",
+          "position": "yea"
+        },
+        {
+          "name": "Moran (R-KS)",
+          "lis_member_id": "S347",
+          "party": "R",
+          "state": "KS",
+          "position": "yea"
+        },
+        {
+          "name": "Murkowski (R-AK)",
+          "lis_member_id": "S288",
+          "party": "R",
+          "state": "AK",
+          "position": "yea"
+        },
+        {
+          "name": "Murphy (D-CT)",
+          "lis_member_id": "S364",
+          "party": "D",
+          "state": "CT",
+          "position": "yea"
+        },
+        {
+          "name": "Murray (D-WA)",
+          "lis_member_id": "S229",
+          "party": "D",
+          "state": "WA",
+          "position": "yea"
+        },
+        {
+          "name": "Ossoff (D-GA)",
+          "lis_member_id": "S414",
+          "party": "D",
+          "state": "GA",
+          "position": "yea"
+        },
+        {
+          "name": "Padilla (D-CA)",
+          "lis_member_id": "S413",
+          "party": "D",
+          "state": "CA",
+          "position": "not_voting"
+        },
+        {
+          "name": "Paul (R-KY)",
+          "lis_member_id": "S348",
+          "party": "R",
+          "state": "KY",
+          "position": "not_voting"
+        },
+        {
+          "name": "Peters (D-MI)",
+          "lis_member_id": "S380",
+          "party": "D",
+          "state": "MI",
+          "position": "yea"
+        },
+        {
+          "name": "Portman (R-OH)",
+          "lis_member_id": "S349",
+          "party": "R",
+          "state": "OH",
+          "position": "yea"
+        },
+        {
+          "name": "Reed (D-RI)",
+          "lis_member_id": "S259",
+          "party": "D",
+          "state": "RI",
+          "position": "yea"
+        },
+        {
+          "name": "Risch (R-ID)",
+          "lis_member_id": "S323",
+          "party": "R",
+          "state": "ID",
+          "position": "nay"
+        },
+        {
+          "name": "Romney (R-UT)",
+          "lis_member_id": "S401",
+          "party": "R",
+          "state": "UT",
+          "position": "nay"
+        },
+        {
+          "name": "Rosen (D-NV)",
+          "lis_member_id": "S402",
+          "party": "D",
+          "state": "NV",
+          "position": "yea"
+        },
+        {
+          "name": "Rounds (R-SD)",
+          "lis_member_id": "S381",
+          "party": "R",
+          "state": "SD",
+          "position": "yea"
+        },
+        {
+          "name": "Rubio (R-FL)",
+          "lis_member_id": "S350",
+          "party": "R",
+          "state": "FL",
+          "position": "nay"
+        },
+        {
+          "name": "Sanders (I-VT)",
+          "lis_member_id": "S313",
+          "party": "I",
+          "state": "VT",
+          "position": "yea"
+        },
+        {
+          "name": "Sasse (R-NE)",
+          "lis_member_id": "S382",
+          "party": "R",
+          "state": "NE",
+          "position": "nay"
+        },
+        {
+          "name": "Schatz (D-HI)",
+          "lis_member_id": "S353",
+          "party": "D",
+          "state": "HI",
+          "position": "yea"
+        },
+        {
+          "name": "Schumer (D-NY)",
+          "lis_member_id": "S270",
+          "party": "D",
+          "state": "NY",
+          "position": "yea"
+        },
+        {
+          "name": "Scott (R-FL)",
+          "lis_member_id": "S404",
+          "party": "R",
+          "state": "FL",
+          "position": "nay"
+        },
+        {
+          "name": "Scott (R-SC)",
+          "lis_member_id": "S365",
+          "party": "R",
+          "state": "SC",
+          "position": "not_voting"
+        },
+        {
+          "name": "Shaheen (D-NH)",
+          "lis_member_id": "S324",
+          "party": "D",
+          "state": "NH",
+          "position": "yea"
+        },
+        {
+          "name": "Shelby (R-AL)",
+          "lis_member_id": "S184",
+          "party": "R",
+          "state": "AL",
+          "position": "nay"
+        },
+        {
+          "name": "Sinema (D-AZ)",
+          "lis_member_id": "S403",
+          "party": "D",
+          "state": "AZ",
+          "position": "yea"
+        },
+        {
+          "name": "Smith (D-MN)",
+          "lis_member_id": "S394",
+          "party": "D",
+          "state": "MN",
+          "position": "yea"
+        },
+        {
+          "name": "Stabenow (D-MI)",
+          "lis_member_id": "S284",
+          "party": "D",
+          "state": "MI",
+          "position": "yea"
+        },
+        {
+          "name": "Sullivan (R-AK)",
+          "lis_member_id": "S383",
+          "party": "R",
+          "state": "AK",
+          "position": "not_voting"
+        },
+        {
+          "name": "Tester (D-MT)",
+          "lis_member_id": "S314",
+          "party": "D",
+          "state": "MT",
+          "position": "yea"
+        },
+        {
+          "name": "Thune (R-SD)",
+          "lis_member_id": "S303",
+          "party": "R",
+          "state": "SD",
+          "position": "yea"
+        },
+        {
+          "name": "Tillis (R-NC)",
+          "lis_member_id": "S384",
+          "party": "R",
+          "state": "NC",
+          "position": "yea"
+        },
+        {
+          "name": "Toomey (R-PA)",
+          "lis_member_id": "S351",
+          "party": "R",
+          "state": "PA",
+          "position": "not_voting"
+        },
+        {
+          "name": "Tuberville (R-AL)",
+          "lis_member_id": "S412",
+          "party": "R",
+          "state": "AL",
+          "position": "nay"
+        },
+        {
+          "name": "Van Hollen (D-MD)",
+          "lis_member_id": "S390",
+          "party": "D",
+          "state": "MD",
+          "position": "yea"
+        },
+        {
+          "name": "Warner (D-VA)",
+          "lis_member_id": "S327",
+          "party": "D",
+          "state": "VA",
+          "position": "yea"
+        },
+        {
+          "name": "Warnock (D-GA)",
+          "lis_member_id": "S415",
+          "party": "D",
+          "state": "GA",
+          "position": "yea"
+        },
+        {
+          "name": "Warren (D-MA)",
+          "lis_member_id": "S366",
+          "party": "D",
+          "state": "MA",
+          "position": "yea"
+        },
+        {
+          "name": "Whitehouse (D-RI)",
+          "lis_member_id": "S316",
+          "party": "D",
+          "state": "RI",
+          "position": "yea"
+        },
+        {
+          "name": "Wicker (R-MS)",
+          "lis_member_id": "S318",
+          "party": "R",
+          "state": "MS",
+          "position": "yea"
+        },
+        {
+          "name": "Wyden (D-OR)",
+          "lis_member_id": "S247",
+          "party": "D",
+          "state": "OR",
+          "position": "yea"
+        },
+        {
+          "name": "Young (R-IN)",
+          "lis_member_id": "S391",
+          "party": "R",
+          "state": "IN",
+          "position": "yea"
+        }
+      ]
+    },
+    {
+      "chamber": "Senate",
+      "congress": 117,
+      "session": 2,
+      "roll_number": 66,
+      "date": "2022-03-01T00:23:44Z",
+      "question": "On Cloture on the Motion to Proceed H.R. 3076",
+      "result": "Cloture on the Motion to Proceed Agreed to",
+      "vote_type": "cloture",
+      "source_url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1172/vote_117_2_00066.xml",
+      "totals_by_party": {
+        "D": {
+          "yea": 45,
+          "nay": 0,
+          "present": 0,
+          "not_voting": 3
+        },
+        "R": {
+          "yea": 27,
+          "nay": 20,
+          "present": 0,
+          "not_voting": 3
+        },
+        "I": {
+          "yea": 2,
+          "nay": 0,
+          "present": 0,
+          "not_voting": 0
+        }
+      },
+      "yea_total": 74,
+      "nay_total": 20,
+      "bipartisan_support": 0.5745,
+      "bipartisan_label": "bipartisan",
+      "members": [
+        {
+          "name": "Baldwin (D-WI)",
+          "lis_member_id": "S354",
+          "party": "D",
+          "state": "WI",
+          "position": "yea"
+        },
+        {
+          "name": "Barrasso (R-WY)",
+          "lis_member_id": "S317",
+          "party": "R",
+          "state": "WY",
+          "position": "nay"
+        },
+        {
+          "name": "Bennet (D-CO)",
+          "lis_member_id": "S330",
+          "party": "D",
+          "state": "CO",
+          "position": "yea"
+        },
+        {
+          "name": "Blackburn (R-TN)",
+          "lis_member_id": "S396",
+          "party": "R",
+          "state": "TN",
+          "position": "nay"
+        },
+        {
+          "name": "Blumenthal (D-CT)",
+          "lis_member_id": "S341",
+          "party": "D",
+          "state": "CT",
+          "position": "yea"
+        },
+        {
+          "name": "Blunt (R-MO)",
+          "lis_member_id": "S342",
+          "party": "R",
+          "state": "MO",
+          "position": "yea"
+        },
+        {
+          "name": "Booker (D-NJ)",
+          "lis_member_id": "S370",
+          "party": "D",
+          "state": "NJ",
+          "position": "yea"
+        },
+        {
+          "name": "Boozman (R-AR)",
+          "lis_member_id": "S343",
+          "party": "R",
+          "state": "AR",
+          "position": "yea"
+        },
+        {
+          "name": "Braun (R-IN)",
+          "lis_member_id": "S397",
+          "party": "R",
+          "state": "IN",
+          "position": "nay"
+        },
+        {
+          "name": "Brown (D-OH)",
+          "lis_member_id": "S307",
+          "party": "D",
+          "state": "OH",
+          "position": "yea"
+        },
+        {
+          "name": "Burr (R-NC)",
+          "lis_member_id": "S300",
+          "party": "R",
+          "state": "NC",
+          "position": "yea"
+        },
+        {
+          "name": "Cantwell (D-WA)",
+          "lis_member_id": "S275",
+          "party": "D",
+          "state": "WA",
+          "position": "yea"
+        },
+        {
+          "name": "Capito (R-WV)",
+          "lis_member_id": "S372",
+          "party": "R",
+          "state": "WV",
+          "position": "yea"
+        },
+        {
+          "name": "Cardin (D-MD)",
+          "lis_member_id": "S308",
+          "party": "D",
+          "state": "MD",
+          "position": "yea"
+        },
+        {
+          "name": "Carper (D-DE)",
+          "lis_member_id": "S277",
+          "party": "D",
+          "state": "DE",
+          "position": "yea"
+        },
+        {
+          "name": "Casey (D-PA)",
+          "lis_member_id": "S309",
+          "party": "D",
+          "state": "PA",
+          "position": "yea"
+        },
+        {
+          "name": "Cassidy (R-LA)",
+          "lis_member_id": "S373",
+          "party": "R",
+          "state": "LA",
+          "position": "yea"
+        },
+        {
+          "name": "Collins (R-ME)",
+          "lis_member_id": "S252",
+          "party": "R",
+          "state": "ME",
+          "position": "yea"
+        },
+        {
+          "name": "Coons (D-DE)",
+          "lis_member_id": "S337",
+          "party": "D",
+          "state": "DE",
+          "position": "yea"
+        },
+        {
+          "name": "Cornyn (R-TX)",
+          "lis_member_id": "S287",
+          "party": "R",
+          "state": "TX",
+          "position": "nay"
+        },
+        {
+          "name": "Cortez Masto (D-NV)",
+          "lis_member_id": "S385",
+          "party": "D",
+          "state": "NV",
+          "position": "yea"
+        },
+        {
+          "name": "Cotton (R-AR)",
+          "lis_member_id": "S374",
+          "party": "R",
+          "state": "AR",
+          "position": "yea"
+        },
+        {
+          "name": "Cramer (R-ND)",
+          "lis_member_id": "S398",
+          "party": "R",
+          "state": "ND",
+          "position": "yea"
+        },
+        {
+          "name": "Crapo (R-ID)",
+          "lis_member_id": "S266",
+          "party": "R",
+          "state": "ID",
+          "position": "nay"
+        },
+        {
+          "name": "Cruz (R-TX)",
+          "lis_member_id": "S355",
+          "party": "R",
+          "state": "TX",
+          "position": "nay"
+        },
+        {
+          "name": "Daines (R-MT)",
+          "lis_member_id": "S375",
+          "party": "R",
+          "state": "MT",
+          "position": "yea"
+        },
+        {
+          "name": "Duckworth (D-IL)",
+          "lis_member_id": "S386",
+          "party": "D",
+          "state": "IL",
+          "position": "yea"
+        },
+        {
+          "name": "Durbin (D-IL)",
+          "lis_member_id": "S253",
+          "party": "D",
+          "state": "IL",
+          "position": "yea"
+        },
+        {
+          "name": "Ernst (R-IA)",
+          "lis_member_id": "S376",
+          "party": "R",
+          "state": "IA",
+          "position": "yea"
+        },
+        {
+          "name": "Feinstein (D-CA)",
+          "lis_member_id": "S221",
+          "party": "D",
+          "state": "CA",
+          "position": "not_voting"
+        },
+        {
+          "name": "Fischer (R-NE)",
+          "lis_member_id": "S357",
+          "party": "R",
+          "state": "NE",
+          "position": "yea"
+        },
+        {
+          "name": "Gillibrand (D-NY)",
+          "lis_member_id": "S331",
+          "party": "D",
+          "state": "NY",
+          "position": "yea"
+        },
+        {
+          "name": "Graham (R-SC)",
+          "lis_member_id": "S293",
+          "party": "R",
+          "state": "SC",
+          "position": "yea"
+        },
+        {
+          "name": "Grassley (R-IA)",
+          "lis_member_id": "S153",
+          "party": "R",
+          "state": "IA",
+          "position": "yea"
+        },
+        {
+          "name": "Hagerty (R-TN)",
+          "lis_member_id": "S407",
+          "party": "R",
+          "state": "TN",
+          "position": "nay"
+        },
+        {
+          "name": "Hassan (D-NH)",
+          "lis_member_id": "S388",
+          "party": "D",
+          "state": "NH",
+          "position": "yea"
+        },
+        {
+          "name": "Hawley (R-MO)",
+          "lis_member_id": "S399",
+          "party": "R",
+          "state": "MO",
+          "position": "yea"
+        },
+        {
+          "name": "Heinrich (D-NM)",
+          "lis_member_id": "S359",
+          "party": "D",
+          "state": "NM",
+          "position": "yea"
+        },
+        {
+          "name": "Hickenlooper (D-CO)",
+          "lis_member_id": "S408",
+          "party": "D",
+          "state": "CO",
+          "position": "yea"
+        },
+        {
+          "name": "Hirono (D-HI)",
+          "lis_member_id": "S361",
+          "party": "D",
+          "state": "HI",
+          "position": "yea"
+        },
+        {
+          "name": "Hoeven (R-ND)",
+          "lis_member_id": "S344",
+          "party": "R",
+          "state": "ND",
+          "position": "yea"
+        },
+        {
+          "name": "Hyde-Smith (R-MS)",
+          "lis_member_id": "S395",
+          "party": "R",
+          "state": "MS",
+          "position": "yea"
+        },
+        {
+          "name": "Inhofe (R-OK)",
+          "lis_member_id": "S236",
+          "party": "R",
+          "state": "OK",
+          "position": "not_voting"
+        },
+        {
+          "name": "Johnson (R-WI)",
+          "lis_member_id": "S345",
+          "party": "R",
+          "state": "WI",
+          "position": "nay"
+        },
+        {
+          "name": "Kaine (D-VA)",
+          "lis_member_id": "S362",
+          "party": "D",
+          "state": "VA",
+          "position": "yea"
+        },
+        {
+          "name": "Kelly (D-AZ)",
+          "lis_member_id": "S406",
+          "party": "D",
+          "state": "AZ",
+          "position": "yea"
+        },
+        {
+          "name": "Kennedy (R-LA)",
+          "lis_member_id": "S389",
+          "party": "R",
+          "state": "LA",
+          "position": "not_voting"
+        },
+        {
+          "name": "King (I-ME)",
+          "lis_member_id": "S363",
+          "party": "I",
+          "state": "ME",
+          "position": "yea"
+        },
+        {
+          "name": "Klobuchar (D-MN)",
+          "lis_member_id": "S311",
+          "party": "D",
+          "state": "MN",
+          "position": "yea"
+        },
+        {
+          "name": "Lankford (R-OK)",
+          "lis_member_id": "S378",
+          "party": "R",
+          "state": "OK",
+          "position": "nay"
+        },
+        {
+          "name": "Leahy (D-VT)",
+          "lis_member_id": "S057",
+          "party": "D",
+          "state": "VT",
+          "position": "yea"
+        },
+        {
+          "name": "Lee (R-UT)",
+          "lis_member_id": "S346",
+          "party": "R",
+          "state": "UT",
+          "position": "nay"
+        },
+        {
+          "name": "Lujan (D-NM)",
+          "lis_member_id": "S409",
+          "party": "D",
+          "state": "NM",
+          "position": "not_voting"
+        },
+        {
+          "name": "Lummis (R-WY)",
+          "lis_member_id": "S410",
+          "party": "R",
+          "state": "WY",
+          "position": "nay"
+        },
+        {
+          "name": "Manchin (D-WV)",
+          "lis_member_id": "S338",
+          "party": "D",
+          "state": "WV",
+          "position": "yea"
+        },
+        {
+          "name": "Markey (D-MA)",
+          "lis_member_id": "S369",
+          "party": "D",
+          "state": "MA",
+          "position": "yea"
+        },
+        {
+          "name": "Marshall (R-KS)",
+          "lis_member_id": "S411",
+          "party": "R",
+          "state": "KS",
+          "position": "yea"
+        },
+        {
+          "name": "McConnell (R-KY)",
+          "lis_member_id": "S174",
+          "party": "R",
+          "state": "KY",
+          "position": "nay"
+        },
+        {
+          "name": "Menendez (D-NJ)",
+          "lis_member_id": "S306",
+          "party": "D",
+          "state": "NJ",
+          "position": "yea"
+        },
+        {
+          "name": "Merkley (D-OR)",
+          "lis_member_id": "S322",
+          "party": "D",
+          "state": "OR",
+          "position": "yea"
+        },
+        {
+          "name": "Moran (R-KS)",
+          "lis_member_id": "S347",
+          "party": "R",
+          "state": "KS",
+          "position": "yea"
+        },
+        {
+          "name": "Murkowski (R-AK)",
+          "lis_member_id": "S288",
+          "party": "R",
+          "state": "AK",
+          "position": "yea"
+        },
+        {
+          "name": "Murphy (D-CT)",
+          "lis_member_id": "S364",
+          "party": "D",
+          "state": "CT",
+          "position": "yea"
+        },
+        {
+          "name": "Murray (D-WA)",
+          "lis_member_id": "S229",
+          "party": "D",
+          "state": "WA",
+          "position": "yea"
+        },
+        {
+          "name": "Ossoff (D-GA)",
+          "lis_member_id": "S414",
+          "party": "D",
+          "state": "GA",
+          "position": "yea"
+        },
+        {
+          "name": "Padilla (D-CA)",
+          "lis_member_id": "S413",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Paul (R-KY)",
+          "lis_member_id": "S348",
+          "party": "R",
+          "state": "KY",
+          "position": "not_voting"
+        },
+        {
+          "name": "Peters (D-MI)",
+          "lis_member_id": "S380",
+          "party": "D",
+          "state": "MI",
+          "position": "yea"
+        },
+        {
+          "name": "Portman (R-OH)",
+          "lis_member_id": "S349",
+          "party": "R",
+          "state": "OH",
+          "position": "yea"
+        },
+        {
+          "name": "Reed (D-RI)",
+          "lis_member_id": "S259",
+          "party": "D",
+          "state": "RI",
+          "position": "yea"
+        },
+        {
+          "name": "Risch (R-ID)",
+          "lis_member_id": "S323",
+          "party": "R",
+          "state": "ID",
+          "position": "nay"
+        },
+        {
+          "name": "Romney (R-UT)",
+          "lis_member_id": "S401",
+          "party": "R",
+          "state": "UT",
+          "position": "yea"
+        },
+        {
+          "name": "Rosen (D-NV)",
+          "lis_member_id": "S402",
+          "party": "D",
+          "state": "NV",
+          "position": "yea"
+        },
+        {
+          "name": "Rounds (R-SD)",
+          "lis_member_id": "S381",
+          "party": "R",
+          "state": "SD",
+          "position": "yea"
+        },
+        {
+          "name": "Rubio (R-FL)",
+          "lis_member_id": "S350",
+          "party": "R",
+          "state": "FL",
+          "position": "nay"
+        },
+        {
+          "name": "Sanders (I-VT)",
+          "lis_member_id": "S313",
+          "party": "I",
+          "state": "VT",
+          "position": "yea"
+        },
+        {
+          "name": "Sasse (R-NE)",
+          "lis_member_id": "S382",
+          "party": "R",
+          "state": "NE",
+          "position": "nay"
+        },
+        {
+          "name": "Schatz (D-HI)",
+          "lis_member_id": "S353",
+          "party": "D",
+          "state": "HI",
+          "position": "yea"
+        },
+        {
+          "name": "Schumer (D-NY)",
+          "lis_member_id": "S270",
+          "party": "D",
+          "state": "NY",
+          "position": "yea"
+        },
+        {
+          "name": "Scott (R-FL)",
+          "lis_member_id": "S404",
+          "party": "R",
+          "state": "FL",
+          "position": "nay"
+        },
+        {
+          "name": "Scott (R-SC)",
+          "lis_member_id": "S365",
+          "party": "R",
+          "state": "SC",
+          "position": "nay"
+        },
+        {
+          "name": "Shaheen (D-NH)",
+          "lis_member_id": "S324",
+          "party": "D",
+          "state": "NH",
+          "position": "yea"
+        },
+        {
+          "name": "Shelby (R-AL)",
+          "lis_member_id": "S184",
+          "party": "R",
+          "state": "AL",
+          "position": "nay"
+        },
+        {
+          "name": "Sinema (D-AZ)",
+          "lis_member_id": "S403",
+          "party": "D",
+          "state": "AZ",
+          "position": "yea"
+        },
+        {
+          "name": "Smith (D-MN)",
+          "lis_member_id": "S394",
+          "party": "D",
+          "state": "MN",
+          "position": "yea"
+        },
+        {
+          "name": "Stabenow (D-MI)",
+          "lis_member_id": "S284",
+          "party": "D",
+          "state": "MI",
+          "position": "yea"
+        },
+        {
+          "name": "Sullivan (R-AK)",
+          "lis_member_id": "S383",
+          "party": "R",
+          "state": "AK",
+          "position": "yea"
+        },
+        {
+          "name": "Tester (D-MT)",
+          "lis_member_id": "S314",
+          "party": "D",
+          "state": "MT",
+          "position": "yea"
+        },
+        {
+          "name": "Thune (R-SD)",
+          "lis_member_id": "S303",
+          "party": "R",
+          "state": "SD",
+          "position": "yea"
+        },
+        {
+          "name": "Tillis (R-NC)",
+          "lis_member_id": "S384",
+          "party": "R",
+          "state": "NC",
+          "position": "yea"
+        },
+        {
+          "name": "Toomey (R-PA)",
+          "lis_member_id": "S351",
+          "party": "R",
+          "state": "PA",
+          "position": "nay"
+        },
+        {
+          "name": "Tuberville (R-AL)",
+          "lis_member_id": "S412",
+          "party": "R",
+          "state": "AL",
+          "position": "nay"
+        },
+        {
+          "name": "Van Hollen (D-MD)",
+          "lis_member_id": "S390",
+          "party": "D",
+          "state": "MD",
+          "position": "yea"
+        },
+        {
+          "name": "Warner (D-VA)",
+          "lis_member_id": "S327",
+          "party": "D",
+          "state": "VA",
+          "position": "yea"
+        },
+        {
+          "name": "Warnock (D-GA)",
+          "lis_member_id": "S415",
+          "party": "D",
+          "state": "GA",
+          "position": "not_voting"
+        },
+        {
+          "name": "Warren (D-MA)",
+          "lis_member_id": "S366",
+          "party": "D",
+          "state": "MA",
+          "position": "yea"
+        },
+        {
+          "name": "Whitehouse (D-RI)",
+          "lis_member_id": "S316",
+          "party": "D",
+          "state": "RI",
+          "position": "yea"
+        },
+        {
+          "name": "Wicker (R-MS)",
+          "lis_member_id": "S318",
+          "party": "R",
+          "state": "MS",
+          "position": "yea"
+        },
+        {
+          "name": "Wyden (D-OR)",
+          "lis_member_id": "S247",
+          "party": "D",
+          "state": "OR",
+          "position": "yea"
+        },
+        {
+          "name": "Young (R-IN)",
+          "lis_member_id": "S391",
+          "party": "R",
+          "state": "IN",
+          "position": "yea"
+        }
+      ]
+    },
+    {
+      "chamber": "House",
+      "congress": 117,
+      "session": 2,
+      "roll_number": 38,
+      "date": "2022-02-08T22:20:12Z",
+      "question": "On Passage",
+      "result": "Passed",
+      "vote_type": "passage",
+      "source_url": "https://clerk.house.gov/evs/2022/roll038.xml",
+      "totals_by_party": {
+        "R": {
+          "yea": 120,
+          "nay": 92,
+          "present": 0,
+          "not_voting": 0
+        },
+        "D": {
+          "yea": 222,
+          "nay": 0,
+          "present": 0,
+          "not_voting": 0
+        },
+        "I": {
+          "yea": 0,
+          "nay": 0,
+          "present": 0,
+          "not_voting": 0
+        }
+      },
+      "yea_total": 342,
+      "nay_total": 92,
+      "bipartisan_support": 0.566,
+      "bipartisan_label": "bipartisan",
+      "members": [
+        {
+          "name": "Adams",
+          "bioguide_id": "A000370",
+          "party": "D",
+          "state": "NC",
+          "position": "yea"
+        },
+        {
+          "name": "Aderholt",
+          "bioguide_id": "A000055",
+          "party": "R",
+          "state": "AL",
+          "position": "yea"
+        },
+        {
+          "name": "Aguilar",
+          "bioguide_id": "A000371",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Allen",
+          "bioguide_id": "A000372",
+          "party": "R",
+          "state": "GA",
+          "position": "nay"
+        },
+        {
+          "name": "Allred",
+          "bioguide_id": "A000376",
+          "party": "D",
+          "state": "TX",
+          "position": "yea"
+        },
+        {
+          "name": "Amodei",
+          "bioguide_id": "A000369",
+          "party": "R",
+          "state": "NV",
+          "position": "yea"
+        },
+        {
+          "name": "Armstrong",
+          "bioguide_id": "A000377",
+          "party": "R",
+          "state": "ND",
+          "position": "yea"
+        },
+        {
+          "name": "Arrington",
+          "bioguide_id": "A000375",
+          "party": "R",
+          "state": "TX",
+          "position": "nay"
+        },
+        {
+          "name": "Auchincloss",
+          "bioguide_id": "A000148",
+          "party": "D",
+          "state": "MA",
+          "position": "yea"
+        },
+        {
+          "name": "Axne",
+          "bioguide_id": "A000378",
+          "party": "D",
+          "state": "IA",
+          "position": "yea"
+        },
+        {
+          "name": "Babin",
+          "bioguide_id": "B001291",
+          "party": "R",
+          "state": "TX",
+          "position": "nay"
+        },
+        {
+          "name": "Bacon",
+          "bioguide_id": "B001298",
+          "party": "R",
+          "state": "NE",
+          "position": "yea"
+        },
+        {
+          "name": "Baird",
+          "bioguide_id": "B001307",
+          "party": "R",
+          "state": "IN",
+          "position": "nay"
+        },
+        {
+          "name": "Balderson",
+          "bioguide_id": "B001306",
+          "party": "R",
+          "state": "OH",
+          "position": "yea"
+        },
+        {
+          "name": "Banks",
+          "bioguide_id": "B001299",
+          "party": "R",
+          "state": "IN",
+          "position": "nay"
+        },
+        {
+          "name": "Barr",
+          "bioguide_id": "B001282",
+          "party": "R",
+          "state": "KY",
+          "position": "yea"
+        },
+        {
+          "name": "Barrag\u00e1n",
+          "bioguide_id": "B001300",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Bass",
+          "bioguide_id": "B001270",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Beatty",
+          "bioguide_id": "B001281",
+          "party": "D",
+          "state": "OH",
+          "position": "yea"
+        },
+        {
+          "name": "Bentz",
+          "bioguide_id": "B000668",
+          "party": "R",
+          "state": "OR",
+          "position": "yea"
+        },
+        {
+          "name": "Bera",
+          "bioguide_id": "B001287",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Bergman",
+          "bioguide_id": "B001301",
+          "party": "R",
+          "state": "MI",
+          "position": "yea"
+        },
+        {
+          "name": "Beyer",
+          "bioguide_id": "B001292",
+          "party": "D",
+          "state": "VA",
+          "position": "yea"
+        },
+        {
+          "name": "Bice (OK)",
+          "bioguide_id": "B000740",
+          "party": "R",
+          "state": "OK",
+          "position": "yea"
+        },
+        {
+          "name": "Biggs",
+          "bioguide_id": "B001302",
+          "party": "R",
+          "state": "AZ",
+          "position": "nay"
+        },
+        {
+          "name": "Bilirakis",
+          "bioguide_id": "B001257",
+          "party": "R",
+          "state": "FL",
+          "position": "yea"
+        },
+        {
+          "name": "Bishop (GA)",
+          "bioguide_id": "B000490",
+          "party": "D",
+          "state": "GA",
+          "position": "yea"
+        },
+        {
+          "name": "Bishop (NC)",
+          "bioguide_id": "B001311",
+          "party": "R",
+          "state": "NC",
+          "position": "nay"
+        },
+        {
+          "name": "Blumenauer",
+          "bioguide_id": "B000574",
+          "party": "D",
+          "state": "OR",
+          "position": "yea"
+        },
+        {
+          "name": "Blunt Rochester",
+          "bioguide_id": "B001303",
+          "party": "D",
+          "state": "DE",
+          "position": "yea"
+        },
+        {
+          "name": "Boebert",
+          "bioguide_id": "B000825",
+          "party": "R",
+          "state": "CO",
+          "position": "nay"
+        },
+        {
+          "name": "Bonamici",
+          "bioguide_id": "B001278",
+          "party": "D",
+          "state": "OR",
+          "position": "yea"
+        },
+        {
+          "name": "Bost",
+          "bioguide_id": "B001295",
+          "party": "R",
+          "state": "IL",
+          "position": "yea"
+        },
+        {
+          "name": "Bourdeaux",
+          "bioguide_id": "B001312",
+          "party": "D",
+          "state": "GA",
+          "position": "yea"
+        },
+        {
+          "name": "Bowman",
+          "bioguide_id": "B001223",
+          "party": "D",
+          "state": "NY",
+          "position": "yea"
+        },
+        {
+          "name": "Boyle, Brendan F.",
+          "bioguide_id": "B001296",
+          "party": "D",
+          "state": "PA",
+          "position": "yea"
+        },
+        {
+          "name": "Brady",
+          "bioguide_id": "B000755",
+          "party": "R",
+          "state": "TX",
+          "position": "nay"
+        },
+        {
+          "name": "Brooks",
+          "bioguide_id": "B001274",
+          "party": "R",
+          "state": "AL",
+          "position": "nay"
+        },
+        {
+          "name": "Brown (MD)",
+          "bioguide_id": "B001304",
+          "party": "D",
+          "state": "MD",
+          "position": "yea"
+        },
+        {
+          "name": "Brown (OH)",
+          "bioguide_id": "B001313",
+          "party": "D",
+          "state": "OH",
+          "position": "yea"
+        },
+        {
+          "name": "Brownley",
+          "bioguide_id": "B001285",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Buchanan",
+          "bioguide_id": "B001260",
+          "party": "R",
+          "state": "FL",
+          "position": "nay"
+        },
+        {
+          "name": "Buck",
+          "bioguide_id": "B001297",
+          "party": "R",
+          "state": "CO",
+          "position": "nay"
+        },
+        {
+          "name": "Bucshon",
+          "bioguide_id": "B001275",
+          "party": "R",
+          "state": "IN",
+          "position": "yea"
+        },
+        {
+          "name": "Budd",
+          "bioguide_id": "B001305",
+          "party": "R",
+          "state": "NC",
+          "position": "yea"
+        },
+        {
+          "name": "Burchett",
+          "bioguide_id": "B001309",
+          "party": "R",
+          "state": "TN",
+          "position": "nay"
+        },
+        {
+          "name": "Burgess",
+          "bioguide_id": "B001248",
+          "party": "R",
+          "state": "TX",
+          "position": "yea"
+        },
+        {
+          "name": "Bush",
+          "bioguide_id": "B001224",
+          "party": "D",
+          "state": "MO",
+          "position": "yea"
+        },
+        {
+          "name": "Bustos",
+          "bioguide_id": "B001286",
+          "party": "D",
+          "state": "IL",
+          "position": "yea"
+        },
+        {
+          "name": "Butterfield",
+          "bioguide_id": "B001251",
+          "party": "D",
+          "state": "NC",
+          "position": "yea"
+        },
+        {
+          "name": "Calvert",
+          "bioguide_id": "C000059",
+          "party": "R",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Cammack",
+          "bioguide_id": "C001039",
+          "party": "R",
+          "state": "FL",
+          "position": "nay"
+        },
+        {
+          "name": "Carbajal",
+          "bioguide_id": "C001112",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "C\u00e1rdenas",
+          "bioguide_id": "C001097",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Carey",
+          "bioguide_id": "C001126",
+          "party": "R",
+          "state": "OH",
+          "position": "yea"
+        },
+        {
+          "name": "Carl",
+          "bioguide_id": "C001054",
+          "party": "R",
+          "state": "AL",
+          "position": "nay"
+        },
+        {
+          "name": "Carson",
+          "bioguide_id": "C001072",
+          "party": "D",
+          "state": "IN",
+          "position": "yea"
+        },
+        {
+          "name": "Carter (GA)",
+          "bioguide_id": "C001103",
+          "party": "R",
+          "state": "GA",
+          "position": "nay"
+        },
+        {
+          "name": "Carter (LA)",
+          "bioguide_id": "C001125",
+          "party": "D",
+          "state": "LA",
+          "position": "yea"
+        },
+        {
+          "name": "Carter (TX)",
+          "bioguide_id": "C001051",
+          "party": "R",
+          "state": "TX",
+          "position": "yea"
+        },
+        {
+          "name": "Cartwright",
+          "bioguide_id": "C001090",
+          "party": "D",
+          "state": "PA",
+          "position": "yea"
+        },
+        {
+          "name": "Case",
+          "bioguide_id": "C001055",
+          "party": "D",
+          "state": "HI",
+          "position": "yea"
+        },
+        {
+          "name": "Casten",
+          "bioguide_id": "C001117",
+          "party": "D",
+          "state": "IL",
+          "position": "yea"
+        },
+        {
+          "name": "Castor (FL)",
+          "bioguide_id": "C001066",
+          "party": "D",
+          "state": "FL",
+          "position": "yea"
+        },
+        {
+          "name": "Castro (TX)",
+          "bioguide_id": "C001091",
+          "party": "D",
+          "state": "TX",
+          "position": "yea"
+        },
+        {
+          "name": "Cawthorn",
+          "bioguide_id": "C001104",
+          "party": "R",
+          "state": "NC",
+          "position": "yea"
+        },
+        {
+          "name": "Chabot",
+          "bioguide_id": "C000266",
+          "party": "R",
+          "state": "OH",
+          "position": "yea"
+        },
+        {
+          "name": "Cheney",
+          "bioguide_id": "C001109",
+          "party": "R",
+          "state": "WY",
+          "position": "yea"
+        },
+        {
+          "name": "Cherfilus-McCormick",
+          "bioguide_id": "C001127",
+          "party": "D",
+          "state": "FL",
+          "position": "yea"
+        },
+        {
+          "name": "Chu",
+          "bioguide_id": "C001080",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Cicilline",
+          "bioguide_id": "C001084",
+          "party": "D",
+          "state": "RI",
+          "position": "yea"
+        },
+        {
+          "name": "Clark (MA)",
+          "bioguide_id": "C001101",
+          "party": "D",
+          "state": "MA",
+          "position": "yea"
+        },
+        {
+          "name": "Clarke (NY)",
+          "bioguide_id": "C001067",
+          "party": "D",
+          "state": "NY",
+          "position": "yea"
+        },
+        {
+          "name": "Cleaver",
+          "bioguide_id": "C001061",
+          "party": "D",
+          "state": "MO",
+          "position": "yea"
+        },
+        {
+          "name": "Cline",
+          "bioguide_id": "C001118",
+          "party": "R",
+          "state": "VA",
+          "position": "nay"
+        },
+        {
+          "name": "Cloud",
+          "bioguide_id": "C001115",
+          "party": "R",
+          "state": "TX",
+          "position": "nay"
+        },
+        {
+          "name": "Clyburn",
+          "bioguide_id": "C000537",
+          "party": "D",
+          "state": "SC",
+          "position": "yea"
+        },
+        {
+          "name": "Clyde",
+          "bioguide_id": "C001116",
+          "party": "R",
+          "state": "GA",
+          "position": "yea"
+        },
+        {
+          "name": "Cohen",
+          "bioguide_id": "C001068",
+          "party": "D",
+          "state": "TN",
+          "position": "yea"
+        },
+        {
+          "name": "Cole",
+          "bioguide_id": "C001053",
+          "party": "R",
+          "state": "OK",
+          "position": "yea"
+        },
+        {
+          "name": "Comer",
+          "bioguide_id": "C001108",
+          "party": "R",
+          "state": "KY",
+          "position": "yea"
+        },
+        {
+          "name": "Connolly",
+          "bioguide_id": "C001078",
+          "party": "D",
+          "state": "VA",
+          "position": "yea"
+        },
+        {
+          "name": "Cooper",
+          "bioguide_id": "C000754",
+          "party": "D",
+          "state": "TN",
+          "position": "yea"
+        },
+        {
+          "name": "Correa",
+          "bioguide_id": "C001110",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Costa",
+          "bioguide_id": "C001059",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Courtney",
+          "bioguide_id": "C001069",
+          "party": "D",
+          "state": "CT",
+          "position": "yea"
+        },
+        {
+          "name": "Craig",
+          "bioguide_id": "C001119",
+          "party": "D",
+          "state": "MN",
+          "position": "yea"
+        },
+        {
+          "name": "Crawford",
+          "bioguide_id": "C001087",
+          "party": "R",
+          "state": "AR",
+          "position": "nay"
+        },
+        {
+          "name": "Crenshaw",
+          "bioguide_id": "C001120",
+          "party": "R",
+          "state": "TX",
+          "position": "nay"
+        },
+        {
+          "name": "Crist",
+          "bioguide_id": "C001111",
+          "party": "D",
+          "state": "FL",
+          "position": "yea"
+        },
+        {
+          "name": "Crow",
+          "bioguide_id": "C001121",
+          "party": "D",
+          "state": "CO",
+          "position": "yea"
+        },
+        {
+          "name": "Cuellar",
+          "bioguide_id": "C001063",
+          "party": "D",
+          "state": "TX",
+          "position": "yea"
+        },
+        {
+          "name": "Curtis",
+          "bioguide_id": "C001114",
+          "party": "R",
+          "state": "UT",
+          "position": "yea"
+        },
+        {
+          "name": "Davids (KS)",
+          "bioguide_id": "D000629",
+          "party": "D",
+          "state": "KS",
+          "position": "yea"
+        },
+        {
+          "name": "Davidson",
+          "bioguide_id": "D000626",
+          "party": "R",
+          "state": "OH",
+          "position": "nay"
+        },
+        {
+          "name": "Davis, Danny K.",
+          "bioguide_id": "D000096",
+          "party": "D",
+          "state": "IL",
+          "position": "yea"
+        },
+        {
+          "name": "Davis, Rodney",
+          "bioguide_id": "D000619",
+          "party": "R",
+          "state": "IL",
+          "position": "yea"
+        },
+        {
+          "name": "Dean",
+          "bioguide_id": "D000631",
+          "party": "D",
+          "state": "PA",
+          "position": "yea"
+        },
+        {
+          "name": "DeFazio",
+          "bioguide_id": "D000191",
+          "party": "D",
+          "state": "OR",
+          "position": "yea"
+        },
+        {
+          "name": "DeGette",
+          "bioguide_id": "D000197",
+          "party": "D",
+          "state": "CO",
+          "position": "yea"
+        },
+        {
+          "name": "DeLauro",
+          "bioguide_id": "D000216",
+          "party": "D",
+          "state": "CT",
+          "position": "yea"
+        },
+        {
+          "name": "DelBene",
+          "bioguide_id": "D000617",
+          "party": "D",
+          "state": "WA",
+          "position": "yea"
+        },
+        {
+          "name": "Delgado",
+          "bioguide_id": "D000630",
+          "party": "D",
+          "state": "NY",
+          "position": "yea"
+        },
+        {
+          "name": "Demings",
+          "bioguide_id": "D000627",
+          "party": "D",
+          "state": "FL",
+          "position": "yea"
+        },
+        {
+          "name": "DeSaulnier",
+          "bioguide_id": "D000623",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "DesJarlais",
+          "bioguide_id": "D000616",
+          "party": "R",
+          "state": "TN",
+          "position": "nay"
+        },
+        {
+          "name": "Deutch",
+          "bioguide_id": "D000610",
+          "party": "D",
+          "state": "FL",
+          "position": "yea"
+        },
+        {
+          "name": "Diaz-Balart",
+          "bioguide_id": "D000600",
+          "party": "R",
+          "state": "FL",
+          "position": "yea"
+        },
+        {
+          "name": "Dingell",
+          "bioguide_id": "D000624",
+          "party": "D",
+          "state": "MI",
+          "position": "yea"
+        },
+        {
+          "name": "Doggett",
+          "bioguide_id": "D000399",
+          "party": "D",
+          "state": "TX",
+          "position": "yea"
+        },
+        {
+          "name": "Donalds",
+          "bioguide_id": "D000032",
+          "party": "R",
+          "state": "FL",
+          "position": "nay"
+        },
+        {
+          "name": "Doyle, Michael F.",
+          "bioguide_id": "D000482",
+          "party": "D",
+          "state": "PA",
+          "position": "yea"
+        },
+        {
+          "name": "Duncan",
+          "bioguide_id": "D000615",
+          "party": "R",
+          "state": "SC",
+          "position": "nay"
+        },
+        {
+          "name": "Dunn",
+          "bioguide_id": "D000628",
+          "party": "R",
+          "state": "FL",
+          "position": "yea"
+        },
+        {
+          "name": "Ellzey",
+          "bioguide_id": "E000071",
+          "party": "R",
+          "state": "TX",
+          "position": "yea"
+        },
+        {
+          "name": "Emmer",
+          "bioguide_id": "E000294",
+          "party": "R",
+          "state": "MN",
+          "position": "yea"
+        },
+        {
+          "name": "Escobar",
+          "bioguide_id": "E000299",
+          "party": "D",
+          "state": "TX",
+          "position": "yea"
+        },
+        {
+          "name": "Eshoo",
+          "bioguide_id": "E000215",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Espaillat",
+          "bioguide_id": "E000297",
+          "party": "D",
+          "state": "NY",
+          "position": "yea"
+        },
+        {
+          "name": "Estes",
+          "bioguide_id": "E000298",
+          "party": "R",
+          "state": "KS",
+          "position": "nay"
+        },
+        {
+          "name": "Evans",
+          "bioguide_id": "E000296",
+          "party": "D",
+          "state": "PA",
+          "position": "yea"
+        },
+        {
+          "name": "Fallon",
+          "bioguide_id": "F000246",
+          "party": "R",
+          "state": "TX",
+          "position": "nay"
+        },
+        {
+          "name": "Feenstra",
+          "bioguide_id": "F000446",
+          "party": "R",
+          "state": "IA",
+          "position": "yea"
+        },
+        {
+          "name": "Ferguson",
+          "bioguide_id": "F000465",
+          "party": "R",
+          "state": "GA",
+          "position": "nay"
+        },
+        {
+          "name": "Fischbach",
+          "bioguide_id": "F000470",
+          "party": "R",
+          "state": "MN",
+          "position": "yea"
+        },
+        {
+          "name": "Fitzgerald",
+          "bioguide_id": "F000471",
+          "party": "R",
+          "state": "WI",
+          "position": "yea"
+        },
+        {
+          "name": "Fitzpatrick",
+          "bioguide_id": "F000466",
+          "party": "R",
+          "state": "PA",
+          "position": "yea"
+        },
+        {
+          "name": "Fleischmann",
+          "bioguide_id": "F000459",
+          "party": "R",
+          "state": "TN",
+          "position": "nay"
+        },
+        {
+          "name": "Fletcher",
+          "bioguide_id": "F000468",
+          "party": "D",
+          "state": "TX",
+          "position": "yea"
+        },
+        {
+          "name": "Fortenberry",
+          "bioguide_id": "F000449",
+          "party": "R",
+          "state": "NE",
+          "position": "yea"
+        },
+        {
+          "name": "Foster",
+          "bioguide_id": "F000454",
+          "party": "D",
+          "state": "IL",
+          "position": "yea"
+        },
+        {
+          "name": "Foxx",
+          "bioguide_id": "F000450",
+          "party": "R",
+          "state": "NC",
+          "position": "yea"
+        },
+        {
+          "name": "Frankel, Lois",
+          "bioguide_id": "F000462",
+          "party": "D",
+          "state": "FL",
+          "position": "yea"
+        },
+        {
+          "name": "Franklin, C. Scott",
+          "bioguide_id": "F000472",
+          "party": "R",
+          "state": "FL",
+          "position": "nay"
+        },
+        {
+          "name": "Fulcher",
+          "bioguide_id": "F000469",
+          "party": "R",
+          "state": "ID",
+          "position": "nay"
+        },
+        {
+          "name": "Gaetz",
+          "bioguide_id": "G000578",
+          "party": "R",
+          "state": "FL",
+          "position": "nay"
+        },
+        {
+          "name": "Gallagher",
+          "bioguide_id": "G000579",
+          "party": "R",
+          "state": "WI",
+          "position": "yea"
+        },
+        {
+          "name": "Gallego",
+          "bioguide_id": "G000574",
+          "party": "D",
+          "state": "AZ",
+          "position": "yea"
+        },
+        {
+          "name": "Garamendi",
+          "bioguide_id": "G000559",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Garbarino",
+          "bioguide_id": "G000597",
+          "party": "R",
+          "state": "NY",
+          "position": "yea"
+        },
+        {
+          "name": "Garcia (CA)",
+          "bioguide_id": "G000061",
+          "party": "R",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Garc\u00eda (IL)",
+          "bioguide_id": "G000586",
+          "party": "D",
+          "state": "IL",
+          "position": "yea"
+        },
+        {
+          "name": "Garcia (TX)",
+          "bioguide_id": "G000587",
+          "party": "D",
+          "state": "TX",
+          "position": "yea"
+        },
+        {
+          "name": "Gibbs",
+          "bioguide_id": "G000563",
+          "party": "R",
+          "state": "OH",
+          "position": "yea"
+        },
+        {
+          "name": "Gimenez",
+          "bioguide_id": "G000593",
+          "party": "R",
+          "state": "FL",
+          "position": "yea"
+        },
+        {
+          "name": "Gohmert",
+          "bioguide_id": "G000552",
+          "party": "R",
+          "state": "TX",
+          "position": "nay"
+        },
+        {
+          "name": "Golden",
+          "bioguide_id": "G000592",
+          "party": "D",
+          "state": "ME",
+          "position": "yea"
+        },
+        {
+          "name": "Gomez",
+          "bioguide_id": "G000585",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Gonzales, Tony",
+          "bioguide_id": "G000594",
+          "party": "R",
+          "state": "TX",
+          "position": "yea"
+        },
+        {
+          "name": "Gonzalez (OH)",
+          "bioguide_id": "G000588",
+          "party": "R",
+          "state": "OH",
+          "position": "yea"
+        },
+        {
+          "name": "Gonzalez, Vicente",
+          "bioguide_id": "G000581",
+          "party": "D",
+          "state": "TX",
+          "position": "yea"
+        },
+        {
+          "name": "Good (VA)",
+          "bioguide_id": "G000595",
+          "party": "R",
+          "state": "VA",
+          "position": "nay"
+        },
+        {
+          "name": "Gooden (TX)",
+          "bioguide_id": "G000589",
+          "party": "R",
+          "state": "TX",
+          "position": "nay"
+        },
+        {
+          "name": "Gosar",
+          "bioguide_id": "G000565",
+          "party": "R",
+          "state": "AZ",
+          "position": "nay"
+        },
+        {
+          "name": "Gottheimer",
+          "bioguide_id": "G000583",
+          "party": "D",
+          "state": "NJ",
+          "position": "yea"
+        },
+        {
+          "name": "Granger",
+          "bioguide_id": "G000377",
+          "party": "R",
+          "state": "TX",
+          "position": "yea"
+        },
+        {
+          "name": "Graves (LA)",
+          "bioguide_id": "G000577",
+          "party": "R",
+          "state": "LA",
+          "position": "yea"
+        },
+        {
+          "name": "Graves (MO)",
+          "bioguide_id": "G000546",
+          "party": "R",
+          "state": "MO",
+          "position": "yea"
+        },
+        {
+          "name": "Green (TN)",
+          "bioguide_id": "G000590",
+          "party": "R",
+          "state": "TN",
+          "position": "nay"
+        },
+        {
+          "name": "Green, Al (TX)",
+          "bioguide_id": "G000553",
+          "party": "D",
+          "state": "TX",
+          "position": "yea"
+        },
+        {
+          "name": "Greene (GA)",
+          "bioguide_id": "G000596",
+          "party": "R",
+          "state": "GA",
+          "position": "nay"
+        },
+        {
+          "name": "Griffith",
+          "bioguide_id": "G000568",
+          "party": "R",
+          "state": "VA",
+          "position": "yea"
+        },
+        {
+          "name": "Grijalva",
+          "bioguide_id": "G000551",
+          "party": "D",
+          "state": "AZ",
+          "position": "yea"
+        },
+        {
+          "name": "Grothman",
+          "bioguide_id": "G000576",
+          "party": "R",
+          "state": "WI",
+          "position": "yea"
+        },
+        {
+          "name": "Guest",
+          "bioguide_id": "G000591",
+          "party": "R",
+          "state": "MS",
+          "position": "yea"
+        },
+        {
+          "name": "Guthrie",
+          "bioguide_id": "G000558",
+          "party": "R",
+          "state": "KY",
+          "position": "yea"
+        },
+        {
+          "name": "Hagedorn",
+          "bioguide_id": "H001088",
+          "party": "R",
+          "state": "MN",
+          "position": "yea"
+        },
+        {
+          "name": "Harder (CA)",
+          "bioguide_id": "H001090",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Harris",
+          "bioguide_id": "H001052",
+          "party": "R",
+          "state": "MD",
+          "position": "nay"
+        },
+        {
+          "name": "Harshbarger",
+          "bioguide_id": "H001086",
+          "party": "R",
+          "state": "TN",
+          "position": "yea"
+        },
+        {
+          "name": "Hartzler",
+          "bioguide_id": "H001053",
+          "party": "R",
+          "state": "MO",
+          "position": "yea"
+        },
+        {
+          "name": "Hayes",
+          "bioguide_id": "H001081",
+          "party": "D",
+          "state": "CT",
+          "position": "yea"
+        },
+        {
+          "name": "Hern",
+          "bioguide_id": "H001082",
+          "party": "R",
+          "state": "OK",
+          "position": "nay"
+        },
+        {
+          "name": "Herrell",
+          "bioguide_id": "H001084",
+          "party": "R",
+          "state": "NM",
+          "position": "yea"
+        },
+        {
+          "name": "Herrera Beutler",
+          "bioguide_id": "H001056",
+          "party": "R",
+          "state": "WA",
+          "position": "yea"
+        },
+        {
+          "name": "Hice (GA)",
+          "bioguide_id": "H001071",
+          "party": "R",
+          "state": "GA",
+          "position": "nay"
+        },
+        {
+          "name": "Higgins (LA)",
+          "bioguide_id": "H001077",
+          "party": "R",
+          "state": "LA",
+          "position": "nay"
+        },
+        {
+          "name": "Higgins (NY)",
+          "bioguide_id": "H001038",
+          "party": "D",
+          "state": "NY",
+          "position": "yea"
+        },
+        {
+          "name": "Hill",
+          "bioguide_id": "H001072",
+          "party": "R",
+          "state": "AR",
+          "position": "yea"
+        },
+        {
+          "name": "Himes",
+          "bioguide_id": "H001047",
+          "party": "D",
+          "state": "CT",
+          "position": "yea"
+        },
+        {
+          "name": "Hinson",
+          "bioguide_id": "H001091",
+          "party": "R",
+          "state": "IA",
+          "position": "yea"
+        },
+        {
+          "name": "Hollingsworth",
+          "bioguide_id": "H001074",
+          "party": "R",
+          "state": "IN",
+          "position": "nay"
+        },
+        {
+          "name": "Horsford",
+          "bioguide_id": "H001066",
+          "party": "D",
+          "state": "NV",
+          "position": "yea"
+        },
+        {
+          "name": "Houlahan",
+          "bioguide_id": "H001085",
+          "party": "D",
+          "state": "PA",
+          "position": "yea"
+        },
+        {
+          "name": "Hoyer",
+          "bioguide_id": "H000874",
+          "party": "D",
+          "state": "MD",
+          "position": "yea"
+        },
+        {
+          "name": "Hudson",
+          "bioguide_id": "H001067",
+          "party": "R",
+          "state": "NC",
+          "position": "yea"
+        },
+        {
+          "name": "Huffman",
+          "bioguide_id": "H001068",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Huizenga",
+          "bioguide_id": "H001058",
+          "party": "R",
+          "state": "MI",
+          "position": "nay"
+        },
+        {
+          "name": "Issa",
+          "bioguide_id": "I000056",
+          "party": "R",
+          "state": "CA",
+          "position": "nay"
+        },
+        {
+          "name": "Jackson",
+          "bioguide_id": "J000304",
+          "party": "R",
+          "state": "TX",
+          "position": "nay"
+        },
+        {
+          "name": "Jackson Lee",
+          "bioguide_id": "J000032",
+          "party": "D",
+          "state": "TX",
+          "position": "yea"
+        },
+        {
+          "name": "Jacobs (CA)",
+          "bioguide_id": "J000305",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Jacobs (NY)",
+          "bioguide_id": "J000020",
+          "party": "R",
+          "state": "NY",
+          "position": "yea"
+        },
+        {
+          "name": "Jayapal",
+          "bioguide_id": "J000298",
+          "party": "D",
+          "state": "WA",
+          "position": "yea"
+        },
+        {
+          "name": "Jeffries",
+          "bioguide_id": "J000294",
+          "party": "D",
+          "state": "NY",
+          "position": "yea"
+        },
+        {
+          "name": "Johnson (GA)",
+          "bioguide_id": "J000288",
+          "party": "D",
+          "state": "GA",
+          "position": "yea"
+        },
+        {
+          "name": "Johnson (LA)",
+          "bioguide_id": "J000299",
+          "party": "R",
+          "state": "LA",
+          "position": "nay"
+        },
+        {
+          "name": "Johnson (OH)",
+          "bioguide_id": "J000292",
+          "party": "R",
+          "state": "OH",
+          "position": "yea"
+        },
+        {
+          "name": "Johnson (SD)",
+          "bioguide_id": "J000301",
+          "party": "R",
+          "state": "SD",
+          "position": "yea"
+        },
+        {
+          "name": "Johnson (TX)",
+          "bioguide_id": "J000126",
+          "party": "D",
+          "state": "TX",
+          "position": "yea"
+        },
+        {
+          "name": "Jones",
+          "bioguide_id": "J000306",
+          "party": "D",
+          "state": "NY",
+          "position": "yea"
+        },
+        {
+          "name": "Jordan",
+          "bioguide_id": "J000289",
+          "party": "R",
+          "state": "OH",
+          "position": "nay"
+        },
+        {
+          "name": "Joyce (OH)",
+          "bioguide_id": "J000295",
+          "party": "R",
+          "state": "OH",
+          "position": "yea"
+        },
+        {
+          "name": "Joyce (PA)",
+          "bioguide_id": "J000302",
+          "party": "R",
+          "state": "PA",
+          "position": "yea"
+        },
+        {
+          "name": "Kahele",
+          "bioguide_id": "K000396",
+          "party": "D",
+          "state": "HI",
+          "position": "yea"
+        },
+        {
+          "name": "Kaptur",
+          "bioguide_id": "K000009",
+          "party": "D",
+          "state": "OH",
+          "position": "yea"
+        },
+        {
+          "name": "Katko",
+          "bioguide_id": "K000386",
+          "party": "R",
+          "state": "NY",
+          "position": "yea"
+        },
+        {
+          "name": "Keating",
+          "bioguide_id": "K000375",
+          "party": "D",
+          "state": "MA",
+          "position": "yea"
+        },
+        {
+          "name": "Keller",
+          "bioguide_id": "K000395",
+          "party": "R",
+          "state": "PA",
+          "position": "yea"
+        },
+        {
+          "name": "Kelly (IL)",
+          "bioguide_id": "K000385",
+          "party": "D",
+          "state": "IL",
+          "position": "yea"
+        },
+        {
+          "name": "Kelly (MS)",
+          "bioguide_id": "K000388",
+          "party": "R",
+          "state": "MS",
+          "position": "nay"
+        },
+        {
+          "name": "Kelly (PA)",
+          "bioguide_id": "K000376",
+          "party": "R",
+          "state": "PA",
+          "position": "yea"
+        },
+        {
+          "name": "Khanna",
+          "bioguide_id": "K000389",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Kildee",
+          "bioguide_id": "K000380",
+          "party": "D",
+          "state": "MI",
+          "position": "yea"
+        },
+        {
+          "name": "Kilmer",
+          "bioguide_id": "K000381",
+          "party": "D",
+          "state": "WA",
+          "position": "yea"
+        },
+        {
+          "name": "Kim (CA)",
+          "bioguide_id": "K000397",
+          "party": "R",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Kim (NJ)",
+          "bioguide_id": "K000394",
+          "party": "D",
+          "state": "NJ",
+          "position": "yea"
+        },
+        {
+          "name": "Kind",
+          "bioguide_id": "K000188",
+          "party": "D",
+          "state": "WI",
+          "position": "yea"
+        },
+        {
+          "name": "Kinzinger",
+          "bioguide_id": "K000378",
+          "party": "R",
+          "state": "IL",
+          "position": "yea"
+        },
+        {
+          "name": "Kirkpatrick",
+          "bioguide_id": "K000368",
+          "party": "D",
+          "state": "AZ",
+          "position": "yea"
+        },
+        {
+          "name": "Krishnamoorthi",
+          "bioguide_id": "K000391",
+          "party": "D",
+          "state": "IL",
+          "position": "yea"
+        },
+        {
+          "name": "Kuster",
+          "bioguide_id": "K000382",
+          "party": "D",
+          "state": "NH",
+          "position": "yea"
+        },
+        {
+          "name": "Kustoff",
+          "bioguide_id": "K000392",
+          "party": "R",
+          "state": "TN",
+          "position": "nay"
+        },
+        {
+          "name": "LaHood",
+          "bioguide_id": "L000585",
+          "party": "R",
+          "state": "IL",
+          "position": "nay"
+        },
+        {
+          "name": "LaMalfa",
+          "bioguide_id": "L000578",
+          "party": "R",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Lamb",
+          "bioguide_id": "L000588",
+          "party": "D",
+          "state": "PA",
+          "position": "yea"
+        },
+        {
+          "name": "Lamborn",
+          "bioguide_id": "L000564",
+          "party": "R",
+          "state": "CO",
+          "position": "nay"
+        },
+        {
+          "name": "Langevin",
+          "bioguide_id": "L000559",
+          "party": "D",
+          "state": "RI",
+          "position": "yea"
+        },
+        {
+          "name": "Larsen (WA)",
+          "bioguide_id": "L000560",
+          "party": "D",
+          "state": "WA",
+          "position": "yea"
+        },
+        {
+          "name": "Larson (CT)",
+          "bioguide_id": "L000557",
+          "party": "D",
+          "state": "CT",
+          "position": "yea"
+        },
+        {
+          "name": "Latta",
+          "bioguide_id": "L000566",
+          "party": "R",
+          "state": "OH",
+          "position": "yea"
+        },
+        {
+          "name": "LaTurner",
+          "bioguide_id": "L000266",
+          "party": "R",
+          "state": "KS",
+          "position": "yea"
+        },
+        {
+          "name": "Lawrence",
+          "bioguide_id": "L000581",
+          "party": "D",
+          "state": "MI",
+          "position": "yea"
+        },
+        {
+          "name": "Lawson (FL)",
+          "bioguide_id": "L000586",
+          "party": "D",
+          "state": "FL",
+          "position": "yea"
+        },
+        {
+          "name": "Lee (CA)",
+          "bioguide_id": "L000551",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Lee (NV)",
+          "bioguide_id": "L000590",
+          "party": "D",
+          "state": "NV",
+          "position": "yea"
+        },
+        {
+          "name": "Leger Fernandez",
+          "bioguide_id": "L000273",
+          "party": "D",
+          "state": "NM",
+          "position": "yea"
+        },
+        {
+          "name": "Lesko",
+          "bioguide_id": "L000589",
+          "party": "R",
+          "state": "AZ",
+          "position": "nay"
+        },
+        {
+          "name": "Letlow",
+          "bioguide_id": "L000595",
+          "party": "R",
+          "state": "LA",
+          "position": "yea"
+        },
+        {
+          "name": "Levin (CA)",
+          "bioguide_id": "L000593",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Levin (MI)",
+          "bioguide_id": "L000592",
+          "party": "D",
+          "state": "MI",
+          "position": "yea"
+        },
+        {
+          "name": "Lieu",
+          "bioguide_id": "L000582",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Lofgren",
+          "bioguide_id": "L000397",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Long",
+          "bioguide_id": "L000576",
+          "party": "R",
+          "state": "MO",
+          "position": "nay"
+        },
+        {
+          "name": "Loudermilk",
+          "bioguide_id": "L000583",
+          "party": "R",
+          "state": "GA",
+          "position": "nay"
+        },
+        {
+          "name": "Lowenthal",
+          "bioguide_id": "L000579",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Lucas",
+          "bioguide_id": "L000491",
+          "party": "R",
+          "state": "OK",
+          "position": "yea"
+        },
+        {
+          "name": "Luetkemeyer",
+          "bioguide_id": "L000569",
+          "party": "R",
+          "state": "MO",
+          "position": "yea"
+        },
+        {
+          "name": "Luria",
+          "bioguide_id": "L000591",
+          "party": "D",
+          "state": "VA",
+          "position": "yea"
+        },
+        {
+          "name": "Lynch",
+          "bioguide_id": "L000562",
+          "party": "D",
+          "state": "MA",
+          "position": "yea"
+        },
+        {
+          "name": "Mace",
+          "bioguide_id": "M000194",
+          "party": "R",
+          "state": "SC",
+          "position": "yea"
+        },
+        {
+          "name": "Malinowski",
+          "bioguide_id": "M001203",
+          "party": "D",
+          "state": "NJ",
+          "position": "yea"
+        },
+        {
+          "name": "Malliotakis",
+          "bioguide_id": "M000317",
+          "party": "R",
+          "state": "NY",
+          "position": "yea"
+        },
+        {
+          "name": "Maloney, Carolyn B.",
+          "bioguide_id": "M000087",
+          "party": "D",
+          "state": "NY",
+          "position": "yea"
+        },
+        {
+          "name": "Maloney, Sean",
+          "bioguide_id": "M001185",
+          "party": "D",
+          "state": "NY",
+          "position": "yea"
+        },
+        {
+          "name": "Mann",
+          "bioguide_id": "M000871",
+          "party": "R",
+          "state": "KS",
+          "position": "nay"
+        },
+        {
+          "name": "Manning",
+          "bioguide_id": "M001135",
+          "party": "D",
+          "state": "NC",
+          "position": "yea"
+        },
+        {
+          "name": "Massie",
+          "bioguide_id": "M001184",
+          "party": "R",
+          "state": "KY",
+          "position": "nay"
+        },
+        {
+          "name": "Mast",
+          "bioguide_id": "M001199",
+          "party": "R",
+          "state": "FL",
+          "position": "yea"
+        },
+        {
+          "name": "Matsui",
+          "bioguide_id": "M001163",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "McBath",
+          "bioguide_id": "M001208",
+          "party": "D",
+          "state": "GA",
+          "position": "yea"
+        },
+        {
+          "name": "McCarthy",
+          "bioguide_id": "M001165",
+          "party": "R",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "McCaul",
+          "bioguide_id": "M001157",
+          "party": "R",
+          "state": "TX",
+          "position": "yea"
+        },
+        {
+          "name": "McClain",
+          "bioguide_id": "M001136",
+          "party": "R",
+          "state": "MI",
+          "position": "nay"
+        },
+        {
+          "name": "McClintock",
+          "bioguide_id": "M001177",
+          "party": "R",
+          "state": "CA",
+          "position": "nay"
+        },
+        {
+          "name": "McCollum",
+          "bioguide_id": "M001143",
+          "party": "D",
+          "state": "MN",
+          "position": "yea"
+        },
+        {
+          "name": "McEachin",
+          "bioguide_id": "M001200",
+          "party": "D",
+          "state": "VA",
+          "position": "yea"
+        },
+        {
+          "name": "McGovern",
+          "bioguide_id": "M000312",
+          "party": "D",
+          "state": "MA",
+          "position": "yea"
+        },
+        {
+          "name": "McHenry",
+          "bioguide_id": "M001156",
+          "party": "R",
+          "state": "NC",
+          "position": "nay"
+        },
+        {
+          "name": "McKinley",
+          "bioguide_id": "M001180",
+          "party": "R",
+          "state": "WV",
+          "position": "yea"
+        },
+        {
+          "name": "McNerney",
+          "bioguide_id": "M001166",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Meeks",
+          "bioguide_id": "M001137",
+          "party": "D",
+          "state": "NY",
+          "position": "yea"
+        },
+        {
+          "name": "Meijer",
+          "bioguide_id": "M001186",
+          "party": "R",
+          "state": "MI",
+          "position": "yea"
+        },
+        {
+          "name": "Meng",
+          "bioguide_id": "M001188",
+          "party": "D",
+          "state": "NY",
+          "position": "yea"
+        },
+        {
+          "name": "Meuser",
+          "bioguide_id": "M001204",
+          "party": "R",
+          "state": "PA",
+          "position": "yea"
+        },
+        {
+          "name": "Mfume",
+          "bioguide_id": "M000687",
+          "party": "D",
+          "state": "MD",
+          "position": "yea"
+        },
+        {
+          "name": "Miller (IL)",
+          "bioguide_id": "M001211",
+          "party": "R",
+          "state": "IL",
+          "position": "nay"
+        },
+        {
+          "name": "Miller (WV)",
+          "bioguide_id": "M001205",
+          "party": "R",
+          "state": "WV",
+          "position": "nay"
+        },
+        {
+          "name": "Miller-Meeks",
+          "bioguide_id": "M001215",
+          "party": "R",
+          "state": "IA",
+          "position": "yea"
+        },
+        {
+          "name": "Moolenaar",
+          "bioguide_id": "M001194",
+          "party": "R",
+          "state": "MI",
+          "position": "nay"
+        },
+        {
+          "name": "Mooney",
+          "bioguide_id": "M001195",
+          "party": "R",
+          "state": "WV",
+          "position": "nay"
+        },
+        {
+          "name": "Moore (AL)",
+          "bioguide_id": "M001212",
+          "party": "R",
+          "state": "AL",
+          "position": "nay"
+        },
+        {
+          "name": "Moore (UT)",
+          "bioguide_id": "M001213",
+          "party": "R",
+          "state": "UT",
+          "position": "yea"
+        },
+        {
+          "name": "Moore (WI)",
+          "bioguide_id": "M001160",
+          "party": "D",
+          "state": "WI",
+          "position": "yea"
+        },
+        {
+          "name": "Morelle",
+          "bioguide_id": "M001206",
+          "party": "D",
+          "state": "NY",
+          "position": "yea"
+        },
+        {
+          "name": "Moulton",
+          "bioguide_id": "M001196",
+          "party": "D",
+          "state": "MA",
+          "position": "yea"
+        },
+        {
+          "name": "Mrvan",
+          "bioguide_id": "M001214",
+          "party": "D",
+          "state": "IN",
+          "position": "yea"
+        },
+        {
+          "name": "Mullin",
+          "bioguide_id": "M001190",
+          "party": "R",
+          "state": "OK",
+          "position": "nay"
+        },
+        {
+          "name": "Murphy (FL)",
+          "bioguide_id": "M001202",
+          "party": "D",
+          "state": "FL",
+          "position": "yea"
+        },
+        {
+          "name": "Murphy (NC)",
+          "bioguide_id": "M001210",
+          "party": "R",
+          "state": "NC",
+          "position": "nay"
+        },
+        {
+          "name": "Nadler",
+          "bioguide_id": "N000002",
+          "party": "D",
+          "state": "NY",
+          "position": "yea"
+        },
+        {
+          "name": "Napolitano",
+          "bioguide_id": "N000179",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Neal",
+          "bioguide_id": "N000015",
+          "party": "D",
+          "state": "MA",
+          "position": "yea"
+        },
+        {
+          "name": "Neguse",
+          "bioguide_id": "N000191",
+          "party": "D",
+          "state": "CO",
+          "position": "yea"
+        },
+        {
+          "name": "Nehls",
+          "bioguide_id": "N000026",
+          "party": "R",
+          "state": "TX",
+          "position": "nay"
+        },
+        {
+          "name": "Newhouse",
+          "bioguide_id": "N000189",
+          "party": "R",
+          "state": "WA",
+          "position": "yea"
+        },
+        {
+          "name": "Newman",
+          "bioguide_id": "N000192",
+          "party": "D",
+          "state": "IL",
+          "position": "yea"
+        },
+        {
+          "name": "Norcross",
+          "bioguide_id": "N000188",
+          "party": "D",
+          "state": "NJ",
+          "position": "yea"
+        },
+        {
+          "name": "Norman",
+          "bioguide_id": "N000190",
+          "party": "R",
+          "state": "SC",
+          "position": "nay"
+        },
+        {
+          "name": "O'Halleran",
+          "bioguide_id": "O000171",
+          "party": "D",
+          "state": "AZ",
+          "position": "yea"
+        },
+        {
+          "name": "Obernolte",
+          "bioguide_id": "O000019",
+          "party": "R",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Ocasio-Cortez",
+          "bioguide_id": "O000172",
+          "party": "D",
+          "state": "NY",
+          "position": "yea"
+        },
+        {
+          "name": "Omar",
+          "bioguide_id": "O000173",
+          "party": "D",
+          "state": "MN",
+          "position": "yea"
+        },
+        {
+          "name": "Owens",
+          "bioguide_id": "O000086",
+          "party": "R",
+          "state": "UT",
+          "position": "yea"
+        },
+        {
+          "name": "Palazzo",
+          "bioguide_id": "P000601",
+          "party": "R",
+          "state": "MS",
+          "position": "nay"
+        },
+        {
+          "name": "Pallone",
+          "bioguide_id": "P000034",
+          "party": "D",
+          "state": "NJ",
+          "position": "yea"
+        },
+        {
+          "name": "Palmer",
+          "bioguide_id": "P000609",
+          "party": "R",
+          "state": "AL",
+          "position": "nay"
+        },
+        {
+          "name": "Panetta",
+          "bioguide_id": "P000613",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Pappas",
+          "bioguide_id": "P000614",
+          "party": "D",
+          "state": "NH",
+          "position": "yea"
+        },
+        {
+          "name": "Pascrell",
+          "bioguide_id": "P000096",
+          "party": "D",
+          "state": "NJ",
+          "position": "yea"
+        },
+        {
+          "name": "Payne",
+          "bioguide_id": "P000604",
+          "party": "D",
+          "state": "NJ",
+          "position": "yea"
+        },
+        {
+          "name": "Pelosi",
+          "bioguide_id": "P000197",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Pence",
+          "bioguide_id": "P000615",
+          "party": "R",
+          "state": "IN",
+          "position": "yea"
+        },
+        {
+          "name": "Perlmutter",
+          "bioguide_id": "P000593",
+          "party": "D",
+          "state": "CO",
+          "position": "yea"
+        },
+        {
+          "name": "Perry",
+          "bioguide_id": "P000605",
+          "party": "R",
+          "state": "PA",
+          "position": "nay"
+        },
+        {
+          "name": "Peters",
+          "bioguide_id": "P000608",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Pfluger",
+          "bioguide_id": "P000048",
+          "party": "R",
+          "state": "TX",
+          "position": "nay"
+        },
+        {
+          "name": "Phillips",
+          "bioguide_id": "P000616",
+          "party": "D",
+          "state": "MN",
+          "position": "yea"
+        },
+        {
+          "name": "Pingree",
+          "bioguide_id": "P000597",
+          "party": "D",
+          "state": "ME",
+          "position": "yea"
+        },
+        {
+          "name": "Pocan",
+          "bioguide_id": "P000607",
+          "party": "D",
+          "state": "WI",
+          "position": "yea"
+        },
+        {
+          "name": "Porter",
+          "bioguide_id": "P000618",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Posey",
+          "bioguide_id": "P000599",
+          "party": "R",
+          "state": "FL",
+          "position": "nay"
+        },
+        {
+          "name": "Pressley",
+          "bioguide_id": "P000617",
+          "party": "D",
+          "state": "MA",
+          "position": "yea"
+        },
+        {
+          "name": "Price (NC)",
+          "bioguide_id": "P000523",
+          "party": "D",
+          "state": "NC",
+          "position": "yea"
+        },
+        {
+          "name": "Quigley",
+          "bioguide_id": "Q000023",
+          "party": "D",
+          "state": "IL",
+          "position": "yea"
+        },
+        {
+          "name": "Raskin",
+          "bioguide_id": "R000606",
+          "party": "D",
+          "state": "MD",
+          "position": "yea"
+        },
+        {
+          "name": "Reed",
+          "bioguide_id": "R000585",
+          "party": "R",
+          "state": "NY",
+          "position": "yea"
+        },
+        {
+          "name": "Reschenthaler",
+          "bioguide_id": "R000610",
+          "party": "R",
+          "state": "PA",
+          "position": "yea"
+        },
+        {
+          "name": "Rice (NY)",
+          "bioguide_id": "R000602",
+          "party": "D",
+          "state": "NY",
+          "position": "yea"
+        },
+        {
+          "name": "Rice (SC)",
+          "bioguide_id": "R000597",
+          "party": "R",
+          "state": "SC",
+          "position": "nay"
+        },
+        {
+          "name": "Rodgers (WA)",
+          "bioguide_id": "M001159",
+          "party": "R",
+          "state": "WA",
+          "position": "nay"
+        },
+        {
+          "name": "Rogers (AL)",
+          "bioguide_id": "R000575",
+          "party": "R",
+          "state": "AL",
+          "position": "yea"
+        },
+        {
+          "name": "Rogers (KY)",
+          "bioguide_id": "R000395",
+          "party": "R",
+          "state": "KY",
+          "position": "yea"
+        },
+        {
+          "name": "Rose",
+          "bioguide_id": "R000612",
+          "party": "R",
+          "state": "TN",
+          "position": "nay"
+        },
+        {
+          "name": "Rosendale",
+          "bioguide_id": "R000103",
+          "party": "R",
+          "state": "MT",
+          "position": "nay"
+        },
+        {
+          "name": "Ross",
+          "bioguide_id": "R000305",
+          "party": "D",
+          "state": "NC",
+          "position": "yea"
+        },
+        {
+          "name": "Rouzer",
+          "bioguide_id": "R000603",
+          "party": "R",
+          "state": "NC",
+          "position": "yea"
+        },
+        {
+          "name": "Roy",
+          "bioguide_id": "R000614",
+          "party": "R",
+          "state": "TX",
+          "position": "nay"
+        },
+        {
+          "name": "Roybal-Allard",
+          "bioguide_id": "R000486",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Ruiz",
+          "bioguide_id": "R000599",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Ruppersberger",
+          "bioguide_id": "R000576",
+          "party": "D",
+          "state": "MD",
+          "position": "yea"
+        },
+        {
+          "name": "Rush",
+          "bioguide_id": "R000515",
+          "party": "D",
+          "state": "IL",
+          "position": "yea"
+        },
+        {
+          "name": "Rutherford",
+          "bioguide_id": "R000609",
+          "party": "R",
+          "state": "FL",
+          "position": "yea"
+        },
+        {
+          "name": "Ryan",
+          "bioguide_id": "R000577",
+          "party": "D",
+          "state": "OH",
+          "position": "yea"
+        },
+        {
+          "name": "Salazar",
+          "bioguide_id": "S000168",
+          "party": "R",
+          "state": "FL",
+          "position": "yea"
+        },
+        {
+          "name": "S\u00e1nchez",
+          "bioguide_id": "S001156",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Sarbanes",
+          "bioguide_id": "S001168",
+          "party": "D",
+          "state": "MD",
+          "position": "yea"
+        },
+        {
+          "name": "Scalise",
+          "bioguide_id": "S001176",
+          "party": "R",
+          "state": "LA",
+          "position": "yea"
+        },
+        {
+          "name": "Scanlon",
+          "bioguide_id": "S001205",
+          "party": "D",
+          "state": "PA",
+          "position": "yea"
+        },
+        {
+          "name": "Schakowsky",
+          "bioguide_id": "S001145",
+          "party": "D",
+          "state": "IL",
+          "position": "yea"
+        },
+        {
+          "name": "Schiff",
+          "bioguide_id": "S001150",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Schneider",
+          "bioguide_id": "S001190",
+          "party": "D",
+          "state": "IL",
+          "position": "yea"
+        },
+        {
+          "name": "Schrader",
+          "bioguide_id": "S001180",
+          "party": "D",
+          "state": "OR",
+          "position": "yea"
+        },
+        {
+          "name": "Schrier",
+          "bioguide_id": "S001216",
+          "party": "D",
+          "state": "WA",
+          "position": "yea"
+        },
+        {
+          "name": "Schweikert",
+          "bioguide_id": "S001183",
+          "party": "R",
+          "state": "AZ",
+          "position": "nay"
+        },
+        {
+          "name": "Scott (VA)",
+          "bioguide_id": "S000185",
+          "party": "D",
+          "state": "VA",
+          "position": "yea"
+        },
+        {
+          "name": "Scott, Austin",
+          "bioguide_id": "S001189",
+          "party": "R",
+          "state": "GA",
+          "position": "nay"
+        },
+        {
+          "name": "Scott, David",
+          "bioguide_id": "S001157",
+          "party": "D",
+          "state": "GA",
+          "position": "yea"
+        },
+        {
+          "name": "Sessions",
+          "bioguide_id": "S000250",
+          "party": "R",
+          "state": "TX",
+          "position": "yea"
+        },
+        {
+          "name": "Sewell",
+          "bioguide_id": "S001185",
+          "party": "D",
+          "state": "AL",
+          "position": "yea"
+        },
+        {
+          "name": "Sherman",
+          "bioguide_id": "S000344",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Sherrill",
+          "bioguide_id": "S001207",
+          "party": "D",
+          "state": "NJ",
+          "position": "yea"
+        },
+        {
+          "name": "Simpson",
+          "bioguide_id": "S001148",
+          "party": "R",
+          "state": "ID",
+          "position": "yea"
+        },
+        {
+          "name": "Sires",
+          "bioguide_id": "S001165",
+          "party": "D",
+          "state": "NJ",
+          "position": "yea"
+        },
+        {
+          "name": "Slotkin",
+          "bioguide_id": "S001208",
+          "party": "D",
+          "state": "MI",
+          "position": "yea"
+        },
+        {
+          "name": "Smith (MO)",
+          "bioguide_id": "S001195",
+          "party": "R",
+          "state": "MO",
+          "position": "nay"
+        },
+        {
+          "name": "Smith (NE)",
+          "bioguide_id": "S001172",
+          "party": "R",
+          "state": "NE",
+          "position": "nay"
+        },
+        {
+          "name": "Smith (NJ)",
+          "bioguide_id": "S000522",
+          "party": "R",
+          "state": "NJ",
+          "position": "yea"
+        },
+        {
+          "name": "Smith (WA)",
+          "bioguide_id": "S000510",
+          "party": "D",
+          "state": "WA",
+          "position": "yea"
+        },
+        {
+          "name": "Smucker",
+          "bioguide_id": "S001199",
+          "party": "R",
+          "state": "PA",
+          "position": "nay"
+        },
+        {
+          "name": "Soto",
+          "bioguide_id": "S001200",
+          "party": "D",
+          "state": "FL",
+          "position": "yea"
+        },
+        {
+          "name": "Spanberger",
+          "bioguide_id": "S001209",
+          "party": "D",
+          "state": "VA",
+          "position": "yea"
+        },
+        {
+          "name": "Spartz",
+          "bioguide_id": "S000929",
+          "party": "R",
+          "state": "IN",
+          "position": "yea"
+        },
+        {
+          "name": "Speier",
+          "bioguide_id": "S001175",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Stansbury",
+          "bioguide_id": "S001218",
+          "party": "D",
+          "state": "NM",
+          "position": "yea"
+        },
+        {
+          "name": "Stanton",
+          "bioguide_id": "S001211",
+          "party": "D",
+          "state": "AZ",
+          "position": "yea"
+        },
+        {
+          "name": "Stauber",
+          "bioguide_id": "S001212",
+          "party": "R",
+          "state": "MN",
+          "position": "yea"
+        },
+        {
+          "name": "Steel",
+          "bioguide_id": "S001135",
+          "party": "R",
+          "state": "CA",
+          "position": "nay"
+        },
+        {
+          "name": "Stefanik",
+          "bioguide_id": "S001196",
+          "party": "R",
+          "state": "NY",
+          "position": "yea"
+        },
+        {
+          "name": "Steil",
+          "bioguide_id": "S001213",
+          "party": "R",
+          "state": "WI",
+          "position": "nay"
+        },
+        {
+          "name": "Steube",
+          "bioguide_id": "S001214",
+          "party": "R",
+          "state": "FL",
+          "position": "nay"
+        },
+        {
+          "name": "Stevens",
+          "bioguide_id": "S001215",
+          "party": "D",
+          "state": "MI",
+          "position": "yea"
+        },
+        {
+          "name": "Stewart",
+          "bioguide_id": "S001192",
+          "party": "R",
+          "state": "UT",
+          "position": "yea"
+        },
+        {
+          "name": "Strickland",
+          "bioguide_id": "S001159",
+          "party": "D",
+          "state": "WA",
+          "position": "yea"
+        },
+        {
+          "name": "Suozzi",
+          "bioguide_id": "S001201",
+          "party": "D",
+          "state": "NY",
+          "position": "yea"
+        },
+        {
+          "name": "Swalwell",
+          "bioguide_id": "S001193",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Takano",
+          "bioguide_id": "T000472",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Taylor",
+          "bioguide_id": "T000479",
+          "party": "R",
+          "state": "TX",
+          "position": "nay"
+        },
+        {
+          "name": "Tenney",
+          "bioguide_id": "T000478",
+          "party": "R",
+          "state": "NY",
+          "position": "yea"
+        },
+        {
+          "name": "Thompson (CA)",
+          "bioguide_id": "T000460",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Thompson (MS)",
+          "bioguide_id": "T000193",
+          "party": "D",
+          "state": "MS",
+          "position": "yea"
+        },
+        {
+          "name": "Thompson (PA)",
+          "bioguide_id": "T000467",
+          "party": "R",
+          "state": "PA",
+          "position": "yea"
+        },
+        {
+          "name": "Tiffany",
+          "bioguide_id": "T000165",
+          "party": "R",
+          "state": "WI",
+          "position": "yea"
+        },
+        {
+          "name": "Timmons",
+          "bioguide_id": "T000480",
+          "party": "R",
+          "state": "SC",
+          "position": "nay"
+        },
+        {
+          "name": "Titus",
+          "bioguide_id": "T000468",
+          "party": "D",
+          "state": "NV",
+          "position": "yea"
+        },
+        {
+          "name": "Tlaib",
+          "bioguide_id": "T000481",
+          "party": "D",
+          "state": "MI",
+          "position": "yea"
+        },
+        {
+          "name": "Tonko",
+          "bioguide_id": "T000469",
+          "party": "D",
+          "state": "NY",
+          "position": "yea"
+        },
+        {
+          "name": "Torres (CA)",
+          "bioguide_id": "T000474",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Torres (NY)",
+          "bioguide_id": "T000486",
+          "party": "D",
+          "state": "NY",
+          "position": "yea"
+        },
+        {
+          "name": "Trahan",
+          "bioguide_id": "T000482",
+          "party": "D",
+          "state": "MA",
+          "position": "yea"
+        },
+        {
+          "name": "Trone",
+          "bioguide_id": "T000483",
+          "party": "D",
+          "state": "MD",
+          "position": "yea"
+        },
+        {
+          "name": "Turner",
+          "bioguide_id": "T000463",
+          "party": "R",
+          "state": "OH",
+          "position": "yea"
+        },
+        {
+          "name": "Underwood",
+          "bioguide_id": "U000040",
+          "party": "D",
+          "state": "IL",
+          "position": "yea"
+        },
+        {
+          "name": "Upton",
+          "bioguide_id": "U000031",
+          "party": "R",
+          "state": "MI",
+          "position": "yea"
+        },
+        {
+          "name": "Valadao",
+          "bioguide_id": "V000129",
+          "party": "R",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Van Drew",
+          "bioguide_id": "V000133",
+          "party": "R",
+          "state": "NJ",
+          "position": "yea"
+        },
+        {
+          "name": "Van Duyne",
+          "bioguide_id": "V000134",
+          "party": "R",
+          "state": "TX",
+          "position": "nay"
+        },
+        {
+          "name": "Vargas",
+          "bioguide_id": "V000130",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Veasey",
+          "bioguide_id": "V000131",
+          "party": "D",
+          "state": "TX",
+          "position": "yea"
+        },
+        {
+          "name": "Vela",
+          "bioguide_id": "V000132",
+          "party": "D",
+          "state": "TX",
+          "position": "yea"
+        },
+        {
+          "name": "Vel\u00e1zquez",
+          "bioguide_id": "V000081",
+          "party": "D",
+          "state": "NY",
+          "position": "yea"
+        },
+        {
+          "name": "Wagner",
+          "bioguide_id": "W000812",
+          "party": "R",
+          "state": "MO",
+          "position": "yea"
+        },
+        {
+          "name": "Walberg",
+          "bioguide_id": "W000798",
+          "party": "R",
+          "state": "MI",
+          "position": "yea"
+        },
+        {
+          "name": "Walorski",
+          "bioguide_id": "W000813",
+          "party": "R",
+          "state": "IN",
+          "position": "yea"
+        },
+        {
+          "name": "Waltz",
+          "bioguide_id": "W000823",
+          "party": "R",
+          "state": "FL",
+          "position": "yea"
+        },
+        {
+          "name": "Wasserman Schultz",
+          "bioguide_id": "W000797",
+          "party": "D",
+          "state": "FL",
+          "position": "yea"
+        },
+        {
+          "name": "Waters",
+          "bioguide_id": "W000187",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Watson Coleman",
+          "bioguide_id": "W000822",
+          "party": "D",
+          "state": "NJ",
+          "position": "yea"
+        },
+        {
+          "name": "Weber (TX)",
+          "bioguide_id": "W000814",
+          "party": "R",
+          "state": "TX",
+          "position": "nay"
+        },
+        {
+          "name": "Webster (FL)",
+          "bioguide_id": "W000806",
+          "party": "R",
+          "state": "FL",
+          "position": "yea"
+        },
+        {
+          "name": "Welch",
+          "bioguide_id": "W000800",
+          "party": "D",
+          "state": "VT",
+          "position": "yea"
+        },
+        {
+          "name": "Wenstrup",
+          "bioguide_id": "W000815",
+          "party": "R",
+          "state": "OH",
+          "position": "nay"
+        },
+        {
+          "name": "Westerman",
+          "bioguide_id": "W000821",
+          "party": "R",
+          "state": "AR",
+          "position": "yea"
+        },
+        {
+          "name": "Wexton",
+          "bioguide_id": "W000825",
+          "party": "D",
+          "state": "VA",
+          "position": "yea"
+        },
+        {
+          "name": "Wild",
+          "bioguide_id": "W000826",
+          "party": "D",
+          "state": "PA",
+          "position": "yea"
+        },
+        {
+          "name": "Williams (GA)",
+          "bioguide_id": "W000788",
+          "party": "D",
+          "state": "GA",
+          "position": "yea"
+        },
+        {
+          "name": "Williams (TX)",
+          "bioguide_id": "W000816",
+          "party": "R",
+          "state": "TX",
+          "position": "nay"
+        },
+        {
+          "name": "Wilson (FL)",
+          "bioguide_id": "W000808",
+          "party": "D",
+          "state": "FL",
+          "position": "yea"
+        },
+        {
+          "name": "Wilson (SC)",
+          "bioguide_id": "W000795",
+          "party": "R",
+          "state": "SC",
+          "position": "yea"
+        },
+        {
+          "name": "Wittman",
+          "bioguide_id": "W000804",
+          "party": "R",
+          "state": "VA",
+          "position": "yea"
+        },
+        {
+          "name": "Womack",
+          "bioguide_id": "W000809",
+          "party": "R",
+          "state": "AR",
+          "position": "yea"
+        },
+        {
+          "name": "Yarmuth",
+          "bioguide_id": "Y000062",
+          "party": "D",
+          "state": "KY",
+          "position": "yea"
+        },
+        {
+          "name": "Young",
+          "bioguide_id": "Y000033",
+          "party": "R",
+          "state": "AK",
+          "position": "yea"
+        },
+        {
+          "name": "Zeldin",
+          "bioguide_id": "Z000017",
+          "party": "R",
+          "state": "NY",
+          "position": "yea"
+        }
+      ]
+    }
+  ],
+  "unresolved_vote_refs": []
+}

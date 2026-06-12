@@ -1,0 +1,116 @@
+{
+  "bill_id": "118-hr-9403",
+  "fetched_at": "2026-06-12T05:36:41.473266+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/hr/BILLSTATUS-118hr9403.xml",
+  "title": "Expanding AI Voices Act",
+  "policy_area": "Science, Technology, Communications",
+  "subjects": [
+    "Advanced technology and technological innovations",
+    "Computers and information technology",
+    "Public-private cooperation",
+    "Racial and ethnic relations"
+  ],
+  "sponsor": {
+    "bioguideId": "F000477",
+    "fullName": "Rep. Foushee, Valerie P. [D-NC-4]",
+    "firstName": "Valerie",
+    "lastName": "Foushee",
+    "party": "D",
+    "state": "NC",
+    "district": "4"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "L000491",
+      "fullName": "Rep. Lucas, Frank D. [R-OK-3]",
+      "firstName": "Frank",
+      "lastName": "Lucas",
+      "party": "R",
+      "state": "OK",
+      "district": "3",
+      "sponsorshipDate": "2024-08-23",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "E000215",
+      "fullName": "Rep. Eshoo, Anna G. [D-CA-16]",
+      "firstName": "Anna",
+      "lastName": "Eshoo",
+      "party": "D",
+      "state": "CA",
+      "district": "16",
+      "sponsorshipDate": "2024-12-03",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "N000193",
+      "fullName": "Rep. Nunn, Zachary [R-IA-3]",
+      "firstName": "Zachary",
+      "lastName": "Nunn",
+      "party": "R",
+      "state": "IA",
+      "district": "3",
+      "sponsorshipDate": "2024-12-03",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "F000454",
+      "fullName": "Rep. Foster, Bill [D-IL-11]",
+      "firstName": "Bill",
+      "lastName": "Foster",
+      "party": "D",
+      "state": "IL",
+      "district": "11",
+      "sponsorshipDate": "2024-12-11",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2024-09-11",
+      "text": "Ordered to be Reported (Amended) by Voice Vote.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2024-09-11",
+      "text": "Committee Consideration and Mark-up Session Held",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2024-08-23",
+      "text": "Referred to the House Committee on Science, Space, and Technology.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-08-23",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2024-08-23",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "died_in_committee",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2024-09-11",
+      "text": "Ordered to be Reported (Amended) by Voice Vote."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

@@ -1,0 +1,879 @@
+{
+  "bill_id": "117-hr-3684",
+  "congress": 117,
+  "bill_type": "hr",
+  "bill_number": 3684,
+  "title": "Infrastructure Investment and Jobs Act",
+  "short_title": "Infrastructure Investment and Jobs Act",
+  "sponsor": "Rep. DeFazio, Peter A. [D-OR-4]",
+  "introduced_date": "2021-06-04",
+  "latest_action": "2022-08-04: Committee on Banking, Housing, and Urban Affairs. Hearings held.",
+  "policy_area": "Transportation and Public Works",
+  "subjects": [
+    "Advanced technology and technological innovations",
+    "Advisory bodies",
+    "Agricultural marketing and promotion",
+    "Air quality",
+    "Animal protection and human-animal relationships",
+    "Atmospheric science and weather",
+    "Building construction",
+    "Child safety and welfare",
+    "Civil actions and liability",
+    "Climate change and greenhouse gases",
+    "Congressional oversight",
+    "Department of Transportation",
+    "Disability and paralysis",
+    "District of Columbia",
+    "Drug, alcohol, tobacco use",
+    "Economic performance and conditions",
+    "Educational facilities and institutions",
+    "Elementary and secondary education",
+    "Emergency planning and evacuation",
+    "Employee hiring",
+    "Employment and training programs",
+    "Environmental assessment, monitoring, research",
+    "Environmental health",
+    "Executive agency funding and structure",
+    "Federal officials",
+    "Fires",
+    "Floods and storm protection",
+    "Government employee pay, benefits, personnel management",
+    "Government ethics and transparency, public corruption",
+    "Government information and archives",
+    "Government lending and loan guarantees",
+    "Government studies and investigations",
+    "Higher education",
+    "Horticulture and plants",
+    "Hybrid, electric, and advanced technology vehicles",
+    "Infrastructure development",
+    "Intergovernmental relations",
+    "Land use and conservation",
+    "Lawyers and legal services",
+    "Licensing and registrations",
+    "Mammals",
+    "Marketing and advertising",
+    "Maryland",
+    "Materials",
+    "Minority employment",
+    "Motor carriers",
+    "Motor vehicles",
+    "Natural disasters",
+    "Parks, recreation areas, trails",
+    "Pedestrians and bicycling",
+    "Pest management",
+    "Public transit",
+    "Railroads",
+    "Real estate business",
+    "Regional and metropolitan planning",
+    "Research administration and funding",
+    "Research and development",
+    "Right of privacy",
+    "Roads and highways",
+    "Rural conditions and development",
+    "Scientific communication",
+    "State and local finance",
+    "State and local government operations",
+    "Technology assessment",
+    "Transportation costs",
+    "Transportation employees",
+    "Transportation programs funding",
+    "Transportation safety and security",
+    "Urban and suburban affairs and development",
+    "User charges and fees",
+    "Virginia",
+    "Water quality",
+    "Women in business",
+    "Women's employment"
+  ],
+  "summary_text": null,
+  "centrality_score": null,
+  "match_locations": {},
+  "tier": "A",
+  "stream": "legislation",
+  "topic": "secret_congress",
+  "cluster": "high_salience_bipartisan_law",
+  "curator_note": "Enacted PL 117-58. Senate 69-30; House 228-206 with 13 R yeas after months of coupling to the partisan reconciliation bill \u2014 salience nearly killed a bipartisan deal.",
+  "versions_available": [
+    {
+      "package_id": "BILLS-117hr3684enr",
+      "version_code": "enr",
+      "date_issued": "2021-06-04"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-117hr3684enr",
+    "version_code": "enr",
+    "date_issued": "2021-06-04"
+  },
+  "actions": [
+    {
+      "actionDate": "2022-08-04",
+      "text": "Committee on Banking, Housing, and Urban Affairs. Hearings held.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-11-15",
+      "text": "Became Public Law No: 117-58.",
+      "type": "President",
+      "actionCode": "E40000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2021-11-15",
+      "text": "Became Public Law No: 117-58.",
+      "type": "BecameLaw",
+      "actionCode": "36000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2021-11-15",
+      "text": "Signed by President.",
+      "type": "President",
+      "actionCode": "E30000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2021-11-15",
+      "text": "Signed by President.",
+      "type": "BecameLaw",
+      "actionCode": "36000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2021-11-08",
+      "text": "Presented to President.",
+      "type": "Floor",
+      "actionCode": "E20000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-11-08",
+      "text": "Presented to President.",
+      "type": "President",
+      "actionCode": "28000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2021-11-05",
+      "text": "Motion to reconsider laid on the table Agreed to without objection.",
+      "type": "ResolvingDifferences",
+      "actionCode": "H41931",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-11-05",
+      "text": "On motion to table the motion to reconsider Agreed to by the Yeas and Nays: 228 - 205 (Roll no. 370).",
+      "type": "ResolvingDifferences",
+      "actionCode": "H41931",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-11-05",
+      "text": "Mr. Horsford moved to table the motion to reconsider the vote (CR H6231)",
+      "type": "ResolvingDifferences",
+      "actionCode": "H82000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-11-05",
+      "text": "Kelly (IL) moved to reconsider the vote. (CR H6231)",
+      "type": "ResolvingDifferences",
+      "actionCode": "H41930",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-11-05",
+      "text": "On motion that the House agree to the Senate amendment Agreed to by the Yeas and Nays: 228 - 206 (Roll no. 369). (consideration: CR H6230-6231)",
+      "type": "ResolvingDifferences",
+      "actionCode": "H41610",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-11-05",
+      "text": "Resolving differences -- House actions: On motion that the House agree to the Senate amendment Agreed to by the Yeas and Nays: 228 - 206 (Roll no. 369).(consideration: CR H6230-6231)",
+      "type": "NotUsed",
+      "actionCode": "19500",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2021-10-01",
+      "text": "POSTPONED PROCEEDINGS - Pursuant to clause 1(c) of rule XIX, further consideration of the motion to concur in the Senate amendment to H.R. 3684 is postponed.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-10-01",
+      "text": "Considered as unfinished business. (consideration: CR H5589)",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-09-28",
+      "text": "POSTPONED PROCEEDINGS - At the conclusion of debate on the motion to agree to the Senate amendment to H.R. 3684, the Chair put the question on passage of the motion and by voice vote announced the ayes had prevailed. Mr. Graves (MO) demanded the yeas and nays and further proceedings on the question of adoption of the motion was postponed until a time to be announced.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-09-28",
+      "text": "The previous question was ordered pursuant to the rule.",
+      "type": "ResolvingDifferences",
+      "actionCode": "H41400",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-09-28",
+      "text": "DEBATE - The House resumed with debate on the motion to agree to Senate amendment to H.R. 3684.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-09-28",
+      "text": "Pursuant to clause 1(c) of rule XIX, the House proceeded with further debate on the motion to agree to the Senate amendment to H.R. 3684. (consideration: CR H5473-5477)",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-09-27",
+      "text": "The Chair announced that pursuant to clause 1(c) of rule XIX, further proceedings on agreeing to the Senate amendment to H.R. 3684 were postponed.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-09-27",
+      "text": "DEBATE - The House proceeded with one hour of debate on the motion to agree to Senate amendment to H.R. 3684.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-09-27",
+      "text": "Mr. DeFazio moved that the House agree to the Senate amendment. (CR H5446)",
+      "type": "ResolvingDifferences",
+      "actionCode": "H40150",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-09-27",
+      "text": "Pursuant to the provisions of H. Res. 601, Mr. DeFazio moved that the House agree to the Senate amendment to H.R. 3684. (consideration: CR H5182-5453; text: CR H5182-5446)",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-08-16",
+      "text": "Message on Senate action sent to the House.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-08-10",
+      "text": "Passed Senate with an amendment by Yea-Nay Vote. 69 - 30. Record Vote Number: 314.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-08-10",
+      "text": "Passed/agreed to in Senate: Passed Senate with an amendment by Yea-Nay Vote. 69 - 30. Record Vote Number: 314.",
+      "type": "Floor",
+      "actionCode": "17000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2021-08-10",
+      "text": "Considered by Senate. (consideration: CR S6193-6194, S6199-6203)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-08-09",
+      "text": "Considered by Senate. (consideration: CR S6061-6063, S6069-6077, S6083-6089, S6094-6096)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-08-08",
+      "text": "Cloture on the measure invoked in Senate by Yea-Nay Vote. 68 - 29. Record Vote Number: 313. (CR S6057)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-08-08",
+      "text": "Considered by Senate. (consideration: CR S6034-6058)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-08-07",
+      "text": "Considered by Senate. (consideration: CR S5995-6009, S6010)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-08-05",
+      "text": "Cloture motion on the measure presented in Senate. (CR S5922)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-08-05",
+      "text": "Considered by Senate. (consideration: CR S5894-5918; S5919-5923)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-08-04",
+      "text": "Considered by Senate. (consideration: CR S5791-5821, S5884-5887)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-08-03",
+      "text": "Considered by Senate. (consideration: CR S5683-5685, S5687-5699, S5701-5706)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-08-02",
+      "text": "Considered by Senate. (consideration: CR S5529-5559)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-08-01",
+      "text": "Considered by Senate. (consideration: CR S5240)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-07-30",
+      "text": "Measure laid before Senate by motion. (consideration: CR S5201)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-07-30",
+      "text": "Motion to proceed to consideration of measure agreed to in Senate by Yea-Nay Vote. 66 - 28. Record Vote Number: 288.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-07-30",
+      "text": "Motion to proceed to measure considered in Senate. (CR S5197)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-07-29",
+      "text": "Motion to proceed to measure considered in Senate. (CR S5149-5151)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-07-28",
+      "text": "Motion to proceed to measure considered in Senate. (CR S5137)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-07-28",
+      "text": "Upon reconsideration, cloture on the motion to proceed to H.R. 3684 invoked in Senate by Yea-Nay Vote. 67 - 32. Record Vote Number: 285. (CR S5137)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-07-28",
+      "text": "Motion by Senator Schumer to reconsider the vote by which cloture on the motion to proceed to H.R. 3684 was not invoked (Record Vote No. 276) agreed to in Senate by Voice Vote.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-07-28",
+      "text": "Motion to proceed to consideration of the motion to reconsider the vote by which cloture on the motion to proceed to H.R. 3684 was not invoked (Record Vote No. 276 ) agreed to in Senate by Voice Vote.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-07-21",
+      "text": "Motion by Senator Schumer to reconsider the vote by which cloture on the motion to proceed to the measure was not invoked (Record Vote No. 276) entered in Senate.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-07-21",
+      "text": "Cloture on the motion to proceed to the measure not invoked in Senate by Yea-Nay Vote. 49 - 51. Record Vote Number: 276. (CR S5001)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-07-19",
+      "text": "Cloture motion on the motion to proceed to the measure presented in Senate. (CR S4946)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-07-19",
+      "text": "Motion to proceed to consideration of measure made in Senate. (CR S4946)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-07-13",
+      "text": "Read the second time. Placed on Senate Legislative Calendar under General Orders. Calendar No. 100.",
+      "type": "Calendars",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-07-12",
+      "text": "Received in the Senate. Read the first time. Placed on Senate Legislative Calendar under Read the First Time.",
+      "type": "Calendars",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-07-01",
+      "text": "The Clerk was authorized to correct section numbers, punctuation, and cross references, and to make other necessary technical and conforming corrections in the engrossment of H.R. 3684.",
+      "type": "Floor",
+      "actionCode": "H38900",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-01",
+      "text": "Motion to reconsider laid on the table Agreed to without objection.",
+      "type": "Floor",
+      "actionCode": "H38310",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-01",
+      "text": "On passage Passed by the Yeas and Nays: 221 - 201 (Roll no. 208).",
+      "type": "Floor",
+      "actionCode": "H37100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-01",
+      "text": "Passed/agreed to in House: On passage Passed by the Yeas and Nays: 221 - 201 (Roll no. 208).",
+      "type": "Floor",
+      "actionCode": "8000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2021-07-01",
+      "text": "On motion to recommit Failed by the Yeas and Nays: 202 - 217 (Roll no. 207).",
+      "type": "Floor",
+      "actionCode": "H36210",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-01",
+      "text": "The previous question on the motion to recommit was ordered pursuant to clause 2(b) of rule XIX.",
+      "type": "Floor",
+      "actionCode": "H8A000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-01",
+      "text": "Mr. Gibbs moved to recommit to the Committee on Transportation and Infrastructure. (text: CR H3586)",
+      "type": "Floor",
+      "actionCode": "H36200",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-01",
+      "text": "The previous question was ordered pursuant to the rule.",
+      "type": "Floor",
+      "actionCode": "H35000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-01",
+      "text": "Motion to reconsider laid upon the table. Agreed to without objection.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-01",
+      "text": "Motion to reconsider laid upon the table. Agreed to without objection.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-01",
+      "text": "UNFINISHED BUSINESS - The Chair announced that the unfinished business was on adoption of amendments, which had been debated earlier and on which further proceedings had been postponed. (consideration: CR H3585-3588)",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-06-30",
+      "text": "Pursuant to clause 1(c) of rule XIX, further proceedings on H.R. 3684 were postponed.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-06-30",
+      "text": "POSTPONED PROCEEDINGS - At the conclusion of debate on the Lee (NV) amendment No. 132, the Chair put the question on adoption of the amendment and by voice vote, announced that the ayes had prevailed. Mrs. Lee (NV) demanded the yeas and nays and the Chair postponed further proceedings until a time to be announced.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-06-30",
+      "text": "DEBATE - Pursuant to the provisions of H. Res. 508, the House proceeded with 10 minutes of debate on the Lee (NV) amendment No. 132.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-06-30",
+      "text": "POSTPONED PROCEEDINGS - At the conclusion of debate on the Davids (KS) amendment en bloc No. 5, the Chair put the question on adoption of the amendment and by voice vote, announced that the ayes had prevailed. Mr. Rouzer demanded the yeas and nays and the Chair postponed further proceedings until a time to be announced.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-06-30",
+      "text": "DEBATE - Pursuant to the provisions of H. Res. 508, the House proceeded with 20 minutes of debate on the Davids (KS) amendment en bloc No. 5.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-06-30",
+      "text": "Motion to reconsider laid on the table. Agreed to without objection.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-06-30",
+      "text": "Motion to reconsider laid on the table. Agreed to without objection.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-06-30",
+      "text": "Motion to reconsider laid on the table. Agreed to without objection.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-06-30",
+      "text": "POSTPONED PROCEEDINGS - At the conclusion of debate on the Van Duyne amendment No. 108, the Chair put the question on adoption of the amendment and by voice vote, announced that the noes had prevailed. Ms. Van Duyne demanded the yeas and nays and the Chair postponed further proceedings until a time to be announced.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-06-30",
+      "text": "DEBATE - Pursuant to the provisions of H. Res 508, the House proceeded with 10 minutes of debate on the Van Duyne amendment No. 108.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-06-30",
+      "text": "DEBATE - Pursuant to the provisions of H. Res 508, the House proceeded with 10 minutes of debate on the Cammack amendment No. 10.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-06-30",
+      "text": "POSTPONED PROCEEDINGS - At the conclusion of debate on the DeFazio amendment en bloc No. 4, the Chair put the question on adoption of the amendment and by voice vote, announced that the ayes had prevailed. Mr. Crawford demanded the yeas and nays and the Chair postponed further proceedings until a time to be announced.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-06-30",
+      "text": "DEBATE - Pursuant to the provisions of H. Res 508, the House proceeded with 20 minutes of debate on the DeFazio amendment en bloc No. 4.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-06-30",
+      "text": "POSTPONED PROCEEDINGS - At the conclusion of debate on the DeFazio amendment en bloc No. 3, the Chair put the question on adoption of the amendment and by voice vote, announced that the ayes had prevailed. Mr. DeFazio demanded the yeas and nays and the Chair postponed further proceedings until a time to be announced.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-06-30",
+      "text": "DEBATE - Pursuant to the provisions of H. Res 508, the House proceeded with 20 minutes of debate on the DeFazio amendment en bloc No. 3.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-06-30",
+      "text": "DEBATE - Pursuant to the provisions of H. Res 508, the House proceeded with 20 minutes of debate on the Lamb amendment en bloc No. 2.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-06-30",
+      "text": "POSTPONED PROCEEDINGS - At the conclusion of debate on the Lamb amendment en bloc No. 1, the Chair put the question on adoption of the amendment and by voice vote, announced that the ayes had prevailed. Mr. Graves (LA) demanded the yeas and nays and the Chair postponed further proceedings until a time to be announced.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-06-30",
+      "text": "DEBATE - Pursuant to the provisions of H. Res. 508, the House proceeded with 20 minutes of debate on the Lamb amendment en bloc No. 1.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-06-30",
+      "text": "DEBATE - The House proceeded with 90 minutes of debate on H.R. 3684.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-06-30",
+      "text": "Rule provides for consideration of H.R. 2662, H.R. 3005, H.R. 3684 and H. Res. 503. The resolution provides for one hour of general debate on H.R. 2662, under a structured rule; one hour of general debate on H.R. 3005, under a closed rule; 90 minutes of general debate on H.R. 3684; and one hour of general debate on H. Res. 503, under a closed rule. Resolution provides en bloc suspension authority.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-06-30",
+      "text": "Considered under the provisions of rule H. Res. 504. (consideration: CR H3338-3576; text: CR H3338-3503)",
+      "type": "Floor",
+      "actionCode": "H30000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-06-30",
+      "text": "Rule H. Res. 508 passed House.",
+      "type": "Floor",
+      "actionCode": "H1L220",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-06-29",
+      "text": "Rules Committee Resolution H. Res. 508 Reported to House. Rule provides for consideration of H.R. 3684. The resolution provides that following debate, each further amendment printed in the Rules Committee report not earlier considered as part of amendments en bloc pursuant to subsection (b) shall be considered only in the order printed in the report, may be offered only by a Member designated in the report, considered read and debatable for the time specified. The resolution provides that H.Res. 188, agreed to March 8, 2021, is amended by striking \"July 1, 2021\" each place it appears and inserting \"July 30, 2021\".",
+      "type": "Floor",
+      "actionCode": "H1L210",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-06-29",
+      "text": "Supplemental report filed by the Committee on Transportation, H. Rept. 117-70, Part II.",
+      "type": "Committee",
+      "actionCode": "H12210",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-06-29",
+      "text": "Supplemental report filed by the Committee on Transportation, H. Rept. 117-70, Part II.",
+      "type": "Committee",
+      "actionCode": "5000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2021-06-28",
+      "text": "Rules Committee Resolution H. Res. 504 Reported to House. Rule provides for consideration of H.R. 2662, H.R. 3005, H.R. 3684 and H. Res. 503. The resolution provides for one hour of general debate on H.R. 2662, under a structured rule; one hour of general debate on H.R. 3005, under a closed rule; 90 minutes of general debate on H.R. 3684; and one hour of general debate on H. Res. 503, under a closed rule. Resolution provides en bloc suspension authority.",
+      "type": "Floor",
+      "actionCode": "H1L210",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-06-22",
+      "text": "Placed on the Union Calendar, Calendar No. 49.",
+      "type": "Calendars",
+      "actionCode": "H12410",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-06-22",
+      "text": "Reported (Amended) by the Committee on Transportation and Infrastructure. H. Rept. 117-70.",
+      "type": "Committee",
+      "actionCode": "H12200",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-06-22",
+      "text": "Reported (Amended) by the Committee on Transportation and Infrastructure. H. Rept. 117-70.",
+      "type": "Committee",
+      "actionCode": "5000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2021-06-10",
+      "text": "Ordered to be Reported (Amended) by the Yeas and Nays: 38 - 26.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2021-06-10",
+      "text": "Committee Consideration and Mark-up Session Held.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2021-06-09",
+      "text": "Subcommittee on Highways and Transit Discharged.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2021-06-09",
+      "text": "Subcommittee on Railroads, Pipelines, and Hazardous Materials Discharged.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2021-06-09",
+      "text": "Committee Consideration and Mark-up Session Held.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2021-06-07",
+      "text": "Referred to the Subcommittee on Railroads, Pipelines, and Hazardous Materials.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2021-06-07",
+      "text": "Referred to the Subcommittee on Highways and Transit.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2021-06-04",
+      "text": "Referred to the House Committee on Transportation and Infrastructure.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-06-04",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2021-06-04",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "cosponsors": [
+    {
+      "bioguideId": "N000147",
+      "fullName": "Del. Norton, Eleanor Holmes [D-DC-At Large]",
+      "firstName": "ELEANOR",
+      "lastName": "NORTON",
+      "party": "D",
+      "state": "DC",
+      "district": "0",
+      "sponsorshipDate": "2021-06-04",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "P000604",
+      "fullName": "Rep. Payne, Donald M., Jr. [D-NJ-10]",
+      "firstName": "Donald",
+      "lastName": "Payne",
+      "party": "D",
+      "state": "NJ",
+      "district": "10",
+      "sponsorshipDate": "2021-06-04",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "G000559",
+      "fullName": "Rep. Garamendi, John [D-CA-3]",
+      "firstName": "John",
+      "lastName": "Garamendi",
+      "party": "D",
+      "state": "CA",
+      "district": "3",
+      "sponsorshipDate": "2021-06-11",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "W000808",
+      "fullName": "Rep. Wilson, Frederica S. [D-FL-24]",
+      "firstName": "Frederica",
+      "lastName": "Wilson",
+      "party": "D",
+      "state": "FL",
+      "district": "24",
+      "sponsorshipDate": "2021-06-11",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "W000788",
+      "fullName": "Rep. Williams, Nikema [D-GA-5]",
+      "firstName": "Nikema",
+      "lastName": "Williams",
+      "party": "D",
+      "state": "GA",
+      "district": "5",
+      "sponsorshipDate": "2021-06-16",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "_metadata_sources": {
+    "xml": "govinfo bulk-data (unauthenticated)",
+    "billstatus": "govinfo BILLSTATUS bulk-data (unauthenticated)",
+    "congress_gov_enriched": false
+  }
+}

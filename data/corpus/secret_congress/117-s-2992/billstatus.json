@@ -1,0 +1,231 @@
+{
+  "bill_id": "117-s-2992",
+  "fetched_at": "2026-06-12T05:37:42.319407+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/117/s/BILLSTATUS-117s2992.xml",
+  "title": "American Innovation and Choice Online Act",
+  "policy_area": "Commerce",
+  "subjects": [
+    "Asia",
+    "China",
+    "Civil actions and liability",
+    "Competition and antitrust",
+    "Computers and information technology",
+    "Congressional oversight",
+    "Criminal investigation, prosecution, interrogation",
+    "Digital media",
+    "Foreign and international corporations",
+    "Inflation and prices",
+    "Internet, web applications, social media",
+    "Judicial review and appeals",
+    "Retail and wholesale trades"
+  ],
+  "sponsor": {
+    "bioguideId": "K000367",
+    "fullName": "Sen. Klobuchar, Amy [D-MN]",
+    "firstName": "Amy",
+    "lastName": "Klobuchar",
+    "party": "D",
+    "state": "MN",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "G000386",
+      "fullName": "Sen. Grassley, Chuck [R-IA]",
+      "firstName": "Charles",
+      "lastName": "Grassley",
+      "party": "R",
+      "state": "IA",
+      "district": null,
+      "sponsorshipDate": "2021-10-18",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "D000563",
+      "fullName": "Sen. Durbin, Richard J. [D-IL]",
+      "firstName": "Richard",
+      "lastName": "Durbin",
+      "party": "D",
+      "state": "IL",
+      "district": null,
+      "sponsorshipDate": "2021-10-18",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "G000359",
+      "fullName": "Sen. Graham, Lindsey [R-SC]",
+      "firstName": "Lindsey",
+      "lastName": "Graham",
+      "party": "R",
+      "state": "SC",
+      "district": null,
+      "sponsorshipDate": "2021-10-18",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "B001277",
+      "fullName": "Sen. Blumenthal, Richard [D-CT]",
+      "firstName": "Richard",
+      "lastName": "Blumenthal",
+      "party": "D",
+      "state": "CT",
+      "district": null,
+      "sponsorshipDate": "2021-10-18",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "K000393",
+      "fullName": "Sen. Kennedy, John [R-LA]",
+      "firstName": "John",
+      "lastName": "Kennedy",
+      "party": "R",
+      "state": "LA",
+      "district": null,
+      "sponsorshipDate": "2021-10-18",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "B001288",
+      "fullName": "Sen. Booker, Cory A. [D-NJ]",
+      "firstName": "Cory",
+      "lastName": "Booker",
+      "party": "D",
+      "state": "NJ",
+      "district": null,
+      "sponsorshipDate": "2021-10-18",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "L000571",
+      "fullName": "Sen. Lummis, Cynthia M. [R-WY]",
+      "firstName": "Cynthia",
+      "lastName": "Lummis",
+      "party": "R",
+      "state": "WY",
+      "district": null,
+      "sponsorshipDate": "2021-10-18",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "H001042",
+      "fullName": "Sen. Hirono, Mazie K. [D-HI]",
+      "firstName": "Mazie",
+      "lastName": "Hirono",
+      "party": "D",
+      "state": "HI",
+      "district": null,
+      "sponsorshipDate": "2021-10-18",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "W000805",
+      "fullName": "Sen. Warner, Mark R. [D-VA]",
+      "firstName": "Mark",
+      "lastName": "Warner",
+      "party": "D",
+      "state": "VA",
+      "district": null,
+      "sponsorshipDate": "2021-10-18",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "H001089",
+      "fullName": "Sen. Hawley, Josh [R-MO]",
+      "firstName": "Josh",
+      "lastName": "Hawley",
+      "party": "R",
+      "state": "MO",
+      "district": null,
+      "sponsorshipDate": "2021-10-18",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "D000618",
+      "fullName": "Sen. Daines, Steve [R-MT]",
+      "firstName": "Steve",
+      "lastName": "Daines",
+      "party": "R",
+      "state": "MT",
+      "district": null,
+      "sponsorshipDate": "2021-10-18",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "W000802",
+      "fullName": "Sen. Whitehouse, Sheldon [D-RI]",
+      "firstName": "Sheldon",
+      "lastName": "Whitehouse",
+      "party": "D",
+      "state": "RI",
+      "district": null,
+      "sponsorshipDate": "2022-03-16",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "R000122",
+      "fullName": "Sen. Reed, Jack [D-RI]",
+      "firstName": "John",
+      "lastName": "Reed",
+      "party": "D",
+      "state": "RI",
+      "district": null,
+      "sponsorshipDate": "2022-08-01",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2022-03-02",
+      "text": "Placed on Senate Legislative Calendar under General Orders. Calendar No. 301.",
+      "type": "Calendars",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-03-02",
+      "text": "Committee on the Judiciary. Reported by Senator Durbin with an amendment in the nature of a substitute. Without written report.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-03-02",
+      "text": "Committee on the Judiciary. Reported by Senator Durbin with an amendment in the nature of a substitute. Without written report.",
+      "type": "Committee",
+      "actionCode": "14000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-01-20",
+      "text": "Committee on the Judiciary. Ordered to be reported with an amendment in the nature of a substitute favorably.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-10-18",
+      "text": "Read twice and referred to the Committee on the Judiciary.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-10-18",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "reported_no_floor_vote",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2022-03-02",
+      "text": "Placed on Senate Legislative Calendar under General Orders. Calendar No. 301."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

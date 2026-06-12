@@ -1,0 +1,79 @@
+{
+  "bill_id": "118-s-1394",
+  "fetched_at": "2026-06-12T05:36:44.214709+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/s/BILLSTATUS-118s1394.xml",
+  "title": "Block Nuclear Launch by Autonomous Artificial Intelligence Act of 2023",
+  "policy_area": "Armed Forces and National Security",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "M000133",
+    "fullName": "Sen. Markey, Edward J. [D-MA]",
+    "firstName": "Edward",
+    "lastName": "Markey",
+    "party": "D",
+    "state": "MA",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "W000817",
+      "fullName": "Sen. Warren, Elizabeth [D-MA]",
+      "firstName": "Elizabeth",
+      "lastName": "Warren",
+      "party": "D",
+      "state": "MA",
+      "district": null,
+      "sponsorshipDate": "2023-05-01",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "M001176",
+      "fullName": "Sen. Merkley, Jeff [D-OR]",
+      "firstName": "Jeff",
+      "lastName": "Merkley",
+      "party": "D",
+      "state": "OR",
+      "district": null,
+      "sponsorshipDate": "2023-05-01",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "S000033",
+      "fullName": "Sen. Sanders, Bernard [I-VT]",
+      "firstName": "Bernard",
+      "lastName": "Sanders",
+      "party": "I",
+      "state": "VT",
+      "district": null,
+      "sponsorshipDate": "2023-05-01",
+      "isOriginalCosponsor": "True"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2023-05-01",
+      "text": "Read twice and referred to the Committee on Armed Services.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2023-05-01",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "died_in_committee",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2023-05-01",
+      "text": "Read twice and referred to the Committee on Armed Services."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

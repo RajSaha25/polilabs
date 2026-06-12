@@ -1,0 +1,3374 @@
+{
+  "bill_id": "117-s-1260",
+  "fetched_at": "2026-06-12T05:37:41.209097+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/117/s/BILLSTATUS-117s1260.xml",
+  "title": "United States Innovation and Competition Act of 2021",
+  "policy_area": "Science, Technology, Communications",
+  "subjects": [
+    "Abortion",
+    "Advanced technology and technological innovations",
+    "Advisory bodies",
+    "Africa",
+    "Air quality",
+    "Animal protection and human-animal relationships",
+    "Arctic and polar regions",
+    "Asia",
+    "Australia",
+    "Aviation and airports",
+    "Border security and unlawful immigration",
+    "Business investment and capital",
+    "Buy American requirements",
+    "Canada",
+    "China",
+    "Civil actions and liability",
+    "Climate change and greenhouse gases",
+    "Competitiveness, trade promotion, trade deficits",
+    "Computer security and identity theft",
+    "Computers and information technology",
+    "Conflicts and wars",
+    "Congressional oversight",
+    "Corporate finance and management",
+    "Department of Commerce",
+    "Department of State",
+    "Diplomacy, foreign officials, Americans abroad",
+    "Ecology",
+    "Economic development",
+    "Education programs funding",
+    "Electric power generation and transmission",
+    "Elementary and secondary education",
+    "Employment and training programs",
+    "Energy efficiency and conservation",
+    "Energy storage, supplies, demand",
+    "Environmental technology",
+    "Europe",
+    "Executive agency funding and structure",
+    "Family planning and birth control",
+    "Federal officials",
+    "Finland",
+    "Fishes",
+    "Foreign and international corporations",
+    "Foreign property",
+    "Government buildings, facilities, and property",
+    "Government employee pay, benefits, personnel management",
+    "Government ethics and transparency, public corruption",
+    "Government information and archives",
+    "Government studies and investigations",
+    "Hazardous wastes and toxic substances",
+    "Health technology, devices, supplies",
+    "Higher education",
+    "Hong Kong",
+    "Human rights",
+    "Iceland",
+    "Indian social and development programs",
+    "Industrial policy and productivity",
+    "Infrastructure development",
+    "Intellectual property",
+    "International organizations and cooperation",
+    "Internet and video services",
+    "Internet, web applications, social media",
+    "Japan",
+    "Labor standards",
+    "Manufacturing",
+    "Marine and coastal resources, fisheries",
+    "Marine and inland water transportation",
+    "Materials",
+    "Middle East",
+    "Military assistance, sales, and agreements",
+    "Military operations and strategy",
+    "Minority education",
+    "Minority employment",
+    "Multilateral development programs",
+    "National Aeronautics and Space Administration",
+    "National Science Foundation",
+    "Natural disasters",
+    "Navigation, waterways, harbors",
+    "Noise pollution",
+    "Norway",
+    "Nuclear power",
+    "Oceania",
+    "Olympic games",
+    "Peace Corps",
+    "Performance measurement",
+    "Philippines",
+    "Political parties and affiliation",
+    "Public contracts and procurement",
+    "Public-private cooperation",
+    "Religion",
+    "Research administration and funding",
+    "Research and development",
+    "Rural conditions and development",
+    "Russia",
+    "Sanctions",
+    "Science and engineering education",
+    "Small business",
+    "South Korea",
+    "Sovereignty, recognition, national governance and status",
+    "Space flight and exploration",
+    "Spacecraft and satellites",
+    "Student aid and college costs",
+    "Sweden",
+    "Tariffs",
+    "Technology assessment",
+    "Technology transfer and commercialization",
+    "Terrorism",
+    "Thailand",
+    "Tibet",
+    "Transportation safety and security",
+    "U.S. and foreign investments",
+    "United Nations",
+    "Virginia",
+    "Vocational and technical education",
+    "Water use and supply"
+  ],
+  "sponsor": {
+    "bioguideId": "S000148",
+    "fullName": "Sen. Schumer, Charles E. [D-NY]",
+    "firstName": "Charles",
+    "lastName": "Schumer",
+    "party": "D",
+    "state": "NY",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "Y000064",
+      "fullName": "Sen. Young, Todd [R-IN]",
+      "firstName": "Todd",
+      "lastName": "Young",
+      "party": "R",
+      "state": "IN",
+      "district": null,
+      "sponsorshipDate": "2021-04-20",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "H001076",
+      "fullName": "Sen. Hassan, Margaret Wood [D-NH]",
+      "firstName": "Maggie",
+      "lastName": "Hassan",
+      "party": "D",
+      "state": "NH",
+      "district": null,
+      "sponsorshipDate": "2021-04-20",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "C001035",
+      "fullName": "Sen. Collins, Susan M. [R-ME]",
+      "firstName": "Susan",
+      "lastName": "Collins",
+      "party": "R",
+      "state": "ME",
+      "district": null,
+      "sponsorshipDate": "2021-04-20",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "C001088",
+      "fullName": "Sen. Coons, Christopher A. [D-DE]",
+      "firstName": "Christopher",
+      "lastName": "Coons",
+      "party": "D",
+      "state": "DE",
+      "district": null,
+      "sponsorshipDate": "2021-04-20",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "P000449",
+      "fullName": "Sen. Portman, Rob [R-OH]",
+      "firstName": "Rob",
+      "lastName": "Portman",
+      "party": "R",
+      "state": "OH",
+      "district": null,
+      "sponsorshipDate": "2021-04-20",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "B001230",
+      "fullName": "Sen. Baldwin, Tammy [D-WI]",
+      "firstName": "Tammy",
+      "lastName": "Baldwin",
+      "party": "D",
+      "state": "WI",
+      "district": null,
+      "sponsorshipDate": "2021-04-20",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "G000359",
+      "fullName": "Sen. Graham, Lindsey [R-SC]",
+      "firstName": "Lindsey",
+      "lastName": "Graham",
+      "party": "R",
+      "state": "SC",
+      "district": null,
+      "sponsorshipDate": "2021-04-20",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "P000595",
+      "fullName": "Sen. Peters, Gary C. [D-MI]",
+      "firstName": "Gary",
+      "lastName": "Peters",
+      "party": "D",
+      "state": "MI",
+      "district": null,
+      "sponsorshipDate": "2021-04-20",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "B000575",
+      "fullName": "Sen. Blunt, Roy [R-MO]",
+      "firstName": "Roy",
+      "lastName": "Blunt",
+      "party": "R",
+      "state": "MO",
+      "district": null,
+      "sponsorshipDate": "2021-04-20",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "D000618",
+      "fullName": "Sen. Daines, Steve [R-MT]",
+      "firstName": "Steve",
+      "lastName": "Daines",
+      "party": "R",
+      "state": "MT",
+      "district": null,
+      "sponsorshipDate": "2021-04-20",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "V000128",
+      "fullName": "Sen. Van Hollen, Chris [D-MD]",
+      "firstName": "Chris",
+      "lastName": "Van Hollen",
+      "party": "D",
+      "state": "MD",
+      "district": null,
+      "sponsorshipDate": "2021-04-20",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "R000615",
+      "fullName": "Sen. Romney, Mitt [R-UT]",
+      "firstName": "Mitt",
+      "lastName": "Romney",
+      "party": "R",
+      "state": "UT",
+      "district": null,
+      "sponsorshipDate": "2021-04-20",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "K000377",
+      "fullName": "Sen. Kelly, Mark [D-AZ]",
+      "firstName": "Mark",
+      "lastName": "Kelly",
+      "party": "D",
+      "state": "AZ",
+      "district": null,
+      "sponsorshipDate": "2021-04-20",
+      "isOriginalCosponsor": "True"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2021-06-08",
+      "text": "Passed Senate, under the order of 5/28/21, having achieved 60 votes in the affirmative, with an amendment by Yea-Nay Vote. 68 - 32. Record Vote Number: 226. (text: CR S4049-4499)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-06-08",
+      "text": "Passed/agreed to in Senate: Passed Senate, under the order of 5/28/21, having achieved 60 votes in the affirmative, with an amendment by Yea-Nay Vote. 68 - 32. Record Vote Number: 226.(text: CR S4049-4499)",
+      "type": "Floor",
+      "actionCode": "17000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2021-06-08",
+      "text": "Cloture motion on the bill withdrawn by unanimous consent in Senate. (CR S3977)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-06-08",
+      "text": "Considered by Senate. (consideration: CR S3975-3980)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-05-28",
+      "text": "Considered by Senate. (consideration: CR S3915-3926)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-05-27",
+      "text": "Considered by Senate. (consideration: CR S3549-3851, S3851-3876)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-05-26",
+      "text": "Considered by Senate. (consideration: CR S3470-3471, S3476-3479, S3481-3484, S3486, S3492-3496)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-05-25",
+      "text": "Cloture motion on the bill presented in Senate. (CR S3416)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-05-25",
+      "text": "Considered by Senate. (consideration: CR S3401-3410, S3413-3416)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-05-24",
+      "text": "Considered by Senate. (consideration: CR S3318-3326)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-05-20",
+      "text": "Considered by Senate. (consideration: CR S3175-3182, S3182-3186, S3187-3189)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-05-19",
+      "text": "Considered by Senate. (consideration: CR S2752-2755, S2757-2758, S2763-2764, S2768-2769, S2773-2775)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-05-18",
+      "text": "The committee substitute withdrawn by Unanimous Consent.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-05-18",
+      "text": "Measure laid before Senate by motion. (consideration: CR S2568-2569)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-05-18",
+      "text": "Motion to proceed to consideration of measure agreed to in Senate by Voice Vote.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-05-18",
+      "text": "Motion to proceed to measure considered in Senate. (CR S2555)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-05-17",
+      "text": "Cloture on the motion to proceed to the measure invoked in Senate by Yea-Nay Vote. 86 - 11. Record Vote Number: 192. (CR S2541)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-05-17",
+      "text": "Motion to proceed to measure considered in Senate. (CR S2535)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-05-13",
+      "text": "Cloture motion on the motion to proceed to the measure presented in Senate. (CR S2504)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-05-13",
+      "text": "Motion to proceed to consideration of measure made in Senate. (CR S2504)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-05-13",
+      "text": "Placed on Senate Legislative Calendar under General Orders. Calendar No. 58.",
+      "type": "Calendars",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-05-13",
+      "text": "Committee on Commerce, Science, and Transportation. Reported by Senator Cantwell with an amendment in the nature of a substitute. Without written report.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-05-13",
+      "text": "Committee on Commerce, Science, and Transportation. Reported by Senator Cantwell with an amendment in the nature of a substitute. Without written report.",
+      "type": "Committee",
+      "actionCode": "14000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2021-05-12",
+      "text": "Committee on Commerce, Science, and Transportation. Ordered to be reported with an amendment in the nature of a substitute favorably.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-04-20",
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation. (text: CR S2070-2085)",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-04-20",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "died_after_passing_senate",
+    "public_law": null,
+    "events": [
+      {
+        "event": "passed_senate",
+        "date": "2021-06-08",
+        "evidence": "Passed Senate, under the order of 5/28/21, having achieved 60 votes in the affirmative, with an amendment by Yea-Nay Vote. 68 - 32. Record Vote Number: 226. (text: CR S4049-4499)"
+      }
+    ],
+    "latest_action": {
+      "actionDate": "2021-06-08",
+      "text": "Passed Senate, under the order of 5/28/21, having achieved 60 votes in the affirmative, with an amendment by Yea-Nay Vote. 68 - 32. Record Vote Number: 226. (text: CR S4049-4499)"
+    }
+  },
+  "votes": [
+    {
+      "chamber": "Senate",
+      "congress": 117,
+      "session": 1,
+      "roll_number": 226,
+      "date": "2021-06-08T22:32:00Z",
+      "question": "On Passage of the Bill S. 1260",
+      "result": "Bill Passed",
+      "vote_type": "passage",
+      "source_url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1171/vote_117_1_00226.xml",
+      "totals_by_party": {
+        "D": {
+          "yea": 48,
+          "nay": 0,
+          "present": 0,
+          "not_voting": 0
+        },
+        "R": {
+          "yea": 19,
+          "nay": 31,
+          "present": 0,
+          "not_voting": 0
+        },
+        "I": {
+          "yea": 1,
+          "nay": 1,
+          "present": 0,
+          "not_voting": 0
+        }
+      },
+      "yea_total": 68,
+      "nay_total": 32,
+      "bipartisan_support": 0.38,
+      "bipartisan_label": "cross_party",
+      "members": [
+        {
+          "name": "Baldwin (D-WI)",
+          "lis_member_id": "S354",
+          "party": "D",
+          "state": "WI",
+          "position": "yea"
+        },
+        {
+          "name": "Barrasso (R-WY)",
+          "lis_member_id": "S317",
+          "party": "R",
+          "state": "WY",
+          "position": "nay"
+        },
+        {
+          "name": "Bennet (D-CO)",
+          "lis_member_id": "S330",
+          "party": "D",
+          "state": "CO",
+          "position": "yea"
+        },
+        {
+          "name": "Blackburn (R-TN)",
+          "lis_member_id": "S396",
+          "party": "R",
+          "state": "TN",
+          "position": "nay"
+        },
+        {
+          "name": "Blumenthal (D-CT)",
+          "lis_member_id": "S341",
+          "party": "D",
+          "state": "CT",
+          "position": "yea"
+        },
+        {
+          "name": "Blunt (R-MO)",
+          "lis_member_id": "S342",
+          "party": "R",
+          "state": "MO",
+          "position": "yea"
+        },
+        {
+          "name": "Booker (D-NJ)",
+          "lis_member_id": "S370",
+          "party": "D",
+          "state": "NJ",
+          "position": "yea"
+        },
+        {
+          "name": "Boozman (R-AR)",
+          "lis_member_id": "S343",
+          "party": "R",
+          "state": "AR",
+          "position": "nay"
+        },
+        {
+          "name": "Braun (R-IN)",
+          "lis_member_id": "S397",
+          "party": "R",
+          "state": "IN",
+          "position": "nay"
+        },
+        {
+          "name": "Brown (D-OH)",
+          "lis_member_id": "S307",
+          "party": "D",
+          "state": "OH",
+          "position": "yea"
+        },
+        {
+          "name": "Burr (R-NC)",
+          "lis_member_id": "S300",
+          "party": "R",
+          "state": "NC",
+          "position": "nay"
+        },
+        {
+          "name": "Cantwell (D-WA)",
+          "lis_member_id": "S275",
+          "party": "D",
+          "state": "WA",
+          "position": "yea"
+        },
+        {
+          "name": "Capito (R-WV)",
+          "lis_member_id": "S372",
+          "party": "R",
+          "state": "WV",
+          "position": "yea"
+        },
+        {
+          "name": "Cardin (D-MD)",
+          "lis_member_id": "S308",
+          "party": "D",
+          "state": "MD",
+          "position": "yea"
+        },
+        {
+          "name": "Carper (D-DE)",
+          "lis_member_id": "S277",
+          "party": "D",
+          "state": "DE",
+          "position": "yea"
+        },
+        {
+          "name": "Casey (D-PA)",
+          "lis_member_id": "S309",
+          "party": "D",
+          "state": "PA",
+          "position": "yea"
+        },
+        {
+          "name": "Cassidy (R-LA)",
+          "lis_member_id": "S373",
+          "party": "R",
+          "state": "LA",
+          "position": "nay"
+        },
+        {
+          "name": "Collins (R-ME)",
+          "lis_member_id": "S252",
+          "party": "R",
+          "state": "ME",
+          "position": "yea"
+        },
+        {
+          "name": "Coons (D-DE)",
+          "lis_member_id": "S337",
+          "party": "D",
+          "state": "DE",
+          "position": "yea"
+        },
+        {
+          "name": "Cornyn (R-TX)",
+          "lis_member_id": "S287",
+          "party": "R",
+          "state": "TX",
+          "position": "yea"
+        },
+        {
+          "name": "Cortez Masto (D-NV)",
+          "lis_member_id": "S385",
+          "party": "D",
+          "state": "NV",
+          "position": "yea"
+        },
+        {
+          "name": "Cotton (R-AR)",
+          "lis_member_id": "S374",
+          "party": "R",
+          "state": "AR",
+          "position": "nay"
+        },
+        {
+          "name": "Cramer (R-ND)",
+          "lis_member_id": "S398",
+          "party": "R",
+          "state": "ND",
+          "position": "nay"
+        },
+        {
+          "name": "Crapo (R-ID)",
+          "lis_member_id": "S266",
+          "party": "R",
+          "state": "ID",
+          "position": "yea"
+        },
+        {
+          "name": "Cruz (R-TX)",
+          "lis_member_id": "S355",
+          "party": "R",
+          "state": "TX",
+          "position": "nay"
+        },
+        {
+          "name": "Daines (R-MT)",
+          "lis_member_id": "S375",
+          "party": "R",
+          "state": "MT",
+          "position": "yea"
+        },
+        {
+          "name": "Duckworth (D-IL)",
+          "lis_member_id": "S386",
+          "party": "D",
+          "state": "IL",
+          "position": "yea"
+        },
+        {
+          "name": "Durbin (D-IL)",
+          "lis_member_id": "S253",
+          "party": "D",
+          "state": "IL",
+          "position": "yea"
+        },
+        {
+          "name": "Ernst (R-IA)",
+          "lis_member_id": "S376",
+          "party": "R",
+          "state": "IA",
+          "position": "nay"
+        },
+        {
+          "name": "Feinstein (D-CA)",
+          "lis_member_id": "S221",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Fischer (R-NE)",
+          "lis_member_id": "S357",
+          "party": "R",
+          "state": "NE",
+          "position": "nay"
+        },
+        {
+          "name": "Gillibrand (D-NY)",
+          "lis_member_id": "S331",
+          "party": "D",
+          "state": "NY",
+          "position": "yea"
+        },
+        {
+          "name": "Graham (R-SC)",
+          "lis_member_id": "S293",
+          "party": "R",
+          "state": "SC",
+          "position": "yea"
+        },
+        {
+          "name": "Grassley (R-IA)",
+          "lis_member_id": "S153",
+          "party": "R",
+          "state": "IA",
+          "position": "yea"
+        },
+        {
+          "name": "Hagerty (R-TN)",
+          "lis_member_id": "S407",
+          "party": "R",
+          "state": "TN",
+          "position": "nay"
+        },
+        {
+          "name": "Hassan (D-NH)",
+          "lis_member_id": "S388",
+          "party": "D",
+          "state": "NH",
+          "position": "yea"
+        },
+        {
+          "name": "Hawley (R-MO)",
+          "lis_member_id": "S399",
+          "party": "R",
+          "state": "MO",
+          "position": "nay"
+        },
+        {
+          "name": "Heinrich (D-NM)",
+          "lis_member_id": "S359",
+          "party": "D",
+          "state": "NM",
+          "position": "yea"
+        },
+        {
+          "name": "Hickenlooper (D-CO)",
+          "lis_member_id": "S408",
+          "party": "D",
+          "state": "CO",
+          "position": "yea"
+        },
+        {
+          "name": "Hirono (D-HI)",
+          "lis_member_id": "S361",
+          "party": "D",
+          "state": "HI",
+          "position": "yea"
+        },
+        {
+          "name": "Hoeven (R-ND)",
+          "lis_member_id": "S344",
+          "party": "R",
+          "state": "ND",
+          "position": "nay"
+        },
+        {
+          "name": "Hyde-Smith (R-MS)",
+          "lis_member_id": "S395",
+          "party": "R",
+          "state": "MS",
+          "position": "nay"
+        },
+        {
+          "name": "Inhofe (R-OK)",
+          "lis_member_id": "S236",
+          "party": "R",
+          "state": "OK",
+          "position": "nay"
+        },
+        {
+          "name": "Johnson (R-WI)",
+          "lis_member_id": "S345",
+          "party": "R",
+          "state": "WI",
+          "position": "nay"
+        },
+        {
+          "name": "Kaine (D-VA)",
+          "lis_member_id": "S362",
+          "party": "D",
+          "state": "VA",
+          "position": "yea"
+        },
+        {
+          "name": "Kelly (D-AZ)",
+          "lis_member_id": "S406",
+          "party": "D",
+          "state": "AZ",
+          "position": "yea"
+        },
+        {
+          "name": "Kennedy (R-LA)",
+          "lis_member_id": "S389",
+          "party": "R",
+          "state": "LA",
+          "position": "nay"
+        },
+        {
+          "name": "King (I-ME)",
+          "lis_member_id": "S363",
+          "party": "I",
+          "state": "ME",
+          "position": "yea"
+        },
+        {
+          "name": "Klobuchar (D-MN)",
+          "lis_member_id": "S311",
+          "party": "D",
+          "state": "MN",
+          "position": "yea"
+        },
+        {
+          "name": "Lankford (R-OK)",
+          "lis_member_id": "S378",
+          "party": "R",
+          "state": "OK",
+          "position": "nay"
+        },
+        {
+          "name": "Leahy (D-VT)",
+          "lis_member_id": "S057",
+          "party": "D",
+          "state": "VT",
+          "position": "yea"
+        },
+        {
+          "name": "Lee (R-UT)",
+          "lis_member_id": "S346",
+          "party": "R",
+          "state": "UT",
+          "position": "nay"
+        },
+        {
+          "name": "Lujan (D-NM)",
+          "lis_member_id": "S409",
+          "party": "D",
+          "state": "NM",
+          "position": "yea"
+        },
+        {
+          "name": "Lummis (R-WY)",
+          "lis_member_id": "S410",
+          "party": "R",
+          "state": "WY",
+          "position": "nay"
+        },
+        {
+          "name": "Manchin (D-WV)",
+          "lis_member_id": "S338",
+          "party": "D",
+          "state": "WV",
+          "position": "yea"
+        },
+        {
+          "name": "Markey (D-MA)",
+          "lis_member_id": "S369",
+          "party": "D",
+          "state": "MA",
+          "position": "yea"
+        },
+        {
+          "name": "Marshall (R-KS)",
+          "lis_member_id": "S411",
+          "party": "R",
+          "state": "KS",
+          "position": "nay"
+        },
+        {
+          "name": "McConnell (R-KY)",
+          "lis_member_id": "S174",
+          "party": "R",
+          "state": "KY",
+          "position": "yea"
+        },
+        {
+          "name": "Menendez (D-NJ)",
+          "lis_member_id": "S306",
+          "party": "D",
+          "state": "NJ",
+          "position": "yea"
+        },
+        {
+          "name": "Merkley (D-OR)",
+          "lis_member_id": "S322",
+          "party": "D",
+          "state": "OR",
+          "position": "yea"
+        },
+        {
+          "name": "Moran (R-KS)",
+          "lis_member_id": "S347",
+          "party": "R",
+          "state": "KS",
+          "position": "nay"
+        },
+        {
+          "name": "Murkowski (R-AK)",
+          "lis_member_id": "S288",
+          "party": "R",
+          "state": "AK",
+          "position": "yea"
+        },
+        {
+          "name": "Murphy (D-CT)",
+          "lis_member_id": "S364",
+          "party": "D",
+          "state": "CT",
+          "position": "yea"
+        },
+        {
+          "name": "Murray (D-WA)",
+          "lis_member_id": "S229",
+          "party": "D",
+          "state": "WA",
+          "position": "yea"
+        },
+        {
+          "name": "Ossoff (D-GA)",
+          "lis_member_id": "S414",
+          "party": "D",
+          "state": "GA",
+          "position": "yea"
+        },
+        {
+          "name": "Padilla (D-CA)",
+          "lis_member_id": "S413",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Paul (R-KY)",
+          "lis_member_id": "S348",
+          "party": "R",
+          "state": "KY",
+          "position": "nay"
+        },
+        {
+          "name": "Peters (D-MI)",
+          "lis_member_id": "S380",
+          "party": "D",
+          "state": "MI",
+          "position": "yea"
+        },
+        {
+          "name": "Portman (R-OH)",
+          "lis_member_id": "S349",
+          "party": "R",
+          "state": "OH",
+          "position": "yea"
+        },
+        {
+          "name": "Reed (D-RI)",
+          "lis_member_id": "S259",
+          "party": "D",
+          "state": "RI",
+          "position": "yea"
+        },
+        {
+          "name": "Risch (R-ID)",
+          "lis_member_id": "S323",
+          "party": "R",
+          "state": "ID",
+          "position": "yea"
+        },
+        {
+          "name": "Romney (R-UT)",
+          "lis_member_id": "S401",
+          "party": "R",
+          "state": "UT",
+          "position": "yea"
+        },
+        {
+          "name": "Rosen (D-NV)",
+          "lis_member_id": "S402",
+          "party": "D",
+          "state": "NV",
+          "position": "yea"
+        },
+        {
+          "name": "Rounds (R-SD)",
+          "lis_member_id": "S381",
+          "party": "R",
+          "state": "SD",
+          "position": "yea"
+        },
+        {
+          "name": "Rubio (R-FL)",
+          "lis_member_id": "S350",
+          "party": "R",
+          "state": "FL",
+          "position": "nay"
+        },
+        {
+          "name": "Sanders (I-VT)",
+          "lis_member_id": "S313",
+          "party": "I",
+          "state": "VT",
+          "position": "nay"
+        },
+        {
+          "name": "Sasse (R-NE)",
+          "lis_member_id": "S382",
+          "party": "R",
+          "state": "NE",
+          "position": "yea"
+        },
+        {
+          "name": "Schatz (D-HI)",
+          "lis_member_id": "S353",
+          "party": "D",
+          "state": "HI",
+          "position": "yea"
+        },
+        {
+          "name": "Schumer (D-NY)",
+          "lis_member_id": "S270",
+          "party": "D",
+          "state": "NY",
+          "position": "yea"
+        },
+        {
+          "name": "Scott (R-FL)",
+          "lis_member_id": "S404",
+          "party": "R",
+          "state": "FL",
+          "position": "nay"
+        },
+        {
+          "name": "Scott (R-SC)",
+          "lis_member_id": "S365",
+          "party": "R",
+          "state": "SC",
+          "position": "nay"
+        },
+        {
+          "name": "Shaheen (D-NH)",
+          "lis_member_id": "S324",
+          "party": "D",
+          "state": "NH",
+          "position": "yea"
+        },
+        {
+          "name": "Shelby (R-AL)",
+          "lis_member_id": "S184",
+          "party": "R",
+          "state": "AL",
+          "position": "nay"
+        },
+        {
+          "name": "Sinema (D-AZ)",
+          "lis_member_id": "S403",
+          "party": "D",
+          "state": "AZ",
+          "position": "yea"
+        },
+        {
+          "name": "Smith (D-MN)",
+          "lis_member_id": "S394",
+          "party": "D",
+          "state": "MN",
+          "position": "yea"
+        },
+        {
+          "name": "Stabenow (D-MI)",
+          "lis_member_id": "S284",
+          "party": "D",
+          "state": "MI",
+          "position": "yea"
+        },
+        {
+          "name": "Sullivan (R-AK)",
+          "lis_member_id": "S383",
+          "party": "R",
+          "state": "AK",
+          "position": "yea"
+        },
+        {
+          "name": "Tester (D-MT)",
+          "lis_member_id": "S314",
+          "party": "D",
+          "state": "MT",
+          "position": "yea"
+        },
+        {
+          "name": "Thune (R-SD)",
+          "lis_member_id": "S303",
+          "party": "R",
+          "state": "SD",
+          "position": "nay"
+        },
+        {
+          "name": "Tillis (R-NC)",
+          "lis_member_id": "S384",
+          "party": "R",
+          "state": "NC",
+          "position": "yea"
+        },
+        {
+          "name": "Toomey (R-PA)",
+          "lis_member_id": "S351",
+          "party": "R",
+          "state": "PA",
+          "position": "nay"
+        },
+        {
+          "name": "Tuberville (R-AL)",
+          "lis_member_id": "S412",
+          "party": "R",
+          "state": "AL",
+          "position": "nay"
+        },
+        {
+          "name": "Van Hollen (D-MD)",
+          "lis_member_id": "S390",
+          "party": "D",
+          "state": "MD",
+          "position": "yea"
+        },
+        {
+          "name": "Warner (D-VA)",
+          "lis_member_id": "S327",
+          "party": "D",
+          "state": "VA",
+          "position": "yea"
+        },
+        {
+          "name": "Warnock (D-GA)",
+          "lis_member_id": "S415",
+          "party": "D",
+          "state": "GA",
+          "position": "yea"
+        },
+        {
+          "name": "Warren (D-MA)",
+          "lis_member_id": "S366",
+          "party": "D",
+          "state": "MA",
+          "position": "yea"
+        },
+        {
+          "name": "Whitehouse (D-RI)",
+          "lis_member_id": "S316",
+          "party": "D",
+          "state": "RI",
+          "position": "yea"
+        },
+        {
+          "name": "Wicker (R-MS)",
+          "lis_member_id": "S318",
+          "party": "R",
+          "state": "MS",
+          "position": "yea"
+        },
+        {
+          "name": "Wyden (D-OR)",
+          "lis_member_id": "S247",
+          "party": "D",
+          "state": "OR",
+          "position": "yea"
+        },
+        {
+          "name": "Young (R-IN)",
+          "lis_member_id": "S391",
+          "party": "R",
+          "state": "IN",
+          "position": "yea"
+        }
+      ]
+    },
+    {
+      "chamber": "Senate",
+      "congress": 117,
+      "session": 1,
+      "roll_number": 192,
+      "date": "2021-05-17T22:23:08Z",
+      "question": "On Cloture on the Motion to Proceed S. 1260",
+      "result": "Cloture on the Motion to Proceed Agreed to",
+      "vote_type": "cloture",
+      "source_url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1171/vote_117_1_00192.xml",
+      "totals_by_party": {
+        "D": {
+          "yea": 47,
+          "nay": 0,
+          "present": 0,
+          "not_voting": 1
+        },
+        "R": {
+          "yea": 37,
+          "nay": 11,
+          "present": 0,
+          "not_voting": 2
+        },
+        "I": {
+          "yea": 2,
+          "nay": 0,
+          "present": 0,
+          "not_voting": 0
+        }
+      },
+      "yea_total": 86,
+      "nay_total": 11,
+      "bipartisan_support": 0.7708,
+      "bipartisan_label": "bipartisan",
+      "members": [
+        {
+          "name": "Baldwin (D-WI)",
+          "lis_member_id": "S354",
+          "party": "D",
+          "state": "WI",
+          "position": "yea"
+        },
+        {
+          "name": "Barrasso (R-WY)",
+          "lis_member_id": "S317",
+          "party": "R",
+          "state": "WY",
+          "position": "nay"
+        },
+        {
+          "name": "Bennet (D-CO)",
+          "lis_member_id": "S330",
+          "party": "D",
+          "state": "CO",
+          "position": "yea"
+        },
+        {
+          "name": "Blackburn (R-TN)",
+          "lis_member_id": "S396",
+          "party": "R",
+          "state": "TN",
+          "position": "yea"
+        },
+        {
+          "name": "Blumenthal (D-CT)",
+          "lis_member_id": "S341",
+          "party": "D",
+          "state": "CT",
+          "position": "yea"
+        },
+        {
+          "name": "Blunt (R-MO)",
+          "lis_member_id": "S342",
+          "party": "R",
+          "state": "MO",
+          "position": "yea"
+        },
+        {
+          "name": "Booker (D-NJ)",
+          "lis_member_id": "S370",
+          "party": "D",
+          "state": "NJ",
+          "position": "yea"
+        },
+        {
+          "name": "Boozman (R-AR)",
+          "lis_member_id": "S343",
+          "party": "R",
+          "state": "AR",
+          "position": "yea"
+        },
+        {
+          "name": "Braun (R-IN)",
+          "lis_member_id": "S397",
+          "party": "R",
+          "state": "IN",
+          "position": "yea"
+        },
+        {
+          "name": "Brown (D-OH)",
+          "lis_member_id": "S307",
+          "party": "D",
+          "state": "OH",
+          "position": "yea"
+        },
+        {
+          "name": "Burr (R-NC)",
+          "lis_member_id": "S300",
+          "party": "R",
+          "state": "NC",
+          "position": "yea"
+        },
+        {
+          "name": "Cantwell (D-WA)",
+          "lis_member_id": "S275",
+          "party": "D",
+          "state": "WA",
+          "position": "yea"
+        },
+        {
+          "name": "Capito (R-WV)",
+          "lis_member_id": "S372",
+          "party": "R",
+          "state": "WV",
+          "position": "yea"
+        },
+        {
+          "name": "Cardin (D-MD)",
+          "lis_member_id": "S308",
+          "party": "D",
+          "state": "MD",
+          "position": "yea"
+        },
+        {
+          "name": "Carper (D-DE)",
+          "lis_member_id": "S277",
+          "party": "D",
+          "state": "DE",
+          "position": "yea"
+        },
+        {
+          "name": "Casey (D-PA)",
+          "lis_member_id": "S309",
+          "party": "D",
+          "state": "PA",
+          "position": "yea"
+        },
+        {
+          "name": "Cassidy (R-LA)",
+          "lis_member_id": "S373",
+          "party": "R",
+          "state": "LA",
+          "position": "yea"
+        },
+        {
+          "name": "Collins (R-ME)",
+          "lis_member_id": "S252",
+          "party": "R",
+          "state": "ME",
+          "position": "yea"
+        },
+        {
+          "name": "Coons (D-DE)",
+          "lis_member_id": "S337",
+          "party": "D",
+          "state": "DE",
+          "position": "yea"
+        },
+        {
+          "name": "Cornyn (R-TX)",
+          "lis_member_id": "S287",
+          "party": "R",
+          "state": "TX",
+          "position": "yea"
+        },
+        {
+          "name": "Cortez Masto (D-NV)",
+          "lis_member_id": "S385",
+          "party": "D",
+          "state": "NV",
+          "position": "yea"
+        },
+        {
+          "name": "Cotton (R-AR)",
+          "lis_member_id": "S374",
+          "party": "R",
+          "state": "AR",
+          "position": "nay"
+        },
+        {
+          "name": "Cramer (R-ND)",
+          "lis_member_id": "S398",
+          "party": "R",
+          "state": "ND",
+          "position": "yea"
+        },
+        {
+          "name": "Crapo (R-ID)",
+          "lis_member_id": "S266",
+          "party": "R",
+          "state": "ID",
+          "position": "nay"
+        },
+        {
+          "name": "Cruz (R-TX)",
+          "lis_member_id": "S355",
+          "party": "R",
+          "state": "TX",
+          "position": "yea"
+        },
+        {
+          "name": "Daines (R-MT)",
+          "lis_member_id": "S375",
+          "party": "R",
+          "state": "MT",
+          "position": "yea"
+        },
+        {
+          "name": "Duckworth (D-IL)",
+          "lis_member_id": "S386",
+          "party": "D",
+          "state": "IL",
+          "position": "yea"
+        },
+        {
+          "name": "Durbin (D-IL)",
+          "lis_member_id": "S253",
+          "party": "D",
+          "state": "IL",
+          "position": "yea"
+        },
+        {
+          "name": "Ernst (R-IA)",
+          "lis_member_id": "S376",
+          "party": "R",
+          "state": "IA",
+          "position": "yea"
+        },
+        {
+          "name": "Feinstein (D-CA)",
+          "lis_member_id": "S221",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Fischer (R-NE)",
+          "lis_member_id": "S357",
+          "party": "R",
+          "state": "NE",
+          "position": "yea"
+        },
+        {
+          "name": "Gillibrand (D-NY)",
+          "lis_member_id": "S331",
+          "party": "D",
+          "state": "NY",
+          "position": "yea"
+        },
+        {
+          "name": "Graham (R-SC)",
+          "lis_member_id": "S293",
+          "party": "R",
+          "state": "SC",
+          "position": "yea"
+        },
+        {
+          "name": "Grassley (R-IA)",
+          "lis_member_id": "S153",
+          "party": "R",
+          "state": "IA",
+          "position": "yea"
+        },
+        {
+          "name": "Hagerty (R-TN)",
+          "lis_member_id": "S407",
+          "party": "R",
+          "state": "TN",
+          "position": "yea"
+        },
+        {
+          "name": "Hassan (D-NH)",
+          "lis_member_id": "S388",
+          "party": "D",
+          "state": "NH",
+          "position": "yea"
+        },
+        {
+          "name": "Hawley (R-MO)",
+          "lis_member_id": "S399",
+          "party": "R",
+          "state": "MO",
+          "position": "yea"
+        },
+        {
+          "name": "Heinrich (D-NM)",
+          "lis_member_id": "S359",
+          "party": "D",
+          "state": "NM",
+          "position": "yea"
+        },
+        {
+          "name": "Hickenlooper (D-CO)",
+          "lis_member_id": "S408",
+          "party": "D",
+          "state": "CO",
+          "position": "yea"
+        },
+        {
+          "name": "Hirono (D-HI)",
+          "lis_member_id": "S361",
+          "party": "D",
+          "state": "HI",
+          "position": "yea"
+        },
+        {
+          "name": "Hoeven (R-ND)",
+          "lis_member_id": "S344",
+          "party": "R",
+          "state": "ND",
+          "position": "yea"
+        },
+        {
+          "name": "Hyde-Smith (R-MS)",
+          "lis_member_id": "S395",
+          "party": "R",
+          "state": "MS",
+          "position": "yea"
+        },
+        {
+          "name": "Inhofe (R-OK)",
+          "lis_member_id": "S236",
+          "party": "R",
+          "state": "OK",
+          "position": "yea"
+        },
+        {
+          "name": "Johnson (R-WI)",
+          "lis_member_id": "S345",
+          "party": "R",
+          "state": "WI",
+          "position": "nay"
+        },
+        {
+          "name": "Kaine (D-VA)",
+          "lis_member_id": "S362",
+          "party": "D",
+          "state": "VA",
+          "position": "yea"
+        },
+        {
+          "name": "Kelly (D-AZ)",
+          "lis_member_id": "S406",
+          "party": "D",
+          "state": "AZ",
+          "position": "yea"
+        },
+        {
+          "name": "Kennedy (R-LA)",
+          "lis_member_id": "S389",
+          "party": "R",
+          "state": "LA",
+          "position": "yea"
+        },
+        {
+          "name": "King (I-ME)",
+          "lis_member_id": "S363",
+          "party": "I",
+          "state": "ME",
+          "position": "yea"
+        },
+        {
+          "name": "Klobuchar (D-MN)",
+          "lis_member_id": "S311",
+          "party": "D",
+          "state": "MN",
+          "position": "not_voting"
+        },
+        {
+          "name": "Lankford (R-OK)",
+          "lis_member_id": "S378",
+          "party": "R",
+          "state": "OK",
+          "position": "yea"
+        },
+        {
+          "name": "Leahy (D-VT)",
+          "lis_member_id": "S057",
+          "party": "D",
+          "state": "VT",
+          "position": "yea"
+        },
+        {
+          "name": "Lee (R-UT)",
+          "lis_member_id": "S346",
+          "party": "R",
+          "state": "UT",
+          "position": "nay"
+        },
+        {
+          "name": "Lujan (D-NM)",
+          "lis_member_id": "S409",
+          "party": "D",
+          "state": "NM",
+          "position": "yea"
+        },
+        {
+          "name": "Lummis (R-WY)",
+          "lis_member_id": "S410",
+          "party": "R",
+          "state": "WY",
+          "position": "nay"
+        },
+        {
+          "name": "Manchin (D-WV)",
+          "lis_member_id": "S338",
+          "party": "D",
+          "state": "WV",
+          "position": "yea"
+        },
+        {
+          "name": "Markey (D-MA)",
+          "lis_member_id": "S369",
+          "party": "D",
+          "state": "MA",
+          "position": "yea"
+        },
+        {
+          "name": "Marshall (R-KS)",
+          "lis_member_id": "S411",
+          "party": "R",
+          "state": "KS",
+          "position": "yea"
+        },
+        {
+          "name": "McConnell (R-KY)",
+          "lis_member_id": "S174",
+          "party": "R",
+          "state": "KY",
+          "position": "yea"
+        },
+        {
+          "name": "Menendez (D-NJ)",
+          "lis_member_id": "S306",
+          "party": "D",
+          "state": "NJ",
+          "position": "yea"
+        },
+        {
+          "name": "Merkley (D-OR)",
+          "lis_member_id": "S322",
+          "party": "D",
+          "state": "OR",
+          "position": "yea"
+        },
+        {
+          "name": "Moran (R-KS)",
+          "lis_member_id": "S347",
+          "party": "R",
+          "state": "KS",
+          "position": "yea"
+        },
+        {
+          "name": "Murkowski (R-AK)",
+          "lis_member_id": "S288",
+          "party": "R",
+          "state": "AK",
+          "position": "yea"
+        },
+        {
+          "name": "Murphy (D-CT)",
+          "lis_member_id": "S364",
+          "party": "D",
+          "state": "CT",
+          "position": "yea"
+        },
+        {
+          "name": "Murray (D-WA)",
+          "lis_member_id": "S229",
+          "party": "D",
+          "state": "WA",
+          "position": "yea"
+        },
+        {
+          "name": "Ossoff (D-GA)",
+          "lis_member_id": "S414",
+          "party": "D",
+          "state": "GA",
+          "position": "yea"
+        },
+        {
+          "name": "Padilla (D-CA)",
+          "lis_member_id": "S413",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Paul (R-KY)",
+          "lis_member_id": "S348",
+          "party": "R",
+          "state": "KY",
+          "position": "nay"
+        },
+        {
+          "name": "Peters (D-MI)",
+          "lis_member_id": "S380",
+          "party": "D",
+          "state": "MI",
+          "position": "yea"
+        },
+        {
+          "name": "Portman (R-OH)",
+          "lis_member_id": "S349",
+          "party": "R",
+          "state": "OH",
+          "position": "yea"
+        },
+        {
+          "name": "Reed (D-RI)",
+          "lis_member_id": "S259",
+          "party": "D",
+          "state": "RI",
+          "position": "yea"
+        },
+        {
+          "name": "Risch (R-ID)",
+          "lis_member_id": "S323",
+          "party": "R",
+          "state": "ID",
+          "position": "nay"
+        },
+        {
+          "name": "Romney (R-UT)",
+          "lis_member_id": "S401",
+          "party": "R",
+          "state": "UT",
+          "position": "yea"
+        },
+        {
+          "name": "Rosen (D-NV)",
+          "lis_member_id": "S402",
+          "party": "D",
+          "state": "NV",
+          "position": "yea"
+        },
+        {
+          "name": "Rounds (R-SD)",
+          "lis_member_id": "S381",
+          "party": "R",
+          "state": "SD",
+          "position": "yea"
+        },
+        {
+          "name": "Rubio (R-FL)",
+          "lis_member_id": "S350",
+          "party": "R",
+          "state": "FL",
+          "position": "yea"
+        },
+        {
+          "name": "Sanders (I-VT)",
+          "lis_member_id": "S313",
+          "party": "I",
+          "state": "VT",
+          "position": "yea"
+        },
+        {
+          "name": "Sasse (R-NE)",
+          "lis_member_id": "S382",
+          "party": "R",
+          "state": "NE",
+          "position": "yea"
+        },
+        {
+          "name": "Schatz (D-HI)",
+          "lis_member_id": "S353",
+          "party": "D",
+          "state": "HI",
+          "position": "yea"
+        },
+        {
+          "name": "Schumer (D-NY)",
+          "lis_member_id": "S270",
+          "party": "D",
+          "state": "NY",
+          "position": "yea"
+        },
+        {
+          "name": "Scott (R-FL)",
+          "lis_member_id": "S404",
+          "party": "R",
+          "state": "FL",
+          "position": "nay"
+        },
+        {
+          "name": "Scott (R-SC)",
+          "lis_member_id": "S365",
+          "party": "R",
+          "state": "SC",
+          "position": "yea"
+        },
+        {
+          "name": "Shaheen (D-NH)",
+          "lis_member_id": "S324",
+          "party": "D",
+          "state": "NH",
+          "position": "yea"
+        },
+        {
+          "name": "Shelby (R-AL)",
+          "lis_member_id": "S184",
+          "party": "R",
+          "state": "AL",
+          "position": "nay"
+        },
+        {
+          "name": "Sinema (D-AZ)",
+          "lis_member_id": "S403",
+          "party": "D",
+          "state": "AZ",
+          "position": "yea"
+        },
+        {
+          "name": "Smith (D-MN)",
+          "lis_member_id": "S394",
+          "party": "D",
+          "state": "MN",
+          "position": "yea"
+        },
+        {
+          "name": "Stabenow (D-MI)",
+          "lis_member_id": "S284",
+          "party": "D",
+          "state": "MI",
+          "position": "yea"
+        },
+        {
+          "name": "Sullivan (R-AK)",
+          "lis_member_id": "S383",
+          "party": "R",
+          "state": "AK",
+          "position": "yea"
+        },
+        {
+          "name": "Tester (D-MT)",
+          "lis_member_id": "S314",
+          "party": "D",
+          "state": "MT",
+          "position": "yea"
+        },
+        {
+          "name": "Thune (R-SD)",
+          "lis_member_id": "S303",
+          "party": "R",
+          "state": "SD",
+          "position": "yea"
+        },
+        {
+          "name": "Tillis (R-NC)",
+          "lis_member_id": "S384",
+          "party": "R",
+          "state": "NC",
+          "position": "yea"
+        },
+        {
+          "name": "Toomey (R-PA)",
+          "lis_member_id": "S351",
+          "party": "R",
+          "state": "PA",
+          "position": "not_voting"
+        },
+        {
+          "name": "Tuberville (R-AL)",
+          "lis_member_id": "S412",
+          "party": "R",
+          "state": "AL",
+          "position": "nay"
+        },
+        {
+          "name": "Van Hollen (D-MD)",
+          "lis_member_id": "S390",
+          "party": "D",
+          "state": "MD",
+          "position": "yea"
+        },
+        {
+          "name": "Warner (D-VA)",
+          "lis_member_id": "S327",
+          "party": "D",
+          "state": "VA",
+          "position": "yea"
+        },
+        {
+          "name": "Warnock (D-GA)",
+          "lis_member_id": "S415",
+          "party": "D",
+          "state": "GA",
+          "position": "yea"
+        },
+        {
+          "name": "Warren (D-MA)",
+          "lis_member_id": "S366",
+          "party": "D",
+          "state": "MA",
+          "position": "yea"
+        },
+        {
+          "name": "Whitehouse (D-RI)",
+          "lis_member_id": "S316",
+          "party": "D",
+          "state": "RI",
+          "position": "yea"
+        },
+        {
+          "name": "Wicker (R-MS)",
+          "lis_member_id": "S318",
+          "party": "R",
+          "state": "MS",
+          "position": "not_voting"
+        },
+        {
+          "name": "Wyden (D-OR)",
+          "lis_member_id": "S247",
+          "party": "D",
+          "state": "OR",
+          "position": "yea"
+        },
+        {
+          "name": "Young (R-IN)",
+          "lis_member_id": "S391",
+          "party": "R",
+          "state": "IN",
+          "position": "yea"
+        }
+      ]
+    },
+    {
+      "chamber": "Senate",
+      "congress": 117,
+      "session": 1,
+      "roll_number": 213,
+      "date": "2021-05-27T02:57:46Z",
+      "question": "On the Amendment S.Amdt. 2023 to S.Amdt. 1502 to S. 1260 (Endless Frontier Act)",
+      "result": "Amendment Agreed to",
+      "vote_type": "amendment",
+      "source_url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1171/vote_117_1_00213.xml",
+      "totals_by_party": {
+        "D": {
+          "yea": 31,
+          "nay": 16,
+          "present": 0,
+          "not_voting": 1
+        },
+        "R": {
+          "yea": 35,
+          "nay": 13,
+          "present": 0,
+          "not_voting": 2
+        },
+        "I": {
+          "yea": 1,
+          "nay": 1,
+          "present": 0,
+          "not_voting": 0
+        }
+      },
+      "yea_total": 67,
+      "nay_total": 30,
+      "bipartisan_support": 0.6596,
+      "bipartisan_label": "bipartisan",
+      "members": []
+    },
+    {
+      "chamber": "Senate",
+      "congress": 117,
+      "session": 1,
+      "roll_number": 208,
+      "date": "2021-05-26T19:11:40Z",
+      "question": "On the Amendment S.Amdt. 2014 to S.Amdt. 1502 to S. 1260 (Endless Frontier Act)",
+      "result": "Amendment Rejected",
+      "vote_type": "amendment",
+      "source_url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1171/vote_117_1_00208.xml",
+      "totals_by_party": {
+        "D": {
+          "yea": 48,
+          "nay": 0,
+          "present": 0,
+          "not_voting": 0
+        },
+        "R": {
+          "yea": 0,
+          "nay": 50,
+          "present": 0,
+          "not_voting": 0
+        },
+        "I": {
+          "yea": 2,
+          "nay": 0,
+          "present": 0,
+          "not_voting": 0
+        }
+      },
+      "yea_total": 50,
+      "nay_total": 50,
+      "bipartisan_support": 0.0,
+      "bipartisan_label": "party_line",
+      "members": []
+    },
+    {
+      "chamber": "Senate",
+      "congress": 117,
+      "session": 1,
+      "roll_number": 204,
+      "date": "2021-05-25T21:40:53Z",
+      "question": "On the Amendment S.Amdt. 1975 to S.Amdt. 1502 to S. 1260 (Endless Frontier Act)",
+      "result": "Amendment Rejected",
+      "vote_type": "amendment",
+      "source_url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1171/vote_117_1_00204.xml",
+      "totals_by_party": {
+        "D": {
+          "yea": 48,
+          "nay": 0,
+          "present": 0,
+          "not_voting": 0
+        },
+        "R": {
+          "yea": 0,
+          "nay": 49,
+          "present": 0,
+          "not_voting": 1
+        },
+        "I": {
+          "yea": 2,
+          "nay": 0,
+          "present": 0,
+          "not_voting": 0
+        }
+      },
+      "yea_total": 50,
+      "nay_total": 49,
+      "bipartisan_support": 0.0,
+      "bipartisan_label": "party_line",
+      "members": []
+    },
+    {
+      "chamber": "Senate",
+      "congress": 117,
+      "session": 1,
+      "roll_number": 211,
+      "date": "2021-05-27T02:15:33Z",
+      "question": "On the Amendment S.Amdt. 1929 to S.Amdt. 1502 to S. 1260 (Endless Frontier Act)",
+      "result": "Amendment Rejected",
+      "vote_type": "amendment",
+      "source_url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1171/vote_117_1_00211.xml",
+      "totals_by_party": {
+        "D": {
+          "yea": 0,
+          "nay": 47,
+          "present": 0,
+          "not_voting": 1
+        },
+        "R": {
+          "yea": 48,
+          "nay": 0,
+          "present": 0,
+          "not_voting": 2
+        },
+        "I": {
+          "yea": 0,
+          "nay": 2,
+          "present": 0,
+          "not_voting": 0
+        }
+      },
+      "yea_total": 48,
+      "nay_total": 49,
+      "bipartisan_support": 0.0,
+      "bipartisan_label": "party_line",
+      "members": []
+    },
+    {
+      "chamber": "Senate",
+      "congress": 117,
+      "session": 1,
+      "roll_number": 207,
+      "date": "2021-05-26T17:04:51Z",
+      "question": "On the Amendment S.Amdt. 1911 to S.Amdt. 1502 to S. 1260 (Endless Frontier Act)",
+      "result": "Amendment Rejected",
+      "vote_type": "amendment",
+      "source_url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1171/vote_117_1_00207.xml",
+      "totals_by_party": {
+        "D": {
+          "yea": 0,
+          "nay": 48,
+          "present": 0,
+          "not_voting": 0
+        },
+        "R": {
+          "yea": 49,
+          "nay": 1,
+          "present": 0,
+          "not_voting": 0
+        },
+        "I": {
+          "yea": 0,
+          "nay": 2,
+          "present": 0,
+          "not_voting": 0
+        }
+      },
+      "yea_total": 49,
+      "nay_total": 51,
+      "bipartisan_support": 0.0,
+      "bipartisan_label": "party_line",
+      "members": []
+    },
+    {
+      "chamber": "Senate",
+      "congress": 117,
+      "session": 1,
+      "roll_number": 206,
+      "date": "2021-05-25T22:36:50Z",
+      "question": "On the Amendment S.Amdt. 1891 to S.Amdt. 1502 to S. 1260 (Endless Frontier Act)",
+      "result": "Amendment Rejected",
+      "vote_type": "amendment",
+      "source_url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1171/vote_117_1_00206.xml",
+      "totals_by_party": {
+        "D": {
+          "yea": 1,
+          "nay": 47,
+          "present": 0,
+          "not_voting": 0
+        },
+        "R": {
+          "yea": 47,
+          "nay": 2,
+          "present": 0,
+          "not_voting": 1
+        },
+        "I": {
+          "yea": 0,
+          "nay": 2,
+          "present": 0,
+          "not_voting": 0
+        }
+      },
+      "yea_total": 48,
+      "nay_total": 51,
+      "bipartisan_support": 0.0208,
+      "bipartisan_label": "party_line",
+      "members": []
+    },
+    {
+      "chamber": "Senate",
+      "congress": 117,
+      "session": 1,
+      "roll_number": 223,
+      "date": "2021-06-08T20:27:59Z",
+      "question": "On the Amendment S.Amdt. 1858 to S.Amdt. 1502 to S. 1260 (Endless Frontier Act)",
+      "result": "Amendment Rejected",
+      "vote_type": "amendment",
+      "source_url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1171/vote_117_1_00223.xml",
+      "totals_by_party": {
+        "D": {
+          "yea": 0,
+          "nay": 48,
+          "present": 0,
+          "not_voting": 0
+        },
+        "R": {
+          "yea": 42,
+          "nay": 8,
+          "present": 0,
+          "not_voting": 0
+        },
+        "I": {
+          "yea": 0,
+          "nay": 2,
+          "present": 0,
+          "not_voting": 0
+        }
+      },
+      "yea_total": 42,
+      "nay_total": 58,
+      "bipartisan_support": 0.0,
+      "bipartisan_label": "party_line",
+      "members": []
+    },
+    {
+      "chamber": "Senate",
+      "congress": 117,
+      "session": 1,
+      "roll_number": 215,
+      "date": "2021-05-27T20:11:44Z",
+      "question": "On the Motion to Table S.Amdt. 1802 to S.Amdt. 1527 to S.Amdt. 1502 to S. 1260",
+      "result": "Motion to Table Agreed to",
+      "vote_type": "procedural",
+      "source_url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1171/vote_117_1_00215.xml",
+      "totals_by_party": {
+        "D": {
+          "yea": 47,
+          "nay": 0,
+          "present": 0,
+          "not_voting": 1
+        },
+        "R": {
+          "yea": 6,
+          "nay": 40,
+          "present": 0,
+          "not_voting": 4
+        },
+        "I": {
+          "yea": 2,
+          "nay": 0,
+          "present": 0,
+          "not_voting": 0
+        }
+      },
+      "yea_total": 55,
+      "nay_total": 40,
+      "bipartisan_support": 0.1304,
+      "bipartisan_label": "cross_party",
+      "members": []
+    },
+    {
+      "chamber": "Senate",
+      "congress": 117,
+      "session": 1,
+      "roll_number": 212,
+      "date": "2021-05-27T02:34:32Z",
+      "question": "On the Amendment S.Amdt. 1771 to S.Amdt. 1502 to S. 1260 (Endless Frontier Act)",
+      "result": "Amendment Rejected",
+      "vote_type": "amendment",
+      "source_url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1171/vote_117_1_00212.xml",
+      "totals_by_party": {
+        "D": {
+          "yea": 0,
+          "nay": 47,
+          "present": 0,
+          "not_voting": 1
+        },
+        "R": {
+          "yea": 48,
+          "nay": 0,
+          "present": 0,
+          "not_voting": 2
+        },
+        "I": {
+          "yea": 0,
+          "nay": 2,
+          "present": 0,
+          "not_voting": 0
+        }
+      },
+      "yea_total": 48,
+      "nay_total": 49,
+      "bipartisan_support": 0.0,
+      "bipartisan_label": "party_line",
+      "members": []
+    },
+    {
+      "chamber": "Senate",
+      "congress": 117,
+      "session": 1,
+      "roll_number": 209,
+      "date": "2021-05-26T19:59:03Z",
+      "question": "On the Amendment S.Amdt. 1710 to S.Amdt. 1502 to S. 1260 (Endless Frontier Act)",
+      "result": "Amendment Rejected",
+      "vote_type": "amendment",
+      "source_url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1171/vote_117_1_00209.xml",
+      "totals_by_party": {
+        "D": {
+          "yea": 1,
+          "nay": 47,
+          "present": 0,
+          "not_voting": 0
+        },
+        "R": {
+          "yea": 50,
+          "nay": 0,
+          "present": 0,
+          "not_voting": 0
+        },
+        "I": {
+          "yea": 0,
+          "nay": 2,
+          "present": 0,
+          "not_voting": 0
+        }
+      },
+      "yea_total": 51,
+      "nay_total": 49,
+      "bipartisan_support": 0.0208,
+      "bipartisan_label": "party_line",
+      "members": []
+    },
+    {
+      "chamber": "Senate",
+      "congress": 117,
+      "session": 1,
+      "roll_number": 210,
+      "date": "2021-05-27T01:57:50Z",
+      "question": "On the Amendment S.Amdt. 1588 to S.Amdt. 1502 to S. 1260 (Endless Frontier Act)",
+      "result": "Amendment Agreed to",
+      "vote_type": "amendment",
+      "source_url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1171/vote_117_1_00210.xml",
+      "totals_by_party": {
+        "D": {
+          "yea": 47,
+          "nay": 0,
+          "present": 0,
+          "not_voting": 1
+        },
+        "R": {
+          "yea": 34,
+          "nay": 14,
+          "present": 0,
+          "not_voting": 2
+        },
+        "I": {
+          "yea": 2,
+          "nay": 0,
+          "present": 0,
+          "not_voting": 0
+        }
+      },
+      "yea_total": 83,
+      "nay_total": 14,
+      "bipartisan_support": 0.7083,
+      "bipartisan_label": "bipartisan",
+      "members": []
+    },
+    {
+      "chamber": "Senate",
+      "congress": 117,
+      "session": 1,
+      "roll_number": 205,
+      "date": "2021-05-25T22:02:56Z",
+      "question": "On the Amendment S.Amdt. 1565 to S.Amdt. 1502 to S. 1260 (Endless Frontier Act)",
+      "result": "Amendment Rejected",
+      "vote_type": "amendment",
+      "source_url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1171/vote_117_1_00205.xml",
+      "totals_by_party": {
+        "D": {
+          "yea": 3,
+          "nay": 45,
+          "present": 0,
+          "not_voting": 0
+        },
+        "R": {
+          "yea": 49,
+          "nay": 0,
+          "present": 0,
+          "not_voting": 1
+        },
+        "I": {
+          "yea": 1,
+          "nay": 1,
+          "present": 0,
+          "not_voting": 0
+        }
+      },
+      "yea_total": 53,
+      "nay_total": 46,
+      "bipartisan_support": 0.0625,
+      "bipartisan_label": "party_line",
+      "members": []
+    },
+    {
+      "chamber": "Senate",
+      "congress": 117,
+      "session": 1,
+      "roll_number": 216,
+      "date": "2021-05-27T20:40:34Z",
+      "question": "On the Amendment S.Amdt. 1562 to S.Amdt. 1502 to S. 1260 (Endless Frontier Act)",
+      "result": "Amendment Agreed to",
+      "vote_type": "amendment",
+      "source_url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1171/vote_117_1_00216.xml",
+      "totals_by_party": {
+        "D": {
+          "yea": 47,
+          "nay": 0,
+          "present": 0,
+          "not_voting": 1
+        },
+        "R": {
+          "yea": 43,
+          "nay": 3,
+          "present": 0,
+          "not_voting": 4
+        },
+        "I": {
+          "yea": 1,
+          "nay": 1,
+          "present": 0,
+          "not_voting": 0
+        }
+      },
+      "yea_total": 91,
+      "nay_total": 4,
+      "bipartisan_support": 0.9348,
+      "bipartisan_label": "near_unanimous",
+      "members": []
+    },
+    {
+      "chamber": "Senate",
+      "congress": 117,
+      "session": 1,
+      "roll_number": 197,
+      "date": "2021-05-19T21:30:41Z",
+      "question": "On the Amendment S.Amdt. 1547 to S.Amdt. 1502 to S. 1260 (Endless Frontier Act)",
+      "result": "Amendment Rejected",
+      "vote_type": "amendment",
+      "source_url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1171/vote_117_1_00197.xml",
+      "totals_by_party": {
+        "D": {
+          "yea": 0,
+          "nay": 48,
+          "present": 0,
+          "not_voting": 0
+        },
+        "R": {
+          "yea": 47,
+          "nay": 0,
+          "present": 0,
+          "not_voting": 3
+        },
+        "I": {
+          "yea": 0,
+          "nay": 2,
+          "present": 0,
+          "not_voting": 0
+        }
+      },
+      "yea_total": 47,
+      "nay_total": 50,
+      "bipartisan_support": 0.0,
+      "bipartisan_label": "party_line",
+      "members": []
+    },
+    {
+      "chamber": "Senate",
+      "congress": 117,
+      "session": 1,
+      "roll_number": 198,
+      "date": "2021-05-20T16:43:14Z",
+      "question": "On the Amendment S.Amdt. 1523 to S.Amdt. 1502 to S. 1260 (Endless Frontier Act)",
+      "result": "Amendment Rejected",
+      "vote_type": "amendment",
+      "source_url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1171/vote_117_1_00198.xml",
+      "totals_by_party": {
+        "D": {
+          "yea": 0,
+          "nay": 48,
+          "present": 0,
+          "not_voting": 0
+        },
+        "R": {
+          "yea": 44,
+          "nay": 3,
+          "present": 0,
+          "not_voting": 3
+        },
+        "I": {
+          "yea": 0,
+          "nay": 2,
+          "present": 0,
+          "not_voting": 0
+        }
+      },
+      "yea_total": 44,
+      "nay_total": 53,
+      "bipartisan_support": 0.0,
+      "bipartisan_label": "party_line",
+      "members": []
+    },
+    {
+      "chamber": "Senate",
+      "congress": 117,
+      "session": 1,
+      "roll_number": 199,
+      "date": "2021-05-20T18:13:14Z",
+      "question": "On the Amendment S.Amdt. 1518 to S.Amdt. 1502 to S. 1260 (Endless Frontier Act)",
+      "result": "Amendment Rejected",
+      "vote_type": "amendment",
+      "source_url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1171/vote_117_1_00199.xml",
+      "totals_by_party": {
+        "D": {
+          "yea": 1,
+          "nay": 46,
+          "present": 0,
+          "not_voting": 1
+        },
+        "R": {
+          "yea": 45,
+          "nay": 0,
+          "present": 0,
+          "not_voting": 5
+        },
+        "I": {
+          "yea": 0,
+          "nay": 2,
+          "present": 0,
+          "not_voting": 0
+        }
+      },
+      "yea_total": 46,
+      "nay_total": 48,
+      "bipartisan_support": 0.0213,
+      "bipartisan_label": "party_line",
+      "members": []
+    },
+    {
+      "chamber": "Senate",
+      "congress": 117,
+      "session": 1,
+      "roll_number": 196,
+      "date": "2021-05-19T20:50:38Z",
+      "question": "On the Amendment S.Amdt. 1517 to S.Amdt. 1502 to S. 1260 (Endless Frontier Act)",
+      "result": "Amendment Agreed to",
+      "vote_type": "amendment",
+      "source_url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1171/vote_117_1_00196.xml",
+      "totals_by_party": {
+        "D": {
+          "yea": 48,
+          "nay": 0,
+          "present": 0,
+          "not_voting": 0
+        },
+        "R": {
+          "yea": 21,
+          "nay": 27,
+          "present": 0,
+          "not_voting": 2
+        },
+        "I": {
+          "yea": 2,
+          "nay": 0,
+          "present": 0,
+          "not_voting": 0
+        }
+      },
+      "yea_total": 71,
+      "nay_total": 27,
+      "bipartisan_support": 0.4375,
+      "bipartisan_label": "cross_party",
+      "members": []
+    },
+    {
+      "chamber": "Senate",
+      "congress": 117,
+      "session": 1,
+      "roll_number": 225,
+      "date": "2021-06-08T21:48:37Z",
+      "question": "On the Amendment S.Amdt. 1502 to S. 1260 (Endless Frontier Act)",
+      "result": "Amendment Agreed to",
+      "vote_type": "amendment",
+      "source_url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1171/vote_117_1_00225.xml",
+      "totals_by_party": {
+        "D": {
+          "yea": 48,
+          "nay": 0,
+          "present": 0,
+          "not_voting": 0
+        },
+        "R": {
+          "yea": 19,
+          "nay": 31,
+          "present": 0,
+          "not_voting": 0
+        },
+        "I": {
+          "yea": 1,
+          "nay": 1,
+          "present": 0,
+          "not_voting": 0
+        }
+      },
+      "yea_total": 68,
+      "nay_total": 32,
+      "bipartisan_support": 0.38,
+      "bipartisan_label": "cross_party",
+      "members": []
+    },
+    {
+      "chamber": "Senate",
+      "congress": 117,
+      "session": 1,
+      "roll_number": 224,
+      "date": "2021-06-08T21:09:31Z",
+      "question": "On the Motion (Motion to Waive All Applicable Budgetary Discipline Re: Amdt. No. 1502 As Amended )",
+      "result": "Motion Agreed to",
+      "vote_type": "procedural",
+      "source_url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1171/vote_117_1_00224.xml",
+      "totals_by_party": {
+        "D": {
+          "yea": 48,
+          "nay": 0,
+          "present": 0,
+          "not_voting": 0
+        },
+        "R": {
+          "yea": 23,
+          "nay": 27,
+          "present": 0,
+          "not_voting": 0
+        },
+        "I": {
+          "yea": 1,
+          "nay": 1,
+          "present": 0,
+          "not_voting": 0
+        }
+      },
+      "yea_total": 72,
+      "nay_total": 28,
+      "bipartisan_support": 0.46,
+      "bipartisan_label": "cross_party",
+      "members": []
+    },
+    {
+      "chamber": "Senate",
+      "congress": 117,
+      "session": 1,
+      "roll_number": 214,
+      "date": "2021-05-27T19:04:13Z",
+      "question": "On the Cloture Motion S.Amdt. 1502 to S. 1260 (Endless Frontier Act)",
+      "result": "Cloture Motion Agreed to",
+      "vote_type": "cloture",
+      "source_url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1171/vote_117_1_00214.xml",
+      "totals_by_party": {
+        "D": {
+          "yea": 48,
+          "nay": 0,
+          "present": 0,
+          "not_voting": 0
+        },
+        "R": {
+          "yea": 19,
+          "nay": 29,
+          "present": 0,
+          "not_voting": 2
+        },
+        "I": {
+          "yea": 1,
+          "nay": 1,
+          "present": 0,
+          "not_voting": 0
+        }
+      },
+      "yea_total": 68,
+      "nay_total": 30,
+      "bipartisan_support": 0.3958,
+      "bipartisan_label": "cross_party",
+      "members": [
+        {
+          "name": "Baldwin (D-WI)",
+          "lis_member_id": "S354",
+          "party": "D",
+          "state": "WI",
+          "position": "yea"
+        },
+        {
+          "name": "Barrasso (R-WY)",
+          "lis_member_id": "S317",
+          "party": "R",
+          "state": "WY",
+          "position": "nay"
+        },
+        {
+          "name": "Bennet (D-CO)",
+          "lis_member_id": "S330",
+          "party": "D",
+          "state": "CO",
+          "position": "yea"
+        },
+        {
+          "name": "Blackburn (R-TN)",
+          "lis_member_id": "S396",
+          "party": "R",
+          "state": "TN",
+          "position": "not_voting"
+        },
+        {
+          "name": "Blumenthal (D-CT)",
+          "lis_member_id": "S341",
+          "party": "D",
+          "state": "CT",
+          "position": "yea"
+        },
+        {
+          "name": "Blunt (R-MO)",
+          "lis_member_id": "S342",
+          "party": "R",
+          "state": "MO",
+          "position": "not_voting"
+        },
+        {
+          "name": "Booker (D-NJ)",
+          "lis_member_id": "S370",
+          "party": "D",
+          "state": "NJ",
+          "position": "yea"
+        },
+        {
+          "name": "Boozman (R-AR)",
+          "lis_member_id": "S343",
+          "party": "R",
+          "state": "AR",
+          "position": "nay"
+        },
+        {
+          "name": "Braun (R-IN)",
+          "lis_member_id": "S397",
+          "party": "R",
+          "state": "IN",
+          "position": "nay"
+        },
+        {
+          "name": "Brown (D-OH)",
+          "lis_member_id": "S307",
+          "party": "D",
+          "state": "OH",
+          "position": "yea"
+        },
+        {
+          "name": "Burr (R-NC)",
+          "lis_member_id": "S300",
+          "party": "R",
+          "state": "NC",
+          "position": "nay"
+        },
+        {
+          "name": "Cantwell (D-WA)",
+          "lis_member_id": "S275",
+          "party": "D",
+          "state": "WA",
+          "position": "yea"
+        },
+        {
+          "name": "Capito (R-WV)",
+          "lis_member_id": "S372",
+          "party": "R",
+          "state": "WV",
+          "position": "yea"
+        },
+        {
+          "name": "Cardin (D-MD)",
+          "lis_member_id": "S308",
+          "party": "D",
+          "state": "MD",
+          "position": "yea"
+        },
+        {
+          "name": "Carper (D-DE)",
+          "lis_member_id": "S277",
+          "party": "D",
+          "state": "DE",
+          "position": "yea"
+        },
+        {
+          "name": "Casey (D-PA)",
+          "lis_member_id": "S309",
+          "party": "D",
+          "state": "PA",
+          "position": "yea"
+        },
+        {
+          "name": "Cassidy (R-LA)",
+          "lis_member_id": "S373",
+          "party": "R",
+          "state": "LA",
+          "position": "yea"
+        },
+        {
+          "name": "Collins (R-ME)",
+          "lis_member_id": "S252",
+          "party": "R",
+          "state": "ME",
+          "position": "yea"
+        },
+        {
+          "name": "Coons (D-DE)",
+          "lis_member_id": "S337",
+          "party": "D",
+          "state": "DE",
+          "position": "yea"
+        },
+        {
+          "name": "Cornyn (R-TX)",
+          "lis_member_id": "S287",
+          "party": "R",
+          "state": "TX",
+          "position": "yea"
+        },
+        {
+          "name": "Cortez Masto (D-NV)",
+          "lis_member_id": "S385",
+          "party": "D",
+          "state": "NV",
+          "position": "yea"
+        },
+        {
+          "name": "Cotton (R-AR)",
+          "lis_member_id": "S374",
+          "party": "R",
+          "state": "AR",
+          "position": "nay"
+        },
+        {
+          "name": "Cramer (R-ND)",
+          "lis_member_id": "S398",
+          "party": "R",
+          "state": "ND",
+          "position": "nay"
+        },
+        {
+          "name": "Crapo (R-ID)",
+          "lis_member_id": "S266",
+          "party": "R",
+          "state": "ID",
+          "position": "yea"
+        },
+        {
+          "name": "Cruz (R-TX)",
+          "lis_member_id": "S355",
+          "party": "R",
+          "state": "TX",
+          "position": "nay"
+        },
+        {
+          "name": "Daines (R-MT)",
+          "lis_member_id": "S375",
+          "party": "R",
+          "state": "MT",
+          "position": "yea"
+        },
+        {
+          "name": "Duckworth (D-IL)",
+          "lis_member_id": "S386",
+          "party": "D",
+          "state": "IL",
+          "position": "yea"
+        },
+        {
+          "name": "Durbin (D-IL)",
+          "lis_member_id": "S253",
+          "party": "D",
+          "state": "IL",
+          "position": "yea"
+        },
+        {
+          "name": "Ernst (R-IA)",
+          "lis_member_id": "S376",
+          "party": "R",
+          "state": "IA",
+          "position": "yea"
+        },
+        {
+          "name": "Feinstein (D-CA)",
+          "lis_member_id": "S221",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Fischer (R-NE)",
+          "lis_member_id": "S357",
+          "party": "R",
+          "state": "NE",
+          "position": "nay"
+        },
+        {
+          "name": "Gillibrand (D-NY)",
+          "lis_member_id": "S331",
+          "party": "D",
+          "state": "NY",
+          "position": "yea"
+        },
+        {
+          "name": "Graham (R-SC)",
+          "lis_member_id": "S293",
+          "party": "R",
+          "state": "SC",
+          "position": "yea"
+        },
+        {
+          "name": "Grassley (R-IA)",
+          "lis_member_id": "S153",
+          "party": "R",
+          "state": "IA",
+          "position": "nay"
+        },
+        {
+          "name": "Hagerty (R-TN)",
+          "lis_member_id": "S407",
+          "party": "R",
+          "state": "TN",
+          "position": "nay"
+        },
+        {
+          "name": "Hassan (D-NH)",
+          "lis_member_id": "S388",
+          "party": "D",
+          "state": "NH",
+          "position": "yea"
+        },
+        {
+          "name": "Hawley (R-MO)",
+          "lis_member_id": "S399",
+          "party": "R",
+          "state": "MO",
+          "position": "nay"
+        },
+        {
+          "name": "Heinrich (D-NM)",
+          "lis_member_id": "S359",
+          "party": "D",
+          "state": "NM",
+          "position": "yea"
+        },
+        {
+          "name": "Hickenlooper (D-CO)",
+          "lis_member_id": "S408",
+          "party": "D",
+          "state": "CO",
+          "position": "yea"
+        },
+        {
+          "name": "Hirono (D-HI)",
+          "lis_member_id": "S361",
+          "party": "D",
+          "state": "HI",
+          "position": "yea"
+        },
+        {
+          "name": "Hoeven (R-ND)",
+          "lis_member_id": "S344",
+          "party": "R",
+          "state": "ND",
+          "position": "nay"
+        },
+        {
+          "name": "Hyde-Smith (R-MS)",
+          "lis_member_id": "S395",
+          "party": "R",
+          "state": "MS",
+          "position": "yea"
+        },
+        {
+          "name": "Inhofe (R-OK)",
+          "lis_member_id": "S236",
+          "party": "R",
+          "state": "OK",
+          "position": "nay"
+        },
+        {
+          "name": "Johnson (R-WI)",
+          "lis_member_id": "S345",
+          "party": "R",
+          "state": "WI",
+          "position": "nay"
+        },
+        {
+          "name": "Kaine (D-VA)",
+          "lis_member_id": "S362",
+          "party": "D",
+          "state": "VA",
+          "position": "yea"
+        },
+        {
+          "name": "Kelly (D-AZ)",
+          "lis_member_id": "S406",
+          "party": "D",
+          "state": "AZ",
+          "position": "yea"
+        },
+        {
+          "name": "Kennedy (R-LA)",
+          "lis_member_id": "S389",
+          "party": "R",
+          "state": "LA",
+          "position": "nay"
+        },
+        {
+          "name": "King (I-ME)",
+          "lis_member_id": "S363",
+          "party": "I",
+          "state": "ME",
+          "position": "yea"
+        },
+        {
+          "name": "Klobuchar (D-MN)",
+          "lis_member_id": "S311",
+          "party": "D",
+          "state": "MN",
+          "position": "yea"
+        },
+        {
+          "name": "Lankford (R-OK)",
+          "lis_member_id": "S378",
+          "party": "R",
+          "state": "OK",
+          "position": "nay"
+        },
+        {
+          "name": "Leahy (D-VT)",
+          "lis_member_id": "S057",
+          "party": "D",
+          "state": "VT",
+          "position": "yea"
+        },
+        {
+          "name": "Lee (R-UT)",
+          "lis_member_id": "S346",
+          "party": "R",
+          "state": "UT",
+          "position": "nay"
+        },
+        {
+          "name": "Lujan (D-NM)",
+          "lis_member_id": "S409",
+          "party": "D",
+          "state": "NM",
+          "position": "yea"
+        },
+        {
+          "name": "Lummis (R-WY)",
+          "lis_member_id": "S410",
+          "party": "R",
+          "state": "WY",
+          "position": "nay"
+        },
+        {
+          "name": "Manchin (D-WV)",
+          "lis_member_id": "S338",
+          "party": "D",
+          "state": "WV",
+          "position": "yea"
+        },
+        {
+          "name": "Markey (D-MA)",
+          "lis_member_id": "S369",
+          "party": "D",
+          "state": "MA",
+          "position": "yea"
+        },
+        {
+          "name": "Marshall (R-KS)",
+          "lis_member_id": "S411",
+          "party": "R",
+          "state": "KS",
+          "position": "nay"
+        },
+        {
+          "name": "McConnell (R-KY)",
+          "lis_member_id": "S174",
+          "party": "R",
+          "state": "KY",
+          "position": "yea"
+        },
+        {
+          "name": "Menendez (D-NJ)",
+          "lis_member_id": "S306",
+          "party": "D",
+          "state": "NJ",
+          "position": "yea"
+        },
+        {
+          "name": "Merkley (D-OR)",
+          "lis_member_id": "S322",
+          "party": "D",
+          "state": "OR",
+          "position": "yea"
+        },
+        {
+          "name": "Moran (R-KS)",
+          "lis_member_id": "S347",
+          "party": "R",
+          "state": "KS",
+          "position": "nay"
+        },
+        {
+          "name": "Murkowski (R-AK)",
+          "lis_member_id": "S288",
+          "party": "R",
+          "state": "AK",
+          "position": "yea"
+        },
+        {
+          "name": "Murphy (D-CT)",
+          "lis_member_id": "S364",
+          "party": "D",
+          "state": "CT",
+          "position": "yea"
+        },
+        {
+          "name": "Murray (D-WA)",
+          "lis_member_id": "S229",
+          "party": "D",
+          "state": "WA",
+          "position": "yea"
+        },
+        {
+          "name": "Ossoff (D-GA)",
+          "lis_member_id": "S414",
+          "party": "D",
+          "state": "GA",
+          "position": "yea"
+        },
+        {
+          "name": "Padilla (D-CA)",
+          "lis_member_id": "S413",
+          "party": "D",
+          "state": "CA",
+          "position": "yea"
+        },
+        {
+          "name": "Paul (R-KY)",
+          "lis_member_id": "S348",
+          "party": "R",
+          "state": "KY",
+          "position": "nay"
+        },
+        {
+          "name": "Peters (D-MI)",
+          "lis_member_id": "S380",
+          "party": "D",
+          "state": "MI",
+          "position": "yea"
+        },
+        {
+          "name": "Portman (R-OH)",
+          "lis_member_id": "S349",
+          "party": "R",
+          "state": "OH",
+          "position": "yea"
+        },
+        {
+          "name": "Reed (D-RI)",
+          "lis_member_id": "S259",
+          "party": "D",
+          "state": "RI",
+          "position": "yea"
+        },
+        {
+          "name": "Risch (R-ID)",
+          "lis_member_id": "S323",
+          "party": "R",
+          "state": "ID",
+          "position": "yea"
+        },
+        {
+          "name": "Romney (R-UT)",
+          "lis_member_id": "S401",
+          "party": "R",
+          "state": "UT",
+          "position": "yea"
+        },
+        {
+          "name": "Rosen (D-NV)",
+          "lis_member_id": "S402",
+          "party": "D",
+          "state": "NV",
+          "position": "yea"
+        },
+        {
+          "name": "Rounds (R-SD)",
+          "lis_member_id": "S381",
+          "party": "R",
+          "state": "SD",
+          "position": "yea"
+        },
+        {
+          "name": "Rubio (R-FL)",
+          "lis_member_id": "S350",
+          "party": "R",
+          "state": "FL",
+          "position": "nay"
+        },
+        {
+          "name": "Sanders (I-VT)",
+          "lis_member_id": "S313",
+          "party": "I",
+          "state": "VT",
+          "position": "nay"
+        },
+        {
+          "name": "Sasse (R-NE)",
+          "lis_member_id": "S382",
+          "party": "R",
+          "state": "NE",
+          "position": "yea"
+        },
+        {
+          "name": "Schatz (D-HI)",
+          "lis_member_id": "S353",
+          "party": "D",
+          "state": "HI",
+          "position": "yea"
+        },
+        {
+          "name": "Schumer (D-NY)",
+          "lis_member_id": "S270",
+          "party": "D",
+          "state": "NY",
+          "position": "yea"
+        },
+        {
+          "name": "Scott (R-FL)",
+          "lis_member_id": "S404",
+          "party": "R",
+          "state": "FL",
+          "position": "nay"
+        },
+        {
+          "name": "Scott (R-SC)",
+          "lis_member_id": "S365",
+          "party": "R",
+          "state": "SC",
+          "position": "nay"
+        },
+        {
+          "name": "Shaheen (D-NH)",
+          "lis_member_id": "S324",
+          "party": "D",
+          "state": "NH",
+          "position": "yea"
+        },
+        {
+          "name": "Shelby (R-AL)",
+          "lis_member_id": "S184",
+          "party": "R",
+          "state": "AL",
+          "position": "nay"
+        },
+        {
+          "name": "Sinema (D-AZ)",
+          "lis_member_id": "S403",
+          "party": "D",
+          "state": "AZ",
+          "position": "yea"
+        },
+        {
+          "name": "Smith (D-MN)",
+          "lis_member_id": "S394",
+          "party": "D",
+          "state": "MN",
+          "position": "yea"
+        },
+        {
+          "name": "Stabenow (D-MI)",
+          "lis_member_id": "S284",
+          "party": "D",
+          "state": "MI",
+          "position": "yea"
+        },
+        {
+          "name": "Sullivan (R-AK)",
+          "lis_member_id": "S383",
+          "party": "R",
+          "state": "AK",
+          "position": "nay"
+        },
+        {
+          "name": "Tester (D-MT)",
+          "lis_member_id": "S314",
+          "party": "D",
+          "state": "MT",
+          "position": "yea"
+        },
+        {
+          "name": "Thune (R-SD)",
+          "lis_member_id": "S303",
+          "party": "R",
+          "state": "SD",
+          "position": "nay"
+        },
+        {
+          "name": "Tillis (R-NC)",
+          "lis_member_id": "S384",
+          "party": "R",
+          "state": "NC",
+          "position": "yea"
+        },
+        {
+          "name": "Toomey (R-PA)",
+          "lis_member_id": "S351",
+          "party": "R",
+          "state": "PA",
+          "position": "nay"
+        },
+        {
+          "name": "Tuberville (R-AL)",
+          "lis_member_id": "S412",
+          "party": "R",
+          "state": "AL",
+          "position": "nay"
+        },
+        {
+          "name": "Van Hollen (D-MD)",
+          "lis_member_id": "S390",
+          "party": "D",
+          "state": "MD",
+          "position": "yea"
+        },
+        {
+          "name": "Warner (D-VA)",
+          "lis_member_id": "S327",
+          "party": "D",
+          "state": "VA",
+          "position": "yea"
+        },
+        {
+          "name": "Warnock (D-GA)",
+          "lis_member_id": "S415",
+          "party": "D",
+          "state": "GA",
+          "position": "yea"
+        },
+        {
+          "name": "Warren (D-MA)",
+          "lis_member_id": "S366",
+          "party": "D",
+          "state": "MA",
+          "position": "yea"
+        },
+        {
+          "name": "Whitehouse (D-RI)",
+          "lis_member_id": "S316",
+          "party": "D",
+          "state": "RI",
+          "position": "yea"
+        },
+        {
+          "name": "Wicker (R-MS)",
+          "lis_member_id": "S318",
+          "party": "R",
+          "state": "MS",
+          "position": "yea"
+        },
+        {
+          "name": "Wyden (D-OR)",
+          "lis_member_id": "S247",
+          "party": "D",
+          "state": "OR",
+          "position": "yea"
+        },
+        {
+          "name": "Young (R-IN)",
+          "lis_member_id": "S391",
+          "party": "R",
+          "state": "IN",
+          "position": "yea"
+        }
+      ]
+    }
+  ],
+  "unresolved_vote_refs": []
+}

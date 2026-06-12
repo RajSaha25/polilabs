@@ -1,0 +1,108 @@
+{
+  "bill_id": "119-hr-5272",
+  "fetched_at": "2026-06-12T05:37:02.525947+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr5272.xml",
+  "title": "Protect Elections from Deceptive AI Act",
+  "policy_area": "Government Operations and Politics",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "J000310",
+    "fullName": "Rep. Johnson, Julie [D-TX-32]",
+    "firstName": "Julie",
+    "lastName": "Johnson",
+    "party": "D",
+    "state": "TX",
+    "district": "32"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "F000466",
+      "fullName": "Rep. Fitzpatrick, Brian K. [R-PA-1]",
+      "firstName": "Brian",
+      "lastName": "Fitzpatrick",
+      "party": "R",
+      "state": "PA",
+      "district": "1",
+      "sponsorshipDate": "2025-09-10",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "H001085",
+      "fullName": "Rep. Houlahan, Chrissy [D-PA-6]",
+      "firstName": "Chrissy",
+      "lastName": "Houlahan",
+      "party": "D",
+      "state": "PA",
+      "district": "6",
+      "sponsorshipDate": "2025-09-10",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "G000594",
+      "fullName": "Rep. Gonzales, Tony [R-TX-23]",
+      "firstName": "Tony",
+      "lastName": "Gonzales",
+      "party": "R",
+      "state": "TX",
+      "district": "23",
+      "sponsorshipDate": "2025-09-10",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "A000379",
+      "fullName": "Rep. Alford, Mark [R-MO-4]",
+      "firstName": "Mark",
+      "lastName": "Alford",
+      "party": "R",
+      "state": "MO",
+      "district": "4",
+      "sponsorshipDate": "2026-04-09",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "H001094",
+      "fullName": "Rep. Hoyle, Val T. [D-OR-4]",
+      "firstName": "Val",
+      "lastName": "Hoyle",
+      "party": "D",
+      "state": "OR",
+      "district": "4",
+      "sponsorshipDate": "2026-06-08",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2025-09-10",
+      "text": "Referred to the House Committee on House Administration.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-09-10",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2025-09-10",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2025-09-10",
+      "text": "Referred to the House Committee on House Administration."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

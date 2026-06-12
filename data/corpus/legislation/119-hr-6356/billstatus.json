@@ -1,0 +1,368 @@
+{
+  "bill_id": "119-hr-6356",
+  "fetched_at": "2026-06-12T05:37:06.029639+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr6356.xml",
+  "title": "Artificial Intelligence Civil Rights Act of 2025",
+  "policy_area": "Science, Technology, Communications",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "C001067",
+    "fullName": "Rep. Clarke, Yvette D. [D-NY-9]",
+    "firstName": "Yvette",
+    "lastName": "Clarke",
+    "party": "D",
+    "state": "NY",
+    "district": "9"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "L000602",
+      "fullName": "Rep. Lee, Summer L. [D-PA-12]",
+      "firstName": "Summer",
+      "lastName": "Lee",
+      "party": "D",
+      "state": "PA",
+      "district": "12",
+      "sponsorshipDate": "2025-12-02",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "P000617",
+      "fullName": "Rep. Pressley, Ayanna [D-MA-7]",
+      "firstName": "Ayanna",
+      "lastName": "Pressley",
+      "party": "D",
+      "state": "MA",
+      "district": "7",
+      "sponsorshipDate": "2025-12-02",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "J000298",
+      "fullName": "Rep. Jayapal, Pramila [D-WA-7]",
+      "firstName": "Pramila",
+      "lastName": "Jayapal",
+      "party": "D",
+      "state": "WA",
+      "district": "7",
+      "sponsorshipDate": "2025-12-02",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "B001324",
+      "fullName": "Rep. Bell, Wesley [D-MO-1]",
+      "firstName": "Wesley",
+      "lastName": "Bell",
+      "party": "D",
+      "state": "MO",
+      "district": "1",
+      "sponsorshipDate": "2025-12-02",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "C001072",
+      "fullName": "Rep. Carson, Andr\u00e9 [D-IN-7]",
+      "firstName": "Andr\u00e9",
+      "lastName": "Carson",
+      "party": "D",
+      "state": "IN",
+      "district": "7",
+      "sponsorshipDate": "2025-12-02",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "C001080",
+      "fullName": "Rep. Chu, Judy [D-CA-28]",
+      "firstName": "Judy",
+      "lastName": "Chu",
+      "party": "D",
+      "state": "CA",
+      "district": "28",
+      "sponsorshipDate": "2025-12-02",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "D000096",
+      "fullName": "Rep. Davis, Danny K. [D-IL-7]",
+      "firstName": "Danny",
+      "lastName": "Davis",
+      "party": "D",
+      "state": "IL",
+      "district": "7",
+      "sponsorshipDate": "2025-12-02",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "D000530",
+      "fullName": "Rep. Deluzio, Christopher R. [D-PA-17]",
+      "firstName": "Christopher",
+      "lastName": "Deluzio",
+      "party": "D",
+      "state": "PA",
+      "district": "17",
+      "sponsorshipDate": "2025-12-02",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "J000309",
+      "fullName": "Rep. Jackson, Jonathan L. [D-IL-1]",
+      "firstName": "Jonathan",
+      "lastName": "Jackson",
+      "party": "D",
+      "state": "IL",
+      "district": "1",
+      "sponsorshipDate": "2025-12-02",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "K000385",
+      "fullName": "Rep. Kelly, Robin L. [D-IL-2]",
+      "firstName": "Robin",
+      "lastName": "Kelly",
+      "party": "D",
+      "state": "IL",
+      "district": "2",
+      "sponsorshipDate": "2025-12-02",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "M000312",
+      "fullName": "Rep. McGovern, James P. [D-MA-2]",
+      "firstName": "James",
+      "lastName": "McGovern",
+      "party": "D",
+      "state": "MA",
+      "district": "2",
+      "sponsorshipDate": "2025-12-02",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "N000147",
+      "fullName": "Del. Norton, Eleanor Holmes [D-DC-At Large]",
+      "firstName": "Eleanor",
+      "lastName": "Norton",
+      "party": "D",
+      "state": "DC",
+      "district": "0",
+      "sponsorshipDate": "2025-12-02",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "O000172",
+      "fullName": "Rep. Ocasio-Cortez, Alexandria [D-NY-14]",
+      "firstName": "Alexandria",
+      "lastName": "Ocasio-Cortez",
+      "party": "D",
+      "state": "NY",
+      "district": "14",
+      "sponsorshipDate": "2025-12-02",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "P000607",
+      "fullName": "Rep. Pocan, Mark [D-WI-2]",
+      "firstName": "Mark",
+      "lastName": "Pocan",
+      "party": "D",
+      "state": "WI",
+      "district": "2",
+      "sponsorshipDate": "2025-12-02",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "R000617",
+      "fullName": "Rep. Ramirez, Delia C. [D-IL-3]",
+      "firstName": "Delia",
+      "lastName": "Ramirez",
+      "party": "D",
+      "state": "IL",
+      "district": "3",
+      "sponsorshipDate": "2025-12-02",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "T000193",
+      "fullName": "Rep. Thompson, Bennie G. [D-MS-2]",
+      "firstName": "Bennie",
+      "lastName": "Thompson",
+      "party": "D",
+      "state": "MS",
+      "district": "2",
+      "sponsorshipDate": "2025-12-02",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "T000481",
+      "fullName": "Rep. Tlaib, Rashida [D-MI-12]",
+      "firstName": "Rashida",
+      "lastName": "Tlaib",
+      "party": "D",
+      "state": "MI",
+      "district": "12",
+      "sponsorshipDate": "2025-12-02",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "W000822",
+      "fullName": "Rep. Watson Coleman, Bonnie [D-NJ-12]",
+      "firstName": "Bonnie",
+      "lastName": "Watson Coleman",
+      "party": "D",
+      "state": "NJ",
+      "district": "12",
+      "sponsorshipDate": "2025-12-02",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "W000808",
+      "fullName": "Rep. Wilson, Frederica S. [D-FL-24]",
+      "firstName": "Frederica",
+      "lastName": "Wilson",
+      "party": "D",
+      "state": "FL",
+      "district": "24",
+      "sponsorshipDate": "2025-12-02",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "G000586",
+      "fullName": "Rep. Garc\u00eda, Jes\u00fas G. \"Chuy\" [D-IL-4]",
+      "firstName": "Jes\u00fas",
+      "lastName": "Garc\u00eda",
+      "party": "D",
+      "state": "IL",
+      "district": "4",
+      "sponsorshipDate": "2025-12-02",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "F000477",
+      "fullName": "Rep. Foushee, Valerie P. [D-NC-4]",
+      "firstName": "Valerie",
+      "lastName": "Foushee",
+      "party": "D",
+      "state": "NC",
+      "district": "4",
+      "sponsorshipDate": "2025-12-02",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "B001313",
+      "fullName": "Rep. Brown, Shontel M. [D-OH-11]",
+      "firstName": "Shontel",
+      "lastName": "Brown",
+      "party": "D",
+      "state": "OH",
+      "district": "11",
+      "sponsorshipDate": "2025-12-17",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "M000687",
+      "fullName": "Rep. Mfume, Kweisi [D-MD-7]",
+      "firstName": "Kweisi",
+      "lastName": "Mfume",
+      "party": "D",
+      "state": "MD",
+      "district": "7",
+      "sponsorshipDate": "2026-01-08",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "H001081",
+      "fullName": "Rep. Hayes, Jahana [D-CT-5]",
+      "firstName": "Jahana",
+      "lastName": "Hayes",
+      "party": "D",
+      "state": "CT",
+      "district": "5",
+      "sponsorshipDate": "2026-01-08",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "D000623",
+      "fullName": "Rep. DeSaulnier, Mark [D-CA-10]",
+      "firstName": "Mark",
+      "lastName": "DeSaulnier",
+      "party": "D",
+      "state": "CA",
+      "district": "10",
+      "sponsorshipDate": "2026-03-03",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "G000553",
+      "fullName": "Rep. Green, Al [D-TX-9]",
+      "firstName": "Al",
+      "lastName": "Green",
+      "party": "D",
+      "state": "TX",
+      "district": "9",
+      "sponsorshipDate": "2026-03-25",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "G000606",
+      "fullName": "Rep. Grijalva, Adelita S. [D-AZ-7]",
+      "firstName": "Adelita",
+      "lastName": "Grijalva",
+      "party": "D",
+      "state": "AZ",
+      "district": "7",
+      "sponsorshipDate": "2026-04-21",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "M001227",
+      "fullName": "Rep. McClellan, Jennifer L. [D-VA-4]",
+      "firstName": "Jennifer",
+      "lastName": "McClellan",
+      "party": "D",
+      "state": "VA",
+      "district": "4",
+      "sponsorshipDate": "2026-04-29",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2025-12-02",
+      "text": "Referred to the Committee on Energy and Commerce, and in addition to the Committee on Oversight and Government Reform, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-12-02",
+      "text": "Referred to the Committee on Energy and Commerce, and in addition to the Committee on Oversight and Government Reform, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-12-02",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2025-12-02",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2025-12-02",
+      "text": "Referred to the Committee on Energy and Commerce, and in addition to the Committee on Oversight and Government Reform, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

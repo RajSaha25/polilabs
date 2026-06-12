@@ -1,0 +1,11 @@
+{
+  "bill_id": "117-hr-3684",
+  "criteria_version": "secret-congress-seed-v1.0",
+  "canonical_package_id": "BILLS-117hr3684enr",
+  "cluster": "high_salience_bipartisan_law",
+  "sources": {
+    "bill_xml": "https://www.govinfo.gov/content/pkg/BILLS-117hr3684enr/xml/BILLS-117hr3684enr.xml",
+    "billstatus": "https://www.govinfo.gov/bulkdata/BILLSTATUS/117/hr/BILLSTATUS-117hr3684.xml"
+  },
+  "fetched_at": "2026-06-10T02:55:10.927268+00:00"
+}

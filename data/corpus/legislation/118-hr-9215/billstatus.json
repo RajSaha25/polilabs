@@ -1,0 +1,151 @@
+{
+  "bill_id": "118-hr-9215",
+  "fetched_at": "2026-06-12T05:36:40.557358+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/hr/BILLSTATUS-118hr9215.xml",
+  "title": "Workforce for AI Trust Act",
+  "policy_area": "Science, Technology, Communications",
+  "subjects": [
+    "Advanced technology and technological innovations",
+    "Advisory bodies",
+    "Computers and information technology",
+    "Education programs funding",
+    "Higher education",
+    "Minority education"
+  ],
+  "sponsor": {
+    "bioguideId": "L000397",
+    "fullName": "Rep. Lofgren, Zoe [D-CA-18]",
+    "firstName": "Zoe",
+    "lastName": "Lofgren",
+    "party": "D",
+    "state": "CA",
+    "district": "18"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "L000491",
+      "fullName": "Rep. Lucas, Frank D. [R-OK-3]",
+      "firstName": "Frank",
+      "lastName": "Lucas",
+      "party": "R",
+      "state": "OK",
+      "district": "3",
+      "sponsorshipDate": "2024-07-30",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "E000215",
+      "fullName": "Rep. Eshoo, Anna G. [D-CA-16]",
+      "firstName": "Anna",
+      "lastName": "Eshoo",
+      "party": "D",
+      "state": "CA",
+      "district": "16",
+      "sponsorshipDate": "2024-09-25",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "B001278",
+      "fullName": "Rep. Bonamici, Suzanne [D-OR-1]",
+      "firstName": "Suzanne",
+      "lastName": "Bonamici",
+      "party": "D",
+      "state": "OR",
+      "district": "1",
+      "sponsorshipDate": "2024-09-25",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "P000620",
+      "fullName": "Rep. Pettersen, Brittany [D-CO-7]",
+      "firstName": "Brittany",
+      "lastName": "Pettersen",
+      "party": "D",
+      "state": "CO",
+      "district": "7",
+      "sponsorshipDate": "2024-09-25",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "B001287",
+      "fullName": "Rep. Bera, Ami [D-CA-6]",
+      "firstName": "Ami",
+      "lastName": "Bera",
+      "party": "D",
+      "state": "CA",
+      "district": "6",
+      "sponsorshipDate": "2024-09-25",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "B001292",
+      "fullName": "Rep. Beyer, Donald S. [D-VA-8]",
+      "firstName": "Donald",
+      "lastName": "Beyer",
+      "party": "D",
+      "state": "VA",
+      "district": "8",
+      "sponsorshipDate": "2024-09-25",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "F000454",
+      "fullName": "Rep. Foster, Bill [D-IL-11]",
+      "firstName": "Bill",
+      "lastName": "Foster",
+      "party": "D",
+      "state": "IL",
+      "district": "11",
+      "sponsorshipDate": "2024-11-18",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2024-09-11",
+      "text": "Ordered to be Reported by Voice Vote.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2024-09-11",
+      "text": "Committee Consideration and Mark-up Session Held",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2024-07-30",
+      "text": "Referred to the House Committee on Science, Space, and Technology.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-07-30",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2024-07-30",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "reported_no_floor_vote",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2024-09-11",
+      "text": "Ordered to be Reported by Voice Vote."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

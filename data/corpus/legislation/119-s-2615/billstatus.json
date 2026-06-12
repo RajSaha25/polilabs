@@ -1,0 +1,79 @@
+{
+  "bill_id": "119-s-2615",
+  "fetched_at": "2026-06-12T05:37:17.323330+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/s/BILLSTATUS-119s2615.xml",
+  "title": "VET Artificial Intelligence Act",
+  "policy_area": "Science, Technology, Communications",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "H000273",
+    "fullName": "Sen. Hickenlooper, John W. [D-CO]",
+    "firstName": "John",
+    "lastName": "Hickenlooper",
+    "party": "D",
+    "state": "CO",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "C001047",
+      "fullName": "Sen. Capito, Shelley Moore [R-WV]",
+      "firstName": "Shelley",
+      "lastName": "Capito",
+      "party": "R",
+      "state": "WV",
+      "district": null,
+      "sponsorshipDate": "2025-07-31",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "S001208",
+      "fullName": "Sen. Slotkin, Elissa [D-MI]",
+      "firstName": "Elissa",
+      "lastName": "Slotkin",
+      "party": "D",
+      "state": "MI",
+      "district": null,
+      "sponsorshipDate": "2026-02-26",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "Y000064",
+      "fullName": "Sen. Young, Todd [R-IN]",
+      "firstName": "Todd",
+      "lastName": "Young",
+      "party": "R",
+      "state": "IN",
+      "district": null,
+      "sponsorshipDate": "2026-02-26",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2025-07-31",
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2025-07-31",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2025-07-31",
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

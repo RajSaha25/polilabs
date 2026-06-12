@@ -1,0 +1,45 @@
+{
+  "bill_id": "119-s-4402",
+  "fetched_at": "2026-06-12T05:37:24.029718+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/s/BILLSTATUS-119s4402.xml",
+  "title": "A bill to require a report on the use of artificial intelligence with respect to access to unminimized information collected pursuant to the Foreign Intelligence Surveillance Act of 1978, and for other purposes.",
+  "policy_area": "Armed Forces and National Security",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "S001150",
+    "fullName": "Sen. Schiff, Adam B. [D-CA]",
+    "firstName": "Adam",
+    "lastName": "Schiff",
+    "party": "D",
+    "state": "CA",
+    "district": null
+  },
+  "cosponsors": [],
+  "actions": [
+    {
+      "actionDate": "2026-04-27",
+      "text": "Read twice and referred to the Committee on the Judiciary.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2026-04-27",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2026-04-27",
+      "text": "Read twice and referred to the Committee on the Judiciary."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

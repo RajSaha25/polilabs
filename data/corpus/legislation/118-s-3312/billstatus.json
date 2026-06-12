@@ -1,0 +1,162 @@
+{
+  "bill_id": "118-s-3312",
+  "fetched_at": "2026-06-12T05:36:49.403794+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/s/BILLSTATUS-118s3312.xml",
+  "title": "Artificial Intelligence Research, Innovation, and Accountability Act of 2024",
+  "policy_area": "Science, Technology, Communications",
+  "subjects": [
+    "Advisory bodies",
+    "Broadcasting, cable, digital technologies",
+    "Civil actions and liability",
+    "Computers and information technology",
+    "Congressional oversight",
+    "Government studies and investigations",
+    "Internet, web applications, social media",
+    "Performance measurement",
+    "Product development and innovation",
+    "Research and development"
+  ],
+  "sponsor": {
+    "bioguideId": "T000250",
+    "fullName": "Sen. Thune, John [R-SD]",
+    "firstName": "John",
+    "lastName": "Thune",
+    "party": "R",
+    "state": "SD",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "K000367",
+      "fullName": "Sen. Klobuchar, Amy [D-MN]",
+      "firstName": "Amy",
+      "lastName": "Klobuchar",
+      "party": "D",
+      "state": "MN",
+      "district": null,
+      "sponsorshipDate": "2023-11-15",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "W000437",
+      "fullName": "Sen. Wicker, Roger F. [R-MS]",
+      "firstName": "Roger",
+      "lastName": "Wicker",
+      "party": "R",
+      "state": "MS",
+      "district": null,
+      "sponsorshipDate": "2023-11-15",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "H000273",
+      "fullName": "Sen. Hickenlooper, John W. [D-CO]",
+      "firstName": "John",
+      "lastName": "Hickenlooper",
+      "party": "D",
+      "state": "CO",
+      "district": null,
+      "sponsorshipDate": "2023-11-15",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "L000570",
+      "fullName": "Sen. Lujan, Ben Ray [D-NM]",
+      "firstName": "Ben",
+      "lastName": "Lujan",
+      "party": "D",
+      "state": "NM",
+      "district": null,
+      "sponsorshipDate": "2023-11-15",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "C001047",
+      "fullName": "Sen. Capito, Shelley Moore [R-WV]",
+      "firstName": "Shelley",
+      "lastName": "Capito",
+      "party": "R",
+      "state": "WV",
+      "district": null,
+      "sponsorshipDate": "2023-11-15",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "B001230",
+      "fullName": "Sen. Baldwin, Tammy [D-WI]",
+      "firstName": "Tammy",
+      "lastName": "Baldwin",
+      "party": "D",
+      "state": "WI",
+      "district": null,
+      "sponsorshipDate": "2024-01-24",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "L000571",
+      "fullName": "Sen. Lummis, Cynthia M. [R-WY]",
+      "firstName": "Cynthia",
+      "lastName": "Lummis",
+      "party": "R",
+      "state": "WY",
+      "district": null,
+      "sponsorshipDate": "2024-01-24",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2024-12-18",
+      "text": "Placed on Senate Legislative Calendar under General Orders. Calendar No. 723.",
+      "type": "Calendars",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-12-18",
+      "text": "Committee on Commerce, Science, and Transportation. Reported by Senator Cantwell with an amendment in the nature of a substitute. Without written report.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-12-18",
+      "text": "Committee on Commerce, Science, and Transportation. Reported by Senator Cantwell with an amendment in the nature of a substitute. Without written report.",
+      "type": "Committee",
+      "actionCode": "14000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2024-07-31",
+      "text": "Committee on Commerce, Science, and Transportation. Ordered to be reported with an amendment in the nature of a substitute favorably.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2023-11-15",
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation. (text: CR S5543-5549)",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2023-11-15",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "reported_no_floor_vote",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2024-12-18",
+      "text": "Placed on Senate Legislative Calendar under General Orders. Calendar No. 723."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

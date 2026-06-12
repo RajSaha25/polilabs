@@ -1,0 +1,79 @@
+{
+  "bill_id": "119-s-1638",
+  "fetched_at": "2026-06-12T05:37:15.188867+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/s/BILLSTATUS-119s1638.xml",
+  "title": "Protection Against Foreign Adversarial Artificial Intelligence Act of 2025",
+  "policy_area": "Science, Technology, Communications",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "C001075",
+    "fullName": "Sen. Cassidy, Bill [R-LA]",
+    "firstName": "Bill",
+    "lastName": "Cassidy",
+    "party": "R",
+    "state": "LA",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "R000608",
+      "fullName": "Sen. Rosen, Jacky [D-NV]",
+      "firstName": "Jacky",
+      "lastName": "Rosen",
+      "party": "D",
+      "state": "NV",
+      "district": null,
+      "sponsorshipDate": "2025-05-07",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "S001194",
+      "fullName": "Sen. Schatz, Brian [D-HI]",
+      "firstName": "Brian",
+      "lastName": "Schatz",
+      "party": "D",
+      "state": "HI",
+      "district": null,
+      "sponsorshipDate": "2025-06-18",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "B001305",
+      "fullName": "Sen. Budd, Ted [R-NC]",
+      "firstName": "Ted",
+      "lastName": "Budd",
+      "party": "R",
+      "state": "NC",
+      "district": null,
+      "sponsorshipDate": "2025-07-31",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2025-05-07",
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2025-05-07",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2025-05-07",
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

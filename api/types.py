@@ -167,6 +167,28 @@ class StreamStatus:
 
 
 @dataclass(frozen=True)
+class FacetCoverage:
+    """How many bills in a topic actually carry a given data facet.
+
+    The under/overcoverage guard: an agent that knows 'votes' covers
+    29/191 bills in ai_governance will say 'no recorded votes' instead
+    of hallucinating one, and an agent asked to aggregate over outcomes
+    can check the facet is total before trusting the aggregate."""
+    facet: str            # 'actions' | 'cosponsors' | 'votes' | 'outcome' | 'subjects' | 'embeddings'
+    bills_with_facet: int
+    bill_count: int
+
+
+@dataclass(frozen=True)
+class TopicCoverage:
+    topic: str
+    bill_count: int
+    congresses: list[int]
+    description: str | None
+    facets: list[FacetCoverage]
+
+
+@dataclass(frozen=True)
 class CoverageReport:
     corpus_version: str
     criteria_version: str
@@ -178,6 +200,105 @@ class CoverageReport:
     bill_count_by_tier: dict[Tier, int]
     source_freshness: list[SourceFreshness]
     known_gaps: list[str]
+    topics: list[TopicCoverage] = field(default_factory=list)
+
+
+# ----- passage dynamics subsystem (votes / outcomes) -----
+
+Outcome = Literal[
+    "enacted", "vetoed", "failed_passage", "failed_cloture",
+    "passed_house_only", "passed_senate_only", "passed_both",
+    "died_after_passing_house", "died_after_passing_senate",
+    "died_after_passing_both", "reported_no_floor_vote",
+    "died_in_committee", "pending",
+]
+
+VoteType = Literal["passage", "cloture", "veto_override", "amendment", "procedural"]
+
+
+@dataclass(frozen=True)
+class VoteSummary:
+    vote_id: str
+    chamber: str                      # 'House' | 'Senate'
+    congress: int
+    session: int
+    roll_number: int
+    date: str | None
+    question: str | None
+    result: str | None
+    vote_type: VoteType
+    yea_total: int
+    nay_total: int
+    dem_yea: int | None
+    dem_nay: int | None
+    rep_yea: int | None
+    rep_nay: int | None
+    # min over {D,R} of that party's yea-share. None for voice votes /
+    # unanimous consent (no roll call) or missing party decomposition.
+    bipartisan_support: float | None
+    bipartisan_label: str | None      # party_line | cross_party | bipartisan | near_unanimous
+    source_url: str
+
+
+@dataclass(frozen=True)
+class OutcomeEvent:
+    event: str            # passed_house | passed_senate | failed_cloture | failed_passage | vetoed
+    date: str | None
+    evidence: str         # verbatim action text or roll-call summary
+
+
+@dataclass(frozen=True)
+class BillVotesResult:
+    bill_id: str
+    in_scope: bool
+    not_found: bool
+    outcome: Outcome | None
+    public_law: str | None
+    bipartisan_support: float | None  # on the final passage-class vote
+    cluster: str | None               # secret_congress topic only
+    curator_note: str | None
+    events: list[OutcomeEvent]
+    votes: list[VoteSummary]
+    provenance: Provenance
+
+
+@dataclass(frozen=True)
+class CountBucket:
+    key: str | int | None
+    count: int
+
+
+@dataclass(frozen=True)
+class CountResult:
+    """Aggregate counting primitive. One call answers 'how many bills
+    ...?' queries that otherwise force an agent to paginate search
+    results and count them client-side (the known eval failure mode)."""
+    count: int
+    group_by: str | None
+    buckets: list[CountBucket]
+    filters: dict[str, str | int | None]
+    provenance: Provenance
+
+
+@dataclass(frozen=True)
+class OutcomeBillSummary:
+    bill_id: str
+    title: str | None
+    topic: str
+    congress: int
+    outcome: Outcome | None
+    public_law: str | None
+    bipartisan_support: float | None
+    cluster: str | None
+    latest_action_date: str | None
+
+
+@dataclass(frozen=True)
+class BillsByOutcomeResult:
+    bills: list[OutcomeBillSummary]
+    total: int
+    filters: dict[str, str | float | int | None]
+    provenance: Provenance
 
 
 # ----- definitions subsystem (PR3) -----
@@ -347,3 +468,93 @@ class DefinitionsAcrossCorpusResult:
     direct_count: int
     by_reference_count: int
     coverage_note: str
+
+
+# ----- universe layer (all bills of covered Congresses, status-only) -----
+
+@dataclass(frozen=True)
+class BillNameMatch:
+    bill_id: str
+    title: str | None
+    congress: int
+    bill_type: str
+    bill_number: int
+    outcome: Outcome | None
+    public_law: str | None
+    in_corpus: bool          # full text available via get_bill/get_section
+    match_kind: str          # 'bill_id' | 'alias_exact' | 'fts'
+    matched_alias: str | None
+
+
+@dataclass(frozen=True)
+class BillLookupResult:
+    """Resolution of a colloquial bill name ('CHIPS Act', 'the border
+    bill') or a bill id to canonical bill_id(s)."""
+    query: str
+    matches: list[BillNameMatch]
+    is_ambiguous: bool
+    provenance: Provenance
+
+
+@dataclass(frozen=True)
+class UniverseBillSummary:
+    bill_id: str
+    title: str | None
+    congress: int
+    outcome: Outcome | None
+    public_law: str | None
+    policy_area: str | None
+    sponsor_party: str | None
+    sponsor_state: str | None
+    bipartisan_support: float | None
+    in_corpus: bool
+    latest_action_date: str | None
+
+
+@dataclass(frozen=True)
+class UniverseBillsResult:
+    bills: list[UniverseBillSummary]
+    total: int
+    filters: dict[str, str | float | int | None]
+    provenance: Provenance
+
+
+@dataclass(frozen=True)
+class BillCard:
+    """One-call context card for any bill in the universe. Collapses the
+    get_bill + get_bill_votes + coverage-check round trips into a single
+    tool call; corpus-only structure counts (sections, defined terms,
+    amendments) are included when available so the agent knows whether
+    drill-down tools will work BEFORE calling them."""
+    bill_id: str
+    found: bool
+    in_corpus: bool
+    topic: str | None              # corpus topic when in_corpus
+    title: str | None
+    all_known_names: list[str]
+    congress: int | None
+    bill_type: str | None
+    bill_number: int | None
+    sponsor: str | None
+    sponsor_party: str | None
+    sponsor_state: str | None
+    policy_area: str | None
+    introduced_date: str | None
+    latest_action: str | None
+    outcome: Outcome | None
+    public_law: str | None
+    bipartisan_support: float | None
+    bipartisan_label: str | None
+    cosponsor_counts: dict[str, int]
+    cluster: str | None
+    curator_note: str | None
+    events: list[OutcomeEvent]
+    votes: list[VoteSummary]
+    section_count: int | None      # None = unknown (not in corpus)
+    defined_term_count: int | None
+    amendment_count: int | None
+    # Latest CRS-written summary (GovInfo BILLSUM), truncated for tool
+    # output; summary_as_of names the action it describes.
+    summary: str | None
+    summary_as_of: str | None
+    provenance: Provenance

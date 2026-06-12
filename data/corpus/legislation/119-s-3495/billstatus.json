@@ -1,0 +1,57 @@
+{
+  "bill_id": "119-s-3495",
+  "fetched_at": "2026-06-12T05:37:20.059168+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/s/BILLSTATUS-119s3495.xml",
+  "title": "Artificial Intelligence Scam Prevention Act",
+  "policy_area": "Commerce",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "K000367",
+    "fullName": "Sen. Klobuchar, Amy [D-MN]",
+    "firstName": "Amy",
+    "lastName": "Klobuchar",
+    "party": "D",
+    "state": "MN",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "C001047",
+      "fullName": "Sen. Capito, Shelley Moore [R-WV]",
+      "firstName": "Shelley",
+      "lastName": "Capito",
+      "party": "R",
+      "state": "WV",
+      "district": null,
+      "sponsorshipDate": "2025-12-16",
+      "isOriginalCosponsor": "True"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2025-12-16",
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2025-12-16",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2025-12-16",
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

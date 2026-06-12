@@ -1,0 +1,79 @@
+{
+  "bill_id": "118-s-2691",
+  "fetched_at": "2026-06-12T05:36:46.964967+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/s/BILLSTATUS-118s2691.xml",
+  "title": "AI Labeling Act of 2023",
+  "policy_area": "Commerce",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "S001194",
+    "fullName": "Sen. Schatz, Brian [D-HI]",
+    "firstName": "Brian",
+    "lastName": "Schatz",
+    "party": "D",
+    "state": "HI",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "K000393",
+      "fullName": "Sen. Kennedy, John [R-LA]",
+      "firstName": "John",
+      "lastName": "Kennedy",
+      "party": "R",
+      "state": "LA",
+      "district": null,
+      "sponsorshipDate": "2023-07-27",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "W000805",
+      "fullName": "Sen. Warner, Mark R. [D-VA]",
+      "firstName": "Mark",
+      "lastName": "Warner",
+      "party": "D",
+      "state": "VA",
+      "district": null,
+      "sponsorshipDate": "2024-07-10",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "C001035",
+      "fullName": "Sen. Collins, Susan M. [R-ME]",
+      "firstName": "Susan",
+      "lastName": "Collins",
+      "party": "R",
+      "state": "ME",
+      "district": null,
+      "sponsorshipDate": "2024-07-10",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2023-07-27",
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2023-07-27",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "died_in_committee",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2023-07-27",
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

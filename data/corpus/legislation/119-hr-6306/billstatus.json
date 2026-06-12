@@ -1,0 +1,64 @@
+{
+  "bill_id": "119-hr-6306",
+  "fetched_at": "2026-06-12T05:37:05.722360+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr6306.xml",
+  "title": "AI Fraud Deterrence Act",
+  "policy_area": "Crime and Law Enforcement",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "L000582",
+    "fullName": "Rep. Lieu, Ted [D-CA-36]",
+    "firstName": "Ted",
+    "lastName": "Lieu",
+    "party": "D",
+    "state": "CA",
+    "district": "36"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "D000628",
+      "fullName": "Rep. Dunn, Neal P. [R-FL-2]",
+      "firstName": "Neal",
+      "lastName": "Dunn",
+      "party": "R",
+      "state": "FL",
+      "district": "2",
+      "sponsorshipDate": "2025-11-25",
+      "isOriginalCosponsor": "True"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2025-11-25",
+      "text": "Referred to the House Committee on the Judiciary.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-11-25",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2025-11-25",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2025-11-25",
+      "text": "Referred to the House Committee on the Judiciary."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

@@ -1,14 +1,15 @@
 # corpus/
 
-Source of truth for **what counts as "AI-governance" legislation** in the v1 polilabs corpus. The ingestion pipeline (`ingest/candidate.py`) references this file; do not change it informally.
+Source of truth for **what counts as in-scope** for each polilabs topic corpus. The ingestion pipeline references these files; do not change them informally. One criteria file per topic (the "directory of inclusion-criteria files" the Future section below anticipated).
 
 ## Files
 
-- **`inclusion_criteria.md`** — Locked v1.0 criteria. Lists:
+- **`inclusion_criteria.md`** — Locked v1.0 criteria for the `ai_governance` topic. Lists:
   - Required anchor keyword (at least one of: `AI` as standalone token, `artificial intelligence`, `machine learning`)
   - Expanding terms (facial recognition, generative AI, frontier model, automated decision systems)
   - Out-of-scope items (executive orders, regulatory actions, state legislation)
   - Tier definitions (A = primary AI-governance; B = substantial AI provisions)
+- **`secret_congress_criteria.md`** — v1 criteria for the `secret_congress` topic: passage-dynamics exemplars (bipartisan laws quiet and loud, bipartisan bills that died, omnibus vehicles, party-line contrasts), the cluster vocabulary, and the rule that every seed entry is verified against its BILLSTATUS record before promotion.
 
 ## Why this file exists
 

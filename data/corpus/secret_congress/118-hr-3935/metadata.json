@@ -1,0 +1,1069 @@
+{
+  "bill_id": "118-hr-3935",
+  "congress": 118,
+  "bill_type": "hr",
+  "bill_number": 3935,
+  "title": "FAA Reauthorization Act of 2024",
+  "short_title": "FAA Reauthorization Act of 2024",
+  "sponsor": "Rep. Graves, Sam [R-MO-6]",
+  "introduced_date": "2023-06-09",
+  "latest_action": "2024-05-16: Became Public Law No: 118-63.",
+  "policy_area": "Transportation and Public Works",
+  "subjects": [
+    "Accidents",
+    "Accounting and auditing",
+    "Administrative law and regulatory procedures",
+    "Advanced technology and technological innovations",
+    "Advisory bodies",
+    "Atmospheric science and weather",
+    "Aviation and airports",
+    "Broadcasting, cable, digital technologies",
+    "Civil actions and liability",
+    "Computer security and identity theft",
+    "Computers and information technology",
+    "Congressional oversight",
+    "Consumer affairs",
+    "Department of Transportation",
+    "Disability and health-based discrimination",
+    "Disability assistance",
+    "Drug, alcohol, tobacco use",
+    "Employee hiring",
+    "Employment and training programs",
+    "Federal officials",
+    "Government information and archives",
+    "Government studies and investigations",
+    "Infectious and parasitic diseases",
+    "Infrastructure development",
+    "Licensing and registrations",
+    "Noise pollution",
+    "Performance measurement",
+    "Personnel records",
+    "Right of privacy",
+    "Telephone and wireless communication",
+    "Transportation programs funding",
+    "Transportation safety and security",
+    "User charges and fees",
+    "Wages and earnings"
+  ],
+  "summary_text": null,
+  "centrality_score": null,
+  "match_locations": {},
+  "tier": "A",
+  "stream": "legislation",
+  "topic": "secret_congress",
+  "cluster": "quiet_bipartisan_law",
+  "curator_note": "Enacted PL 118-63. Must-pass aviation authorization, 387-26 in the House: the routine, invisible bipartisan workhorse class.",
+  "versions_available": [
+    {
+      "package_id": "BILLS-118hr3935enr",
+      "version_code": "enr",
+      "date_issued": "2023-06-09"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-118hr3935enr",
+    "version_code": "enr",
+    "date_issued": "2023-06-09"
+  },
+  "actions": [
+    {
+      "actionDate": "2024-05-16",
+      "text": "Became Public Law No: 118-63.",
+      "type": "President",
+      "actionCode": "E40000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2024-05-16",
+      "text": "Became Public Law No: 118-63.",
+      "type": "BecameLaw",
+      "actionCode": "36000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2024-05-16",
+      "text": "Signed by President.",
+      "type": "President",
+      "actionCode": "E30000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2024-05-16",
+      "text": "Signed by President.",
+      "type": "BecameLaw",
+      "actionCode": "36000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2024-05-16",
+      "text": "Presented to President.",
+      "type": "Floor",
+      "actionCode": "E20000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-05-16",
+      "text": "Presented to President.",
+      "type": "President",
+      "actionCode": "28000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2024-05-15",
+      "text": "Motion to reconsider laid on the table Agreed to without objection.",
+      "type": "ResolvingDifferences",
+      "actionCode": "H41931",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-05-15",
+      "text": "On motion that the House suspend the rules and agree to the Senate amendment Agreed to by the Yeas and Nays: (2/3 required): 387 - 26 (Roll no. 200). (consideration: CR H3229-3230; text: 5/14/2024 CR H3050-3164)",
+      "type": "ResolvingDifferences",
+      "actionCode": "H41610",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-05-15",
+      "text": "Resolving differences -- House actions: On motion that the House suspend the rules and agree to the Senate amendment Agreed to by the Yeas and Nays: (2/3 required): 387 - 26 (Roll no. 200). (consideration: CR H3229-3230; text: 5/14/2024 CR H3050-3164)",
+      "type": "NotUsed",
+      "actionCode": "19500",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2024-05-14",
+      "text": "At the conclusion of debate, the Yeas and Nays were demanded and ordered. Pursuant to the provisions of clause 8, rule XX, the chair announced that further proceedings on the motion would be postponed.",
+      "type": "ResolvingDifferences",
+      "actionCode": "H40142",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-05-14",
+      "text": "DEBATE - The House resumed debate on the motion to suspend the rules and agree to the Senate amendment to H.R. 3935.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-05-14",
+      "text": "UNANIMOUS CONSENT REQUEST - Mr. Graves (MO) asked unanimous consent that debate be extended by two minutes on each side of the aisle. Agreed to without objection.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-05-14",
+      "text": "DEBATE - The House proceeded with forty minutes of debate on the motion to suspend the rules and agree to the Senate amendment to H.R. 3935.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-05-14",
+      "text": "Mr. Graves (MO) moved that the House suspend the rules and agree to the Senate amendment. (consideration: CR H3050-3170)",
+      "type": "ResolvingDifferences",
+      "actionCode": "H40140",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-05-10",
+      "text": "Message on Senate action sent to the House.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-05-09",
+      "text": "Passed Senate, under the order of 5/9/2024, having achieved 60 votes in the affirmative with an amendment by Yea-Nay Vote. 88 - 4. Record Vote Number: 162. (text of amendment in the nature of a substitute: 05/07/2024 CR S3381-3495)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-05-09",
+      "text": "Passed/agreed to in Senate: Passed Senate, under the order of 5/9/2024, having achieved 60 votes in the affirmative with an amendment by Yea-Nay Vote. 88 - 4. Record Vote Number: 162. (text of amendment in the nature of a substitute: 05/07/2024 CR S3381-3495)",
+      "type": "Floor",
+      "actionCode": "17000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2024-05-09",
+      "text": "Motion by Senator Schumer to commit to Senate Committee on Commerce, Science, and Transportation with instructions to report back forthwith with the following amendment (SA 2027) fell when cloture was invoked on SA 1911, as modified, in Senate.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-05-09",
+      "text": "Considered by Senate. (consideration: CR S3629-3645)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-05-08",
+      "text": "Motion to table the motion by Senator Schumer to commit the bill (H.R. 3935) to Senate Committee on Commerce, Science, and Transportation with instructions to report back forthwith with amendment SA 2027 rejected in Senate by Yea-Nay Vote. 12 - 85. Record Vote Number: 160.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-05-08",
+      "text": "Considered by Senate. (consideration: CR S3567-3589)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-05-07",
+      "text": "Cloture motion on the measure presented in Senate. (CR S3496)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-05-07",
+      "text": "Motion by Senator Schumer to commit to Senate Committee on Commerce, Science, and Transportation with instructions to report back forthwith with the following amendment (SA 2027) made in Senate. (text: CR S3495)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-05-07",
+      "text": "Motion by Senator Schumer to commit to Senate Committee on Commerce, Science, and Transportation with instructions to report back forthwith with the following amendment (SA 1294) tabled in Senate by Voice Vote.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-05-07",
+      "text": "Considered by Senate. (consideration: CR S3381-3496)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-05-02",
+      "text": "Measure laid before Senate by motion. (consideration: CR S3305)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-05-02",
+      "text": "Motion to proceed to consideration of measure agreed to in Senate by Yea-Nay Vote. 81 - 10. Record Vote Number: 158.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-05-02",
+      "text": "Motion to proceed to measure considered in Senate. (CR S3295)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-05-01",
+      "text": "Cloture on the motion to proceed to the measure invoked in Senate by Yea-Nay Vote. 89 - 10. Record Vote Number: 157. (CR S3111)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-05-01",
+      "text": "Motion to proceed to measure considered in Senate. (CR S3107)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-04-23",
+      "text": "Cloture motion on the motion to proceed to the measure presented in Senate.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-04-23",
+      "text": "Motion to proceed to measure considered in Senate. (CR S2943)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-04-20",
+      "text": "Motion to proceed to measure considered in Senate. (CR S2941)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-04-20",
+      "text": "Motion to proceed to consideration of measure made in Senate. (CR S2928)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2023-09-30",
+      "text": "Cloture motion on the measure withdrawn by unanimous consent in Senate. (CR S4885)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2023-09-30",
+      "text": "Considered by Senate. (consideration: CR S4885)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2023-09-29",
+      "text": "Considered by Senate. (consideration: CR S4806, S4818-4820)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2023-09-28",
+      "text": "Cloture motion on the measure presented in Senate. (consideration: CR S4734; text: CR S4734)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2023-09-28",
+      "text": "Motion by Senator Schumer to commit to Senate Committee on Commerce, Science, and Transportation with instructions to report back forthwith with the following amendment (SA 1294) made in Senate.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2023-09-28",
+      "text": "Measure laid before Senate by motion. (consideration: CR S4729-4739)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2023-09-28",
+      "text": "Motion to proceed to consideration of measure agreed to in Senate by Yea-Nay Vote. 76 - 22. Record Vote Number: 241.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2023-09-28",
+      "text": "Motion to proceed to measure considered in Senate. (CR S4729)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2023-09-27",
+      "text": "Motion to proceed to measure considered in Senate. (CR S4689)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2023-09-26",
+      "text": "Cloture on the motion to proceed to the measure invoked in Senate by Yea-Nay Vote. 77 - 19. Record Vote Number: 240.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2023-09-26",
+      "text": "Motion to proceed to measure considered in Senate. (CR S4669)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2023-09-21",
+      "text": "Cloture motion on the motion to proceed to the measure presented in Senate. (CR S4665)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2023-09-21",
+      "text": "Motion to proceed to consideration of measure made in Senate. (CR S4665)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2023-09-21",
+      "text": "Read the second time. Placed on Senate Legislative Calendar under General Orders. Calendar No. 211.",
+      "type": "Calendars",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2023-09-20",
+      "text": "Read the first time. Placed on Senate Legislative Calendar under Read the First Time.",
+      "type": "Calendars",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2023-07-25",
+      "text": "Received in the Senate.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2023-07-20",
+      "text": "The Clerk was authorized to correct section numbers, punctuation, and cross references, and to make other necessary technical and conforming corrections in the engrossment of H.R. 3935.",
+      "type": "Floor",
+      "actionCode": "H38900",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-20",
+      "text": "Motion to reconsider laid on the table Agreed to without objection.",
+      "type": "Floor",
+      "actionCode": "H38310",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-20",
+      "text": "On passage Passed by the Yeas and Nays: 351 - 69 (Roll no. 364).",
+      "type": "Floor",
+      "actionCode": "H37100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-20",
+      "text": "Passed/agreed to in House: On passage Passed by the Yeas and Nays: 351 - 69 (Roll no. 364).",
+      "type": "Floor",
+      "actionCode": "8000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2023-07-20",
+      "text": "The House adopted the amendments en gross as agreed to by the Committee of the Whole House on the state of the Union.",
+      "type": "Floor",
+      "actionCode": "H34400",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-20",
+      "text": "The previous question was ordered pursuant to the rule.",
+      "type": "Floor",
+      "actionCode": "H35000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-20",
+      "text": "The House rose from the Committee of the Whole House on the state of the Union to report H.R. 3935.",
+      "type": "Floor",
+      "actionCode": "H32600",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-20",
+      "text": "POSTPONED PROCEEDINGS - At the conclusion of debate on the Perry amendment No. 77, the Chair put the question on agreeing to the amendment and by voice vote, announced the ayes had prevailed. Mr. Larsen (WA) demanded a recorded vote and the Chair postponed further proceedings until a time to be announced.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-20",
+      "text": "DEBATE - Pursuant to the provisions of H. Res. 597, the Committee of the Whole proceeded with 10 minutes of debate on the Perry amendment No. 77.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-20",
+      "text": "POSTPONED PROCEEDINGS - At the conclusion of debate on the Perry amendment No. 76, the Chair put the question on agreeing to the amendment and by voice vote, announced the ayes had prevailed. Mr. Graves (MO) demanded a recorded vote and the Chair postponed further proceedings until a time to be announced.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-20",
+      "text": "DEBATE - Pursuant to the provisions of H. Res. 597, the Committee of the Whole proceeded with 10 minutes of debate on the Perry amendment No. 76.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-20",
+      "text": "POSTPONED PROCEEDINGS - At the conclusion of debate on the Graves (MO) amendment en bloc No. 4, the Chair put the question on agreeing to the amendment and by voice vote, announced the ayes had prevailed. Mr. Larsen (WA) demanded a recorded vote and the Chair postponed further proceedings until a time to be announced.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-20",
+      "text": "DEBATE - Pursuant to the provisions of H. Res. 597, the Committee of the Whole proceeded with 30 minutes of debate on the Graves (MO) amendment en bloc No. 4.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-20",
+      "text": "The House resolved into Committee of the Whole House on the state of the Union for further consideration.",
+      "type": "Floor",
+      "actionCode": "H32050",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-20",
+      "text": "Considered as unfinished business. (consideration: CR H3863-3874)",
+      "type": "Floor",
+      "actionCode": "H30000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "Committee of the Whole House on the state of the Union rises leaving H.R. 3935 as unfinished business.",
+      "type": "Floor",
+      "actionCode": "H32700",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "On motion that the committee rise Agreed to by voice vote.",
+      "type": "Floor",
+      "actionCode": "H32341",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "Mr. Graves (MO) moved that the committee rise.",
+      "type": "Floor",
+      "actionCode": "H32340",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "The House resolved into Committee of the Whole House on the state of the Union for further consideration.",
+      "type": "Floor",
+      "actionCode": "H32050",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "Considered as unfinished business. (consideration: CR H3840-3854)",
+      "type": "Floor",
+      "actionCode": "H30000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "Committee of the Whole House on the state of the Union rises leaving H.R. 3935 as unfinished business.",
+      "type": "Floor",
+      "actionCode": "H32700",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "On motion that the committee rise Agreed to by voice vote.",
+      "type": "Floor",
+      "actionCode": "H32341",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "Mr. Perry moved that the committee rise.",
+      "type": "Floor",
+      "actionCode": "H32340",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "POSTPONED PROCEEDINGS - At the conclusion of debate on the Perry amendment No. 75, the Chair put the question on agreeing to the amendment and by voice vote, announced the ayes had prevailed. Mr. Johnson (GA) demanded a recorded vote and the Chair postponed further proceedings until a time to be announced.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "DEBATE - Pursuant to the provisions of H. Res. 597, the Committee of the Whole proceeded with 10 minutes of debate on the Perry amendment No. 75.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "POSTPONED PROCEEDINGS - At the conclusion of debate on the Perry amendment No. 74, the Chair put the question on agreeing to the amendment and by voice vote, announced that the ayes had prevailed. Mr. Johnson (GA) demanded a recorded vote and the Chair postponed further proceedings until a time to be announced.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "DEBATE - Pursuant to the provisions of H. Res. 597, the Committee of the Whole proceeded with 10 minutes of debate on the Perry amendment No. 74.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "POSTPONED PROCEEDINGS - At the conclusion of debate on the Perry amendment No. 73, the Chair put the question on agreeing to the amendment and by voice vote, announced that the ayes had prevailed. Mr. Larsen (WA) demanded a recorded vote and the Chair postponed further proceedings until a time to be announced.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "DEBATE - Pursuant to the provisions of H. Res. 597, the Committee of the Whole proceeded with 10 minutes of debate on the Perry amendment No. 73.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "POSTPONED PROCEEDINGS - At conclusion of debate on the Owens amendment No. 71, the Chair put the question on agreeing to the amendment and by voice vote, announced that the ayes had prevailed. Mr. Larsen (WA) demanded a recorded vote and the Chair postponed further proceedings until a time to be announced.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "DEBATE - Pursuant to the provisions of H. Res. 597, the Committee of the Whole proceeded with 10 minutes of debate on the Owens amendment No. 71.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "POSTPONED PROCEEDINGS - At conclusion of debate on the Ogles amendment No. 70, the Chair put the question on agreeing to the amendment and by voice vote, announced that the ayes had prevailed. Mr. Johnson (GA) demanded a recorded vote and the Chair postponed further proceedings until a time to be announced.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "DEBATE - Pursuant to the provisions of H. Res. 597, the Committee of the Whole proceeded with 10 minutes of debate on the Ogles amendment No. 70.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "POSTPONED PROCEEDINGS - At conclusion of debate on the Ogles amendment No. 69, the Chair put the question on agreeing to the amendment and by voice vote, announced that the ayes had prevailed. Mr. Johnson (GA) demanded a recorded vote and the Chair postponed further proceedings until a time to be announced.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "DEBATE - Pursuant to the provisions of H. Res. 597, the Committee of the Whole proceeded with 10 minutes of debate on the Ogles amendment No. 69.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "POSTPONED PROCEEDINGS - At conclusion of debate on the Obernolte amendment No. 68, the Chair put the question on agreeing to the amendment and by voice vote, announced that the ayes had prevailed. Mr. Johnson (GA) demanded a recorded vote and the Chair postponed further proceedings until a time to be announced.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "DEBATE - Pursuant to the provisions of H. Res. 597, the Committee of the Whole proceeded with 10 minutes of debate on the Obernolte amendment No. 68.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "DEBATE - Pursuant to the provisions of H. Res. 597, the Committee of the Whole proceeded with 10 minutes of debate on the Obernolte amendment No. 67.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "POSTPONED PROCEEDINGS - At conclusion of debate on the Miller (IL) amendment No. 65, the Chair put the question on agreeing to the amendment and by voice vote, announced that the ayes had prevailed. Mr. Cohen demanded a recorded vote and the Chair postponed further proceedings until a time to be announced.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "DEBATE - Pursuant to the provisions of H. Res. 597, the Committee of the Whole proceeded with 10 minutes of debate on the Miller (IL) amendment No. 65.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "POSTPONED PROCEEDINGS - At conclusion of debate on the Miller (IL) amendment No. 64, the Chair put the question on agreeing to the amendment and by voice vote, announced that the ayes had prevailed. Mr. Cohen demanded a recorded vote and the Chair postponed further proceedings until a time to be announced.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "DEBATE - Pursuant to the provisions of H. Res. 597, the Committee of the Whole proceeded with 10 minutes of debate on the Miller (IL) amendment No. 64.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "POSTPONED PROCEEDINGS - At conclusion of debate on the McClintock amendment No. 62, the Chair put the question on agreeing to the amendment and by voice vote, announced that the ayes had prevailed. Mr. Johnson (SD) demanded a recorded vote and the Chair postponed further proceedings until a time to be announced.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "DEBATE - Pursuant to the provisions of H. Res. 597, the Committee of the Whole proceeded with 10 minutes of debate on the McClintock amendment No. 62.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "DEBATE - Pursuant to the provisions of H. Res. 597, the Committee of the Whole proceeded with 10 minutes of debate on the LaMalfa amendment No. 53.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "POSTPONED PROCEEDINGS - At the conclusion of debate on the Kean (NJ) amendment No. 50, the Chair put the question on agreeing to the amendment and by voice vote, announced the ayes had prevailed. Mr. Cohen demanded a recorded vote and the Chair postponed further proceedings until a time to be announced.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "DEBATE - Pursuant to the provisions of H. Res. 597, the Committee of the Whole proceeded with 10 minutes of debate on the Kean (NJ) amendment No. 50.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "POSTPONED PROCEEDINGS - At the conclusion of debate on the Jackson (TX) amendment No. 48, the Chair put the question on agreeing to the amendment and by voice vote, announced the ayes had prevailed. Mr. Cohen demanded a recorded vote and the Chair postponed further proceedings until a time to be announced.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "DEBATE - Pursuant to the provisions of H. R. 597, the Committee of the Whole proceeded with 10 minutes of debate on the Jackson (TX) amendment No. 48.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "POSTPONED PROCEEDINGS - At the conclusion of debate on the Issa amendment No. 47, the Chair put the question on agreeing to the amendment and by voice vote, announced the ayes had prevailed. Mr. Cohen demanded a recorded vote and the Chair postponed further proceedings until a time to be announced.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "DEBATE - Pursuant to the provisions of H. Res. 597, the Committee of the Whole proceeded with 10 minutes of debate on the Issa amendment No. 47.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "POSTPONED PROCEEDINGS - At the conclusion of debate on the Huizenga amendment No. 44, the Chair put the question on agreeing to the amendment and by voice vote, announced the ayes had prevailed. Mr. Larsen (WA) demanded a recorded vote and the Chair postponed further proceedings until a time to be announced.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "DEBATE - Pursuant to the provisions of H. Res. 597, the Committee of the Whole proceeded with 10 minutes of debate on the Huizenga amendment No. 44.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "POSTPONED PROCEEDINGS - At the conclusion of debate on the Miller (IL) amendment No. 36, the Chair put the question on agreeing to the amendment and by voice vote, announced the ayes had prevailed. Mr. Larsen (WA) demanded a recorded vote and the Chair postponed further proceedings until a time to be announced.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "DEBATE - Pursuant to the provisions of H. Res. 597, the Committee of the Whole proceeded with 10 minutes of debate on the Miller (IL) amendment No. 36.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "POSTPONED PROCEEDINGS - At the conclusion of debate on the Miller (IL) amendment No. 35, the Chair put the question on agreeing to the amendment and by voice vote, announced the ayes had prevailed. Mr. Larsen (WA) demanded a recorded vote and the Chair postponed further proceedings until a time to be announced.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "DEBATE - Pursuant to the provisions of H. Res. 597, the Committee of the Whole proceeded with 10 minutes of debate on the Miller (IL) amendment No. 35.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "POSTPONED PROCEEDINGS - At the conclusion of debate on the Gosar amendment No. 33, the Chair put the question on agreeing to the amendment and by voice vote, announced the ayes had prevailed. Mr. Case demanded a recorded vote and the Chair postponed further proceedings until a time to be announced.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "DEBATE - Pursuant to the provisions of H. Res. 597, the Committee of the Whole proceeded with 10 minutes of debate on the Gosar amendment No. 33.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "POSTPONED PROCEEDINGS - At the conclusion of debate on the Fitzpatrick amendment No. 29, the Chair put the question on agreeing to the amendment and by voice vote, announced the ayes had prevailed. Mr. Fitzpatrick demanded a recorded vote and the Chair postponed further proceedings until a time to be announced.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "DEBATE - Pursuant to the provisions of H. Res. 597, the Committee of the Whole proceeded with 10 minutes of debate on the Fitzpatrick amendment No. 29.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "POSTPONED PROCEEDINGS - At the conclusion of debate on the Feenstra amendment No. 27, the Chair put the question on agreeing to the amendment and by voice vote, announced the ayes had prevailed. Mr. Larsen (WA) demanded a recorded vote and the Chair postponed further proceedings until a time to be announced.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "DEBATE - Pursuant to the provisions of H. Res. 597, the Committee of the Whole proceeded with 10 minutes of debate on the Feenstra amendment No. 27.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "DEBATE - Pursuant to the provisions of H. Res. 597, the Committee of the Whole proceeded with 10 minutes of debate on the Donalds amendment No. 23.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "POSTPONED PROCEEDINGS - At the conclusion of debate on the Langworthy amendment No. 10, the Chair put the question on agreeing to the amendment and by voice vote, announced the noes had prevailed. Mr. Higgins (NY) demanded a recorded vote and the Chair postponed further proceedings until a time to be announced.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "DEBATE - Pursuant to the provisions of H. Res. 597, the Committee of the Whole proceeded with 10 minutes of debate on the Langworthy amendment No. 10.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "DEBATE - Pursuant to the provisions of H. Res. 597, the Committee of the Whole proceeded with 30 minutes of debate on the Graves (MO) amendment en bloc No. 3.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "DEBATE - Pursuant to the provisions of H. Res. 597, the Committee of the Whole proceeded with 30 minutes of debate on the Graves (MO) amendment en bloc No. 2.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "DEBATE - Pursuant to the provisions of H. Res. 597, the Committee of the Whole proceeded with 30 minutes of debate on the Graves (MO) amendment en bloc No. 1.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "DEBATE - Pursuant to the provisions of H. Res. 597, the Committee of the Whole proceeded with 10 minutes of debate on the Graves (MO) amendment No. 1.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "GENERAL DEBATE - The Committee of the Whole proceeded with one hour of general debate on H.R. 3935.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "The Speaker designated the Honorable Andrew R. Garbarino to act as Chairman of the Committee.",
+      "type": "Floor",
+      "actionCode": "H32400",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "House resolved itself into the Committee of the Whole House on the state of the Union pursuant to H. Res. 597 and Rule XVIII.",
+      "type": "Floor",
+      "actionCode": "H32020",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "Rule provides for consideration of H.R. 3935 and H.R. 3941. The resolution provides for consideration of H.R. 3935 and H.R. 3941 both under a structured rule with one hour of general debate. The resolution provides for a motion to recommit on each measure.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-19",
+      "text": "Considered under the provisions of rule H. Res. 597. (consideration: CR H3707-3839)",
+      "type": "Floor",
+      "actionCode": "H30000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-18",
+      "text": "Rules Committee Resolution H. Res. 597 Reported to House. Rule provides for consideration of H.R. 3935 and H.R. 3941. The resolution provides for consideration of H.R. 3935 and H.R. 3941 both under a structured rule with one hour of general debate. The resolution provides for a motion to recommit on each measure.",
+      "type": "Floor",
+      "actionCode": "H1L210",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-11",
+      "text": "Placed on the Union Calendar, Calendar No. 109.",
+      "type": "Calendars",
+      "actionCode": "H12410",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-11",
+      "text": "Reported (Amended) by the Committee on Transportation and Infrastructure. H. Rept. 118-138.",
+      "type": "Committee",
+      "actionCode": "H12200",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-11",
+      "text": "Reported (Amended) by the Committee on Transportation and Infrastructure. H. Rept. 118-138.",
+      "type": "Committee",
+      "actionCode": "5000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2023-06-14",
+      "text": "Ordered to be Reported (Amended) by the Yeas and Nays: 63 - 0.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2023-06-14",
+      "text": "Committee Consideration and Mark-up Session Held",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2023-06-13",
+      "text": "Committee Consideration and Mark-up Session Held",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2023-06-13",
+      "text": "Subcommittee on Aviation Discharged",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2023-06-12",
+      "text": "Referred to the Subcommittee on Aviation.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2023-06-09",
+      "text": "Referred to the House Committee on Transportation and Infrastructure.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-06-09",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2023-06-09",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "cosponsors": [
+    {
+      "bioguideId": "L000560",
+      "fullName": "Rep. Larsen, Rick [D-WA-2]",
+      "firstName": "RICK",
+      "lastName": "LARSEN",
+      "party": "D",
+      "state": "WA",
+      "district": "2",
+      "sponsorshipDate": "2023-06-09",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "G000577",
+      "fullName": "Rep. Graves, Garret [R-LA-6]",
+      "firstName": "Garret",
+      "lastName": "Graves",
+      "party": "R",
+      "state": "LA",
+      "district": "6",
+      "sponsorshipDate": "2023-06-09",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "C001068",
+      "fullName": "Rep. Cohen, Steve [D-TN-9]",
+      "firstName": "Steve",
+      "lastName": "Cohen",
+      "party": "D",
+      "state": "TN",
+      "district": "9",
+      "sponsorshipDate": "2023-06-09",
+      "isOriginalCosponsor": "True"
+    }
+  ],
+  "_metadata_sources": {
+    "xml": "govinfo bulk-data (unauthenticated)",
+    "billstatus": "govinfo BILLSTATUS bulk-data (unauthenticated)",
+    "congress_gov_enriched": false
+  }
+}

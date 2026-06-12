@@ -1,0 +1,75 @@
+{
+  "bill_id": "119-hr-7697",
+  "fetched_at": "2026-06-12T05:37:10.604405+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr7697.xml",
+  "title": "International AI Energy Grid Modernization Strategy Act",
+  "policy_area": "International Affairs",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "H001103",
+    "fullName": "Rescom. Hern\u00e1ndez, Pablo Jose [D-PR-At Large]",
+    "firstName": "Pablo",
+    "lastName": "Hern\u00e1ndez",
+    "party": "D",
+    "state": "PR",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "L000607",
+      "fullName": "Rep. Liccardo, Sam T. [D-CA-16]",
+      "firstName": "Sam",
+      "lastName": "Liccardo",
+      "party": "D",
+      "state": "CA",
+      "district": "16",
+      "sponsorshipDate": "2026-02-25",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "G000606",
+      "fullName": "Rep. Grijalva, Adelita S. [D-AZ-7]",
+      "firstName": "Adelita",
+      "lastName": "Grijalva",
+      "party": "D",
+      "state": "AZ",
+      "district": "7",
+      "sponsorshipDate": "2026-02-25",
+      "isOriginalCosponsor": "True"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2026-02-25",
+      "text": "Referred to the House Committee on Foreign Affairs.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2026-02-25",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2026-02-25",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2026-02-25",
+      "text": "Referred to the House Committee on Foreign Affairs."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

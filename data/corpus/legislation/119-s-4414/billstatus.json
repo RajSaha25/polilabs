@@ -1,0 +1,57 @@
+{
+  "bill_id": "119-s-4414",
+  "fetched_at": "2026-06-12T05:37:24.341843+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/s/BILLSTATUS-119s4414.xml",
+  "title": "LIFT AI Act",
+  "policy_area": "Education",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "S001150",
+    "fullName": "Sen. Schiff, Adam B. [D-CA]",
+    "firstName": "Adam",
+    "lastName": "Schiff",
+    "party": "D",
+    "state": "CA",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "R000605",
+      "fullName": "Sen. Rounds, Mike [R-SD]",
+      "firstName": "Mike",
+      "lastName": "Rounds",
+      "party": "R",
+      "state": "SD",
+      "district": null,
+      "sponsorshipDate": "2026-04-28",
+      "isOriginalCosponsor": "True"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2026-04-28",
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2026-04-28",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2026-04-28",
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

@@ -1,0 +1,443 @@
+{
+  "bill_id": "119-s-146",
+  "congress": 119,
+  "bill_type": "s",
+  "bill_number": 146,
+  "title": "TAKE IT DOWN Act",
+  "short_title": "Tools to Address Known Exploitation by Immobilizing Technological Deepfakes on Websites and Networks Act",
+  "sponsor": "Sen. Cruz, Ted [R-TX]",
+  "introduced_date": "2025-01-16",
+  "latest_action": "2025-05-19: Became Public Law No: 119-12.",
+  "policy_area": "Science, Technology, Communications",
+  "subjects": [
+    "Child safety and welfare",
+    "Crimes against children",
+    "Criminal investigation, prosecution, interrogation",
+    "Digital media",
+    "Fraud offenses and financial crimes",
+    "Internet, web applications, social media",
+    "Pornography",
+    "Sex offenses"
+  ],
+  "summary_text": null,
+  "centrality_score": null,
+  "match_locations": {},
+  "tier": "A",
+  "stream": "legislation",
+  "topic": "secret_congress",
+  "cluster": "quiet_bipartisan_law",
+  "curator_note": "Enacted PL 119-12. Criminalizes non-consensual intimate imagery incl. AI deepfakes; near-unanimous in both chambers.",
+  "versions_available": [
+    {
+      "package_id": "BILLS-119s146enr",
+      "version_code": "enr",
+      "date_issued": "2025-01-16"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-119s146enr",
+    "version_code": "enr",
+    "date_issued": "2025-01-16"
+  },
+  "actions": [
+    {
+      "actionDate": "2025-05-19",
+      "text": "Became Public Law No: 119-12.",
+      "type": "President",
+      "actionCode": "E40000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2025-05-19",
+      "text": "Became Public Law No: 119-12.",
+      "type": "BecameLaw",
+      "actionCode": "36000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2025-05-19",
+      "text": "Signed by President.",
+      "type": "President",
+      "actionCode": "E30000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2025-05-19",
+      "text": "Signed by President.",
+      "type": "BecameLaw",
+      "actionCode": "36000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2025-05-19",
+      "text": "Presented to President.",
+      "type": "Floor",
+      "actionCode": "E20000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-05-19",
+      "text": "Presented to President.",
+      "type": "President",
+      "actionCode": "28000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2025-04-28",
+      "text": "Motion to reconsider laid on the table Agreed to without objection.",
+      "type": "Floor",
+      "actionCode": "H38310",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-04-28",
+      "text": "On motion to suspend the rules and pass the bill Agreed to by the Yeas and Nays: (2/3 required): 409 - 2 (Roll no. 104). (text: CR H1644-1645: 1)",
+      "type": "Floor",
+      "actionCode": "H37300",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-04-28",
+      "text": "Passed/agreed to in House: On motion to suspend the rules and pass the bill Agreed to by the Yeas and Nays: (2/3 required): 409 - 2 (Roll no. 104). (text: CR H1644-1645: 1)",
+      "type": "Floor",
+      "actionCode": "8000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2025-04-28",
+      "text": "Considered as unfinished business. (consideration: CR H1669: 1)",
+      "type": "Floor",
+      "actionCode": "H30000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-04-28",
+      "text": "At the conclusion of debate, the Yeas and Nays were demanded and ordered. Pursuant to the provisions of clause 8, rule XX, the Chair announced that further proceedings on the motion would be postponed.",
+      "type": "Floor",
+      "actionCode": "H37220",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-04-28",
+      "text": "DEBATE - The House proceeded with forty minutes of debate on S. 146.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-04-28",
+      "text": "Considered under suspension of the rules. (consideration: CR H1644-1643: 1)",
+      "type": "Floor",
+      "actionCode": "H30000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-04-28",
+      "text": "Mr. Bilirakis moved to suspend the rules and pass the bill.",
+      "type": "Floor",
+      "actionCode": "H30300",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-02-14",
+      "text": "Held at the desk.",
+      "type": "Floor",
+      "actionCode": "H15000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-02-14",
+      "text": "Received in the House.",
+      "type": "Floor",
+      "actionCode": "H14000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-02-13",
+      "text": "Message on Senate action sent to the House.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2025-02-13",
+      "text": "Passed Senate without amendment by Unanimous Consent. (consideration: CR S988; text: CR S988-990)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2025-02-13",
+      "text": "Passed/agreed to in Senate: Passed Senate without amendment by Unanimous Consent.",
+      "type": "Floor",
+      "actionCode": "17000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2025-02-13",
+      "text": "Senate Committee on Commerce, Science, and Transportation discharged by Unanimous Consent.",
+      "type": "Discharge",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2025-02-13",
+      "text": "Senate Committee on Commerce, Science, and Transportation discharged by Unanimous Consent.",
+      "type": "Committee",
+      "actionCode": "14500",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2025-01-16",
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2025-01-16",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "cosponsors": [
+    {
+      "bioguideId": "K000367",
+      "fullName": "Sen. Klobuchar, Amy [D-MN]",
+      "firstName": "Amy",
+      "lastName": "Klobuchar",
+      "party": "D",
+      "state": "MN",
+      "district": null,
+      "sponsorshipDate": "2025-01-16",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "C001047",
+      "fullName": "Sen. Capito, Shelley Moore [R-WV]",
+      "firstName": "Shelley",
+      "lastName": "Capito",
+      "party": "R",
+      "state": "WV",
+      "district": null,
+      "sponsorshipDate": "2025-01-16",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "B001277",
+      "fullName": "Sen. Blumenthal, Richard [D-CT]",
+      "firstName": "Richard",
+      "lastName": "Blumenthal",
+      "party": "D",
+      "state": "CT",
+      "district": null,
+      "sponsorshipDate": "2025-01-16",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "C001075",
+      "fullName": "Sen. Cassidy, Bill [R-LA]",
+      "firstName": "Bill",
+      "lastName": "Cassidy",
+      "party": "R",
+      "state": "LA",
+      "district": null,
+      "sponsorshipDate": "2025-01-16",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "B001288",
+      "fullName": "Sen. Booker, Cory A. [D-NJ]",
+      "firstName": "Cory",
+      "lastName": "Booker",
+      "party": "D",
+      "state": "NJ",
+      "district": null,
+      "sponsorshipDate": "2025-01-16",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "B001261",
+      "fullName": "Sen. Barrasso, John [R-WY]",
+      "firstName": "John",
+      "lastName": "Barrasso",
+      "party": "R",
+      "state": "WY",
+      "district": null,
+      "sponsorshipDate": "2025-01-16",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "R000608",
+      "fullName": "Sen. Rosen, Jacky [D-NV]",
+      "firstName": "Jacklyn",
+      "lastName": "Rosen",
+      "party": "D",
+      "state": "NV",
+      "district": null,
+      "sponsorshipDate": "2025-01-16",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "L000571",
+      "fullName": "Sen. Lummis, Cynthia M. [R-WY]",
+      "firstName": "Cynthia",
+      "lastName": "Lummis",
+      "party": "R",
+      "state": "WY",
+      "district": null,
+      "sponsorshipDate": "2025-01-16",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "H000273",
+      "fullName": "Sen. Hickenlooper, John W. [D-CO]",
+      "firstName": "John",
+      "lastName": "Hickenlooper",
+      "party": "D",
+      "state": "CO",
+      "district": null,
+      "sponsorshipDate": "2025-01-16",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "B001305",
+      "fullName": "Sen. Budd, Ted [R-NC]",
+      "firstName": "Ted",
+      "lastName": "Budd",
+      "party": "R",
+      "state": "NC",
+      "district": null,
+      "sponsorshipDate": "2025-01-16",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "B001243",
+      "fullName": "Sen. Blackburn, Marsha [R-TN]",
+      "firstName": "Marsha",
+      "lastName": "Blackburn",
+      "party": "R",
+      "state": "TN",
+      "district": null,
+      "sponsorshipDate": "2025-01-16",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "W000437",
+      "fullName": "Sen. Wicker, Roger F. [R-MS]",
+      "firstName": "Roger",
+      "lastName": "Wicker",
+      "party": "R",
+      "state": "MS",
+      "district": null,
+      "sponsorshipDate": "2025-01-16",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "Y000064",
+      "fullName": "Sen. Young, Todd [R-IN]",
+      "firstName": "Todd",
+      "lastName": "Young",
+      "party": "R",
+      "state": "IN",
+      "district": null,
+      "sponsorshipDate": "2025-01-16",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "C001114",
+      "fullName": "Sen. Curtis, John R. [R-UT]",
+      "firstName": "John",
+      "lastName": "Curtis",
+      "party": "R",
+      "state": "UT",
+      "district": null,
+      "sponsorshipDate": "2025-01-16",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "S001232",
+      "fullName": "Sen. Sheehy, Tim [R-MT]",
+      "firstName": "Tim",
+      "lastName": "Sheehy",
+      "party": "R",
+      "state": "MT",
+      "district": null,
+      "sponsorshipDate": "2025-01-16",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "W000790",
+      "fullName": "Sen. Warnock, Raphael G. [D-GA]",
+      "firstName": "Raphael",
+      "lastName": "Warnock",
+      "party": "D",
+      "state": "GA",
+      "district": null,
+      "sponsorshipDate": "2025-01-16",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "H001046",
+      "fullName": "Sen. Heinrich, Martin [D-NM]",
+      "firstName": "Martin",
+      "lastName": "Heinrich",
+      "party": "D",
+      "state": "NM",
+      "district": null,
+      "sponsorshipDate": "2025-01-16",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "P000595",
+      "fullName": "Sen. Peters, Gary C. [D-MI]",
+      "firstName": "Gary",
+      "lastName": "Peters",
+      "party": "D",
+      "state": "MI",
+      "district": null,
+      "sponsorshipDate": "2025-01-16",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "S001150",
+      "fullName": "Sen. Schiff, Adam B. [D-CA]",
+      "firstName": "Adam",
+      "lastName": "Schiff",
+      "party": "D",
+      "state": "CA",
+      "district": null,
+      "sponsorshipDate": "2025-01-21",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "C001113",
+      "fullName": "Sen. Cortez Masto, Catherine [D-NV]",
+      "firstName": "Catherine",
+      "lastName": "Cortez Masto",
+      "party": "D",
+      "state": "NV",
+      "district": null,
+      "sponsorshipDate": "2025-02-05",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "S001181",
+      "fullName": "Sen. Shaheen, Jeanne [D-NH]",
+      "firstName": "Jeanne",
+      "lastName": "Shaheen",
+      "party": "D",
+      "state": "NH",
+      "district": null,
+      "sponsorshipDate": "2025-02-06",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "_metadata_sources": {
+    "xml": "govinfo bulk-data (unauthenticated)",
+    "billstatus": "govinfo BILLSTATUS bulk-data (unauthenticated)",
+    "congress_gov_enriched": false
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "bill_id": "119-s-3410",
+  "fetched_at": "2026-06-12T05:37:19.756461+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/s/BILLSTATUS-119s3410.xml",
+  "title": "A bill to establish Federal agency technology and artificial intelligence talent teams to improve competitive service hiring practices, and for other purposes.",
+  "policy_area": "Government Operations and Politics",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "K000394",
+    "fullName": "Sen. Kim, Andy [D-NJ]",
+    "firstName": "Andy",
+    "lastName": "Kim",
+    "party": "D",
+    "state": "NJ",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "H001104",
+      "fullName": "Sen. Husted, Jon [R-OH]",
+      "firstName": "Jon",
+      "lastName": "Husted",
+      "party": "R",
+      "state": "OH",
+      "district": null,
+      "sponsorshipDate": "2026-01-08",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2025-12-10",
+      "text": "Read twice and referred to the Committee on Homeland Security and Governmental Affairs.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2025-12-10",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2025-12-10",
+      "text": "Read twice and referred to the Committee on Homeland Security and Governmental Affairs."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

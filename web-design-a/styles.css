@@ -2093,6 +2093,7 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
   overflow: hidden;
 }
 .land-corpus-grid-5 { grid-template-columns: repeat(5, 1fr); }
+.land-corpus-grid-3 { grid-template-columns: repeat(3, 1fr); }
 
 /* Topic-chip row above the corpus grid. Small monospace tags that read
    as "what's inside" without taking a whole section of prose. */
@@ -2233,6 +2234,7 @@ svg.i { display: inline-block; flex-shrink: 0; vertical-align: -2px; }
   .land-pillars { grid-template-columns: 1fr; gap: var(--s-5); }
   .land-corpus-grid { grid-template-columns: repeat(2, 1fr); }
   .land-corpus-grid-5 { grid-template-columns: repeat(2, 1fr); }
+  .land-corpus-grid-3 { grid-template-columns: repeat(2, 1fr); }
   .land-evidence-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 640px) {

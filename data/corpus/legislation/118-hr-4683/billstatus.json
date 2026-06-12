@@ -1,0 +1,152 @@
+{
+  "bill_id": "118-hr-4683",
+  "fetched_at": "2026-06-12T05:36:30.470172+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/hr/BILLSTATUS-118hr4683.xml",
+  "title": "Closing Loopholes for the Overseas Use and Development of Artificial Intelligence Act",
+  "policy_area": "International Affairs",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "J000308",
+    "fullName": "Rep. Jackson, Jeff [D-NC-14]",
+    "firstName": "Jeff",
+    "lastName": "Jackson",
+    "party": "D",
+    "state": "NC",
+    "district": "14"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "L000599",
+      "fullName": "Rep. Lawler, Michael [R-NY-17]",
+      "firstName": "Michael",
+      "lastName": "Lawler",
+      "party": "R",
+      "state": "NY",
+      "district": "17",
+      "sponsorshipDate": "2023-07-17",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "C001130",
+      "fullName": "Rep. Crockett, Jasmine [D-TX-30]",
+      "firstName": "Jasmine",
+      "lastName": "Crockett",
+      "party": "D",
+      "state": "TX",
+      "district": "30",
+      "sponsorshipDate": "2023-07-17",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "M001218",
+      "fullName": "Rep. McCormick, Richard [R-GA-6]",
+      "firstName": "Richard",
+      "lastName": "McCormick",
+      "party": "R",
+      "state": "GA",
+      "district": "6",
+      "sponsorshipDate": "2023-07-17",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "N000193",
+      "fullName": "Rep. Nunn, Zachary [R-IA-3]",
+      "firstName": "Zachary",
+      "lastName": "Nunn",
+      "party": "R",
+      "state": "IA",
+      "district": "3",
+      "sponsorshipDate": "2023-11-01",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "N000189",
+      "fullName": "Rep. Newhouse, Dan [R-WA-4]",
+      "firstName": "Dan",
+      "lastName": "Newhouse",
+      "party": "R",
+      "state": "WA",
+      "district": "4",
+      "sponsorshipDate": "2023-11-01",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "K000391",
+      "fullName": "Rep. Krishnamoorthi, Raja [D-IL-8]",
+      "firstName": "Raja",
+      "lastName": "Krishnamoorthi",
+      "party": "D",
+      "state": "IL",
+      "district": "8",
+      "sponsorshipDate": "2023-11-14",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "H001091",
+      "fullName": "Rep. Hinson, Ashley [R-IA-2]",
+      "firstName": "Ashley",
+      "lastName": "Hinson",
+      "party": "R",
+      "state": "IA",
+      "district": "2",
+      "sponsorshipDate": "2023-11-14",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "M001221",
+      "fullName": "Rep. Molinaro, Marcus J. [R-NY-19]",
+      "firstName": "Marcus",
+      "lastName": "Molinaro",
+      "party": "R",
+      "state": "NY",
+      "district": "19",
+      "sponsorshipDate": "2023-12-04",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "P000616",
+      "fullName": "Rep. Phillips, Dean [D-MN-3]",
+      "firstName": "Dean",
+      "lastName": "Phillips",
+      "party": "D",
+      "state": "MN",
+      "district": "3",
+      "sponsorshipDate": "2024-03-06",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2023-07-17",
+      "text": "Referred to the House Committee on Foreign Affairs.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-07-17",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2023-07-17",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "died_in_committee",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2023-07-17",
+      "text": "Referred to the House Committee on Foreign Affairs."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

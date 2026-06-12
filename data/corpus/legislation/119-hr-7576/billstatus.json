@@ -1,0 +1,86 @@
+{
+  "bill_id": "119-hr-7576",
+  "fetched_at": "2026-06-12T05:37:09.991112+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr7576.xml",
+  "title": "AI Workforce Training Act",
+  "policy_area": "Taxation",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "G000583",
+    "fullName": "Rep. Gottheimer, Josh [D-NJ-5]",
+    "firstName": "Josh",
+    "lastName": "Gottheimer",
+    "party": "D",
+    "state": "NJ",
+    "district": "5"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "L000599",
+      "fullName": "Rep. Lawler, Michael [R-NY-17]",
+      "firstName": "Michael",
+      "lastName": "Lawler",
+      "party": "R",
+      "state": "NY",
+      "district": "17",
+      "sponsorshipDate": "2026-02-13",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "G000553",
+      "fullName": "Rep. Green, Al [D-TX-9]",
+      "firstName": "Al",
+      "lastName": "Green",
+      "party": "D",
+      "state": "TX",
+      "district": "9",
+      "sponsorshipDate": "2026-03-17",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "T000488",
+      "fullName": "Rep. Thanedar, Shri [D-MI-13]",
+      "firstName": "Shri",
+      "lastName": "Thanedar",
+      "party": "D",
+      "state": "MI",
+      "district": "13",
+      "sponsorshipDate": "2026-05-21",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2026-02-13",
+      "text": "Referred to the House Committee on Ways and Means.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2026-02-13",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2026-02-13",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2026-02-13",
+      "text": "Referred to the House Committee on Ways and Means."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

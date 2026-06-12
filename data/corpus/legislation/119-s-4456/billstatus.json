@@ -1,0 +1,101 @@
+{
+  "bill_id": "119-s-4456",
+  "fetched_at": "2026-06-12T05:37:24.650343+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/s/BILLSTATUS-119s4456.xml",
+  "title": "AI OVERWATCH Act",
+  "policy_area": "Foreign Trade and International Finance",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "B001299",
+    "fullName": "Sen. Banks, Jim [R-IN]",
+    "firstName": "Jim",
+    "lastName": "Banks",
+    "party": "R",
+    "state": "IN",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "W000817",
+      "fullName": "Sen. Warren, Elizabeth [D-MA]",
+      "firstName": "Elizabeth",
+      "lastName": "Warren",
+      "party": "D",
+      "state": "MA",
+      "district": null,
+      "sponsorshipDate": "2026-04-30",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "C001095",
+      "fullName": "Sen. Cotton, Tom [R-AR]",
+      "firstName": "Tom",
+      "lastName": "Cotton",
+      "party": "R",
+      "state": "AR",
+      "district": null,
+      "sponsorshipDate": "2026-04-30",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "S001181",
+      "fullName": "Sen. Shaheen, Jeanne [D-NH]",
+      "firstName": "Jeanne",
+      "lastName": "Shaheen",
+      "party": "D",
+      "state": "NH",
+      "district": null,
+      "sponsorshipDate": "2026-04-30",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "R000618",
+      "fullName": "Sen. Ricketts, Pete [R-NE]",
+      "firstName": "Pete",
+      "lastName": "Ricketts",
+      "party": "R",
+      "state": "NE",
+      "district": null,
+      "sponsorshipDate": "2026-04-30",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "C001113",
+      "fullName": "Sen. Cortez Masto, Catherine [D-NV]",
+      "firstName": "Catherine",
+      "lastName": "Cortez Masto",
+      "party": "D",
+      "state": "NV",
+      "district": null,
+      "sponsorshipDate": "2026-04-30",
+      "isOriginalCosponsor": "True"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2026-04-30",
+      "text": "Read twice and referred to the Committee on Banking, Housing, and Urban Affairs.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2026-04-30",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2026-04-30",
+      "text": "Read twice and referred to the Committee on Banking, Housing, and Urban Affairs."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

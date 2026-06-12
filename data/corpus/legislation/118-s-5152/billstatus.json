@@ -1,0 +1,57 @@
+{
+  "bill_id": "118-s-5152",
+  "fetched_at": "2026-06-12T05:36:56.123841+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/s/BILLSTATUS-118s5152.xml",
+  "title": "Artificial Intelligence Civil Rights Act of 2024",
+  "policy_area": "Science, Technology, Communications",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "M000133",
+    "fullName": "Sen. Markey, Edward J. [D-MA]",
+    "firstName": "Edward",
+    "lastName": "Markey",
+    "party": "D",
+    "state": "MA",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "H001042",
+      "fullName": "Sen. Hirono, Mazie K. [D-HI]",
+      "firstName": "Mazie",
+      "lastName": "Hirono",
+      "party": "D",
+      "state": "HI",
+      "district": null,
+      "sponsorshipDate": "2024-09-24",
+      "isOriginalCosponsor": "True"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2024-09-24",
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-09-24",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "died_in_committee",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2024-09-24",
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

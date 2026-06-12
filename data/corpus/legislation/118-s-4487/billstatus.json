@@ -1,0 +1,101 @@
+{
+  "bill_id": "118-s-4487",
+  "fetched_at": "2026-06-12T05:36:51.846936+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/s/BILLSTATUS-118s4487.xml",
+  "title": "Small Business Artificial Intelligence Training Act of 2024",
+  "policy_area": "Commerce",
+  "subjects": [
+    "Advanced technology and technological innovations",
+    "Congressional oversight",
+    "Employment and training programs",
+    "Small business"
+  ],
+  "sponsor": {
+    "bioguideId": "C000127",
+    "fullName": "Sen. Cantwell, Maria [D-WA]",
+    "firstName": "Maria",
+    "lastName": "Cantwell",
+    "party": "D",
+    "state": "WA",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "M000934",
+      "fullName": "Sen. Moran, Jerry [R-KS]",
+      "firstName": "Jerry",
+      "lastName": "Moran",
+      "party": "R",
+      "state": "KS",
+      "district": null,
+      "sponsorshipDate": "2024-06-11",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "S000148",
+      "fullName": "Sen. Schumer, Charles E. [D-NY]",
+      "firstName": "Charles",
+      "lastName": "Schumer",
+      "party": "D",
+      "state": "NY",
+      "district": null,
+      "sponsorshipDate": "2024-11-13",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2024-08-01",
+      "text": "Placed on Senate Legislative Calendar under General Orders. Calendar No. 487.",
+      "type": "Calendars",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-08-01",
+      "text": "Committee on Commerce, Science, and Transportation. Reported by Senator Cantwell with an amendment in the nature of a substitute. Without written report.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-08-01",
+      "text": "Committee on Commerce, Science, and Transportation. Reported by Senator Cantwell with an amendment in the nature of a substitute. Without written report.",
+      "type": "Committee",
+      "actionCode": "14000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2024-07-31",
+      "text": "Committee on Commerce, Science, and Transportation. Ordered to be reported with an amendment in the nature of a substitute favorably.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-06-11",
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-06-11",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "reported_no_floor_vote",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2024-08-01",
+      "text": "Placed on Senate Legislative Calendar under General Orders. Calendar No. 487."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

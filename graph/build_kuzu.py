@@ -51,6 +51,7 @@ import kuzu
 # Reuse the existing XML parser — handles both USLM and pre-USLM dialects.
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from index.parse_uslm import parse_bill_xml  # noqa: E402
+from index.build import _final_passage_bipartisan  # noqa: E402
 
 from .extract_citations import (  # noqa: E402
     ExternalCitation,
@@ -160,6 +161,8 @@ class Accum:
     sponsors: dict[str, dict[str, Any]] = field(default_factory=dict)
     statute_sections: dict[str, dict[str, Any]] = field(default_factory=dict)
     defined_terms: dict[str, dict[str, Any]] = field(default_factory=dict)
+    rollcalls: list[dict[str, Any]] = field(default_factory=list)
+    has_rollcall: list[dict[str, Any]] = field(default_factory=list)
     of_jurisdiction: list[dict[str, Any]] = field(default_factory=list)
     has_version: list[dict[str, Any]] = field(default_factory=list)
     has_section: list[dict[str, Any]] = field(default_factory=list)
@@ -185,7 +188,10 @@ _KNOWN_BILL_PREFIXES = (
 )
 
 
-def _accumulate_bill(meta: dict, fmt: str, section_rows: list, acc: Accum) -> None:
+def _accumulate_bill(
+    meta: dict, fmt: str, section_rows: list, acc: Accum,
+    bs: dict | None = None,
+) -> None:
     """Phase-1 work for one bill: append rows; no DB I/O."""
     bid = bill_urn(meta["congress"], meta["bill_type"], meta["bill_number"])
 
@@ -215,8 +221,37 @@ def _accumulate_bill(meta: dict, fmt: str, section_rows: list, acc: Accum) -> No
         "topic": meta.get("topic", "ai_governance"),
         "cs": float(meta.get("centrality_score") or 0.0),
         "sponsor_name": primary_sponsor_display,
+        "outcome": ((bs or {}).get("outcome") or {}).get("outcome"),
+        "public_law": ((bs or {}).get("outcome") or {}).get("public_law"),
+        "bipartisan_support": _final_passage_bipartisan(bs),
+        "cluster": meta.get("cluster"),
     })
     acc.of_jurisdiction.append({"bid": bid, "urn": JURISDICTION_URN})
+
+    # ----- Roll-call votes (from billstatus.json) -----
+    for v in (bs or {}).get("votes", []):
+        t = v.get("totals_by_party") or {}
+        d_t, r_t = t.get("D", {}), t.get("R", {})
+        vote_id = f"{bid}::{v['chamber']}/{v['congress']}-{v['session']}/{v['roll_number']}"
+        acc.rollcalls.append({
+            "vote_id": vote_id,
+            "chamber": v["chamber"],
+            "congress": int(v["congress"]),
+            "session": int(v["session"]),
+            "roll_number": int(v["roll_number"]),
+            "vote_date": v.get("date"),
+            "question": v.get("question"),
+            "result": v.get("result"),
+            "vote_type": v["vote_type"],
+            "yea_total": int(v["yea_total"]),
+            "nay_total": int(v["nay_total"]),
+            "dem_yea": int(d_t.get("yea") or 0), "dem_nay": int(d_t.get("nay") or 0),
+            "rep_yea": int(r_t.get("yea") or 0), "rep_nay": int(r_t.get("nay") or 0),
+            "bipartisan_support": v.get("bipartisan_support"),
+            "bipartisan_label": v.get("bipartisan_label"),
+            "source_url": v["source_url"],
+        })
+        acc.has_rollcall.append({"bid": bid, "vote_id": vote_id})
 
     # ----- BillVersion (canonical only) -----
     canonical = meta.get("canonical_version") or {}
@@ -512,8 +547,33 @@ def _bulk_create_bills(conn: kuzu.Connection, rows: list) -> None:
             current_status: r.status, latest_action_date: r.la_date,
             latest_action_text: r.la_text, tier: r.tier, stream: r.stream,
             topic: r.topic,
-            centrality_score: r.cs, sponsor_display_name: r.sponsor_name
+            centrality_score: r.cs, sponsor_display_name: r.sponsor_name,
+            outcome: r.outcome, public_law: r.public_law,
+            bipartisan_support: r.bipartisan_support, cluster: r.cluster
         })""")
+
+
+def _bulk_create_rollcalls(conn: kuzu.Connection, rows: list) -> None:
+    _bulk(conn, "RollCallVote", rows, """
+        UNWIND $rows AS r
+        CREATE (:RollCallVote {
+            vote_id: r.vote_id, chamber: r.chamber, congress: r.congress,
+            session: r.session, roll_number: r.roll_number,
+            vote_date: r.vote_date, question: r.question, result: r.result,
+            vote_type: r.vote_type, yea_total: r.yea_total,
+            nay_total: r.nay_total,
+            dem_yea: r.dem_yea, dem_nay: r.dem_nay,
+            rep_yea: r.rep_yea, rep_nay: r.rep_nay,
+            bipartisan_support: r.bipartisan_support,
+            bipartisan_label: r.bipartisan_label, source_url: r.source_url
+        })""")
+
+
+def _bulk_create_has_rollcall(conn: kuzu.Connection, rows: list) -> None:
+    _bulk(conn, "HAS_ROLLCALL", rows, """
+        UNWIND $rows AS r
+        MATCH (b:Bill {bill_id: r.bid}), (v:RollCallVote {vote_id: r.vote_id})
+        CREATE (b)-[:HAS_ROLLCALL]->(v)""")
 
 
 def _bulk_create_bill_versions(conn: kuzu.Connection, rows: list) -> None:
@@ -749,6 +809,8 @@ def build_graph(
         if not meta_path.exists() or not xml_path.exists():
             continue
         meta = json.loads(meta_path.read_text())
+        bs_path = d / "billstatus.json"
+        bs = json.loads(bs_path.read_text()) if bs_path.exists() else None
         try:
             section_rows, fmt = parse_bill_xml(
                 xml_path,
@@ -763,7 +825,7 @@ def build_graph(
                 print(f"[parse-error] {meta['bill_id']}: {type(e).__name__}: {e}")
             continue
         try:
-            _accumulate_bill(meta, fmt, section_rows, acc)
+            _accumulate_bill(meta, fmt, section_rows, acc, bs)
         except Exception as e:
             acc.parse_errors += 1
             if verbose:
@@ -808,6 +870,8 @@ def build_graph(
 
     # ----- Phase 2: bulk insert (order matters — nodes before their edges) -----
     _bulk_create_bills(conn, acc.bills)
+    _bulk_create_rollcalls(conn, acc.rollcalls)
+    _bulk_create_has_rollcall(conn, acc.has_rollcall)
     _bulk_create_bill_versions(conn, acc.bill_versions)
     _bulk_create_sections(conn, acc.sections)
     _bulk_merge_sponsors(conn, list(acc.sponsors.values()))
@@ -836,6 +900,8 @@ def build_graph(
         "parse_errors": acc.parse_errors,
         "format": acc.format_counts,
         "bills_in_db": _scalar("MATCH (b:Bill) RETURN COUNT(b)"),
+        "rollcalls_in_db": _scalar("MATCH (v:RollCallVote) RETURN COUNT(v)"),
+        "has_rollcall_edges": _scalar("MATCH ()-[r:HAS_ROLLCALL]->() RETURN COUNT(r)"),
         "bill_versions_in_db": _scalar("MATCH (v:BillVersion) RETURN COUNT(v)"),
         "sections_in_db": _scalar("MATCH (s:Section) RETURN COUNT(s)"),
         "sponsors_in_db": _scalar("MATCH (s:Sponsor) RETURN COUNT(s)"),

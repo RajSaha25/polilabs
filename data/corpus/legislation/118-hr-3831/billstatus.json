@@ -1,0 +1,77 @@
+{
+  "bill_id": "118-hr-3831",
+  "fetched_at": "2026-06-12T05:36:29.548788+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/hr/BILLSTATUS-118hr3831.xml",
+  "title": "AI Disclosure Act of 2023",
+  "policy_area": "Commerce",
+  "subjects": [
+    "Business records",
+    "Civil actions and liability",
+    "Computers and information technology",
+    "Consumer affairs",
+    "Fraud offenses and financial crimes"
+  ],
+  "sponsor": {
+    "bioguideId": "T000486",
+    "fullName": "Rep. Torres, Ritchie [D-NY-15]",
+    "firstName": "Ritchie",
+    "lastName": "Torres",
+    "party": "D",
+    "state": "NY",
+    "district": "15"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "G000599",
+      "fullName": "Rep. Goldman, Daniel S. [D-NY-10]",
+      "firstName": "Daniel",
+      "lastName": "Goldman",
+      "party": "D",
+      "state": "NY",
+      "district": "10",
+      "sponsorshipDate": "2023-08-22",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2023-06-09",
+      "text": "Referred to the Subcommittee on Innovation, Data, and Commerce.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2023-06-05",
+      "text": "Referred to the House Committee on Energy and Commerce.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-06-05",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2023-06-05",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "died_in_committee",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2023-06-09",
+      "text": "Referred to the Subcommittee on Innovation, Data, and Commerce."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

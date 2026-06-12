@@ -1,0 +1,174 @@
+{
+  "bill_id": "118-hr-8353",
+  "fetched_at": "2026-06-12T05:36:36.885360+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/hr/BILLSTATUS-118hr8353.xml",
+  "title": "Preparing Election Administrators for AI Act",
+  "policy_area": "Government Operations and Politics",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "H001085",
+    "fullName": "Rep. Houlahan, Chrissy [D-PA-6]",
+    "firstName": "Chrissy",
+    "lastName": "Houlahan",
+    "party": "D",
+    "state": "PA",
+    "district": "6"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "F000466",
+      "fullName": "Rep. Fitzpatrick, Brian K. [R-PA-1]",
+      "firstName": "Brian",
+      "lastName": "Fitzpatrick",
+      "party": "R",
+      "state": "PA",
+      "district": "1",
+      "sponsorshipDate": "2024-05-10",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "L000564",
+      "fullName": "Rep. Lamborn, Doug [R-CO-5]",
+      "firstName": "Doug",
+      "lastName": "Lamborn",
+      "party": "R",
+      "state": "CO",
+      "district": "5",
+      "sponsorshipDate": "2024-05-10",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "S001209",
+      "fullName": "Rep. Spanberger, Abigail Davis [D-VA-7]",
+      "firstName": "Abigail",
+      "lastName": "Spanberger",
+      "party": "D",
+      "state": "VA",
+      "district": "7",
+      "sponsorshipDate": "2024-05-10",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "M001196",
+      "fullName": "Rep. Moulton, Seth [D-MA-6]",
+      "firstName": "Seth",
+      "lastName": "Moulton",
+      "party": "D",
+      "state": "MA",
+      "district": "6",
+      "sponsorshipDate": "2024-05-10",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "L000582",
+      "fullName": "Rep. Lieu, Ted [D-CA-36]",
+      "firstName": "Ted",
+      "lastName": "Lieu",
+      "party": "D",
+      "state": "CA",
+      "district": "36",
+      "sponsorshipDate": "2024-05-10",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "S001208",
+      "fullName": "Rep. Slotkin, Elissa [D-MI-7]",
+      "firstName": "Elissa",
+      "lastName": "Slotkin",
+      "party": "D",
+      "state": "MI",
+      "district": "7",
+      "sponsorshipDate": "2024-05-10",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "L000560",
+      "fullName": "Rep. Larsen, Rick [D-WA-2]",
+      "firstName": "Rick",
+      "lastName": "Larsen",
+      "party": "D",
+      "state": "WA",
+      "district": "2",
+      "sponsorshipDate": "2024-06-05",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "W000788",
+      "fullName": "Rep. Williams, Nikema [D-GA-5]",
+      "firstName": "Nikema",
+      "lastName": "Williams",
+      "party": "D",
+      "state": "GA",
+      "district": "5",
+      "sponsorshipDate": "2024-06-26",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "B001292",
+      "fullName": "Rep. Beyer, Donald S. [D-VA-8]",
+      "firstName": "Donald",
+      "lastName": "Beyer",
+      "party": "D",
+      "state": "VA",
+      "district": "8",
+      "sponsorshipDate": "2024-08-13",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "B001287",
+      "fullName": "Rep. Bera, Ami [D-CA-6]",
+      "firstName": "Ami",
+      "lastName": "Bera",
+      "party": "D",
+      "state": "CA",
+      "district": "6",
+      "sponsorshipDate": "2024-09-25",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "T000488",
+      "fullName": "Rep. Thanedar, Shri [D-MI-13]",
+      "firstName": "Shri",
+      "lastName": "Thanedar",
+      "party": "D",
+      "state": "MI",
+      "district": "13",
+      "sponsorshipDate": "2024-09-25",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2024-05-10",
+      "text": "Referred to the House Committee on House Administration.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-05-10",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2024-05-10",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "died_in_committee",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2024-05-10",
+      "text": "Referred to the House Committee on House Administration."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

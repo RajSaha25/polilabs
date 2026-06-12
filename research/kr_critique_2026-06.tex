@@ -1,0 +1,374 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1.1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=blue, urlcolor=blue}
+\usepackage{xcolor}
+\newcommand{\code}[1]{\texttt{#1}}
+
+\title{polilabs: Knowledge-Representation Critique and the Passage-Dynamics Layer}
+\author{}
+\date{June 9, 2026}
+
+\begin{document}
+\maketitle
+
+\section*{Summary}
+
+This note responds to the latest feedback round: expand the corpus toward
+electorally consequential legislation (bills that move votes and donors,
+bipartisan ``secret congress'' laws, and failed bills with a record of
+\emph{why} they failed), and critique/refine the knowledge representation so
+that agent queries are fast and the under/overcoverage problem shrinks. Three
+things were built: (1) a \textbf{passage-dynamics data layer} (roll-call
+votes, party splits, derived outcomes) covering all 232 corpus bills, fetched
+entirely from keyless public endpoints; (2) a new \textbf{\code{secret\_congress}
+topic corpus} of 29 verified exemplar bills, from the CHIPS and Science Act to
+the failed Border Act of 2024; (3) three \textbf{aggregate query primitives}
+(\code{count\_bills}, \code{get\_bill\_votes}, \code{find\_bills\_by\_outcome})
+plus a per-topic \textbf{facet-coverage contract} in \code{corpus\_coverage()}.
+The critique below explains why these specific pieces, and what remains open.
+
+\section{What the representation could not say before tonight}
+
+The schema's strength has been \emph{textual} fidelity: verbatim sections,
+canonical citations, local definitions, reified amendments. Its blind spot was
+\emph{political} fidelity. Concretely, before this round the system could not
+answer any of the following, on any bill:
+
+\begin{itemize}[itemsep=2pt]
+  \item Did this bill pass? (No outcome field anywhere.)
+  \item Was the vote bipartisan? (No vote data at all; cosponsor party
+        counts were the only proxy, and cosponsorship is a weak proxy ---
+        the Laken Riley Act had near-zero Democratic cosponsors and 12
+        Democratic Senate votes.)
+  \item Why did this bill fail? (Action trails existed for only the
+        $\sim$30\% of AI bills that had Congress.gov enrichment; zero for
+        redistricting.)
+  \item How many bills are in the corpus from the 119th Congress? (The
+        known eval failure: no count primitive, so agents paginated search
+        results and counted --- the dominant error source in the
+        Opus-4.7-85\%/Sonnet-4.6-70\% gap.)
+\end{itemize}
+
+The meeting notes ask for exactly this layer: ``how much it affected the
+vote,'' ``show negative bills that failed (why it fails?),'' ``a lot of
+legislation is passed on a bipartisan vote in a single bill.'' These are not
+text questions; they are \emph{passage-dynamics} questions, and the
+representation had no nouns for them.
+
+\section{The data layer: \code{billstatus.json}}
+
+One enrichment file per bill directory, written by \code{ingest/billstatus.py}
+and backfilled by \code{scripts/backfill\_billstatus.py}. Three keyless
+sources: GovInfo BILLSTATUS bulk data (status, actions, structured
+sponsor/cosponsors, subjects, public-law numbers, recorded-vote pointers),
+House Clerk roll-call XML (per-party totals, per-member positions), Senate
+LIS roll-call XML (per-member positions, totals derived). No API key exists
+in the environment right now; none is needed for any of this.
+
+Design decisions worth defending:
+
+\begin{itemize}[itemsep=2pt]
+  \item \textbf{Derived outcome with evidence.} \code{outcome} is a
+        13-value enum (\code{enacted}, \code{failed\_cloture},
+        \code{died\_in\_committee}, \code{reported\_no\_floor\_vote},
+        \code{passed\_house\_only}, \ldots) derived from the action trail
+        and roll-call results, never asserted bare: an \code{events} list
+        carries each dated, verbatim action string behind the label. An
+        agent asked ``why did the Border Act fail?'' quotes the cloture
+        vote and its date instead of confabulating a narrative.
+  \item \textbf{Bipartisanship as a number, labels second.}
+        \code{bipartisan\_support} $=\min$ over the two major parties of
+        that party's yea-share on the vote, in $[0,1]$. Labels
+        (\code{party\_line} $<0.10\le$ \code{cross\_party} $<0.50\le$
+        \code{bipartisan} $<0.90\le$ \code{near\_unanimous}) are
+        display sugar; the number is what filters and sorts. Calibration
+        checks: CHIPS final House concurrence (24 R yeas) $\to 0.11$;
+        the COMPETES shell vote (1 R yea) $\to 0.005$; PACT Act Senate
+        $\to$ bipartisan.
+  \item \textbf{Member positions only for outcome-determining votes.}
+        Passage/cloture/veto-override votes carry all $\sim$435 member
+        positions (party, state) --- this is what enables delegation
+        geography (``how did California vote on CHIPS?''). Amendment and
+        procedural votes keep party totals only, bounding file sizes on
+        amendment-heavy vehicles (NDAAs run 40+ roll calls).
+  \item \textbf{The vehicle-bill trap is documented, not hidden.} A
+        vehicle bill carries roll calls from an earlier life under another
+        name (H.R.~4346's 2021 votes are America COMPETES votes), and
+        conversely a bill's famous vote can live on a \emph{different}
+        bill number (KOSA's 91--3 Senate vote was on the S.~2073 vehicle,
+        so S.~1409 itself correctly shows no floor vote --- the curator
+        note carries the explanation). The system prompt and tool
+        descriptions instruct the agent to check vote dates/questions
+        before attributing margins; \code{bills.bipartisan\_support} uses
+        the \emph{final} passage-class vote for the same reason.
+\end{itemize}
+
+\section{The corpus expansion: \code{secret\_congress}}
+
+29 bills, hand-curated and \emph{individually verified} against BILLSTATUS
+(title + public-law number) before inclusion --- bill numbers were never
+trusted from memory; the one ambiguous case (DISCLOSE Act) was resolved to
+S.~4822 (117th) by checking the failed 49--49 cloture record. Six clusters
+defined in \code{corpus/secret\_congress\_criteria.md}:
+
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Cluster & $n$ & Exemplars \\
+\midrule
+\code{quiet\_bipartisan\_law} & 8 & OSRA, postal reform, PACT, WRDA 2024, TAKE IT DOWN \\
+\code{high\_salience\_bipartisan\_law} & 7 & CHIPS, IIJA, Safer Communities, Laken Riley \\
+\code{bipartisan\_but\_died} & 7 & Border Act, KOSA, Tax Relief Act, SAFE Banking, DISCLOSE \\
+\code{absorbed\_into\_vehicle} & 2 & USICA/Endless Frontier, Electoral Count Reform Act \\
+\code{omnibus\_vehicle} & 2 & FY2023 omnibus, WRDA-2022$\to$NDAA \\
+\code{party\_line\_contrast} & 3 & IRA, OBBBA, Secure the Border Act \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Notes on fidelity to the meeting notes: the ``FRONTIERS Act'' is the
+\emph{Endless Frontier Act} (S.~1260, 117th), included with its real fate
+(passed the Senate 68--32 as USICA, died in conference, science core enacted
+inside CHIPS); the ``water infrastructure bill'' appears twice (S.~914, the
+89--2 standalone, and H.R.~7776, WRDA-as-NDAA-vehicle); the donor angle is
+carried by the DISCLOSE Act (campaign-finance disclosure, failed cloture
+49--49 on party lines) and by the antitrust pair (AICO, JCPA) that died
+without floor votes under platform lobbying. The single-bill bundling
+phenomenon is directly queryable: ECRA is \code{absorbed\_into\_vehicle} and
+H.R.~2617 is its \code{omnibus\_vehicle}.
+
+The clusters are curatorial; the vote record is mechanical. An agent that
+distrusts a cluster tag can recompute from \code{get\_bill\_votes}. This
+two-layer design (curated interpretation over mechanical evidence) follows
+the schema's existing derivation-typing principle for edges.
+
+\section{Query speed: aggregate-first, count-closing}
+
+The eval's failure mode was never retrieval quality --- it was \emph{shape}:
+questions whose answer is a set or a number were being served by a
+paginated-search loop. Each loop iteration costs a round trip
+($\sim$1--3\,s of model latency) and risks page-boundary undercounting.
+The three new primitives close the shapes that remained open:
+
+\begin{itemize}[itemsep=2pt]
+  \item \code{count\_bills(group\_by, topic, congress, outcome, \ldots)} ---
+        exact SQL aggregate, one call, $\sim$10\,ms. Directly closes eval
+        Q6 (``how many bills from the 119th?'').
+  \item \code{find\_bills\_by\_outcome(outcome, cluster, min/max\
+        bipartisan\_support, \ldots)} --- the set-valued passage-dynamics
+        query (``which bipartisan bills failed?'').
+  \item \code{get\_bill\_votes(bill\_id)} --- one bill's full fate in one
+        call: outcome, public law, events, votes with party splits.
+\end{itemize}
+
+These follow the precedent of \code{find\_bills\_defining} /
+\code{find\_bills\_amending}: \emph{when the question shape is known, give
+the agent a primitive that returns the complete answer with a coverage
+note, so ``N results'' is the whole truth rather than page one of it.}
+
+\section{Under/overcoverage: coverage as a contract}
+
+The deeper refinement is in \code{corpus\_coverage()}. Previously it
+reported corpus-level metadata (congresses, tiers, known gaps as prose).
+It now reports, per topic, a \textbf{facet-coverage table}: for each data
+facet (\code{actions}, \code{cosponsors}, \code{subjects}, \code{votes},
+\code{outcome}, \code{embeddings}), how many of the topic's bills carry
+that facet, computed live from the index so it cannot drift.
+
+The point is epistemic, not cosmetic. Under- and overcoverage errors are
+both \emph{coverage-belief} errors: the agent either believes the corpus
+knows less than it does (abstains wrongly --- undercoverage of the answer
+space) or believes it knows more (asserts from a facet that is only
+30\%-populated --- overcoverage). A live facet table converts both into
+checkable propositions: ``\code{votes} covers 25/29 secret\_congress
+bills, 6/12 redistricting bills, and 3/191 ai\_governance bills (most AI
+bills die in committee --- no roll call exists); \code{outcome} covers
+232/232; embeddings cover 0 bills in this branch's
+\code{--skip-embeddings} build (7{,}880/29{,}616 ai\_governance sections
+were embedded on the main checkout before the pass was handed off).'' The agent's
+honesty rules can then be mechanical: before aggregating over a facet,
+check the facet is total; when it is not, say which slice the answer rests
+on. This is the same move the schema made for definitions (gap nodes
+instead of silent misses), applied to the corpus itself.
+
+Two genuine overcoverage risks now exist and are guarded: vehicle-bill
+votes (\S2) and partial dense-embedding coverage (the dense leg of hybrid
+search silently favors embedded bills; FTS covers all bills, and the facet
+table now exposes the imbalance instead of hiding it).
+
+\section{Geography and temporal}
+
+Both feedback items are served by existing fields once votes exist:
+\code{vote\_positions(state, party, position)} answers delegation
+questions and state-level vote maps for the policymaker-facing visual
+layer; BILLSTATUS \code{subjects} include state names where bills touch
+them; \code{introduced\_date}, action dates, vote dates, and
+\code{congress} give the temporal spine. A dedicated geography aggregate
+(``votes by state delegation'') would be a natural fourth primitive if the
+frontend wants it; the SQL is a two-line GROUP BY on tables that now
+exist.
+
+\section{Round two (June 10 overnight): the universe layer and the
+research-informed restructure}
+
+A second pass extended the corpus and restructured the agent-facing
+query surface, informed by a literature/engineering review of deployed
+knowledge-graph systems (GraphRAG, LightRAG, Saga, Wikidata/UMLS alias
+infrastructure, the one published legislative KG, and K\`uzu's own
+performance documentation). Sources are catalogued in the session
+research report; the load-bearing findings:
+
+\begin{itemize}[itemsep=2pt]
+  \item Every surveyed system that cares about query latency moves graph
+        traversal and summarization to \emph{index time} and makes query
+        time a single lookup plus a single generation (LightRAG: one
+        retrieval call; GraphRAG local search: one assembled context;
+        Saga: precomputed entity cards). Agent-driven traversal over
+        fine-grained primitives puts the traversal loop \emph{inside}
+        the LLM round-trip loop --- our 15-primitive surface had exactly
+        this shape, and round trips dominate our latency.
+  \item Name$\to$entity resolution in production KGs is a
+        \emph{dictionary problem}: normalized exact-match alias tables
+        first (Wikidata aliases cover $>$50\% of mentions before any
+        ML), fuzzy/embedding ranking only for residuals. The one
+        published legislative KG (Colombo \& Cambria, VLDB 2025
+        workshop) resolves inter-act references by exact string match on
+        short titles.
+  \item K\`uzu supports \code{COPY FROM} into non-empty tables since
+        v0.4 --- the 3.5\,h full rebuild is self-imposed, not a database
+        limitation. Incremental appends should be staged as
+        Parquet/CSV deltas.
+\end{itemize}
+
+\subsection{The universe layer}
+
+The largest scope expansion available without bloating the repository:
+\textbf{every law-track bill (hr, s, hjres, sjres) of the 117th--119th
+Congresses --- 46{,}168 bills --- as compact status records}, parsed from
+twelve GovInfo BILLSTATUS bulk zips (no API key; 19 seconds of parse
+time; 7.4\,MB of committed gzipped JSONL). Each record carries title and
+\emph{every} title variant BILLSTATUS knows, sponsor with party/state,
+cosponsor party counts, the derived outcome with dated evidence, recorded
+vote pointers, and policy area. Full text is deliberately absent: text
+stays curated, facts become total. Two consequences:
+
+\begin{itemize}[itemsep=2pt]
+  \item \textbf{Denominators exist.} ``Which 117th-Congress laws passed
+        with cross-party support?'' is now a query over the full enacted
+        set, not over 29 curated exemplars; the secret-congress thesis
+        becomes \emph{discoverable} rather than asserted.
+  \item \textbf{The honesty boundary moved.} For any federal bill of the
+        covered span the agent can now answer fate questions; the
+        refusal boundary retreats to full-text structure (sections,
+        definitions, amendments), which the coverage report states
+        explicitly as a \code{full\_text} facet (232/46{,}168).
+\end{itemize}
+
+\subsection{Alias resolution (\code{lookup\_bill})}
+
+A 97{,}401-row alias table: every BILLSTATUS title variant of every
+universe bill plus 926 entries from the OLRC Popular Name Table (the
+official alias dictionary human researchers use), normalized under a
+single documented contract (lowercase, punctuation stripped, leading
+``the'' and trailing ``of YYYY'' dropped). Resolution ladder: bill-id
+forms $\to$ exact normalized alias $\to$ FTS5 fallback; measured at
+0.1--20\,ms. ``CHIPS Act'' resolves correctly; so does ``the border
+bill''-class phrasing via FTS. Ambiguity is surfaced, not swallowed ---
+``Laken Riley Act'' returns the House bill, the Senate bill that became
+PL 119-1, and the 118th-Congress predecessor, with an explicit
+disambiguation instruction to the agent.
+
+\subsection{One-call bill cards (\code{get\_bill\_card})}
+
+The Saga/GraphRAG-card pattern at our scale: a single call returns a
+bill's full identity (all names), sponsor and cosponsor party counts,
+outcome with dated evidence, public law, votes with party splits, and
+--- when the bill is in a curated corpus --- topic, cluster, curator
+note, and section/defined-term/amendment \emph{counts}. The counts are
+the round-trip killer: the agent learns whether drill-down tools will
+return anything before spending calls on them, and a status-only card
+says so outright. The CHIPS card returns 6{,}581 sections, 132 defined
+terms, 169 amendments, 10 roll calls, and 10 known names in one call
+that previously took four to six.
+
+\subsection{Outcome-derivation fix found by universe-scale testing}
+
+Scale surfaced a classification bug the 232-bill corpus never hit: a
+bill that \emph{fails} under suspension of the rules and then
+\emph{passes} under a rule days later (e.g., H.R.~9495, 118th) was
+labeled \code{failed\_passage}. Outcome derivation now compares
+last-event dates, so a dated passage supersedes an earlier failed floor
+vote. This is the universe layer earning its keep as a test set.
+
+\subsection{Deferred with a documented path}
+
+Per the K\`uzu findings, incremental graph maintenance (delta staging +
+\code{COPY FROM} into non-empty tables, Cypher \code{SET} for property
+drift) replaces full rebuilds; tonight the universe lives in SQLite and
+the graph carries the curated corpora, so no rebuild was forced. A
+\code{RollCallVote}-style universe node layer in K\`uzu, GraphRAG-style
+LLM-written topic rollups, and people-side edges
+(Committee/\code{REFERRED\_TO}, Subject/\code{DEALS\_WITH} --- both
+present in BILLSTATUS) are the next graph increments, in that order.
+
+\section{What is deliberately not claimed, and what is next}
+
+\begin{itemize}[itemsep=2pt]
+  \item \textbf{Media salience is asserted, not measured.} The
+        secret-congress thesis is about coverage volume; the corpus
+        encodes salience only through my cluster curation. A salience
+        facet (e.g., GDELT or newspaper-archive mention counts per bill)
+        would make \code{quiet\_bipartisan\_law} falsifiable. Medium
+        effort; high value for the thesis.
+  \item \textbf{``How much it affected the vote'' (electoral outcomes) is
+        not yet linkable.} Connecting member positions to subsequent
+        vote-share changes needs election-results data (MIT Election Lab)
+        and a member-district crosswalk, plus real identification care ---
+        this is a research design, not an ingest script. Flagged for a
+        design discussion before building.
+  \item \textbf{Donor data (FEC) is out of scope tonight.} The donor angle
+        is currently represented by donor-\emph{related} legislation
+        (DISCLOSE) rather than donor behavior data.
+  \item \textbf{Embeddings remain partial} (deferred to Raj's box per the
+        earlier handoff); the new topic adds $\sim$130k sections to that
+        queue, dominated by the four mega-vehicles.
+  \item \textbf{Senate roll-call coverage for pre-1989 style URLs,
+        amendment-level Senate votes inside BILLSTATUS,} and a handful of
+        unresolved vote refs are recorded per-bill in
+        \code{unresolved\_vote\_refs} rather than dropped silently.
+\end{itemize}
+
+\subsection{The thesis, now discoverable}
+
+With party splits loaded for all 2{,}982 roll calls the universe's bills
+point at (zero unresolved), the secret-congress claim stops being
+curated and becomes a query. Of the 639 laws enacted by the 117th and
+118th Congresses: \textbf{361 (57\%) passed with no roll call at all}
+(voice vote or unanimous consent --- the quietest possible path), 244
+passed with bipartisan or near-unanimous margins, 14 with modest
+cross-party support, and only \textbf{13 (2\%) on party-line votes} ---
+and the party-line set is exactly what the thesis predicts: budget
+reconciliation (ARPA, IRA, OBBBA), CRA disapproval resolutions, and
+appropriations vehicles. Everything else that becomes law is, by the
+roll-call record, bipartisan or silent.
+
+\section*{Verification snapshot}
+
+232 bills indexed (191 \code{ai\_governance}, 12 \code{redistricting}, 29
+\code{secret\_congress}); 172{,}887 sections; 347 roll-call votes; 0 parse
+errors. Outcome distribution: 88 pending, 84 died in committee, 24
+reported-no-floor-vote, 20 enacted, 6 failed cloture, 10 other. Spot
+checks: CHIPS $\to$ \code{enacted}, PL 117--167, final House concurrence
+243--187 (\code{bipartisan\_support} 0.114); Border Act $\to$
+\code{failed\_cloture}, 43--50 on the motion to proceed; DISCLOSE $\to$
+49--49 cloture, \code{party\_line}; S.~914 $\to$
+\code{died\_after\_passing\_senate} with the 89--2 passage vote; the two
+``enacted'' AI-governance bills are the FY2024/FY2025 NDAAs (Tier-B AI
+riders), which is correct. 20{,}505 member-level vote positions indexed.
+
+\end{document}

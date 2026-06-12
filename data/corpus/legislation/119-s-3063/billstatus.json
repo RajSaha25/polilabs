@@ -1,0 +1,45 @@
+{
+  "bill_id": "119-s-3063",
+  "fetched_at": "2026-06-12T05:37:17.935306+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/s/BILLSTATUS-119s3063.xml",
+  "title": "LIFE with AI Act",
+  "policy_area": "Education",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "C001075",
+    "fullName": "Sen. Cassidy, Bill [R-LA]",
+    "firstName": "Bill",
+    "lastName": "Cassidy",
+    "party": "R",
+    "state": "LA",
+    "district": null
+  },
+  "cosponsors": [],
+  "actions": [
+    {
+      "actionDate": "2025-10-28",
+      "text": "Read twice and referred to the Committee on Health, Education, Labor, and Pensions.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2025-10-28",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2025-10-28",
+      "text": "Read twice and referred to the Committee on Health, Education, Labor, and Pensions."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

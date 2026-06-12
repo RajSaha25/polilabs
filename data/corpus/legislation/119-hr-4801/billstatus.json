@@ -1,0 +1,110 @@
+{
+  "bill_id": "119-hr-4801",
+  "fetched_at": "2026-06-12T05:37:01.615795+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr4801.xml",
+  "title": "Unleashing AI Innovation in Financial Services Act",
+  "policy_area": "Finance and Financial Sector",
+  "subjects": [
+    "Advanced technology and technological innovations",
+    "Advisory bodies",
+    "Banking and financial institutions regulation",
+    "Computers and information technology",
+    "Data collection, sharing, protection",
+    "Financial services and investments",
+    "Licensing and registrations",
+    "Performance measurement",
+    "Research and development"
+  ],
+  "sponsor": {
+    "bioguideId": "H001072",
+    "fullName": "Rep. Hill, J. French [R-AR-2]",
+    "firstName": "J.",
+    "lastName": "Hill",
+    "party": "R",
+    "state": "AR",
+    "district": "2"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "T000486",
+      "fullName": "Rep. Torres, Ritchie [D-NY-15]",
+      "firstName": "Ritchie",
+      "lastName": "Torres",
+      "party": "D",
+      "state": "NY",
+      "district": "15",
+      "sponsorshipDate": "2025-07-29",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "S001213",
+      "fullName": "Rep. Steil, Bryan [R-WI-1]",
+      "firstName": "Bryan",
+      "lastName": "Steil",
+      "party": "R",
+      "state": "WI",
+      "district": "1",
+      "sponsorshipDate": "2025-07-29",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "G000583",
+      "fullName": "Rep. Gottheimer, Josh [D-NJ-5]",
+      "firstName": "Josh",
+      "lastName": "Gottheimer",
+      "party": "D",
+      "state": "NJ",
+      "district": "5",
+      "sponsorshipDate": "2025-07-29",
+      "isOriginalCosponsor": "True"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2026-05-13",
+      "text": "Ordered to be Reported (Amended) by the Yeas and Nays: 33 - 19.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2026-05-13",
+      "text": "Committee Consideration and Mark-up Session Held",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2025-07-29",
+      "text": "Referred to the House Committee on Financial Services.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-07-29",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2025-07-29",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2026-05-13",
+      "text": "Ordered to be Reported (Amended) by the Yeas and Nays: 33 - 19."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

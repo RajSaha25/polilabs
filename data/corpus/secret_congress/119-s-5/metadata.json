@@ -1,0 +1,910 @@
+{
+  "bill_id": "119-s-5",
+  "congress": 119,
+  "bill_type": "s",
+  "bill_number": 5,
+  "title": "Laken Riley Act",
+  "short_title": "Laken Riley Act",
+  "sponsor": "Sen. Britt, Katie Boyd [R-AL]",
+  "introduced_date": "2025-01-06",
+  "latest_action": "2025-01-29: Became Public Law No: 119-1.",
+  "policy_area": "Immigration",
+  "subjects": [
+    "Border security and unlawful immigration",
+    "Civil actions and liability",
+    "Crimes against property",
+    "Criminal investigation, prosecution, interrogation",
+    "Detention of persons",
+    "Immigration status and procedures",
+    "Intergovernmental relations",
+    "Refugees, asylum, displaced persons",
+    "State and local government operations",
+    "Violent crime",
+    "Visas and passports"
+  ],
+  "summary_text": null,
+  "centrality_score": null,
+  "match_locations": {},
+  "tier": "A",
+  "stream": "legislation",
+  "topic": "secret_congress",
+  "cluster": "high_salience_bipartisan_law",
+  "curator_note": "Enacted PL 119-1. Immigration detention mandate; 12 Senate and 46 House Democrats joined all Republicans \u2014 post-2024-election crossover under electoral pressure.",
+  "versions_available": [
+    {
+      "package_id": "BILLS-119s5enr",
+      "version_code": "enr",
+      "date_issued": "2025-01-06"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-119s5enr",
+    "version_code": "enr",
+    "date_issued": "2025-01-06"
+  },
+  "actions": [
+    {
+      "actionDate": "2025-01-29",
+      "text": "Became Public Law No: 119-1.",
+      "type": "President",
+      "actionCode": "E40000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2025-01-29",
+      "text": "Became Public Law No: 119-1.",
+      "type": "BecameLaw",
+      "actionCode": "36000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2025-01-29",
+      "text": "Signed by President.",
+      "type": "President",
+      "actionCode": "E30000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2025-01-29",
+      "text": "Signed by President.",
+      "type": "BecameLaw",
+      "actionCode": "36000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2025-01-23",
+      "text": "Presented to President.",
+      "type": "Floor",
+      "actionCode": "E20000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-01-23",
+      "text": "Presented to President.",
+      "type": "President",
+      "actionCode": "28000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2025-01-22",
+      "text": "Motion to reconsider laid on the table Agreed to without objection.",
+      "type": "Floor",
+      "actionCode": "H38310",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-01-22",
+      "text": "On passage Passed by the Yeas and Nays: 263 - 156 (Roll no. 23). (text: CR H277-278)",
+      "type": "Floor",
+      "actionCode": "H37100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-01-22",
+      "text": "Passed/agreed to in House: On passage Passed by the Yeas and Nays: 263 - 156 (Roll no. 23). (text: CR H277-278)",
+      "type": "Floor",
+      "actionCode": "8000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2025-01-22",
+      "text": "Considered as unfinished business. (consideration: CR H285-286)",
+      "type": "Floor",
+      "actionCode": "H30000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-01-22",
+      "text": "POSTPONED PROCEEDINGS - At the conclusion of the debate on S. 5, the Chair put the question on passage of the bill and by voice vote announced that the ayes had prevailed. Mr. Raskin demanded the yeas and nays and the Chair postponed further proceedings until a time to be announced.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-01-22",
+      "text": "The previous question was ordered pursuant to the rule.",
+      "type": "Floor",
+      "actionCode": "H35000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-01-22",
+      "text": "DEBATE - The House proceeded with one hour of debate on S. 5.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-01-22",
+      "text": "Rule provides for consideration of H.R. 471 and S. 5. The resolution provides for consideration of H.R. 471 under a structured rule with one hour of general debate and one motion to recommit. Also, the resolution provides for consideration of S. 5 under a closed rule with one hour of general debate and one motion to commit.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-01-22",
+      "text": "Considered under the provisions of rule H. Res. 53. (consideration: CR H277-284)",
+      "type": "Floor",
+      "actionCode": "H30000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-01-22",
+      "text": "Rule H. Res. 53 passed House.",
+      "type": "Floor",
+      "actionCode": "H1L220",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-01-21",
+      "text": "Rules Committee Resolution H. Res. 53 Reported to House. Rule provides for consideration of H.R. 471 and S. 5. The resolution provides for consideration of H.R. 471 under a structured rule with one hour of general debate and one motion to recommit. Also, the resolution provides for consideration of S. 5 under a closed rule with one hour of general debate and one motion to commit.",
+      "type": "Floor",
+      "actionCode": "H1L210",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-01-21",
+      "text": "Held at the desk.",
+      "type": "Floor",
+      "actionCode": "H15000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-01-21",
+      "text": "Received in the House.",
+      "type": "Floor",
+      "actionCode": "H14000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-01-21",
+      "text": "Message on Senate action sent to the House.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2025-01-20",
+      "text": "Passed Senate with an amendment by Yea-Nay Vote. 64 - 35. Record Vote Number: 7. (text: CR S250-251)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2025-01-20",
+      "text": "Passed/agreed to in Senate: Passed Senate with an amendment by Yea-Nay Vote. 64 - 35. Record Vote Number: 7.",
+      "type": "Floor",
+      "actionCode": "17000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2025-01-20",
+      "text": "Considered by Senate. (consideration: CR S246-251)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2025-01-17",
+      "text": "Cloture on the measure invoked in Senate by Yea-Nay Vote. 61 - 35. Record Vote Number: 5. (CR S240)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2025-01-17",
+      "text": "Considered by Senate. (consideration: CR S237-241)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2025-01-16",
+      "text": "Considered by Senate. (consideration: CR S198-218)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2025-01-15",
+      "text": "Cloture motion on the measure presented in Senate. (CR S182)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2025-01-15",
+      "text": "Considered by Senate. (consideration: CR S161-182)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2025-01-14",
+      "text": "Considered by Senate. (consideration: CR S130)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2025-01-13",
+      "text": "Measure laid before Senate by motion.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2025-01-13",
+      "text": "Motion to proceed to consideration of measure agreed to in Senate by Yea-Nay Vote. 82 - 10. Record Vote Number: 2. (CR S87)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2025-01-13",
+      "text": "Motion to proceed to measure considered in Senate. (CR S83)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2025-01-09",
+      "text": "Cloture on the motion to proceed to the measure invoked in Senate by Yea-Nay Vote. 84 - 9. Record Vote Number: 1. (CR S73)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2025-01-09",
+      "text": "Motion to proceed to measure considered in Senate. (CR S70)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2025-01-08",
+      "text": "Cloture motion on the motion to proceed to the measure presented in Senate. (CR S46)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2025-01-08",
+      "text": "Motion to proceed to consideration of measure made in Senate. (CR S46)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2025-01-07",
+      "text": "Read the second time. Placed on Senate Legislative Calendar under General Orders. Calendar No. 1.",
+      "type": "Calendars",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2025-01-06",
+      "text": "Introduced in the Senate. Read the first time. Placed on Senate Legislative Calendar under Read the First Time.",
+      "type": "Calendars",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2025-01-06",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "cosponsors": [
+    {
+      "bioguideId": "R000584",
+      "fullName": "Sen. Risch, James E. [R-ID]",
+      "firstName": "James",
+      "lastName": "Risch",
+      "party": "R",
+      "state": "ID",
+      "district": null,
+      "sponsorshipDate": "2025-01-06",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "S001227",
+      "fullName": "Sen. Schmitt, Eric [R-MO]",
+      "firstName": "Eric",
+      "lastName": "Schmitt",
+      "party": "R",
+      "state": "MO",
+      "district": null,
+      "sponsorshipDate": "2025-01-06",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "L000575",
+      "fullName": "Sen. Lankford, James [R-OK]",
+      "firstName": "James",
+      "lastName": "Lankford",
+      "party": "R",
+      "state": "OK",
+      "district": null,
+      "sponsorshipDate": "2025-01-06",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "C001096",
+      "fullName": "Sen. Cramer, Kevin [R-ND]",
+      "firstName": "Kevin",
+      "lastName": "Cramer",
+      "party": "R",
+      "state": "ND",
+      "district": null,
+      "sponsorshipDate": "2025-01-06",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "T000278",
+      "fullName": "Sen. Tuberville, Tommy [R-AL]",
+      "firstName": "Tommy",
+      "lastName": "Tuberville",
+      "party": "R",
+      "state": "AL",
+      "district": null,
+      "sponsorshipDate": "2025-01-06",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "H001061",
+      "fullName": "Sen. Hoeven, John [R-ND]",
+      "firstName": "John",
+      "lastName": "Hoeven",
+      "party": "R",
+      "state": "ND",
+      "district": null,
+      "sponsorshipDate": "2025-01-06",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "L000577",
+      "fullName": "Sen. Lee, Mike [R-UT]",
+      "firstName": "Mike",
+      "lastName": "Lee",
+      "party": "R",
+      "state": "UT",
+      "district": null,
+      "sponsorshipDate": "2025-01-06",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "J000293",
+      "fullName": "Sen. Johnson, Ron [R-WI]",
+      "firstName": "Ron",
+      "lastName": "Johnson",
+      "party": "R",
+      "state": "WI",
+      "district": null,
+      "sponsorshipDate": "2025-01-06",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "B001261",
+      "fullName": "Sen. Barrasso, John [R-WY]",
+      "firstName": "John",
+      "lastName": "Barrasso",
+      "party": "R",
+      "state": "WY",
+      "district": null,
+      "sponsorshipDate": "2025-01-06",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "W000437",
+      "fullName": "Sen. Wicker, Roger F. [R-MS]",
+      "firstName": "Roger",
+      "lastName": "Wicker",
+      "party": "R",
+      "state": "MS",
+      "district": null,
+      "sponsorshipDate": "2025-01-06",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "L000571",
+      "fullName": "Sen. Lummis, Cynthia M. [R-WY]",
+      "firstName": "Cynthia",
+      "lastName": "Lummis",
+      "party": "R",
+      "state": "WY",
+      "district": null,
+      "sponsorshipDate": "2025-01-06",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "T000250",
+      "fullName": "Sen. Thune, John [R-SD]",
+      "firstName": "John",
+      "lastName": "Thune",
+      "party": "R",
+      "state": "SD",
+      "district": null,
+      "sponsorshipDate": "2025-01-06",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "T000476",
+      "fullName": "Sen. Tillis, Thomas [R-NC]",
+      "firstName": "Thomas",
+      "lastName": "Tillis",
+      "party": "R",
+      "state": "NC",
+      "district": null,
+      "sponsorshipDate": "2025-01-06",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "C001095",
+      "fullName": "Sen. Cotton, Tom [R-AR]",
+      "firstName": "Tom",
+      "lastName": "Cotton",
+      "party": "R",
+      "state": "AR",
+      "district": null,
+      "sponsorshipDate": "2025-01-06",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "C000880",
+      "fullName": "Sen. Crapo, Mike [R-ID]",
+      "firstName": "Mike",
+      "lastName": "Crapo",
+      "party": "R",
+      "state": "ID",
+      "district": null,
+      "sponsorshipDate": "2025-01-06",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "G000386",
+      "fullName": "Sen. Grassley, Chuck [R-IA]",
+      "firstName": "Chuck",
+      "lastName": "Grassley",
+      "party": "R",
+      "state": "IA",
+      "district": null,
+      "sponsorshipDate": "2025-01-06",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "M000355",
+      "fullName": "Sen. McConnell, Mitch [R-KY]",
+      "firstName": "Mitch",
+      "lastName": "McConnell",
+      "party": "R",
+      "state": "KY",
+      "district": null,
+      "sponsorshipDate": "2025-01-06",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "M001242",
+      "fullName": "Sen. Moreno, Bernie [R-OH]",
+      "firstName": "Bernie",
+      "lastName": "Moreno",
+      "party": "R",
+      "state": "OH",
+      "district": null,
+      "sponsorshipDate": "2025-01-06",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "M000934",
+      "fullName": "Sen. Moran, Jerry [R-KS]",
+      "firstName": "Jerry",
+      "lastName": "Moran",
+      "party": "R",
+      "state": "KS",
+      "district": null,
+      "sponsorshipDate": "2025-01-06",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "G000359",
+      "fullName": "Sen. Graham, Lindsey [R-SC]",
+      "firstName": "Lindsey",
+      "lastName": "Graham",
+      "party": "R",
+      "state": "SC",
+      "district": null,
+      "sponsorshipDate": "2025-01-06",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "B001305",
+      "fullName": "Sen. Budd, Ted [R-NC]",
+      "firstName": "Ted",
+      "lastName": "Budd",
+      "party": "R",
+      "state": "NC",
+      "district": null,
+      "sponsorshipDate": "2025-01-06",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "B001236",
+      "fullName": "Sen. Boozman, John [R-AR]",
+      "firstName": "John",
+      "lastName": "Boozman",
+      "party": "R",
+      "state": "AR",
+      "district": null,
+      "sponsorshipDate": "2025-01-06",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "K000393",
+      "fullName": "Sen. Kennedy, John [R-LA]",
+      "firstName": "John",
+      "lastName": "Kennedy",
+      "party": "R",
+      "state": "LA",
+      "district": null,
+      "sponsorshipDate": "2025-01-06",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "M001198",
+      "fullName": "Sen. Marshall, Roger [R-KS]",
+      "firstName": "Roger",
+      "lastName": "Marshall",
+      "party": "R",
+      "state": "KS",
+      "district": null,
+      "sponsorshipDate": "2025-01-06",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "C001035",
+      "fullName": "Sen. Collins, Susan M. [R-ME]",
+      "firstName": "Susan",
+      "lastName": "Collins",
+      "party": "R",
+      "state": "ME",
+      "district": null,
+      "sponsorshipDate": "2025-01-06",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "D000618",
+      "fullName": "Sen. Daines, Steve [R-MT]",
+      "firstName": "Steve",
+      "lastName": "Daines",
+      "party": "R",
+      "state": "MT",
+      "district": null,
+      "sponsorshipDate": "2025-01-06",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "C001056",
+      "fullName": "Sen. Cornyn, John [R-TX]",
+      "firstName": "John",
+      "lastName": "Cornyn",
+      "party": "R",
+      "state": "TX",
+      "district": null,
+      "sponsorshipDate": "2025-01-06",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "S001217",
+      "fullName": "Sen. Scott, Rick [R-FL]",
+      "firstName": "Rick",
+      "lastName": "Scott",
+      "party": "R",
+      "state": "FL",
+      "district": null,
+      "sponsorshipDate": "2025-01-06",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "S001232",
+      "fullName": "Sen. Sheehy, Tim [R-MT]",
+      "firstName": "Tim",
+      "lastName": "Sheehy",
+      "party": "R",
+      "state": "MT",
+      "district": null,
+      "sponsorshipDate": "2025-01-06",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "B001299",
+      "fullName": "Sen. Banks, Jim [R-IN]",
+      "firstName": "Jim",
+      "lastName": "Banks",
+      "party": "R",
+      "state": "IN",
+      "district": null,
+      "sponsorshipDate": "2025-01-06",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "E000295",
+      "fullName": "Sen. Ernst, Joni [R-IA]",
+      "firstName": "Joni",
+      "lastName": "Ernst",
+      "party": "R",
+      "state": "IA",
+      "district": null,
+      "sponsorshipDate": "2025-01-06",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "M001190",
+      "fullName": "Sen. Mullin, Markwayne [R-OK]",
+      "firstName": "Markwayne",
+      "lastName": "Mullin",
+      "party": "R",
+      "state": "OK",
+      "district": null,
+      "sponsorshipDate": "2025-01-06",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "H000601",
+      "fullName": "Sen. Hagerty, Bill [R-TN]",
+      "firstName": "Bill",
+      "lastName": "Hagerty",
+      "party": "R",
+      "state": "TN",
+      "district": null,
+      "sponsorshipDate": "2025-01-06",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "R000618",
+      "fullName": "Sen. Ricketts, Pete [R-NE]",
+      "firstName": "Pete",
+      "lastName": "Ricketts",
+      "party": "R",
+      "state": "NE",
+      "district": null,
+      "sponsorshipDate": "2025-01-08",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "C001047",
+      "fullName": "Sen. Capito, Shelley Moore [R-WV]",
+      "firstName": "Shelley",
+      "lastName": "Capito",
+      "party": "R",
+      "state": "WV",
+      "district": null,
+      "sponsorshipDate": "2025-01-08",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "M001153",
+      "fullName": "Sen. Murkowski, Lisa [R-AK]",
+      "firstName": "Lisa",
+      "lastName": "Murkowski",
+      "party": "R",
+      "state": "AK",
+      "district": null,
+      "sponsorshipDate": "2025-01-08",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "F000463",
+      "fullName": "Sen. Fischer, Deb [R-NE]",
+      "firstName": "Deb",
+      "lastName": "Fischer",
+      "party": "R",
+      "state": "NE",
+      "district": null,
+      "sponsorshipDate": "2025-01-08",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "H001089",
+      "fullName": "Sen. Hawley, Josh [R-MO]",
+      "firstName": "Josh",
+      "lastName": "Hawley",
+      "party": "R",
+      "state": "MO",
+      "district": null,
+      "sponsorshipDate": "2025-01-08",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "S001184",
+      "fullName": "Sen. Scott, Tim [R-SC]",
+      "firstName": "Tim",
+      "lastName": "Scott",
+      "party": "R",
+      "state": "SC",
+      "district": null,
+      "sponsorshipDate": "2025-01-08",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "Y000064",
+      "fullName": "Sen. Young, Todd [R-IN]",
+      "firstName": "Todd",
+      "lastName": "Young",
+      "party": "R",
+      "state": "IN",
+      "district": null,
+      "sponsorshipDate": "2025-01-08",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "B001243",
+      "fullName": "Sen. Blackburn, Marsha [R-TN]",
+      "firstName": "Marsha",
+      "lastName": "Blackburn",
+      "party": "R",
+      "state": "TN",
+      "district": null,
+      "sponsorshipDate": "2025-01-08",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "S001198",
+      "fullName": "Sen. Sullivan, Dan [R-AK]",
+      "firstName": "Dan",
+      "lastName": "Sullivan",
+      "party": "R",
+      "state": "AK",
+      "district": null,
+      "sponsorshipDate": "2025-01-08",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "C001114",
+      "fullName": "Sen. Curtis, John R. [R-UT]",
+      "firstName": "John",
+      "lastName": "Curtis",
+      "party": "R",
+      "state": "UT",
+      "district": null,
+      "sponsorshipDate": "2025-01-08",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "H001079",
+      "fullName": "Sen. Hyde-Smith, Cindy [R-MS]",
+      "firstName": "Cindy",
+      "lastName": "Hyde-Smith",
+      "party": "R",
+      "state": "MS",
+      "district": null,
+      "sponsorshipDate": "2025-01-08",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "R000605",
+      "fullName": "Sen. Rounds, Mike [R-SD]",
+      "firstName": "Mike",
+      "lastName": "Rounds",
+      "party": "R",
+      "state": "SD",
+      "district": null,
+      "sponsorshipDate": "2025-01-08",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "C001098",
+      "fullName": "Sen. Cruz, Ted [R-TX]",
+      "firstName": "Ted",
+      "lastName": "Cruz",
+      "party": "R",
+      "state": "TX",
+      "district": null,
+      "sponsorshipDate": "2025-01-08",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "C001075",
+      "fullName": "Sen. Cassidy, Bill [R-LA]",
+      "firstName": "Bill",
+      "lastName": "Cassidy",
+      "party": "R",
+      "state": "LA",
+      "district": null,
+      "sponsorshipDate": "2025-01-08",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "R000595",
+      "fullName": "Sen. Rubio, Marco [R-FL]",
+      "firstName": "Marco",
+      "lastName": "Rubio",
+      "party": "R",
+      "state": "FL",
+      "district": null,
+      "sponsorshipDate": "2025-01-08",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "M001243",
+      "fullName": "Sen. McCormick, David [R-PA]",
+      "firstName": "David",
+      "lastName": "McCormick",
+      "party": "R",
+      "state": "PA",
+      "district": null,
+      "sponsorshipDate": "2025-01-08",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "P000603",
+      "fullName": "Sen. Paul, Rand [R-KY]",
+      "firstName": "Rand",
+      "lastName": "Paul",
+      "party": "R",
+      "state": "KY",
+      "district": null,
+      "sponsorshipDate": "2025-01-08",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "V000137",
+      "fullName": "Sen. Vance, J. D. [R-OH]",
+      "firstName": "J.",
+      "lastName": "Vance",
+      "party": "R",
+      "state": "OH",
+      "district": null,
+      "sponsorshipDate": "2025-01-08",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "F000479",
+      "fullName": "Sen. Fetterman, John [D-PA]",
+      "firstName": "John",
+      "lastName": "Fetterman",
+      "party": "D",
+      "state": "PA",
+      "district": null,
+      "sponsorshipDate": "2025-01-08",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "G000574",
+      "fullName": "Sen. Gallego, Ruben [D-AZ]",
+      "firstName": "Ruben",
+      "lastName": "Gallego",
+      "party": "D",
+      "state": "AZ",
+      "district": null,
+      "sponsorshipDate": "2025-01-08",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "_metadata_sources": {
+    "xml": "govinfo bulk-data (unauthenticated)",
+    "billstatus": "govinfo BILLSTATUS bulk-data (unauthenticated)",
+    "congress_gov_enriched": false
+  }
+}

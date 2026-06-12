@@ -1,0 +1,328 @@
+{
+  "bill_id": "118-hr-9639",
+  "fetched_at": "2026-06-12T05:36:42.693515+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/hr/BILLSTATUS-118hr9639.xml",
+  "title": "AI Ads Act",
+  "policy_area": "Government Operations and Politics",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "S001150",
+    "fullName": "Rep. Schiff, Adam B. [D-CA-28]",
+    "firstName": "Adam",
+    "lastName": "Schiff",
+    "party": "D",
+    "state": "CA",
+    "district": "28"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "N000147",
+      "fullName": "Del. Norton, Eleanor Holmes [D-DC-At Large]",
+      "firstName": "Eleanor",
+      "lastName": "Norton",
+      "party": "D",
+      "state": "DC",
+      "district": "0",
+      "sponsorshipDate": "2024-09-17",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "W000788",
+      "fullName": "Rep. Williams, Nikema [D-GA-5]",
+      "firstName": "Nikema",
+      "lastName": "Williams",
+      "party": "D",
+      "state": "GA",
+      "district": "5",
+      "sponsorshipDate": "2024-09-17",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "M001225",
+      "fullName": "Rep. Mullin, Kevin [D-CA-15]",
+      "firstName": "Kevin",
+      "lastName": "Mullin",
+      "party": "D",
+      "state": "CA",
+      "district": "15",
+      "sponsorshipDate": "2024-09-17",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "C001072",
+      "fullName": "Rep. Carson, Andr\u00e9 [D-IN-7]",
+      "firstName": "Andr\u00e9",
+      "lastName": "Carson",
+      "party": "D",
+      "state": "IN",
+      "district": "7",
+      "sponsorshipDate": "2024-09-17",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "D000530",
+      "fullName": "Rep. Deluzio, Christopher R. [D-PA-17]",
+      "firstName": "Christopher",
+      "lastName": "Deluzio",
+      "party": "D",
+      "state": "PA",
+      "district": "17",
+      "sponsorshipDate": "2024-09-17",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "M001163",
+      "fullName": "Rep. Matsui, Doris O. [D-CA-7]",
+      "firstName": "Doris",
+      "lastName": "Matsui",
+      "party": "D",
+      "state": "CA",
+      "district": "7",
+      "sponsorshipDate": "2024-09-17",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "T000469",
+      "fullName": "Rep. Tonko, Paul [D-NY-20]",
+      "firstName": "Paul",
+      "lastName": "Tonko",
+      "party": "D",
+      "state": "NY",
+      "district": "20",
+      "sponsorshipDate": "2024-09-17",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "E000215",
+      "fullName": "Rep. Eshoo, Anna G. [D-CA-16]",
+      "firstName": "Anna",
+      "lastName": "Eshoo",
+      "party": "D",
+      "state": "CA",
+      "district": "16",
+      "sponsorshipDate": "2024-09-17",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "E000297",
+      "fullName": "Rep. Espaillat, Adriano [D-NY-13]",
+      "firstName": "Adriano",
+      "lastName": "Espaillat",
+      "party": "D",
+      "state": "NY",
+      "district": "13",
+      "sponsorshipDate": "2024-09-17",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "B001285",
+      "fullName": "Rep. Brownley, Julia [D-CA-26]",
+      "firstName": "Julia",
+      "lastName": "Brownley",
+      "party": "D",
+      "state": "CA",
+      "district": "26",
+      "sponsorshipDate": "2024-09-17",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "A000148",
+      "fullName": "Rep. Auchincloss, Jake [D-MA-4]",
+      "firstName": "Jake",
+      "lastName": "Auchincloss",
+      "party": "D",
+      "state": "MA",
+      "district": "4",
+      "sponsorshipDate": "2024-09-17",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "T000488",
+      "fullName": "Rep. Thanedar, Shri [D-MI-13]",
+      "firstName": "Shri",
+      "lastName": "Thanedar",
+      "party": "D",
+      "state": "MI",
+      "district": "13",
+      "sponsorshipDate": "2024-09-17",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "J000288",
+      "fullName": "Rep. Johnson, Henry C. \"Hank\" [D-GA-4]",
+      "firstName": "Henry",
+      "lastName": "Johnson",
+      "party": "D",
+      "state": "GA",
+      "district": "4",
+      "sponsorshipDate": "2024-09-17",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "G000551",
+      "fullName": "Rep. Grijalva, Ra\u00fal M. [D-AZ-7]",
+      "firstName": "Ra\u00fal",
+      "lastName": "Grijalva",
+      "party": "D",
+      "state": "AZ",
+      "district": "7",
+      "sponsorshipDate": "2024-09-17",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "R000617",
+      "fullName": "Rep. Ramirez, Delia C. [D-IL-3]",
+      "firstName": "Delia",
+      "lastName": "Ramirez",
+      "party": "D",
+      "state": "IL",
+      "district": "3",
+      "sponsorshipDate": "2024-09-17",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "S001221",
+      "fullName": "Rep. Scholten, Hillary J. [D-MI-3]",
+      "firstName": "Hillary",
+      "lastName": "Scholten",
+      "party": "D",
+      "state": "MI",
+      "district": "3",
+      "sponsorshipDate": "2024-09-17",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "H001085",
+      "fullName": "Rep. Houlahan, Chrissy [D-PA-6]",
+      "firstName": "Chrissy",
+      "lastName": "Houlahan",
+      "party": "D",
+      "state": "PA",
+      "district": "6",
+      "sponsorshipDate": "2024-09-17",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "K000380",
+      "fullName": "Rep. Kildee, Daniel T. [D-MI-8]",
+      "firstName": "Daniel",
+      "lastName": "Kildee",
+      "party": "D",
+      "state": "MI",
+      "district": "8",
+      "sponsorshipDate": "2024-09-17",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "K000381",
+      "fullName": "Rep. Kilmer, Derek [D-WA-6]",
+      "firstName": "Derek",
+      "lastName": "Kilmer",
+      "party": "D",
+      "state": "WA",
+      "district": "6",
+      "sponsorshipDate": "2024-09-19",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "C001135",
+      "fullName": "Rep. Chavez-DeRemer, Lori [R-OR-5]",
+      "firstName": "Lori",
+      "lastName": "Chavez-DeRemer",
+      "party": "R",
+      "state": "OR",
+      "district": "5",
+      "sponsorshipDate": "2024-09-19",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "F000466",
+      "fullName": "Rep. Fitzpatrick, Brian K. [R-PA-1]",
+      "firstName": "Brian",
+      "lastName": "Fitzpatrick",
+      "party": "R",
+      "state": "PA",
+      "district": "1",
+      "sponsorshipDate": "2024-09-19",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "J000298",
+      "fullName": "Rep. Jayapal, Pramila [D-WA-7]",
+      "firstName": "Pramila",
+      "lastName": "Jayapal",
+      "party": "D",
+      "state": "WA",
+      "district": "7",
+      "sponsorshipDate": "2024-10-01",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "K000389",
+      "fullName": "Rep. Khanna, Ro [D-CA-17]",
+      "firstName": "Ro",
+      "lastName": "Khanna",
+      "party": "D",
+      "state": "CA",
+      "district": "17",
+      "sponsorshipDate": "2024-10-18",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "N000194",
+      "fullName": "Rep. Nickel, Wiley [D-NC-13]",
+      "firstName": "Wiley",
+      "lastName": "Nickel",
+      "party": "D",
+      "state": "NC",
+      "district": "13",
+      "sponsorshipDate": "2024-11-01",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "L000593",
+      "fullName": "Rep. Levin, Mike [D-CA-49]",
+      "firstName": "Mike",
+      "lastName": "Levin",
+      "party": "D",
+      "state": "CA",
+      "district": "49",
+      "sponsorshipDate": "2024-11-22",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2024-09-17",
+      "text": "Referred to the House Committee on House Administration.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-09-17",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2024-09-17",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "died_in_committee",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2024-09-17",
+      "text": "Referred to the House Committee on House Administration."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

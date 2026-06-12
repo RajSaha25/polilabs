@@ -1,0 +1,527 @@
+{
+  "bill_id": "117-hr-4346",
+  "congress": 117,
+  "bill_type": "hr",
+  "bill_number": 4346,
+  "title": "Chips and Science Act",
+  "short_title": "CHIPS Act of 2022",
+  "sponsor": "Rep. Ryan, Tim [D-OH-13]",
+  "introduced_date": "2021-07-01",
+  "latest_action": "2022-08-09: Became Public Law No: 117-167.",
+  "policy_area": "Science, Technology, Communications",
+  "subjects": [
+    "Appropriations",
+    "Architect of the Capitol",
+    "Arkansas",
+    "Art, artists, authorship",
+    "Civil disturbances",
+    "Computer security and identity theft",
+    "Congress",
+    "Congressional Budget Office (CBO)",
+    "Congressional Research Service (CRS)",
+    "Congressional agencies",
+    "Congressional committees",
+    "Congressional leadership",
+    "Congressional officers and employees",
+    "Congressional operations and organization",
+    "Congressional oversight",
+    "Congressional tributes",
+    "District of Columbia",
+    "Employee hiring",
+    "Employment discrimination and employee rights",
+    "Europe",
+    "Government Accountability Office (GAO)",
+    "Government Publishing Office (GPO)",
+    "Government buildings, facilities, and property",
+    "Government employee pay, benefits, personnel management",
+    "Government trust funds",
+    "House of Representatives",
+    "Immigration status and procedures",
+    "Joint Committee on Taxation",
+    "Joint Economic Committee",
+    "Judges",
+    "Law enforcement administration and funding",
+    "Law enforcement officers",
+    "Library of Congress",
+    "Members of Congress",
+    "Monuments and memorials",
+    "North Carolina",
+    "Policy sciences",
+    "Protection of officials",
+    "Protest and dissent",
+    "Public contracts and procurement",
+    "Racial and ethnic relations",
+    "Russia",
+    "Solid waste and recycling",
+    "South Carolina",
+    "Subversive activities",
+    "Supreme Court",
+    "Taxation",
+    "Terrorism",
+    "U.S. Capitol",
+    "U.S. history",
+    "Violent crime"
+  ],
+  "summary_text": null,
+  "centrality_score": null,
+  "match_locations": {},
+  "tier": "A",
+  "stream": "legislation",
+  "topic": "secret_congress",
+  "cluster": "high_salience_bipartisan_law",
+  "curator_note": "Enacted PL 117-167. The notes' headline exemplar. Final votes: Senate 64-33, House 243-187. The bill spent a year as a shell (House-passed America COMPETES, 222-210 near-party-line) before the bipartisan deal.",
+  "versions_available": [
+    {
+      "package_id": "BILLS-117hr4346enr",
+      "version_code": "enr",
+      "date_issued": "2021-07-01"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-117hr4346enr",
+    "version_code": "enr",
+    "date_issued": "2021-07-01"
+  },
+  "actions": [
+    {
+      "actionDate": "2022-08-09",
+      "text": "Became Public Law No: 117-167.",
+      "type": "President",
+      "actionCode": "E40000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-08-09",
+      "text": "Became Public Law No: 117-167.",
+      "type": "BecameLaw",
+      "actionCode": "36000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-08-09",
+      "text": "Signed by President.",
+      "type": "President",
+      "actionCode": "E30000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-08-09",
+      "text": "Signed by President.",
+      "type": "BecameLaw",
+      "actionCode": "36000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-08-02",
+      "text": "Presented to President.",
+      "type": "Floor",
+      "actionCode": "E20000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-08-02",
+      "text": "Presented to President.",
+      "type": "President",
+      "actionCode": "28000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-07-28",
+      "text": "Motion to reconsider laid on the table Agreed to without objection.",
+      "type": "ResolvingDifferences",
+      "actionCode": "H41931",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-07-28",
+      "text": "On motion that the House agree to the Senate amendment to the House amendment to the Senate amendment Agreed to by the Yeas and Nays: 243 - 187, 1 Present (Roll no. 404). (text: CR H7273-7374)",
+      "type": "ResolvingDifferences",
+      "actionCode": "H41610",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-07-28",
+      "text": "Resolving differences -- House actions: On motion that the House agree to the Senate amendment to the House amendment to the Senate amendment Agreed to by the Yeas and Nays: 243 - 187, 1 Present (Roll no. 404).",
+      "type": "NotUsed",
+      "actionCode": "19500",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-07-28",
+      "text": "The previous question was ordered pursuant to the rule.",
+      "type": "ResolvingDifferences",
+      "actionCode": "H41400",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-07-28",
+      "text": "DEBATE - The House proceeded with one hour of debate on the Johnson (TX) motion to concur in the Senate amendment to the House amendment to the Senate amendment to H.R. 4346.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-07-28",
+      "text": "Pursuant to the provisions of H.Res. 1289, Ms. Johnson (TX) moved that the House concur in the Senate amendment to the House amendment to the Senate amendment to H.R. 4346. (consideration: CR H7273-7387)",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-07-28",
+      "text": "Ms. Johnson (TX) moved that the House agree to the Senate amendment to the House amendment to the Senate amendment.",
+      "type": "ResolvingDifferences",
+      "actionCode": "H40150",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-07-27",
+      "text": "Message on Senate action sent to the House.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-07-27",
+      "text": "Senate concurred in the House amendment to the Senate amendment to H.R. 4346 with an amendment (SA 5135) by Yea-Nay Vote. 64 - 33. Record Vote Number: 271.",
+      "type": "ResolvingDifferences",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-07-27",
+      "text": "Resolving differences -- Senate actions: Senate concurred in the House amendment to the Senate amendment to H.R. 4346 with an amendment (SA 5135) by Yea-Nay Vote. 64 - 33. Record Vote Number: 271.",
+      "type": "NotUsed",
+      "actionCode": "20500",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-07-27",
+      "text": "Considered by Senate (Message from the House considered). (consideration: S3707\u00bf3715)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-07-26",
+      "text": "Motion by Senator Schumer to refer to Senate Committee on Commerce, Science, and Transportation with instructions to report back forthwith with the following amendment (SA 5137) fell when cloture was invoked on the motion to concur in the House amendment to the Senate amendment to H.R. 4346 with an amendment (SA 5135) in Senate.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-07-26",
+      "text": "Considered by Senate (Message from the House considered).",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-07-26",
+      "text": "Cloture on the motion to concur in the House amendment to the Senate amendment to H.R. 4346 with an amendment (SA 5135) invoked in Senate by Yea-Nay Vote. 64 - 32. Record Vote Number: 268. (CR S3665)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-07-21",
+      "text": "Considered by Senate (Message from the House considered). (consideration: CR S3582)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-07-20",
+      "text": "Cloture motion on the motion to concur in the House amendment to the Senate amendment to H.R. 4346 with an amendment (SA 5135) presented in Senate. (CR S3527)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-07-20",
+      "text": "Considered by Senate (Message from the House considered). (consideration: CR S3527)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-07-19",
+      "text": "Motion by Senator Schumer to refer to Senate Committee on Commerce, Science, and Transportation the House message to accompany H.R. 4346 with instructions to report back forthwith with the following amendment (SA 5137) made in Senate. (CR S3362)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-07-19",
+      "text": "Motion by Senator Schumer to concur in the House amendment to the Senate amendment to H.R. 4346 with an amendment (SA 5135) made in Senate. (CR S3362)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-07-19",
+      "text": "Measure laid before Senate by motion. (consideration: CR S3362)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-07-19",
+      "text": "Motion to proceed to consideration of the House message to accompany H.R. 4346 agreed to in Senate by Yea-Nay Vote. 64 - 34. Record Vote Number: 261.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-07-11",
+      "text": "Message on House action received in Senate and at desk: House amendment to Senate amendment.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-06-24",
+      "text": "Pursuant to the provisions of H.Res. 1204, the House agreed to the Senate amendment with amendment. (consideration: CR H5891; text: CR H5891-5892)",
+      "type": "Floor",
+      "actionCode": "H1B000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-06-22",
+      "text": "Message on Senate action sent to the House.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-06-22",
+      "text": "Passed Senate with an amendment by Unanimous Consent. (text of amendment in the nature of a substitute: CR S3096-3097)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-06-22",
+      "text": "Passed/agreed to in Senate: Passed Senate with an amendment by Unanimous Consent.",
+      "type": "Floor",
+      "actionCode": "17000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-06-22",
+      "text": "Measure laid before Senate by unanimous consent. (consideration: CR S3096-3097)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-06-22",
+      "text": "Senate Committee on Appropriations discharged by Unanimous Consent.",
+      "type": "Discharge",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-06-22",
+      "text": "Senate Committee on Appropriations discharged by Unanimous Consent.",
+      "type": "Committee",
+      "actionCode": "14500",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2021-07-29",
+      "text": "Received in the Senate and Read twice and referred to the Committee on Appropriations.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-07-28",
+      "text": "The Clerk was authorized to correct section numbers, punctuation, and cross references, and to make other necessary technical and conforming corrections in the engrossment of H.R. 4346.",
+      "type": "Floor",
+      "actionCode": "H38900",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-28",
+      "text": "Motion to reconsider laid on the table Agreed to without objection.",
+      "type": "Floor",
+      "actionCode": "H38310",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-28",
+      "text": "On passage Passed by the Yeas and Nays: 215 - 207 (Roll no. 239).",
+      "type": "Floor",
+      "actionCode": "H37100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-28",
+      "text": "Passed/agreed to in House: On passage Passed by the Yeas and Nays: 215 - 207 (Roll no. 239).",
+      "type": "Floor",
+      "actionCode": "8000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2021-07-28",
+      "text": "On motion to recommit Failed by the Yeas and Nays: 202 - 218 (Roll no. 238).",
+      "type": "Floor",
+      "actionCode": "H36210",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-28",
+      "text": "The previous question on the motion to recommit was ordered pursuant to clause 2(b) of rule XIX.",
+      "type": "Floor",
+      "actionCode": "H8A000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-28",
+      "text": "Mr. Womack moved to recommit to the Committee on Appropriations. (text: CR H4169-4171)",
+      "type": "Floor",
+      "actionCode": "H36200",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-28",
+      "text": "The previous question was ordered pursuant to the rule.",
+      "type": "Floor",
+      "actionCode": "H35000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-28",
+      "text": "Motion to reconsider laid on the table. Agreed to without objection.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-28",
+      "text": "Motion to reconsider laid on the table. Agreed to without objection.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-28",
+      "text": "UNFINISHED BUSINESS - The Chair announced that the unfinished business was on agreeing to amendments which had been debated earlier and on which further proceedings had been postponed.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-28",
+      "text": "POSTPONED PROCEEDINGS - At the conclusion of debate on the Ryan amendment en bloc No. 3, the Chair put the question on adoption of the amendment and by voice vote, announced that the ayes had prevailed. Mr. Ryan demanded the yeas and nays and the Chair postponed further proceedings until a time to be announced.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-28",
+      "text": "DEBATE - Pursuant to the provisions of H. Res 567, the House proceeded with 20 minutes of debate on the Ryan amendment en bloc No. 3.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-28",
+      "text": "Motion to reconsider laid on the table. Agreed to without objection.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-28",
+      "text": "The previous question was ordered on the amendment (A003) pursuant to the rule.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-28",
+      "text": "DEBATE - Pursuant to the provisions of H. Res 567, the House proceeded with 20 minutes of debate on the Ryan amendment en bloc No. 2.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-28",
+      "text": "POSTPONED PROCEEDINGS - At the conclusion of debate on the Ryan amendment en bloc No. 1, the Chair put the question on adoption of the amendment and by voice vote, announced that the ayes had prevailed. Ms. Herrera Beutler demanded the yeas and nays and the Chair postponed further proceedings until a time to be announced.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-28",
+      "text": "DEBATE - Pursuant to the provisions of H. Res 567, the House proceeded with 20 minutes of debate on the Ryan amendment en bloc No. 1.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-28",
+      "text": "DEBATE - The House proceeded with one hour of debate on H.R. 4346.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-28",
+      "text": "Rule provides for consideration of H.R. 4346, H.R. 4373 and H.R. 4505. Provides for consideration of H.R. 4346, H.R. 4373, and H.R. 4505 under a structured rule with one hour of general debate for each bill.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-28",
+      "text": "Considered under the provisions of rule H. Res. 567. (consideration: CR H4151-4172; text: CR H4152-4158)",
+      "type": "Floor",
+      "actionCode": "H30000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-28",
+      "text": "Rules Committee Resolution H. Res. 567 Reported to House. Rule provides for consideration of H.R. 4346, H.R. 4373 and H.R. 4505. Provides for consideration of H.R. 4346, H.R. 4373, and H.R. 4505 under a structured rule with one hour of general debate for each bill.",
+      "type": "Floor",
+      "actionCode": "H1L210",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-01",
+      "text": "Placed on the Union Calendar, Calendar No. 55.",
+      "type": "Calendars",
+      "actionCode": "H12410",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-01",
+      "text": "The House Committee on Appropriations reported an original measure, H. Rept. 117-80, by Mr. Ryan.",
+      "type": "Committee",
+      "actionCode": "H12100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-01",
+      "text": "The House Committee on Appropriations reported an original measure, H. Rept. 117-80, by Mr. Ryan.",
+      "type": "Committee",
+      "actionCode": "5000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2021-07-01",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "cosponsors": [],
+  "_metadata_sources": {
+    "xml": "govinfo bulk-data (unauthenticated)",
+    "billstatus": "govinfo BILLSTATUS bulk-data (unauthenticated)",
+    "congress_gov_enriched": false
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "bill_id": "119-hr-6159",
+  "fetched_at": "2026-06-12T05:37:05.112625+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr6159.xml",
+  "title": "AI for ALL Act",
+  "policy_area": "Science, Technology, Communications",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "R000620",
+    "fullName": "Rep. Rivas, Luz M. [D-CA-29]",
+    "firstName": "Luz",
+    "lastName": "Rivas",
+    "party": "D",
+    "state": "CA",
+    "district": "29"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "F000110",
+      "fullName": "Rep. Fields, Cleo [D-LA-6]",
+      "firstName": "Cleo",
+      "lastName": "Fields",
+      "party": "D",
+      "state": "LA",
+      "district": "6",
+      "sponsorshipDate": "2025-11-19",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "W000831",
+      "fullName": "Rep. Walkinshaw, James R. [D-VA-11]",
+      "firstName": "James",
+      "lastName": "Walkinshaw",
+      "party": "D",
+      "state": "VA",
+      "district": "11",
+      "sponsorshipDate": "2025-11-19",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "T000488",
+      "fullName": "Rep. Thanedar, Shri [D-MI-13]",
+      "firstName": "Shri",
+      "lastName": "Thanedar",
+      "party": "D",
+      "state": "MI",
+      "district": "13",
+      "sponsorshipDate": "2025-11-19",
+      "isOriginalCosponsor": "True"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2025-11-19",
+      "text": "Referred to the House Committee on Science, Space, and Technology.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-11-19",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2025-11-19",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2025-11-18",
+      "text": "Sponsor introductory remarks on measure. (CR H4714)",
+      "type": "IntroReferral",
+      "actionCode": "B00100",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2025-11-19",
+      "text": "Referred to the House Committee on Science, Space, and Technology."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}
