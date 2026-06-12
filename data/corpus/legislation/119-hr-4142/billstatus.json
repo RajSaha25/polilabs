@@ -1,0 +1,86 @@
+{
+  "bill_id": "119-hr-4142",
+  "fetched_at": "2026-06-10T02:57:31.984298+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr4142.xml",
+  "title": "No Adversarial AI Act",
+  "policy_area": "Government Operations and Politics",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "M001194",
+    "fullName": "Rep. Moolenaar, John R. [R-MI-2]",
+    "firstName": "John",
+    "lastName": "Moolenaar",
+    "party": "R",
+    "state": "MI",
+    "district": "2"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "K000391",
+      "fullName": "Rep. Krishnamoorthi, Raja [D-IL-8]",
+      "firstName": "Raja",
+      "lastName": "Krishnamoorthi",
+      "party": "D",
+      "state": "IL",
+      "district": "8",
+      "sponsorshipDate": "2025-06-25",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "L000585",
+      "fullName": "Rep. LaHood, Darin [R-IL-16]",
+      "firstName": "Darin",
+      "lastName": "LaHood",
+      "party": "R",
+      "state": "IL",
+      "district": "16",
+      "sponsorshipDate": "2025-06-25",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "T000486",
+      "fullName": "Rep. Torres, Ritchie [D-NY-15]",
+      "firstName": "Ritchie",
+      "lastName": "Torres",
+      "party": "D",
+      "state": "NY",
+      "district": "15",
+      "sponsorshipDate": "2025-06-25",
+      "isOriginalCosponsor": "True"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2025-06-25",
+      "text": "Referred to the House Committee on Oversight and Government Reform.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-06-25",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2025-06-25",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2025-06-25",
+      "text": "Referred to the House Committee on Oversight and Government Reform."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

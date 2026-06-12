@@ -1,0 +1,513 @@
+{
+  "bill_id": "117-hr-7776",
+  "congress": 117,
+  "bill_type": "hr",
+  "bill_number": 7776,
+  "title": "James M. Inhofe National Defense Authorization Act for Fiscal Year 2023",
+  "short_title": "James M. Inhofe National Defense Authorization Act for Fiscal Year 2023",
+  "sponsor": "Rep. DeFazio, Peter A. [D-OR-4]",
+  "introduced_date": "2022-05-16",
+  "latest_action": "2022-12-23: Became Public Law No: 117-263.",
+  "policy_area": "Armed Forces and National Security",
+  "subjects": [
+    "Alternative and renewable resources",
+    "Aquatic ecology",
+    "Arizona",
+    "Atmospheric science and weather",
+    "California",
+    "Cardiovascular and respiratory health",
+    "Caribbean area",
+    "Colorado",
+    "Congressional oversight",
+    "Connecticut",
+    "Dams and canals",
+    "District of Columbia",
+    "Electric power generation and transmission",
+    "Emergency medical services and trauma care",
+    "Everglades",
+    "Federal-Indian relations",
+    "Floods and storm protection",
+    "Florida",
+    "Geography and mapping",
+    "Georgia",
+    "Government information and archives",
+    "Government studies and investigations",
+    "Hawaii",
+    "Hazardous wastes and toxic substances",
+    "Illinois",
+    "Indian lands and resources rights",
+    "Indiana",
+    "Infectious and parasitic diseases",
+    "Infrastructure development",
+    "Iowa",
+    "Kansas",
+    "Lakes and rivers",
+    "Land use and conservation",
+    "Louisiana",
+    "Marine and coastal resources, fisheries",
+    "Marine and inland water transportation",
+    "Maryland",
+    "Massachusetts",
+    "Michigan",
+    "Military education and training",
+    "Military personnel and dependents",
+    "Minnesota",
+    "Mississippi",
+    "Mississippi River",
+    "Missouri",
+    "Missouri River",
+    "National Guard and reserves",
+    "Natural disasters",
+    "Navigation, waterways, harbors",
+    "Nebraska",
+    "New Hampshire",
+    "New Jersey",
+    "New Mexico",
+    "New York City",
+    "New York State",
+    "Ohio",
+    "Oregon",
+    "Outdoor recreation",
+    "Pennsylvania",
+    "Poverty and welfare assistance",
+    "Puerto Rico",
+    "Research administration and funding",
+    "Research and development",
+    "Rhode Island",
+    "Solid waste and recycling",
+    "South Carolina",
+    "South Dakota",
+    "Tennessee",
+    "Texas",
+    "Transportation programs funding",
+    "U.S. territories and protectorates",
+    "Virgin Islands",
+    "Virginia",
+    "Washington State",
+    "Water Resources Development",
+    "Water quality",
+    "Water resources funding",
+    "Water storage",
+    "Water use and supply",
+    "Watersheds"
+  ],
+  "summary_text": null,
+  "centrality_score": null,
+  "match_locations": {},
+  "tier": "A",
+  "stream": "legislation",
+  "topic": "secret_congress",
+  "cluster": "omnibus_vehicle",
+  "curator_note": "PL 117-263. Introduced as the Water Resources Development Act of 2022, became the James M. Inhofe NDAA and carried WRDA to enactment \u2014 the water-infrastructure exemplar travelling inside a must-pass vehicle.",
+  "versions_available": [
+    {
+      "package_id": "BILLS-117hr7776enr",
+      "version_code": "enr",
+      "date_issued": "2022-05-16"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-117hr7776enr",
+    "version_code": "enr",
+    "date_issued": "2022-05-16"
+  },
+  "actions": [
+    {
+      "actionDate": "2022-12-23",
+      "text": "Became Public Law No: 117-263.",
+      "type": "President",
+      "actionCode": "E40000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-12-23",
+      "text": "Became Public Law No: 117-263.",
+      "type": "BecameLaw",
+      "actionCode": "36000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-12-23",
+      "text": "Signed by President.",
+      "type": "President",
+      "actionCode": "E30000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-12-23",
+      "text": "Signed by President.",
+      "type": "BecameLaw",
+      "actionCode": "36000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-12-22",
+      "text": "Presented to President.",
+      "type": "Floor",
+      "actionCode": "E20000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-12-22",
+      "text": "Presented to President.",
+      "type": "President",
+      "actionCode": "28000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-12-16",
+      "text": "Message on Senate action sent to the House.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-12-15",
+      "text": "Senate agreed, under the order of 12/15/22, having achieved 60 votes in the affirmative, to the House amendment to the Senate amendment to H.R. 7776 by Yea-Nay Vote. 83 - 11. Record Vote Number: 396.",
+      "type": "ResolvingDifferences",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-12-15",
+      "text": "Resolving differences -- Senate actions: Senate agreed, under the order of 12/15/22, having achieved 60 votes in the affirmative, to the House amendment to the Senate amendment to H.R. 7776 by Yea-Nay Vote. 83 - 11. Record Vote Number: 396.",
+      "type": "NotUsed",
+      "actionCode": "20500",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-12-15",
+      "text": "Motion by Senator Johnson to concur in the House amendment to the Senate amendment to H.R. 7776 with an amendment (SA 6526) under the order of 12/15/22, not having achieved 60 votes in the affirmative, was not agreed to by Yea-Nay Vote. 40 - 54. Record Vote Number: 395.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-12-15",
+      "text": "Motion by Senator Johnson to concur in the House amendment to the Senate amendment to H.R. 7776 with an amendment (SA 6526) made in Senate. (CR S7233)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-12-15",
+      "text": "Schumer motion to concur in the House amendment to the Senate amendment to H.R. 7776 with an amendment SA 6513 withdrawn by Unanimous Consent. (consideration: CR S7230-7233)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-12-15",
+      "text": "Cloture on the motion by Senator Schumer to concur in the House Amendment to H.R. 7776 with an amendment (SA 6513), cloture not invoked in Senate by Yea-Nay Vote. 47 - 47. Record Vote Number: 394.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-12-15",
+      "text": "Motion by Senator Schumer to refer to Senate Committee on Armed Services the House message to accompany H.R. 7776 with instructions to report back forthwith with the following amendment (SA 6516) withdrawn in Senate by Unanimous Consent. (consideration: CR S7213)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-12-15",
+      "text": "Motion by Senator Sullivan to concur in the House amendment to the Senate amendment to H.R. 7776 with an amendment (SA 6522) withdrawn by Unanimous Consent. (consideration: CR S7227-7230)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-12-15",
+      "text": "Motion by Senator Sullivan to concur in the House amendment to the Senate amendment to H.R. 7776 with an amendment (SA 6522) made in Senate. (CR S7227)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-12-15",
+      "text": "Considered by Senate (Message from the House considered). (consideration: CR S7213-7219, S7226-7237)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-12-14",
+      "text": "Cloture motion on the motion to concur in the House amendment to the Senate amendment to H.R. 7776 presented in Senate.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-12-14",
+      "text": "Cloture motion on the motion to concur in the House amendment to the Senate amendment to H.R. 7776 with an amendment SA 6513 presented in Senate.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-12-14",
+      "text": "Considered by Senate (Message from the House considered). (consideration: CR S7184-7185)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-12-13",
+      "text": "Motion by Senator Schumer to refer to Senate Committee on Armed Services the House message to accompany H.R. 7776 with instructions to report back forthwith with the following amendment (SA 6516) made in Senate.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-12-13",
+      "text": "Motion by Senator Schumer to concur in the House amendment to the Senate amendment to H.R. 7776 with an amendment (SA 6513) made in Senate. (CR S7148)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-12-13",
+      "text": "Motion by Senator Schumer to concur in the House amendment to the Senate amendment to H.R. 7776 made in Senate. (CR S7148)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-12-13",
+      "text": "Measure laid before Senate by unanimous consent. (consideration: CR S7148)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-12-13",
+      "text": "Message on House action received in Senate and at desk: House amendment to Senate amendment.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-12-08",
+      "text": "Pursuant to the provisions of H.Res. 1512, the House agreed to the Senate amendment with an amendment.",
+      "type": "Floor",
+      "actionCode": "H1B000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-12-08",
+      "text": "Resolving differences -- House actions: Pursuant to the provisions of H.Res. 1512, the House agreed to the Senate amendment with an amendment.",
+      "type": "NotUsed",
+      "actionCode": "19500",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-12-08",
+      "text": "Pursuant to the provisions of H. Con. Res. 121, enrollment corrections on H.R. 7776 have been made.",
+      "type": "Floor",
+      "actionCode": "H1B000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-07-28",
+      "text": "Message on Senate action sent to the House.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-07-28",
+      "text": "Passed Senate, under the order of 7/20/2022, having achieved 60 votes in the affirmative, with an amendment by Yea-Nay Vote. 93 - 1. Record Vote Number: 273. (text: CR S3756)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-07-28",
+      "text": "Passed/agreed to in Senate: Passed Senate, under the order of 7/20/2022, having achieved 60 votes in the affirmative, with an amendment by Yea-Nay Vote. 93 - 1. Record Vote Number: 273.(text: CR S3756)",
+      "type": "Floor",
+      "actionCode": "17000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-07-28",
+      "text": "Measure laid before Senate by unanimous consent. (consideration: CR S3756-3761)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-06-09",
+      "text": "Received in the Senate. Read twice. Placed on Senate Legislative Calendar under General Orders. Calendar No. 399.",
+      "type": "Calendars",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-06-08",
+      "text": "Motion to reconsider laid on the table Agreed to without objection.",
+      "type": "Floor",
+      "actionCode": "H38310",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-06-08",
+      "text": "On motion to suspend the rules and pass the bill, as amended Agreed to by the Yeas and Nays: (2/3 required): 384 - 37 (Roll no. 253). (text: 06/07/2022 CR H5262-5289)",
+      "type": "Floor",
+      "actionCode": "H37300",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-06-08",
+      "text": "Passed/agreed to in House: On motion to suspend the rules and pass the bill, as amended Agreed to by the Yeas and Nays: (2/3 required): 384 - 37 (Roll no. 253).(text: 06/07/2022 CR H5262-5289)",
+      "type": "Floor",
+      "actionCode": "8000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-06-08",
+      "text": "Considered as unfinished business. (consideration: CR H5402)",
+      "type": "Floor",
+      "actionCode": "H30000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-06-07",
+      "text": "At the conclusion of debate, the Yeas and Nays were demanded and ordered. Pursuant to the provisions of clause 8, rule XX, the Chair announced that further proceedings on the motion would be postponed.",
+      "type": "Floor",
+      "actionCode": "H37220",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-06-07",
+      "text": "DEBATE - The House proceeded with forty minutes of debate on H.R. 7776.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-06-07",
+      "text": "Considered under suspension of the rules. (consideration: CR H5262-5296)",
+      "type": "Floor",
+      "actionCode": "H30000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-06-07",
+      "text": "Mr. DeFazio moved to suspend the rules and pass the bill, as amended.",
+      "type": "Floor",
+      "actionCode": "H30300",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-06-07",
+      "text": "Placed on the Union Calendar, Calendar No. 261.",
+      "type": "Calendars",
+      "actionCode": "H12410",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-06-07",
+      "text": "Reported (Amended) by the Committee on Transportation and Infrastructure. H. Rept. 117-347.",
+      "type": "Committee",
+      "actionCode": "H12200",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-06-07",
+      "text": "Reported (Amended) by the Committee on Transportation and Infrastructure. H. Rept. 117-347.",
+      "type": "Committee",
+      "actionCode": "5000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-05-18",
+      "text": "Ordered to be Reported (Amended) by Voice Vote.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2022-05-18",
+      "text": "Committee Consideration and Mark-up Session Held.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2022-05-18",
+      "text": "Subcommittee on Water Resources and Environment Discharged.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2022-05-17",
+      "text": "Referred to the Subcommittee on Water Resources and Environment.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2022-05-16",
+      "text": "Referred to the House Committee on Transportation and Infrastructure.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-05-16",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-05-16",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "cosponsors": [
+    {
+      "bioguideId": "G000546",
+      "fullName": "Rep. Graves, Sam [R-MO-6]",
+      "firstName": "SAM",
+      "lastName": "GRAVES",
+      "party": "R",
+      "state": "MO",
+      "district": "6",
+      "sponsorshipDate": "2022-05-16",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "N000179",
+      "fullName": "Rep. Napolitano, Grace F. [D-CA-32]",
+      "firstName": "GRACE",
+      "lastName": "NAPOLITANO",
+      "party": "D",
+      "state": "CA",
+      "district": "32",
+      "sponsorshipDate": "2022-05-16",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "R000603",
+      "fullName": "Rep. Rouzer, David [R-NC-7]",
+      "firstName": "David",
+      "lastName": "Rouzer",
+      "party": "R",
+      "state": "NC",
+      "district": "7",
+      "sponsorshipDate": "2022-05-16",
+      "isOriginalCosponsor": "True"
+    }
+  ],
+  "_metadata_sources": {
+    "xml": "govinfo bulk-data (unauthenticated)",
+    "billstatus": "govinfo BILLSTATUS bulk-data (unauthenticated)",
+    "congress_gov_enriched": false
+  }
+}

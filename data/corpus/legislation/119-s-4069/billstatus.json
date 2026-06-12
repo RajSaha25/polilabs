@@ -1,0 +1,57 @@
+{
+  "bill_id": "119-s-4069",
+  "fetched_at": "2026-06-10T02:57:57.798807+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/s/BILLSTATUS-119s4069.xml",
+  "title": "AI-Ready Bio-Data Standards Act",
+  "policy_area": "Science, Technology, Communications",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "Y000064",
+    "fullName": "Sen. Young, Todd [R-IN]",
+    "firstName": "Todd",
+    "lastName": "Young",
+    "party": "R",
+    "state": "IN",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "L000570",
+      "fullName": "Sen. Luj\u00e1n, Ben Ray [D-NM]",
+      "firstName": "Ben",
+      "lastName": "Luj\u00e1n",
+      "party": "D",
+      "state": "NM",
+      "district": null,
+      "sponsorshipDate": "2026-03-12",
+      "isOriginalCosponsor": "True"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2026-03-12",
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2026-03-12",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2026-03-12",
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

@@ -1,0 +1,45 @@
+{
+  "bill_id": "118-s-4758",
+  "fetched_at": "2026-06-10T02:57:22.744102+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/s/BILLSTATUS-118s4758.xml",
+  "title": "A bill to require the Secretary of Defense to carry out a pilot program on using artificial intelligence-enabled software to optimize the workflow and operations of depots, shipyards, and other manufacturing facilities run by the Department of Defense, and for other purposes.",
+  "policy_area": "Armed Forces and National Security",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "R000605",
+    "fullName": "Sen. Rounds, Mike [R-SD]",
+    "firstName": "Mike",
+    "lastName": "Rounds",
+    "party": "R",
+    "state": "SD",
+    "district": null
+  },
+  "cosponsors": [],
+  "actions": [
+    {
+      "actionDate": "2024-07-24",
+      "text": "Read twice and referred to the Committee on Armed Services.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-07-24",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "died_in_committee",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2024-07-24",
+      "text": "Read twice and referred to the Committee on Armed Services."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

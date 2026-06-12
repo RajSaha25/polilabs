@@ -1,0 +1,97 @@
+{
+  "bill_id": "118-hr-6881",
+  "fetched_at": "2026-06-10T02:56:58.103645+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/hr/BILLSTATUS-118hr6881.xml",
+  "title": "AI Foundation Model Transparency Act of 2023",
+  "policy_area": "Commerce",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "B001292",
+    "fullName": "Rep. Beyer, Donald S., Jr. [D-VA-8]",
+    "firstName": "Donald",
+    "lastName": "Beyer",
+    "party": "D",
+    "state": "VA",
+    "district": "8"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "E000215",
+      "fullName": "Rep. Eshoo, Anna G. [D-CA-16]",
+      "firstName": "ANNA",
+      "lastName": "ESHOO",
+      "party": "D",
+      "state": "CA",
+      "district": "16",
+      "sponsorshipDate": "2023-12-22",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "M000312",
+      "fullName": "Rep. McGovern, James P. [D-MA-2]",
+      "firstName": "James",
+      "lastName": "McGovern",
+      "party": "D",
+      "state": "MA",
+      "district": "2",
+      "sponsorshipDate": "2024-04-19",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "E000297",
+      "fullName": "Rep. Espaillat, Adriano [D-NY-13]",
+      "firstName": "Adriano",
+      "lastName": "Espaillat",
+      "party": "D",
+      "state": "NY",
+      "district": "13",
+      "sponsorshipDate": "2024-05-21",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "T000481",
+      "fullName": "Rep. Tlaib, Rashida [D-MI-12]",
+      "firstName": "Rashida",
+      "lastName": "Tlaib",
+      "party": "D",
+      "state": "MI",
+      "district": "12",
+      "sponsorshipDate": "2024-05-22",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2023-12-22",
+      "text": "Referred to the House Committee on Energy and Commerce.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-12-22",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2023-12-22",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "died_in_committee",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2023-12-22",
+      "text": "Referred to the House Committee on Energy and Commerce."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

@@ -1,0 +1,97 @@
+{
+  "bill_id": "119-hr-5885",
+  "fetched_at": "2026-06-10T02:57:36.137666+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr5885.xml",
+  "title": "GAIN AI Act of 2025",
+  "policy_area": "Foreign Trade and International Finance",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "M001194",
+    "fullName": "Rep. Moolenaar, John R. [R-MI-2]",
+    "firstName": "John",
+    "lastName": "Moolenaar",
+    "party": "R",
+    "state": "MI",
+    "district": "2"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "K000391",
+      "fullName": "Rep. Krishnamoorthi, Raja [D-IL-8]",
+      "firstName": "Raja",
+      "lastName": "Krishnamoorthi",
+      "party": "D",
+      "state": "IL",
+      "district": "8",
+      "sponsorshipDate": "2025-10-31",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "M001224",
+      "fullName": "Rep. Moran, Nathaniel [R-TX-1]",
+      "firstName": "Nathaniel",
+      "lastName": "Moran",
+      "party": "R",
+      "state": "TX",
+      "district": "1",
+      "sponsorshipDate": "2025-11-12",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "G000583",
+      "fullName": "Rep. Gottheimer, Josh [D-NJ-5]",
+      "firstName": "Josh",
+      "lastName": "Gottheimer",
+      "party": "D",
+      "state": "NJ",
+      "district": "5",
+      "sponsorshipDate": "2025-11-17",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "C001087",
+      "fullName": "Rep. Crawford, Eric A. \"Rick\" [R-AR-1]",
+      "firstName": "Eric",
+      "lastName": "Crawford",
+      "party": "R",
+      "state": "AR",
+      "district": "1",
+      "sponsorshipDate": "2025-11-18",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2025-10-31",
+      "text": "Referred to the House Committee on Foreign Affairs.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-10-31",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2025-10-31",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2025-10-31",
+      "text": "Referred to the House Committee on Foreign Affairs."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

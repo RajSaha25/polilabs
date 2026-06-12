@@ -1,0 +1,93 @@
+{
+  "bill_id": "119-hr-8479",
+  "fetched_at": "2026-06-10T02:57:46.070993+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr8479.xml",
+  "title": "Protecting Consumers from Deceptive AI Act",
+  "policy_area": "Science, Technology, Communications",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "F000477",
+    "fullName": "Rep. Foushee, Valerie P. [D-NC-4]",
+    "firstName": "Valerie",
+    "lastName": "Foushee",
+    "party": "D",
+    "state": "NC",
+    "district": "4"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "B001292",
+      "fullName": "Rep. Beyer, Donald S. [D-VA-8]",
+      "firstName": "Donald",
+      "lastName": "Beyer",
+      "party": "D",
+      "state": "VA",
+      "district": "8",
+      "sponsorshipDate": "2026-04-23",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "M001219",
+      "fullName": "Del. Moylan, James C. [R-GU-At Large]",
+      "firstName": "James",
+      "lastName": "Moylan",
+      "party": "R",
+      "state": "GU",
+      "district": "0",
+      "sponsorshipDate": "2026-04-23",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "F000466",
+      "fullName": "Rep. Fitzpatrick, Brian K. [R-PA-1]",
+      "firstName": "Brian",
+      "lastName": "Fitzpatrick",
+      "party": "R",
+      "state": "PA",
+      "district": "1",
+      "sponsorshipDate": "2026-05-12",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2026-04-23",
+      "text": "Referred to the Committee on Energy and Commerce, and in addition to the Committee on Science, Space, and Technology, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2026-04-23",
+      "text": "Referred to the Committee on Energy and Commerce, and in addition to the Committee on Science, Space, and Technology, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2026-04-23",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2026-04-23",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2026-04-23",
+      "text": "Referred to the Committee on Energy and Commerce, and in addition to the Committee on Science, Space, and Technology, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

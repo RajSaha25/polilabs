@@ -254,3 +254,58 @@ queries:
         - "designed for use by consumers"
       answer_must_cite:
         - "Sec. 2(d)(4) of H.R. 7913, 118th Cong."
+
+  # ----- Passage dynamics (votes, outcomes, bipartisanship — June 2026) -----
+  # Grounded in billstatus.json data; every expected number verified against
+  # the indexed roll-call record at authoring time.
+
+  - id: pd_chips_margins
+    category: passage_dynamics
+    question: "Did the CHIPS and Science Act pass with bipartisan support? Give the final margins in both chambers."
+    pass_criteria:
+      # Senate concurrence 64-33 (2022-07-27), House concurrence 243-187
+      # (2022-07-28). The 2021 America COMPETES shell votes (215-207) must
+      # not be presented as the CHIPS margins.
+      answer_must_contain:
+        - "64"
+        - "243"
+
+  - id: pd_border_act_failure
+    category: passage_dynamics
+    question: "Why did the Border Act of 2024 fail? Cite the vote record."
+    pass_criteria:
+      # Cloture on the motion to proceed rejected 43-50 (Senate roll 182).
+      answer_must_contain:
+        - "cloture"
+        - "43"
+      answer_must_not_contain:
+        - "vetoed"
+
+  - id: pd_count_117
+    category: passage_dynamics
+    question: "How many bills in the corpus are from the 117th Congress?"
+    pass_criteria:
+      # Exact: 24 (all topics). Tests the count_bills primitive — paginated
+      # search counting historically undercounts here.
+      answer_must_contain:
+        - "24"
+
+  - id: pd_failed_cloture_set
+    category: passage_dynamics
+    question: "Which bills in the secret_congress corpus failed cloture?"
+    pass_criteria:
+      bill_id_set:
+        - "118-s-4361"   # Border Act of 2024
+        - "117-s-4822"   # DISCLOSE Act of 2022
+        - "118-hr-7024"  # Tax Relief for American Families and Workers Act
+
+  - id: pd_kosa_vehicle_trap
+    category: passage_dynamics
+    question: "Did the Kids Online Safety Act (S. 1409, 118th Congress) receive a Senate floor vote?"
+    pass_criteria:
+      # Trap: the famous 91-3 vote was on the S. 2073 vehicle (Kids Online
+      # Safety and Privacy Act). S. 1409 itself was reported from Commerce
+      # and never voted. The agent must surface the vehicle nuance, not
+      # attribute 91-3 to S. 1409 directly.
+      answer_must_contain:
+        - "2073"

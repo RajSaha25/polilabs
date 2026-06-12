@@ -1,0 +1,433 @@
+{
+  "bill_id": "117-s-3373",
+  "congress": 117,
+  "bill_type": "s",
+  "bill_number": 3373,
+  "title": "Sergeant First Class Heath Robinson Honoring our Promise to Address Comprehensive Toxics Act of 2022",
+  "short_title": "Sergeant First Class Heath Robinson Honoring our Promise to Address Comprehensive Toxics Act of 2022",
+  "sponsor": "Sen. Kaine, Tim [D-VA]",
+  "introduced_date": "2021-12-09",
+  "latest_action": "2022-08-10: Became Public Law No: 117-168.",
+  "policy_area": "Armed Forces and National Security",
+  "subjects": [
+    "Afghanistan",
+    "Asia",
+    "Conflicts and wars",
+    "Education",
+    "Higher education",
+    "Iraq",
+    "Legislative rules and procedure",
+    "Middle East",
+    "Military personnel and dependents",
+    "Student aid and college costs",
+    "Veterans' medical care"
+  ],
+  "summary_text": null,
+  "centrality_score": null,
+  "match_locations": {},
+  "tier": "A",
+  "stream": "legislation",
+  "topic": "secret_congress",
+  "cluster": "quiet_bipartisan_law",
+  "curator_note": "Enacted PL 117-168. Largest veterans-benefits expansion in decades; final Senate vote 86-11 after a brief, loud procedural blockade \u2014 the exception that tests the salience rule.",
+  "versions_available": [
+    {
+      "package_id": "BILLS-117s3373enr",
+      "version_code": "enr",
+      "date_issued": "2021-12-09"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-117s3373enr",
+    "version_code": "enr",
+    "date_issued": "2021-12-09"
+  },
+  "actions": [
+    {
+      "actionDate": "2022-08-10",
+      "text": "Became Public Law No: 117-168.",
+      "type": "President",
+      "actionCode": "E40000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-08-10",
+      "text": "Became Public Law No: 117-168.",
+      "type": "BecameLaw",
+      "actionCode": "36000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-08-10",
+      "text": "Signed by President.",
+      "type": "President",
+      "actionCode": "E30000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-08-10",
+      "text": "Signed by President.",
+      "type": "BecameLaw",
+      "actionCode": "36000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-08-09",
+      "text": "Presented to President.",
+      "type": "Floor",
+      "actionCode": "E20000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-08-09",
+      "text": "Presented to President.",
+      "type": "President",
+      "actionCode": "28000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-08-03",
+      "text": "Message on Senate action sent to the House.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-08-02",
+      "text": "Senate agreed to the House amendment to S. 3373, under the order of 8/2/2022, having achieved 60 votes in the affirmative by Yea-Nay Vote. 86 - 11. Record Vote Number: 280.",
+      "type": "ResolvingDifferences",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-08-02",
+      "text": "Resolving differences -- Senate actions: Senate agreed to the House amendment to S. 3373, under the order of 8/2/2022, having achieved 60 votes in the affirmative by Yea-Nay Vote. 86 - 11. Record Vote Number: 280.",
+      "type": "NotUsed",
+      "actionCode": "20500",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-08-02",
+      "text": "Motion by Senator Schumer to concur in the House amendment to S. 3373 with an amendment (SA 5148) withdrawn in Senate.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-08-02",
+      "text": "Motion by Senator Schumer to refer to Senate Committee on Veterans' Affairs the House message to accompany S. 3373 with instructions to report back forthwith with the following amendment (SA 5150) withdrawn in Senate.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-08-02",
+      "text": "Motion by Senator Blackburn to concur in the House Amendment to S. 3373 with an amendment (SA 5185), under the order of 8/2/22, not having achieved 60 votes in the affirmative, was not agreed to by Yea-Nay Vote. 48 - 47. Record Vote Number: 279.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-08-02",
+      "text": "Motion by Senator Blackburn to concur in the House Amendment to S. 3373 with an amendment (SA 5185) made in Senate. (CR S3850)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-08-02",
+      "text": "Motion by Senator Toomey to concur in the House Amendment to S. 3373 with an amendment (SA 5186), under the order of 8/2/22, not having achieved 60 votes in the affirmative, was not agreed to by Yea-Nay Vote. 47 - 48. Record Vote Number: 278.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-08-02",
+      "text": "Motion by Senator Paul to concur in the House Amendment to S. 3373 with an amendment (SA 5184), under the order of 8/2/22, not having achieved 60 votes in the affirmative, was not agreed to by Yea-Nay Vote. 7 - 90. Record Vote Number: 277.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-08-02",
+      "text": "Motion by Senator Toomey to concur in the House Amendment to S. 3373 with an amendment (SA 5186) made in Senate. (CR S3848)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-08-02",
+      "text": "Motion by Senator Paul to concur in the House Amendment to S. 3373 with an amendment (SA 5184) made in Senate. (CR S3846)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-08-02",
+      "text": "Considered by Senate (Message from the House considered). (consideration: CR S3845-3852)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-07-27",
+      "text": "Motion by Senator Schumer to reconsider the vote by which cloture on the motion to concur in the House amendment to S. 3373 was not invoked (Record Vote No. 272) entered in Senate.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-07-27",
+      "text": "Cloture on the motion to concur in the House amendment to S. 3373 not invoked in Senate by Yea-Nay Vote. 55 - 42. Record Vote Number: 272.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-07-27",
+      "text": "Considered by Senate (Message from the House considered). (consideration: S3715-3734)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-07-26",
+      "text": "Considered by Senate (Message from the House considered).",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-07-25",
+      "text": "Cloture motion on the motion to concur in the House amendment to S. 3373 presented in Senate.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-07-25",
+      "text": "Considered by Senate (Message from the House considered).",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-07-21",
+      "text": "Motion by Senator Schumer to refer to Senate Committee on Veterans' Affairs the House message to accompany S. 3373 with instructions to report back forthwith with the following amendment (SA 5150) made in Senate. (CR S3596)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-07-21",
+      "text": "Motion by Senator Schumer to concur in the House amendment to S. 3373 with an amendment (SA 5148) made in Senate. (CR S3596)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-07-21",
+      "text": "Motion by Senator Schumer to concur in the House amendment to S. 3373 made in Senate. (CR S3596)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-07-21",
+      "text": "Measure laid before Senate by unanimous consent. (consideration: CR S3596)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-07-14",
+      "text": "Message on House action received in Senate and at desk: House amendment to Senate bill.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-07-13",
+      "text": "Motion to reconsider laid on the table Agreed to without objection.",
+      "type": "Floor",
+      "actionCode": "H38310",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-07-13",
+      "text": "On passage Passed by the Yeas and Nays: 342 - 88 (Roll no. 309). (text: CR H6001-6016)",
+      "type": "Floor",
+      "actionCode": "H37100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-07-13",
+      "text": "Passed/agreed to in House: On passage Passed by the Yeas and Nays: 342 - 88 (Roll no. 309).",
+      "type": "Floor",
+      "actionCode": "8000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-07-13",
+      "text": "On motion to commit Failed by the Yeas and Nays: 208 - 219 (Roll no. 308).",
+      "type": "Floor",
+      "actionCode": "H36210",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-07-13",
+      "text": "Considered as unfinished business. (consideration: CR H6289-6290)",
+      "type": "Floor",
+      "actionCode": "H30000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-07-13",
+      "text": "POSTPONED PROCEEDINGS - The Chair put the question on the Bost motion to commit and by voice vote, announced that the noes had prevailed. Mr. Bost demanded the yeas and nays and the Chair postponed further proceedings until a time to be announced.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-07-13",
+      "text": "The previous question on the motion to commit was ordered pursuant to clause 2(b) of rule XIX.",
+      "type": "Floor",
+      "actionCode": "H8A000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-07-13",
+      "text": "Mr. Bost moved to commit to the Committee on Veterans' Affairs. (text: CR H6024-6025)",
+      "type": "Floor",
+      "actionCode": "H36200",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-07-13",
+      "text": "The previous question was ordered pursuant to the rule.",
+      "type": "Floor",
+      "actionCode": "H35000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-07-13",
+      "text": "DEBATE - The House proceeded with one hour of debate on S. 3373.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-07-13",
+      "text": "Rule provides for consideration of H.R. 7900, S. 3373, H.R. 8296, H.R. 8297 and H.R. 6538 with 1 hour of general debate. Previous question shall be considered as ordered without intervening motions except motion to recommit. Measure will be considered read. Specified amendments are in order.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-07-13",
+      "text": "Considered under the provisions of rule H. Res. 1224. (consideration: CR H6001-6025)",
+      "type": "Floor",
+      "actionCode": "H30000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-07-13",
+      "text": "Rules Committee Resolution H. Res. 1224 Reported to House. Rule provides for consideration of H.R. 7900, S. 3373, H.R. 8296, H.R. 8297 and H.R. 6538 with 1 hour of general debate. Previous question shall be considered as ordered without intervening motions except motion to recommit. Measure will be considered read. Specified amendments are in order.",
+      "type": "Floor",
+      "actionCode": "H1L210",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-02-18",
+      "text": "Held at the desk.",
+      "type": "Floor",
+      "actionCode": "H15000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-02-18",
+      "text": "Received in the House.",
+      "type": "Floor",
+      "actionCode": "H14000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-02-18",
+      "text": "Message on Senate action sent to the House.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-02-17",
+      "text": "Passed Senate without amendment by Unanimous Consent. (text: CR S800-801)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-02-17",
+      "text": "Passed/agreed to in Senate: Passed Senate without amendment by Unanimous Consent.",
+      "type": "Floor",
+      "actionCode": "17000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-02-17",
+      "text": "Senate Committee on Health, Education, Labor, and Pensions discharged by Unanimous Consent. (consideration: CR S800-801)",
+      "type": "Discharge",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-02-17",
+      "text": "Senate Committee on Health, Education, Labor, and Pensions discharged by Unanimous Consent.",
+      "type": "Committee",
+      "actionCode": "14500",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2021-12-09",
+      "text": "Read twice and referred to the Committee on Health, Education, Labor, and Pensions.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-12-09",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "cosponsors": [
+    {
+      "bioguideId": "T000464",
+      "fullName": "Sen. Tester, Jon [D-MT]",
+      "firstName": "Jon",
+      "lastName": "Tester",
+      "party": "D",
+      "state": "MT",
+      "district": null,
+      "sponsorshipDate": "2021-12-09",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "C001113",
+      "fullName": "Sen. Cortez Masto, Catherine [D-NV]",
+      "firstName": "Catherine",
+      "lastName": "Cortez Masto",
+      "party": "D",
+      "state": "NV",
+      "district": null,
+      "sponsorshipDate": "2021-12-09",
+      "isOriginalCosponsor": "True"
+    }
+  ],
+  "_metadata_sources": {
+    "xml": "govinfo bulk-data (unauthenticated)",
+    "billstatus": "govinfo BILLSTATUS bulk-data (unauthenticated)",
+    "congress_gov_enriched": false
+  }
+}

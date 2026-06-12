@@ -1,0 +1,196 @@
+{
+  "bill_id": "118-hr-9497",
+  "fetched_at": "2026-06-10T02:57:09.268392+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/hr/BILLSTATUS-118hr9497.xml",
+  "title": "AI Advancement and Reliability Act of 2024",
+  "policy_area": "Science, Technology, Communications",
+  "subjects": [
+    "Advanced technology and technological innovations",
+    "Computer security and identity theft",
+    "Computers and information technology",
+    "Congressional oversight",
+    "Government studies and investigations",
+    "Public-private cooperation",
+    "Research and development"
+  ],
+  "sponsor": {
+    "bioguideId": "O000019",
+    "fullName": "Rep. Obernolte, Jay [R-CA-23]",
+    "firstName": "Jay",
+    "lastName": "Obernolte",
+    "party": "R",
+    "state": "CA",
+    "district": "23"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "L000582",
+      "fullName": "Rep. Lieu, Ted [D-CA-36]",
+      "firstName": "Ted",
+      "lastName": "Lieu",
+      "party": "D",
+      "state": "CA",
+      "district": "36",
+      "sponsorshipDate": "2024-09-09",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "L000491",
+      "fullName": "Rep. Lucas, Frank D. [R-OK-3]",
+      "firstName": "Frank",
+      "lastName": "Lucas",
+      "party": "R",
+      "state": "OK",
+      "district": "3",
+      "sponsorshipDate": "2024-09-09",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "L000397",
+      "fullName": "Rep. Lofgren, Zoe [D-CA-18]",
+      "firstName": "Zoe",
+      "lastName": "Lofgren",
+      "party": "D",
+      "state": "CA",
+      "district": "18",
+      "sponsorshipDate": "2024-09-09",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "B001287",
+      "fullName": "Rep. Bera, Ami [D-CA-6]",
+      "firstName": "Ami",
+      "lastName": "Bera",
+      "party": "D",
+      "state": "CA",
+      "district": "6",
+      "sponsorshipDate": "2024-09-24",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "B001316",
+      "fullName": "Rep. Burlison, Eric [R-MO-7]",
+      "firstName": "Eric",
+      "lastName": "Burlison",
+      "party": "R",
+      "state": "MO",
+      "district": "7",
+      "sponsorshipDate": "2024-09-27",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "B001292",
+      "fullName": "Rep. Beyer, Donald S. [D-VA-8]",
+      "firstName": "Donald",
+      "lastName": "Beyer",
+      "party": "D",
+      "state": "VA",
+      "district": "8",
+      "sponsorshipDate": "2024-09-27",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "P000616",
+      "fullName": "Rep. Phillips, Dean [D-MN-3]",
+      "firstName": "Dean",
+      "lastName": "Phillips",
+      "party": "D",
+      "state": "MN",
+      "district": "3",
+      "sponsorshipDate": "2024-10-08",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "O000172",
+      "fullName": "Rep. Ocasio-Cortez, Alexandria [D-NY-14]",
+      "firstName": "Alexandria",
+      "lastName": "Ocasio-Cortez",
+      "party": "D",
+      "state": "NY",
+      "district": "14",
+      "sponsorshipDate": "2024-10-08",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "K000401",
+      "fullName": "Rep. Kiley, Kevin [R-CA-3]",
+      "firstName": "Kevin",
+      "lastName": "Kiley",
+      "party": "R",
+      "state": "CA",
+      "district": "3",
+      "sponsorshipDate": "2024-11-01",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "F000454",
+      "fullName": "Rep. Foster, Bill [D-IL-11]",
+      "firstName": "Bill",
+      "lastName": "Foster",
+      "party": "D",
+      "state": "IL",
+      "district": "11",
+      "sponsorshipDate": "2024-12-06",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "N000191",
+      "fullName": "Rep. Neguse, Joe [D-CO-2]",
+      "firstName": "Joe",
+      "lastName": "Neguse",
+      "party": "D",
+      "state": "CO",
+      "district": "2",
+      "sponsorshipDate": "2024-12-20",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2024-09-11",
+      "text": "Ordered to be Reported (Amended) by Voice Vote.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2024-09-11",
+      "text": "Committee Consideration and Mark-up Session Held",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2024-09-09",
+      "text": "Referred to the House Committee on Science, Space, and Technology.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-09-09",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2024-09-09",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "died_in_committee",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2024-09-11",
+      "text": "Ordered to be Reported (Amended) by Voice Vote."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

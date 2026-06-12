@@ -1,0 +1,64 @@
+{
+  "bill_id": "118-hr-7694",
+  "fetched_at": "2026-06-10T02:57:00.354560+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/hr/BILLSTATUS-118hr7694.xml",
+  "title": "No AI Audits Act",
+  "policy_area": "Taxation",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "H001077",
+    "fullName": "Rep. Higgins, Clay [R-LA-3]",
+    "firstName": "Clay",
+    "lastName": "Higgins",
+    "party": "R",
+    "state": "LA",
+    "district": "3"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "B001316",
+      "fullName": "Rep. Burlison, Eric [R-MO-7]",
+      "firstName": "Eric",
+      "lastName": "Burlison",
+      "party": "R",
+      "state": "MO",
+      "district": "7",
+      "sponsorshipDate": "2024-03-15",
+      "isOriginalCosponsor": "True"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2024-03-15",
+      "text": "Referred to the House Committee on Ways and Means.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-03-15",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2024-03-15",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "died_in_committee",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2024-03-15",
+      "text": "Referred to the House Committee on Ways and Means."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

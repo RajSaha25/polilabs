@@ -1,0 +1,119 @@
+{
+  "bill_id": "119-hr-4628",
+  "fetched_at": "2026-06-10T02:57:32.349801+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr4628.xml",
+  "title": "AI Impersonation Prevention Act of 2025",
+  "policy_area": "Crime and Law Enforcement",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "A000381",
+    "fullName": "Rep. Ansari, Yassamin [D-AZ-3]",
+    "firstName": "Yassamin",
+    "lastName": "Ansari",
+    "party": "D",
+    "state": "AZ",
+    "district": "3"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "B001278",
+      "fullName": "Rep. Bonamici, Suzanne [D-OR-1]",
+      "firstName": "Suzanne",
+      "lastName": "Bonamici",
+      "party": "D",
+      "state": "OR",
+      "district": "1",
+      "sponsorshipDate": "2025-07-23",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "C001067",
+      "fullName": "Rep. Clarke, Yvette D. [D-NY-9]",
+      "firstName": "Yvette",
+      "lastName": "Clarke",
+      "party": "D",
+      "state": "NY",
+      "district": "9",
+      "sponsorshipDate": "2025-07-23",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "D000530",
+      "fullName": "Rep. Deluzio, Christopher R. [D-PA-17]",
+      "firstName": "Christopher",
+      "lastName": "Deluzio",
+      "party": "D",
+      "state": "PA",
+      "district": "17",
+      "sponsorshipDate": "2025-07-23",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "H001066",
+      "fullName": "Rep. Horsford, Steven [D-NV-4]",
+      "firstName": "Steven",
+      "lastName": "Horsford",
+      "party": "D",
+      "state": "NV",
+      "district": "4",
+      "sponsorshipDate": "2025-07-23",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "M001234",
+      "fullName": "Rep. Morrison, Kelly [D-MN-3]",
+      "firstName": "Kelly",
+      "lastName": "Morrison",
+      "party": "D",
+      "state": "MN",
+      "district": "3",
+      "sponsorshipDate": "2025-07-23",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "H001098",
+      "fullName": "Rep. Hamadeh, Abraham J. [R-AZ-8]",
+      "firstName": "Abraham",
+      "lastName": "Hamadeh",
+      "party": "R",
+      "state": "AZ",
+      "district": "8",
+      "sponsorshipDate": "2025-09-03",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2025-07-23",
+      "text": "Referred to the House Committee on the Judiciary.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-07-23",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2025-07-23",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2025-07-23",
+      "text": "Referred to the House Committee on the Judiciary."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

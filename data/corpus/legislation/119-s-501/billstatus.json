@@ -1,0 +1,63 @@
+{
+  "bill_id": "119-s-501",
+  "fetched_at": "2026-06-10T02:58:00.756955+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/s/BILLSTATUS-119s501.xml",
+  "title": "Strategy for Public Health Preparedness and Response to Artificial Intelligence Threats",
+  "policy_area": "Health",
+  "subjects": [
+    "Advanced technology and technological innovations",
+    "Chemical and biological weapons",
+    "Congressional oversight",
+    "Emergency planning and evacuation",
+    "Infectious and parasitic diseases"
+  ],
+  "sponsor": {
+    "bioguideId": "B001305",
+    "fullName": "Sen. Budd, Ted [R-NC]",
+    "firstName": "Ted",
+    "lastName": "Budd",
+    "party": "R",
+    "state": "NC",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "M000133",
+      "fullName": "Sen. Markey, Edward J. [D-MA]",
+      "firstName": "Edward",
+      "lastName": "Markey",
+      "party": "D",
+      "state": "MA",
+      "district": null,
+      "sponsorshipDate": "2025-02-10",
+      "isOriginalCosponsor": "True"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2025-02-10",
+      "text": "Read twice and referred to the Committee on Health, Education, Labor, and Pensions.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2025-02-10",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2025-02-10",
+      "text": "Read twice and referred to the Committee on Health, Education, Labor, and Pensions."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

@@ -1,0 +1,112 @@
+{
+  "bill_id": "119-s-1792",
+  "fetched_at": "2026-06-10T02:57:49.737887+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/s/BILLSTATUS-119s1792.xml",
+  "title": "AI Whistleblower Protection Act",
+  "policy_area": "Labor and Employment",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "G000386",
+    "fullName": "Sen. Grassley, Chuck [R-IA]",
+    "firstName": "Chuck",
+    "lastName": "Grassley",
+    "party": "R",
+    "state": "IA",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "C001088",
+      "fullName": "Sen. Coons, Christopher A. [D-DE]",
+      "firstName": "Christopher",
+      "lastName": "Coons",
+      "party": "D",
+      "state": "DE",
+      "district": null,
+      "sponsorshipDate": "2025-05-15",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "B001243",
+      "fullName": "Sen. Blackburn, Marsha [R-TN]",
+      "firstName": "Marsha",
+      "lastName": "Blackburn",
+      "party": "R",
+      "state": "TN",
+      "district": null,
+      "sponsorshipDate": "2025-05-15",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "K000367",
+      "fullName": "Sen. Klobuchar, Amy [D-MN]",
+      "firstName": "Amy",
+      "lastName": "Klobuchar",
+      "party": "D",
+      "state": "MN",
+      "district": null,
+      "sponsorshipDate": "2025-05-15",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "H001089",
+      "fullName": "Sen. Hawley, Josh [R-MO]",
+      "firstName": "Josh",
+      "lastName": "Hawley",
+      "party": "R",
+      "state": "MO",
+      "district": null,
+      "sponsorshipDate": "2025-05-15",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "S001194",
+      "fullName": "Sen. Schatz, Brian [D-HI]",
+      "firstName": "Brian",
+      "lastName": "Schatz",
+      "party": "D",
+      "state": "HI",
+      "district": null,
+      "sponsorshipDate": "2025-05-15",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "S001208",
+      "fullName": "Sen. Slotkin, Elissa [D-MI]",
+      "firstName": "Elissa",
+      "lastName": "Slotkin",
+      "party": "D",
+      "state": "MI",
+      "district": null,
+      "sponsorshipDate": "2025-10-08",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2025-05-15",
+      "text": "Read twice and referred to the Committee on Health, Education, Labor, and Pensions.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2025-05-15",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2025-05-15",
+      "text": "Read twice and referred to the Committee on Health, Education, Labor, and Pensions."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

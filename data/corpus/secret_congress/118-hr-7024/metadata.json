@@ -1,0 +1,262 @@
+{
+  "bill_id": "118-hr-7024",
+  "congress": 118,
+  "bill_type": "hr",
+  "bill_number": 7024,
+  "title": "Tax Relief for American Families and Workers Act of 2024",
+  "short_title": "Tax Relief for American Families and Workers Act of 2024",
+  "sponsor": "Rep. Smith, Jason [R-MO-8]",
+  "introduced_date": "2024-01-17",
+  "latest_action": "2024-08-01: Motion by Senator Schumer to reconsider the vote by which cloture on the motion to proceed to the measure was not invoked (Record Vote No. 230) made in Senate.",
+  "policy_area": "Taxation",
+  "subjects": [
+    "Accidents",
+    "Administrative law and regulatory procedures",
+    "Asia",
+    "Congressional oversight",
+    "Department of the Treasury",
+    "Fires",
+    "Hazardous wastes and toxic substances",
+    "Immigration status and procedures",
+    "Income tax rates",
+    "Low- and moderate-income housing",
+    "Natural disasters",
+    "Ohio",
+    "Property tax",
+    "Railroads",
+    "Taiwan",
+    "Tax treatment of families",
+    "Taxation of foreign income"
+  ],
+  "summary_text": null,
+  "centrality_score": null,
+  "match_locations": {},
+  "tier": "A",
+  "stream": "legislation",
+  "topic": "secret_congress",
+  "cluster": "bipartisan_but_died",
+  "curator_note": "Passed the House 357-70, then failed Senate cloture 48-44 (2024-08-01) as Republicans anticipated better terms after the election \u2014 bipartisan in one chamber, electoral-calendar casualty in the other.",
+  "versions_available": [
+    {
+      "package_id": "BILLS-118hr7024eh",
+      "version_code": "eh",
+      "date_issued": "2024-01-17"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-118hr7024eh",
+    "version_code": "eh",
+    "date_issued": "2024-01-17"
+  },
+  "actions": [
+    {
+      "actionDate": "2024-08-01",
+      "text": "Motion by Senator Schumer to reconsider the vote by which cloture on the motion to proceed to the measure was not invoked (Record Vote No. 230) made in Senate.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-08-01",
+      "text": "Cloture on the motion to proceed to the measure not invoked in Senate by Yea-Nay Vote. 48 - 44. Record Vote Number: 230. (CR S5749)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-08-01",
+      "text": "Motion to proceed to measure considered in Senate. (CR S5723)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-07-29",
+      "text": "Cloture motion on the motion to proceed to the measure presented in Senate. (CR S5541)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-07-29",
+      "text": "Motion to proceed to consideration of measure made in Senate. (CR S5541)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-03-21",
+      "text": "Read the second time. Placed on Senate Legislative Calendar under General Orders. Calendar No. 349.",
+      "type": "Calendars",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-03-20",
+      "text": "Read the first time. Placed on Senate Legislative Calendar under Read the First Time.",
+      "type": "Calendars",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-02-01",
+      "text": "Received in the Senate.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-01-31",
+      "text": "Motion to reconsider laid on the table Agreed to without objection.",
+      "type": "Floor",
+      "actionCode": "H38310",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-01-31",
+      "text": "On motion to suspend the rules and pass the bill, as amended Agreed to by the Yeas and Nays: (2/3 required): 357 - 70 (Roll no. 30). (text: CR H343-350)",
+      "type": "Floor",
+      "actionCode": "H37300",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-01-31",
+      "text": "Passed/agreed to in House: On motion to suspend the rules and pass the bill, as amended Agreed to by the Yeas and Nays: (2/3 required): 357 - 70 (Roll no. 30). (text: CR H343-350)",
+      "type": "Floor",
+      "actionCode": "8000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2024-01-31",
+      "text": "Considered as unfinished business. (consideration: CR H358)",
+      "type": "Floor",
+      "actionCode": "H30000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-01-31",
+      "text": "At the conclusion of debate, the Yeas and Nays were demanded and ordered. Pursuant to the provisions of clause 8, rule XX, the Chair announced that further proceedings on the motion would be postponed.",
+      "type": "Floor",
+      "actionCode": "H37220",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-01-31",
+      "text": "DEBATE - The House resumed debate on H.R. 7024.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-01-31",
+      "text": "UNANIMOUS CONSENT REQUEST - Mr. Smith (MO) asked unanimous consent that debate be extended by 20 minutes to be controlled by the gentleman from Massachusetts, Mr. Neal. Objection heard.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-01-31",
+      "text": "DEBATE - The House proceeded with forty minutes of debate on H.R. 7024.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-01-31",
+      "text": "Considered under suspension of the rules. (consideration: CR H343-358)",
+      "type": "Floor",
+      "actionCode": "H30000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-01-31",
+      "text": "Mr. Smith (MO) moved to suspend the rules and pass the bill, as amended.",
+      "type": "Floor",
+      "actionCode": "H30300",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-01-23",
+      "text": "Placed on the Union Calendar, Calendar No. 288.",
+      "type": "Calendars",
+      "actionCode": "H12410",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-01-23",
+      "text": "Committee on Rules discharged.",
+      "type": "Discharge",
+      "actionCode": "H12300",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-01-23",
+      "text": "Committee on Rules discharged.",
+      "type": "Committee",
+      "actionCode": "5500",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2024-01-23",
+      "text": "Reported (Amended) by the Committee on Ways and Means. H. Rept. 118-353, Part I.",
+      "type": "Committee",
+      "actionCode": "H12200",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-01-23",
+      "text": "Reported (Amended) by the Committee on Ways and Means. H. Rept. 118-353, Part I.",
+      "type": "Committee",
+      "actionCode": "5000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2024-01-19",
+      "text": "Ordered to be Reported in the Nature of a Substitute (Amended) by the Yeas and Nays: 40 - 3.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2024-01-19",
+      "text": "Committee Consideration and Mark-up Session Held",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2024-01-17",
+      "text": "Referred to the Committee on Ways and Means, and in addition to the Committee on Rules, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-01-17",
+      "text": "Referred to the Committee on Ways and Means, and in addition to the Committee on Rules, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-01-17",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2024-01-17",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "cosponsors": [],
+  "_metadata_sources": {
+    "xml": "govinfo bulk-data (unauthenticated)",
+    "billstatus": "govinfo BILLSTATUS bulk-data (unauthenticated)",
+    "congress_gov_enriched": false
+  }
+}

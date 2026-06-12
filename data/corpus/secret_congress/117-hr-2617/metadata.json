@@ -1,0 +1,407 @@
+{
+  "bill_id": "117-hr-2617",
+  "congress": 117,
+  "bill_type": "hr",
+  "bill_number": 2617,
+  "title": "Consolidated Appropriations Act, 2023",
+  "short_title": "Consolidated Appropriations Act, 2023",
+  "sponsor": "Rep. Connolly, Gerald E. [D-VA-11]",
+  "introduced_date": "2021-04-16",
+  "latest_action": "2022-12-29: Became Public Law No: 117-328.",
+  "policy_area": "Economics and Public Finance",
+  "subjects": [
+    "Administrative law and regulatory procedures",
+    "Computers and information technology",
+    "Executive agency funding and structure",
+    "Federal officials",
+    "Government information and archives",
+    "Performance measurement"
+  ],
+  "summary_text": null,
+  "centrality_score": null,
+  "match_locations": {},
+  "tier": "A",
+  "stream": "legislation",
+  "topic": "secret_congress",
+  "cluster": "omnibus_vehicle",
+  "curator_note": "PL 117-328. One vote carried ECRA, SECURE 2.0, the Pregnant Workers Fairness Act, and full-year appropriations \u2014 bundling as the price of floor time.",
+  "versions_available": [
+    {
+      "package_id": "BILLS-117hr2617enr",
+      "version_code": "enr",
+      "date_issued": "2021-04-16"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-117hr2617enr",
+    "version_code": "enr",
+    "date_issued": "2021-04-16"
+  },
+  "actions": [
+    {
+      "actionDate": "2022-12-29",
+      "text": "Became Public Law No: 117-328.",
+      "type": "President",
+      "actionCode": "E40000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-12-29",
+      "text": "Became Public Law No: 117-328.",
+      "type": "BecameLaw",
+      "actionCode": "36000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-12-29",
+      "text": "Signed by President.",
+      "type": "President",
+      "actionCode": "E30000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-12-29",
+      "text": "Signed by President.",
+      "type": "BecameLaw",
+      "actionCode": "36000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-12-28",
+      "text": "Presented to President.",
+      "type": "Floor",
+      "actionCode": "E20000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-12-28",
+      "text": "Presented to President.",
+      "type": "President",
+      "actionCode": "28000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-12-23",
+      "text": "Motion to reconsider laid on the table Agreed to without objection.",
+      "type": "ResolvingDifferences",
+      "actionCode": "H41931",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-12-23",
+      "text": "On motion that the House agree to the Senate amendment to the House amendment to the Senate amendment Agreed to by the Yeas and Nays: 225 - 201, 1 Present (Roll no. 549).",
+      "type": "ResolvingDifferences",
+      "actionCode": "H41610",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-12-23",
+      "text": "Resolving differences -- House actions: On motion that the House agree to the Senate amendment to the House amendment to the Senate amendment Agreed to by the Yeas and Nays: 225 - 201, 1 Present (Roll no. 549).",
+      "type": "NotUsed",
+      "actionCode": "19500",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-12-23",
+      "text": "The previous question was ordered pursuant to the rule.",
+      "type": "Floor",
+      "actionCode": "H35000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-12-23",
+      "text": "DEBATE - The House proceeded with one hour of debate on the motion to agree to the Senate amendment to the House amendment to the Senate amendment to H.R. 2617.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-12-23",
+      "text": "Pursuant to the provisions of H. Res. 1531, Ms. DeLauro moved to agree to the Senate amendment to the House amendment to the Senate amendment to H.R. 2617.",
+      "type": "ResolvingDifferences",
+      "actionCode": "H40150",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-12-23",
+      "text": "Pursuant to the provisions of H. Res. 1531, Ms. DeLauro moved to agree to the Senate amendment to the House amendment to the Senate amendment to H.R. 2617.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-12-23",
+      "text": "Message on Senate action sent to the House.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-12-22",
+      "text": "Senate concurred in the House amendment to Senate amendment SA 4 to H.R. 2617 with an amendment (SA 6552), under the order of 12/22/22, having achieved 60 votes in the affirmative, by Yea-Nay Vote. 68 - 29. Record Vote Number: 421.",
+      "type": "ResolvingDifferences",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-12-22",
+      "text": "Resolving differences -- Senate actions: Senate concurred in the House amendment to Senate amendment SA 4 to H.R. 2617 with an amendment (SA 6552), under the order of 12/22/22, having achieved 60 votes in the affirmative, by Yea-Nay Vote. 68 - 29. Record Vote Number: 421.",
+      "type": "NotUsed",
+      "actionCode": "20500",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-12-22",
+      "text": "Motion by Senator Schumer to refer to Senate Committee on Appropriations the House message to accompany H.R. 2617 with instructions to report back forthwith with the following amendment (SA 6572) withdrawn in Senate by Unanimous Consent. (CR S10075)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-12-22",
+      "text": "Considered by Senate (Message from the House considered). (consideration: CR S10062-10077)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-12-21",
+      "text": "Cloture motion on the motion to concur in the House amendment to Senate amendment SA 4 to H.R. 2617 with an amendment (SA 6552) presented in Senate. (CR S9759)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-12-21",
+      "text": "Considered by Senate (Message from the House considered). (consideration: CR S9719, S9735, S9739-9740, S9759)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-12-20",
+      "text": "Motion by Senator Schumer to refer to Senate Committee on Appropriations the House message to accompany H.R. 2617 with instructions to report back forthwith with the following amendment (SA 6572) made in Senate.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-12-20",
+      "text": "Motion by Senator Schumer to concur in the House amendment to Senate amendment SA 4 to H.R. 2617 with an amendment (SA 6552) made in Senate.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-12-20",
+      "text": "Measure laid before Senate by motion.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-12-20",
+      "text": "Motion to proceed to consideration of the House message to accompany H.R. 2617 agreed to in Senate by Yea-Nay Vote. 70 - 25. Record Vote Number: 403.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-12-15",
+      "text": "Message on House action received in Senate and at desk: House amendment to Senate amendment 4.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-12-14",
+      "text": "House agreed to Senate amendments numbered 1, 2, 3, and 5, and the House agreed to Senate amendment numbered 4 with an amendment pursuant to H. Res. 1518 (consideration: CR H9745-9752; text: CR H9790-9803)",
+      "type": "Floor",
+      "actionCode": "H1B000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-12-14",
+      "text": "Resolving differences -- House actions: House agreed to Senate amendments numbered 1, 2, 3, and 5, and the House agreed to Senate amendment numbered 4 with an amendment pursuant to H. Res. 1518(consideration: CR H9745-9752; text: CR H9790-9803)",
+      "type": "NotUsed",
+      "actionCode": "19500",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-11-16",
+      "text": "Message on Senate action sent to the House.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-11-15",
+      "text": "Passed Senate with amendments by Unanimous Consent. (consideration: CR S6704; text: CR S6704)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-11-15",
+      "text": "Passed/agreed to in Senate: Passed Senate with amendments by Unanimous Consent.",
+      "type": "Floor",
+      "actionCode": "17000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-09-27",
+      "text": "Placed on Senate Legislative Calendar under General Orders. Calendar No. 506.",
+      "type": "Calendars",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-09-27",
+      "text": "Committee on Homeland Security and Governmental Affairs. Reported by Senator Peters with amendments. With written report No. 117-164.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-09-27",
+      "text": "Committee on Homeland Security and Governmental Affairs. Reported by Senator Peters with amendments. With written report No. 117-164.",
+      "type": "Committee",
+      "actionCode": "14000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2021-11-03",
+      "text": "Committee on Homeland Security and Governmental Affairs. Ordered to be reported without amendment favorably.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-09-29",
+      "text": "Received in the Senate and Read twice and referred to the Committee on Homeland Security and Governmental Affairs.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-09-28",
+      "text": "Motion to reconsider laid on the table Agreed to without objection.",
+      "type": "Floor",
+      "actionCode": "H38310",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-09-28",
+      "text": "On motion to suspend the rules and pass the bill, as amended Agreed to by the Yeas and Nays: (2/3 required): 414 - 10 (Roll no. 304). (text: CR 7/26/2021 H3880)",
+      "type": "Floor",
+      "actionCode": "H37300",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-09-28",
+      "text": "Passed/agreed to in House: On motion to suspend the rules and pass the bill, as amended Agreed to by the Yeas and Nays: (2/3 required): 414 - 10 (Roll no. 304).(text: CR 7/26/2021 H3880)",
+      "type": "Floor",
+      "actionCode": "8000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2021-09-28",
+      "text": "Considered as unfinished business. (consideration: CR H5497-5498)",
+      "type": "Floor",
+      "actionCode": "H30000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-26",
+      "text": "At the conclusion of debate, the Yeas and Nays were demanded and ordered. Pursuant to the provisions of clause 8, rule XX, the Chair announced that further proceedings on the motion would be postponed.",
+      "type": "Floor",
+      "actionCode": "H37220",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-26",
+      "text": "DEBATE - The House proceeded with forty minutes of debate on H.R. 2617.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-26",
+      "text": "Considered under suspension of the rules. (consideration: CR H3880-3881)",
+      "type": "Floor",
+      "actionCode": "H30000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-26",
+      "text": "Ms. Norton moved to suspend the rules and pass the bill, as amended.",
+      "type": "Floor",
+      "actionCode": "H30300",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-05-25",
+      "text": "Ordered to be Reported in the Nature of a Substitute (Amended) by Voice Vote.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2021-05-25",
+      "text": "Committee Consideration and Mark-up Session Held.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2021-04-16",
+      "text": "Referred to the House Committee on Oversight and Reform.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-04-16",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2021-04-16",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "cosponsors": [
+    {
+      "bioguideId": "H001071",
+      "fullName": "Rep. Hice, Jody B. [R-GA-10]",
+      "firstName": "Jody",
+      "lastName": "Hice",
+      "party": "R",
+      "state": "GA",
+      "district": "10",
+      "sponsorshipDate": "2021-04-16",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "N000147",
+      "fullName": "Del. Norton, Eleanor Holmes [D-DC-At Large]",
+      "firstName": "ELEANOR",
+      "lastName": "NORTON",
+      "party": "D",
+      "state": "DC",
+      "district": "0",
+      "sponsorshipDate": "2021-04-19",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "_metadata_sources": {
+    "xml": "govinfo bulk-data (unauthenticated)",
+    "billstatus": "govinfo BILLSTATUS bulk-data (unauthenticated)",
+    "congress_gov_enriched": false
+  }
+}

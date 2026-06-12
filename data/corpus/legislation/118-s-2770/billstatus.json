@@ -1,0 +1,139 @@
+{
+  "bill_id": "118-s-2770",
+  "fetched_at": "2026-06-10T02:57:16.063622+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/s/BILLSTATUS-118s2770.xml",
+  "title": "Protect Elections from Deceptive AI Act",
+  "policy_area": "Government Operations and Politics",
+  "subjects": [
+    "Advanced technology and technological innovations",
+    "Broadcasting, cable, digital technologies",
+    "Civil actions and liability",
+    "Digital media",
+    "Elections, voting, political campaign regulation",
+    "Internet, web applications, social media",
+    "Legal fees and court costs",
+    "Photography and imaging",
+    "Sound recording"
+  ],
+  "sponsor": {
+    "bioguideId": "K000367",
+    "fullName": "Sen. Klobuchar, Amy [D-MN]",
+    "firstName": "Amy",
+    "lastName": "Klobuchar",
+    "party": "D",
+    "state": "MN",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "H001089",
+      "fullName": "Sen. Hawley, Josh [R-MO]",
+      "firstName": "Josh",
+      "lastName": "Hawley",
+      "party": "R",
+      "state": "MO",
+      "district": null,
+      "sponsorshipDate": "2023-09-12",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "C001088",
+      "fullName": "Sen. Coons, Christopher A. [D-DE]",
+      "firstName": "Christopher",
+      "lastName": "Coons",
+      "party": "D",
+      "state": "DE",
+      "district": null,
+      "sponsorshipDate": "2023-09-12",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "C001035",
+      "fullName": "Sen. Collins, Susan M. [R-ME]",
+      "firstName": "Susan",
+      "lastName": "Collins",
+      "party": "R",
+      "state": "ME",
+      "district": null,
+      "sponsorshipDate": "2023-09-12",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "B001267",
+      "fullName": "Sen. Bennet, Michael F. [D-CO]",
+      "firstName": "Michael",
+      "lastName": "Bennet",
+      "party": "D",
+      "state": "CO",
+      "district": null,
+      "sponsorshipDate": "2023-09-19",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "R000618",
+      "fullName": "Sen. Ricketts, Pete [R-NE]",
+      "firstName": "Pete",
+      "lastName": "Ricketts",
+      "party": "R",
+      "state": "NE",
+      "district": null,
+      "sponsorshipDate": "2023-09-19",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2024-05-15",
+      "text": "Placed on Senate Legislative Calendar under General Orders. Calendar No. 388.",
+      "type": "Calendars",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-05-15",
+      "text": "Committee on Rules and Administration. Reported by Senator Klobuchar with an amendment in the nature of a substitute. Without written report.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-05-15",
+      "text": "Committee on Rules and Administration. Reported by Senator Klobuchar with an amendment in the nature of a substitute. Without written report.",
+      "type": "Committee",
+      "actionCode": "14000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2024-05-15",
+      "text": "Committee on Rules and Administration. Ordered to be reported with an amendment in the nature of a substitute favorably.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2023-09-12",
+      "text": "Read twice and referred to the Committee on Rules and Administration.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2023-09-12",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "reported_no_floor_vote",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2024-05-15",
+      "text": "Placed on Senate Legislative Calendar under General Orders. Calendar No. 388."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

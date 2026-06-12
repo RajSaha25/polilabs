@@ -1,0 +1,407 @@
+{
+  "bill_id": "118-s-4367",
+  "congress": 118,
+  "bill_type": "s",
+  "bill_number": 4367,
+  "title": "Thomas R. Carper Water Resources Development Act of 2024",
+  "short_title": "Thomas R. Carper Water Resources Development Act of 2024",
+  "sponsor": "Sen. Carper, Thomas R. [D-DE]",
+  "introduced_date": "2024-05-20",
+  "latest_action": "2025-01-04: Became Public Law No: 118-272.",
+  "policy_area": "Water Resources Development",
+  "subjects": [
+    "Advisory bodies",
+    "Alabama",
+    "Alaska",
+    "Aquatic ecology",
+    "Arizona",
+    "Arkansas",
+    "California",
+    "Civil actions and liability",
+    "Climate change and greenhouse gases",
+    "Colorado",
+    "Congressional oversight",
+    "Connecticut",
+    "Dams and canals",
+    "Delaware",
+    "District of Columbia",
+    "Ecology",
+    "Emergency planning and evacuation",
+    "Environmental assessment, monitoring, research",
+    "Environmental health",
+    "Environmental regulatory procedures",
+    "Floods and storm protection",
+    "Florida",
+    "Georgia",
+    "Government information and archives",
+    "Government studies and investigations",
+    "Government trust funds",
+    "Great Lakes",
+    "Hawaii",
+    "Hazardous wastes and toxic substances",
+    "Higher education",
+    "Illinois",
+    "Indian lands and resources rights",
+    "Indiana",
+    "Infrastructure development",
+    "Iowa",
+    "Kansas",
+    "Kentucky",
+    "Lakes and rivers",
+    "Licensing and registrations",
+    "Louisiana",
+    "Marine and inland water transportation",
+    "Maryland",
+    "Massachusetts",
+    "Michigan",
+    "Mississippi River",
+    "Missouri River",
+    "Natural disasters",
+    "Navigation, waterways, harbors",
+    "Nevada",
+    "New Hampshire",
+    "New Jersey",
+    "New York State",
+    "North Carolina",
+    "North Dakota",
+    "Ohio",
+    "Oklahoma",
+    "Oregon",
+    "Outdoor recreation",
+    "Pennsylvania",
+    "Pest management",
+    "Public-private cooperation",
+    "Puerto Rico",
+    "Seashores and lakeshores",
+    "South Carolina",
+    "South Dakota",
+    "State and local government operations",
+    "Tennessee",
+    "Texas",
+    "Vermont",
+    "Virginia",
+    "Washington State",
+    "Water quality",
+    "Water resources funding",
+    "Water storage",
+    "Water use and supply",
+    "Watersheds",
+    "West Virginia",
+    "Wetlands",
+    "Wisconsin"
+  ],
+  "summary_text": null,
+  "centrality_score": null,
+  "match_locations": {},
+  "tier": "A",
+  "stream": "legislation",
+  "topic": "secret_congress",
+  "cluster": "quiet_bipartisan_law",
+  "curator_note": "Enacted PL 118-272. The notes' 'water infrastructure' exemplar: biennial water-projects authorization that passes near-unanimously every cycle while attracting almost no national coverage.",
+  "versions_available": [
+    {
+      "package_id": "BILLS-118s4367enr",
+      "version_code": "enr",
+      "date_issued": "2024-05-20"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-118s4367enr",
+    "version_code": "enr",
+    "date_issued": "2024-05-20"
+  },
+  "actions": [
+    {
+      "actionDate": "2025-01-04",
+      "text": "Became Public Law No: 118-272.",
+      "type": "President",
+      "actionCode": "E40000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2025-01-04",
+      "text": "Became Public Law No: 118-272.",
+      "type": "BecameLaw",
+      "actionCode": "36000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2025-01-04",
+      "text": "Signed by President.",
+      "type": "President",
+      "actionCode": "E30000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2025-01-04",
+      "text": "Signed by President.",
+      "type": "BecameLaw",
+      "actionCode": "36000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2024-12-26",
+      "text": "Presented to President.",
+      "type": "Floor",
+      "actionCode": "E20000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-12-26",
+      "text": "Presented to President.",
+      "type": "President",
+      "actionCode": "28000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2024-12-19",
+      "text": "Message on Senate action sent to the House.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-12-18",
+      "text": "Senate agreed, under the order of 12/12/2024, having achieved 60 votes in the affirmative, to the House amendment to S. 4367 by Yea-Nay Vote. 97 - 1. Record Vote Number: 327.",
+      "type": "ResolvingDifferences",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-12-18",
+      "text": "Resolving differences -- Senate actions: Senate agreed, under the order of 12/12/2024, having achieved 60 votes in the affirmative, to the House amendment to S. 4367 by Yea-Nay Vote. 97 - 1. Record Vote Number: 327.",
+      "type": "NotUsed",
+      "actionCode": "20500",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2024-12-18",
+      "text": "Motion by Senator Carper to concur in the House Amendment to S. 4367 made in Senate.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-12-18",
+      "text": "Measure laid before Senate by unanimous consent.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-12-12",
+      "text": "Message on House action received in Senate and at desk: House amendment to Senate bill.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-12-10",
+      "text": "Motion to reconsider laid on the table Agreed to without objection.",
+      "type": "Floor",
+      "actionCode": "H38310",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-12-10",
+      "text": "On motion to suspend the rules and pass the bill, as amended Agreed to by the Yeas and Nays: (2/3 required): 399 - 18 (Roll no. 493). (text: 12/9/2024 CR H6453-6525)",
+      "type": "Floor",
+      "actionCode": "H37300",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-12-10",
+      "text": "Passed/agreed to in House: On motion to suspend the rules and pass the bill, as amended Agreed to by the Yeas and Nays: (2/3 required): 399 - 18 (Roll no. 493). (text: 12/9/2024 CR H6453-6525)",
+      "type": "Floor",
+      "actionCode": "8000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2024-12-10",
+      "text": "Considered as unfinished business. (consideration: CR H6555-6556)",
+      "type": "Floor",
+      "actionCode": "H30000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-12-09",
+      "text": "At the conclusion of debate, the Yeas and Nays were demanded and ordered. Pursuant to the provisions of clause 8, rule XX, the Chair announced that further proceedings on the motion would be postponed.",
+      "type": "Floor",
+      "actionCode": "H37220",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-12-09",
+      "text": "DEBATE - The House proceeded with forty minutes of debate on S. 4367.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-12-09",
+      "text": "Considered under suspension of the rules. (consideration: CR H6453-6529)",
+      "type": "Floor",
+      "actionCode": "H30000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-12-09",
+      "text": "Mr. Graves (MO) moved to suspend the rules and pass the bill, as amended.",
+      "type": "Floor",
+      "actionCode": "H30300",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-09-23",
+      "text": "By Senator Carper from Committee on Environment and Public Works filed written report. Report No. 118-227.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-09-23",
+      "text": "By Senator Carper from Committee on Environment and Public Works filed written report. Report No. 118-227.",
+      "type": "Committee",
+      "actionCode": "14900",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2024-08-06",
+      "text": "Held at the desk.",
+      "type": "Floor",
+      "actionCode": "H15000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-08-06",
+      "text": "Received in the House.",
+      "type": "Floor",
+      "actionCode": "H14000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-08-02",
+      "text": "Message on Senate action sent to the House.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-08-01",
+      "text": "Passed Senate with an amendment by Unanimous Consent.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-08-01",
+      "text": "Passed/agreed to in Senate: Passed Senate with an amendment by Unanimous Consent.",
+      "type": "Floor",
+      "actionCode": "17000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2024-08-01",
+      "text": "The committee substitute withdrawn by Unanimous Consent.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-08-01",
+      "text": "Measure laid before Senate by unanimous consent. (consideration: CR S5724-5746)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-05-22",
+      "text": "Committee on Environment and Public Works. Committee consideration held.Business Meeting printed. S. Hrg. 118-719.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-05-22",
+      "text": "Placed on Senate Legislative Calendar under General Orders. Calendar No. 401.",
+      "type": "Calendars",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-05-22",
+      "text": "Committee on Environment and Public Works. Reported by Senator Carper with an amendment in the nature of a substitute. Without written report.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-05-22",
+      "text": "Committee on Environment and Public Works. Reported by Senator Carper with an amendment in the nature of a substitute. Without written report.",
+      "type": "Committee",
+      "actionCode": "14000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2024-05-22",
+      "text": "Committee on Environment and Public Works. Ordered to be reported with an amendment in the nature of a substitute favorably.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-05-20",
+      "text": "Read twice and referred to the Committee on Environment and Public Works.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-05-20",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "cosponsors": [
+    {
+      "bioguideId": "C001047",
+      "fullName": "Sen. Capito, Shelley Moore [R-WV]",
+      "firstName": "Shelley",
+      "lastName": "Capito",
+      "party": "R",
+      "state": "WV",
+      "district": null,
+      "sponsorshipDate": "2024-05-20",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "K000377",
+      "fullName": "Sen. Kelly, Mark [D-AZ]",
+      "firstName": "Mark",
+      "lastName": "Kelly",
+      "party": "D",
+      "state": "AZ",
+      "district": null,
+      "sponsorshipDate": "2024-05-20",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "C001096",
+      "fullName": "Sen. Cramer, Kevin [R-ND]",
+      "firstName": "Kevin",
+      "lastName": "Cramer",
+      "party": "R",
+      "state": "ND",
+      "district": null,
+      "sponsorshipDate": "2024-05-20",
+      "isOriginalCosponsor": "True"
+    }
+  ],
+  "_metadata_sources": {
+    "xml": "govinfo bulk-data (unauthenticated)",
+    "billstatus": "govinfo BILLSTATUS bulk-data (unauthenticated)",
+    "congress_gov_enriched": false
+  }
+}

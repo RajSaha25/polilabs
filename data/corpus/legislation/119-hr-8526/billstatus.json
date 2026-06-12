@@ -1,0 +1,52 @@
+{
+  "bill_id": "119-hr-8526",
+  "fetched_at": "2026-06-10T02:57:47.147447+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr8526.xml",
+  "title": "To amend the Public Health Service Act to update quality standards for mammography facilities for the use of AI systems, and for other purposes.",
+  "policy_area": "Health",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "S001183",
+    "fullName": "Rep. Schweikert, David [R-AZ-1]",
+    "firstName": "David",
+    "lastName": "Schweikert",
+    "party": "R",
+    "state": "AZ",
+    "district": "1"
+  },
+  "cosponsors": [],
+  "actions": [
+    {
+      "actionDate": "2026-04-27",
+      "text": "Referred to the House Committee on Energy and Commerce.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2026-04-27",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2026-04-27",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2026-04-27",
+      "text": "Referred to the House Committee on Energy and Commerce."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

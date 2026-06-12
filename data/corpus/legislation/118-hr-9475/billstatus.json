@@ -1,0 +1,108 @@
+{
+  "bill_id": "118-hr-9475",
+  "fetched_at": "2026-06-10T02:57:08.894764+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/hr/BILLSTATUS-118hr9475.xml",
+  "title": "AI Grand Challenges Act of 2024",
+  "policy_area": "Science, Technology, Communications",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "L000582",
+    "fullName": "Rep. Lieu, Ted [D-CA-36]",
+    "firstName": "Ted",
+    "lastName": "Lieu",
+    "party": "D",
+    "state": "CA",
+    "district": "36"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "O000019",
+      "fullName": "Rep. Obernolte, Jay [R-CA-23]",
+      "firstName": "Jay",
+      "lastName": "Obernolte",
+      "party": "R",
+      "state": "CA",
+      "district": "23",
+      "sponsorshipDate": "2024-09-06",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "P000620",
+      "fullName": "Rep. Pettersen, Brittany [D-CO-7]",
+      "firstName": "Brittany",
+      "lastName": "Pettersen",
+      "party": "D",
+      "state": "CO",
+      "district": "7",
+      "sponsorshipDate": "2024-09-18",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "N000193",
+      "fullName": "Rep. Nunn, Zachary [R-IA-3]",
+      "firstName": "Zachary",
+      "lastName": "Nunn",
+      "party": "R",
+      "state": "IA",
+      "district": "3",
+      "sponsorshipDate": "2024-12-03",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "B001278",
+      "fullName": "Rep. Bonamici, Suzanne [D-OR-1]",
+      "firstName": "Suzanne",
+      "lastName": "Bonamici",
+      "party": "D",
+      "state": "OR",
+      "district": "1",
+      "sponsorshipDate": "2024-12-03",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "F000454",
+      "fullName": "Rep. Foster, Bill [D-IL-11]",
+      "firstName": "Bill",
+      "lastName": "Foster",
+      "party": "D",
+      "state": "IL",
+      "district": "11",
+      "sponsorshipDate": "2024-12-18",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2024-09-06",
+      "text": "Referred to the House Committee on Science, Space, and Technology.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-09-06",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2024-09-06",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "died_in_committee",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2024-09-06",
+      "text": "Referred to the House Committee on Science, Space, and Technology."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

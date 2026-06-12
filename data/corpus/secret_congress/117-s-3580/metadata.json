@@ -1,0 +1,599 @@
+{
+  "bill_id": "117-s-3580",
+  "congress": 117,
+  "bill_type": "s",
+  "bill_number": 3580,
+  "title": "Ocean Shipping Reform Act of 2022",
+  "short_title": "Ocean Shipping Reform Act of 2022",
+  "sponsor": "Sen. Klobuchar, Amy [D-MN]",
+  "introduced_date": "2022-02-03",
+  "latest_action": "2022-06-16: Became Public Law No: 117-146.",
+  "policy_area": "Transportation and Public Works",
+  "subjects": [
+    "Administrative law and regulatory procedures",
+    "Administrative remedies",
+    "Alternative dispute resolution, mediation, arbitration",
+    "Cardiovascular and respiratory health",
+    "Civil actions and liability",
+    "Competition and antitrust",
+    "Competitiveness, trade promotion, trade deficits",
+    "Contracts and agency",
+    "Emergency medical services and trauma care",
+    "Federal Maritime Commission",
+    "Government information and archives",
+    "Government studies and investigations",
+    "Hazardous wastes and toxic substances",
+    "Infectious and parasitic diseases",
+    "Licensing and registrations",
+    "Marine and inland water transportation",
+    "Marine pollution",
+    "Motor carriers",
+    "Navigation, waterways, harbors",
+    "Public participation and lobbying",
+    "Railroads",
+    "Technology assessment",
+    "Transportation costs",
+    "Transportation employees",
+    "Transportation programs funding",
+    "Transportation safety and security"
+  ],
+  "summary_text": null,
+  "centrality_score": null,
+  "match_locations": {},
+  "tier": "A",
+  "stream": "legislation",
+  "topic": "secret_congress",
+  "cluster": "quiet_bipartisan_law",
+  "curator_note": "Enacted PL 117-146. Passed the Senate by unanimous consent and the House 369-42 with minimal national coverage \u2014 a canonical secret-congress case.",
+  "versions_available": [
+    {
+      "package_id": "BILLS-117s3580enr",
+      "version_code": "enr",
+      "date_issued": "2022-02-03"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-117s3580enr",
+    "version_code": "enr",
+    "date_issued": "2022-02-03"
+  },
+  "actions": [
+    {
+      "actionDate": "2022-06-16",
+      "text": "Became Public Law No: 117-146.",
+      "type": "President",
+      "actionCode": "E40000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-06-16",
+      "text": "Became Public Law No: 117-146.",
+      "type": "BecameLaw",
+      "actionCode": "36000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-06-16",
+      "text": "Signed by President.",
+      "type": "President",
+      "actionCode": "E30000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-06-16",
+      "text": "Signed by President.",
+      "type": "BecameLaw",
+      "actionCode": "36000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-06-14",
+      "text": "Presented to President.",
+      "type": "Floor",
+      "actionCode": "E20000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-06-14",
+      "text": "Presented to President.",
+      "type": "President",
+      "actionCode": "28000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-06-13",
+      "text": "Motion to reconsider laid on the table Agreed to without objection.",
+      "type": "Floor",
+      "actionCode": "H38310",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-06-13",
+      "text": "On motion to suspend the rules and pass the bill Agreed to by the Yeas and Nays: (2/3 required): 369 - 42 (Roll no. 256). (text: CR H5460-5464)",
+      "type": "Floor",
+      "actionCode": "H37300",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-06-13",
+      "text": "Passed/agreed to in House: On motion to suspend the rules and pass the bill Agreed to by the Yeas and Nays: (2/3 required): 369 - 42 (Roll no. 256).(text: CR H5460-5464)",
+      "type": "Floor",
+      "actionCode": "8000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-06-13",
+      "text": "Considered as unfinished business. (consideration: CR H5467-5468)",
+      "type": "Floor",
+      "actionCode": "H30000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-06-13",
+      "text": "At the conclusion of debate, the Yeas and Nays were demanded and ordered. Pursuant to the provisions of clause 8, rule XX, the Chair announced that further proceedings on the motion would be postponed.",
+      "type": "Floor",
+      "actionCode": "H37220",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-06-13",
+      "text": "DEBATE - The House proceeded with forty minutes of debate on S. 3580.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-06-13",
+      "text": "Considered under suspension of the rules. (consideration: CR H5460-5467)",
+      "type": "Floor",
+      "actionCode": "H30000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-06-13",
+      "text": "Mr. DeFazio moved to suspend the rules and pass the bill.",
+      "type": "Floor",
+      "actionCode": "H30300",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-04-04",
+      "text": "Held at the desk.",
+      "type": "Floor",
+      "actionCode": "H15000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-04-04",
+      "text": "Received in the House.",
+      "type": "Floor",
+      "actionCode": "H14000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-04-04",
+      "text": "Message on Senate action sent to the House.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-03-31",
+      "text": "Passed Senate with an amendment by Voice Vote. (text of amendment in the nature of a substitute: CR S1915-1919)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-03-31",
+      "text": "Passed/agreed to in Senate: Passed Senate with an amendment by Voice Vote.",
+      "type": "Floor",
+      "actionCode": "17000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-03-31",
+      "text": "The committee substitute withdrawn by Unanimous Consent.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-03-31",
+      "text": "Measure laid before Senate by unanimous consent. (consideration: CR S1887-1901; text: CR S1887-1891)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-03-24",
+      "text": "Placed on Senate Legislative Calendar under General Orders. Calendar No. 311.",
+      "type": "Calendars",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-03-24",
+      "text": "Committee on Commerce, Science, and Transportation. Reported by Senator Cantwell with an amendment in the nature of a substitute. Without written report.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-03-24",
+      "text": "Committee on Commerce, Science, and Transportation. Reported by Senator Cantwell with an amendment in the nature of a substitute. Without written report.",
+      "type": "Committee",
+      "actionCode": "14000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-03-22",
+      "text": "Committee on Commerce, Science, and Transportation. Ordered to be reported with an amendment in the nature of a substitute favorably.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-02-03",
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-02-03",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "cosponsors": [
+    {
+      "bioguideId": "T000250",
+      "fullName": "Sen. Thune, John [R-SD]",
+      "firstName": "John",
+      "lastName": "Thune",
+      "party": "R",
+      "state": "SD",
+      "district": null,
+      "sponsorshipDate": "2022-02-03",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "B001230",
+      "fullName": "Sen. Baldwin, Tammy [D-WI]",
+      "firstName": "Tammy",
+      "lastName": "Baldwin",
+      "party": "D",
+      "state": "WI",
+      "district": null,
+      "sponsorshipDate": "2022-02-03",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "H001061",
+      "fullName": "Sen. Hoeven, John [R-ND]",
+      "firstName": "John",
+      "lastName": "Hoeven",
+      "party": "R",
+      "state": "ND",
+      "district": null,
+      "sponsorshipDate": "2022-02-03",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "S000770",
+      "fullName": "Sen. Stabenow, Debbie [D-MI]",
+      "firstName": "Debbie",
+      "lastName": "Stabenow",
+      "party": "D",
+      "state": "MI",
+      "district": null,
+      "sponsorshipDate": "2022-02-03",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "M001198",
+      "fullName": "Sen. Marshall, Roger [R-KS]",
+      "firstName": "Roger",
+      "lastName": "Marshall",
+      "party": "R",
+      "state": "KS",
+      "district": null,
+      "sponsorshipDate": "2022-02-03",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "P000595",
+      "fullName": "Sen. Peters, Gary C. [D-MI]",
+      "firstName": "Gary",
+      "lastName": "Peters",
+      "party": "D",
+      "state": "MI",
+      "district": null,
+      "sponsorshipDate": "2022-02-03",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "M000934",
+      "fullName": "Sen. Moran, Jerry [R-KS]",
+      "firstName": "Jerry",
+      "lastName": "Moran",
+      "party": "R",
+      "state": "KS",
+      "district": null,
+      "sponsorshipDate": "2022-02-03",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "B001277",
+      "fullName": "Sen. Blumenthal, Richard [D-CT]",
+      "firstName": "Richard",
+      "lastName": "Blumenthal",
+      "party": "D",
+      "state": "CT",
+      "district": null,
+      "sponsorshipDate": "2022-02-03",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "Y000064",
+      "fullName": "Sen. Young, Todd [R-IN]",
+      "firstName": "Todd",
+      "lastName": "Young",
+      "party": "R",
+      "state": "IN",
+      "district": null,
+      "sponsorshipDate": "2022-02-03",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "K000377",
+      "fullName": "Sen. Kelly, Mark [D-AZ]",
+      "firstName": "Mark",
+      "lastName": "Kelly",
+      "party": "D",
+      "state": "AZ",
+      "district": null,
+      "sponsorshipDate": "2022-02-03",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "B001243",
+      "fullName": "Sen. Blackburn, Marsha [R-TN]",
+      "firstName": "Marsha",
+      "lastName": "Blackburn",
+      "party": "R",
+      "state": "TN",
+      "district": null,
+      "sponsorshipDate": "2022-02-03",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "B001288",
+      "fullName": "Sen. Booker, Cory A. [D-NJ]",
+      "firstName": "Cory",
+      "lastName": "Booker",
+      "party": "D",
+      "state": "NJ",
+      "district": null,
+      "sponsorshipDate": "2022-02-03",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "E000295",
+      "fullName": "Sen. Ernst, Joni [R-IA]",
+      "firstName": "Joni",
+      "lastName": "Ernst",
+      "party": "R",
+      "state": "IA",
+      "district": null,
+      "sponsorshipDate": "2022-02-03",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "S001203",
+      "fullName": "Sen. Smith, Tina [D-MN]",
+      "firstName": "Tina",
+      "lastName": "Smith",
+      "party": "D",
+      "state": "MN",
+      "district": null,
+      "sponsorshipDate": "2022-02-08",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "C000880",
+      "fullName": "Sen. Crapo, Mike [R-ID]",
+      "firstName": "Mike",
+      "lastName": "Crapo",
+      "party": "R",
+      "state": "ID",
+      "district": null,
+      "sponsorshipDate": "2022-02-08",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "C001113",
+      "fullName": "Sen. Cortez Masto, Catherine [D-NV]",
+      "firstName": "Catherine",
+      "lastName": "Cortez Masto",
+      "party": "D",
+      "state": "NV",
+      "district": null,
+      "sponsorshipDate": "2022-02-15",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "B001310",
+      "fullName": "Sen. Braun, Mike [R-IN]",
+      "firstName": "Mike",
+      "lastName": "Braun",
+      "party": "R",
+      "state": "IN",
+      "district": null,
+      "sponsorshipDate": "2022-02-15",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "W000790",
+      "fullName": "Sen. Warnock, Raphael G. [D-GA]",
+      "firstName": "Raphael",
+      "lastName": "Warnock",
+      "party": "D",
+      "state": "GA",
+      "district": null,
+      "sponsorshipDate": "2022-02-28",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "R000584",
+      "fullName": "Sen. Risch, James E. [R-ID]",
+      "firstName": "James",
+      "lastName": "Risch",
+      "party": "R",
+      "state": "ID",
+      "district": null,
+      "sponsorshipDate": "2022-02-28",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "B001267",
+      "fullName": "Sen. Bennet, Michael F. [D-CO]",
+      "firstName": "Michael",
+      "lastName": "Bennet",
+      "party": "D",
+      "state": "CO",
+      "district": null,
+      "sponsorshipDate": "2022-02-28",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "C001096",
+      "fullName": "Sen. Cramer, Kevin [R-ND]",
+      "firstName": "Kevin",
+      "lastName": "Cramer",
+      "party": "R",
+      "state": "ND",
+      "district": null,
+      "sponsorshipDate": "2022-02-28",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "W000779",
+      "fullName": "Sen. Wyden, Ron [D-OR]",
+      "firstName": "Ron",
+      "lastName": "Wyden",
+      "party": "D",
+      "state": "OR",
+      "district": null,
+      "sponsorshipDate": "2022-02-28",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "B000575",
+      "fullName": "Sen. Blunt, Roy [R-MO]",
+      "firstName": "Roy",
+      "lastName": "Blunt",
+      "party": "R",
+      "state": "MO",
+      "district": null,
+      "sponsorshipDate": "2022-02-28",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "V000128",
+      "fullName": "Sen. Van Hollen, Chris [D-MD]",
+      "firstName": "Chris",
+      "lastName": "Van Hollen",
+      "party": "D",
+      "state": "MD",
+      "district": null,
+      "sponsorshipDate": "2022-03-03",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "B001236",
+      "fullName": "Sen. Boozman, John [R-AR]",
+      "firstName": "John",
+      "lastName": "Boozman",
+      "party": "R",
+      "state": "AR",
+      "district": null,
+      "sponsorshipDate": "2022-03-03",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "P000145",
+      "fullName": "Sen. Padilla, Alex [D-CA]",
+      "firstName": "Alex",
+      "lastName": "Padilla",
+      "party": "D",
+      "state": "CA",
+      "district": null,
+      "sponsorshipDate": "2022-03-10",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "F000463",
+      "fullName": "Sen. Fischer, Deb [R-NE]",
+      "firstName": "Deb",
+      "lastName": "Fischer",
+      "party": "R",
+      "state": "NE",
+      "district": null,
+      "sponsorshipDate": "2022-03-10",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "H000273",
+      "fullName": "Sen. Hickenlooper, John W. [D-CO]",
+      "firstName": "John",
+      "lastName": "Hickenlooper",
+      "party": "D",
+      "state": "CO",
+      "district": null,
+      "sponsorshipDate": "2022-03-15",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "H000601",
+      "fullName": "Sen. Hagerty, Bill [R-TN]",
+      "firstName": "Bill",
+      "lastName": "Hagerty",
+      "party": "R",
+      "state": "TN",
+      "district": null,
+      "sponsorshipDate": "2022-03-15",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "C000127",
+      "fullName": "Sen. Cantwell, Maria [D-WA]",
+      "firstName": "Maria",
+      "lastName": "Cantwell",
+      "party": "D",
+      "state": "WA",
+      "district": null,
+      "sponsorshipDate": "2022-03-24",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "W000437",
+      "fullName": "Sen. Wicker, Roger F. [R-MS]",
+      "firstName": "Roger",
+      "lastName": "Wicker",
+      "party": "R",
+      "state": "MS",
+      "district": null,
+      "sponsorshipDate": "2022-03-24",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "_metadata_sources": {
+    "xml": "govinfo bulk-data (unauthenticated)",
+    "billstatus": "govinfo BILLSTATUS bulk-data (unauthenticated)",
+    "congress_gov_enriched": false
+  }
+}

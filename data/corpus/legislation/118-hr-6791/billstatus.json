@@ -1,0 +1,122 @@
+{
+  "bill_id": "118-hr-6791",
+  "fetched_at": "2026-06-10T02:56:57.752822+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/hr/BILLSTATUS-118hr6791.xml",
+  "title": "Artificial Intelligence Literacy Act of 2023",
+  "policy_area": "Science, Technology, Communications",
+  "subjects": [
+    "Advanced technology and technological innovations",
+    "Computers and information technology",
+    "Digital media",
+    "Education programs funding",
+    "Educational technology and distance education",
+    "Higher education"
+  ],
+  "sponsor": {
+    "bioguideId": "B001303",
+    "fullName": "Rep. Blunt Rochester, Lisa [D-DE-At Large]",
+    "firstName": "Lisa",
+    "lastName": "Blunt Rochester",
+    "party": "D",
+    "state": "DE",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "B001275",
+      "fullName": "Rep. Bucshon, Larry [R-IN-8]",
+      "firstName": "Larry",
+      "lastName": "Bucshon",
+      "party": "R",
+      "state": "IN",
+      "district": "8",
+      "sponsorshipDate": "2023-12-14",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "M001221",
+      "fullName": "Rep. Molinaro, Marcus J. [R-NY-19]",
+      "firstName": "Marcus",
+      "lastName": "Molinaro",
+      "party": "R",
+      "state": "NY",
+      "district": "19",
+      "sponsorshipDate": "2024-01-25",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "T000483",
+      "fullName": "Rep. Trone, David J. [D-MD-6]",
+      "firstName": "David",
+      "lastName": "Trone",
+      "party": "D",
+      "state": "MD",
+      "district": "6",
+      "sponsorshipDate": "2024-01-25",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "P000616",
+      "fullName": "Rep. Phillips, Dean [D-MN-3]",
+      "firstName": "Dean",
+      "lastName": "Phillips",
+      "party": "D",
+      "state": "MN",
+      "district": "3",
+      "sponsorshipDate": "2024-08-09",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "F000466",
+      "fullName": "Rep. Fitzpatrick, Brian K. [R-PA-1]",
+      "firstName": "Brian",
+      "lastName": "Fitzpatrick",
+      "party": "R",
+      "state": "PA",
+      "district": "1",
+      "sponsorshipDate": "2024-08-09",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2023-12-15",
+      "text": "Referred to the Subcommittee on Communications and Technology.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2023-12-14",
+      "text": "Referred to the House Committee on Energy and Commerce.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-12-14",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2023-12-14",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "died_in_committee",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2023-12-15",
+      "text": "Referred to the Subcommittee on Communications and Technology."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

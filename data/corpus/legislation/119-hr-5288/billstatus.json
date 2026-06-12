@@ -1,0 +1,89 @@
+{
+  "bill_id": "119-hr-5288",
+  "fetched_at": "2026-06-10T02:57:34.169358+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr5288.xml",
+  "title": "AI Sovereignty Act",
+  "policy_area": "International Affairs",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "V000138",
+    "fullName": "Rep. Vindman, Eugene Simon [D-VA-7]",
+    "firstName": "Eugene",
+    "lastName": "Vindman",
+    "party": "D",
+    "state": "VA",
+    "district": "7"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "M001219",
+      "fullName": "Del. Moylan, James C. [R-GU-At Large]",
+      "firstName": "James",
+      "lastName": "Moylan",
+      "party": "R",
+      "state": "GU",
+      "district": "0",
+      "sponsorshipDate": "2025-09-10",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "F000466",
+      "fullName": "Rep. Fitzpatrick, Brian K. [R-PA-1]",
+      "firstName": "Brian",
+      "lastName": "Fitzpatrick",
+      "party": "R",
+      "state": "PA",
+      "district": "1",
+      "sponsorshipDate": "2025-10-06",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2025-09-10",
+      "text": "Referred to the Committee on Foreign Affairs, and in addition to the Committees on Energy and Commerce, and Science, Space, and Technology, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-09-10",
+      "text": "Referred to the Committee on Foreign Affairs, and in addition to the Committees on Energy and Commerce, and Science, Space, and Technology, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-09-10",
+      "text": "Referred to the Committee on Foreign Affairs, and in addition to the Committees on Energy and Commerce, and Science, Space, and Technology, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-09-10",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2025-09-10",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2025-09-10",
+      "text": "Referred to the Committee on Foreign Affairs, and in addition to the Committees on Energy and Commerce, and Science, Space, and Technology, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

@@ -1,0 +1,57 @@
+{
+  "bill_id": "118-s-4838",
+  "fetched_at": "2026-06-10T02:57:23.485452+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/s/BILLSTATUS-118s4838.xml",
+  "title": "Consumers LEARN AI Act",
+  "policy_area": "Science, Technology, Communications",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "K000377",
+    "fullName": "Sen. Kelly, Mark [D-AZ]",
+    "firstName": "Mark",
+    "lastName": "Kelly",
+    "party": "D",
+    "state": "AZ",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "R000605",
+      "fullName": "Sen. Rounds, Mike [R-SD]",
+      "firstName": "Mike",
+      "lastName": "Rounds",
+      "party": "R",
+      "state": "SD",
+      "district": null,
+      "sponsorshipDate": "2024-07-30",
+      "isOriginalCosponsor": "True"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2024-07-30",
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-07-30",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "died_in_committee",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2024-07-30",
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

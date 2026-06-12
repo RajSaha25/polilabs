@@ -1,0 +1,265 @@
+{
+  "bill_id": "118-hr-7766",
+  "fetched_at": "2026-06-10T02:57:00.716594+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/hr/BILLSTATUS-118hr7766.xml",
+  "title": "Protecting Consumers from Deceptive AI Act",
+  "policy_area": "Science, Technology, Communications",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "E000215",
+    "fullName": "Rep. Eshoo, Anna G. [D-CA-16]",
+    "firstName": "Anna",
+    "lastName": "Eshoo",
+    "party": "D",
+    "state": "CA",
+    "district": "16"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "D000628",
+      "fullName": "Rep. Dunn, Neal P. [R-FL-2]",
+      "firstName": "Neal",
+      "lastName": "Dunn",
+      "party": "R",
+      "state": "FL",
+      "district": "2",
+      "sponsorshipDate": "2024-03-21",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "B001292",
+      "fullName": "Rep. Beyer, Donald S. [D-VA-8]",
+      "firstName": "Donald",
+      "lastName": "Beyer",
+      "party": "D",
+      "state": "VA",
+      "district": "8",
+      "sponsorshipDate": "2024-03-21",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "F000477",
+      "fullName": "Rep. Foushee, Valerie P. [D-NC-4]",
+      "firstName": "Valerie",
+      "lastName": "Foushee",
+      "party": "D",
+      "state": "NC",
+      "district": "4",
+      "sponsorshipDate": "2024-03-21",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "T000483",
+      "fullName": "Rep. Trone, David J. [D-MD-6]",
+      "firstName": "David",
+      "lastName": "Trone",
+      "party": "D",
+      "state": "MD",
+      "district": "6",
+      "sponsorshipDate": "2024-04-02",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "C001072",
+      "fullName": "Rep. Carson, Andr\u00e9 [D-IN-7]",
+      "firstName": "Andr\u00e9",
+      "lastName": "Carson",
+      "party": "D",
+      "state": "IN",
+      "district": "7",
+      "sponsorshipDate": "2024-04-02",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "M001219",
+      "fullName": "Del. Moylan, James C. [R-GU-At Large]",
+      "firstName": "James",
+      "lastName": "Moylan",
+      "party": "R",
+      "state": "GU",
+      "district": null,
+      "sponsorshipDate": "2024-04-15",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "M000312",
+      "fullName": "Rep. McGovern, James P. [D-MA-2]",
+      "firstName": "James",
+      "lastName": "McGovern",
+      "party": "D",
+      "state": "MA",
+      "district": "2",
+      "sponsorshipDate": "2024-04-23",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "S001218",
+      "fullName": "Rep. Stansbury, Melanie A. [D-NM-1]",
+      "firstName": "Melanie",
+      "lastName": "Stansbury",
+      "party": "D",
+      "state": "NM",
+      "district": "1",
+      "sponsorshipDate": "2024-05-07",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "L000560",
+      "fullName": "Rep. Larsen, Rick [D-WA-2]",
+      "firstName": "Rick",
+      "lastName": "Larsen",
+      "party": "D",
+      "state": "WA",
+      "district": "2",
+      "sponsorshipDate": "2024-05-08",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "G000551",
+      "fullName": "Rep. Grijalva, Ra\u00fal M. [D-AZ-7]",
+      "firstName": "Ra\u00fal",
+      "lastName": "Grijalva",
+      "party": "D",
+      "state": "AZ",
+      "district": "7",
+      "sponsorshipDate": "2024-05-08",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "G000583",
+      "fullName": "Rep. Gottheimer, Josh [D-NJ-5]",
+      "firstName": "Josh",
+      "lastName": "Gottheimer",
+      "party": "D",
+      "state": "NJ",
+      "district": "5",
+      "sponsorshipDate": "2024-05-14",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "B001287",
+      "fullName": "Rep. Bera, Ami [D-CA-6]",
+      "firstName": "Ami",
+      "lastName": "Bera",
+      "party": "D",
+      "state": "CA",
+      "district": "6",
+      "sponsorshipDate": "2024-05-22",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "L000551",
+      "fullName": "Rep. Lee, Barbara [D-CA-12]",
+      "firstName": "Barbara",
+      "lastName": "Lee",
+      "party": "D",
+      "state": "CA",
+      "district": "12",
+      "sponsorshipDate": "2024-05-28",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "J000032",
+      "fullName": "Rep. Jackson Lee, Sheila [D-TX-18]",
+      "firstName": "Sheila",
+      "lastName": "Jackson Lee",
+      "party": "D",
+      "state": "TX",
+      "district": "18",
+      "sponsorshipDate": "2024-05-31",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "D000530",
+      "fullName": "Rep. Deluzio, Christopher R. [D-PA-17]",
+      "firstName": "Christopher",
+      "lastName": "Deluzio",
+      "party": "D",
+      "state": "PA",
+      "district": "17",
+      "sponsorshipDate": "2024-06-05",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "S001208",
+      "fullName": "Rep. Slotkin, Elissa [D-MI-7]",
+      "firstName": "Elissa",
+      "lastName": "Slotkin",
+      "party": "D",
+      "state": "MI",
+      "district": "7",
+      "sponsorshipDate": "2024-08-02",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "B001300",
+      "fullName": "Rep. Barrag\u00e1n, Nanette Diaz [D-CA-44]",
+      "firstName": "Nanette",
+      "lastName": "Barrag\u00e1n",
+      "party": "D",
+      "state": "CA",
+      "district": "44",
+      "sponsorshipDate": "2024-08-30",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "H001081",
+      "fullName": "Rep. Hayes, Jahana [D-CT-5]",
+      "firstName": "Jahana",
+      "lastName": "Hayes",
+      "party": "D",
+      "state": "CT",
+      "district": "5",
+      "sponsorshipDate": "2024-09-25",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2024-03-22",
+      "text": "Referred to the Subcommittee on Innovation, Data, and Commerce.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2024-03-21",
+      "text": "Referred to the Committee on Energy and Commerce, and in addition to the Committee on Science, Space, and Technology, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-03-21",
+      "text": "Referred to the Committee on Energy and Commerce, and in addition to the Committee on Science, Space, and Technology, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-03-21",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2024-03-21",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "died_in_committee",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2024-03-22",
+      "text": "Referred to the Subcommittee on Innovation, Data, and Commerce."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

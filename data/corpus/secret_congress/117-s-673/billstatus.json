@@ -1,0 +1,253 @@
+{
+  "bill_id": "117-s-673",
+  "fetched_at": "2026-06-10T02:55:39.375880+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/117/s/BILLSTATUS-117s673.xml",
+  "title": "Journalism Competition and Preservation Act of 2022",
+  "policy_area": "Science, Technology, Communications",
+  "subjects": [
+    "Broadcasting, cable, digital technologies",
+    "Competition and antitrust",
+    "Digital media",
+    "Internet and video services",
+    "Internet, web applications, social media",
+    "News media and reporting"
+  ],
+  "sponsor": {
+    "bioguideId": "K000367",
+    "fullName": "Sen. Klobuchar, Amy [D-MN]",
+    "firstName": "Amy",
+    "lastName": "Klobuchar",
+    "party": "D",
+    "state": "MN",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "K000393",
+      "fullName": "Sen. Kennedy, John [R-LA]",
+      "firstName": "John",
+      "lastName": "Kennedy",
+      "party": "R",
+      "state": "LA",
+      "district": null,
+      "sponsorshipDate": "2021-03-10",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "B001288",
+      "fullName": "Sen. Booker, Cory A. [D-NJ]",
+      "firstName": "Cory",
+      "lastName": "Booker",
+      "party": "D",
+      "state": "NJ",
+      "district": null,
+      "sponsorshipDate": "2021-03-10",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "P000603",
+      "fullName": "Sen. Paul, Rand [R-KY]",
+      "firstName": "Rand",
+      "lastName": "Paul",
+      "party": "R",
+      "state": "KY",
+      "district": null,
+      "sponsorshipDate": "2021-03-10",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "W000802",
+      "fullName": "Sen. Whitehouse, Sheldon [D-RI]",
+      "firstName": "Sheldon",
+      "lastName": "Whitehouse",
+      "party": "D",
+      "state": "RI",
+      "district": null,
+      "sponsorshipDate": "2021-03-10",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "L000571",
+      "fullName": "Sen. Lummis, Cynthia M. [R-WY]",
+      "firstName": "Cynthia",
+      "lastName": "Lummis",
+      "party": "R",
+      "state": "WY",
+      "district": null,
+      "sponsorshipDate": "2021-06-24",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "F000062",
+      "fullName": "Sen. Feinstein, Dianne [D-CA]",
+      "firstName": "Dianne",
+      "lastName": "Feinstein",
+      "party": "D",
+      "state": "CA",
+      "district": null,
+      "sponsorshipDate": "2021-06-24",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "C001035",
+      "fullName": "Sen. Collins, Susan M. [R-ME]",
+      "firstName": "Susan",
+      "lastName": "Collins",
+      "party": "R",
+      "state": "ME",
+      "district": null,
+      "sponsorshipDate": "2021-06-24",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "G000359",
+      "fullName": "Sen. Graham, Lindsey [R-SC]",
+      "firstName": "Lindsey",
+      "lastName": "Graham",
+      "party": "R",
+      "state": "SC",
+      "district": null,
+      "sponsorshipDate": "2022-03-10",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "H001042",
+      "fullName": "Sen. Hirono, Mazie K. [D-HI]",
+      "firstName": "Mazie",
+      "lastName": "Hirono",
+      "party": "D",
+      "state": "HI",
+      "district": null,
+      "sponsorshipDate": "2022-07-13",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "C001075",
+      "fullName": "Sen. Cassidy, Bill [R-LA]",
+      "firstName": "Bill",
+      "lastName": "Cassidy",
+      "party": "R",
+      "state": "LA",
+      "district": null,
+      "sponsorshipDate": "2022-07-13",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "B001277",
+      "fullName": "Sen. Blumenthal, Richard [D-CT]",
+      "firstName": "Richard",
+      "lastName": "Blumenthal",
+      "party": "D",
+      "state": "CT",
+      "district": null,
+      "sponsorshipDate": "2022-08-06",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "T000250",
+      "fullName": "Sen. Thune, John [R-SD]",
+      "firstName": "John",
+      "lastName": "Thune",
+      "party": "R",
+      "state": "SD",
+      "district": null,
+      "sponsorshipDate": "2022-08-06",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "D000563",
+      "fullName": "Sen. Durbin, Richard J. [D-IL]",
+      "firstName": "Richard",
+      "lastName": "Durbin",
+      "party": "D",
+      "state": "IL",
+      "district": null,
+      "sponsorshipDate": "2022-08-06",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "M001183",
+      "fullName": "Sen. Manchin, Joe, III [D-WV]",
+      "firstName": "Joseph",
+      "lastName": "Manchin",
+      "party": "D",
+      "state": "WV",
+      "district": null,
+      "sponsorshipDate": "2022-09-29",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "W000437",
+      "fullName": "Sen. Wicker, Roger F. [R-MS]",
+      "firstName": "Roger",
+      "lastName": "Wicker",
+      "party": "R",
+      "state": "MS",
+      "district": null,
+      "sponsorshipDate": "2022-11-30",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2022-11-28",
+      "text": "Placed on Senate Legislative Calendar under General Orders. Calendar No. 569.",
+      "type": "Calendars",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-11-28",
+      "text": "Committee on the Judiciary. Reported by Senator Durbin with an amendment in the nature of a substitute. Without written report.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-11-28",
+      "text": "Committee on the Judiciary. Reported by Senator Durbin with an amendment in the nature of a substitute. Without written report.",
+      "type": "Committee",
+      "actionCode": "14000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-09-22",
+      "text": "Committee on the Judiciary. Ordered to be reported with an amendment in the nature of a substitute favorably.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-02-02",
+      "text": "Committee on the Judiciary Subcommittee on Competition Policy, Antitrust, and Consumer Rights. Hearings held.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-03-10",
+      "text": "Read twice and referred to the Committee on the Judiciary.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2021-03-10",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "reported_no_floor_vote",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2022-11-28",
+      "text": "Placed on Senate Legislative Calendar under General Orders. Calendar No. 569."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

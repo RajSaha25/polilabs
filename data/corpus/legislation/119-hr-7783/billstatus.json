@@ -1,0 +1,64 @@
+{
+  "bill_id": "119-hr-7783",
+  "fetched_at": "2026-06-10T02:57:43.851890+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr7783.xml",
+  "title": "AI-Ready Networks Act",
+  "policy_area": "Science, Technology, Communications",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "M001227",
+    "fullName": "Rep. McClellan, Jennifer L. [D-VA-4]",
+    "firstName": "Jennifer",
+    "lastName": "McClellan",
+    "party": "D",
+    "state": "VA",
+    "district": "4"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "O000019",
+      "fullName": "Rep. Obernolte, Jay [R-CA-23]",
+      "firstName": "Jay",
+      "lastName": "Obernolte",
+      "party": "R",
+      "state": "CA",
+      "district": "23",
+      "sponsorshipDate": "2026-03-04",
+      "isOriginalCosponsor": "True"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2026-03-04",
+      "text": "Referred to the House Committee on Energy and Commerce.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2026-03-04",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2026-03-04",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2026-03-04",
+      "text": "Referred to the House Committee on Energy and Commerce."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

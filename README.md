@@ -9,7 +9,7 @@ Corpus: US federal legislation organized into topic subsets — each subset is a
 The product is the **agent-facing backend** — the tool surface and the HTTP API — not the data files. Anyone can mirror Congress.gov XML. The value is:
 
 1. **Reconciliation across sources** — bill metadata from Congress.gov, full text from GovInfo, U.S. Code from OLRC, all stitched together into one queryable graph.
-2. **Agent-native primitives** — `find_bills_defining`, `get_amendments`, `resolve_citation`, etc. Aggregate queries are one tool call, not 50 sequential ones. Designed against documented LLM tool-use failure modes (N+1, context degradation, pagination truncation).
+2. **Agent-native primitives** — `find_bills_defining`, `get_amendments`, `count_bills`, `find_bills_by_outcome`, `get_bill_votes`, `resolve_citation`, etc. Aggregate queries are one tool call, not 50 sequential ones. Designed against documented LLM tool-use failure modes (N+1, context degradation, pagination truncation).
 3. **Anti-hallucination guardrails** — every cited fact carries verbatim provenance from a tool response. Bills define terms locally; the same surface form ("AI", "frontier model") has different definitions across bills, and the API surfaces that divergence rather than collapsing it.
 
 The agent doing the research is **NOT** polilabs' own agent. polilabs is the backend; the agent is yours.
@@ -69,7 +69,7 @@ make build            # build the SQLite + Kùzu indexes from data/corpus/ (~100
 
 The corpus is committed under `data/corpus/<topic>/` (one subdirectory per topic subset), so `make build` is the only build step needed locally. It runs `scripts/build_index.py` (SQLite FTS + dense embeddings via `BAAI/bge-small-en-v1.5`) and `scripts/build_kuzu_index.py` (Kùzu graph); `scripts/kuzu_smoke_test.py` and `scripts/api_smoke_test.py` verify the result. Total ~5-10 min for the full build; pass `--skip-embeddings` to `build_index.py` for fast FTS-only iteration.
 
-Re-fetching corpus content from Congress.gov / GovInfo is a separate flow (`scripts/fetch_candidates.py` → `scripts/promote_corpus.py`, or `scripts/fetch_redistricting_seed.py` for the redistricting seed), only needed to expand scope or refresh data.
+Re-fetching corpus content from Congress.gov / GovInfo is a separate flow (`scripts/fetch_candidates.py` → `scripts/promote_corpus.py`, or `scripts/fetch_redistricting_seed.py` / `scripts/fetch_secret_congress_seed.py` for the hand-curated seeds), only needed to expand scope or refresh data. `scripts/backfill_billstatus.py` enriches every corpus bill with keyless GovInfo BILLSTATUS data (roll-call votes with party splits, derived outcomes, full action trails) — no API key required.
 
 ## The 12-tool agent surface
 

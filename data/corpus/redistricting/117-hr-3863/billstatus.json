@@ -1,0 +1,155 @@
+{
+  "bill_id": "117-hr-3863",
+  "fetched_at": "2026-06-10T02:58:02.783165+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/117/hr/BILLSTATUS-117hr3863.xml",
+  "title": "Fair Representation Act",
+  "policy_area": "Government Operations and Politics",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "B001292",
+    "fullName": "Rep. Beyer, Donald S., Jr. [D-VA-8]",
+    "firstName": "Donald",
+    "lastName": "Beyer",
+    "party": "D",
+    "state": "VA",
+    "district": "8"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "C000754",
+      "fullName": "Rep. Cooper, Jim [D-TN-5]",
+      "firstName": "JAMES",
+      "lastName": "COOPER",
+      "party": "D",
+      "state": "TN",
+      "district": "5",
+      "sponsorshipDate": "2021-06-14",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "B000574",
+      "fullName": "Rep. Blumenauer, Earl [D-OR-3]",
+      "firstName": "EARL",
+      "lastName": "BLUMENAUER",
+      "party": "D",
+      "state": "OR",
+      "district": "3",
+      "sponsorshipDate": "2021-06-14",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "R000606",
+      "fullName": "Rep. Raskin, Jamie [D-MD-8]",
+      "firstName": "Jamie",
+      "lastName": "Raskin",
+      "party": "D",
+      "state": "MD",
+      "district": "8",
+      "sponsorshipDate": "2021-06-14",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "K000389",
+      "fullName": "Rep. Khanna, Ro [D-CA-17]",
+      "firstName": "Ro",
+      "lastName": "Khanna",
+      "party": "D",
+      "state": "CA",
+      "district": "17",
+      "sponsorshipDate": "2021-06-14",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "N000191",
+      "fullName": "Rep. Neguse, Joe [D-CO-2]",
+      "firstName": "Joe",
+      "lastName": "Neguse",
+      "party": "D",
+      "state": "CO",
+      "district": "2",
+      "sponsorshipDate": "2021-06-14",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "M000312",
+      "fullName": "Rep. McGovern, James P. [D-MA-2]",
+      "firstName": "JAMES",
+      "lastName": "MCGOVERN",
+      "party": "D",
+      "state": "MA",
+      "district": "2",
+      "sponsorshipDate": "2021-06-14",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "P000608",
+      "fullName": "Rep. Peters, Scott H. [D-CA-52]",
+      "firstName": "Scott",
+      "lastName": "Peters",
+      "party": "D",
+      "state": "CA",
+      "district": "52",
+      "sponsorshipDate": "2021-06-14",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "L000273",
+      "fullName": "Rep. Leger Fernandez, Teresa [D-NM-3]",
+      "firstName": "Teresa",
+      "lastName": "Leger Fernandez",
+      "party": "D",
+      "state": "NM",
+      "district": "3",
+      "sponsorshipDate": "2022-07-27",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2022-11-01",
+      "text": "Referred to the Subcommittee on the Constitution, Civil Rights, and Civil Liberties.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2021-06-14",
+      "text": "Referred to the Committee on the Judiciary, and in addition to the Committee on House Administration, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-06-14",
+      "text": "Referred to the Committee on the Judiciary, and in addition to the Committee on House Administration, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-06-14",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2021-06-14",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "died_in_committee",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2022-11-01",
+      "text": "Referred to the Subcommittee on the Constitution, Civil Rights, and Civil Liberties."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

@@ -1,0 +1,57 @@
+{
+  "bill_id": "119-s-3982",
+  "fetched_at": "2026-06-10T02:57:57.423129+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/s/BILLSTATUS-119s3982.xml",
+  "title": "AI Fraud Accountability Act of 2026",
+  "policy_area": "Commerce",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "S001232",
+    "fullName": "Sen. Sheehy, Tim [R-MT]",
+    "firstName": "Tim",
+    "lastName": "Sheehy",
+    "party": "R",
+    "state": "MT",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "B001303",
+      "fullName": "Sen. Blunt Rochester, Lisa [D-DE]",
+      "firstName": "Lisa",
+      "lastName": "Blunt Rochester",
+      "party": "D",
+      "state": "DE",
+      "district": null,
+      "sponsorshipDate": "2026-03-04",
+      "isOriginalCosponsor": "True"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2026-03-04",
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2026-03-04",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2026-03-04",
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

@@ -1,0 +1,143 @@
+{
+  "bill_id": "119-hr-5388",
+  "fetched_at": "2026-06-10T02:57:34.920271+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr5388.xml",
+  "title": "American Artificial Intelligence Leadership and Uniformity Act",
+  "policy_area": "Government Operations and Politics",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "B001322",
+    "fullName": "Rep. Baumgartner, Michael [R-WA-5]",
+    "firstName": "Michael",
+    "lastName": "Baumgartner",
+    "party": "R",
+    "state": "WA",
+    "district": "5"
+  },
+  "cosponsors": [],
+  "actions": [
+    {
+      "actionDate": "2025-12-19",
+      "text": "Referred to the Subcommittee on Oversight and Investigations.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2025-09-17",
+      "text": "Referred to the Subcommittee on Cybersecurity and Infrastructure Protection.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2025-09-16",
+      "text": "Referred to the Committee on Science, Space, and Technology, and in addition to the Committees on Foreign Affairs, Armed Services, Homeland Security, Oversight and Government Reform, the Judiciary, Energy and Commerce, Small Business, Education and Workforce, Financial Services, Veterans' Affairs, and Transportation and Infrastructure, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-09-16",
+      "text": "Referred to the Committee on Science, Space, and Technology, and in addition to the Committees on Foreign Affairs, Armed Services, Homeland Security, Oversight and Government Reform, the Judiciary, Energy and Commerce, Small Business, Education and Workforce, Financial Services, Veterans' Affairs, and Transportation and Infrastructure, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-09-16",
+      "text": "Referred to the Committee on Science, Space, and Technology, and in addition to the Committees on Foreign Affairs, Armed Services, Homeland Security, Oversight and Government Reform, the Judiciary, Energy and Commerce, Small Business, Education and Workforce, Financial Services, Veterans' Affairs, and Transportation and Infrastructure, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-09-16",
+      "text": "Referred to the Committee on Science, Space, and Technology, and in addition to the Committees on Foreign Affairs, Armed Services, Homeland Security, Oversight and Government Reform, the Judiciary, Energy and Commerce, Small Business, Education and Workforce, Financial Services, Veterans' Affairs, and Transportation and Infrastructure, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-09-16",
+      "text": "Referred to the Committee on Science, Space, and Technology, and in addition to the Committees on Foreign Affairs, Armed Services, Homeland Security, Oversight and Government Reform, the Judiciary, Energy and Commerce, Small Business, Education and Workforce, Financial Services, Veterans' Affairs, and Transportation and Infrastructure, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-09-16",
+      "text": "Referred to the Committee on Science, Space, and Technology, and in addition to the Committees on Foreign Affairs, Armed Services, Homeland Security, Oversight and Government Reform, the Judiciary, Energy and Commerce, Small Business, Education and Workforce, Financial Services, Veterans' Affairs, and Transportation and Infrastructure, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-09-16",
+      "text": "Referred to the Committee on Science, Space, and Technology, and in addition to the Committees on Foreign Affairs, Armed Services, Homeland Security, Oversight and Government Reform, the Judiciary, Energy and Commerce, Small Business, Education and Workforce, Financial Services, Veterans' Affairs, and Transportation and Infrastructure, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-09-16",
+      "text": "Referred to the Committee on Science, Space, and Technology, and in addition to the Committees on Foreign Affairs, Armed Services, Homeland Security, Oversight and Government Reform, the Judiciary, Energy and Commerce, Small Business, Education and Workforce, Financial Services, Veterans' Affairs, and Transportation and Infrastructure, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-09-16",
+      "text": "Referred to the Committee on Science, Space, and Technology, and in addition to the Committees on Foreign Affairs, Armed Services, Homeland Security, Oversight and Government Reform, the Judiciary, Energy and Commerce, Small Business, Education and Workforce, Financial Services, Veterans' Affairs, and Transportation and Infrastructure, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-09-16",
+      "text": "Referred to the Committee on Science, Space, and Technology, and in addition to the Committees on Foreign Affairs, Armed Services, Homeland Security, Oversight and Government Reform, the Judiciary, Energy and Commerce, Small Business, Education and Workforce, Financial Services, Veterans' Affairs, and Transportation and Infrastructure, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-09-16",
+      "text": "Referred to the Committee on Science, Space, and Technology, and in addition to the Committees on Foreign Affairs, Armed Services, Homeland Security, Oversight and Government Reform, the Judiciary, Energy and Commerce, Small Business, Education and Workforce, Financial Services, Veterans' Affairs, and Transportation and Infrastructure, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-09-16",
+      "text": "Referred to the Committee on Science, Space, and Technology, and in addition to the Committees on Foreign Affairs, Armed Services, Homeland Security, Oversight and Government Reform, the Judiciary, Energy and Commerce, Small Business, Education and Workforce, Financial Services, Veterans' Affairs, and Transportation and Infrastructure, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-09-16",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2025-09-16",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2025-12-19",
+      "text": "Referred to the Subcommittee on Oversight and Investigations."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

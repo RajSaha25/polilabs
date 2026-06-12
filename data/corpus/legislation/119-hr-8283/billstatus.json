@@ -1,0 +1,243 @@
+{
+  "bill_id": "119-hr-8283",
+  "fetched_at": "2026-06-10T02:57:45.710892+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr8283.xml",
+  "title": "Deterring American AI Model Theft Act of 2026",
+  "policy_area": "International Affairs",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "H001058",
+    "fullName": "Rep. Huizenga, Bill [R-MI-4]",
+    "firstName": "Bill",
+    "lastName": "Huizenga",
+    "party": "R",
+    "state": "MI",
+    "district": "4"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "M001194",
+      "fullName": "Rep. Moolenaar, John R. [R-MI-2]",
+      "firstName": "John",
+      "lastName": "Moolenaar",
+      "party": "R",
+      "state": "MI",
+      "district": "2",
+      "sponsorshipDate": "2026-04-15",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "L000599",
+      "fullName": "Rep. Lawler, Michael [R-NY-17]",
+      "firstName": "Michael",
+      "lastName": "Lawler",
+      "party": "R",
+      "state": "NY",
+      "district": "17",
+      "sponsorshipDate": "2026-04-20",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "C001087",
+      "fullName": "Rep. Crawford, Eric A. \"Rick\" [R-AR-1]",
+      "firstName": "Eric",
+      "lastName": "Crawford",
+      "party": "R",
+      "state": "AR",
+      "district": "1",
+      "sponsorshipDate": "2026-04-21",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "K000400",
+      "fullName": "Rep. Kamlager-Dove, Sydney [D-CA-37]",
+      "firstName": "Sydney",
+      "lastName": "Kamlager-Dove",
+      "party": "D",
+      "state": "CA",
+      "district": "37",
+      "sponsorshipDate": "2026-04-29",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "L000585",
+      "fullName": "Rep. LaHood, Darin [R-IL-16]",
+      "firstName": "Darin",
+      "lastName": "LaHood",
+      "party": "R",
+      "state": "IL",
+      "district": "16",
+      "sponsorshipDate": "2026-04-29",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "C001118",
+      "fullName": "Rep. Cline, Ben [R-VA-6]",
+      "firstName": "Ben",
+      "lastName": "Cline",
+      "party": "R",
+      "state": "VA",
+      "district": "6",
+      "sponsorshipDate": "2026-04-29",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "H001101",
+      "fullName": "Rep. Harrigan, Pat [R-NC-10]",
+      "firstName": "Pat",
+      "lastName": "Harrigan",
+      "party": "R",
+      "state": "NC",
+      "district": "10",
+      "sponsorshipDate": "2026-04-29",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "M001157",
+      "fullName": "Rep. McCaul, Michael T. [R-TX-10]",
+      "firstName": "Michael",
+      "lastName": "McCaul",
+      "party": "R",
+      "state": "TX",
+      "district": "10",
+      "sponsorshipDate": "2026-05-11",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "M001212",
+      "fullName": "Rep. Moore, Barry [R-AL-1]",
+      "firstName": "Barry",
+      "lastName": "Moore",
+      "party": "R",
+      "state": "AL",
+      "district": "1",
+      "sponsorshipDate": "2026-05-11",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "S000168",
+      "fullName": "Rep. Salazar, Maria Elvira [R-FL-27]",
+      "firstName": "Maria",
+      "lastName": "Salazar",
+      "party": "R",
+      "state": "FL",
+      "district": "27",
+      "sponsorshipDate": "2026-05-12",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "J000307",
+      "fullName": "Rep. James, John [R-MI-10]",
+      "firstName": "John",
+      "lastName": "James",
+      "party": "R",
+      "state": "MI",
+      "district": "10",
+      "sponsorshipDate": "2026-05-12",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "M001222",
+      "fullName": "Rep. Miller, Max L. [R-OH-7]",
+      "firstName": "Max",
+      "lastName": "Miller",
+      "party": "R",
+      "state": "OH",
+      "district": "7",
+      "sponsorshipDate": "2026-05-19",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "M001230",
+      "fullName": "Rep. Mackenzie, Ryan [R-PA-7]",
+      "firstName": "Ryan",
+      "lastName": "Mackenzie",
+      "party": "R",
+      "state": "PA",
+      "district": "7",
+      "sponsorshipDate": "2026-06-02",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "G000583",
+      "fullName": "Rep. Gottheimer, Josh [D-NJ-5]",
+      "firstName": "Josh",
+      "lastName": "Gottheimer",
+      "party": "D",
+      "state": "NJ",
+      "district": "5",
+      "sponsorshipDate": "2026-06-03",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "B001323",
+      "fullName": "Rep. Begich, Nicholas J. [R-AK-At Large]",
+      "firstName": "Nicholas",
+      "lastName": "Begich",
+      "party": "R",
+      "state": "AK",
+      "district": "0",
+      "sponsorshipDate": "2026-06-08",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "M001224",
+      "fullName": "Rep. Moran, Nathaniel [R-TX-1]",
+      "firstName": "Nathaniel",
+      "lastName": "Moran",
+      "party": "R",
+      "state": "TX",
+      "district": "1",
+      "sponsorshipDate": "2026-06-08",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2026-04-22",
+      "text": "Ordered to be Reported (Amended) by the Yeas and Nays: 43 - 0.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2026-04-22",
+      "text": "Committee Consideration and Mark-up Session Held",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2026-04-15",
+      "text": "Referred to the House Committee on Foreign Affairs.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2026-04-15",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2026-04-15",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2026-04-22",
+      "text": "Ordered to be Reported (Amended) by the Yeas and Nays: 43 - 0."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

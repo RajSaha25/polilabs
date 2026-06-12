@@ -1,0 +1,505 @@
+{
+  "bill_id": "118-hr-2",
+  "congress": 118,
+  "bill_type": "hr",
+  "bill_number": 2,
+  "title": "Secure the Border Act of 2023",
+  "short_title": "Secure the Border Act of 2023",
+  "sponsor": "Rep. Diaz-Balart, Mario [R-FL-26]",
+  "introduced_date": "2023-05-02",
+  "latest_action": "2024-12-17: Referred to the Subcommittee on Social Security.",
+  "policy_area": "Immigration",
+  "subjects": [
+    "Administrative remedies",
+    "Border security and unlawful immigration",
+    "Child safety and welfare",
+    "Civil actions and liability",
+    "Computer security and identity theft",
+    "Criminal investigation, prosecution, interrogation",
+    "Criminal justice information and records",
+    "Department of Homeland Security",
+    "Detention of persons",
+    "Domestic violence and child abuse",
+    "El Salvador",
+    "Employee hiring",
+    "Executive agency funding and structure",
+    "Family relationships",
+    "Federal preemption",
+    "Foreign labor",
+    "Fraud offenses and financial crimes",
+    "Government information and archives",
+    "Government studies and investigations",
+    "Guatemala",
+    "Honduras",
+    "Immigration status and procedures",
+    "Internet, web applications, social media",
+    "Latin America",
+    "Law enforcement officers",
+    "Licensing and registrations",
+    "Mexico",
+    "Migrant, seasonal, agricultural labor",
+    "Personnel records",
+    "Photography and imaging",
+    "Public contracts and procurement",
+    "Refugees, asylum, displaced persons",
+    "State and local government operations",
+    "Telephone and wireless communication",
+    "Visas and passports"
+  ],
+  "summary_text": null,
+  "centrality_score": null,
+  "match_locations": {},
+  "tier": "A",
+  "stream": "legislation",
+  "topic": "secret_congress",
+  "cluster": "party_line_contrast",
+  "curator_note": "Passed the House 219-213 with zero D yeas; never taken up in the Senate. A messaging bill: contrast case for the Border Act's failed bipartisan deal.",
+  "versions_available": [
+    {
+      "package_id": "BILLS-118hr2eh",
+      "version_code": "eh",
+      "date_issued": "2023-05-02"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-118hr2eh",
+    "version_code": "eh",
+    "date_issued": "2023-05-02"
+  },
+  "actions": [
+    {
+      "actionDate": "2024-12-17",
+      "text": "Referred to the Subcommittee on Social Security.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2024-12-17",
+      "text": "Referred to the Subcommittee on Trade.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2023-05-16",
+      "text": "Read the second time. Placed on Senate Legislative Calendar under General Orders. Calendar No. 71.",
+      "type": "Calendars",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2023-05-15",
+      "text": "Received in the Senate. Read the first time. Placed on Senate Legislative Calendar under Read the First Time.",
+      "type": "Calendars",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2023-05-11",
+      "text": "Motion to reconsider laid on the table Agreed to without objection.",
+      "type": "Floor",
+      "actionCode": "H38310",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-05-11",
+      "text": "On passage Passed by the Yeas and Nays: 219 - 213 (Roll no. 209). (text: 5/10/2023 CR H2195-2216)",
+      "type": "Floor",
+      "actionCode": "H37100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-05-11",
+      "text": "Passed/agreed to in House: On passage Passed by the Yeas and Nays: 219 - 213 (Roll no. 209). (text: 5/10/2023 CR H2195-2216)",
+      "type": "Floor",
+      "actionCode": "8000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2023-05-11",
+      "text": "On motion to recommit Failed by the Yeas and Nays: 211 - 221 (Roll no. 208).",
+      "type": "Floor",
+      "actionCode": "H36210",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-05-11",
+      "text": "Considered as unfinished business. (consideration: CR H2293-2294)",
+      "type": "Floor",
+      "actionCode": "H30000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-05-11",
+      "text": "POSTPONED PROCEEDINGS - The Chair put the question on the motion to recommit the bill and by voice vote announced the noes had prevailed. Ms. Garcia (TX) demanded the yeas and nays, and the Chair postoned further proceedings until a time to be announced.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-05-11",
+      "text": "The previous question on the motion to recommit was ordered pursuant to clause 2(b) of rule XIX.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-05-11",
+      "text": "Ms. Garcia (TX) moved to recommit to the Committee on the Judiciary. (text: CR H2281)",
+      "type": "Floor",
+      "actionCode": "H36200",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-05-11",
+      "text": "The previous question was ordered pursuant to the rule.",
+      "type": "Floor",
+      "actionCode": "H35000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-05-11",
+      "text": "DEBATE - The House resumed with further debate on H.R. 2.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-05-11",
+      "text": "Considered as unfinished business. (consideration: CR H2258-2281)",
+      "type": "Floor",
+      "actionCode": "H30000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-05-11",
+      "text": "Pursuant to clause 1(c) of rule XIX, the Chair announced that consideration of H.R. 2 would now resume.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-05-10",
+      "text": "POSTPONED PROCEEDINGS - Pursuant to clause 1(c) of rule XIX, the Chair announced further proceedings on H. R. 2 would be postponed.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-05-10",
+      "text": "DEBATE - The House proceeded with five hours of debate on H.R. 2.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-05-10",
+      "text": "Rule provides for consideration of H.R. 2 and H.R. 1163. The resolution provides for consideration of H.R. 2 under a closed rule with five hours of general debate, and the resolution provides for consideration of H.R. 1163 under a closed rule with one hour of general debate. The resolution provides for a motion to recommit on each measure.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-05-10",
+      "text": "Considered under the provisions of rule H. Res. 383. (consideration: CR H2195-2236)",
+      "type": "Floor",
+      "actionCode": "H30000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-05-10",
+      "text": "Rules Committee Resolution H. Res. 383 Reported to House. Rule provides for consideration of H.R. 2 and H.R. 1163. The resolution provides for consideration of H.R. 2 under a closed rule with five hours of general debate, and the resolution provides for consideration of H.R. 1163 under a closed rule with one hour of general debate. The resolution provides for a motion to recommit on each measure.",
+      "type": "Floor",
+      "actionCode": "H1L210",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-05-02",
+      "text": "Referred to the Committee on the Judiciary, and in addition to the Committees on Homeland Security, Ways and Means, Education and the Workforce, and Foreign Affairs, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-05-02",
+      "text": "Referred to the Committee on the Judiciary, and in addition to the Committees on Homeland Security, Ways and Means, Education and the Workforce, and Foreign Affairs, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-05-02",
+      "text": "Referred to the Committee on the Judiciary, and in addition to the Committees on Homeland Security, Ways and Means, Education and the Workforce, and Foreign Affairs, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-05-02",
+      "text": "Referred to the Committee on the Judiciary, and in addition to the Committees on Homeland Security, Ways and Means, Education and the Workforce, and Foreign Affairs, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-05-02",
+      "text": "Referred to the Committee on the Judiciary, and in addition to the Committees on Homeland Security, Ways and Means, Education and the Workforce, and Foreign Affairs, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-05-02",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2023-05-02",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "cosponsors": [
+    {
+      "bioguideId": "M001177",
+      "fullName": "Rep. McClintock, Tom [R-CA-5]",
+      "firstName": "Tom",
+      "lastName": "McClintock",
+      "party": "R",
+      "state": "CA",
+      "district": "5",
+      "sponsorshipDate": "2023-05-02",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "G000590",
+      "fullName": "Rep. Green, Mark E. [R-TN-7]",
+      "firstName": "Mark",
+      "lastName": "Green",
+      "party": "R",
+      "state": "TN",
+      "district": "7",
+      "sponsorshipDate": "2023-05-02",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "J000289",
+      "fullName": "Rep. Jordan, Jim [R-OH-4]",
+      "firstName": "Jim",
+      "lastName": "Jordan",
+      "party": "R",
+      "state": "OH",
+      "district": "4",
+      "sponsorshipDate": "2023-05-02",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "H001077",
+      "fullName": "Rep. Higgins, Clay [R-LA-3]",
+      "firstName": "Clay",
+      "lastName": "Higgins",
+      "party": "R",
+      "state": "LA",
+      "district": "3",
+      "sponsorshipDate": "2023-05-02",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "B001302",
+      "fullName": "Rep. Biggs, Andy [R-AZ-5]",
+      "firstName": "Andy",
+      "lastName": "Biggs",
+      "party": "R",
+      "state": "AZ",
+      "district": "5",
+      "sponsorshipDate": "2023-05-02",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "C001051",
+      "fullName": "Rep. Carter, John R. [R-TX-31]",
+      "firstName": "John",
+      "lastName": "Carter",
+      "party": "R",
+      "state": "TX",
+      "district": "31",
+      "sponsorshipDate": "2023-05-02",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "C000059",
+      "fullName": "Rep. Calvert, Ken [R-CA-41]",
+      "firstName": "KEN",
+      "lastName": "CALVERT",
+      "party": "R",
+      "state": "CA",
+      "district": "41",
+      "sponsorshipDate": "2023-05-02",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "M001224",
+      "fullName": "Rep. Moran, Nathaniel [R-TX-1]",
+      "firstName": "Nathaniel",
+      "lastName": "Moran",
+      "party": "R",
+      "state": "TX",
+      "district": "1",
+      "sponsorshipDate": "2023-05-02",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "R000610",
+      "fullName": "Rep. Reschenthaler, Guy [R-PA-14]",
+      "firstName": "Guy",
+      "lastName": "Reschenthaler",
+      "party": "R",
+      "state": "PA",
+      "district": "14",
+      "sponsorshipDate": "2023-05-05",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "M000317",
+      "fullName": "Rep. Malliotakis, Nicole [R-NY-11]",
+      "firstName": "Nicole",
+      "lastName": "Malliotakis",
+      "party": "R",
+      "state": "NY",
+      "district": "11",
+      "sponsorshipDate": "2023-05-05",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "A000375",
+      "fullName": "Rep. Arrington, Jodey C. [R-TX-19]",
+      "firstName": "Jodey",
+      "lastName": "Arrington",
+      "party": "R",
+      "state": "TX",
+      "district": "19",
+      "sponsorshipDate": "2023-05-05",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "B000740",
+      "fullName": "Rep. Bice, Stephanie I. [R-OK-5]",
+      "firstName": "Stephanie",
+      "lastName": "Bice",
+      "party": "R",
+      "state": "OK",
+      "district": "5",
+      "sponsorshipDate": "2023-05-05",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "M001211",
+      "fullName": "Rep. Miller, Mary E. [R-IL-15]",
+      "firstName": "Mary",
+      "lastName": "Miller",
+      "party": "R",
+      "state": "IL",
+      "district": "15",
+      "sponsorshipDate": "2023-05-05",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "J000299",
+      "fullName": "Rep. Johnson, Mike [R-LA-4]",
+      "firstName": "Mike",
+      "lastName": "Johnson",
+      "party": "R",
+      "state": "LA",
+      "district": "4",
+      "sponsorshipDate": "2023-05-05",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "W000814",
+      "fullName": "Rep. Weber, Randy K., Sr. [R-TX-14]",
+      "firstName": "Randy",
+      "lastName": "Weber",
+      "party": "R",
+      "state": "TX",
+      "district": "14",
+      "sponsorshipDate": "2023-05-05",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "F000465",
+      "fullName": "Rep. Ferguson, A. Drew, IV [R-GA-3]",
+      "firstName": "A.",
+      "lastName": "Ferguson",
+      "party": "R",
+      "state": "GA",
+      "district": "3",
+      "sponsorshipDate": "2023-05-09",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "S000250",
+      "fullName": "Rep. Sessions, Pete [R-TX-17]",
+      "firstName": "PETE",
+      "lastName": "SESSIONS",
+      "party": "R",
+      "state": "TX",
+      "district": "17",
+      "sponsorshipDate": "2023-05-09",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "E000246",
+      "fullName": "Rep. Edwards, Chuck [R-NC-11]",
+      "firstName": "Chuck",
+      "lastName": "Edwards",
+      "party": "R",
+      "state": "NC",
+      "district": "11",
+      "sponsorshipDate": "2023-05-09",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "Z000018",
+      "fullName": "Rep. Zinke, Ryan K. [R-MT-1]",
+      "firstName": "Ryan",
+      "lastName": "Zinke",
+      "party": "R",
+      "state": "MT",
+      "district": "1",
+      "sponsorshipDate": "2023-05-09",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "B000825",
+      "fullName": "Rep. Boebert, Lauren [R-CO-3]",
+      "firstName": "Lauren",
+      "lastName": "Boebert",
+      "party": "R",
+      "state": "CO",
+      "district": "3",
+      "sponsorshipDate": "2023-05-09",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "E000071",
+      "fullName": "Rep. Ellzey, Jake [R-TX-6]",
+      "firstName": "Jake",
+      "lastName": "Ellzey",
+      "party": "R",
+      "state": "TX",
+      "district": "6",
+      "sponsorshipDate": "2023-05-09",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "_metadata_sources": {
+    "xml": "govinfo bulk-data (unauthenticated)",
+    "billstatus": "govinfo BILLSTATUS bulk-data (unauthenticated)",
+    "congress_gov_enriched": false
+  }
+}

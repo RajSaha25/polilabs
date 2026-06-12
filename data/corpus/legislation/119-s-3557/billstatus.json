@@ -1,0 +1,156 @@
+{
+  "bill_id": "119-s-3557",
+  "fetched_at": "2026-06-10T02:57:55.217308+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/s/BILLSTATUS-119s3557.xml",
+  "title": "States' Right to Regulate AI Act",
+  "policy_area": "Science, Technology, Communications",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "M000133",
+    "fullName": "Sen. Markey, Edward J. [D-MA]",
+    "firstName": "Edward",
+    "lastName": "Markey",
+    "party": "D",
+    "state": "MA",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "V000128",
+      "fullName": "Sen. Van Hollen, Chris [D-MD]",
+      "firstName": "Chris",
+      "lastName": "Van Hollen",
+      "party": "D",
+      "state": "MD",
+      "district": null,
+      "sponsorshipDate": "2025-12-17",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "W000800",
+      "fullName": "Sen. Welch, Peter [D-VT]",
+      "firstName": "Peter",
+      "lastName": "Welch",
+      "party": "D",
+      "state": "VT",
+      "district": null,
+      "sponsorshipDate": "2025-12-17",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "W000779",
+      "fullName": "Sen. Wyden, Ron [D-OR]",
+      "firstName": "Ron",
+      "lastName": "Wyden",
+      "party": "D",
+      "state": "OR",
+      "district": null,
+      "sponsorshipDate": "2025-12-17",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "S000033",
+      "fullName": "Sen. Sanders, Bernard [I-VT]",
+      "firstName": "Bernie",
+      "lastName": "Sanders",
+      "party": "I",
+      "state": "VT",
+      "district": null,
+      "sponsorshipDate": "2025-12-17",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "S001150",
+      "fullName": "Sen. Schiff, Adam B. [D-CA]",
+      "firstName": "Adam",
+      "lastName": "Schiff",
+      "party": "D",
+      "state": "CA",
+      "district": null,
+      "sponsorshipDate": "2025-12-17",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "B001288",
+      "fullName": "Sen. Booker, Cory A. [D-NJ]",
+      "firstName": "Cory",
+      "lastName": "Booker",
+      "party": "D",
+      "state": "NJ",
+      "district": null,
+      "sponsorshipDate": "2025-12-17",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "L000570",
+      "fullName": "Sen. Luj\u00e1n, Ben Ray [D-NM]",
+      "firstName": "Ben",
+      "lastName": "Luj\u00e1n",
+      "party": "D",
+      "state": "NM",
+      "district": null,
+      "sponsorshipDate": "2025-12-17",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "K000367",
+      "fullName": "Sen. Klobuchar, Amy [D-MN]",
+      "firstName": "Amy",
+      "lastName": "Klobuchar",
+      "party": "D",
+      "state": "MN",
+      "district": null,
+      "sponsorshipDate": "2025-12-17",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "P000145",
+      "fullName": "Sen. Padilla, Alex [D-CA]",
+      "firstName": "Alex",
+      "lastName": "Padilla",
+      "party": "D",
+      "state": "CA",
+      "district": null,
+      "sponsorshipDate": "2025-12-17",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "D000563",
+      "fullName": "Sen. Durbin, Richard J. [D-IL]",
+      "firstName": "Richard",
+      "lastName": "Durbin",
+      "party": "D",
+      "state": "IL",
+      "district": null,
+      "sponsorshipDate": "2025-12-17",
+      "isOriginalCosponsor": "True"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2025-12-17",
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2025-12-17",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2025-12-17",
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

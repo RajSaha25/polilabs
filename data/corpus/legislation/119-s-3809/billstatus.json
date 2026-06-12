@@ -1,0 +1,68 @@
+{
+  "bill_id": "119-s-3809",
+  "fetched_at": "2026-06-10T02:57:55.960968+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/s/BILLSTATUS-119s3809.xml",
+  "title": "AI Grand Challenges Act of 2026",
+  "policy_area": "Science, Technology, Communications",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "B001288",
+    "fullName": "Sen. Booker, Cory A. [D-NJ]",
+    "firstName": "Cory",
+    "lastName": "Booker",
+    "party": "D",
+    "state": "NJ",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "R000605",
+      "fullName": "Sen. Rounds, Mike [R-SD]",
+      "firstName": "Mike",
+      "lastName": "Rounds",
+      "party": "R",
+      "state": "SD",
+      "district": null,
+      "sponsorshipDate": "2026-02-09",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "H001046",
+      "fullName": "Sen. Heinrich, Martin [D-NM]",
+      "firstName": "Martin",
+      "lastName": "Heinrich",
+      "party": "D",
+      "state": "NM",
+      "district": null,
+      "sponsorshipDate": "2026-02-09",
+      "isOriginalCosponsor": "True"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2026-02-09",
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2026-02-09",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2026-02-09",
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

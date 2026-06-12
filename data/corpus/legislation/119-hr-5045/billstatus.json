@@ -1,0 +1,64 @@
+{
+  "bill_id": "119-hr-5045",
+  "fetched_at": "2026-06-10T02:57:33.077912+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr5045.xml",
+  "title": "HEALTH AI Act",
+  "policy_area": "Health",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "L000582",
+    "fullName": "Rep. Lieu, Ted [D-CA-36]",
+    "firstName": "Ted",
+    "lastName": "Lieu",
+    "party": "D",
+    "state": "CA",
+    "district": "36"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "B001287",
+      "fullName": "Rep. Bera, Ami [D-CA-6]",
+      "firstName": "Ami",
+      "lastName": "Bera",
+      "party": "D",
+      "state": "CA",
+      "district": "6",
+      "sponsorshipDate": "2025-08-26",
+      "isOriginalCosponsor": "True"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2025-08-26",
+      "text": "Referred to the House Committee on Energy and Commerce.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-08-26",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2025-08-26",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2025-08-26",
+      "text": "Referred to the House Committee on Energy and Commerce."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

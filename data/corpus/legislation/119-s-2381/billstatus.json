@@ -1,0 +1,75 @@
+{
+  "bill_id": "119-s-2381",
+  "fetched_at": "2026-06-10T02:57:50.453539+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/s/BILLSTATUS-119s2381.xml",
+  "title": "PROACTIV Artificial Intelligence Data Act of 2025",
+  "policy_area": "Science, Technology, Communications",
+  "subjects": [
+    "Advanced technology and technological innovations",
+    "Child safety and welfare",
+    "Computers and information technology",
+    "Crimes against children",
+    "Pornography",
+    "Research and development"
+  ],
+  "sponsor": {
+    "bioguideId": "C001056",
+    "fullName": "Sen. Cornyn, John [R-TX]",
+    "firstName": "John",
+    "lastName": "Cornyn",
+    "party": "R",
+    "state": "TX",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "K000394",
+      "fullName": "Sen. Kim, Andy [D-NJ]",
+      "firstName": "Andy",
+      "lastName": "Kim",
+      "party": "D",
+      "state": "NJ",
+      "district": null,
+      "sponsorshipDate": "2025-07-22",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "B001305",
+      "fullName": "Sen. Budd, Ted [R-NC]",
+      "firstName": "Ted",
+      "lastName": "Budd",
+      "party": "R",
+      "state": "NC",
+      "district": null,
+      "sponsorshipDate": "2025-12-01",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2025-07-22",
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2025-07-22",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2025-07-22",
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

@@ -1,0 +1,64 @@
+{
+  "bill_id": "119-hr-6530",
+  "fetched_at": "2026-06-10T02:57:38.300542+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr6530.xml",
+  "title": "AI Training for National Security Act",
+  "policy_area": "Armed Forces and National Security",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "L000560",
+    "fullName": "Rep. Larsen, Rick [D-WA-2]",
+    "firstName": "Rick",
+    "lastName": "Larsen",
+    "party": "D",
+    "state": "WA",
+    "district": "2"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "E000301",
+      "fullName": "Rep. Elfreth, Sarah [D-MD-3]",
+      "firstName": "Sarah",
+      "lastName": "Elfreth",
+      "party": "D",
+      "state": "MD",
+      "district": "3",
+      "sponsorshipDate": "2025-12-09",
+      "isOriginalCosponsor": "True"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2025-12-09",
+      "text": "Referred to the House Committee on Armed Services.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-12-09",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2025-12-09",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2025-12-09",
+      "text": "Referred to the House Committee on Armed Services."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

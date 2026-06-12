@@ -1,0 +1,85 @@
+{
+  "bill_id": "119-hr-6996",
+  "fetched_at": "2026-06-10T02:57:39.777275+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr6996.xml",
+  "title": "Full AI Stack Export Promotion Act",
+  "policy_area": "Foreign Trade and International Finance",
+  "subjects": [
+    "Advanced technology and technological innovations",
+    "Competitiveness, trade promotion, trade deficits",
+    "Computers and information technology",
+    "Congressional oversight",
+    "Government studies and investigations",
+    "Technology transfer and commercialization"
+  ],
+  "sponsor": {
+    "bioguideId": "F000484",
+    "fullName": "Rep. Fine, Randy [R-FL-6]",
+    "firstName": "Randy",
+    "lastName": "Fine",
+    "party": "R",
+    "state": "FL",
+    "district": "6"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "H001058",
+      "fullName": "Rep. Huizenga, Bill [R-MI-4]",
+      "firstName": "Bill",
+      "lastName": "Huizenga",
+      "party": "R",
+      "state": "MI",
+      "district": "4",
+      "sponsorshipDate": "2026-04-20",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2026-04-22",
+      "text": "Ordered to be Reported in the Nature of a Substitute by the Yeas and Nays: 37 - 7.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2026-04-22",
+      "text": "Committee Consideration and Mark-up Session Held",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2026-01-09",
+      "text": "Referred to the House Committee on Foreign Affairs.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2026-01-09",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2026-01-09",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2026-04-22",
+      "text": "Ordered to be Reported in the Nature of a Substitute by the Yeas and Nays: 37 - 7."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

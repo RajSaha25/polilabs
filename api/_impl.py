@@ -44,12 +44,21 @@ from .types import (
     BillAmendmentSummary,
     BillDefinitionMatch,
     BillsAmendingResult,
+    BillsByOutcomeResult,
     BillsDefiningResult,
     BillVersion,
+    BillVotesResult,
     CitationEdge,
     CitationGraph,
     CitationType,
+    CountBucket,
+    CountResult,
     CoverageReport,
+    FacetCoverage,
+    OutcomeBillSummary,
+    OutcomeEvent,
+    TopicCoverage,
+    VoteSummary,
     DefinedTerm,
     DefinedTermsResult,
     DefinitionAcrossCorpus,
@@ -892,6 +901,43 @@ def corpus_coverage() -> CoverageReport:
         if s
     ]
 
+    # Per-topic facet coverage: the under/overcoverage contract. Facet
+    # counts are computed live so they can never drift from the index.
+    topic_descriptions = {
+        "ai_governance": "Federal AI-governance bills, 118th-119th Congress (corpus/inclusion_criteria.md)",
+        "redistricting": "Landmark redistricting / voting-rights bills (hand-curated seed)",
+        "secret_congress": "Passage-dynamics exemplars: bipartisan laws, bipartisan failures, party-line contrasts (corpus/secret_congress_criteria.md)",
+    }
+    facet_sql = {
+        "actions": "SELECT COUNT(DISTINCT b.bill_id) FROM bills b JOIN actions a ON a.bill_id=b.bill_id WHERE b.topic=?",
+        "cosponsors": "SELECT COUNT(DISTINCT b.bill_id) FROM bills b JOIN cosponsors c ON c.bill_id=b.bill_id WHERE b.topic=?",
+        "subjects": "SELECT COUNT(DISTINCT b.bill_id) FROM bills b JOIN subjects s ON s.bill_id=b.bill_id WHERE b.topic=?",
+        "votes": "SELECT COUNT(DISTINCT b.bill_id) FROM bills b JOIN votes v ON v.bill_id=b.bill_id WHERE b.topic=?",
+        "outcome": "SELECT COUNT(*) FROM bills WHERE topic=? AND outcome IS NOT NULL",
+        "embeddings": "SELECT COUNT(DISTINCT bill_id) FROM section_embeddings WHERE topic=?",
+    }
+    topics: list[TopicCoverage] = []
+    for trow in conn.execute(
+        "SELECT topic, COUNT(*) FROM bills GROUP BY topic ORDER BY topic"
+    ).fetchall():
+        topic, n = trow[0], trow[1]
+        t_congresses = sorted(
+            r[0] for r in conn.execute(
+                "SELECT DISTINCT congress FROM bills WHERE topic=?", (topic,))
+        )
+        facets = [
+            FacetCoverage(
+                facet=name,
+                bills_with_facet=conn.execute(sql, (topic,)).fetchone()[0],
+                bill_count=n,
+            )
+            for name, sql in facet_sql.items()
+        ]
+        topics.append(TopicCoverage(
+            topic=topic, bill_count=n, congresses=t_congresses,
+            description=topic_descriptions.get(topic), facets=facets,
+        ))
+
     known_gaps = [
         "Bill text point-in-time history not yet indexed (one canonical version per bill).",
         "USLM <ref href='...'> citations from 2 USLM bills not yet extracted (PR2.1).",
@@ -912,6 +958,7 @@ def corpus_coverage() -> CoverageReport:
         bill_count_by_tier=tier_counts,
         source_freshness=freshness,
         known_gaps=known_gaps,
+        topics=topics,
     )
 
 
@@ -1398,4 +1445,215 @@ def find_definitions_of(term: str) -> DefinitionsAcrossCorpusResult:
     return DefinitionsAcrossCorpusResult(
         term=term, definitions=defs, total=len(defs),
         direct_count=direct, by_reference_count=by_ref, coverage_note=note,
+    )
+
+
+# ===========================================================================
+# Passage-dynamics primitives (votes, outcomes, counts)
+# Data source: votes/vote_positions tables + bills outcome columns, all
+# populated from per-bill billstatus.json (ingest/billstatus.py).
+# ===========================================================================
+
+import json as _json
+
+_COUNTABLE_COLUMNS = {
+    "topic", "congress", "outcome", "bill_type", "tier", "stream",
+    "policy_area", "cluster",
+}
+
+
+def count_bills(
+    *,
+    group_by: str | None = None,
+    topic: str | None = None,
+    congress: int | None = None,
+    outcome: str | None = None,
+    bill_type: str | None = None,
+    tier: str | None = None,
+) -> CountResult:
+    """Aggregate count over bills with optional filters and grouping.
+
+    Closes the known eval gap: 'how many bills were introduced in the
+    119th Congress?' becomes one call instead of paginated search +
+    client-side counting (which undercounts at page boundaries).
+    """
+    conn = _db()
+    filters = {
+        "topic": topic, "congress": congress, "outcome": outcome,
+        "bill_type": bill_type, "tier": tier,
+    }
+    where, params = [], []
+    for col, val in filters.items():
+        if val is not None:
+            where.append(f"{col} = ?")
+            params.append(val)
+    where_sql = (" WHERE " + " AND ".join(where)) if where else ""
+
+    if group_by is not None and group_by not in _COUNTABLE_COLUMNS:
+        return CountResult(
+            count=0, group_by=group_by, buckets=[],
+            filters=filters,
+            provenance=_make_provenance(
+                [f"polilabs:db@{DB_PATH}"],
+                notes=f"Unsupported group_by {group_by!r}; supported: {sorted(_COUNTABLE_COLUMNS)}",
+            ),
+        )
+
+    total = conn.execute(f"SELECT COUNT(*) FROM bills{where_sql}", params).fetchone()[0]
+    buckets: list[CountBucket] = []
+    if group_by:
+        rows = conn.execute(
+            f"SELECT {group_by}, COUNT(*) FROM bills{where_sql} "
+            f"GROUP BY {group_by} ORDER BY COUNT(*) DESC",
+            params,
+        ).fetchall()
+        buckets = [CountBucket(key=r[0], count=r[1]) for r in rows]
+
+    return CountResult(
+        count=total, group_by=group_by, buckets=buckets, filters=filters,
+        provenance=_make_provenance(
+            [f"polilabs:db@{DB_PATH}"],
+            notes="Exact count over the indexed corpus (not an estimate).",
+        ),
+    )
+
+
+def _vote_summary_from_row(r: sqlite3.Row) -> VoteSummary:
+    return VoteSummary(
+        vote_id=r["vote_id"], chamber=r["chamber"], congress=r["congress"],
+        session=r["session"], roll_number=r["roll_number"], date=r["date"],
+        question=r["question"], result=r["result"], vote_type=r["vote_type"],
+        yea_total=r["yea_total"], nay_total=r["nay_total"],
+        dem_yea=r["dem_yea"], dem_nay=r["dem_nay"],
+        rep_yea=r["rep_yea"], rep_nay=r["rep_nay"],
+        bipartisan_support=r["bipartisan_support"],
+        bipartisan_label=r["bipartisan_label"], source_url=r["source_url"],
+    )
+
+
+def get_bill_votes(bill_id: str) -> BillVotesResult:
+    """Roll-call record + derived outcome for one bill.
+
+    Honest unknowns: not_found=True when the bill is not in the corpus;
+    outcome=None with a provenance note when the bill predates the
+    billstatus enrichment.
+    """
+    conn = _db()
+    bill = conn.execute(
+        "SELECT * FROM bills WHERE bill_id = ?", (bill_id,)
+    ).fetchone()
+    if bill is None:
+        return BillVotesResult(
+            bill_id=bill_id, in_scope=False, not_found=True,
+            outcome=None, public_law=None, bipartisan_support=None,
+            cluster=None, curator_note=None, events=[], votes=[],
+            provenance=_make_provenance(
+                [f"polilabs:db@{DB_PATH}"],
+                notes="Bill not in corpus; cannot report votes either way.",
+            ),
+        )
+
+    vote_rows = conn.execute(
+        "SELECT * FROM votes WHERE bill_id = ? ORDER BY date", (bill_id,)
+    ).fetchall()
+    events = [
+        OutcomeEvent(event=e["event"], date=e.get("date"), evidence=e.get("evidence") or "")
+        for e in _json.loads(bill["outcome_events"] or "[]")
+    ]
+    notes = None
+    if bill["outcome"] is None:
+        notes = (
+            "Bill not yet enriched with BILLSTATUS data "
+            "(run scripts/backfill_billstatus.py); vote absence here is "
+            "not evidence of no votes."
+        )
+    elif not vote_rows:
+        notes = (
+            "No recorded (roll-call) votes. With outcome="
+            f"{bill['outcome']!r} this usually means committee death or "
+            "passage by voice vote / unanimous consent — check events."
+        )
+    return BillVotesResult(
+        bill_id=bill_id, in_scope=True, not_found=False,
+        outcome=bill["outcome"], public_law=bill["public_law"],
+        bipartisan_support=bill["bipartisan_support"],
+        cluster=bill["cluster"], curator_note=bill["curator_note"],
+        events=events,
+        votes=[_vote_summary_from_row(r) for r in vote_rows],
+        provenance=_make_provenance(_bill_sources(bill), notes=notes),
+    )
+
+
+def find_bills_by_outcome(
+    *,
+    outcome: str | None = None,
+    topic: str | None = None,
+    congress: int | None = None,
+    cluster: str | None = None,
+    min_bipartisan_support: float | None = None,
+    max_bipartisan_support: float | None = None,
+    limit: int = 100,
+) -> BillsByOutcomeResult:
+    """Set-valued query over passage dynamics: every corpus bill matching
+    an outcome / bipartisanship band, one call, no pagination loop.
+
+    'Which bipartisan bills failed?' =
+        find_bills_by_outcome(outcome='failed_cloture',
+                              min_bipartisan_support=0.5) plus the
+        cluster='bipartisan_but_died' curated set.
+    """
+    conn = _db()
+    where, params = [], []
+    for col, val in (
+        ("outcome", outcome), ("topic", topic),
+        ("congress", congress), ("cluster", cluster),
+    ):
+        if val is not None:
+            where.append(f"{col} = ?")
+            params.append(val)
+    if min_bipartisan_support is not None:
+        where.append("bipartisan_support >= ?")
+        params.append(min_bipartisan_support)
+    if max_bipartisan_support is not None:
+        where.append("bipartisan_support <= ?")
+        params.append(max_bipartisan_support)
+    where_sql = (" WHERE " + " AND ".join(where)) if where else ""
+    rows = conn.execute(
+        f"SELECT bill_id, title, topic, congress, outcome, public_law,"
+        f" bipartisan_support, cluster, latest_action_date"
+        f" FROM bills{where_sql}"
+        f" ORDER BY congress DESC, bill_type, bill_number LIMIT ?",
+        params + [limit],
+    ).fetchall()
+    total_sql = conn.execute(
+        f"SELECT COUNT(*) FROM bills{where_sql}", params
+    ).fetchone()[0]
+    return BillsByOutcomeResult(
+        bills=[
+            OutcomeBillSummary(
+                bill_id=r["bill_id"], title=r["title"], topic=r["topic"],
+                congress=r["congress"], outcome=r["outcome"],
+                public_law=r["public_law"],
+                bipartisan_support=r["bipartisan_support"],
+                cluster=r["cluster"],
+                latest_action_date=r["latest_action_date"],
+            )
+            for r in rows
+        ],
+        total=total_sql,
+        filters={
+            "outcome": outcome, "topic": topic, "congress": congress,
+            "cluster": cluster,
+            "min_bipartisan_support": min_bipartisan_support,
+            "max_bipartisan_support": max_bipartisan_support,
+        },
+        provenance=_make_provenance(
+            [f"polilabs:db@{DB_PATH}"],
+            notes=(
+                f"{total_sql} bill(s) match; returning {len(rows)}. "
+                "bipartisan_support is NULL (and excluded by support "
+                "filters) for bills without a partisan-decomposable "
+                "passage roll call."
+            ),
+        ),
     )

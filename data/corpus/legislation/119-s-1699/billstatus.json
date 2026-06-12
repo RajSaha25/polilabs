@@ -1,0 +1,101 @@
+{
+  "bill_id": "119-s-1699",
+  "fetched_at": "2026-06-10T02:57:49.365324+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/s/BILLSTATUS-119s1699.xml",
+  "title": "Artificial Intelligence Public Awareness and Education Campaign Act",
+  "policy_area": "Science, Technology, Communications",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "Y000064",
+    "fullName": "Sen. Young, Todd [R-IN]",
+    "firstName": "Todd",
+    "lastName": "Young",
+    "party": "R",
+    "state": "IN",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "S001194",
+      "fullName": "Sen. Schatz, Brian [D-HI]",
+      "firstName": "Brian",
+      "lastName": "Schatz",
+      "party": "D",
+      "state": "HI",
+      "district": null,
+      "sponsorshipDate": "2025-05-08",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "R000605",
+      "fullName": "Sen. Rounds, Mike [R-SD]",
+      "firstName": "Mike",
+      "lastName": "Rounds",
+      "party": "R",
+      "state": "SD",
+      "district": null,
+      "sponsorshipDate": "2025-05-08",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "K000377",
+      "fullName": "Sen. Kelly, Mark [D-AZ]",
+      "firstName": "Mark",
+      "lastName": "Kelly",
+      "party": "D",
+      "state": "AZ",
+      "district": null,
+      "sponsorshipDate": "2025-05-08",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "B001303",
+      "fullName": "Sen. Blunt Rochester, Lisa [D-DE]",
+      "firstName": "Lisa",
+      "lastName": "Blunt Rochester",
+      "party": "D",
+      "state": "DE",
+      "district": null,
+      "sponsorshipDate": "2025-11-04",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "C001056",
+      "fullName": "Sen. Cornyn, John [R-TX]",
+      "firstName": "John",
+      "lastName": "Cornyn",
+      "party": "R",
+      "state": "TX",
+      "district": null,
+      "sponsorshipDate": "2025-11-04",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2025-05-08",
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2025-05-08",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2025-05-08",
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

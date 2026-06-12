@@ -1,0 +1,52 @@
+{
+  "bill_id": "118-hr-8939",
+  "fetched_at": "2026-06-10T02:57:04.804578+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/hr/BILLSTATUS-118hr8939.xml",
+  "title": "To amend the Communications Act of 1934 to establish technical and procedural standards for artificial or prerecorded voice systems created through generative artificial intelligence, and for other purposes.",
+  "policy_area": "Science, Technology, Communications",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "A000372",
+    "fullName": "Rep. Allen, Rick W. [R-GA-12]",
+    "firstName": "Rick",
+    "lastName": "Allen",
+    "party": "R",
+    "state": "GA",
+    "district": "12"
+  },
+  "cosponsors": [],
+  "actions": [
+    {
+      "actionDate": "2024-07-08",
+      "text": "Referred to the House Committee on Energy and Commerce.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-07-08",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2024-07-08",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "died_in_committee",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2024-07-08",
+      "text": "Referred to the House Committee on Energy and Commerce."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

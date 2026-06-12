@@ -1,0 +1,64 @@
+{
+  "bill_id": "118-hr-8668",
+  "fetched_at": "2026-06-10T02:57:03.330716+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/hr/BILLSTATUS-118hr8668.xml",
+  "title": "AI Transparency in Elections Act of 2024",
+  "policy_area": "Government Operations and Politics",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "M001206",
+    "fullName": "Rep. Morelle, Joseph D. [D-NY-25]",
+    "firstName": "Joseph",
+    "lastName": "Morelle",
+    "party": "D",
+    "state": "NY",
+    "district": "25"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "L000560",
+      "fullName": "Rep. Larsen, Rick [D-WA-2]",
+      "firstName": "Rick",
+      "lastName": "Larsen",
+      "party": "D",
+      "state": "WA",
+      "district": "2",
+      "sponsorshipDate": "2024-06-07",
+      "isOriginalCosponsor": "True"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2024-06-07",
+      "text": "Referred to the House Committee on House Administration.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-06-07",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2024-06-07",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "died_in_committee",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2024-06-07",
+      "text": "Referred to the House Committee on House Administration."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

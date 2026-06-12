@@ -1,0 +1,57 @@
+{
+  "bill_id": "118-s-5620",
+  "fetched_at": "2026-06-10T02:57:27.546812+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/s/BILLSTATUS-118s5620.xml",
+  "title": "A bill to require the Government Accountability Office to conduct a study on the use of commercial-off-the-shelf products and artificial intelligence technologies by the Internal Revenue Service.",
+  "policy_area": "Taxation",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "W000805",
+    "fullName": "Sen. Warner, Mark R. [D-VA]",
+    "firstName": "Mark",
+    "lastName": "Warner",
+    "party": "D",
+    "state": "VA",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "C001075",
+      "fullName": "Sen. Cassidy, Bill [R-LA]",
+      "firstName": "Bill",
+      "lastName": "Cassidy",
+      "party": "R",
+      "state": "LA",
+      "district": null,
+      "sponsorshipDate": "2024-12-19",
+      "isOriginalCosponsor": "True"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2024-12-19",
+      "text": "Read twice and referred to the Committee on Finance.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-12-19",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "died_in_committee",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2024-12-19",
+      "text": "Read twice and referred to the Committee on Finance."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

@@ -42,9 +42,31 @@ CREATE TABLE IF NOT EXISTS bills (
     canonical_version_code  TEXT,
     canonical_version_date  TEXT,
     xml_format              TEXT,        -- 'uslm' | 'pre-uslm'
+    -- Passage-dynamics fields, populated from billstatus.json when the
+    -- bill dir has one (see ingest/billstatus.py). NULL = not enriched,
+    -- which is distinct from 'pending' (enriched, still alive).
+    outcome                 TEXT,        -- enacted | vetoed | failed_passage |
+                                         -- failed_cloture | died_in_committee |
+                                         -- reported_no_floor_vote | pending |
+                                         -- passed_{house,senate}_only | passed_both |
+                                         -- died_after_passing_{house,senate,both}
+    public_law              TEXT,        -- 'PL 117-167' when enacted
+    -- min over {D,R} of that party's yea-share on the final passage-class
+    -- vote; NULL when the bill never had a partisan-decomposable roll call
+    -- (voice votes, unanimous consent, died in committee).
+    bipartisan_support      REAL,
+    -- Curated passage-dynamics cluster (secret_congress topic only);
+    -- vocabulary in corpus/secret_congress_criteria.md.
+    cluster                 TEXT,
+    curator_note            TEXT,
+    -- JSON list of {event, date, evidence} rows from billstatus.json:
+    -- the dated record behind `outcome` (passed_house, failed_cloture,
+    -- ...), so "why did it fail?" answers carry evidence.
+    outcome_events          TEXT,
     UNIQUE (congress, bill_type, bill_number)
 );
 CREATE INDEX IF NOT EXISTS idx_bills_topic ON bills(topic);
+CREATE INDEX IF NOT EXISTS idx_bills_outcome ON bills(outcome);
 
 CREATE TABLE IF NOT EXISTS bill_versions (
     package_id    TEXT PRIMARY KEY,
@@ -92,6 +114,47 @@ CREATE TABLE IF NOT EXISTS subjects (
     subject  TEXT NOT NULL,
     PRIMARY KEY (bill_id, subject)
 );
+
+-- Roll-call votes, from billstatus.json (ingest/billstatus.py). One row
+-- per recorded vote on the bill, both chambers, including votes from a
+-- bill's earlier life under another name (vehicle bills).
+CREATE TABLE IF NOT EXISTS votes (
+    vote_id            TEXT PRIMARY KEY,   -- '{bill_id}::{chamber}/{congress}-{session}/{roll}'
+    bill_id            TEXT NOT NULL REFERENCES bills(bill_id) ON DELETE CASCADE,
+    chamber            TEXT NOT NULL,      -- 'House' | 'Senate'
+    congress           INTEGER NOT NULL,
+    session            INTEGER NOT NULL,
+    roll_number        INTEGER NOT NULL,
+    date               TEXT,
+    question           TEXT,
+    result             TEXT,
+    vote_type          TEXT NOT NULL,      -- passage | cloture | veto_override | amendment | procedural
+    yea_total          INTEGER NOT NULL,
+    nay_total          INTEGER NOT NULL,
+    dem_yea            INTEGER, dem_nay  INTEGER,
+    rep_yea            INTEGER, rep_nay  INTEGER,
+    ind_yea            INTEGER, ind_nay  INTEGER,
+    bipartisan_support REAL,               -- min major-party yea-share; see ingest/billstatus.py
+    bipartisan_label   TEXT,               -- party_line | cross_party | bipartisan | near_unanimous
+    source_url         TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_votes_bill ON votes(bill_id);
+CREATE INDEX IF NOT EXISTS idx_votes_type ON votes(vote_type);
+
+-- Per-member positions for outcome-determining votes only (passage,
+-- cloture, veto override). Party totals in `votes` cover the rest.
+-- Enables geography questions: "how did the California delegation vote
+-- on CHIPS?"
+CREATE TABLE IF NOT EXISTS vote_positions (
+    vote_id      TEXT NOT NULL REFERENCES votes(vote_id) ON DELETE CASCADE,
+    member_name  TEXT NOT NULL,
+    member_id    TEXT,               -- bioguide (House) or LIS id (Senate)
+    party        TEXT,
+    state        TEXT,
+    position     TEXT NOT NULL,      -- yea | nay | present | not_voting | other
+    PRIMARY KEY (vote_id, member_name)
+);
+CREATE INDEX IF NOT EXISTS idx_vote_positions_state ON vote_positions(state);
 
 -- Reserved for Phase 4 citation extraction. Empty in v1.
 CREATE TABLE IF NOT EXISTS citations (

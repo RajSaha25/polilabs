@@ -27,7 +27,10 @@ from agent.tools import (
     tool_corpus_coverage,
     tool_find_bills_amending,
     tool_find_bills_defining,
+    tool_count_bills,
+    tool_find_bills_by_outcome,
     tool_find_definitions_of,
+    tool_get_bill_votes,
     tool_get_amendments,
     tool_get_amendments_targeting,
     tool_get_bill,
@@ -259,11 +262,77 @@ def find_definitions_of(term: str) -> str:
     return tool_find_definitions_of(term)
 
 
+@beta_tool
+def count_bills(group_by: str | None = None, topic: str | None = None,
+                congress: int | None = None, outcome: str | None = None,
+                bill_type: str | None = None, tier: str | None = None) -> str:
+    """AGGREGATE: exact count of bills matching filters — one call.
+
+    Use for any 'how many bills ...' question instead of counting search
+    hits. Optional group_by: topic | congress | outcome | bill_type |
+    tier | stream | policy_area | cluster.
+
+    Args:
+        group_by: Optional column to group counts by.
+        topic: Filter to one topic corpus.
+        congress: Filter to one Congress number.
+        outcome: Filter to one outcome (e.g. 'enacted').
+        bill_type: Filter: 'hr', 's', 'hjres', ...
+        tier: Filter to curation tier 'A' or 'B'.
+    """
+    return tool_count_bills(group_by=group_by, topic=topic, congress=congress,
+                            outcome=outcome, bill_type=bill_type, tier=tier)
+
+
+@beta_tool
+def get_bill_votes(bill_id: str) -> str:
+    """Roll-call votes, party splits, and derived outcome for one bill.
+
+    Returns outcome (enacted / failed_cloture / died_in_committee / ...),
+    public_law, bipartisan_support on the final passage vote, the dated
+    event trail with verbatim evidence, and every recorded vote with
+    per-party yea/nay. Use for 'did it pass?', 'was it bipartisan?',
+    'why did it fail?'.
+
+    Args:
+        bill_id: Bill identifier like '117-hr-4346'.
+    """
+    return tool_get_bill_votes(bill_id)
+
+
+@beta_tool
+def find_bills_by_outcome(outcome: str | None = None, topic: str | None = None,
+                          congress: int | None = None, cluster: str | None = None,
+                          min_bipartisan_support: float | None = None,
+                          max_bipartisan_support: float | None = None,
+                          limit: int = 100) -> str:
+    """AGGREGATE: every corpus bill matching an outcome / bipartisanship band.
+
+    Args:
+        outcome: enacted | vetoed | failed_passage | failed_cloture |
+            passed_house_only | passed_senate_only | died_in_committee |
+            reported_no_floor_vote | pending | ...
+        topic: Filter to one topic corpus.
+        congress: Filter to one Congress.
+        cluster: secret_congress curated cluster tag.
+        min_bipartisan_support: Keep bills with final-passage
+            bipartisan_support >= this (0-1).
+        max_bipartisan_support: Keep bills with final-passage
+            bipartisan_support <= this (0-1).
+        limit: Max bills returned (total reports full match count).
+    """
+    return tool_find_bills_by_outcome(
+        outcome=outcome, topic=topic, congress=congress, cluster=cluster,
+        min_bipartisan_support=min_bipartisan_support,
+        max_bipartisan_support=max_bipartisan_support, limit=limit)
+
+
 TOOLS = [
     search_corpus, get_bill, get_section, resolve_citation,
     corpus_coverage, get_citation_graph, get_defined_terms,
     get_amendments, get_amendments_targeting,
     find_bills_defining, find_bills_amending, find_definitions_of,
+    count_bills, get_bill_votes, find_bills_by_outcome,
 ]
 
 

@@ -1,0 +1,57 @@
+{
+  "bill_id": "119-s-321",
+  "fetched_at": "2026-06-10T02:57:53.359779+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/s/BILLSTATUS-119s321.xml",
+  "title": "Decoupling America's Artificial Intelligence Capabilities from China Act of 2025",
+  "policy_area": "Crime and Law Enforcement",
+  "subjects": [
+    "Advanced technology and technological innovations",
+    "Asia",
+    "China",
+    "Civil actions and liability",
+    "Computers and information technology",
+    "Immigration status and procedures",
+    "Intellectual property",
+    "Research and development",
+    "Technology transfer and commercialization",
+    "Trade restrictions",
+    "U.S. and foreign investments"
+  ],
+  "sponsor": {
+    "bioguideId": "H001089",
+    "fullName": "Sen. Hawley, Josh [R-MO]",
+    "firstName": "Josh",
+    "lastName": "Hawley",
+    "party": "R",
+    "state": "MO",
+    "district": null
+  },
+  "cosponsors": [],
+  "actions": [
+    {
+      "actionDate": "2025-01-29",
+      "text": "Read twice and referred to the Committee on the Judiciary.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2025-01-29",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2025-01-29",
+      "text": "Read twice and referred to the Committee on the Judiciary."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

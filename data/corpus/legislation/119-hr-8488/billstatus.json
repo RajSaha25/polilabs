@@ -1,0 +1,152 @@
+{
+  "bill_id": "119-hr-8488",
+  "fetched_at": "2026-06-10T02:57:46.424688+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr8488.xml",
+  "title": "AI Data Center Site Selection Transparency Act of 2026",
+  "policy_area": "Environmental Protection",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "M001229",
+    "fullName": "Rep. McIver, LaMonica [D-NJ-10]",
+    "firstName": "LaMonica",
+    "lastName": "McIver",
+    "party": "D",
+    "state": "NJ",
+    "district": "10"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "F000477",
+      "fullName": "Rep. Foushee, Valerie P. [D-NC-4]",
+      "firstName": "Valerie",
+      "lastName": "Foushee",
+      "party": "D",
+      "state": "NC",
+      "district": "4",
+      "sponsorshipDate": "2026-04-23",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "C001072",
+      "fullName": "Rep. Carson, Andr\u00e9 [D-IN-7]",
+      "firstName": "Andr\u00e9",
+      "lastName": "Carson",
+      "party": "D",
+      "state": "IN",
+      "district": "7",
+      "sponsorshipDate": "2026-04-23",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "N000147",
+      "fullName": "Del. Norton, Eleanor Holmes [D-DC-At Large]",
+      "firstName": "Eleanor",
+      "lastName": "Norton",
+      "party": "D",
+      "state": "DC",
+      "district": "0",
+      "sponsorshipDate": "2026-04-23",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "G000606",
+      "fullName": "Rep. Grijalva, Adelita S. [D-AZ-7]",
+      "firstName": "Adelita",
+      "lastName": "Grijalva",
+      "party": "D",
+      "state": "AZ",
+      "district": "7",
+      "sponsorshipDate": "2026-04-23",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "T000481",
+      "fullName": "Rep. Tlaib, Rashida [D-MI-12]",
+      "firstName": "Rashida",
+      "lastName": "Tlaib",
+      "party": "D",
+      "state": "MI",
+      "district": "12",
+      "sponsorshipDate": "2026-04-23",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "E000299",
+      "fullName": "Rep. Escobar, Veronica [D-TX-16]",
+      "firstName": "Veronica",
+      "lastName": "Escobar",
+      "party": "D",
+      "state": "TX",
+      "district": "16",
+      "sponsorshipDate": "2026-04-23",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "C001068",
+      "fullName": "Rep. Cohen, Steve [D-TN-9]",
+      "firstName": "Steve",
+      "lastName": "Cohen",
+      "party": "D",
+      "state": "TN",
+      "district": "9",
+      "sponsorshipDate": "2026-04-23",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "M000312",
+      "fullName": "Rep. McGovern, James P. [D-MA-2]",
+      "firstName": "James",
+      "lastName": "McGovern",
+      "party": "D",
+      "state": "MA",
+      "district": "2",
+      "sponsorshipDate": "2026-04-23",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "Q000023",
+      "fullName": "Rep. Quigley, Mike [D-IL-5]",
+      "firstName": "Mike",
+      "lastName": "Quigley",
+      "party": "D",
+      "state": "IL",
+      "district": "5",
+      "sponsorshipDate": "2026-05-21",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2026-04-23",
+      "text": "Referred to the House Committee on Energy and Commerce.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2026-04-23",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2026-04-23",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2026-04-23",
+      "text": "Referred to the House Committee on Energy and Commerce."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

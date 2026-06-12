@@ -72,12 +72,15 @@ from auth.db import (
 from agent.tools import (
     SYSTEM_PROMPT,
     tool_corpus_coverage,
+    tool_count_bills,
     tool_find_bills_amending,
+    tool_find_bills_by_outcome,
     tool_find_bills_defining,
     tool_find_definitions_of,
     tool_get_amendments,
     tool_get_amendments_targeting,
     tool_get_bill,
+    tool_get_bill_votes,
     tool_get_citation_graph,
     tool_get_defined_terms,
     tool_get_section,
@@ -465,11 +468,63 @@ def _stream_chat(req: ChatRequest, user: dict):
             "find_definitions_of", {"term": term}, lambda: tool_find_definitions_of(term),
         )
 
+    @beta_tool
+    def count_bills(group_by: str | None = None, topic: str | None = None,
+                    congress: int | None = None, outcome: str | None = None,
+                    bill_type: str | None = None, tier: str | None = None) -> str:
+        """AGGREGATE: exact count of bills matching filters, optionally
+        grouped by topic / congress / outcome / bill_type / tier /
+        policy_area / cluster. Use for any 'how many bills ...' question
+        instead of counting search hits."""
+        return _run_tool(
+            "count_bills",
+            {"group_by": group_by, "topic": topic, "congress": congress,
+             "outcome": outcome, "bill_type": bill_type, "tier": tier},
+            lambda: tool_count_bills(group_by=group_by, topic=topic,
+                                     congress=congress, outcome=outcome,
+                                     bill_type=bill_type, tier=tier),
+        )
+
+    @beta_tool
+    def get_bill_votes(bill_id: str) -> str:
+        """Roll-call votes with per-party splits, derived outcome
+        (enacted / failed_cloture / died_in_committee / ...), public-law
+        number, and the dated event trail for one bill. Use for 'did it
+        pass?', 'was it bipartisan?', 'why did it fail?'."""
+        return _run_tool(
+            "get_bill_votes", {"bill_id": bill_id},
+            lambda: tool_get_bill_votes(bill_id),
+        )
+
+    @beta_tool
+    def find_bills_by_outcome(outcome: str | None = None, topic: str | None = None,
+                              congress: int | None = None, cluster: str | None = None,
+                              min_bipartisan_support: float | None = None,
+                              max_bipartisan_support: float | None = None,
+                              limit: int = 100) -> str:
+        """AGGREGATE: every corpus bill matching an outcome and/or
+        bipartisanship band in one call. Clusters (secret_congress
+        topic): quiet_bipartisan_law, high_salience_bipartisan_law,
+        bipartisan_but_died, absorbed_into_vehicle, omnibus_vehicle,
+        party_line_contrast."""
+        return _run_tool(
+            "find_bills_by_outcome",
+            {"outcome": outcome, "topic": topic, "congress": congress,
+             "cluster": cluster,
+             "min_bipartisan_support": min_bipartisan_support,
+             "max_bipartisan_support": max_bipartisan_support, "limit": limit},
+            lambda: tool_find_bills_by_outcome(
+                outcome=outcome, topic=topic, congress=congress,
+                cluster=cluster,
+                min_bipartisan_support=min_bipartisan_support,
+                max_bipartisan_support=max_bipartisan_support, limit=limit),
+        )
+
     tools = [
         search_corpus, get_bill, get_section, resolve_citation, corpus_coverage,
         get_citation_graph, get_defined_terms, get_amendments,
         get_amendments_targeting, find_bills_defining, find_bills_amending,
-        find_definitions_of,
+        find_definitions_of, count_bills, get_bill_votes, find_bills_by_outcome,
     ]
 
     client = anthropic.Anthropic()

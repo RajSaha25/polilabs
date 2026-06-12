@@ -1,0 +1,209 @@
+{
+  "bill_id": "119-hr-1736",
+  "fetched_at": "2026-06-10T02:57:28.617479+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr1736.xml",
+  "title": "Generative AI Terrorism Risk Assessment Act",
+  "policy_area": "Armed Forces and National Security",
+  "subjects": [
+    "Advanced technology and technological innovations",
+    "Congressional oversight",
+    "Government information and archives",
+    "Terrorism"
+  ],
+  "sponsor": {
+    "bioguideId": "P000048",
+    "fullName": "Rep. Pfluger, August [R-TX-11]",
+    "firstName": "August",
+    "lastName": "Pfluger",
+    "party": "R",
+    "state": "TX",
+    "district": "11"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "G000591",
+      "fullName": "Rep. Guest, Michael [R-MS-3]",
+      "firstName": "Michael",
+      "lastName": "Guest",
+      "party": "R",
+      "state": "MS",
+      "district": "3",
+      "sponsorshipDate": "2025-02-27",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "E000300",
+      "fullName": "Rep. Evans, Gabe [R-CO-8]",
+      "firstName": "Gabe",
+      "lastName": "Evans",
+      "party": "R",
+      "state": "CO",
+      "district": "8",
+      "sponsorshipDate": "2025-02-27",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "H001103",
+      "fullName": "Rescom. Hern\u00e1ndez, Pablo Jose [D-PR-At Large]",
+      "firstName": "Pablo",
+      "lastName": "Hern\u00e1ndez",
+      "party": "D",
+      "state": "PR",
+      "district": "0",
+      "sponsorshipDate": "2025-09-02",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2025-11-20",
+      "text": "Received in the Senate and Read twice and referred to the Committee on Homeland Security and Governmental Affairs.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2025-11-19",
+      "text": "The title of the measure was amended. Agreed to without objection.",
+      "type": "Floor",
+      "actionCode": "H38800",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-11-19",
+      "text": "Motion to reconsider laid on the table Agreed to without objection.",
+      "type": "Floor",
+      "actionCode": "H38310",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-11-19",
+      "text": "On motion to suspend the rules and pass the bill, as amended Agreed to by voice vote. (text: CR H4783-4784)",
+      "type": "Floor",
+      "actionCode": "H37300",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-11-19",
+      "text": "Passed/agreed to in House: On motion to suspend the rules and pass the bill, as amended Agreed to by voice vote. (text: CR H4783-4784)",
+      "type": "Floor",
+      "actionCode": "8000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2025-11-19",
+      "text": "DEBATE - The House proceeded with forty minutes of debate on H.R. 1736.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-11-19",
+      "text": "Considered under suspension of the rules. (consideration: CR H4783-4785)",
+      "type": "Floor",
+      "actionCode": "H30000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-11-19",
+      "text": "Mr. Guest moved to suspend the rules and pass the bill, as amended.",
+      "type": "Floor",
+      "actionCode": "H30300",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-11-12",
+      "text": "Placed on the Union Calendar, Calendar No. 324.",
+      "type": "Calendars",
+      "actionCode": "H12410",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-11-12",
+      "text": "Reported (Amended) by the Committee on Homeland Security. H. Rept. 119-373.",
+      "type": "Committee",
+      "actionCode": "H12200",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-11-12",
+      "text": "Reported (Amended) by the Committee on Homeland Security. H. Rept. 119-373.",
+      "type": "Committee",
+      "actionCode": "5000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2025-09-03",
+      "text": "Ordered to be Reported (Amended) by the Yeas and Nays: 21 - 0.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2025-09-03",
+      "text": "Committee Consideration and Mark-up Session Held",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2025-03-25",
+      "text": "Subcommittee Consideration and Mark-up Session Held",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2025-03-25",
+      "text": "Forwarded by Subcommittee to Full Committee by Voice Vote.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2025-02-27",
+      "text": "Referred to the Subcommittee on Counterterrorism and Intelligence.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2025-02-27",
+      "text": "Referred to the House Committee on Homeland Security.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-02-27",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2025-02-27",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "passed_house_only",
+    "public_law": null,
+    "events": [
+      {
+        "event": "passed_house",
+        "date": "2025-11-19",
+        "evidence": "Passed/agreed to in House: On motion to suspend the rules and pass the bill, as amended Agreed to by voice vote. (text: CR H4783-4784)"
+      }
+    ],
+    "latest_action": {
+      "actionDate": "2025-11-20",
+      "text": "Received in the Senate and Read twice and referred to the Committee on Homeland Security and Governmental Affairs."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

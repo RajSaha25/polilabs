@@ -1,0 +1,135 @@
+{
+  "bill_id": "118-s-3162",
+  "fetched_at": "2026-06-10T02:57:17.199129+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/s/BILLSTATUS-118s3162.xml",
+  "title": "TEST AI Act of 2024",
+  "policy_area": "Science, Technology, Communications",
+  "subjects": [
+    "Advanced technology and technological innovations",
+    "Computers and information technology",
+    "Government studies and investigations",
+    "Technology assessment",
+    "Technology transfer and commercialization"
+  ],
+  "sponsor": {
+    "bioguideId": "L000570",
+    "fullName": "Sen. Lujan, Ben Ray [D-NM]",
+    "firstName": "Ben",
+    "lastName": "Lujan",
+    "party": "D",
+    "state": "NM",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "D000563",
+      "fullName": "Sen. Durbin, Richard J. [D-IL]",
+      "firstName": "Richard",
+      "lastName": "Durbin",
+      "party": "D",
+      "state": "IL",
+      "district": null,
+      "sponsorshipDate": "2023-10-30",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "T000250",
+      "fullName": "Sen. Thune, John [R-SD]",
+      "firstName": "John",
+      "lastName": "Thune",
+      "party": "R",
+      "state": "SD",
+      "district": null,
+      "sponsorshipDate": "2023-10-30",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "B001243",
+      "fullName": "Sen. Blackburn, Marsha [R-TN]",
+      "firstName": "Marsha",
+      "lastName": "Blackburn",
+      "party": "R",
+      "state": "TN",
+      "district": null,
+      "sponsorshipDate": "2023-10-30",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "R000584",
+      "fullName": "Sen. Risch, James E. [R-ID]",
+      "firstName": "James",
+      "lastName": "Risch",
+      "party": "R",
+      "state": "ID",
+      "district": null,
+      "sponsorshipDate": "2023-10-30",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "W000800",
+      "fullName": "Sen. Welch, Peter [D-VT]",
+      "firstName": "Peter",
+      "lastName": "Welch",
+      "party": "D",
+      "state": "VT",
+      "district": null,
+      "sponsorshipDate": "2024-02-06",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2024-12-17",
+      "text": "Placed on Senate Legislative Calendar under General Orders. Calendar No. 722.",
+      "type": "Calendars",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-12-17",
+      "text": "Committee on Commerce, Science, and Transportation. Reported by Senator Cantwell with an amendment in the nature of a substitute. Without written report.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-12-17",
+      "text": "Committee on Commerce, Science, and Transportation. Reported by Senator Cantwell with an amendment in the nature of a substitute. Without written report.",
+      "type": "Committee",
+      "actionCode": "14000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2024-07-31",
+      "text": "Committee on Commerce, Science, and Transportation. Ordered to be reported with an amendment in the nature of a substitute favorably.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2023-10-30",
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2023-10-30",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "reported_no_floor_vote",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2024-12-17",
+      "text": "Placed on Senate Legislative Calendar under General Orders. Calendar No. 722."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

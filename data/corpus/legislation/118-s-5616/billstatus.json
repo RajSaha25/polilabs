@@ -1,0 +1,90 @@
+{
+  "bill_id": "118-s-5616",
+  "fetched_at": "2026-06-10T02:57:27.164108+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/s/BILLSTATUS-118s5616.xml",
+  "title": "Preserving American Dominance in Artificial Intelligence Act of 2024",
+  "policy_area": "Science, Technology, Communications",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "R000615",
+    "fullName": "Sen. Romney, Mitt [R-UT]",
+    "firstName": "Mitt",
+    "lastName": "Romney",
+    "party": "R",
+    "state": "UT",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "R000122",
+      "fullName": "Sen. Reed, Jack [D-RI]",
+      "firstName": "John",
+      "lastName": "Reed",
+      "party": "D",
+      "state": "RI",
+      "district": null,
+      "sponsorshipDate": "2024-12-19",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "M000934",
+      "fullName": "Sen. Moran, Jerry [R-KS]",
+      "firstName": "Jerry",
+      "lastName": "Moran",
+      "party": "R",
+      "state": "KS",
+      "district": null,
+      "sponsorshipDate": "2024-12-19",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "K000383",
+      "fullName": "Sen. King, Angus S., Jr. [I-ME]",
+      "firstName": "Angus",
+      "lastName": "King",
+      "party": "I",
+      "state": "ME",
+      "district": null,
+      "sponsorshipDate": "2024-12-19",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "H001076",
+      "fullName": "Sen. Hassan, Margaret Wood [D-NH]",
+      "firstName": "Maggie",
+      "lastName": "Hassan",
+      "party": "D",
+      "state": "NH",
+      "district": null,
+      "sponsorshipDate": "2024-12-19",
+      "isOriginalCosponsor": "True"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2024-12-19",
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-12-19",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "died_in_committee",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2024-12-19",
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

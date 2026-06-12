@@ -1,0 +1,112 @@
+{
+  "bill_id": "119-s-1110",
+  "fetched_at": "2026-06-10T02:57:47.887443+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/s/BILLSTATUS-119s1110.xml",
+  "title": "Leveraging Artificial Intelligence to Streamline the Code of Federal Regulations Act of 2025",
+  "policy_area": "Government Operations and Politics",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "H001104",
+    "fullName": "Sen. Husted, Jon [R-OH]",
+    "firstName": "Jon",
+    "lastName": "Husted",
+    "party": "R",
+    "state": "OH",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "E000295",
+      "fullName": "Sen. Ernst, Joni [R-IA]",
+      "firstName": "Joni",
+      "lastName": "Ernst",
+      "party": "R",
+      "state": "IA",
+      "district": null,
+      "sponsorshipDate": "2025-03-25",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "B001243",
+      "fullName": "Sen. Blackburn, Marsha [R-TN]",
+      "firstName": "Marsha",
+      "lastName": "Blackburn",
+      "party": "R",
+      "state": "TN",
+      "district": null,
+      "sponsorshipDate": "2025-03-25",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "B001305",
+      "fullName": "Sen. Budd, Ted [R-NC]",
+      "firstName": "Ted",
+      "lastName": "Budd",
+      "party": "R",
+      "state": "NC",
+      "district": null,
+      "sponsorshipDate": "2025-04-01",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "B001299",
+      "fullName": "Sen. Banks, Jim [R-IN]",
+      "firstName": "Jim",
+      "lastName": "Banks",
+      "party": "R",
+      "state": "IN",
+      "district": null,
+      "sponsorshipDate": "2025-04-03",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "R000618",
+      "fullName": "Sen. Ricketts, Pete [R-NE]",
+      "firstName": "Pete",
+      "lastName": "Ricketts",
+      "party": "R",
+      "state": "NE",
+      "district": null,
+      "sponsorshipDate": "2025-04-04",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "M001190",
+      "fullName": "Sen. Mullin, Markwayne [R-OK]",
+      "firstName": "Markwayne",
+      "lastName": "Mullin",
+      "party": "R",
+      "state": "OK",
+      "district": null,
+      "sponsorshipDate": "2025-04-09",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2025-03-25",
+      "text": "Read twice and referred to the Committee on Homeland Security and Governmental Affairs.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2025-03-25",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2025-03-25",
+      "text": "Read twice and referred to the Committee on Homeland Security and Governmental Affairs."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

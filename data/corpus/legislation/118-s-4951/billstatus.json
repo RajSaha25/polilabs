@@ -1,0 +1,57 @@
+{
+  "bill_id": "118-s-4951",
+  "fetched_at": "2026-06-10T02:57:24.985697+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/s/BILLSTATUS-118s4951.xml",
+  "title": "Unleashing AI Innovation in Financial Services Act",
+  "policy_area": "Finance and Financial Sector",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "R000605",
+    "fullName": "Sen. Rounds, Mike [R-SD]",
+    "firstName": "Mike",
+    "lastName": "Rounds",
+    "party": "R",
+    "state": "SD",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "H001046",
+      "fullName": "Sen. Heinrich, Martin [D-NM]",
+      "firstName": "Martin",
+      "lastName": "Heinrich",
+      "party": "D",
+      "state": "NM",
+      "district": null,
+      "sponsorshipDate": "2024-08-01",
+      "isOriginalCosponsor": "True"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2024-08-01",
+      "text": "Read twice and referred to the Committee on Banking, Housing, and Urban Affairs.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2024-08-01",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "died_in_committee",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2024-08-01",
+      "text": "Read twice and referred to the Committee on Banking, Housing, and Urban Affairs."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

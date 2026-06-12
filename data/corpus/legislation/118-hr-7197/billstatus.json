@@ -1,0 +1,111 @@
+{
+  "bill_id": "118-hr-7197",
+  "fetched_at": "2026-06-10T02:56:59.219811+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/hr/BILLSTATUS-118hr7197.xml",
+  "title": "Artificial Intelligence Environmental Impacts Act of 2024",
+  "policy_area": "Environmental Protection",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "E000215",
+    "fullName": "Rep. Eshoo, Anna G. [D-CA-16]",
+    "firstName": "ANNA",
+    "lastName": "ESHOO",
+    "party": "D",
+    "state": "CA",
+    "district": "16"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "B001292",
+      "fullName": "Rep. Beyer, Donald S., Jr. [D-VA-8]",
+      "firstName": "Donald",
+      "lastName": "Beyer",
+      "party": "D",
+      "state": "VA",
+      "district": "8",
+      "sponsorshipDate": "2024-02-01",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "P000616",
+      "fullName": "Rep. Phillips, Dean [D-MN-3]",
+      "firstName": "Dean",
+      "lastName": "Phillips",
+      "party": "D",
+      "state": "MN",
+      "district": "3",
+      "sponsorshipDate": "2024-03-06",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "L000593",
+      "fullName": "Rep. Levin, Mike [D-CA-49]",
+      "firstName": "Mike",
+      "lastName": "Levin",
+      "party": "D",
+      "state": "CA",
+      "district": "49",
+      "sponsorshipDate": "2024-04-02",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "B001300",
+      "fullName": "Rep. Barrag\u00e1n, Nanette Diaz [D-CA-44]",
+      "firstName": "Nanette",
+      "lastName": "Barrag\u00e1n",
+      "party": "D",
+      "state": "CA",
+      "district": "44",
+      "sponsorshipDate": "2024-08-30",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2024-02-02",
+      "text": "Referred to the Subcommittee on Environment, Manufacturing, and Critical Materials.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2024-02-01",
+      "text": "Referred to the Committee on Science, Space, and Technology, and in addition to the Committee on Energy and Commerce, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-02-01",
+      "text": "Referred to the Committee on Science, Space, and Technology, and in addition to the Committee on Energy and Commerce, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2024-02-01",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2024-02-01",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "died_in_committee",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2024-02-02",
+      "text": "Referred to the Subcommittee on Environment, Manufacturing, and Critical Materials."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

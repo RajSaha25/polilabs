@@ -1,0 +1,57 @@
+{
+  "bill_id": "119-sconres-30",
+  "fetched_at": "2026-06-10T02:58:01.186303+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/sconres/BILLSTATUS-119sconres30.xml",
+  "title": "A concurrent resolution expressing the sense of Congress that the Ratepayer Protection Pledge announced on March 4, 2026, reflects sound national policy to protect ratepayers in the United States, promote electricity affordability, and ensure that all people of the United States, including households, small businesses, schools, hospitals, and farms, have access to reliable and affordable energy as artificial intelligence and data center infrastructure expands across the United States.",
+  "policy_area": "Energy",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "S001217",
+    "fullName": "Sen. Scott, Rick [R-FL]",
+    "firstName": "Rick",
+    "lastName": "Scott",
+    "party": "R",
+    "state": "FL",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "M001198",
+      "fullName": "Sen. Marshall, Roger [R-KS]",
+      "firstName": "Roger",
+      "lastName": "Marshall",
+      "party": "R",
+      "state": "KS",
+      "district": null,
+      "sponsorshipDate": "2026-03-25",
+      "isOriginalCosponsor": "True"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2026-03-25",
+      "text": "Referred to the Committee on Energy and Natural Resources. (text: CR S1618-1619)",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2026-03-25",
+      "text": "Submitted in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10025",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2026-03-25",
+      "text": "Referred to the Committee on Energy and Natural Resources. (text: CR S1618-1619)"
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

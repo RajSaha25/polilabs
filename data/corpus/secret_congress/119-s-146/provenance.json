@@ -1,0 +1,11 @@
+{
+  "bill_id": "119-s-146",
+  "criteria_version": "secret-congress-seed-v1.0",
+  "canonical_package_id": "BILLS-119s146enr",
+  "cluster": "quiet_bipartisan_law",
+  "sources": {
+    "bill_xml": "https://www.govinfo.gov/content/pkg/BILLS-119s146enr/xml/BILLS-119s146enr.xml",
+    "billstatus": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/s/BILLSTATUS-119s146.xml"
+  },
+  "fetched_at": "2026-06-10T02:55:02.284010+00:00"
+}

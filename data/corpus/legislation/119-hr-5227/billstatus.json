@@ -1,0 +1,119 @@
+{
+  "bill_id": "119-hr-5227",
+  "fetched_at": "2026-06-10T02:57:33.435845+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr5227.xml",
+  "title": "Unleashing Low-Cost Rural AI Act",
+  "policy_area": "Energy",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "C001059",
+    "fullName": "Rep. Costa, Jim [D-CA-21]",
+    "firstName": "Jim",
+    "lastName": "Costa",
+    "party": "D",
+    "state": "CA",
+    "district": "21"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "M001213",
+      "fullName": "Rep. Moore, Blake D. [R-UT-1]",
+      "firstName": "Blake",
+      "lastName": "Moore",
+      "party": "R",
+      "state": "UT",
+      "district": "1",
+      "sponsorshipDate": "2025-09-09",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "F000466",
+      "fullName": "Rep. Fitzpatrick, Brian K. [R-PA-1]",
+      "firstName": "Brian",
+      "lastName": "Fitzpatrick",
+      "party": "R",
+      "state": "PA",
+      "district": "1",
+      "sponsorshipDate": "2025-09-16",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "H001090",
+      "fullName": "Rep. Harder, Josh [D-CA-9]",
+      "firstName": "Josh",
+      "lastName": "Harder",
+      "party": "D",
+      "state": "CA",
+      "district": "9",
+      "sponsorshipDate": "2025-09-30",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "G000605",
+      "fullName": "Rep. Gray, Adam [D-CA-13]",
+      "firstName": "Adam",
+      "lastName": "Gray",
+      "party": "D",
+      "state": "CA",
+      "district": "13",
+      "sponsorshipDate": "2025-10-21",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "V000133",
+      "fullName": "Rep. Van Drew, Jefferson [R-NJ-2]",
+      "firstName": "Jefferson",
+      "lastName": "Van Drew",
+      "party": "R",
+      "state": "NJ",
+      "district": "2",
+      "sponsorshipDate": "2026-01-06",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "L000599",
+      "fullName": "Rep. Lawler, Michael [R-NY-17]",
+      "firstName": "Michael",
+      "lastName": "Lawler",
+      "party": "R",
+      "state": "NY",
+      "district": "17",
+      "sponsorshipDate": "2026-02-02",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2025-09-09",
+      "text": "Referred to the House Committee on Science, Space, and Technology.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-09-09",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2025-09-09",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2025-09-09",
+      "text": "Referred to the House Committee on Science, Space, and Technology."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

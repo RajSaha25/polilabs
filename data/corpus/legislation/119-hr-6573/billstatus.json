@@ -1,0 +1,97 @@
+{
+  "bill_id": "119-hr-6573",
+  "fetched_at": "2026-06-10T02:57:38.683472+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr6573.xml",
+  "title": "AI Talent Act",
+  "policy_area": "Government Operations and Politics",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "J000305",
+    "fullName": "Rep. Jacobs, Sara [D-CA-51]",
+    "firstName": "Sara",
+    "lastName": "Jacobs",
+    "party": "D",
+    "state": "CA",
+    "district": "51"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "O000019",
+      "fullName": "Rep. Obernolte, Jay [R-CA-23]",
+      "firstName": "Jay",
+      "lastName": "Obernolte",
+      "party": "R",
+      "state": "CA",
+      "district": "23",
+      "sponsorshipDate": "2025-12-10",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "B001313",
+      "fullName": "Rep. Brown, Shontel M. [D-OH-11]",
+      "firstName": "Shontel",
+      "lastName": "Brown",
+      "party": "D",
+      "state": "OH",
+      "district": "11",
+      "sponsorshipDate": "2025-12-10",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "F000246",
+      "fullName": "Rep. Fallon, Pat [R-TX-4]",
+      "firstName": "Pat",
+      "lastName": "Fallon",
+      "party": "R",
+      "state": "TX",
+      "district": "4",
+      "sponsorshipDate": "2025-12-10",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "T000488",
+      "fullName": "Rep. Thanedar, Shri [D-MI-13]",
+      "firstName": "Shri",
+      "lastName": "Thanedar",
+      "party": "D",
+      "state": "MI",
+      "district": "13",
+      "sponsorshipDate": "2026-05-21",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2025-12-10",
+      "text": "Referred to the House Committee on Oversight and Government Reform.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-12-10",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2025-12-10",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2025-12-10",
+      "text": "Referred to the House Committee on Oversight and Government Reform."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

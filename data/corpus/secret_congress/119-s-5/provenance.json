@@ -1,0 +1,11 @@
+{
+  "bill_id": "119-s-5",
+  "criteria_version": "secret-congress-seed-v1.0",
+  "canonical_package_id": "BILLS-119s5enr",
+  "cluster": "high_salience_bipartisan_law",
+  "sources": {
+    "bill_xml": "https://www.govinfo.gov/content/pkg/BILLS-119s5enr/xml/BILLS-119s5enr.xml",
+    "billstatus": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/s/BILLSTATUS-119s5.xml"
+  },
+  "fetched_at": "2026-06-10T02:55:27.216938+00:00"
+}

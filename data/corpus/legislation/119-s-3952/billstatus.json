@@ -1,0 +1,86 @@
+{
+  "bill_id": "119-s-3952",
+  "fetched_at": "2026-06-10T02:57:56.678198+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/s/BILLSTATUS-119s3952.xml",
+  "title": "Future of Artificial Intelligence Innovation Act of 2026",
+  "policy_area": "Science, Technology, Communications",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "Y000064",
+    "fullName": "Sen. Young, Todd [R-IN]",
+    "firstName": "Todd",
+    "lastName": "Young",
+    "party": "R",
+    "state": "IN",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "C000127",
+      "fullName": "Sen. Cantwell, Maria [D-WA]",
+      "firstName": "Maria",
+      "lastName": "Cantwell",
+      "party": "D",
+      "state": "WA",
+      "district": null,
+      "sponsorshipDate": "2026-02-26",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "B001243",
+      "fullName": "Sen. Blackburn, Marsha [R-TN]",
+      "firstName": "Marsha",
+      "lastName": "Blackburn",
+      "party": "R",
+      "state": "TN",
+      "district": null,
+      "sponsorshipDate": "2026-02-26",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "H000273",
+      "fullName": "Sen. Hickenlooper, John W. [D-CO]",
+      "firstName": "John",
+      "lastName": "Hickenlooper",
+      "party": "D",
+      "state": "CO",
+      "district": null,
+      "sponsorshipDate": "2026-02-26",
+      "isOriginalCosponsor": "True"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2026-03-19",
+      "text": "Star Print ordered on the bill.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2026-02-26",
+      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2026-02-26",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2026-03-19",
+      "text": "Star Print ordered on the bill."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

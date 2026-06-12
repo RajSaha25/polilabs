@@ -1,0 +1,52 @@
+{
+  "bill_id": "118-hr-3044",
+  "fetched_at": "2026-06-10T02:56:52.867993+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/hr/BILLSTATUS-118hr3044.xml",
+  "title": "REAL Political Advertisements Act",
+  "policy_area": "Government Operations and Politics",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "C001067",
+    "fullName": "Rep. Clarke, Yvette D. [D-NY-9]",
+    "firstName": "Yvette",
+    "lastName": "Clarke",
+    "party": "D",
+    "state": "NY",
+    "district": "9"
+  },
+  "cosponsors": [],
+  "actions": [
+    {
+      "actionDate": "2023-05-02",
+      "text": "Referred to the House Committee on House Administration.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-05-02",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2023-05-02",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "died_in_committee",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2023-05-02",
+      "text": "Referred to the House Committee on House Administration."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

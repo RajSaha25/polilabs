@@ -1,0 +1,11 @@
+{
+  "bill_id": "117-hr-1996",
+  "criteria_version": "secret-congress-seed-v1.0",
+  "canonical_package_id": "BILLS-117hr1996eh",
+  "cluster": "bipartisan_but_died",
+  "sources": {
+    "bill_xml": "https://www.govinfo.gov/content/pkg/BILLS-117hr1996eh/xml/BILLS-117hr1996eh.xml",
+    "billstatus": "https://www.govinfo.gov/bulkdata/BILLSTATUS/117/hr/BILLSTATUS-117hr1996.xml"
+  },
+  "fetched_at": "2026-06-10T02:55:41.091435+00:00"
+}

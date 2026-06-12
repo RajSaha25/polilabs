@@ -1,0 +1,335 @@
+{
+  "bill_id": "118-hr-2894",
+  "fetched_at": "2026-06-10T02:56:52.499323+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/hr/BILLSTATUS-118hr2894.xml",
+  "title": "Block Nuclear Launch by Autonomous Artificial Intelligence Act of 2023",
+  "policy_area": "Armed Forces and National Security",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "L000582",
+    "fullName": "Rep. Lieu, Ted [D-CA-36]",
+    "firstName": "Ted",
+    "lastName": "Lieu",
+    "party": "D",
+    "state": "CA",
+    "district": "36"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "B001297",
+      "fullName": "Rep. Buck, Ken [R-CO-4]",
+      "firstName": "Ken",
+      "lastName": "Buck",
+      "party": "R",
+      "state": "CO",
+      "district": "4",
+      "sponsorshipDate": "2023-04-26",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "B001292",
+      "fullName": "Rep. Beyer, Donald S., Jr. [D-VA-8]",
+      "firstName": "Donald",
+      "lastName": "Beyer",
+      "party": "D",
+      "state": "VA",
+      "district": "8",
+      "sponsorshipDate": "2023-04-26",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "M000312",
+      "fullName": "Rep. McGovern, James P. [D-MA-2]",
+      "firstName": "JAMES",
+      "lastName": "MCGOVERN",
+      "party": "D",
+      "state": "MA",
+      "district": "2",
+      "sponsorshipDate": "2023-05-05",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "T000487",
+      "fullName": "Rep. Tokuda, Jill N. [D-HI-2]",
+      "firstName": "Jill",
+      "lastName": "Tokuda",
+      "party": "D",
+      "state": "HI",
+      "district": "2",
+      "sponsorshipDate": "2023-05-11",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "L000593",
+      "fullName": "Rep. Levin, Mike [D-CA-49]",
+      "firstName": "Mike",
+      "lastName": "Levin",
+      "party": "D",
+      "state": "CA",
+      "district": "49",
+      "sponsorshipDate": "2023-05-15",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "H001085",
+      "fullName": "Rep. Houlahan, Chrissy [D-PA-6]",
+      "firstName": "Chrissy",
+      "lastName": "Houlahan",
+      "party": "D",
+      "state": "PA",
+      "district": "6",
+      "sponsorshipDate": "2023-05-15",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "O000173",
+      "fullName": "Rep. Omar, Ilhan [D-MN-5]",
+      "firstName": "Ilhan",
+      "lastName": "Omar",
+      "party": "D",
+      "state": "MN",
+      "district": "5",
+      "sponsorshipDate": "2023-05-15",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "M001195",
+      "fullName": "Rep. Mooney, Alexander X. [R-WV-2]",
+      "firstName": "Alexander",
+      "lastName": "Mooney",
+      "party": "R",
+      "state": "WV",
+      "district": "2",
+      "sponsorshipDate": "2023-05-24",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "S000344",
+      "fullName": "Rep. Sherman, Brad [D-CA-32]",
+      "firstName": "BRAD",
+      "lastName": "SHERMAN",
+      "party": "D",
+      "state": "CA",
+      "district": "32",
+      "sponsorshipDate": "2023-05-24",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "C001133",
+      "fullName": "Rep. Ciscomani, Juan [R-AZ-6]",
+      "firstName": "Juan",
+      "lastName": "Ciscomani",
+      "party": "R",
+      "state": "AZ",
+      "district": "6",
+      "sponsorshipDate": "2023-06-05",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "P000607",
+      "fullName": "Rep. Pocan, Mark [D-WI-2]",
+      "firstName": "Mark",
+      "lastName": "Pocan",
+      "party": "D",
+      "state": "WI",
+      "district": "2",
+      "sponsorshipDate": "2023-06-05",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "T000481",
+      "fullName": "Rep. Tlaib, Rashida [D-MI-12]",
+      "firstName": "Rashida",
+      "lastName": "Tlaib",
+      "party": "D",
+      "state": "MI",
+      "district": "12",
+      "sponsorshipDate": "2023-06-05",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "N000193",
+      "fullName": "Rep. Nunn, Zachary [R-IA-3]",
+      "firstName": "Zachary",
+      "lastName": "Nunn",
+      "party": "R",
+      "state": "IA",
+      "district": "3",
+      "sponsorshipDate": "2023-06-05",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "G000551",
+      "fullName": "Rep. Grijalva, Ra\u00fal M. [D-AZ-7]",
+      "firstName": "Ra\u00fal",
+      "lastName": "Grijalva",
+      "party": "D",
+      "state": "AZ",
+      "district": "7",
+      "sponsorshipDate": "2023-06-06",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "M001196",
+      "fullName": "Rep. Moulton, Seth [D-MA-6]",
+      "firstName": "Seth",
+      "lastName": "Moulton",
+      "party": "D",
+      "state": "MA",
+      "district": "6",
+      "sponsorshipDate": "2023-06-20",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "J000032",
+      "fullName": "Rep. Jackson Lee, Sheila [D-TX-18]",
+      "firstName": "SHEILA",
+      "lastName": "JACKSON LEE",
+      "party": "D",
+      "state": "TX",
+      "district": "18",
+      "sponsorshipDate": "2023-06-20",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "C001131",
+      "fullName": "Rep. Casar, Greg [D-TX-35]",
+      "firstName": "Greg",
+      "lastName": "Casar",
+      "party": "D",
+      "state": "TX",
+      "district": "35",
+      "sponsorshipDate": "2023-07-10",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "B001223",
+      "fullName": "Rep. Bowman, Jamaal [D-NY-16]",
+      "firstName": "Jamaal",
+      "lastName": "Bowman",
+      "party": "D",
+      "state": "NY",
+      "district": "16",
+      "sponsorshipDate": "2023-07-13",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "H001094",
+      "fullName": "Rep. Hoyle, Val T. [D-OR-4]",
+      "firstName": "Val",
+      "lastName": "Hoyle",
+      "party": "D",
+      "state": "OR",
+      "district": "4",
+      "sponsorshipDate": "2023-07-17",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "M001221",
+      "fullName": "Rep. Molinaro, Marcus J. [R-NY-19]",
+      "firstName": "Marcus",
+      "lastName": "Molinaro",
+      "party": "R",
+      "state": "NY",
+      "district": "19",
+      "sponsorshipDate": "2023-12-19",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "S001150",
+      "fullName": "Rep. Schiff, Adam B. [D-CA-30]",
+      "firstName": "Adam",
+      "lastName": "Schiff",
+      "party": "D",
+      "state": "CA",
+      "district": "28",
+      "sponsorshipDate": "2024-03-05",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "P000616",
+      "fullName": "Rep. Phillips, Dean [D-MN-3]",
+      "firstName": "Dean",
+      "lastName": "Phillips",
+      "party": "D",
+      "state": "MN",
+      "district": "3",
+      "sponsorshipDate": "2024-03-06",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "M001223",
+      "fullName": "Rep. Magaziner, Seth [D-RI-2]",
+      "firstName": "Seth",
+      "lastName": "Magaziner",
+      "party": "D",
+      "state": "RI",
+      "district": "2",
+      "sponsorshipDate": "2024-04-15",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "G000559",
+      "fullName": "Rep. Garamendi, John [D-CA-8]",
+      "firstName": "John",
+      "lastName": "Garamendi",
+      "party": "D",
+      "state": "CA",
+      "district": "8",
+      "sponsorshipDate": "2024-04-29",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "L000560",
+      "fullName": "Rep. Larsen, Rick [D-WA-2]",
+      "firstName": "Rick",
+      "lastName": "Larsen",
+      "party": "D",
+      "state": "WA",
+      "district": "2",
+      "sponsorshipDate": "2024-06-18",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2023-04-26",
+      "text": "Referred to the Committee on Armed Services, and in addition to the Committee on Foreign Affairs, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-04-26",
+      "text": "Referred to the Committee on Armed Services, and in addition to the Committee on Foreign Affairs, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-04-26",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2023-04-26",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "died_in_committee",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2023-04-26",
+      "text": "Referred to the Committee on Armed Services, and in addition to the Committee on Foreign Affairs, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

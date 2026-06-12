@@ -1,0 +1,86 @@
+{
+  "bill_id": "119-hr-3434",
+  "fetched_at": "2026-06-10T02:57:31.194331+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr3434.xml",
+  "title": "Protecting AI and Cloud Competition in Defense Act of 2025",
+  "policy_area": "Armed Forces and National Security",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "F000246",
+    "fullName": "Rep. Fallon, Pat [R-TX-4]",
+    "firstName": "Pat",
+    "lastName": "Fallon",
+    "party": "R",
+    "state": "TX",
+    "district": "4"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "J000305",
+      "fullName": "Rep. Jacobs, Sara [D-CA-51]",
+      "firstName": "Sara",
+      "lastName": "Jacobs",
+      "party": "D",
+      "state": "CA",
+      "district": "51",
+      "sponsorshipDate": "2025-05-15",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "D000530",
+      "fullName": "Rep. Deluzio, Christopher R. [D-PA-17]",
+      "firstName": "Christopher",
+      "lastName": "Deluzio",
+      "party": "D",
+      "state": "PA",
+      "district": "17",
+      "sponsorshipDate": "2025-05-15",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "V000138",
+      "fullName": "Rep. Vindman, Eugene Simon [D-VA-7]",
+      "firstName": "Eugene",
+      "lastName": "Vindman",
+      "party": "D",
+      "state": "VA",
+      "district": "7",
+      "sponsorshipDate": "2025-08-15",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2025-05-15",
+      "text": "Referred to the House Committee on Armed Services.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2025-05-15",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2025-05-15",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2025-05-15",
+      "text": "Referred to the House Committee on Armed Services."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

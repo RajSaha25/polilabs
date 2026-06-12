@@ -1,0 +1,75 @@
+{
+  "bill_id": "118-hr-1718",
+  "fetched_at": "2026-06-10T02:56:46.167370+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/hr/BILLSTATUS-118hr1718.xml",
+  "title": "AI for National Security Act",
+  "policy_area": "Armed Forces and National Security",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "O000019",
+    "fullName": "Rep. Obernolte, Jay [R-CA-23]",
+    "firstName": "Jay",
+    "lastName": "Obernolte",
+    "party": "R",
+    "state": "CA",
+    "district": "23"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "P000613",
+      "fullName": "Rep. Panetta, Jimmy [D-CA-19]",
+      "firstName": "Jimmy",
+      "lastName": "Panetta",
+      "party": "D",
+      "state": "CA",
+      "district": "19",
+      "sponsorshipDate": "2023-03-22",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "R000579",
+      "fullName": "Rep. Ryan, Patrick [D-NY-18]",
+      "firstName": "Patrick",
+      "lastName": "Ryan",
+      "party": "D",
+      "state": "NY",
+      "district": "18",
+      "sponsorshipDate": "2023-04-06",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2023-03-22",
+      "text": "Referred to the House Committee on Armed Services.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-03-22",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2023-03-22",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "died_in_committee",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2023-03-22",
+      "text": "Referred to the House Committee on Armed Services."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

@@ -1,0 +1,510 @@
+{
+  "bill_id": "118-hr-3746",
+  "congress": 118,
+  "bill_type": "hr",
+  "bill_number": 3746,
+  "title": "Fiscal Responsibility Act of 2023",
+  "short_title": "Fiscal Responsibility Act of 2023",
+  "sponsor": "Rep. McHenry, Patrick T. [R-NC-10]",
+  "introduced_date": "2023-05-29",
+  "latest_action": "2023-06-03: Became Public Law No: 118-5.",
+  "policy_area": "Economics and Public Finance",
+  "subjects": [
+    "Academic performance and assessments",
+    "Administrative law and regulatory procedures",
+    "Africa",
+    "Agricultural prices, subsidies, credit",
+    "Air quality",
+    "Alabama",
+    "Appropriations",
+    "Assault and harassment offenses",
+    "Aviation and airports",
+    "Banking and financial institutions regulation",
+    "Budget deficits and national debt",
+    "Budget process",
+    "Building construction",
+    "Cardiovascular and respiratory health",
+    "Census and government statistics",
+    "Centers for Disease Control and Prevention (CDC)",
+    "Chemical and biological weapons",
+    "Child care and development",
+    "Civil actions and liability",
+    "Computer security and identity theft",
+    "Computers and information technology",
+    "Congressional oversight",
+    "Crime prevention",
+    "Crime victims",
+    "Criminal justice information and records",
+    "Cultural exchanges and relations",
+    "Defense spending",
+    "Department of Agriculture",
+    "Department of Commerce",
+    "Department of Education",
+    "Department of Health and Human Services",
+    "Department of Housing and Urban Development",
+    "Department of Justice",
+    "Department of Labor",
+    "Department of State",
+    "Department of Transportation",
+    "Department of Veterans Affairs",
+    "Department of the Interior",
+    "Department of the Treasury",
+    "Diplomacy, foreign officials, Americans abroad",
+    "Disability assistance",
+    "Disaster relief and insurance",
+    "Domestic violence and child abuse",
+    "Drug, alcohol, tobacco use",
+    "Economic performance and conditions",
+    "Education of the disadvantaged",
+    "Education programs funding",
+    "Educational facilities and institutions",
+    "Educational technology and distance education",
+    "Electric power generation and transmission",
+    "Elementary and secondary education",
+    "Emergency medical services and trauma care",
+    "Employee benefits and pensions",
+    "Endangered and threatened species",
+    "Energy storage, supplies, demand",
+    "Environmental Protection Agency (EPA)",
+    "Environmental assessment, monitoring, research",
+    "Environmental health",
+    "Executive agency funding and structure",
+    "Family planning and birth control",
+    "Family services",
+    "Federal Communications Commission (FCC)",
+    "Federal Trade Commission (FTC)",
+    "Food assistance and relief",
+    "Food industry and services",
+    "Food supply, safety, and labeling",
+    "Foreign aid and international relief",
+    "Foreign language and bilingual programs",
+    "Fraud offenses and financial crimes",
+    "Georgia",
+    "Government information and archives",
+    "Government lending and loan guarantees",
+    "Government studies and investigations",
+    "Government trust funds",
+    "HIV/AIDS",
+    "Hazardous wastes and toxic substances",
+    "Health care costs and insurance",
+    "Health care coverage and access",
+    "Health information and medical records",
+    "Health personnel",
+    "Health programs administration and funding",
+    "Health promotion and preventive care",
+    "Health technology, devices, supplies",
+    "Higher education",
+    "Housing and community development funding",
+    "Housing for the elderly and disabled",
+    "Humanities programs funding",
+    "Immunology and vaccination",
+    "Indian social and development programs",
+    "Infectious and parasitic diseases",
+    "Infrastructure development",
+    "Intergovernmental relations",
+    "Internal Revenue Service (IRS)",
+    "International exchange and broadcasting",
+    "Internet, web applications, social media",
+    "Kentucky",
+    "Legislative rules and procedure",
+    "Libraries and archives",
+    "Licensing and registrations",
+    "Livestock",
+    "Long-term, rehabilitative, and terminal care",
+    "Manufacturing",
+    "Maryland",
+    "Materials",
+    "Meat",
+    "Medicaid",
+    "Medical education",
+    "Medical research",
+    "Medical tests and diagnostic methods",
+    "Medicare",
+    "Mental health",
+    "Military procurement, research, weapons development",
+    "Minority and disadvantaged businesses",
+    "Mississippi",
+    "Museums, exhibitions, cultural centers",
+    "National Institutes of Health (NIH)",
+    "National and community service",
+    "New York State",
+    "North Carolina",
+    "Ohio",
+    "Oil and gas",
+    "Pennsylvania",
+    "Performance measurement",
+    "Pipelines",
+    "Pollution liability",
+    "Poverty and welfare assistance",
+    "Public contracts and procurement",
+    "Public housing",
+    "Puerto Rico",
+    "Railroads",
+    "Refugees, asylum, displaced persons",
+    "Research administration and funding",
+    "Research and development",
+    "Roads and highways",
+    "Rural conditions and development",
+    "School administration",
+    "Sex offenses",
+    "Small business",
+    "Social Security Administration",
+    "South Carolina",
+    "South Sudan",
+    "Special education",
+    "Specialized courts",
+    "State and local government operations",
+    "Student aid and college costs",
+    "Sudan",
+    "Tax administration and collection, taxpayers",
+    "Tennessee",
+    "Transportation employees",
+    "Transportation programs funding",
+    "U.S. territories and protectorates",
+    "Unemployment",
+    "Veterans' medical care",
+    "Virginia",
+    "Water quality",
+    "Water resources funding",
+    "Water use and supply",
+    "West Virginia",
+    "Wildlife conservation and habitat protection",
+    "Worker safety and health"
+  ],
+  "summary_text": null,
+  "centrality_score": null,
+  "match_locations": {},
+  "tier": "A",
+  "stream": "legislation",
+  "topic": "secret_congress",
+  "cluster": "high_salience_bipartisan_law",
+  "curator_note": "Enacted PL 118-5. Debt-ceiling deal, House 314-117: both parties supplied majorities under default deadline pressure.",
+  "versions_available": [
+    {
+      "package_id": "BILLS-118hr3746enr",
+      "version_code": "enr",
+      "date_issued": "2023-05-29"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-118hr3746enr",
+    "version_code": "enr",
+    "date_issued": "2023-05-29"
+  },
+  "actions": [
+    {
+      "actionDate": "2023-06-03",
+      "text": "Became Public Law No: 118-5.",
+      "type": "President",
+      "actionCode": "E40000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2023-06-03",
+      "text": "Became Public Law No: 118-5.",
+      "type": "BecameLaw",
+      "actionCode": "36000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2023-06-03",
+      "text": "Signed by President.",
+      "type": "President",
+      "actionCode": "E30000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2023-06-03",
+      "text": "Signed by President.",
+      "type": "BecameLaw",
+      "actionCode": "36000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2023-06-03",
+      "text": "Presented to President.",
+      "type": "Floor",
+      "actionCode": "E20000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-06-03",
+      "text": "Presented to President.",
+      "type": "President",
+      "actionCode": "28000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2023-06-02",
+      "text": "Message on Senate action sent to the House.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2023-06-01",
+      "text": "Passed Senate, under the order of 6/1/2023, having achieved 60 votes in the affirmative, without amendment by Yea-Nay Vote. 63 - 36. Record Vote Number: 146.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2023-06-01",
+      "text": "Passed/agreed to in Senate: Passed Senate, under the order of 6/1/2023, having achieved 60 votes in the affirmative, without amendment by Yea-Nay Vote. 63 - 36. Record Vote Number: 146.",
+      "type": "Floor",
+      "actionCode": "17000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2023-06-01",
+      "text": "Measure laid before Senate by motion. (consideration: CR S1882-1892)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2023-06-01",
+      "text": "Motion to proceed to consideration of measure agreed to in Senate by Voice Vote.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2023-06-01",
+      "text": "Motion to proceed to consideration of measure made in Senate. (consideration: CR S1868-1882)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2023-05-31",
+      "text": "Read the second time. Placed on Senate Legislative Calendar under General Orders. Calendar No. 84.",
+      "type": "Calendars",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2023-05-31",
+      "text": "Received in the Senate. Read the first time. Placed on Senate Legislative Calendar under Read the First Time. (Legislative Day May 30, 2023).",
+      "type": "Calendars",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2023-05-31",
+      "text": "Motion to reconsider laid on the table Agreed to without objection.",
+      "type": "Floor",
+      "actionCode": "H38310",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-05-31",
+      "text": "On passage Passed by recorded vote: 314 - 117 (Roll No. 243). (text: CR H2681-2692)",
+      "type": "Floor",
+      "actionCode": "H37100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-05-31",
+      "text": "Passed/agreed to in House: On passage Passed by recorded vote: 314 - 117 (Roll No. 243). (text: CR H2681-2692)",
+      "type": "Floor",
+      "actionCode": "8000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2023-05-31",
+      "text": "The previous question was ordered pursuant to the rule.",
+      "type": "Floor",
+      "actionCode": "H35000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-05-31",
+      "text": "DEBATE - The House proceeded with one hour of debate on H.R. 3746.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-05-31",
+      "text": "Rule provides for consideration of H.R. 3746 with 1 hour of general debate. Previous question shall be considered as ordered without intervening motions except motion to recommit. Measure will be considered read. Bill is closed to amendments.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-05-31",
+      "text": "Considered under the provisions of rule H. Res. 456. (consideration: CR H2681-2706)",
+      "type": "Floor",
+      "actionCode": "H30000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-05-31",
+      "text": "Rule H. Res. 456 passed House.",
+      "type": "Floor",
+      "actionCode": "H1L220",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-05-30",
+      "text": "Rules Committee Resolution H. Res. 456 Reported to House. Rule provides for consideration of H.R. 3746 with 1 hour of general debate. Previous question shall be considered as ordered without intervening motions except motion to recommit. Measure will be considered read. Bill is closed to amendments.",
+      "type": "Floor",
+      "actionCode": "H1L210",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-05-30",
+      "text": "Referred to the Subcommittee on Aviation.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2023-05-30",
+      "text": "Referred to the Subcommittee on Economic Development, Public Buildings, and Emergency Management.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2023-05-30",
+      "text": "Referred to the Subcommittee on Highways and Transit.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2023-05-30",
+      "text": "Referred to the Subcommittee on Water Resources and Environment.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2023-05-30",
+      "text": "Referred to the Subcommittee on Railroads, Pipelines, and Hazardous Materials.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2023-05-29",
+      "text": "Referred to the Committee on Ways and Means, and in addition to the Committees on the Budget, Appropriations, Veterans' Affairs, Rules, Transportation and Infrastructure, the Judiciary, Education and the Workforce, Agriculture, Energy and Commerce, Financial Services, Natural Resources, Small Business, and Homeland Security, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-05-29",
+      "text": "Referred to the Committee on Ways and Means, and in addition to the Committees on the Budget, Appropriations, Veterans' Affairs, Rules, Transportation and Infrastructure, the Judiciary, Education and the Workforce, Agriculture, Energy and Commerce, Financial Services, Natural Resources, Small Business, and Homeland Security, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-05-29",
+      "text": "Referred to the Committee on Ways and Means, and in addition to the Committees on the Budget, Appropriations, Veterans' Affairs, Rules, Transportation and Infrastructure, the Judiciary, Education and the Workforce, Agriculture, Energy and Commerce, Financial Services, Natural Resources, Small Business, and Homeland Security, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-05-29",
+      "text": "Referred to the Committee on Ways and Means, and in addition to the Committees on the Budget, Appropriations, Veterans' Affairs, Rules, Transportation and Infrastructure, the Judiciary, Education and the Workforce, Agriculture, Energy and Commerce, Financial Services, Natural Resources, Small Business, and Homeland Security, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-05-29",
+      "text": "Referred to the Committee on Ways and Means, and in addition to the Committees on the Budget, Appropriations, Veterans' Affairs, Rules, Transportation and Infrastructure, the Judiciary, Education and the Workforce, Agriculture, Energy and Commerce, Financial Services, Natural Resources, Small Business, and Homeland Security, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-05-29",
+      "text": "Referred to the Committee on Ways and Means, and in addition to the Committees on the Budget, Appropriations, Veterans' Affairs, Rules, Transportation and Infrastructure, the Judiciary, Education and the Workforce, Agriculture, Energy and Commerce, Financial Services, Natural Resources, Small Business, and Homeland Security, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-05-29",
+      "text": "Referred to the Committee on Ways and Means, and in addition to the Committees on the Budget, Appropriations, Veterans' Affairs, Rules, Transportation and Infrastructure, the Judiciary, Education and the Workforce, Agriculture, Energy and Commerce, Financial Services, Natural Resources, Small Business, and Homeland Security, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-05-29",
+      "text": "Referred to the Committee on Ways and Means, and in addition to the Committees on the Budget, Appropriations, Veterans' Affairs, Rules, Transportation and Infrastructure, the Judiciary, Education and the Workforce, Agriculture, Energy and Commerce, Financial Services, Natural Resources, Small Business, and Homeland Security, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-05-29",
+      "text": "Referred to the Committee on Ways and Means, and in addition to the Committees on the Budget, Appropriations, Veterans' Affairs, Rules, Transportation and Infrastructure, the Judiciary, Education and the Workforce, Agriculture, Energy and Commerce, Financial Services, Natural Resources, Small Business, and Homeland Security, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-05-29",
+      "text": "Referred to the Committee on Ways and Means, and in addition to the Committees on the Budget, Appropriations, Veterans' Affairs, Rules, Transportation and Infrastructure, the Judiciary, Education and the Workforce, Agriculture, Energy and Commerce, Financial Services, Natural Resources, Small Business, and Homeland Security, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-05-29",
+      "text": "Referred to the Committee on Ways and Means, and in addition to the Committees on the Budget, Appropriations, Veterans' Affairs, Rules, Transportation and Infrastructure, the Judiciary, Education and the Workforce, Agriculture, Energy and Commerce, Financial Services, Natural Resources, Small Business, and Homeland Security, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-05-29",
+      "text": "Referred to the Committee on Ways and Means, and in addition to the Committees on the Budget, Appropriations, Veterans' Affairs, Rules, Transportation and Infrastructure, the Judiciary, Education and the Workforce, Agriculture, Energy and Commerce, Financial Services, Natural Resources, Small Business, and Homeland Security, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-05-29",
+      "text": "Referred to the Committee on Ways and Means, and in addition to the Committees on the Budget, Appropriations, Veterans' Affairs, Rules, Transportation and Infrastructure, the Judiciary, Education and the Workforce, Agriculture, Energy and Commerce, Financial Services, Natural Resources, Small Business, and Homeland Security, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-05-29",
+      "text": "Referred to the Committee on Ways and Means, and in addition to the Committees on the Budget, Appropriations, Veterans' Affairs, Rules, Transportation and Infrastructure, the Judiciary, Education and the Workforce, Agriculture, Energy and Commerce, Financial Services, Natural Resources, Small Business, and Homeland Security, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2023-05-29",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2023-05-29",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "cosponsors": [],
+  "_metadata_sources": {
+    "xml": "govinfo bulk-data (unauthenticated)",
+    "billstatus": "govinfo BILLSTATUS bulk-data (unauthenticated)",
+    "congress_gov_enriched": false
+  }
+}

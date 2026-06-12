@@ -1,0 +1,189 @@
+{
+  "bill_id": "119-hr-7058",
+  "fetched_at": "2026-06-10T02:57:40.147718+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr7058.xml",
+  "title": "Foreign Adversary AI Risk Assessment and Diplomacy Act",
+  "policy_area": "International Affairs",
+  "subjects": [
+    "Advanced technology and technological innovations",
+    "Chemical and biological weapons",
+    "Computer security and identity theft",
+    "Computers and information technology",
+    "Congressional oversight",
+    "Data collection, sharing, protection",
+    "Digital media",
+    "Diplomacy, foreign officials, Americans abroad",
+    "Intelligence activities, surveillance, classified information",
+    "Internet, web applications, social media",
+    "Nuclear weapons"
+  ],
+  "sponsor": {
+    "bioguideId": "B001322",
+    "fullName": "Rep. Baumgartner, Michael [R-WA-5]",
+    "firstName": "Michael",
+    "lastName": "Baumgartner",
+    "party": "R",
+    "state": "WA",
+    "district": "5"
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "H001098",
+      "fullName": "Rep. Hamadeh, Abraham J. [R-AZ-8]",
+      "firstName": "Abraham",
+      "lastName": "Hamadeh",
+      "party": "R",
+      "state": "AZ",
+      "district": "8",
+      "sponsorshipDate": "2026-01-14",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "S000168",
+      "fullName": "Rep. Salazar, Maria Elvira [R-FL-27]",
+      "firstName": "Maria",
+      "lastName": "Salazar",
+      "party": "R",
+      "state": "FL",
+      "district": "27",
+      "sponsorshipDate": "2026-01-14",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "E000235",
+      "fullName": "Rep. Ezell, Mike [R-MS-4]",
+      "firstName": "Mike",
+      "lastName": "Ezell",
+      "party": "R",
+      "state": "MS",
+      "district": "4",
+      "sponsorshipDate": "2026-01-14",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "S001229",
+      "fullName": "Rep. Shreve, Jefferson [R-IN-6]",
+      "firstName": "Jefferson",
+      "lastName": "Shreve",
+      "party": "R",
+      "state": "IN",
+      "district": "6",
+      "sponsorshipDate": "2026-01-20",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "L000599",
+      "fullName": "Rep. Lawler, Michael [R-NY-17]",
+      "firstName": "Michael",
+      "lastName": "Lawler",
+      "party": "R",
+      "state": "NY",
+      "district": "17",
+      "sponsorshipDate": "2026-01-20",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "R000609",
+      "fullName": "Rep. Rutherford, John H. [R-FL-5]",
+      "firstName": "John",
+      "lastName": "Rutherford",
+      "party": "R",
+      "state": "FL",
+      "district": "5",
+      "sponsorshipDate": "2026-01-21",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "M001240",
+      "fullName": "Rep. McDowell, Addison P. [R-NC-6]",
+      "firstName": "Addison",
+      "lastName": "McDowell",
+      "party": "R",
+      "state": "NC",
+      "district": "6",
+      "sponsorshipDate": "2026-01-23",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "H001099",
+      "fullName": "Rep. Haridopolos, Mike [R-FL-8]",
+      "firstName": "Mike",
+      "lastName": "Haridopolos",
+      "party": "R",
+      "state": "FL",
+      "district": "8",
+      "sponsorshipDate": "2026-01-23",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "V000139",
+      "fullName": "Rep. Van Epps, Matt [R-TN-7]",
+      "firstName": "Matt",
+      "lastName": "Van Epps",
+      "party": "R",
+      "state": "TN",
+      "district": "7",
+      "sponsorshipDate": "2026-01-30",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "F000484",
+      "fullName": "Rep. Fine, Randy [R-FL-6]",
+      "firstName": "Randy",
+      "lastName": "Fine",
+      "party": "R",
+      "state": "FL",
+      "district": "6",
+      "sponsorshipDate": "2026-03-16",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2026-03-26",
+      "text": "Ordered to be Reported by the Yeas and Nays: 45 - 0.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2026-03-26",
+      "text": "Committee Consideration and Mark-up Session Held",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2026-01-14",
+      "text": "Referred to the House Committee on Foreign Affairs.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2026-01-14",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2026-01-14",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2026-03-26",
+      "text": "Ordered to be Reported by the Yeas and Nays: 45 - 0."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

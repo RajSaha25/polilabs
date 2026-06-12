@@ -1,0 +1,1699 @@
+{
+  "bill_id": "117-hr-3076",
+  "congress": 117,
+  "bill_type": "hr",
+  "bill_number": 3076,
+  "title": "Postal Service Reform Act of 2022",
+  "short_title": "Postal Service Reform Act of 2022",
+  "sponsor": "Rep. Maloney, Carolyn B. [D-NY-12]",
+  "introduced_date": "2021-05-11",
+  "latest_action": "2022-04-06: Became Public Law No: 117-108.",
+  "policy_area": "Government Operations and Politics",
+  "subjects": [
+    "Congressional oversight",
+    "Executive agency funding and structure",
+    "Government employee pay, benefits, personnel management",
+    "Government information and archives",
+    "Government studies and investigations",
+    "Health care costs and insurance",
+    "Health care coverage and access",
+    "Intergovernmental relations",
+    "Medicare",
+    "Performance measurement",
+    "Postal Regulatory Commission",
+    "Postal service",
+    "Public participation and lobbying",
+    "Retail and wholesale trades",
+    "State and local government operations",
+    "U.S. Postal Service"
+  ],
+  "summary_text": null,
+  "centrality_score": null,
+  "match_locations": {},
+  "tier": "A",
+  "stream": "legislation",
+  "topic": "secret_congress",
+  "cluster": "quiet_bipartisan_law",
+  "curator_note": "Enacted PL 117-108. Decades-stalled USPS finance overhaul passed 342-92 in the House and 79-19 in the Senate with little media attention.",
+  "versions_available": [
+    {
+      "package_id": "BILLS-117hr3076enr",
+      "version_code": "enr",
+      "date_issued": "2021-05-11"
+    }
+  ],
+  "canonical_version": {
+    "package_id": "BILLS-117hr3076enr",
+    "version_code": "enr",
+    "date_issued": "2021-05-11"
+  },
+  "actions": [
+    {
+      "actionDate": "2022-04-06",
+      "text": "Became Public Law No: 117-108.",
+      "type": "President",
+      "actionCode": "E40000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-04-06",
+      "text": "Became Public Law No: 117-108.",
+      "type": "BecameLaw",
+      "actionCode": "36000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-04-06",
+      "text": "Signed by President.",
+      "type": "President",
+      "actionCode": "E30000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-04-06",
+      "text": "Signed by President.",
+      "type": "BecameLaw",
+      "actionCode": "36000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-03-28",
+      "text": "Presented to President.",
+      "type": "Floor",
+      "actionCode": "E20000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-03-28",
+      "text": "Presented to President.",
+      "type": "President",
+      "actionCode": "28000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-03-08",
+      "text": "Message on Senate action sent to the House.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-03-08",
+      "text": "Passed Senate without amendment by Yea-Nay Vote. 79 - 19. Record Vote Number: 71.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-03-08",
+      "text": "Passed/agreed to in Senate: Passed Senate without amendment by Yea-Nay Vote. 79 - 19. Record Vote Number: 71.",
+      "type": "Floor",
+      "actionCode": "17000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-03-08",
+      "text": "Motion to waive section 3101(b) of S. Con. Res. 11, 114th Congress, with respect to the measure agreed to in Senate by Yea-Nay Vote. 68 - 30. Record Vote Number: 70. (CR S1046)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-03-08",
+      "text": "Point of order that the measure violates section 3101(b) of S. Con. Res. 11, 114th Congress, raised in Senate.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-03-08",
+      "text": "Considered by Senate. (consideration: CR S1023-1048)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-03-07",
+      "text": "Cloture on the measure invoked in Senate by Yea-Nay Vote. 74 - 17. Record Vote Number: 69. (CR S1011)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-03-07",
+      "text": "Considered by Senate. (consideration: CR S1001-1012)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-03-03",
+      "text": "Considered by Senate. (consideration: CR S961-965)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-03-02",
+      "text": "Cloture motion on the measure presented in Senate. (CR S947)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-03-02",
+      "text": "Considered by Senate. (consideration: CR S923-924, S947)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-03-01",
+      "text": "Measure laid before Senate by motion.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-03-01",
+      "text": "Motion to proceed to consideration of measure agreed to in Senate by Voice Vote.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-03-01",
+      "text": "Motion to proceed to measure considered in Senate. (consideration: CR S845-872)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-02-28",
+      "text": "Motion to proceed to measure considered in Senate.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-02-28",
+      "text": "Cloture on the motion to proceed to the measure invoked in Senate by Yea-Nay Vote. 74 - 20. Record Vote Number: 66. (CR S826)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-02-17",
+      "text": "Cloture motion on the motion to proceed to the measure presented in Senate. (CR S797)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-02-17",
+      "text": "Motion to proceed to consideration of measure made in Senate. (CR S797)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-02-15",
+      "text": "Read the second time. Placed on Senate Legislative Calendar under General Orders. Calendar No. 273.",
+      "type": "Calendars",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-02-14",
+      "text": "Received in the Senate. Read the first time. Placed on Senate Legislative Calendar under Read the First Time.",
+      "type": "Calendars",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-02-14",
+      "text": "Message on Senate action sent to the House.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-02-14",
+      "text": "Papers returned to House pursuant to H. Res. 925 (Senate message received on Feb. 15, 2022).",
+      "type": "Floor",
+      "actionCode": "H1B000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-02-14",
+      "text": "Senate returned papers to the House by Voice Vote.",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-02-14",
+      "text": "Senate vitiated previous actions by Unanimous Consent. (CR S675)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-02-14",
+      "text": "Motion to proceed to measure considered in Senate. (CR S653)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-02-10",
+      "text": "Cloture motion on the motion to proceed to the measure presented in Senate. (CR S621)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-02-10",
+      "text": "Motion to proceed to consideration of measure made in Senate. (CR S621)",
+      "type": "Floor",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-02-09",
+      "text": "Read the second time. Placed on Senate Legislative Calendar under General Orders. Calendar No. 266.",
+      "type": "Calendars",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-02-08",
+      "text": "Received in the Senate. Read the first time. Placed on Senate Legislative Calendar under Read the First Time.",
+      "type": "Calendars",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2022-02-08",
+      "text": "Motion to reconsider laid on the table Agreed to without objection.",
+      "type": "Floor",
+      "actionCode": "H38310",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-02-08",
+      "text": "On passage Passed by the Yeas and Nays: 342 - 92 (Roll no. 38).",
+      "type": "Floor",
+      "actionCode": "H37100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-02-08",
+      "text": "Passed/agreed to in House: On passage Passed by the Yeas and Nays: 342 - 92 (Roll no. 38).",
+      "type": "Floor",
+      "actionCode": "8000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-02-08",
+      "text": "Considered as unfinished business. (consideration: CR H1056-1057)",
+      "type": "Floor",
+      "actionCode": "H30000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-02-08",
+      "text": "POSTPONED PROCEEDINGS - At the conclusion of debate, the Chair put the question on passage and by voice vote, announced the ayes had prevailed. Mr. Comer demanded the yeas and nays and the Chair announced that further proceedings on the question of passage would be postponed.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-02-08",
+      "text": "DEBATE - Pursuant to the provisions of H. Res. 912, the House proceeded with 10 minutes of debate on the Carolyn B. Maloney amendment.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-02-08",
+      "text": "DEBATE - The House proceeded with one hour of debate on H.R. 3076.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-02-08",
+      "text": "Rule provides for consideration of H.R. 3076 and H.R. 6617. The resolution provides for one hour of general debate for both bills. H.R. 6617 is being considered under a closed rule and H.R. 3076 is being considered under a structured rule. The resolution provides that H. Con. Res. 69 is considered adopted and provides that for purposes of the joint session to receive the President of the United States on March 1, 2022, former Members, Delegates, and Resident Commissioners shall not be admitted to the Hall of the House or rooms leading thereto.",
+      "type": "Floor",
+      "actionCode": "H8D000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-02-08",
+      "text": "Considered under the provisions of rule H. Res. 912. (consideration: CR H1033-1051; text: CR H1033-1039)",
+      "type": "Floor",
+      "actionCode": "H30000",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-02-07",
+      "text": "Rules Committee Resolution H. Res. 912 Reported to House. Rule provides for consideration of H.R. 3076 and H.R. 6617. The resolution provides for one hour of general debate for both bills. H.R. 6617 is being considered under a closed rule and H.R. 3076 is being considered under a structured rule. The resolution provides that H. Con. Res. 69 is considered adopted and provides that for purposes of the joint session to receive the President of the United States on March 1, 2022, former Members, Delegates, and Resident Commissioners shall not be admitted to the Hall of the House or rooms leading thereto.",
+      "type": "Floor",
+      "actionCode": "H1L210",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-02-01",
+      "text": "Placed on the Union Calendar, Calendar No. 171.",
+      "type": "Calendars",
+      "actionCode": "H12410",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-02-01",
+      "text": "Committee on Ways and Means discharged.",
+      "type": "Discharge",
+      "actionCode": "H12300",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-02-01",
+      "text": "Committee on Ways and Means discharged.",
+      "type": "Committee",
+      "actionCode": "5500",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-02-01",
+      "text": "Committee on Energy and Commerce discharged.",
+      "type": "Discharge",
+      "actionCode": "H12300",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-02-01",
+      "text": "Committee on Energy and Commerce discharged.",
+      "type": "Committee",
+      "actionCode": "5500",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2022-01-21",
+      "text": "House Committee on Ways and Means Granted an extension for further consideration ending not later than March 18, 2022.",
+      "type": "IntroReferral",
+      "actionCode": "H11210",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2022-01-21",
+      "text": "House Committee on Energy and Commerce Granted an extension for further consideration ending not later than March 18, 2022.",
+      "type": "IntroReferral",
+      "actionCode": "H11210",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-12-03",
+      "text": "House Committee on Ways and Means Granted an extension for further consideration ending not later than Jan. 21, 2022.",
+      "type": "IntroReferral",
+      "actionCode": "H11210",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-12-03",
+      "text": "House Committee on Energy and Commerce Granted an extension for further consideration ending not later than Jan. 21, 2022.",
+      "type": "IntroReferral",
+      "actionCode": "H11210",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-11-18",
+      "text": "House Committee on Ways and Means Granted an extension for further consideration ending not later than Dec. 3, 2021.",
+      "type": "IntroReferral",
+      "actionCode": "H11210",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-11-18",
+      "text": "House Committee on Energy and Commerce Granted an extension for further consideration ending not later than Dec. 3, 2021.",
+      "type": "IntroReferral",
+      "actionCode": "H11210",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-11-04",
+      "text": "House Committee on Ways and Means Granted an extension for further consideration ending not later than Nov. 18, 2021.",
+      "type": "IntroReferral",
+      "actionCode": "H11210",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-11-04",
+      "text": "House Committee on Energy and Commerce Granted an extension for further consideration ending not later than Nov. 18, 2021.",
+      "type": "IntroReferral",
+      "actionCode": "H11210",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-09-30",
+      "text": "House Committee on Ways and Means Granted an extension for further consideration ending not later than Nov. 8, 2021.",
+      "type": "IntroReferral",
+      "actionCode": "H11210",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-09-30",
+      "text": "House Committee on Energy and Commerce Granted an extension for further consideration ending not later than Nov. 8, 2021.",
+      "type": "IntroReferral",
+      "actionCode": "H11210",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-21",
+      "text": "Supplemental report filed by the Committee on Oversight and Reform, H. Rept. 117-89, Part II.",
+      "type": "Committee",
+      "actionCode": "H12210",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-21",
+      "text": "Supplemental report filed by the Committee on Oversight and Reform, H. Rept. 117-89, Part II.",
+      "type": "Committee",
+      "actionCode": "5000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2021-07-16",
+      "text": "House Committee on Ways and Means Granted an extension for further consideration ending not later than Sept. 30, 2021.",
+      "type": "IntroReferral",
+      "actionCode": "H11210",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-16",
+      "text": "House Committee on Energy and Commerce Granted an extension for further consideration ending not later than Sept. 30, 2021.",
+      "type": "IntroReferral",
+      "actionCode": "H11210",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-16",
+      "text": "Reported (Amended) by the Committee on Oversight and Reform. H. Rept. 117-89, Part I.",
+      "type": "Committee",
+      "actionCode": "H12200",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-07-16",
+      "text": "Reported (Amended) by the Committee on Oversight and Reform. H. Rept. 117-89, Part I.",
+      "type": "Committee",
+      "actionCode": "5000",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2021-05-13",
+      "text": "Ordered to be Reported in the Nature of a Substitute (Amended) by Voice Vote.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2021-05-13",
+      "text": "Committee Consideration and Mark-up Session Held.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2021-05-12",
+      "text": "Referred to the Subcommittee on Health.",
+      "type": "Committee",
+      "actionCode": null,
+      "sourceSystem": "House committee actions"
+    },
+    {
+      "actionDate": "2021-05-11",
+      "text": "Referred to the Committee on Oversight and Reform, and in addition to the Committees on Energy and Commerce, and Ways and Means, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-05-11",
+      "text": "Referred to the Committee on Oversight and Reform, and in addition to the Committees on Energy and Commerce, and Ways and Means, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-05-11",
+      "text": "Referred to the Committee on Oversight and Reform, and in addition to the Committees on Energy and Commerce, and Ways and Means, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2021-05-11",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2021-05-11",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "cosponsors": [
+    {
+      "bioguideId": "C001078",
+      "fullName": "Rep. Connolly, Gerald E. [D-VA-11]",
+      "firstName": "Gerald",
+      "lastName": "Connolly",
+      "party": "D",
+      "state": "VA",
+      "district": "11",
+      "sponsorshipDate": "2021-05-11",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "F000450",
+      "fullName": "Rep. Foxx, Virginia [R-NC-5]",
+      "firstName": "Virginia",
+      "lastName": "Foxx",
+      "party": "R",
+      "state": "NC",
+      "district": "5",
+      "sponsorshipDate": "2021-05-11",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "C001108",
+      "fullName": "Rep. Comer, James [R-KY-1]",
+      "firstName": "James",
+      "lastName": "Comer",
+      "party": "R",
+      "state": "KY",
+      "district": "1",
+      "sponsorshipDate": "2021-05-11",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "L000562",
+      "fullName": "Rep. Lynch, Stephen F. [D-MA-8]",
+      "firstName": "Stephen",
+      "lastName": "Lynch",
+      "party": "D",
+      "state": "MA",
+      "district": "8",
+      "sponsorshipDate": "2021-05-18",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "L000581",
+      "fullName": "Rep. Lawrence, Brenda L. [D-MI-14]",
+      "firstName": "Brenda",
+      "lastName": "Lawrence",
+      "party": "D",
+      "state": "MI",
+      "district": "14",
+      "sponsorshipDate": "2021-05-18",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "H001068",
+      "fullName": "Rep. Huffman, Jared [D-CA-2]",
+      "firstName": "Jared",
+      "lastName": "Huffman",
+      "party": "D",
+      "state": "CA",
+      "district": "2",
+      "sponsorshipDate": "2021-05-25",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "T000460",
+      "fullName": "Rep. Thompson, Mike [D-CA-5]",
+      "firstName": "MIKE",
+      "lastName": "THOMPSON",
+      "party": "D",
+      "state": "CA",
+      "district": "5",
+      "sponsorshipDate": "2021-05-25",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "Y000033",
+      "fullName": "Rep. Young, Don [R-AK-At Large]",
+      "firstName": "DON",
+      "lastName": "YOUNG",
+      "party": "R",
+      "state": "AK",
+      "district": "0",
+      "sponsorshipDate": "2021-05-25",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "T000478",
+      "fullName": "Rep. Tenney, Claudia [R-NY-22]",
+      "firstName": "Claudia",
+      "lastName": "Tenney",
+      "party": "R",
+      "state": "NY",
+      "district": "22",
+      "sponsorshipDate": "2021-05-25",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "N000179",
+      "fullName": "Rep. Napolitano, Grace F. [D-CA-32]",
+      "firstName": "GRACE",
+      "lastName": "NAPOLITANO",
+      "party": "D",
+      "state": "CA",
+      "district": "32",
+      "sponsorshipDate": "2021-06-04",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "M000317",
+      "fullName": "Rep. Malliotakis, Nicole [R-NY-11]",
+      "firstName": "Nicole",
+      "lastName": "Malliotakis",
+      "party": "R",
+      "state": "NY",
+      "district": "11",
+      "sponsorshipDate": "2021-06-04",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "K000396",
+      "fullName": "Rep. Kahele, Kaiali'i [D-HI-2]",
+      "firstName": "Kaiali'i",
+      "lastName": "Kahele",
+      "party": "D",
+      "state": "HI",
+      "district": "2",
+      "sponsorshipDate": "2021-06-04",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "S001196",
+      "fullName": "Rep. Stefanik, Elise M. [R-NY-21]",
+      "firstName": "Elise",
+      "lastName": "Stefanik",
+      "party": "R",
+      "state": "NY",
+      "district": "21",
+      "sponsorshipDate": "2021-06-04",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "L000560",
+      "fullName": "Rep. Larsen, Rick [D-WA-2]",
+      "firstName": "RICK",
+      "lastName": "LARSEN",
+      "party": "D",
+      "state": "WA",
+      "district": "2",
+      "sponsorshipDate": "2021-06-04",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "G000597",
+      "fullName": "Rep. Garbarino, Andrew R. [R-NY-2]",
+      "firstName": "Andrew",
+      "lastName": "Garbarino",
+      "party": "R",
+      "state": "NY",
+      "district": "2",
+      "sponsorshipDate": "2021-06-04",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "S001200",
+      "fullName": "Rep. Soto, Darren [D-FL-9]",
+      "firstName": "Darren",
+      "lastName": "Soto",
+      "party": "D",
+      "state": "FL",
+      "district": "9",
+      "sponsorshipDate": "2021-06-15",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "L000266",
+      "fullName": "Rep. LaTurner, Jake [R-KS-2]",
+      "firstName": "Jake",
+      "lastName": "LaTurner",
+      "party": "R",
+      "state": "KS",
+      "district": "2",
+      "sponsorshipDate": "2021-06-15",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "C001055",
+      "fullName": "Rep. Case, Ed [D-HI-1]",
+      "firstName": "Ed",
+      "lastName": "Case",
+      "party": "D",
+      "state": "HI",
+      "district": "1",
+      "sponsorshipDate": "2021-06-15",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "G000576",
+      "fullName": "Rep. Grothman, Glenn [R-WI-6]",
+      "firstName": "Glenn",
+      "lastName": "Grothman",
+      "party": "R",
+      "state": "WI",
+      "district": "6",
+      "sponsorshipDate": "2021-06-15",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "H001090",
+      "fullName": "Rep. Harder, Josh [D-CA-10]",
+      "firstName": "Josh",
+      "lastName": "Harder",
+      "party": "D",
+      "state": "CA",
+      "district": "10",
+      "sponsorshipDate": "2021-06-15",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "M000194",
+      "fullName": "Rep. Mace, Nancy [R-SC-1]",
+      "firstName": "Nancy",
+      "lastName": "Mace",
+      "party": "R",
+      "state": "SC",
+      "district": "1",
+      "sponsorshipDate": "2021-06-15",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "S001201",
+      "fullName": "Rep. Suozzi, Thomas R. [D-NY-3]",
+      "firstName": "Thomas",
+      "lastName": "Suozzi",
+      "party": "D",
+      "state": "NY",
+      "district": "3",
+      "sponsorshipDate": "2021-06-17",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "B001298",
+      "fullName": "Rep. Bacon, Don [R-NE-2]",
+      "firstName": "Don",
+      "lastName": "Bacon",
+      "party": "R",
+      "state": "NE",
+      "district": "2",
+      "sponsorshipDate": "2021-06-17",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "H001066",
+      "fullName": "Rep. Horsford, Steven [D-NV-4]",
+      "firstName": "Steven",
+      "lastName": "Horsford",
+      "party": "D",
+      "state": "NV",
+      "district": "4",
+      "sponsorshipDate": "2021-06-17",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "V000129",
+      "fullName": "Rep. Valadao, David G. [R-CA-21]",
+      "firstName": "David",
+      "lastName": "Valadao",
+      "party": "R",
+      "state": "CA",
+      "district": "21",
+      "sponsorshipDate": "2021-06-17",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "N000002",
+      "fullName": "Rep. Nadler, Jerrold [D-NY-10]",
+      "firstName": "JERROLD",
+      "lastName": "NADLER",
+      "party": "D",
+      "state": "NY",
+      "district": "10",
+      "sponsorshipDate": "2021-06-24",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "M001199",
+      "fullName": "Rep. Mast, Brian J. [R-FL-18]",
+      "firstName": "Brian",
+      "lastName": "Mast",
+      "party": "R",
+      "state": "FL",
+      "district": "18",
+      "sponsorshipDate": "2021-06-24",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "E000297",
+      "fullName": "Rep. Espaillat, Adriano [D-NY-13]",
+      "firstName": "Adriano",
+      "lastName": "Espaillat",
+      "party": "D",
+      "state": "NY",
+      "district": "13",
+      "sponsorshipDate": "2021-06-24",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "R000610",
+      "fullName": "Rep. Reschenthaler, Guy [R-PA-14]",
+      "firstName": "Guy",
+      "lastName": "Reschenthaler",
+      "party": "R",
+      "state": "PA",
+      "district": "14",
+      "sponsorshipDate": "2021-06-24",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "K000380",
+      "fullName": "Rep. Kildee, Daniel T. [D-MI-5]",
+      "firstName": "Daniel",
+      "lastName": "Kildee",
+      "party": "D",
+      "state": "MI",
+      "district": "5",
+      "sponsorshipDate": "2021-06-24",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "B001295",
+      "fullName": "Rep. Bost, Mike [R-IL-12]",
+      "firstName": "Mike",
+      "lastName": "Bost",
+      "party": "R",
+      "state": "IL",
+      "district": "12",
+      "sponsorshipDate": "2021-06-24",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "K000389",
+      "fullName": "Rep. Khanna, Ro [D-CA-17]",
+      "firstName": "Ro",
+      "lastName": "Khanna",
+      "party": "D",
+      "state": "CA",
+      "district": "17",
+      "sponsorshipDate": "2021-06-24",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "S000522",
+      "fullName": "Rep. Smith, Christopher H. [R-NJ-4]",
+      "firstName": "CHRISTOPHER",
+      "lastName": "SMITH",
+      "party": "R",
+      "state": "NJ",
+      "district": "4",
+      "sponsorshipDate": "2021-06-24",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "T000468",
+      "fullName": "Rep. Titus, Dina [D-NV-1]",
+      "firstName": "Dina",
+      "lastName": "Titus",
+      "party": "D",
+      "state": "NV",
+      "district": "1",
+      "sponsorshipDate": "2021-06-29",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "G000563",
+      "fullName": "Rep. Gibbs, Bob [R-OH-7]",
+      "firstName": "Bob",
+      "lastName": "Gibbs",
+      "party": "R",
+      "state": "OH",
+      "district": "7",
+      "sponsorshipDate": "2021-06-29",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "K000009",
+      "fullName": "Rep. Kaptur, Marcy [D-OH-9]",
+      "firstName": "MARCY",
+      "lastName": "KAPTUR",
+      "party": "D",
+      "state": "OH",
+      "district": "9",
+      "sponsorshipDate": "2021-06-29",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "V000133",
+      "fullName": "Rep. Van Drew, Jefferson [R-NJ-2]",
+      "firstName": "Jefferson",
+      "lastName": "Van Drew",
+      "party": "R",
+      "state": "NJ",
+      "district": "2",
+      "sponsorshipDate": "2021-06-29",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "M001135",
+      "fullName": "Rep. Manning, Kathy E. [D-NC-6]",
+      "firstName": "Kathy",
+      "lastName": "Manning",
+      "party": "D",
+      "state": "NC",
+      "district": "6",
+      "sponsorshipDate": "2021-06-29",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "D000619",
+      "fullName": "Rep. Davis, Rodney [R-IL-13]",
+      "firstName": "Rodney",
+      "lastName": "Davis",
+      "party": "R",
+      "state": "IL",
+      "district": "13",
+      "sponsorshipDate": "2021-06-29",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "H001038",
+      "fullName": "Rep. Higgins, Brian [D-NY-26]",
+      "firstName": "Brian",
+      "lastName": "Higgins",
+      "party": "D",
+      "state": "NY",
+      "district": "26",
+      "sponsorshipDate": "2021-07-09",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "S001148",
+      "fullName": "Rep. Simpson, Michael K. [R-ID-2]",
+      "firstName": "MICHAEL",
+      "lastName": "SIMPSON",
+      "party": "R",
+      "state": "ID",
+      "district": "2",
+      "sponsorshipDate": "2021-07-09",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "C001068",
+      "fullName": "Rep. Cohen, Steve [D-TN-9]",
+      "firstName": "Steve",
+      "lastName": "Cohen",
+      "party": "D",
+      "state": "TN",
+      "district": "9",
+      "sponsorshipDate": "2021-07-09",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "G000588",
+      "fullName": "Rep. Gonzalez, Anthony [R-OH-16]",
+      "firstName": "Anthony",
+      "lastName": "Gonzalez",
+      "party": "R",
+      "state": "OH",
+      "district": "16",
+      "sponsorshipDate": "2021-07-09",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "C001121",
+      "fullName": "Rep. Crow, Jason [D-CO-6]",
+      "firstName": "Jason",
+      "lastName": "Crow",
+      "party": "D",
+      "state": "CO",
+      "district": "6",
+      "sponsorshipDate": "2021-07-13",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "K000386",
+      "fullName": "Rep. Katko, John [R-NY-24]",
+      "firstName": "John",
+      "lastName": "Katko",
+      "party": "R",
+      "state": "NY",
+      "district": "24",
+      "sponsorshipDate": "2021-07-13",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "F000454",
+      "fullName": "Rep. Foster, Bill [D-IL-11]",
+      "firstName": "Bill",
+      "lastName": "Foster",
+      "party": "D",
+      "state": "IL",
+      "district": "11",
+      "sponsorshipDate": "2021-07-13",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "S001159",
+      "fullName": "Rep. Strickland, Marilyn [D-WA-10]",
+      "firstName": "Marilyn",
+      "lastName": "Strickland",
+      "party": "D",
+      "state": "WA",
+      "district": "10",
+      "sponsorshipDate": "2021-07-13",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "R000486",
+      "fullName": "Rep. Roybal-Allard, Lucille [D-CA-40]",
+      "firstName": "LUCILLE",
+      "lastName": "ROYBAL-ALLARD",
+      "party": "D",
+      "state": "CA",
+      "district": "40",
+      "sponsorshipDate": "2021-07-13",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "D000216",
+      "fullName": "Rep. DeLauro, Rosa L. [D-CT-3]",
+      "firstName": "ROSA",
+      "lastName": "DELAURO",
+      "party": "D",
+      "state": "CT",
+      "district": "3",
+      "sponsorshipDate": "2021-07-13",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "G000574",
+      "fullName": "Rep. Gallego, Ruben [D-AZ-7]",
+      "firstName": "Ruben",
+      "lastName": "Gallego",
+      "party": "D",
+      "state": "AZ",
+      "district": "7",
+      "sponsorshipDate": "2021-07-13",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "C000754",
+      "fullName": "Rep. Cooper, Jim [D-TN-5]",
+      "firstName": "JAMES",
+      "lastName": "COOPER",
+      "party": "D",
+      "state": "TN",
+      "district": "5",
+      "sponsorshipDate": "2021-07-13",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "S001145",
+      "fullName": "Rep. Schakowsky, Janice D. [D-IL-9]",
+      "firstName": "JANICE",
+      "lastName": "SCHAKOWSKY",
+      "party": "D",
+      "state": "IL",
+      "district": "9",
+      "sponsorshipDate": "2021-07-13",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "O000172",
+      "fullName": "Rep. Ocasio-Cortez, Alexandria [D-NY-14]",
+      "firstName": "Alexandria",
+      "lastName": "Ocasio-Cortez",
+      "party": "D",
+      "state": "NY",
+      "district": "14",
+      "sponsorshipDate": "2021-07-13",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "M001188",
+      "fullName": "Rep. Meng, Grace [D-NY-6]",
+      "firstName": "Grace",
+      "lastName": "Meng",
+      "party": "D",
+      "state": "NY",
+      "district": "6",
+      "sponsorshipDate": "2021-07-13",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "F000466",
+      "fullName": "Rep. Fitzpatrick, Brian K. [R-PA-1]",
+      "firstName": "Brian",
+      "lastName": "Fitzpatrick",
+      "party": "R",
+      "state": "PA",
+      "district": "1",
+      "sponsorshipDate": "2021-07-20",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "C001119",
+      "fullName": "Rep. Craig, Angie [D-MN-2]",
+      "firstName": "Angie",
+      "lastName": "Craig",
+      "party": "D",
+      "state": "MN",
+      "district": "2",
+      "sponsorshipDate": "2021-07-20",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "H001081",
+      "fullName": "Rep. Hayes, Jahana [D-CT-5]",
+      "firstName": "Jahana",
+      "lastName": "Hayes",
+      "party": "D",
+      "state": "CT",
+      "district": "5",
+      "sponsorshipDate": "2021-07-20",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "W000187",
+      "fullName": "Rep. Waters, Maxine [D-CA-43]",
+      "firstName": "MAXINE",
+      "lastName": "WATERS",
+      "party": "D",
+      "state": "CA",
+      "district": "43",
+      "sponsorshipDate": "2021-07-20",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "D000624",
+      "fullName": "Rep. Dingell, Debbie [D-MI-12]",
+      "firstName": "Debbie",
+      "lastName": "Dingell",
+      "party": "D",
+      "state": "MI",
+      "district": "12",
+      "sponsorshipDate": "2021-07-20",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "G000583",
+      "fullName": "Rep. Gottheimer, Josh [D-NJ-5]",
+      "firstName": "Josh",
+      "lastName": "Gottheimer",
+      "party": "D",
+      "state": "NJ",
+      "district": "5",
+      "sponsorshipDate": "2021-07-20",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "O000086",
+      "fullName": "Rep. Owens, Burgess [R-UT-4]",
+      "firstName": "Burgess",
+      "lastName": "Owens",
+      "party": "R",
+      "state": "UT",
+      "district": "4",
+      "sponsorshipDate": "2021-07-20",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "B001248",
+      "fullName": "Rep. Burgess, Michael C. [R-TX-26]",
+      "firstName": "Michael",
+      "lastName": "Burgess",
+      "party": "R",
+      "state": "TX",
+      "district": "26",
+      "sponsorshipDate": "2021-09-10",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "N000191",
+      "fullName": "Rep. Neguse, Joe [D-CO-2]",
+      "firstName": "Joe",
+      "lastName": "Neguse",
+      "party": "D",
+      "state": "CO",
+      "district": "2",
+      "sponsorshipDate": "2021-09-10",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "J000295",
+      "fullName": "Rep. Joyce, David P. [R-OH-14]",
+      "firstName": "David",
+      "lastName": "Joyce",
+      "party": "R",
+      "state": "OH",
+      "district": "14",
+      "sponsorshipDate": "2021-09-10",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "M001206",
+      "fullName": "Rep. Morelle, Joseph D. [D-NY-25]",
+      "firstName": "Joseph",
+      "lastName": "Morelle",
+      "party": "D",
+      "state": "NY",
+      "district": "25",
+      "sponsorshipDate": "2021-09-10",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "S001207",
+      "fullName": "Rep. Sherrill, Mikie [D-NJ-11]",
+      "firstName": "Mikie",
+      "lastName": "Sherrill",
+      "party": "D",
+      "state": "NJ",
+      "district": "11",
+      "sponsorshipDate": "2021-09-10",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "M001157",
+      "fullName": "Rep. McCaul, Michael T. [R-TX-10]",
+      "firstName": "Michael",
+      "lastName": "McCaul",
+      "party": "R",
+      "state": "TX",
+      "district": "10",
+      "sponsorshipDate": "2021-09-21",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "G000586",
+      "fullName": "Rep. Garcia, Jesus G. \"Chuy\" [D-IL-4]",
+      "firstName": "Jesus",
+      "lastName": "Garcia",
+      "party": "D",
+      "state": "IL",
+      "district": "4",
+      "sponsorshipDate": "2021-09-21",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "S001165",
+      "fullName": "Rep. Sires, Albio [D-NJ-8]",
+      "firstName": "Albio",
+      "lastName": "Sires",
+      "party": "D",
+      "state": "NJ",
+      "district": "8",
+      "sponsorshipDate": "2021-09-21",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "G000061",
+      "fullName": "Rep. Garcia, Mike [R-CA-25]",
+      "firstName": "Mike",
+      "lastName": "Garcia",
+      "party": "R",
+      "state": "CA",
+      "district": "25",
+      "sponsorshipDate": "2021-09-21",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "J000306",
+      "fullName": "Rep. Jones, Mondaire [D-NY-17]",
+      "firstName": "Mondaire",
+      "lastName": "Jones",
+      "party": "D",
+      "state": "NY",
+      "district": "17",
+      "sponsorshipDate": "2021-09-21",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "G000377",
+      "fullName": "Rep. Granger, Kay [R-TX-12]",
+      "firstName": "KAY",
+      "lastName": "GRANGER",
+      "party": "R",
+      "state": "TX",
+      "district": "12",
+      "sponsorshipDate": "2021-09-21",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "N000192",
+      "fullName": "Rep. Newman, Marie [D-IL-3]",
+      "firstName": "Marie",
+      "lastName": "Newman",
+      "party": "D",
+      "state": "IL",
+      "district": "3",
+      "sponsorshipDate": "2021-09-21",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "A000377",
+      "fullName": "Rep. Armstrong, Kelly [R-ND-At Large]",
+      "firstName": "Kelly",
+      "lastName": "Armstrong",
+      "party": "R",
+      "state": "ND",
+      "district": "0",
+      "sponsorshipDate": "2021-09-21",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "B001270",
+      "fullName": "Rep. Bass, Karen [D-CA-37]",
+      "firstName": "Karen",
+      "lastName": "Bass",
+      "party": "D",
+      "state": "CA",
+      "district": "37",
+      "sponsorshipDate": "2021-09-30",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "K000378",
+      "fullName": "Rep. Kinzinger, Adam [R-IL-16]",
+      "firstName": "Adam",
+      "lastName": "Kinzinger",
+      "party": "R",
+      "state": "IL",
+      "district": "16",
+      "sponsorshipDate": "2021-09-30",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "W000826",
+      "fullName": "Rep. Wild, Susan [D-PA-7]",
+      "firstName": "Susan",
+      "lastName": "Wild",
+      "party": "D",
+      "state": "PA",
+      "district": "7",
+      "sponsorshipDate": "2021-09-30",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "H001067",
+      "fullName": "Rep. Hudson, Richard [R-NC-8]",
+      "firstName": "Richard",
+      "lastName": "Hudson",
+      "party": "R",
+      "state": "NC",
+      "district": "8",
+      "sponsorshipDate": "2021-09-30",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "P000618",
+      "fullName": "Rep. Porter, Katie [D-CA-45]",
+      "firstName": "Katie",
+      "lastName": "Porter",
+      "party": "D",
+      "state": "CA",
+      "district": "45",
+      "sponsorshipDate": "2021-09-30",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "S000250",
+      "fullName": "Rep. Sessions, Pete [R-TX-17]",
+      "firstName": "PETE",
+      "lastName": "SESSIONS",
+      "party": "R",
+      "state": "TX",
+      "district": "17",
+      "sponsorshipDate": "2021-09-30",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "B001251",
+      "fullName": "Rep. Butterfield, G. K. [D-NC-1]",
+      "firstName": "G. K.",
+      "lastName": "Butterfield",
+      "party": "D",
+      "state": "NC",
+      "district": "1",
+      "sponsorshipDate": "2021-09-30",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "F000449",
+      "fullName": "Rep. Fortenberry, Jeff [R-NE-1]",
+      "firstName": "Jeff",
+      "lastName": "Fortenberry",
+      "party": "R",
+      "state": "NE",
+      "district": "1",
+      "sponsorshipDate": "2021-09-30",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "N000188",
+      "fullName": "Rep. Norcross, Donald [D-NJ-1]",
+      "firstName": "Donald",
+      "lastName": "Norcross",
+      "party": "D",
+      "state": "NJ",
+      "district": "1",
+      "sponsorshipDate": "2021-09-30",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "R000575",
+      "fullName": "Rep. Rogers, Mike D. [R-AL-3]",
+      "firstName": "Mike",
+      "lastName": "Rogers",
+      "party": "R",
+      "state": "AL",
+      "district": "3",
+      "sponsorshipDate": "2021-09-30",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "K000391",
+      "fullName": "Rep. Krishnamoorthi, Raja [D-IL-8]",
+      "firstName": "Raja",
+      "lastName": "Krishnamoorthi",
+      "party": "D",
+      "state": "IL",
+      "district": "8",
+      "sponsorshipDate": "2021-10-22",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "R000603",
+      "fullName": "Rep. Rouzer, David [R-NC-7]",
+      "firstName": "David",
+      "lastName": "Rouzer",
+      "party": "R",
+      "state": "NC",
+      "district": "7",
+      "sponsorshipDate": "2021-10-22",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "R000576",
+      "fullName": "Rep. Ruppersberger, C. A. Dutch [D-MD-2]",
+      "firstName": "C. A.",
+      "lastName": "Ruppersberger",
+      "party": "D",
+      "state": "MD",
+      "district": "2",
+      "sponsorshipDate": "2021-10-22",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "C001104",
+      "fullName": "Rep. Cawthorn, Madison [R-NC-11]",
+      "firstName": "Madison",
+      "lastName": "Cawthorn",
+      "party": "R",
+      "state": "NC",
+      "district": "11",
+      "sponsorshipDate": "2021-10-22",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "L000397",
+      "fullName": "Rep. Lofgren, Zoe [D-CA-19]",
+      "firstName": "ZOE",
+      "lastName": "LOFGREN",
+      "party": "D",
+      "state": "CA",
+      "district": "19",
+      "sponsorshipDate": "2021-11-01",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "G000546",
+      "fullName": "Rep. Graves, Sam [R-MO-6]",
+      "firstName": "SAM",
+      "lastName": "GRAVES",
+      "party": "R",
+      "state": "MO",
+      "district": "6",
+      "sponsorshipDate": "2021-11-01",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "L000579",
+      "fullName": "Rep. Lowenthal, Alan S. [D-CA-47]",
+      "firstName": "Alan",
+      "lastName": "Lowenthal",
+      "party": "D",
+      "state": "CA",
+      "district": "47",
+      "sponsorshipDate": "2021-11-01",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "U000031",
+      "fullName": "Rep. Upton, Fred [R-MI-6]",
+      "firstName": "FRED",
+      "lastName": "UPTON",
+      "party": "R",
+      "state": "MI",
+      "district": "6",
+      "sponsorshipDate": "2021-11-01",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "L000586",
+      "fullName": "Rep. Lawson, Al, Jr. [D-FL-5]",
+      "firstName": "Al",
+      "lastName": "Lawson",
+      "party": "D",
+      "state": "FL",
+      "district": "5",
+      "sponsorshipDate": "2021-12-01",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "B001275",
+      "fullName": "Rep. Bucshon, Larry [R-IN-8]",
+      "firstName": "Larry",
+      "lastName": "Bucshon",
+      "party": "R",
+      "state": "IN",
+      "district": "8",
+      "sponsorshipDate": "2021-12-01",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "S001190",
+      "fullName": "Rep. Schneider, Bradley Scott [D-IL-10]",
+      "firstName": "Bradley",
+      "lastName": "Schneider",
+      "party": "D",
+      "state": "IL",
+      "district": "10",
+      "sponsorshipDate": "2021-12-01",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "G000594",
+      "fullName": "Rep. Gonzales, Tony [R-TX-23]",
+      "firstName": "Tony",
+      "lastName": "Gonzales",
+      "party": "R",
+      "state": "TX",
+      "district": "23",
+      "sponsorshipDate": "2021-12-01",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "A000378",
+      "fullName": "Rep. Axne, Cynthia [D-IA-3]",
+      "firstName": "Cynthia",
+      "lastName": "Axne",
+      "party": "D",
+      "state": "IA",
+      "district": "3",
+      "sponsorshipDate": "2021-12-01",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "K000397",
+      "fullName": "Rep. Kim, Young [R-CA-39]",
+      "firstName": "Young",
+      "lastName": "Kim",
+      "party": "R",
+      "state": "CA",
+      "district": "39",
+      "sponsorshipDate": "2021-12-01",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "M001210",
+      "fullName": "Rep. Murphy, Gregory [R-NC-3]",
+      "firstName": "Gregory",
+      "lastName": "Murphy",
+      "party": "R",
+      "state": "NC",
+      "district": "3",
+      "sponsorshipDate": "2021-12-13",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "C001069",
+      "fullName": "Rep. Courtney, Joe [D-CT-2]",
+      "firstName": "Joe",
+      "lastName": "Courtney",
+      "party": "D",
+      "state": "CT",
+      "district": "2",
+      "sponsorshipDate": "2021-12-13",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "E000215",
+      "fullName": "Rep. Eshoo, Anna G. [D-CA-18]",
+      "firstName": "ANNA",
+      "lastName": "ESHOO",
+      "party": "D",
+      "state": "CA",
+      "district": "18",
+      "sponsorshipDate": "2021-12-14",
+      "isOriginalCosponsor": "False"
+    },
+    {
+      "bioguideId": "S000929",
+      "fullName": "Rep. Spartz, Victoria [R-IN-5]",
+      "firstName": "Victoria",
+      "lastName": "Spartz",
+      "party": "R",
+      "state": "IN",
+      "district": "5",
+      "sponsorshipDate": "2021-12-14",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "_metadata_sources": {
+    "xml": "govinfo bulk-data (unauthenticated)",
+    "billstatus": "govinfo BILLSTATUS bulk-data (unauthenticated)",
+    "congress_gov_enriched": false
+  }
+}

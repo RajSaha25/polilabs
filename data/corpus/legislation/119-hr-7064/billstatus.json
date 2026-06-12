@@ -1,0 +1,75 @@
+{
+  "bill_id": "119-hr-7064",
+  "fetched_at": "2026-06-10T02:57:40.547504+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr7064.xml",
+  "title": "AI in Health Care Efficiency and Study Act",
+  "policy_area": "Health",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "H001103",
+    "fullName": "Rescom. Hern\u00e1ndez, Pablo Jose [D-PR-At Large]",
+    "firstName": "Pablo",
+    "lastName": "Hern\u00e1ndez",
+    "party": "D",
+    "state": "PR",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "L000582",
+      "fullName": "Rep. Lieu, Ted [D-CA-36]",
+      "firstName": "Ted",
+      "lastName": "Lieu",
+      "party": "D",
+      "state": "CA",
+      "district": "36",
+      "sponsorshipDate": "2026-01-14",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "E000297",
+      "fullName": "Rep. Espaillat, Adriano [D-NY-13]",
+      "firstName": "Adriano",
+      "lastName": "Espaillat",
+      "party": "D",
+      "state": "NY",
+      "district": "13",
+      "sponsorshipDate": "2026-02-09",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2026-01-14",
+      "text": "Referred to the House Committee on Energy and Commerce.",
+      "type": "IntroReferral",
+      "actionCode": "H11100",
+      "sourceSystem": "House floor actions"
+    },
+    {
+      "actionDate": "2026-01-14",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "Intro-H",
+      "sourceSystem": "Library of Congress"
+    },
+    {
+      "actionDate": "2026-01-14",
+      "text": "Introduced in House",
+      "type": "IntroReferral",
+      "actionCode": "1000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2026-01-14",
+      "text": "Referred to the House Committee on Energy and Commerce."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}

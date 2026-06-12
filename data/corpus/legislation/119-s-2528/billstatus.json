@@ -1,0 +1,90 @@
+{
+  "bill_id": "119-s-2528",
+  "fetched_at": "2026-06-10T02:57:50.822583+00:00",
+  "source": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/s/BILLSTATUS-119s2528.xml",
+  "title": "Unleashing AI Innovation in Financial Services Act",
+  "policy_area": "Finance and Financial Sector",
+  "subjects": [],
+  "sponsor": {
+    "bioguideId": "R000605",
+    "fullName": "Sen. Rounds, Mike [R-SD]",
+    "firstName": "Mike",
+    "lastName": "Rounds",
+    "party": "R",
+    "state": "SD",
+    "district": null
+  },
+  "cosponsors": [
+    {
+      "bioguideId": "H001046",
+      "fullName": "Sen. Heinrich, Martin [D-NM]",
+      "firstName": "Martin",
+      "lastName": "Heinrich",
+      "party": "D",
+      "state": "NM",
+      "district": null,
+      "sponsorshipDate": "2025-07-29",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "T000476",
+      "fullName": "Sen. Tillis, Thomas [R-NC]",
+      "firstName": "Thomas",
+      "lastName": "Tillis",
+      "party": "R",
+      "state": "NC",
+      "district": null,
+      "sponsorshipDate": "2025-07-29",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "K000394",
+      "fullName": "Sen. Kim, Andy [D-NJ]",
+      "firstName": "Andy",
+      "lastName": "Kim",
+      "party": "D",
+      "state": "NJ",
+      "district": null,
+      "sponsorshipDate": "2025-07-29",
+      "isOriginalCosponsor": "True"
+    },
+    {
+      "bioguideId": "W000805",
+      "fullName": "Sen. Warner, Mark R. [D-VA]",
+      "firstName": "Mark",
+      "lastName": "Warner",
+      "party": "D",
+      "state": "VA",
+      "district": null,
+      "sponsorshipDate": "2026-02-26",
+      "isOriginalCosponsor": "False"
+    }
+  ],
+  "actions": [
+    {
+      "actionDate": "2025-07-29",
+      "text": "Read twice and referred to the Committee on Banking, Housing, and Urban Affairs.",
+      "type": "IntroReferral",
+      "actionCode": null,
+      "sourceSystem": "Senate"
+    },
+    {
+      "actionDate": "2025-07-29",
+      "text": "Introduced in Senate",
+      "type": "IntroReferral",
+      "actionCode": "10000",
+      "sourceSystem": "Library of Congress"
+    }
+  ],
+  "outcome": {
+    "outcome": "pending",
+    "public_law": null,
+    "events": [],
+    "latest_action": {
+      "actionDate": "2025-07-29",
+      "text": "Read twice and referred to the Committee on Banking, Housing, and Urban Affairs."
+    }
+  },
+  "votes": [],
+  "unresolved_vote_refs": []
+}
