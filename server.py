@@ -545,7 +545,8 @@ def _stream_chat(req: ChatRequest, user: dict):
         )
 
     @beta_tool
-    def find_universe_bills(outcome: str | None = None, congress: int | None = None,
+    def find_universe_bills(query: str | None = None,
+                            outcome: str | None = None, congress: int | None = None,
                             policy_area: str | None = None, sponsor_party: str | None = None,
                             sponsor_state: str | None = None,
                             min_bipartisan_support: float | None = None,
@@ -556,12 +557,13 @@ def _stream_chat(req: ChatRequest, user: dict):
         denominator tool for universe-wide questions."""
         return _run_tool(
             "find_universe_bills",
-            {"outcome": outcome, "congress": congress, "policy_area": policy_area,
+            {"query": query, "outcome": outcome, "congress": congress, "policy_area": policy_area,
              "sponsor_party": sponsor_party, "sponsor_state": sponsor_state,
              "min_bipartisan_support": min_bipartisan_support,
              "max_bipartisan_support": max_bipartisan_support,
              "enacted_only": enacted_only, "limit": limit},
             lambda: tool_find_universe_bills(
+                query=query,
                 outcome=outcome, congress=congress, policy_area=policy_area,
                 sponsor_party=sponsor_party, sponsor_state=sponsor_state,
                 min_bipartisan_support=min_bipartisan_support,

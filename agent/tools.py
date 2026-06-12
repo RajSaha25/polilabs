@@ -273,6 +273,7 @@ def tool_get_bill_card(bill_id: str) -> str:
 
 def tool_find_universe_bills(
     *,
+    query: str | None = None,
     outcome: str | None = None,
     congress: int | None = None,
     policy_area: str | None = None,
@@ -286,6 +287,7 @@ def tool_find_universe_bills(
     """Set-valued query over ALL bills of the covered Congresses."""
     try:
         result = api.find_universe_bills(
+            query=query,
             outcome=outcome, congress=congress, policy_area=policy_area,
             sponsor_party=sponsor_party, sponsor_state=sponsor_state,
             min_bipartisan_support=min_bipartisan_support,
@@ -464,6 +466,7 @@ TOOL_DESCRIPTIONS = {
     ),
     "get_bill_card": (
         "ONE-CALL context card for any bill: title + every known name, "
+        "the latest CRS-written summary, "
         "sponsor (party/state), cosponsor party counts, outcome with "
         "dated evidence events, public-law number, roll-call votes with "
         "party splits, bipartisan_support, and — when the bill is "
@@ -476,13 +479,16 @@ TOOL_DESCRIPTIONS = {
     ),
     "find_universe_bills": (
         "AGGREGATE over ALL ~46k bills of the covered Congresses (not "
-        "just curated corpora): filter by outcome, congress, policy_area "
-        "(Congress.gov vocabulary, e.g. 'Health'), sponsor_party, "
-        "sponsor_state, bipartisan_support band, or enacted_only. THE "
-        "denominator tool: 'how many laws did the 117th enact?', 'which "
-        "118th bills failed cloture?', 'enacted laws with "
-        "bipartisan_support >= 0.5'. Returns lightweight summaries with "
-        "in_corpus flags; use get_bill_card to drill into one."
+        "just curated corpora): optional free-text `query` (searched "
+        "over titles, every known alias, and CRS-written summaries) "
+        "plus filters: outcome, congress, policy_area (Congress.gov "
+        "vocabulary, e.g. 'Health'), sponsor_party, sponsor_state, "
+        "bipartisan_support band, enacted_only. THE denominator tool: "
+        "'how many laws did the 117th enact?', 'which 118th bills about "
+        "fentanyl passed?', 'enacted laws with bipartisan_support >= "
+        "0.5'. Returns lightweight rows with in_corpus flags; use "
+        "get_bill_card to drill into one. For deep full-text passages "
+        "use search_corpus (curated topics only)."
     ),
 }
 
@@ -629,6 +635,7 @@ TOOL_SCHEMAS = {
     "find_universe_bills": {
         "type": "object",
         "properties": {
+            "query": {"type": "string", "description": "Free-text topical filter over titles, aliases, and CRS summaries (FTS, stemmed). Optional."},
             "outcome": {"type": "string", "description": "Outcome filter (enacted | failed_cloture | failed_passage | died_in_committee | reported_no_floor_vote | passed_house_only | pending | ...)."},
             "congress": {"type": "integer", "description": "Filter to one Congress."},
             "policy_area": {"type": "string", "description": "Congress.gov policy area, e.g. 'Health', 'Armed Forces and National Security'."},

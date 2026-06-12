@@ -1,0 +1,931 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=blue!50!black, urlcolor=blue!50!black,
+            bookmarksopen=true, bookmarksnumbered=true}
+
+\definecolor{cbg}{rgb}{0.97,0.97,0.97}
+\definecolor{ckw}{rgb}{0.10,0.30,0.70}
+\definecolor{cst}{rgb}{0.20,0.50,0.20}
+\definecolor{ccm}{rgb}{0.40,0.40,0.40}
+\lstdefinestyle{py}{
+  language=Python, basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{ckw}\bfseries, stringstyle=\color{cst},
+  commentstyle=\color{ccm}\itshape,
+  backgroundcolor=\color{cbg}, showstringspaces=false,
+  breaklines=true, breakatwhitespace=false,
+  postbreak=\mbox{\textcolor{ccm}{$\hookrightarrow$}\space},
+  frame=single, framerule=0pt,
+  numbers=left, numberstyle=\tiny\color{ccm}, numbersep=8pt,
+  xleftmargin=2.2em, aboveskip=4pt, belowskip=4pt,
+}
+\lstdefinestyle{sql}{
+  language=SQL, basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{ckw}\bfseries, stringstyle=\color{cst},
+  commentstyle=\color{ccm}\itshape,
+  backgroundcolor=\color{cbg}, showstringspaces=false,
+  breaklines=true, frame=single, framerule=0pt,
+  xleftmargin=1.2em, aboveskip=4pt, belowskip=4pt,
+}
+\lstset{style=py}
+
+\newcommand{\file}[1]{\texttt{#1}}
+\newcommand{\code}[1]{\texttt{#1}}
+
+\title{The polilabs knowledge graph, from first principles\\
+\large How it evolved, how every layer works, and why --- no condensation}
+\author{For Andrew --- written June 12, 2026}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\bigskip
+
+\noindent This document builds the polilabs knowledge representation up from
+nothing: what problem it solves, the primitives it is made of, every data
+source it draws on, every storage layer, the full evolution from the v0.1
+schema sketch to the current two-layer architecture, every agent-facing tool,
+and walks through the load-bearing code. Part~VII is a cheat sheet indexed by
+the questions you have actually asked. Read it linearly the first time; use
+Part~VII afterward.
+
+\part{Primitives: the concepts everything else uses}
+
+\section{The problem statement, precisely}
+\label{sec:problem}
+
+polilabs exists because of one empirical fact: commercial legal-AI tools
+hallucinate on 17--34\% of queries (Magesh et al., Stanford RegLab 2024), and
+they do so not because LLMs are hopeless but because the substrate they are
+given --- a keyword search box over editorial documents --- is hostile to
+programmatic reasoning. The polilabs wager is that if you redesign the
+\emph{substrate} (typed entities, verbatim text, explicit provenance, honest
+gaps), a large fraction of hallucinations collapse into either correct answers
+or honest ``the corpus does not contain this.''
+
+Everything in this document is downstream of three design commitments:
+
+\begin{enumerate}[itemsep=2pt]
+  \item \textbf{Verbatim or nothing.} The system never paraphrases law before
+        the user sees it. Extraction is mechanical (XML parsing, regex over
+        action strings), and anything inferred carries provenance and
+        confidence.
+  \item \textbf{Honest unknowns are a return type.} ``Not in the corpus,''
+        ``no roll call exists,'' and ``status-only record'' are first-class
+        answers, not failures.
+  \item \textbf{The agent's latency budget is round trips, not milliseconds.}
+        See \S\ref{sec:latency}.
+\end{enumerate}
+
+\section{Property graphs vs.\ relational tables --- and why polilabs uses both}
+\label{sec:graphvsrel}
+
+A \emph{relational table} stores rows with fixed columns; you ask questions by
+joining tables on key equality. A \emph{property graph} stores typed nodes and
+typed directed edges, each carrying key--value properties; you ask questions
+by traversing edges (``from this Bill, follow \code{HAS\_VERSION} then
+\code{HAS\_SECTION}'').
+
+The folk claim is that graphs are ``better for connected data.'' The honest
+version: graphs win when the question shape is a \emph{path of unknown or
+variable length} (``what does this section cite, and what cites that?''), and
+relations win when the question shape is a \emph{filtered scan or aggregate}
+(``count bills by outcome''). polilabs therefore runs both, over the same
+source files:
+
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+ & SQLite (\file{data/polilabs.db}) & K\`uzu (\file{data/polilabs.kuzu}) \\
+\midrule
+Question shape & filter / aggregate / full-text & traversal / typed neighborhood \\
+Examples & counts, outcome sets, name lookup & citation graph, defined-term scoping \\
+Latency & $\sim$1--20\,ms & $\sim$10--100\,ms \\
+Rebuild & minutes & hours (see \S\ref{sec:incremental}) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Neither database is the source of truth. The \emph{files} are
+(\S\ref{sec:layers}); both stores are disposable indexes rebuilt from them.
+This is the single most important architectural fact about polilabs: you can
+delete both databases at any time and lose nothing.
+
+\section{The three retrieval primitives: FTS, embeddings, alias tables}
+\label{sec:retrieval}
+
+There are exactly three ways polilabs turns a user's words into rows, and they
+have sharply different jobs.
+
+\textbf{Full-text search (FTS5 / BM25).} SQLite's FTS5 builds an inverted
+index: for every word (after \emph{Porter stemming}, which maps
+``regulating''/``regulates''/``regulation'' to one stem), a list of the rows
+containing it. BM25 ranks hits by term rarity and document length. This is the
+workhorse for topical queries (``facial recognition in schools'') and costs
+$\sim$1--10\,ms.
+
+\textbf{Dense embeddings.} Each section of bill text is mapped by a small
+neural model (bge-small-en-v1.5, 384 dimensions) to a vector; a query is
+mapped to the same space; cosine similarity finds passages that are
+\emph{semantically} close even with zero word overlap (``self-driving cars''
+$\to$ ``autonomous vehicles''). polilabs fuses BM25 and dense rankings with
+reciprocal-rank fusion (RRF). Embeddings are the only layer with partial
+coverage right now (the embed pass is handed off; the coverage report says
+exactly how partial --- \S\ref{sec:coverage}).
+
+\textbf{Alias tables.} A user who says ``the CHIPS Act'' is not doing topical
+search --- they are naming an entity. The correct primitive is a
+\emph{dictionary}: a table mapping every normalized known name to a canonical
+ID. The entity-linking literature is unambiguous that dictionary lookup comes
+first and covers most mentions (Wikidata alias tables alone resolve
+$>$50\% of mentions before any ML), with fuzzy/embedding matching only as a
+fallback ranker. polilabs follows exactly this ladder
+(\S\ref{sec:lookupcode}).
+
+The design rule that falls out: \emph{name-shaped queries hit the alias
+table, topic-shaped queries hit FTS(+dense), and the agent's system prompt
+routes between them} (\S\ref{sec:routing}).
+
+\section{Why round trips, not milliseconds, are the latency budget}
+\label{sec:latency}
+
+Every query primitive above answers in milliseconds. But the agent consuming
+them is an LLM in a tool loop: each tool call costs a full model
+generation--call--read cycle, roughly 1--3 \emph{seconds} of model latency.
+A question answered with five sequential tool calls costs $5\times$ that ---
+10--15 seconds --- regardless of how fast the database is. So:
+
+\begin{center}
+\fbox{\parbox{0.92\linewidth}{\textbf{The unit of optimization is the number
+of LLM$\leftrightarrow$tool round trips, not per-query database time.} A
+primitive that returns a complete, denormalized answer in one call beats five
+elegant fine-grained calls, always.}}
+\end{center}
+
+This is also the consensus of every deployed system we reviewed in the June
+2026 research pass: Microsoft GraphRAG precomputes per-community summary
+reports so query time is ``fetch a summary''; LightRAG's headline result is
+\emph{one} retrieval call per query versus hundreds for naive graph search;
+Apple's Saga serves precomputed entity cards rather than traversing live.
+polilabs' versions of this move are the aggregate primitives
+(\code{find\_bills\_defining}, \code{count\_bills},
+\code{find\_universe\_bills}) and the one-call bill card
+(\S\ref{sec:card}).
+
+\section{Outcome derivation as event sourcing}
+\label{sec:eventsourcing}
+
+A bill's ``outcome'' (did it pass?) is not a field anywhere in government
+data. What exists is an \emph{action trail}: dated strings like ``Passed/agreed
+to in House'' or ``Cloture on the motion to proceed not invoked.'' polilabs
+derives the outcome by scanning the trail for typed events and keeping the
+evidence:
+
+\[
+\text{actions} \xrightarrow{\ \text{regex probes}\ }
+\text{events} = [(\text{type}, \text{date}, \text{verbatim evidence})]
+\xrightarrow{\ \text{precedence rules}\ } \text{outcome enum}
+\]
+
+The enum has 13 values: \code{enacted}, \code{vetoed}, \code{failed\_passage},
+\code{failed\_cloture}, \code{passed\_house\_only}, \code{passed\_senate\_only},
+\code{passed\_both}, \code{died\_after\_passing\_\{house,senate,both\}},
+\code{reported\_no\_floor\_vote}, \code{died\_in\_committee}, \code{pending}.
+The events list always travels with the label so an agent asked ``why did it
+fail?'' quotes dated evidence instead of inventing a narrative.
+
+\textbf{Worked example (the bug that scale found).} H.R.~9495 (118th):
+
+\begin{enumerate}[itemsep=1pt]
+  \item 2024-11-12 --- ``Failed of passage \ldots On motion to suspend the
+        rules and pass the bill'' $\to$ event \code{failed\_passage}.
+        (Suspension requires a 2/3 majority; the bill got 256--145, a
+        majority but not 2/3.)
+  \item 2024-11-21 --- ``On passage Passed by the Yeas and Nays: 219--184''
+        $\to$ event \code{passed\_house}.
+  \item Congress closed with no Senate action.
+\end{enumerate}
+
+A naive precedence (``any failure beats any passage'') labels this
+\code{failed\_passage} --- wrong; the bill passed the House nine days after
+the failed shortcut. The fix compares \emph{last-event dates}: a dated
+passage supersedes an earlier failed floor vote
+(\S\ref{sec:outcomecode}). The correct label is
+\code{died\_after\_passing\_house}. None of the 232 curated bills exercised
+this path; bill \#46{,}000-ish of the universe did. Scale is a test suite.
+
+\section{The bipartisanship metric, with worked numbers}
+\label{sec:bipartisan}
+
+For any roll call with party splits, define for each major party
+$p \in \{D, R\}$ the yea-share among that party's yes+no votes,
+$s_p = \text{yea}_p / (\text{yea}_p + \text{nay}_p)$, and
+\[
+\text{bipartisan\_support} \;=\; \min(s_D,\, s_R) \in [0,1].
+\]
+1.0 means both parties unanimous yes; 0.0 means at least one party unanimous
+no. Display labels are thresholds on this number: \code{party\_line} $<0.10
+\le$ \code{cross\_party} $< 0.50 \le$ \code{bipartisan} $< 0.90 \le$
+\code{near\_unanimous}.
+
+\textbf{Worked example --- the two lives of H.R.~4346.} The same bill number
+carried two very different coalitions:
+
+\begin{itemize}[itemsep=2pt]
+  \item House roll 239 (2021, as the America COMPETES shell): 215--207.
+        Democrats $s_D = 215/215{+}\ldots \approx 1.0$; Republicans
+        essentially zero yeas, $s_R \approx 0.005$. $\min \approx 0.005$:
+        \code{party\_line}.
+  \item House roll 404 (2022-07-28, final CHIPS concurrence): 243--187.
+        $s_D = 219/219 = 1.0$; $s_R = 24/(24{+}187) = 24/211 = 0.114$.
+        $\min = 0.114$: \code{cross\_party}.
+  \item Senate roll 271 (2022-07-27): 64--33, $s_R = 0.347$:
+        \code{cross\_party} verging on bipartisan.
+\end{itemize}
+
+Two lessons. First, \emph{the metric is per-vote}; a bill-level number must
+choose a vote, and polilabs uses the \emph{final passage-class vote}
+(\S\ref{sec:finalpassage}) because vehicle bills carry early votes from a
+prior life under another name. Second, the labels are display sugar --- the
+number is what you filter and sort on, and you should quote the underlying
+splits in prose.
+
+Why $\min$ and not, say, the share of the minority party? Because $\min$ is
+symmetric (it does not care who holds the majority) and it operationalizes
+``did \emph{both} parties support this'' --- the secret-congress question ---
+rather than ``did the losing side defect.''
+
+\section{Coverage as a contract (the under/overcoverage primitive)}
+\label{sec:coverage}
+
+Agents fail on coverage in two symmetric ways. \emph{Undercoverage error}:
+the agent believes the corpus knows less than it does and abstains wrongly.
+\emph{Overcoverage error}: the agent believes the corpus knows more than it
+does and asserts from a facet that is only partially populated --- the worse
+failure, because it reads as hallucination.
+
+The fix is to make coverage a queryable, live-computed table rather than
+prose: for each topic and for the universe, for each data \emph{facet}
+(actions, cosponsors, votes, outcome, CRS summary, embeddings, full text),
+report \code{bills\_with\_facet / bill\_count}. Live-computed means it cannot
+drift from the index. The agent's honesty rules become mechanical: before
+aggregating over a facet, check that the facet is total; when it is not, say
+which slice the answer rests on. This generalizes the schema's original move
+for definitions (explicit gap nodes instead of silent misses) to the corpus
+itself.
+
+\part{The data: where every fact comes from}
+
+\section{The government data landscape}
+\label{sec:sources}
+
+Everything polilabs knows comes from five public, unauthenticated, primary
+sources. No aggregator (and no API key) sits in between --- this matters
+because the two civic aggregators researchers used to rely on are dead
+(ProPublica Congress API archived 2025; GovTrack bulk data ended 2024).
+
+\begin{longtable}{@{}p{3.3cm}p{5.6cm}p{6.0cm}@{}}
+\toprule
+Source & What it carries & How polilabs uses it \\
+\midrule
+GovInfo \textbf{BILLS} bulk XML &
+Full bill text at each procedural stage (\code{ih} introduced, \code{eh}
+engrossed House, \code{enr} enrolled, \ldots), in USLM or pre-USLM XML &
+The curated corpora's \file{bill.xml}; parsed into the section tree;
+the most-final available version wins \\[3pt]
+GovInfo \textbf{BILLSTATUS} bulk XML &
+Per-bill status: every title variant, structured sponsor/cosponsors
+(party, state, district), the complete dated action trail, recorded-vote
+pointers, public-law numbers, policy area, subjects &
+The universe layer (one zip per congress$\times$type, 12 zips total);
+\file{billstatus.json} enrichment for curated bills; outcome derivation;
+the alias table's main source \\[3pt]
+GovInfo \textbf{BILLSUM} bulk XML &
+CRS-written summaries, revised at each major action; the latest version
+describes the bill's final state &
+\code{universe\_summaries} table; the FTS \code{summary} column (topical
+search over all 46k bills); the card's \code{summary} field \\[3pt]
+House Clerk / Senate LIS \textbf{roll-call XML} &
+Per-vote: question, result, per-party totals, every member's position
+with party and state &
+Party splits and \code{bipartisan\_support} on every recorded vote;
+member-level positions for passage-class votes on curated bills \\[3pt]
+OLRC \textbf{Popular Name Table} &
+The official act-nickname dictionary (popular name $\to$ public law) &
+926 alias rows for the covered Congresses, source-tagged
+\code{olrc\_popular\_names} \\
+\bottomrule
+\end{longtable}
+
+Update cadence note: BILLSTATUS bulk files are regenerated continuously by
+GPO (the directory listing showed same-day timestamps when we pulled);
+BILLSUM lags actions by days-to-weeks because humans at CRS write the
+summaries. This is why summary coverage is near-total for the closed 117th
+(15{,}221 of 15{,}231 bills) but partial for the 118th (9{,}399) and the
+in-progress 119th (4{,}256) --- the facet table reports these numbers rather
+than hiding them.
+
+\section{Identity: the two bill-ID schemes and the vehicle-bill trap}
+\label{sec:identity}
+
+Every bill has two equivalent IDs: the legacy form \code{117-hr-4346}
+(SQLite, file paths, tool arguments) and the URN form
+\code{bill:us/117/hr/4346} (the graph, where cross-jurisdiction extensions
+need a namespace). Section IDs are
+\code{\{bill\_id\}::\{xml\_id\}}, where \code{xml\_id} is the USLM
+\code{id} attribute --- globally unique within a bill version, which is what
+lets graph rows be scoped to a bill by string prefix.
+
+Two identity facts that will bite anyone who does not know them:
+
+\begin{enumerate}[itemsep=2pt]
+  \item \textbf{Bill numbers do not persist across Congresses.} ``Laken Riley
+        Act'' names 118-hr-7511, 119-hr-29, and 119-s-5; only the last was
+        enacted. This is why \code{lookup\_bill} returns \emph{all} matches
+        with \code{is\_ambiguous=True} and the agent is instructed to
+        disambiguate, never to silently pick.
+  \item \textbf{Vehicle bills.} Congress amends a convenient existing bill
+        rather than starting fresh, so a bill's roll calls can belong to a
+        prior life (H.R.~4346's 2021 votes are America COMPETES votes), and a
+        famous vote can live on a \emph{different} number (KOSA's 91--3
+        Senate vote was on the S.~2073 vehicle; S.~1409 itself correctly
+        shows no floor vote). The data layer handles this by dating every
+        vote and using final-passage votes for bill-level metrics; the
+        prompt layer instructs the agent to check dates and questions before
+        attributing margins.
+\end{enumerate}
+
+\section{The two data layers: universe vs.\ curated topics}
+\label{sec:twolayers}
+
+This is the central organizing idea after the June 2026 expansion:
+
+\begin{center}
+\begin{tabular}{@{}p{3.2cm}p{5.4cm}p{5.4cm}@{}}
+\toprule
+ & \textbf{Universe layer} & \textbf{Curated topic corpora} \\
+\midrule
+Population & every law-track bill (hr, s, hjres, sjres) of the 117th--119th:
+\textbf{46{,}168 bills} & hand-curated or criteria-gated subsets:
+\textbf{232 bills} in 3 topics \\
+Carries & status: outcome + evidence, every known name, sponsor party/state,
+cosponsor party counts, roll-call party splits, CRS summary, policy area &
+everything the universe has \emph{plus} full text: 167k sections, defined
+terms, amendment operations, citations, member-level vote positions \\
+Source artifact & \file{data/universe/*.jsonl.gz} (committed, $\sim$15\,MB) &
+\file{data/corpus/\{topic\}/\{bill\}/} directories (committed) \\
+Answers & ``did X pass? was it bipartisan? what is it about? how many\ldots'' &
+``what does Sec.~3(b) say? how does it define `foundation model'? what does
+it amend?'' \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The boundary is stated as data (\code{in\_corpus} on every universe row, the
+\code{full\_text} facet in the coverage report) and enforced in prompts: a
+status-only card tells the agent \emph{not} to call text tools on that bill.
+Topics so far: \code{ai\_governance} (191 bills, criteria-gated:
+\file{corpus/inclusion\_criteria.md}), \code{redistricting} (12, hand-curated
+seed), \code{secret\_congress} (29, hand-curated passage-dynamics exemplars in
+six clusters: \file{corpus/secret\_congress\_criteria.md}).
+
+\part{The storage architecture, layer by layer}
+
+\section{Files are the source of truth}
+\label{sec:layers}
+
+\begin{center}
+\begin{tabular}{@{}llll@{}}
+\toprule
+Layer & Location & Contents & Disposable? \\
+\midrule
+0. Cache & \file{data/cache/} & raw zips, BILLSTATUS XML, roll-call XML & yes (gitignored) \\
+1. Truth & \file{data/corpus/}, \file{data/universe/} & per-bill dirs; compact jsonl.gz & \textbf{no (committed)} \\
+2. Index & \file{data/polilabs.db} & SQLite: relational + FTS + embeddings & yes (rebuilt) \\
+3. Graph & \file{data/polilabs.kuzu} & K\`uzu property graph & yes (rebuilt) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+A curated bill directory contains: \file{bill.xml} (verbatim text),
+\file{metadata.json} (identity, title, sponsor, topic, tier, and --- for
+secret\_congress --- \code{cluster} and \code{curator\_note}),
+\file{billstatus.json} (the keyless enrichment: outcome, events, votes with
+members, actions, cosponsors), \file{provenance.json} (source URLs, fetch
+times, criteria version). The rule ``never modify \file{metadata.json} after
+promotion; enrichment goes in sibling files'' is what made it safe to backfill
+all 203 pre-existing bills without touching anything the original pipeline
+wrote.
+
+\section{The SQLite index: every table and its job}
+\label{sec:sqlite}
+
+Eighteen tables/virtual tables. Grouped by job:
+
+\textbf{Curated-corpus relational core:} \code{bills} (one row per curated
+bill; carries outcome, public\_law, bipartisan\_support, cluster,
+curator\_note, outcome\_events JSON), \code{sections} (167{,}742 rows; the
+parsed tree with \code{parent\_section\_id}, verbatim \code{text\_self} and
+recursive \code{text\_full}, canonical citation), \code{bill\_versions},
+\code{cosponsors}, \code{actions}, \code{subjects}, \code{citations}
+(reserved), \code{corpus\_meta}, \code{source\_freshness}.
+
+\textbf{Votes:} \code{votes} (347 rows; per roll call: chamber, roll number,
+question, result, vote type, totals, per-party splits, bipartisan metric,
+source URL) and \code{vote\_positions} (20{,}505 rows; member, party, state,
+position --- passage-class votes only, which is what makes ``how did the
+California delegation vote on CHIPS?'' a one-join query).
+
+\textbf{Universe:} \code{universe\_bills} (46{,}168 rows; the status record),
+\code{universe\_votes} (2{,}982 rows; party splits, no members),
+\code{universe\_summaries} (28{,}786 rows; latest CRS summary),
+\code{bill\_aliases} (97{,}401 rows; \code{alias\_norm} $\to$
+\code{bill\_id}, source-tagged).
+
+\textbf{Search:} \code{bills\_fts}, \code{sections\_fts} (corpus FTS;
+\code{topic} carried UNINDEXED so query-time filtering is free),
+\code{universe\_fts} (title + all aliases + CRS summary --- this is what
+makes the whole universe topically searchable), \code{section\_embeddings}
+(the dense leg; partial coverage, reported honestly).
+
+The universe row, quoted from \file{index/schema.py}:
+
+\begin{lstlisting}[style=sql]
+CREATE TABLE IF NOT EXISTS universe_bills (
+    bill_id            TEXT PRIMARY KEY,
+    congress           INTEGER NOT NULL,
+    bill_type          TEXT NOT NULL,
+    bill_number        INTEGER NOT NULL,
+    title              TEXT,
+    introduced_date    TEXT,
+    origin_chamber     TEXT,
+    policy_area        TEXT,
+    sponsor_name       TEXT,
+    sponsor_party      TEXT,
+    sponsor_state      TEXT,
+    sponsor_bioguide   TEXT,
+    cosponsors_d       INTEGER NOT NULL DEFAULT 0,
+    cosponsors_r       INTEGER NOT NULL DEFAULT 0,
+    cosponsors_i       INTEGER NOT NULL DEFAULT 0,
+    cosponsors_total   INTEGER NOT NULL DEFAULT 0,
+    latest_action_date TEXT,
+    latest_action_text TEXT,
+    outcome            TEXT,
+    public_law         TEXT,
+    outcome_events     TEXT,   -- JSON list, capped
+    vote_refs          TEXT,   -- JSON list of recorded-vote pointers
+    bipartisan_support REAL,
+    bipartisan_label   TEXT,
+    in_corpus          INTEGER NOT NULL DEFAULT 0
+);
+\end{lstlisting}
+
+Note what is \emph{not} here: no text, no sections. A 46k-row table of this
+shape is a few tens of megabytes and every query against it is milliseconds.
+
+\section{The K\`uzu graph: nodes, edges, and what is actually populated}
+\label{sec:kuzu}
+
+The graph implements the curated corpora's structural layer. Node tables
+actually populated today: \code{Bill} (232; now carrying \code{outcome},
+\code{public\_law}, \code{bipartisan\_support}, \code{cluster}),
+\code{BillVersion} (230), \code{Section} (167{,}742), \code{Sponsor} (747),
+\code{StatuteSection} (3{,}188 lazily-merged US Code targets),
+\code{DefinedTerm} (3{,}749), \code{AmendmentOperation} (6{,}875),
+\code{RollCallVote} (347), plus provenance plumbing. Edge tables populated:
+\code{HAS\_VERSION}, \code{HAS\_SECTION}, \code{PARENT\_OF} (166{,}736 ---
+the section tree), \code{SPONSORED\_BY}, \code{COSPONSORED\_BY},
+\code{CITES\_EXTERNAL} (9{,}412), \code{DEFINES} (3{,}689),
+\code{BY\_REFERENCE} (387), \code{AMENDS} (6{,}612), \code{TARGETS}
+(6{,}842), \code{HAS\_ROLLCALL} (347).
+
+Declared but still empty (deliberately, with the gaps listed in
+\code{corpus\_coverage}): \code{CITES\_INTERNAL} (needs USLM
+\code{<ref>} parsing), \code{RESOLVED\_TO}/\code{UnresolvedTermUse}
+(definition use-site resolution), \code{REFERRED\_TO} committees.
+
+\section{Killing the 3.5-hour rebuild: the incremental path}
+\label{sec:incremental}
+
+The full graph build takes $\sim$3.5\,h on the Mac, dominated by parsing 167k
+sections through the citation/definition/amendment extractors. The June
+research pass established this is self-imposed, not a K\`uzu limitation:
+since v0.4, K\`uzu supports \code{COPY FROM} into \emph{non-empty} tables, the
+documented fast path for bulk appends. The target maintenance discipline:
+
+\begin{enumerate}[itemsep=2pt]
+  \item New bills $\to$ stage their node/edge rows as Parquet/CSV deltas
+        $\to$ \code{COPY FROM} into existing tables. Seconds, not hours.
+  \item Property drift on existing nodes (an outcome changes when a pending
+        bill passes) $\to$ small Cypher \code{SET} transactions. We already
+        run this pattern: a drift-check script compares SQLite
+        \code{bills.outcome} against graph properties and patches differences
+        --- the date-fix round found zero drifted corpus bills, verified in
+        seconds rather than re-parsing for hours.
+  \item Full rebuilds only for schema changes.
+\end{enumerate}
+
+The universe deliberately lives in SQLite only for now: every universe
+primitive is a filtered scan or aggregate (\S\ref{sec:graphvsrel}), so graph
+residency would add build cost without adding query power. Universe Bill
+nodes go into the graph (via \code{COPY FROM}) when there is a traversal
+that needs them --- e.g., same-subject edges across the full universe.
+
+\part{The evolution: how we got here}
+
+\section{The chain at a glance}
+\label{sec:chain}
+
+\begin{center}
+\begin{tabular}{@{}llp{8.6cm}@{}}
+\toprule
+Step & When & What it added \\
+\midrule
+v0.1 schema & spring & 23-type design doc: bitemporal versioning, local
+definitions, reified amendments, derivation-typed edges \\
+PR1 & spring & bibliographic spine in K\`uzu (Bill/Version/Section/Sponsor) \\
+PR2 & spring & \code{CITES\_EXTERNAL} to US Code, statute targets lazily merged \\
+PR3 & May & \code{DefinedTerm} + \code{DEFINES} + \code{BY\_REFERENCE};
+aggregate definition tools \\
+PR4 & May & reified \code{AmendmentOperation} + \code{AMENDS}/\code{TARGETS} \\
+Topics (P1--P3) & May & \code{topic} column end-to-end; redistricting seed (12 bills) \\
+Round 1 & Jun 9--10 & secret\_congress topic (29 bills, 6 clusters);
+\file{billstatus.json} enrichment for all bills; votes + outcomes + facet
+coverage; \code{count\_bills}, \code{get\_bill\_votes},
+\code{find\_bills\_by\_outcome} \\
+Round 2 & Jun 10--12 & the universe layer (46{,}168 bills); alias resolution
+(97{,}401 names); one-call bill cards; CRS summaries (28{,}876);
+universe-wide FTS; landing-page truthfulness \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Why each step happened (the motivating failures)}
+\label{sec:why}
+
+\textbf{v0.1's bet: definitions are local.} The original schema's deepest
+insight, worth restating because everything since builds on its style: there
+is no global ``AI system'' node, because two bills' identical surface forms
+carry different meanings. Definitions are scoped to their defining section;
+cross-bill questions are answered by \emph{aggregating scoped facts}, never by
+merging them. Every later layer copies this pattern --- curated cluster tags
+sit \emph{beside} mechanical vote records, not instead of them; outcomes carry
+their evidence; coverage is per-facet, not a single number.
+
+\textbf{The eval drove the aggregates.} The 20-question agent eval (Opus 4.7:
+85\%, Sonnet 4.6: 70\%) failed systematically on one shape: set-valued and
+counting questions answered by paginated search + client-side counting.
+PR3/PR4 added \code{find\_bills\_defining}/\code{find\_bills\_amending} for
+the definitional/amendatory versions of that shape; Round 1's
+\code{count\_bills} closed the literal counting hole. The general law:
+\emph{when the question shape is known, give the agent a primitive that
+returns the complete answer with a coverage note}.
+
+\textbf{The meeting notes drove passage dynamics.} ``Show negative bills that
+failed (why it fails?)''; ``a lot of legislation is passed on a bipartisan
+vote in a single bill''; ``how much it affected the vote.'' These are not text
+questions, and the representation had no nouns for them --- no outcome field,
+no votes, action trails on only $\sim$30\% of bills. Round 1 added the nouns
+mechanically (BILLSTATUS + roll-call XML are keyless), then curated 29
+exemplars into the clusters the notes named (quiet bipartisan laws, bipartisan
+bills that died, omnibus vehicles, party-line contrasts).
+
+\textbf{Scale made the thesis testable, and the lack of scale was the
+critique.} With only 29 curated exemplars, ``bipartisan laws pass quietly''
+is an assertion. With the universe layer it is a query, and the answer is
+striking: of the 639 laws enacted by the 117th--118th, \textbf{361 (57\%)
+passed with no roll call at all} (voice vote or unanimous consent --- the
+quietest possible path), 244 passed bipartisan-to-near-unanimous, and only
+\textbf{13 (2\%) were party-line} --- exactly the reconciliation bills, CRA
+disapproval resolutions, and appropriations the thesis predicts. The curated
+clusters remain as \emph{interpretation}; the universe is the
+\emph{denominator}.
+
+\textbf{The research pass drove the interface restructure.} The June review
+of deployed KG systems (GraphRAG, LightRAG, Saga, Wikidata/UMLS alias
+practice, the one published legislative KG, K\`uzu's own docs) returned one
+contradiction with our design: fine-grained primitives put graph traversal
+\emph{inside} the LLM round-trip loop (\S\ref{sec:latency}). The responses:
+alias-table name resolution (the literature's unanimous first step),
+the one-call card (Saga's entity-card pattern at our scale), free-text
+search over the universe (so topical discovery does not require knowing
+which curated topic to search), and the routing rules in the system prompt.
+
+\part{The query surface: all 18 tools}
+
+\section{The tool table}
+\label{sec:tools}
+
+Grouped by the question shape they serve. ``Layer'' says which storage
+answers it.
+
+\begin{longtable}{@{}p{3.6cm}p{1.6cm}p{9.2cm}@{}}
+\toprule
+Tool & Layer & Job (and when the agent should reach for it) \\
+\midrule
+\multicolumn{3}{@{}l}{\emph{Entry points}} \\
+\code{lookup\_bill} & SQLite & name/nickname/id $\to$ canonical bill\_id(s);
+ALWAYS first when the user names a bill \\
+\code{get\_bill\_card} & SQLite{+}K\`uzu & one-call card: names, sponsor,
+outcome+evidence, votes, CRS summary, structure counts, in\_corpus flag \\
+\code{search\_corpus} & SQLite & hybrid BM25+dense over curated full text,
+topic-scoped \\
+\code{corpus\_coverage} & SQLite & the coverage contract: topics, facets,
+universe split, known gaps \\
+\midrule
+\multicolumn{3}{@{}l}{\emph{Set-valued / counting (one call = complete answer)}} \\
+\code{find\_universe\_bills} & SQLite & filters + free-text query over all
+46k bills; the denominator tool \\
+\code{count\_bills} & SQLite & exact counts over curated bills, group-by
+topic/congress/outcome/\ldots \\
+\code{find\_bills\_by\_outcome} & SQLite & curated bills by outcome /
+cluster / bipartisanship band \\
+\code{find\_bills\_defining} & K\`uzu & every bill defining a term
+(+ by-reference target filters) \\
+\code{find\_bills\_amending} & K\`uzu & per-bill rollup of who amends a USC
+section \\
+\code{find\_definitions\_of} & K\`uzu & every bill's verbatim definition of a
+term, side by side \\
+\midrule
+\multicolumn{3}{@{}l}{\emph{Single-entity drill-down (curated bills only)}} \\
+\code{get\_bill} & SQLite & metadata + section table of contents (no bodies) \\
+\code{get\_section} & SQLite & verbatim text + canonical citation \\
+\code{get\_bill\_votes} & SQLite & full vote record + outcome + events for
+one bill \\
+\code{get\_defined\_terms} & K\`uzu & every term one bill defines \\
+\code{get\_amendments} & K\`uzu & every amendment operation one bill issues \\
+\code{get\_amendments\_targeting} & K\`uzu & operation-level detail on a USC
+section \\
+\code{get\_citation\_graph} & K\`uzu & typed citation neighborhood of a section \\
+\code{resolve\_citation} & SQLite & prose citation $\to$ section\_id \\
+\bottomrule
+\end{longtable}
+
+\section{Routing: how the agent picks its first tool}
+\label{sec:routing}
+
+The system prompt encodes a decision tree, because the wrong first tool costs
+round trips that no database speed can recover:
+
+\begin{itemize}[itemsep=2pt]
+  \item User \textbf{names a bill} (``the CHIPS Act,'' ``H.R.~4346'') $\to$
+        \code{lookup\_bill}, then \code{get\_bill\_card} on the resolved id.
+        The card usually ends the question in two calls and reports whether
+        full-text tools will work before any are tried.
+  \item User asks a \textbf{topical/text} question $\to$
+        \code{search\_corpus} on the right topic for deep passages, or
+        \code{find\_universe\_bills(query=\ldots)} for breadth across all
+        46k bills (titles + aliases + CRS summaries).
+  \item User asks a \textbf{set or count} question $\to$ the aggregate tools,
+        never paginated search.
+  \item Ambiguity from \code{lookup\_bill} is surfaced, not swallowed;
+        \code{in\_corpus=False} cards forbid text drill-down on that bill.
+\end{itemize}
+
+\part{The code, walked}
+
+\section{Primer: the two query languages}
+\label{sec:primer}
+
+\textbf{SQLite FTS5.} \code{CREATE VIRTUAL TABLE x USING fts5(col, \ldots,
+tokenize='porter unicode61')} builds the inverted index;
+\code{WHERE x MATCH 'fentanyl scheduling'} returns rows containing both
+stems; \code{ORDER BY rank} sorts by BM25. A column declared
+\code{UNINDEXED} is stored but not searchable --- we use that for
+\code{bill\_id}/\code{topic} so they can be filtered/joined without
+polluting relevance.
+
+\textbf{K\`uzu Cypher.} \code{MATCH (b:Bill \{bill\_id: \$bid\})-[:HAS\_ROLLCALL]->(v:RollCallVote)
+RETURN v} binds node patterns by label and property, follows typed edges,
+returns rows. \code{STARTS WITH} on a primary-key-ish string is how we scope
+section-keyed rows to a bill. Parameters (\code{\$bid}) are passed as a dict
+--- never interpolate strings into Cypher.
+
+\section{Outcome derivation (\file{ingest/billstatus.py})}
+\label{sec:outcomecode}
+
+The probes are compiled regexes over action text:
+
+\begin{lstlisting}
+_PASSED_HOUSE  = re.compile(r"passed[ /]agreed to in house|^passed house|on passage passed", re.IGNORECASE)
+_PASSED_SENATE = re.compile(r"passed[ /]agreed to in senate|^passed senate", re.IGNORECASE)
+_FAILED_PASSAGE = re.compile(r"failed of passage|on passage failed|failed passage", re.IGNORECASE)
+_FAILED_CLOTURE = re.compile(r"cloture(?: on the )?.*not invoked|cloture motion .* rejected", re.IGNORECASE)
+_VETOED   = re.compile(r"vetoed by president", re.IGNORECASE)
+_REPORTED = re.compile(r"reported (?:to|by)|placed on .* calendar", re.IGNORECASE)
+\end{lstlisting}
+
+Each match appends a dated, deduplicated event (BILLSTATUS repeats the same
+event from multiple source systems; we keep one per (type, day)). Roll-call
+results add failure evidence that action strings sometimes lack. Then the
+date-aware precedence:
+
+\begin{lstlisting}
+# A failed floor vote is terminal only if nothing passed AFTER it.
+def _last_date(*names: str) -> str:
+    return max((e["date"] or "" for e in events if e["event"] in names), default="")
+
+last_pass = _last_date("passed_house", "passed_senate")
+failed_passage_final = failed_passage and _last_date("failed_passage") >= last_pass
+failed_cloture_final = failed_cloture and _last_date("failed_cloture") >= last_pass
+
+if laws:                outcome = "enacted"
+elif vetoed:            outcome = "vetoed"
+elif failed_passage_final and congress_closed:  outcome = "failed_passage"
+elif failed_cloture_final and congress_closed:  outcome = "failed_cloture"
+elif passed_house and passed_senate:
+    outcome = "passed_both" if not congress_closed else "died_after_passing_both"
+...
+\end{lstlisting}
+
+Line by line: \code{laws} (the BILLSTATUS \code{<laws>} element) trumps
+everything --- enactment is the one fact the government states directly.
+A veto outranks floor failures. A failure is ``final'' only if no chamber
+passage postdates it (the H.R.~9495 lesson, \S\ref{sec:eventsourcing}).
+Chamber-passage flags then split by whether the Congress has adjourned:
+the same facts mean \code{passed\_house\_only} (alive) or
+\code{died\_after\_passing\_house} (dead) depending on
+\code{congress\_closed} --- a frozen set of past Congresses that must be
+updated when the 119th ends (this is the one piece of calendar state in the
+file).
+
+\section{The alias contract (\file{index/build\_universe\_tables.py} +
+\file{api/\_impl.py})}
+\label{sec:lookupcode}
+
+Build-time normalization --- the contract both sides must share:
+
+\begin{lstlisting}
+def normalize_alias(s: str) -> str:
+    s = s.lower()
+    s = _PUNCT.sub(" ", s)        # punctuation -> spaces
+    s = _WS.sub(" ", s).strip()   # collapse whitespace
+    if s.startswith("the "):
+        s = s[4:]
+    s = _YEAR_SUFFIX.sub("", s)   # drop trailing 'of 2022'
+    return s
+\end{lstlisting}
+
+Worked example: \code{"The CHIPS and Science Act of 2022"} $\to$ lowercase
+$\to$ punctuation/whitespace pass $\to$ \code{"the chips and science act of
+2022"} $\to$ drop leading article $\to$ \code{"chips and science act of
+2022"} $\to$ drop year suffix $\to$ \code{"chips and science act"}. The same
+function runs at query time (imported from the same module --- one
+definition, two call sites), so ``the Chips \& Science Act'' from a user
+normalizes to an identical key. The year-drop is what merges ``CHIPS Act of
+2022'' with ``CHIPS Act''; the table keeps the original surface form so
+results can show what actually matched.
+
+Query-time ladder in \code{lookup\_bill}: (1) bill-id forms via the two
+ID regexes; (2) exact \code{alias\_norm} match (the dictionary step that
+resolves the majority of mentions); (3) FTS5 over
+title+aliases(+summaries) as the fuzzy fallback. Each rung is tried only if
+the previous returned nothing; measured cost is 0.1--20\,ms.
+
+\section{The bill-level bipartisan number (\file{index/build.py})}
+\label{sec:finalpassage}
+
+\begin{lstlisting}
+def _final_passage_bipartisan(bs: dict | None) -> float | None:
+    """bills.bipartisan_support = the metric on the LAST passage-class
+    roll call (chronologically). Vehicle bills carry early votes from a
+    prior life under another name; the final vote is the one that
+    reflects the enacted coalition."""
+    if not bs:
+        return None
+    passage = [v for v in bs.get("votes", [])
+               if v.get("vote_type") == "passage"
+               and v.get("bipartisan_support") is not None]
+    if not passage:
+        return None
+    passage.sort(key=lambda v: v.get("date") or "")
+    return passage[-1]["bipartisan_support"]
+\end{lstlisting}
+
+Three deliberate exclusions, each an honesty decision: amendment and
+procedural votes never represent the coalition for the bill (motions to
+recommit are designed to split parties); votes without party decomposition
+(voice votes have no roll at all) yield \code{None}, not 0 --- \code{None}
+means ``no partisan-decomposable evidence,'' which is itself informative
+(57\% of enacted laws); and \code{None} rows are excluded by band filters so
+``bipartisan\_support $\ge$ 0.5'' never silently includes unknowns.
+
+\section{The card assembly (\file{api/\_impl.py::get\_bill\_card})}
+\label{sec:card}
+
+The card is assembled at read time from five cheap queries (universe row,
+corpus row, aliases, votes, CRS summary) plus two optional graph counts:
+
+\begin{lstlisting}
+# Graph section ids are '{urn_bill_id}::{xml_id}', so a prefix
+# match scopes DefinedTerm / AmendmentOperation rows to this
+# bill. Failures degrade to None (= unknown), never to 0.
+urn_prefix = _to_urn_bill_id(bill_id) + "::"
+for query, which in (
+    ("MATCH (d:DefinedTerm) WHERE d.defining_section_id STARTS WITH $p RETURN COUNT(d)", "terms"),
+    ("MATCH (a:AmendmentOperation) WHERE a.source_section_id STARTS WITH $p RETURN COUNT(a)", "amendments"),
+):
+    ...
+\end{lstlisting}
+
+Two details worth internalizing. First, the \code{None}-vs-0 discipline
+again: if the graph is unavailable, counts are \code{None} (``unknown''),
+because returning 0 would teach the agent the bill defines nothing. Second,
+why \emph{compute-on-read} rather than precomputing card blobs (as Saga
+does): every component query is single-digit milliseconds at our scale, so
+precomputation would add a staleness liability and buy no agent-visible
+latency --- the round trips were the cost, and one call is one call either
+way. If per-card cost ever grows (e.g., neighbor summaries), the switch to a
+precomputed \code{bill\_cards} table is mechanical.
+
+\section{The universe build (\file{scripts/build\_universe.py})}
+\label{sec:universecode}
+
+The pipeline that makes 46k bills cost 19 seconds: GPO publishes one zip per
+(congress, bill type); the build streams each zip member through the same
+\code{parse\_billstatus} used everywhere else, compacts to the record shape
+(cosponsor lists become party \emph{counts}; events capped at 12; subjects at
+12), skips the few auxiliary zip members with no bill identity (they would
+collapse into a garbage \code{117--0} row --- found the hard way), sorts for
+deterministic diffs, and writes gzipped JSONL. Roll calls are fetched once
+per \emph{unique vote URL} (2{,}982 across all three Congresses) with a disk
+cache, then joined back to every bill that references the URL. Summaries
+(BILLSUM) get the same treatment with a latest-version pick. Everything is
+re-runnable and idempotent; the zips are gitignored cache, the jsonl.gz
+artifacts are committed truth.
+
+\part{Cheat sheet: your questions, answered}
+
+\section{Index of questions}
+\label{sec:cheat}
+
+\begin{description}[itemsep=3pt]
+  \item[``You built this off an older branch?''] No --- verified zero commits
+    behind \code{origin/master} at both build rounds; the branch is
+    master + the two overnight commits. It \emph{looked} old because rounds
+    1--2 were backend/data work with no visible pixels, and the landing page
+    showed stale hardcoded counts --- fixed by making the stats pipeline live
+    (\S\ref{sec:coverage}, landing section of the PR).
+  \item[``If there's 46{,}000 bills it needs to say 46{,}000.''] Agreed and
+    enforced: the landing fixture is regenerated from the index
+    (46{,}168 tracked / 739 enacted / 3{,}329 roll calls / 232 full-text),
+    and the numbers ship with a cache-bust version so deployed browsers
+    cannot show stale ones. \S\ref{sec:twolayers} for what each number means.
+  \item[``Where are we pulling the bills from?''] Five keyless primary
+    sources, now also stated on the landing page: \S\ref{sec:sources}.
+  \item[``Danny's additional statistics --- legislator notes / LA notes?''] I
+    read this as the CRS-written bill summaries in GovInfo's BILLSUM
+    collection (28{,}876 ingested; on every card and searchable:
+    \S\ref{sec:sources}). If ``LA notes'' meant something else --- e.g.,
+    committee-report text or CBO cost estimates --- both exist as GovInfo
+    collections and would follow the same ingest pattern; flag it and it's a
+    day's work, not a redesign.
+  \item[``How well the bill was passed?''] That is \code{bipartisan\_support}
+    plus the per-vote party splits: \S\ref{sec:bipartisan}. Margins, party
+    splits, and the no-roll-call (voice/UC) case are all distinguished.
+  \item[``Impact on sponsorship / donors?''] Donor \emph{behavior} data (FEC)
+    is not ingested --- it is a different identity universe (committees,
+    filings) and a real research-design question, not an ingest script. The
+    donor \emph{topic} is represented (DISCLOSE Act, the platform-lobbying
+    deaths of AICO/JCPA). \S\ref{sec:why}.
+  \item[``Can you get vote shares?''] Electoral vote shares post-vote: out of
+    scope tonight, agreed it's the biggest ask. The path exists --- member
+    positions are keyed by bioguide ID, MIT Election Lab has results ---
+    but linking them honestly (redistricting, retirements, identification)
+    needs a design discussion first.
+  \item[``Why did bill X fail?''] \code{get\_bill\_card} or
+    \code{get\_bill\_votes}: outcome + dated evidence events
+    (\S\ref{sec:eventsourcing}); for sets, \code{find\_bills\_by\_outcome} /
+    \code{find\_universe\_bills}.
+  \item[``Was the CHIPS Act bipartisan?''] Depends which vote --- the worked
+    example in \S\ref{sec:bipartisan} is exactly this bill, and the
+    vehicle-bill trap (\S\ref{sec:identity}) is why the question needs the
+    per-vote answer.
+  \item[``What is `secret congress' in our data?''] A curated 29-bill topic
+    (six clusters) \emph{plus} a now-testable universe-level claim: 57\% of
+    117th--118th laws passed with no roll call, 2\% party-line.
+    \S\ref{sec:why}.
+  \item[``Why is the Kuzu rebuild 3.5 hours and do we care?''] Extractor
+    parsing, not graph insertion; and we stop caring once appends go through
+    \code{COPY FROM} deltas and property drift goes through Cypher
+    \code{SET}: \S\ref{sec:incremental}.
+  \item[``What keeps the agent from making things up about coverage?''] The
+    facet-coverage contract in \code{corpus\_coverage} plus prompts that
+    treat \code{None} as ``unknown'' and status-only cards as text-free:
+    \S\ref{sec:coverage}, \S\ref{sec:card}.
+  \item[``What's still missing?''] Embeddings (handed off), CITES\_INTERNAL
+    and definition use-sites (declared, empty, listed in known gaps),
+    committee/subject edges, universe nodes in the graph, measured media
+    salience for the secret-congress clusters, FEC/electoral linkage.
+    Each has a stated path; none blocks the current surface.
+\end{description}
+
+\end{document}

@@ -208,6 +208,36 @@ def main() -> int:
     res = conn.execute("MATCH (a:AmendmentOperation) RETURN count(a)")
     total_amendments = res.get_next()[0]
 
+    # Universe-layer aggregates from SQLite (status records for every
+    # law-track bill of the covered Congresses). The landing must show
+    # the real numbers — if 46,168 bills are tracked, it says 46,168.
+    import sqlite3
+    sql_path = Path(__file__).resolve().parents[1] / "data" / "polilabs.db"
+    bills_tracked = rollcall_votes = laws_enacted = 0
+    topics: list[str] = []
+    congress_span = ""
+    if sql_path.exists():
+        sconn = sqlite3.connect(str(sql_path))
+        try:
+            bills_tracked = sconn.execute(
+                "SELECT COUNT(*) FROM universe_bills").fetchone()[0]
+            rollcall_votes = sconn.execute(
+                "SELECT (SELECT COUNT(*) FROM universe_votes) + "
+                "       (SELECT COUNT(*) FROM votes)").fetchone()[0]
+            laws_enacted = sconn.execute(
+                "SELECT COUNT(*) FROM universe_bills WHERE outcome='enacted'"
+            ).fetchone()[0]
+            congresses = [r[0] for r in sconn.execute(
+                "SELECT DISTINCT congress FROM universe_bills ORDER BY congress")]
+            if congresses:
+                congress_span = f"{congresses[0]}th–{congresses[-1]}th"
+            topics = [r[0] for r in sconn.execute(
+                "SELECT DISTINCT topic FROM bills ORDER BY topic")]
+        except sqlite3.OperationalError as e:
+            print(f"WARNING: universe stats unavailable: {e}", file=sys.stderr)
+        finally:
+            sconn.close()
+
     # ── hero subgraph: 9-node neighborhood of S. 4664 ────────────────
     # All real corpus entities — two related bills (chosen for actual
     # shared-definition overlap), three of S. 4664's defined terms,
@@ -393,6 +423,12 @@ def main() -> int:
             "defined_terms": int(total_terms),
             "amendments": int(total_amendments),
             "external_citations": int(total_cites),
+            # Universe layer (status records, no full text)
+            "bills_tracked": int(bills_tracked),
+            "rollcall_votes": int(rollcall_votes),
+            "laws_enacted": int(laws_enacted),
+            "congress_span": congress_span,
+            "topics": topics,
         },
         "hero": hero_payload,
         "graph": {

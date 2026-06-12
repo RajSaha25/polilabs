@@ -128,17 +128,40 @@ def load_universe(conn: sqlite3.Connection, *, verbose: bool = True) -> dict:
         alias_rows,
     )
     stats["aliases"] = len(alias_rows)
+    # CRS summaries (BILLSUM) — table + the FTS summary column, so the
+    # whole universe is topically searchable, not just the curated corpora.
+    summaries: dict[str, tuple] = {}
+    for path in sorted(UNIVERSE_DIR.glob("summaries_*.jsonl.gz")):
+        with gzip.open(path, "rt") as f:
+            for line in f:
+                rec = json.loads(line)
+                summaries[rec["bill_id"]] = (
+                    rec.get("action_desc"), rec.get("action_date"),
+                    rec.get("update_date"), rec["text"],
+                )
+    conn.executemany(
+        """INSERT OR REPLACE INTO universe_summaries
+           (bill_id, action_desc, action_date, update_date, summary_text)
+           VALUES (?,?,?,?,?)""",
+        [(bid, *vals) for bid, vals in summaries.items()
+         if conn.execute("SELECT 1 FROM universe_bills WHERE bill_id=?", (bid,)).fetchone()],
+    )
+    stats["summaries"] = conn.execute(
+        "SELECT COUNT(*) FROM universe_summaries").fetchone()[0]
+
     conn.execute("DELETE FROM universe_fts")
     conn.executemany(
-        "INSERT INTO universe_fts (bill_id, title, aliases) VALUES (?,?,?)",
-        fts_rows,
+        "INSERT INTO universe_fts (bill_id, title, aliases, summary) VALUES (?,?,?,?)",
+        [(bid, title, aliases, summaries.get(bid, (None, None, None, ""))[3])
+         for bid, title, aliases in fts_rows],
     )
 
     stats["universe_votes"] = _load_rollcalls(conn)
 
     if verbose:
         print(f"[universe] {stats['universe_bills']} bills, {stats['aliases']} aliases, "
-              f"{stats['universe_votes']} votes from {stats['files']} file(s)")
+              f"{stats['universe_votes']} votes, {stats.get('summaries', 0)} CRS summaries "
+              f"from {stats['files']} file(s)")
     return stats
 
 

@@ -150,17 +150,113 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--download", action="store_true", help="fetch missing zips first")
     ap.add_argument("--congress", type=int, default=None, help="build one congress only")
+    ap.add_argument("--skip-summaries", action="store_true",
+                    help="bills pass only (no BILLSUM parse)")
     args = ap.parse_args()
 
     if args.download:
         download_zips()
+        if not args.skip_summaries:
+            download_summary_zips()
 
     congresses = [args.congress] if args.congress else CONGRESSES
     overall: Counter = Counter()
     for c in congresses:
         overall.update(build(c))
+        if not args.skip_summaries:
+            overall.update(build_summaries(c))
     print(f"[done] {dict(overall)}")
     return 0 if overall.get("missing_zips", 0) == 0 else 1
+
+
+
+# ---------------------------------------------------------------- summaries
+
+SUMMARY_ZIP_URL = "https://www.govinfo.gov/bulkdata/BILLSUM/{congress}/{btype}/BILLSUM-{congress}-{btype}.zip"
+_TAG_RE = __import__("re").compile(r"<[^>]+>")
+_WS_RE = __import__("re").compile(r"\s+")
+
+
+def download_summary_zips(*, force: bool = False) -> None:
+    ZIP_DIR.mkdir(parents=True, exist_ok=True)
+    for congress in CONGRESSES:
+        for btype in BILL_TYPES:
+            dest = ZIP_DIR / f"BILLSUM-{congress}-{btype}.zip"
+            if dest.exists() and not force:
+                continue
+            url = SUMMARY_ZIP_URL.format(congress=congress, btype=btype)
+            print(f"[dl] {url}")
+            r = requests.get(url, timeout=600)
+            r.raise_for_status()
+            dest.write_bytes(r.content)
+
+
+def _latest_summary(xml_bytes: bytes) -> dict | None:
+    """Pick the most recent <summary> version from a BILLSUM document and
+    strip its HTML to plain text. CRS revises the summary at each major
+    action, so the latest version describes the bill's final state."""
+    import xml.etree.ElementTree as ET
+    try:
+        root = ET.fromstring(xml_bytes)
+    except ET.ParseError:
+        return None
+    item = root.find("item")
+    if item is None:
+        return None
+    best, best_key = None, ""
+    for s in item.findall("summary"):
+        key = (s.get("update-date") or "") + (s.findtext("action-date") or "")
+        if key >= best_key:
+            best, best_key = s, key
+    if best is None:
+        return None
+    raw = best.findtext("summary-text") or ""
+    text = _WS_RE.sub(" ", _TAG_RE.sub(" ", raw)).strip()
+    if not text:
+        return None
+    return {
+        "congress": int(item.get("congress") or 0),
+        "bill_type": (item.get("measure-type") or "").lower(),
+        "bill_number": int(item.get("measure-number") or 0),
+        "action_desc": best.findtext("action-desc"),
+        "action_date": best.findtext("action-date"),
+        "update_date": best.get("update-date"),
+        "text": text,
+    }
+
+
+def build_summaries(congress: int) -> dict:
+    """data/universe/summaries_{congress}.jsonl.gz — one latest CRS
+    summary per bill that has one."""
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
+    out_path = OUT_DIR / f"summaries_{congress}.jsonl.gz"
+    stats: Counter = Counter()
+    rows: list[tuple[tuple, dict]] = []
+    for btype in BILL_TYPES:
+        zpath = ZIP_DIR / f"BILLSUM-{congress}-{btype}.zip"
+        if not zpath.exists():
+            print(f"[warn] missing {zpath} — run --download-summaries; skipping")
+            stats["missing_zips"] += 1
+            continue
+        with zipfile.ZipFile(zpath) as zf:
+            for name in (n for n in zf.namelist() if n.endswith(".xml")):
+                rec = _latest_summary(zf.read(name))
+                if rec is None:
+                    stats["empty_or_bad"] += 1
+                    continue
+                if not rec["bill_type"] or not rec["bill_number"]:
+                    stats["skipped_no_identity"] += 1
+                    continue
+                rec["bill_id"] = f"{rec['congress']}-{rec['bill_type']}-{rec['bill_number']}"
+                rows.append(((rec["bill_type"], rec["bill_number"]), rec))
+                stats["summaries"] += 1
+    rows.sort(key=lambda kv: kv[0])
+    with gzip.open(out_path, "wt", compresslevel=9) as f:
+        for _, rec in rows:
+            f.write(json.dumps(rec, separators=(",", ":")) + "\n")
+    size_mb = out_path.stat().st_size / 1e6
+    print(f"[{congress}] {stats['summaries']} summaries -> {out_path} ({size_mb:.1f} MB) {dict(stats)}")
+    return dict(stats)
 
 
 if __name__ == "__main__":

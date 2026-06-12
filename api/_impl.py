@@ -973,6 +973,13 @@ def corpus_coverage() -> CoverageReport:
                     ).fetchone()[0],
                     bill_count=n_universe,
                 ),
+                FacetCoverage(
+                    facet="crs_summary",
+                    bills_with_facet=conn.execute(
+                        "SELECT COUNT(*) FROM universe_summaries"
+                    ).fetchone()[0],
+                    bill_count=n_universe,
+                ),
             ]
             topics.append(TopicCoverage(
                 topic="__universe__",
@@ -1878,7 +1885,7 @@ def get_bill_card(bill_id: str) -> BillCard:
             bipartisan_support=None, bipartisan_label=None,
             cosponsor_counts={}, cluster=None, curator_note=None,
             events=[], votes=[], section_count=None, defined_term_count=None,
-            amendment_count=None,
+            amendment_count=None, summary=None, summary_as_of=None,
             provenance=_make_provenance(
                 [f"polilabs:db@{DB_PATH}"],
                 notes="Bill not found in universe or corpus. If it is from a "
@@ -1938,6 +1945,16 @@ def get_bill_card(bill_id: str) -> BillCard:
                 except Exception:
                     pass
 
+    summary = summary_as_of = None
+    srow = conn.execute(
+        "SELECT summary_text, action_desc, action_date FROM universe_summaries WHERE bill_id = ?",
+        (bill_id,),
+    ).fetchone() if _universe_available(conn) else None
+    if srow:
+        text = srow["summary_text"]
+        summary = text[:1800] + (" […truncated]" if len(text) > 1800 else "")
+        summary_as_of = f"{srow['action_desc']} ({srow['action_date']})"
+
     src = u if u is not None else b
     cosponsor_counts: dict[str, int] = {}
     if u is not None:
@@ -1986,12 +2003,15 @@ def get_bill_card(bill_id: str) -> BillCard:
         section_count=section_count,
         defined_term_count=defined_term_count,
         amendment_count=amendment_count,
+        summary=summary,
+        summary_as_of=summary_as_of,
         provenance=_make_provenance([f"polilabs:db@{DB_PATH}"], notes=notes),
     )
 
 
 def find_universe_bills(
     *,
+    query: str | None = None,
     outcome: str | None = None,
     congress: int | None = None,
     policy_area: str | None = None,
@@ -2015,6 +2035,14 @@ def find_universe_bills(
             ),
         )
     where, params = [], []
+    if query:
+        # Topical filter over titles + aliases + CRS summaries (FTS5,
+        # porter-stemmed). Joins the structured filters below.
+        fts_terms = " ".join(t for t in re.findall(r"\w+", query) if len(t) > 1)
+        if fts_terms:
+            where.append(
+                "bill_id IN (SELECT bill_id FROM universe_fts WHERE universe_fts MATCH ?)")
+            params.append(fts_terms)
     if enacted_only:
         where.append("outcome = 'enacted'")
     for col, val in (
@@ -2058,6 +2086,7 @@ def find_universe_bills(
         ],
         total=total,
         filters={
+            "query": query,
             "outcome": "enacted" if enacted_only else outcome,
             "congress": congress, "policy_area": policy_area,
             "sponsor_party": sponsor_party, "sponsor_state": sponsor_state,

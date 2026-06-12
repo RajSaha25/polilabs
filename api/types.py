@@ -553,4 +553,8 @@ class BillCard:
     section_count: int | None      # None = unknown (not in corpus)
     defined_term_count: int | None
     amendment_count: int | None
+    # Latest CRS-written summary (GovInfo BILLSUM), truncated for tool
+    # output; summary_as_of names the action it describes.
+    summary: str | None
+    summary_as_of: str | None
     provenance: Provenance

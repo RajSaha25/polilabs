@@ -252,7 +252,20 @@ CREATE VIRTUAL TABLE IF NOT EXISTS universe_fts USING fts5(
     bill_id  UNINDEXED,
     title,
     aliases,
+    summary,
     tokenize='porter unicode61'
+);
+
+-- Latest CRS-written summary per bill (GovInfo BILLSUM bulk data).
+-- CRS revises at each major action, so this reflects the bill's final
+-- state. Coverage is near-total for closed Congresses and lags for the
+-- current one — corpus_coverage() reports the exact facet numbers.
+CREATE TABLE IF NOT EXISTS universe_summaries (
+    bill_id      TEXT PRIMARY KEY REFERENCES universe_bills(bill_id) ON DELETE CASCADE,
+    action_desc  TEXT,    -- e.g. 'Public Law', 'Introduced in House'
+    action_date  TEXT,
+    update_date  TEXT,
+    summary_text TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS corpus_meta (

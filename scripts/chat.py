@@ -362,7 +362,8 @@ def get_bill_card(bill_id: str) -> str:
 
 
 @beta_tool
-def find_universe_bills(outcome: str | None = None, congress: int | None = None,
+def find_universe_bills(query: str | None = None,
+                        outcome: str | None = None, congress: int | None = None,
                         policy_area: str | None = None, sponsor_party: str | None = None,
                         sponsor_state: str | None = None,
                         min_bipartisan_support: float | None = None,
@@ -373,6 +374,7 @@ def find_universe_bills(outcome: str | None = None, congress: int | None = None,
     bipartisanship bands, enacted_only.
 
     Args:
+        query: Free-text topical filter over titles, aliases, and CRS summaries.
         outcome: enacted | failed_cloture | failed_passage | died_in_committee | ...
         congress: One Congress.
         policy_area: Congress.gov vocabulary, e.g. 'Health'.
@@ -384,6 +386,7 @@ def find_universe_bills(outcome: str | None = None, congress: int | None = None,
         limit: Max returned; `total` has the full count.
     """
     return tool_find_universe_bills(
+        query=query,
         outcome=outcome, congress=congress, policy_area=policy_area,
         sponsor_party=sponsor_party, sponsor_state=sponsor_state,
         min_bipartisan_support=min_bipartisan_support,
