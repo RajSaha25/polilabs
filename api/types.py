@@ -468,3 +468,89 @@ class DefinitionsAcrossCorpusResult:
     direct_count: int
     by_reference_count: int
     coverage_note: str
+
+
+# ----- universe layer (all bills of covered Congresses, status-only) -----
+
+@dataclass(frozen=True)
+class BillNameMatch:
+    bill_id: str
+    title: str | None
+    congress: int
+    bill_type: str
+    bill_number: int
+    outcome: Outcome | None
+    public_law: str | None
+    in_corpus: bool          # full text available via get_bill/get_section
+    match_kind: str          # 'bill_id' | 'alias_exact' | 'fts'
+    matched_alias: str | None
+
+
+@dataclass(frozen=True)
+class BillLookupResult:
+    """Resolution of a colloquial bill name ('CHIPS Act', 'the border
+    bill') or a bill id to canonical bill_id(s)."""
+    query: str
+    matches: list[BillNameMatch]
+    is_ambiguous: bool
+    provenance: Provenance
+
+
+@dataclass(frozen=True)
+class UniverseBillSummary:
+    bill_id: str
+    title: str | None
+    congress: int
+    outcome: Outcome | None
+    public_law: str | None
+    policy_area: str | None
+    sponsor_party: str | None
+    sponsor_state: str | None
+    bipartisan_support: float | None
+    in_corpus: bool
+    latest_action_date: str | None
+
+
+@dataclass(frozen=True)
+class UniverseBillsResult:
+    bills: list[UniverseBillSummary]
+    total: int
+    filters: dict[str, str | float | int | None]
+    provenance: Provenance
+
+
+@dataclass(frozen=True)
+class BillCard:
+    """One-call context card for any bill in the universe. Collapses the
+    get_bill + get_bill_votes + coverage-check round trips into a single
+    tool call; corpus-only structure counts (sections, defined terms,
+    amendments) are included when available so the agent knows whether
+    drill-down tools will work BEFORE calling them."""
+    bill_id: str
+    found: bool
+    in_corpus: bool
+    topic: str | None              # corpus topic when in_corpus
+    title: str | None
+    all_known_names: list[str]
+    congress: int | None
+    bill_type: str | None
+    bill_number: int | None
+    sponsor: str | None
+    sponsor_party: str | None
+    sponsor_state: str | None
+    policy_area: str | None
+    introduced_date: str | None
+    latest_action: str | None
+    outcome: Outcome | None
+    public_law: str | None
+    bipartisan_support: float | None
+    bipartisan_label: str | None
+    cosponsor_counts: dict[str, int]
+    cluster: str | None
+    curator_note: str | None
+    events: list[OutcomeEvent]
+    votes: list[VoteSummary]
+    section_count: int | None      # None = unknown (not in corpus)
+    defined_term_count: int | None
+    amendment_count: int | None
+    provenance: Provenance

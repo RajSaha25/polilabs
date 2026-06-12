@@ -213,6 +213,109 @@ them; \code{introduced\_date}, action dates, vote dates, and
 frontend wants it; the SQL is a two-line GROUP BY on tables that now
 exist.
 
+\section{Round two (June 10 overnight): the universe layer and the
+research-informed restructure}
+
+A second pass extended the corpus and restructured the agent-facing
+query surface, informed by a literature/engineering review of deployed
+knowledge-graph systems (GraphRAG, LightRAG, Saga, Wikidata/UMLS alias
+infrastructure, the one published legislative KG, and K\`uzu's own
+performance documentation). Sources are catalogued in the session
+research report; the load-bearing findings:
+
+\begin{itemize}[itemsep=2pt]
+  \item Every surveyed system that cares about query latency moves graph
+        traversal and summarization to \emph{index time} and makes query
+        time a single lookup plus a single generation (LightRAG: one
+        retrieval call; GraphRAG local search: one assembled context;
+        Saga: precomputed entity cards). Agent-driven traversal over
+        fine-grained primitives puts the traversal loop \emph{inside}
+        the LLM round-trip loop --- our 15-primitive surface had exactly
+        this shape, and round trips dominate our latency.
+  \item Name$\to$entity resolution in production KGs is a
+        \emph{dictionary problem}: normalized exact-match alias tables
+        first (Wikidata aliases cover $>$50\% of mentions before any
+        ML), fuzzy/embedding ranking only for residuals. The one
+        published legislative KG (Colombo \& Cambria, VLDB 2025
+        workshop) resolves inter-act references by exact string match on
+        short titles.
+  \item K\`uzu supports \code{COPY FROM} into non-empty tables since
+        v0.4 --- the 3.5\,h full rebuild is self-imposed, not a database
+        limitation. Incremental appends should be staged as
+        Parquet/CSV deltas.
+\end{itemize}
+
+\subsection{The universe layer}
+
+The largest scope expansion available without bloating the repository:
+\textbf{every law-track bill (hr, s, hjres, sjres) of the 117th--119th
+Congresses --- 46{,}168 bills --- as compact status records}, parsed from
+twelve GovInfo BILLSTATUS bulk zips (no API key; 19 seconds of parse
+time; 7.4\,MB of committed gzipped JSONL). Each record carries title and
+\emph{every} title variant BILLSTATUS knows, sponsor with party/state,
+cosponsor party counts, the derived outcome with dated evidence, recorded
+vote pointers, and policy area. Full text is deliberately absent: text
+stays curated, facts become total. Two consequences:
+
+\begin{itemize}[itemsep=2pt]
+  \item \textbf{Denominators exist.} ``Which 117th-Congress laws passed
+        with cross-party support?'' is now a query over the full enacted
+        set, not over 29 curated exemplars; the secret-congress thesis
+        becomes \emph{discoverable} rather than asserted.
+  \item \textbf{The honesty boundary moved.} For any federal bill of the
+        covered span the agent can now answer fate questions; the
+        refusal boundary retreats to full-text structure (sections,
+        definitions, amendments), which the coverage report states
+        explicitly as a \code{full\_text} facet (232/46{,}168).
+\end{itemize}
+
+\subsection{Alias resolution (\code{lookup\_bill})}
+
+A 97{,}401-row alias table: every BILLSTATUS title variant of every
+universe bill plus 926 entries from the OLRC Popular Name Table (the
+official alias dictionary human researchers use), normalized under a
+single documented contract (lowercase, punctuation stripped, leading
+``the'' and trailing ``of YYYY'' dropped). Resolution ladder: bill-id
+forms $\to$ exact normalized alias $\to$ FTS5 fallback; measured at
+0.1--20\,ms. ``CHIPS Act'' resolves correctly; so does ``the border
+bill''-class phrasing via FTS. Ambiguity is surfaced, not swallowed ---
+``Laken Riley Act'' returns the House bill, the Senate bill that became
+PL 119-1, and the 118th-Congress predecessor, with an explicit
+disambiguation instruction to the agent.
+
+\subsection{One-call bill cards (\code{get\_bill\_card})}
+
+The Saga/GraphRAG-card pattern at our scale: a single call returns a
+bill's full identity (all names), sponsor and cosponsor party counts,
+outcome with dated evidence, public law, votes with party splits, and
+--- when the bill is in a curated corpus --- topic, cluster, curator
+note, and section/defined-term/amendment \emph{counts}. The counts are
+the round-trip killer: the agent learns whether drill-down tools will
+return anything before spending calls on them, and a status-only card
+says so outright. The CHIPS card returns 6{,}581 sections, 132 defined
+terms, 169 amendments, 10 roll calls, and 10 known names in one call
+that previously took four to six.
+
+\subsection{Outcome-derivation fix found by universe-scale testing}
+
+Scale surfaced a classification bug the 232-bill corpus never hit: a
+bill that \emph{fails} under suspension of the rules and then
+\emph{passes} under a rule days later (e.g., H.R.~9495, 118th) was
+labeled \code{failed\_passage}. Outcome derivation now compares
+last-event dates, so a dated passage supersedes an earlier failed floor
+vote. This is the universe layer earning its keep as a test set.
+
+\subsection{Deferred with a documented path}
+
+Per the K\`uzu findings, incremental graph maintenance (delta staging +
+\code{COPY FROM} into non-empty tables, Cypher \code{SET} for property
+drift) replaces full rebuilds; tonight the universe lives in SQLite and
+the graph carries the curated corpora, so no rebuild was forced. A
+\code{RollCallVote}-style universe node layer in K\`uzu, GraphRAG-style
+LLM-written topic rollups, and people-side edges
+(Committee/\code{REFERRED\_TO}, Subject/\code{DEALS\_WITH} --- both
+present in BILLSTATUS) are the next graph increments, in that order.
+
 \section{What is deliberately not claimed, and what is next}
 
 \begin{itemize}[itemsep=2pt]
@@ -239,6 +342,20 @@ exist.
         unresolved vote refs are recorded per-bill in
         \code{unresolved\_vote\_refs} rather than dropped silently.
 \end{itemize}
+
+\subsection{The thesis, now discoverable}
+
+With party splits loaded for all 2{,}982 roll calls the universe's bills
+point at (zero unresolved), the secret-congress claim stops being
+curated and becomes a query. Of the 639 laws enacted by the 117th and
+118th Congresses: \textbf{361 (57\%) passed with no roll call at all}
+(voice vote or unanimous consent --- the quietest possible path), 244
+passed with bipartisan or near-unanimous margins, 14 with modest
+cross-party support, and only \textbf{13 (2\%) on party-line votes} ---
+and the party-line set is exactly what the thesis predicts: budget
+reconciliation (ARPA, IRA, OBBBA), CRA disapproval resolutions, and
+appropriations vehicles. Everything else that becomes law is, by the
+roll-call record, bipartisan or silent.
 
 \section*{Verification snapshot}
 

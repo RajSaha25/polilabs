@@ -168,6 +168,93 @@ CREATE UNIQUE INDEX IF NOT EXISTS uniq_citations
     ON citations(source_section_id, IFNULL(target_section_id, ''), IFNULL(target_external, ''), type);
 CREATE INDEX IF NOT EXISTS idx_citations_target ON citations(target_section_id);
 
+-- ---------------------------------------------------------------------
+-- UNIVERSE layer: one lightweight status record for EVERY law-track bill
+-- (hr, s, hjres, sjres) of the covered Congresses, built from GovInfo
+-- BILLSTATUS bulk data (scripts/build_universe.py). No full text — the
+-- curated topic corpora carry text; the universe carries facts. This is
+-- what lets the agent answer "did H.R. X pass?" for any federal bill
+-- and gives corpus-level claims a denominator.
+-- ---------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS universe_bills (
+    bill_id            TEXT PRIMARY KEY,
+    congress           INTEGER NOT NULL,
+    bill_type          TEXT NOT NULL,
+    bill_number        INTEGER NOT NULL,
+    title              TEXT,
+    introduced_date    TEXT,
+    origin_chamber     TEXT,
+    policy_area        TEXT,
+    sponsor_name       TEXT,
+    sponsor_party      TEXT,
+    sponsor_state      TEXT,
+    sponsor_bioguide   TEXT,
+    cosponsors_d       INTEGER NOT NULL DEFAULT 0,
+    cosponsors_r       INTEGER NOT NULL DEFAULT 0,
+    cosponsors_i       INTEGER NOT NULL DEFAULT 0,
+    cosponsors_total   INTEGER NOT NULL DEFAULT 0,
+    latest_action_date TEXT,
+    latest_action_text TEXT,
+    outcome            TEXT,
+    public_law         TEXT,
+    outcome_events     TEXT,   -- JSON list, capped
+    vote_refs          TEXT,   -- JSON list of recorded-vote pointers
+    -- final passage-class roll-call metrics; NULL until the roll-call
+    -- enrichment pass (scripts/fetch_universe_rollcalls.py) runs
+    bipartisan_support REAL,
+    bipartisan_label   TEXT,
+    in_corpus          INTEGER NOT NULL DEFAULT 0,  -- full text in a topic corpus
+    UNIQUE (congress, bill_type, bill_number)
+);
+CREATE INDEX IF NOT EXISTS idx_universe_outcome  ON universe_bills(outcome);
+CREATE INDEX IF NOT EXISTS idx_universe_congress ON universe_bills(congress);
+CREATE INDEX IF NOT EXISTS idx_universe_policy   ON universe_bills(policy_area);
+
+-- Party-split roll calls for universe bills (totals only, no members).
+CREATE TABLE IF NOT EXISTS universe_votes (
+    vote_id            TEXT PRIMARY KEY,
+    bill_id            TEXT NOT NULL REFERENCES universe_bills(bill_id) ON DELETE CASCADE,
+    chamber            TEXT NOT NULL,
+    congress           INTEGER NOT NULL,
+    session            INTEGER NOT NULL,
+    roll_number        INTEGER NOT NULL,
+    date               TEXT,
+    question           TEXT,
+    result             TEXT,
+    vote_type          TEXT NOT NULL,
+    yea_total          INTEGER NOT NULL,
+    nay_total          INTEGER NOT NULL,
+    dem_yea            INTEGER, dem_nay INTEGER,
+    rep_yea            INTEGER, rep_nay INTEGER,
+    bipartisan_support REAL,
+    bipartisan_label   TEXT,
+    source_url         TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_universe_votes_bill ON universe_votes(bill_id);
+
+-- Alias / popular-name resolution: every title variant BILLSTATUS knows
+-- (short titles per stage, popular titles, display titles), normalized.
+-- The entry point for "CHIPS Act" -> 117-hr-4346. Covers the whole
+-- universe, so curated-corpus membership is irrelevant to name lookup.
+CREATE TABLE IF NOT EXISTS bill_aliases (
+    alias_norm TEXT NOT NULL,    -- lowercased, punctuation-stripped, 'of YYYY' dropped
+    alias      TEXT NOT NULL,    -- original surface form
+    bill_id    TEXT NOT NULL,
+    source     TEXT NOT NULL,    -- 'billstatus_titles'
+    PRIMARY KEY (alias_norm, bill_id)
+);
+CREATE INDEX IF NOT EXISTS idx_aliases_norm ON bill_aliases(alias_norm);
+
+-- FTS over universe titles + aliases for fuzzy name lookup when exact
+-- normalized match fails.
+CREATE VIRTUAL TABLE IF NOT EXISTS universe_fts USING fts5(
+    bill_id  UNINDEXED,
+    title,
+    aliases,
+    tokenize='porter unicode61'
+);
+
 CREATE TABLE IF NOT EXISTS corpus_meta (
     key    TEXT PRIMARY KEY,
     value  TEXT NOT NULL

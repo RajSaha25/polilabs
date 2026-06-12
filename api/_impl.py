@@ -938,6 +938,56 @@ def corpus_coverage() -> CoverageReport:
             description=topic_descriptions.get(topic), facets=facets,
         ))
 
+    # Universe layer (status-only records for every law-track bill of the
+    # covered Congresses). Reported as a pseudo-topic so agents see the
+    # full-text vs status-only split explicitly — the corpus's negative
+    # space stated as data, not prose.
+    has_universe = conn.execute(
+        "SELECT name FROM sqlite_master WHERE type='table' AND name='universe_bills'"
+    ).fetchone() is not None
+    if has_universe:
+        n_universe = conn.execute("SELECT COUNT(*) FROM universe_bills").fetchone()[0]
+        if n_universe:
+            u_congresses = sorted(
+                r[0] for r in conn.execute("SELECT DISTINCT congress FROM universe_bills")
+            )
+            u_facets = [
+                FacetCoverage(
+                    facet="outcome",
+                    bills_with_facet=conn.execute(
+                        "SELECT COUNT(*) FROM universe_bills WHERE outcome IS NOT NULL"
+                    ).fetchone()[0],
+                    bill_count=n_universe,
+                ),
+                FacetCoverage(
+                    facet="votes",
+                    bills_with_facet=conn.execute(
+                        "SELECT COUNT(DISTINCT bill_id) FROM universe_votes"
+                    ).fetchone()[0],
+                    bill_count=n_universe,
+                ),
+                FacetCoverage(
+                    facet="full_text",
+                    bills_with_facet=conn.execute(
+                        "SELECT COUNT(*) FROM universe_bills WHERE in_corpus = 1"
+                    ).fetchone()[0],
+                    bill_count=n_universe,
+                ),
+            ]
+            topics.append(TopicCoverage(
+                topic="__universe__",
+                bill_count=n_universe,
+                congresses=u_congresses,
+                description=(
+                    "Status-only layer: every law-track bill (hr, s, hjres, "
+                    "sjres) of the covered Congresses. Outcome, names, "
+                    "sponsor, and roll-call party splits — NO full text "
+                    "except for the bills counted under full_text (the "
+                    "curated topic corpora)."
+                ),
+                facets=u_facets,
+            ))
+
     known_gaps = [
         "Bill text point-in-time history not yet indexed (one canonical version per bill).",
         "USLM <ref href='...'> citations from 2 USLM bills not yet extracted (PR2.1).",
@@ -1654,6 +1704,374 @@ def find_bills_by_outcome(
                 "bipartisan_support is NULL (and excluded by support "
                 "filters) for bills without a partisan-decomposable "
                 "passage roll call."
+            ),
+        ),
+    )
+
+
+# ===========================================================================
+# Universe primitives: name resolution, one-call bill cards, universe-wide
+# set queries. Data: universe_bills / universe_votes / bill_aliases /
+# universe_fts, built from GovInfo BILLSTATUS bulk data
+# (scripts/build_universe.py -> index/build_universe_tables.py).
+# ===========================================================================
+
+# Single source of truth for the alias normalization contract — the same
+# function the index build used to write bill_aliases.alias_norm.
+from index.build_universe_tables import normalize_alias as _normalize_alias
+
+from .types import (  # noqa: E402  (late import keeps the diff local)
+    BillCard,
+    BillLookupResult,
+    BillNameMatch,
+    UniverseBillSummary,
+    UniverseBillsResult,
+)
+
+
+def _universe_available(conn) -> bool:
+    row = conn.execute(
+        "SELECT name FROM sqlite_master WHERE type='table' AND name='universe_bills'"
+    ).fetchone()
+    if row is None:
+        return False
+    return conn.execute("SELECT COUNT(*) FROM universe_bills").fetchone()[0] > 0
+
+
+def _name_match_from_row(r: sqlite3.Row, kind: str, alias: str | None) -> BillNameMatch:
+    return BillNameMatch(
+        bill_id=r["bill_id"], title=r["title"], congress=r["congress"],
+        bill_type=r["bill_type"], bill_number=r["bill_number"],
+        outcome=r["outcome"], public_law=r["public_law"],
+        in_corpus=bool(r["in_corpus"]), match_kind=kind, matched_alias=alias,
+    )
+
+
+def lookup_bill(query: str, *, congress: int | None = None, limit: int = 8) -> BillLookupResult:
+    """Resolve a bill name or id to canonical bill_id(s).
+
+    Resolution ladder (cheapest first):
+      1. bill-id forms ('117-hr-4346', 'H.R. 4346 (117th)')
+      2. exact normalized-alias match against every title variant
+         BILLSTATUS knows (short titles, popular titles, display titles)
+      3. FTS over universe titles+aliases (porter-stemmed) as fallback
+
+    Returns ALL plausible matches; is_ambiguous=True when more than one
+    bill shares the name (common: companion bills, reintroductions across
+    Congresses). Filter with `congress` when the user implies one.
+    """
+    conn = _db()
+    if not _universe_available(conn):
+        return BillLookupResult(
+            query=query, matches=[], is_ambiguous=False,
+            provenance=_make_provenance(
+                [f"polilabs:db@{DB_PATH}"],
+                notes="Universe layer not built (scripts/build_universe.py); "
+                      "name lookup unavailable.",
+            ),
+        )
+
+    matches: list[BillNameMatch] = []
+    seen: set[str] = set()
+    extra = " AND congress = ?" if congress is not None else ""
+
+    # 1. bill-id forms
+    bid: str | None = None
+    if _LEGACY_BILL_RE.match(query.strip()):
+        bid = query.strip()
+    else:
+        m = _PROSE_BILL_RE.match(query.strip())
+        if m and m.group("congress"):
+            btype = re.sub(r"[^a-z]", "", m.group("billtype").lower())
+            bid = f"{m.group('congress')}-{btype}-{m.group('num')}"
+    if bid:
+        row = conn.execute(
+            "SELECT * FROM universe_bills WHERE bill_id = ?", (bid,)
+        ).fetchone()
+        if row:
+            matches.append(_name_match_from_row(row, "bill_id", None))
+            seen.add(bid)
+
+    # 2. exact alias match
+    if not matches:
+        norm = _normalize_alias(query)
+        params: list = [norm]
+        if congress is not None:
+            params.append(congress)
+        for row in conn.execute(
+            f"""SELECT u.*, a.alias FROM bill_aliases a
+                JOIN universe_bills u ON u.bill_id = a.bill_id
+                WHERE a.alias_norm = ?{extra}
+                ORDER BY u.congress DESC LIMIT ?""",
+            params + [limit],
+        ):
+            if row["bill_id"] not in seen:
+                seen.add(row["bill_id"])
+                matches.append(_name_match_from_row(row, "alias_exact", row["alias"]))
+
+    # 3. FTS fallback
+    if not matches:
+        fts_query = " ".join(
+            t for t in re.findall(r"\w+", query) if len(t) > 1
+        )
+        if fts_query:
+            params = [fts_query]
+            if congress is not None:
+                params.append(congress)
+            try:
+                rows = conn.execute(
+                    f"""SELECT u.*, NULL AS alias FROM universe_fts f
+                        JOIN universe_bills u ON u.bill_id = f.bill_id
+                        WHERE universe_fts MATCH ?{extra}
+                        ORDER BY rank LIMIT ?""",
+                    params + [limit],
+                ).fetchall()
+            except sqlite3.OperationalError:
+                rows = []
+            for row in rows:
+                if row["bill_id"] not in seen:
+                    seen.add(row["bill_id"])
+                    matches.append(_name_match_from_row(row, "fts", None))
+
+    note = None
+    if len(matches) > 1:
+        note = (
+            "Multiple bills share this name (companion bills / "
+            "reintroductions). Disambiguate by congress or chamber before "
+            "drilling in; do NOT silently pick one."
+        )
+    elif not matches:
+        note = (
+            "No universe bill matched. The universe covers law-track bills "
+            "(hr, s, hjres, sjres) of the covered Congresses — check "
+            "corpus_coverage for the span."
+        )
+    return BillLookupResult(
+        query=query, matches=matches[:limit], is_ambiguous=len(matches) > 1,
+        provenance=_make_provenance([f"polilabs:db@{DB_PATH}"], notes=note),
+    )
+
+
+def get_bill_card(bill_id: str) -> BillCard:
+    """Everything an agent needs about one bill, in ONE call.
+
+    Universe fields always present (when the bill exists); corpus-only
+    structure counts (sections / defined terms / amendments) are filled
+    when the bill's full text is in a topic corpus, so the agent knows
+    whether get_section / get_defined_terms / get_amendments will return
+    anything BEFORE spending round trips on them.
+    """
+    conn = _db()
+    empty_prov = _make_provenance([f"polilabs:db@{DB_PATH}"])
+    u = conn.execute(
+        "SELECT * FROM universe_bills WHERE bill_id = ?", (bill_id,)
+    ).fetchone() if _universe_available(conn) else None
+    b = conn.execute("SELECT * FROM bills WHERE bill_id = ?", (bill_id,)).fetchone()
+
+    if u is None and b is None:
+        return BillCard(
+            bill_id=bill_id, found=False, in_corpus=False, topic=None,
+            title=None, all_known_names=[], congress=None, bill_type=None,
+            bill_number=None, sponsor=None, sponsor_party=None,
+            sponsor_state=None, policy_area=None, introduced_date=None,
+            latest_action=None, outcome=None, public_law=None,
+            bipartisan_support=None, bipartisan_label=None,
+            cosponsor_counts={}, cluster=None, curator_note=None,
+            events=[], votes=[], section_count=None, defined_term_count=None,
+            amendment_count=None,
+            provenance=_make_provenance(
+                [f"polilabs:db@{DB_PATH}"],
+                notes="Bill not found in universe or corpus. If it is from a "
+                      "Congress outside the covered span, say so explicitly.",
+            ),
+        )
+
+    in_corpus = b is not None
+    aliases = [
+        r["alias"] for r in conn.execute(
+            "SELECT DISTINCT alias FROM bill_aliases WHERE bill_id = ? LIMIT 25",
+            (bill_id,),
+        )
+    ] if u is not None else []
+
+    # Votes: full corpus record when available, else universe party splits.
+    if in_corpus:
+        vote_rows = conn.execute(
+            "SELECT * FROM votes WHERE bill_id = ? ORDER BY date", (bill_id,)
+        ).fetchall()
+    else:
+        vote_rows = conn.execute(
+            "SELECT * FROM universe_votes WHERE bill_id = ? ORDER BY date", (bill_id,)
+        ).fetchall()
+    votes = [_vote_summary_from_row(r) for r in vote_rows]
+
+    events_json = (b["outcome_events"] if in_corpus else u["outcome_events"]) or "[]"
+    events = [
+        OutcomeEvent(event=e["event"], date=e.get("date"), evidence=e.get("evidence") or "")
+        for e in _json.loads(events_json)
+    ]
+
+    section_count = defined_term_count = amendment_count = None
+    topic = cluster = curator_note = None
+    if in_corpus:
+        topic, cluster, curator_note = b["topic"], b["cluster"], b["curator_note"]
+        section_count = conn.execute(
+            "SELECT COUNT(*) FROM sections WHERE bill_id = ?", (bill_id,)
+        ).fetchone()[0]
+        kz = _kuzu()
+        if kz is not None:
+            # Graph section ids are '{urn_bill_id}::{xml_id}', so a prefix
+            # match scopes DefinedTerm / AmendmentOperation rows to this
+            # bill. Failures degrade to None (= unknown), never to 0.
+            urn_prefix = _to_urn_bill_id(bill_id) + "::"
+            for query, which in (
+                ("MATCH (d:DefinedTerm) WHERE d.defining_section_id STARTS WITH $p RETURN COUNT(d)", "terms"),
+                ("MATCH (a:AmendmentOperation) WHERE a.source_section_id STARTS WITH $p RETURN COUNT(a)", "amendments"),
+            ):
+                try:
+                    res = kz.execute(query, {"p": urn_prefix})
+                    val = int(res.get_next()[0]) if res.has_next() else 0
+                    if which == "terms":
+                        defined_term_count = val
+                    else:
+                        amendment_count = val
+                except Exception:
+                    pass
+
+    src = u if u is not None else b
+    cosponsor_counts: dict[str, int] = {}
+    if u is not None:
+        cosponsor_counts = {
+            "D": u["cosponsors_d"], "R": u["cosponsors_r"],
+            "I": u["cosponsors_i"], "total": u["cosponsors_total"],
+        }
+
+    if in_corpus:
+        latest_action = " : ".join(
+            x for x in (b["latest_action_date"], b["latest_action_text"]) if x
+        ) or None
+        outcome_v, public_law_v = b["outcome"], b["public_law"]
+        bipart = b["bipartisan_support"]
+        bipart_label = None
+    else:
+        latest_action = " : ".join(
+            x for x in (u["latest_action_date"], u["latest_action_text"]) if x
+        ) or None
+        outcome_v, public_law_v = u["outcome"], u["public_law"]
+        bipart = u["bipartisan_support"]
+        bipart_label = u["bipartisan_label"]
+
+    notes = None if in_corpus else (
+        "Status-only record (universe layer): full text, sections, "
+        "definitions, and amendments are NOT available for this bill. "
+        "Do not call get_bill/get_section/get_defined_terms on it."
+    )
+    return BillCard(
+        bill_id=bill_id, found=True, in_corpus=in_corpus, topic=topic,
+        title=src["title"],
+        all_known_names=aliases,
+        congress=src["congress"], bill_type=src["bill_type"],
+        bill_number=src["bill_number"],
+        sponsor=(u["sponsor_name"] if u is not None else b["sponsor"]),
+        sponsor_party=(u["sponsor_party"] if u is not None else None),
+        sponsor_state=(u["sponsor_state"] if u is not None else None),
+        policy_area=src["policy_area"],
+        introduced_date=src["introduced_date"],
+        latest_action=latest_action,
+        outcome=outcome_v, public_law=public_law_v,
+        bipartisan_support=bipart, bipartisan_label=bipart_label,
+        cosponsor_counts=cosponsor_counts,
+        cluster=cluster, curator_note=curator_note,
+        events=events, votes=votes,
+        section_count=section_count,
+        defined_term_count=defined_term_count,
+        amendment_count=amendment_count,
+        provenance=_make_provenance([f"polilabs:db@{DB_PATH}"], notes=notes),
+    )
+
+
+def find_universe_bills(
+    *,
+    outcome: str | None = None,
+    congress: int | None = None,
+    policy_area: str | None = None,
+    sponsor_party: str | None = None,
+    sponsor_state: str | None = None,
+    min_bipartisan_support: float | None = None,
+    max_bipartisan_support: float | None = None,
+    enacted_only: bool = False,
+    limit: int = 100,
+) -> UniverseBillsResult:
+    """Set-valued query over ALL bills of the covered Congresses (not
+    just the curated corpora). The denominator-maker: 'how many laws
+    passed the 117th with cross-party support?' is now answerable."""
+    conn = _db()
+    if not _universe_available(conn):
+        return UniverseBillsResult(
+            bills=[], total=0, filters={},
+            provenance=_make_provenance(
+                [f"polilabs:db@{DB_PATH}"],
+                notes="Universe layer not built.",
+            ),
+        )
+    where, params = [], []
+    if enacted_only:
+        where.append("outcome = 'enacted'")
+    for col, val in (
+        ("outcome", outcome), ("congress", congress),
+        ("policy_area", policy_area), ("sponsor_party", sponsor_party),
+        ("sponsor_state", sponsor_state),
+    ):
+        if val is not None and not (col == "outcome" and enacted_only):
+            where.append(f"{col} = ?")
+            params.append(val)
+    if min_bipartisan_support is not None:
+        where.append("bipartisan_support >= ?")
+        params.append(min_bipartisan_support)
+    if max_bipartisan_support is not None:
+        where.append("bipartisan_support <= ?")
+        params.append(max_bipartisan_support)
+    where_sql = (" WHERE " + " AND ".join(where)) if where else ""
+    total = conn.execute(
+        f"SELECT COUNT(*) FROM universe_bills{where_sql}", params
+    ).fetchone()[0]
+    rows = conn.execute(
+        f"""SELECT bill_id, title, congress, outcome, public_law, policy_area,
+                   sponsor_party, sponsor_state, bipartisan_support, in_corpus,
+                   latest_action_date
+            FROM universe_bills{where_sql}
+            ORDER BY congress DESC, bill_type, bill_number LIMIT ?""",
+        params + [min(max(limit, 1), 500)],
+    ).fetchall()
+    return UniverseBillsResult(
+        bills=[
+            UniverseBillSummary(
+                bill_id=r["bill_id"], title=r["title"], congress=r["congress"],
+                outcome=r["outcome"], public_law=r["public_law"],
+                policy_area=r["policy_area"], sponsor_party=r["sponsor_party"],
+                sponsor_state=r["sponsor_state"],
+                bipartisan_support=r["bipartisan_support"],
+                in_corpus=bool(r["in_corpus"]),
+                latest_action_date=r["latest_action_date"],
+            )
+            for r in rows
+        ],
+        total=total,
+        filters={
+            "outcome": "enacted" if enacted_only else outcome,
+            "congress": congress, "policy_area": policy_area,
+            "sponsor_party": sponsor_party, "sponsor_state": sponsor_state,
+            "min_bipartisan_support": min_bipartisan_support,
+            "max_bipartisan_support": max_bipartisan_support,
+        },
+        provenance=_make_provenance(
+            [f"polilabs:db@{DB_PATH}"],
+            notes=(
+                f"{total} bill(s) match across the FULL universe of covered "
+                f"Congresses; returning {len(rows)}. bipartisan_support is "
+                "NULL for bills without a partisan-decomposable passage "
+                "roll call (voice votes, unanimous consent, committee "
+                "deaths) and such bills are excluded by support filters."
             ),
         ),
     )

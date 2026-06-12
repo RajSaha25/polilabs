@@ -147,6 +147,21 @@ def parse_billstatus(xml_bytes: bytes) -> dict[str, Any]:
             "url": _text(rv, "url"),
         })
 
+    # All title variants (short titles per stage, popular titles, display
+    # title). These feed the alias/popular-name resolution layer: users
+    # say "CHIPS Act", BILLSTATUS knows that string.
+    alt_titles: list[str] = []
+    seen_titles: set[str] = set()
+    for t_item in bill.findall(".//titles/item"):
+        txt = _text(t_item, "title")
+        if not txt:
+            continue
+        key = txt.lower()
+        if key in seen_titles:
+            continue
+        seen_titles.add(key)
+        alt_titles.append(txt)
+
     sponsors = [_person(s) for s in bill.findall("./sponsors/item")]
     cosponsors = [
         {**_person(c),
@@ -165,6 +180,7 @@ def parse_billstatus(xml_bytes: bytes) -> dict[str, Any]:
         "bill_type": (_text(bill, "type") or "").lower(),
         "bill_number": int(_text(bill, "number") or 0),
         "title": _text(bill, "title"),
+        "all_titles": alt_titles,
         "introduced_date": _text(bill, "introducedDate"),
         "origin_chamber": _text(bill, "originChamber"),
         "policy_area": _text(bill, "policyArea/name"),
@@ -483,13 +499,25 @@ def derive_outcome(status: dict[str, Any], rollcalls: list[RollCall]) -> dict[st
     laws = status.get("laws") or []
     congress_closed = status.get("congress") in CLOSED_CONGRESSES
 
+    # A failed floor vote is terminal only if nothing passed AFTER it.
+    # Real pattern (e.g. 118-hr-9495): a bill fails under suspension of
+    # the rules, then passes days later under a rule — the early failure
+    # must not mask the later passage. Compare last-event dates; missing
+    # dates sort earliest so a dated passage beats an undated failure.
+    def _last_date(*names: str) -> str:
+        return max((e["date"] or "" for e in events if e["event"] in names), default="")
+
+    last_pass = _last_date("passed_house", "passed_senate")
+    failed_passage_final = failed_passage and _last_date("failed_passage") >= last_pass
+    failed_cloture_final = failed_cloture and _last_date("failed_cloture") >= last_pass
+
     if laws:
         outcome = "enacted"
     elif vetoed:
         outcome = "vetoed"
-    elif failed_passage and congress_closed:
+    elif failed_passage_final and congress_closed:
         outcome = "failed_passage"
-    elif failed_cloture and congress_closed:
+    elif failed_cloture_final and congress_closed:
         outcome = "failed_cloture"
     elif passed_house and passed_senate:
         outcome = "passed_both" if not congress_closed else "died_after_passing_both"

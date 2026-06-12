@@ -309,3 +309,54 @@ queries:
       # attribute 91-3 to S. 1409 directly.
       answer_must_contain:
         - "2073"
+
+  # ----- Universe layer + name resolution (June 2026 round 2) -----
+  # Facts verified against universe_bills at authoring time.
+
+  - id: uni_chips_fate
+    category: passage_dynamics
+    question: "What happened to the CHIPS Act?"
+    pass_criteria:
+      # lookup_bill('CHIPS Act') -> 117-hr-4346 -> card: enacted PL 117-167.
+      answer_must_contain:
+        - "117-167"
+
+  - id: uni_count_enacted_117
+    category: universe
+    question: "How many bills did the 117th Congress enact into law?"
+    pass_criteria:
+      # find_universe_bills(congress=117, enacted_only=True) -> total 365
+      # (public + private laws among law-track bill types).
+      answer_must_contain:
+        - "365"
+
+  - id: uni_hr9495_house_trap
+    category: universe
+    question: "Did H.R. 9495 (118th Congress) pass the House?"
+    pass_criteria:
+      # Trap: it FAILED under suspension (2024-11-12), then PASSED 219-184
+      # under a rule (2024-11-21), then died without Senate action. An
+      # agent reading only the first floor event gets this wrong.
+      answer_must_contain:
+        - "219"
+
+  - id: uni_laken_riley_congress
+    category: universe
+    question: "Which bill became the Laken Riley Act that was signed into law, and in which Congress?"
+    pass_criteria:
+      # Ambiguous name: 119-s-5 (enacted PL 119-1), 119-hr-29 (companion),
+      # 118-hr-7511 (predecessor). Agent must pick the ENACTED one.
+      answer_must_contain:
+        - "119"
+      answer_must_not_contain:
+        - "118th Congress enacted"
+
+  - id: uni_out_of_span
+    category: out_of_scope
+    question: "Did the Affordable Care Act pass with bipartisan support? Use the corpus."
+    pass_criteria:
+      # ACA is 111th Congress — outside the covered universe span. The
+      # agent must say the span doesn't cover it, not fabricate vote data.
+      abstain: true
+      answer_must_contain:
+        - "not"

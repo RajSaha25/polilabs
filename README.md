@@ -2,7 +2,7 @@
 
 Agent-native queryable knowledge graph of US federal legislation. Built so any LLM agent — Claude, Cursor, ChatGPT, your own — can dig into the structured corpus and report back to legislative researchers without hallucinating.
 
-Corpus: US federal legislation organized into topic subsets — each subset is a curated set of bills on one policy domain, scoped per query via a `topic` filter. The set grows over time; ask the agent ("what's in the corpus?" → calls `corpus_coverage`) for the current snapshot. Scope is legislation only — regulatory actions (FTC, NIST, Commerce) and executive orders are out.
+Corpus: US federal legislation in two layers. The UNIVERSE layer holds a status record for every law-track bill of the covered Congresses (~46k bills: outcome, votes with party splits, sponsor, every known name) built from GovInfo bulk data with no API key. Curated TOPIC subsets add full text + structure (sections, definitions, amendments) for bills on one policy domain, scoped per query via a `topic` filter. Ask the agent ("what's in the corpus?" → calls `corpus_coverage`) for the current snapshot. Scope is legislation only — regulatory actions (FTC, NIST, Commerce) and executive orders are out.
 
 ## Product framing
 
@@ -20,6 +20,7 @@ Two queryable stores, one tool layer, and four ways to reach it.
 
 ```
 data/corpus/        authoritative USLM XML, organized by topic (committed)
+data/universe/      compact status records for ALL bills of covered Congresses (committed)
    │
    ├─ index/        SQLite + FTS5     full-text search
    └─ graph/        Kùzu property graph   bills · sections · defined terms ·

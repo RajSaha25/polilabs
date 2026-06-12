@@ -16,6 +16,7 @@ import sqlite3
 from datetime import datetime, timezone
 from pathlib import Path
 
+from .build_universe_tables import load_universe
 from .parse_uslm import parse_bill_xml
 from .schema import SCHEMA
 
@@ -346,6 +347,7 @@ def build_index(
                     print(f"  indexed {i + 1}/{len(bill_dirs)} bills, {stats['sections']} sections so far")
 
             _populate_fts(conn)
+            stats["universe"] = load_universe(conn, verbose=verbose)
             _write_meta(conn, latest_fetched)
 
         # Final stats query

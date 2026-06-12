@@ -75,6 +75,9 @@ from agent.tools import (
     tool_count_bills,
     tool_find_bills_amending,
     tool_find_bills_by_outcome,
+    tool_find_universe_bills,
+    tool_get_bill_card,
+    tool_lookup_bill,
     tool_find_bills_defining,
     tool_find_definitions_of,
     tool_get_amendments,
@@ -520,11 +523,58 @@ def _stream_chat(req: ChatRequest, user: dict):
                 max_bipartisan_support=max_bipartisan_support, limit=limit),
         )
 
+    @beta_tool
+    def lookup_bill(query: str, congress: int | None = None, limit: int = 8) -> str:
+        """ENTRY POINT for bills mentioned by name: resolve colloquial
+        names / popular names / id forms to canonical bill_id(s) across
+        ALL bills of the covered Congresses. is_ambiguous=True is common
+        (companion bills, reintroductions) — disambiguate, don't guess."""
+        return _run_tool(
+            "lookup_bill", {"query": query, "congress": congress, "limit": limit},
+            lambda: tool_lookup_bill(query, congress=congress, limit=limit),
+        )
+
+    @beta_tool
+    def get_bill_card(bill_id: str) -> str:
+        """ONE-CALL context card: names, sponsor, outcome + evidence,
+        votes with party splits, and corpus structure counts. Prefer over
+        get_bill + get_bill_votes chains. in_corpus=False = status-only."""
+        return _run_tool(
+            "get_bill_card", {"bill_id": bill_id},
+            lambda: tool_get_bill_card(bill_id),
+        )
+
+    @beta_tool
+    def find_universe_bills(outcome: str | None = None, congress: int | None = None,
+                            policy_area: str | None = None, sponsor_party: str | None = None,
+                            sponsor_state: str | None = None,
+                            min_bipartisan_support: float | None = None,
+                            max_bipartisan_support: float | None = None,
+                            enacted_only: bool = False, limit: int = 100) -> str:
+        """AGGREGATE over ALL ~46k bills of the covered Congresses:
+        outcome / policy_area / sponsor / bipartisanship filters. The
+        denominator tool for universe-wide questions."""
+        return _run_tool(
+            "find_universe_bills",
+            {"outcome": outcome, "congress": congress, "policy_area": policy_area,
+             "sponsor_party": sponsor_party, "sponsor_state": sponsor_state,
+             "min_bipartisan_support": min_bipartisan_support,
+             "max_bipartisan_support": max_bipartisan_support,
+             "enacted_only": enacted_only, "limit": limit},
+            lambda: tool_find_universe_bills(
+                outcome=outcome, congress=congress, policy_area=policy_area,
+                sponsor_party=sponsor_party, sponsor_state=sponsor_state,
+                min_bipartisan_support=min_bipartisan_support,
+                max_bipartisan_support=max_bipartisan_support,
+                enacted_only=enacted_only, limit=limit),
+        )
+
     tools = [
         search_corpus, get_bill, get_section, resolve_citation, corpus_coverage,
         get_citation_graph, get_defined_terms, get_amendments,
         get_amendments_targeting, find_bills_defining, find_bills_amending,
         find_definitions_of, count_bills, get_bill_votes, find_bills_by_outcome,
+        lookup_bill, get_bill_card, find_universe_bills,
     ]
 
     client = anthropic.Anthropic()

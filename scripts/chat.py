@@ -30,7 +30,10 @@ from agent.tools import (
     tool_count_bills,
     tool_find_bills_by_outcome,
     tool_find_definitions_of,
+    tool_find_universe_bills,
+    tool_get_bill_card,
     tool_get_bill_votes,
+    tool_lookup_bill,
     tool_get_amendments,
     tool_get_amendments_targeting,
     tool_get_bill,
@@ -327,12 +330,74 @@ def find_bills_by_outcome(outcome: str | None = None, topic: str | None = None,
         max_bipartisan_support=max_bipartisan_support, limit=limit)
 
 
+@beta_tool
+def lookup_bill(query: str, congress: int | None = None, limit: int = 8) -> str:
+    """ENTRY POINT for any bill mentioned by name: resolve a colloquial
+    name, short title, popular name, or id form to canonical bill_id(s)
+    across ALL bills of the covered Congresses.
+
+    is_ambiguous=True is common (companion bills, reintroductions) —
+    disambiguate by congress/chamber instead of silently picking one.
+
+    Args:
+        query: e.g. 'CHIPS Act', 'the border bill', 'H.R. 4346 (117th)'.
+        congress: Restrict to one Congress.
+        limit: Max matches (1-25).
+    """
+    return tool_lookup_bill(query, congress=congress, limit=limit)
+
+
+@beta_tool
+def get_bill_card(bill_id: str) -> str:
+    """ONE-CALL context card for any bill: names, sponsor, cosponsor
+    party counts, outcome + dated evidence, votes with party splits,
+    and (in_corpus only) topic/cluster/curator_note plus section,
+    defined-term, and amendment counts. Prefer this over chaining
+    get_bill + get_bill_votes. in_corpus=False = status-only record.
+
+    Args:
+        bill_id: Canonical id like '117-hr-4346'.
+    """
+    return tool_get_bill_card(bill_id)
+
+
+@beta_tool
+def find_universe_bills(outcome: str | None = None, congress: int | None = None,
+                        policy_area: str | None = None, sponsor_party: str | None = None,
+                        sponsor_state: str | None = None,
+                        min_bipartisan_support: float | None = None,
+                        max_bipartisan_support: float | None = None,
+                        enacted_only: bool = False, limit: int = 100) -> str:
+    """AGGREGATE over ALL bills of the covered Congresses (the
+    denominator tool): outcomes, policy areas, sponsor party/state,
+    bipartisanship bands, enacted_only.
+
+    Args:
+        outcome: enacted | failed_cloture | failed_passage | died_in_committee | ...
+        congress: One Congress.
+        policy_area: Congress.gov vocabulary, e.g. 'Health'.
+        sponsor_party: 'D' | 'R' | 'I'.
+        sponsor_state: e.g. 'CA'.
+        min_bipartisan_support: Final-passage support floor (0-1).
+        max_bipartisan_support: Final-passage support ceiling (0-1).
+        enacted_only: Shortcut for outcome='enacted'.
+        limit: Max returned; `total` has the full count.
+    """
+    return tool_find_universe_bills(
+        outcome=outcome, congress=congress, policy_area=policy_area,
+        sponsor_party=sponsor_party, sponsor_state=sponsor_state,
+        min_bipartisan_support=min_bipartisan_support,
+        max_bipartisan_support=max_bipartisan_support,
+        enacted_only=enacted_only, limit=limit)
+
+
 TOOLS = [
     search_corpus, get_bill, get_section, resolve_citation,
     corpus_coverage, get_citation_graph, get_defined_terms,
     get_amendments, get_amendments_targeting,
     find_bills_defining, find_bills_amending, find_definitions_of,
     count_bills, get_bill_votes, find_bills_by_outcome,
+    lookup_bill, get_bill_card, find_universe_bills,
 ]
 
 
