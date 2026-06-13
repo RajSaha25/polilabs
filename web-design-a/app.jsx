@@ -252,6 +252,9 @@ function App({ onSignOut, onShowLanding }) {
   const [allNotes, setAllNotes] = useState({ loading: false, items: [], error: null });
   const [pendingNav, setPendingNav] = useState(null);
 
+  // Export-this-chat-to-.docx state (true while the download is building).
+  const [exporting, setExporting] = useState(false);
+
   // Past-chats sidebar (IDE file-explorer style). Each turn is a "chat".
   const [chatsOpen, setChatsOpen] = useState(true);
   const CHATS_W = 220;
@@ -351,6 +354,20 @@ function App({ onSignOut, onShowLanding }) {
     flashAnchor(pendingNav.sectionId);
     setPendingNav(null);
   }, [pendingNav, selectedId, billDetail]);
+
+  // ── export the active chat to a .docx ──────────────────────────────
+  const onExport = () => {
+    if (!turn || !turn.answerText || exporting) return;
+    setExporting(true);
+    B.exportChat({
+      title: turn.question || "",
+      question: turn.question || "",
+      answer: turn.answerText || "",
+      bill_ids: (turn.bills || []).map((b) => b.id),
+    })
+      .catch((e) => { console.error("export failed:", e); alert("Couldn't export this chat: " + ((e && e.message) || e)); })
+      .finally(() => setExporting(false));
+  };
 
   // ── streaming answer blocks ────────────────────────────────────────
   const answerText = turn ? turn.answerText : "";
@@ -709,6 +726,11 @@ function App({ onSignOut, onShowLanding }) {
           <button type="button" className="connect-agent-btn" onClick={openAllNotes}
                   title="See every note you've made, across all bills">
             <Icon name="quote" size={13} /> Notes
+          </button>
+          <button type="button" className="connect-agent-btn" onClick={onExport}
+                  disabled={!turn || !turn.answerText || exporting}
+                  title="Export this chat to a Word (.docx) document for a policy memo">
+            <Icon name="doc" size={13} /> {exporting ? "Exporting…" : "Export"}
           </button>
           <button type="button" className="connect-agent-btn" onClick={() => setShowConnector(true)}
                   title="Use your own approved AI agent on the corpus">

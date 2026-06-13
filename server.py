@@ -54,10 +54,12 @@ load_dotenv(Path(__file__).resolve().parent / ".env")
 import anthropic
 import uvicorn
 from anthropic import beta_tool
-from fastapi import Depends, FastAPI, HTTPException
+from fastapi import Depends, FastAPI, HTTPException, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, StreamingResponse
 from pydantic import BaseModel, Field
+
+from export_docx import build_chat_docx, export_filename
 
 from auth import init_db, require_user
 from auth import router as auth_router
@@ -197,6 +199,14 @@ class SummarizeRequest(BaseModel):
 class TitleRequest(BaseModel):
     """Ask for a short title summarizing a chat's first message."""
     message: str = Field(description="The user's first message in the chat")
+
+
+class ExportRequest(BaseModel):
+    """Render one chat to a .docx the user can download."""
+    title: str = Field(default="", description="Document title (falls back to the question)")
+    question: str = Field(default="", description="The research question the chat answered")
+    answer: str = Field(default="", description="The agent's answer (Markdown)")
+    bill_ids: list[str] = Field(default_factory=list, description="Internal ids of cited bills, re-resolved for Sources")
 
 
 def _to_anthropic_history(history: list[ChatMessageIn]) -> list[dict]:
@@ -1071,6 +1081,25 @@ def api_title(req: TitleRequest, _user: dict = Depends(require_user)) -> Any:
     except anthropic.APIError as e:
         print(f"[/api/title] API error: {type(e).__name__}: {e}", file=sys.stderr)
         return {"title": ""}
+
+
+_DOCX_MEDIA_TYPE = (
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+)
+
+
+@app.post("/api/export")
+def api_export(req: ExportRequest, _user: dict = Depends(require_user)) -> Response:
+    """Render one chat (question + answer + cited bills) to a .docx and
+    stream it back as a download. Cited bills are re-resolved server-side
+    so the Sources block reflects the authoritative corpus."""
+    data = build_chat_docx(req.title, req.question, req.answer, req.bill_ids)
+    filename = export_filename(req.title or req.question)
+    return Response(
+        content=data,
+        media_type=_DOCX_MEDIA_TYPE,
+        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
+    )
 
 
 # ---- legacy aliases + test page ----
