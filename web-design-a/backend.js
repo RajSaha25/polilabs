@@ -473,9 +473,32 @@ window.POLILABS_BACKEND =
     return res.json();
   }
 
+  // ── Export one chat to a .docx download ─────────────────────────────
+  // POST /api/export { title, question, answer, bill_ids } -> a Word file,
+  // streamed straight to a browser download (never held after the click).
+  async function exportChat(payload) {
+    const res = await fetch(BACKEND + "/api/export", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", ...authHeaders() },
+      body: JSON.stringify(payload || {}),
+    });
+    if (res.status === 401) { handleUnauthorized(); throw new Error("unauthorized"); }
+    if (!res.ok) throw new Error("HTTP " + res.status + " for /api/export");
+    const blob = await res.blob();
+    let name = "polilabs-export.docx";
+    const m = (res.headers.get("Content-Disposition") || "").match(/filename="([^"]+)"/);
+    if (m) name = m[1];
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = name;
+    document.body.appendChild(a); a.click(); a.remove();
+    URL.revokeObjectURL(url);
+  }
+
   // ── Expose ──────────────────────────────────────────────────────────
   window.PolilabsBackend = {
     BACKEND: BACKEND,
+    exportChat: exportChat,
     streamChat: streamChat,
     apiGet: apiGet,
     prettyBillId: prettyBillId,
